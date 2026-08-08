@@ -1,0 +1,8 @@
+.git/
+.github/
+.gitignore
+.shopifyignore
+.theme-check.yml
+README.md
+package.json
+package-lock.json

@@ -1,0 +1,79 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Sparklys",
+    "theme_version": "0.1.0",
+    "theme_author": "Sparklys Switzerland AG",
+    "theme_documentation_url": "https://github.com/sparklysseltzer/website",
+    "theme_support_url": "https://github.com/sparklysseltzer/website/issues"
+  },
+  {
+    "name": "Farben",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Hintergrund",
+        "default": "#f7f3eb"
+      },
+      {
+        "type": "color",
+        "id": "color_foreground",
+        "label": "Text",
+        "default": "#172019"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Akzent",
+        "default": "#e34f2f"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Fläche",
+        "default": "#ffffff"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1080,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "label": "Maximale Seitenbreite",
+        "default": 1320
+      }
+    ]
+  },
+  {
+    "name": "Marke",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 80,
+        "max": 260,
+        "step": 10,
+        "unit": "px",
+        "label": "Logobreite",
+        "default": 150
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  }
+]

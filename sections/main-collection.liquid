@@ -1,0 +1,36 @@
+<section class="section page-width stack" style="--stack-space: 3rem">
+  <header class="stack">
+    <h1 class="page-title">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <div class="rte">{{ collection.description }}</div>
+    {%- endif -%}
+  </header>
+
+  {%- paginate collection.products by section.settings.products_per_page -%}
+    <div class="product-grid">
+      {%- for product in collection.products -%}
+        {% render 'product-card', card_product: product %}
+      {%- else -%}
+        <p>{{ 'collections.general.no_matches' | t }}</p>
+      {%- endfor -%}
+    </div>
+    {% render 'pagination', paginate: paginate %}
+  {%- endpaginate -%}
+</section>
+
+{% schema %}
+{
+  "name": "Kollektion",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "label": "Produkte pro Seite",
+      "default": 16
+    }
+  ]
+}
+{% endschema %}

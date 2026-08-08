@@ -1,0 +1,11 @@
+{
+  "type": "header",
+  "name": "Header-Gruppe",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {}
+    }
+  },
+  "order": ["header"]
+}

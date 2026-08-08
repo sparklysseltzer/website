@@ -1,0 +1,83 @@
+# Quality standards
+
+## Accessibility
+
+The target is WCAG-aligned storefront behavior, verified manually and with automated tools. Shopify's baseline is documented in [Accessibility best practices](https://shopify.dev/docs/storefronts/themes/best-practices/accessibility).
+
+Required conventions:
+
+- page language follows `request.locale.iso_code`;
+- viewport zoom remains enabled;
+- a visible-on-focus skip link targets a focusable main element;
+- DOM order and keyboard focus order match;
+- visible focus is never removed;
+- no functionality depends on hover;
+- headings describe content hierarchy;
+- navigation uses `nav` and current links use `aria-current`;
+- links navigate and buttons perform actions;
+- every form control has a label and errors/status changes are announced;
+- product images have contextual alt text and decorative images use empty alt text;
+- color is not the only status signal;
+- primary controls have at least 44 by 44 CSS pixel targets;
+- motion respects `prefers-reduced-motion`;
+- drawers and dialogs manage focus, Escape, and focus restoration.
+
+Current known remediation: cart table headers still need explicit `scope`, and sale-price markup needs clearer screen-reader labels before production readiness.
+
+## Performance
+
+Follow Shopify's [Performance best practices](https://shopify.dev/docs/storefronts/themes/best-practices/performance):
+
+- prefer HTML and CSS, using JavaScript only as progressive enhancement;
+- keep JavaScript small, native, deferred, and free of broad dependencies;
+- serve theme assets and images from Shopify's CDN;
+- use responsive image widths and accurate `sizes`;
+- eagerly load only critical above-the-fold resources and lazy-load below-the-fold imagery;
+- avoid repeated expensive Liquid work inside loops;
+- use resource hints sparingly;
+- test home, product, and collection pages with realistic data.
+
+The skeleton uses one CSS asset and one deferred JavaScript asset. This can be revisited when real page composition makes per-section bundling materially better.
+
+## SEO
+
+The layout currently provides page titles, meta descriptions, canonical URLs, Open Graph metadata, and Twitter card metadata. Shopify's required metadata pattern is documented in [Add SEO metadata to your theme](https://shopify.dev/docs/storefronts/themes/seo/metadata).
+
+Remaining SEO work:
+
+- add valid product structured data with presentment currency;
+- validate sharing metadata for products and articles;
+- verify heading hierarchy against real editor configurations;
+- validate indexability and canonical behavior on preview and production domains;
+- avoid manually duplicating hreflang tags because Shopify provides them through `content_for_header`.
+
+## Functional verification matrix
+
+For every affected journey, cover applicable rows:
+
+| Dimension | Minimum verification |
+| --- | --- |
+| Viewport | Representative phone and desktop widths |
+| Input | Touch, mouse, and keyboard |
+| JavaScript | Enabled; disabled for navigation, product form, cart update, and checkout entry |
+| Motion | Default and reduced motion |
+| Content | Empty, normal, long text, missing image, sold out, sale price, and many items where relevant |
+| Theme editor | Add/remove/reorder section, blank settings, invalid/deleted resource selection |
+| Commerce | Variant, quantity, inventory error, discount, cart update, checkout handoff |
+| Localization | Default locale and any enabled market/language path |
+
+## Automated gates
+
+Current:
+
+- Theme Check in local scripts and GitHub Actions;
+- JavaScript syntax validation;
+- JSON parsing;
+- whitespace validation.
+
+Planned after an approved development environment exists:
+
+- Shopify Lighthouse CI for home, product, and collection pages;
+- browser journey tests for navigation, product selection, add-to-cart, cart editing, and checkout handoff;
+- screenshot comparisons against approved designs;
+- HTML and accessibility audits on rendered pages.

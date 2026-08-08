@@ -1,0 +1,79 @@
+{
+  "accessibility": {
+    "skip_to_content": "Zum Inhalt springen"
+  },
+  "general": {
+    "meta": {
+      "tags": "Markiert mit {{ tags }}",
+      "page": "Seite {{ page }}"
+    },
+    "search": {
+      "title": "Suche",
+      "search": "Suchen",
+      "placeholder": "Wonach suchst du?",
+      "submit": "Suchen",
+      "results_with_count": "{{ count }} Ergebnisse für „{{ terms }}“",
+      "no_results": "Keine Ergebnisse für „{{ terms }}“ gefunden."
+    },
+    "pagination": {
+      "label": "Seitennavigation",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "page": "Seite {{ current }} von {{ total }}"
+    },
+    "404": {
+      "title": "Diese Seite prickelt nicht mehr.",
+      "subtext": "Die gesuchte Seite wurde verschoben oder existiert nicht.",
+      "back_home": "Zur Startseite"
+    }
+  },
+  "sections": {
+    "header": {
+      "open_menu": "Menü öffnen",
+      "navigation": "Hauptnavigation",
+      "cart": "Warenkorb"
+    },
+    "featured_collection": {
+      "view_all": "Alle ansehen"
+    }
+  },
+  "products": {
+    "product": {
+      "variant": "Variante",
+      "quantity": "Anzahl",
+      "add_to_cart": "In den Warenkorb",
+      "added_to_cart": "Zum Warenkorb hinzugefügt.",
+      "sold_out": "Ausverkauft"
+    }
+  },
+  "collections": {
+    "general": {
+      "title": "Kollektionen",
+      "products": "Produkte",
+      "no_matches": "Keine Produkte gefunden."
+    }
+  },
+  "blogs": {
+    "article": {
+      "back_to_blog": "Zurück zu {{ title }}"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Warenkorb",
+      "empty": "Dein Warenkorb ist leer.",
+      "continue_shopping": "Weiter einkaufen",
+      "remove": "Entfernen",
+      "subtotal": "Zwischensumme",
+      "taxes_and_shipping": "Steuern und Versand werden beim Checkout berechnet.",
+      "update": "Aktualisieren",
+      "checkout": "Zur Kasse"
+    },
+    "label": {
+      "product": "Produkt",
+      "quantity": "Anzahl",
+      "quantity_for": "Anzahl für {{ product }}",
+      "total": "Gesamt"
+    }
+  }
+}

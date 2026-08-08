@@ -1,0 +1,108 @@
+<section
+  class="hero"
+  style="--hero-background: {{ section.settings.background }}; --hero-foreground: {{ section.settings.foreground }}; --overlay-opacity: {{ section.settings.overlay | divided_by: 100.0 }}"
+>
+  {%- if section.settings.image != blank -%}
+    <div class="hero__media">
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag:
+          widths: '480, 750, 1100, 1500, 2000, 2400',
+          sizes: '100vw',
+          fetchpriority: 'high',
+          alt: section.settings.image.alt
+      }}
+    </div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+  {%- endif -%}
+
+  <div class="hero__content page-width">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="hero__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h1 class="hero__heading">{{ section.settings.heading }}</h1>
+    {%- endif -%}
+
+    {%- if section.settings.text != blank -%}
+      <div class="hero__text rte">{{ section.settings.text }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+      <div class="hero__actions cluster">
+        <a class="button" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bild"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Obertitel",
+      "default": "Sparklys Switzerland"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Titel",
+      "default": "Prickelnd anders."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Natürlicher Seltzer aus der Schweiz.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Buttontext",
+      "default": "Produkte entdecken"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Buttonlink"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Hintergrund",
+      "default": "#e6d783"
+    },
+    {
+      "type": "color",
+      "id": "foreground",
+      "label": "Textfarbe",
+      "default": "#172019"
+    },
+    {
+      "type": "range",
+      "id": "overlay",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Bildabdunklung",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

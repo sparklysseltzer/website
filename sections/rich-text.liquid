@@ -1,0 +1,57 @@
+<section class="section page-width">
+  <div class="rich-text stack">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="hero__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2>{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <div class="rte">{{ section.settings.text }}</div>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+      <div><a class="button button--secondary" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a></div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Obertitel",
+      "default": "Weniger ist mehr"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Titel",
+      "default": "Echter Geschmack. Klare Zutaten."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Hier entsteht die neue digitale Heimat von Sparklys.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Buttontext"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Buttonlink"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text"
+    }
+  ]
+}
+{% endschema %}

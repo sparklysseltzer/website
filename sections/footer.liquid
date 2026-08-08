@@ -1,0 +1,61 @@
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="site-footer__grid">
+      <div class="stack">
+        <strong>{{ shop.name }}</strong>
+        {%- if section.settings.text != blank -%}
+          <div class="rte">{{ section.settings.text }}</div>
+        {%- endif -%}
+      </div>
+
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          <h2 class="site-footer__heading">{{ block.settings.heading }}</h2>
+          <ul class="footer-menu">
+            {%- for link in block.settings.menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="site-footer__bottom">
+      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ powered_by_link }}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "max_blocks": 2,
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Natürlicher Genuss mit prickelndem Charakter.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menü",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Titel",
+          "default": "Entdecken"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menü"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

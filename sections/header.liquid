@@ -1,0 +1,71 @@
+<header class="site-header">
+  <div class="site-header__inner page-width">
+    <details class="mobile-menu">
+      <summary aria-label="{{ 'sections.header.open_menu' | t }}">
+        <span aria-hidden="true">&#9776;</span>
+      </summary>
+      <nav class="mobile-menu__panel" aria-label="{{ 'sections.header.navigation' | t }}">
+        <ul class="site-header__menu">
+          {%- for link in section.settings.menu.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    </details>
+
+    <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+      {%- if settings.logo != blank -%}
+        {%- assign logo_width_2x = settings.logo_width | times: 2 -%}
+        {{
+          settings.logo
+          | image_url: width: logo_width_2x
+          | image_tag:
+            class: 'site-header__logo-image',
+            widths: '100, 150, 200, 300, 400, 520',
+            width: settings.logo_width,
+            alt: shop.name,
+            style: '--logo-width: ' | append: settings.logo_width | append: 'px'
+        }}
+      {%- else -%}
+        {{ shop.name }}
+      {%- endif -%}
+    </a>
+
+    <nav class="site-header__nav" aria-label="{{ 'sections.header.navigation' | t }}">
+      <ul class="site-header__menu">
+        {%- for link in section.settings.menu.links -%}
+          <li>
+            <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a class="site-header__action" href="{{ routes.search_url }}">
+        <span aria-hidden="true">&#9906;</span>
+        <span class="visually-hidden">{{ 'general.search.search' | t }}</span>
+      </a>
+      <a class="site-header__action" href="{{ routes.cart_url }}">
+        <span aria-hidden="true">&#9675;</span>
+        <span class="visually-hidden">{{ 'sections.header.cart' | t }}</span>
+        <span aria-hidden="true">(<span data-cart-count>{{ cart.item_count }}</span>)</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "shopify-section-header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menü",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

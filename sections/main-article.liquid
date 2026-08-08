@@ -1,0 +1,25 @@
+<article class="section page-width stack" style="max-width: 56rem">
+  <header class="stack">
+    <div>{{ article.published_at | date: format: 'date' }}</div>
+    <h1 class="page-title">{{ article.title }}</h1>
+  </header>
+  {%- if article.image != blank -%}
+    {{
+      article.image
+      | image_url: width: 1600
+      | image_tag:
+        widths: '480, 750, 1100, 1400, 1600',
+        sizes: '(min-width: 900px) 56rem, 100vw',
+        alt: article.image.alt
+    }}
+  {%- endif -%}
+  <div class="rte">{{ article.content }}</div>
+  <a href="{{ blog.url }}">{{ 'blogs.article.back_to_blog' | t: title: blog.title }}</a>
+</article>
+
+{% schema %}
+{
+  "name": "Artikel",
+  "settings": []
+}
+{% endschema %}

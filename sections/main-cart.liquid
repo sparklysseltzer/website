@@ -1,0 +1,55 @@
+<section class="section page-width stack">
+  <h1 class="page-title">{{ 'cart.general.title' | t }}</h1>
+
+  {%- if cart.empty? -%}
+    <p>{{ 'cart.general.empty' | t }}</p>
+    <div><a class="button" href="{{ routes.all_products_collection_url }}">{{ 'cart.general.continue_shopping' | t }}</a></div>
+  {%- else -%}
+    {%- form 'cart', cart, class: 'stack' -%}
+      <div style="overflow-x: auto">
+        <table class="cart-items">
+          <thead>
+            <tr>
+              <th>{{ 'cart.label.product' | t }}</th>
+              <th>{{ 'cart.label.quantity' | t }}</th>
+              <th>{{ 'cart.label.total' | t }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for item in cart.items -%}
+              <tr>
+                <td>
+                  <a href="{{ item.url }}">{{ item.product.title }}</a>
+                  {%- unless item.product.has_only_default_variant -%}<div>{{ item.variant.title }}</div>{%- endunless -%}
+                  <div>{{ item.final_price | money }}</div>
+                  <a href="{{ item.url_to_remove }}">{{ 'cart.general.remove' | t }}</a>
+                </td>
+                <td>
+                  <label class="visually-hidden" for="Updates-{{ item.key }}">{{ 'cart.label.quantity_for' | t: product: item.product.title }}</label>
+                  <input class="field__input" id="Updates-{{ item.key }}" name="updates[]" type="number" value="{{ item.quantity }}" min="0" inputmode="numeric">
+                </td>
+                <td>{{ item.final_line_price | money }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="stack" style="justify-items: end">
+        <p><strong>{{ 'cart.general.subtotal' | t }}: {{ cart.total_price | money }}</strong></p>
+        <p>{{ 'cart.general.taxes_and_shipping' | t }}</p>
+        <div class="cluster">
+          <button class="button button--secondary" type="submit" name="update">{{ 'cart.general.update' | t }}</button>
+          <button class="button" type="submit" name="checkout">{{ 'cart.general.checkout' | t }}</button>
+        </div>
+      </div>
+    {%- endform -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Warenkorb",
+  "settings": []
+}
+{% endschema %}

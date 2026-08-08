@@ -1,0 +1,45 @@
+<section class="section page-width stack">
+  <h1 class="page-title">{{ blog.title }}</h1>
+  {%- paginate blog.articles by section.settings.articles_per_page -%}
+    <div class="content-grid">
+      {%- for article in blog.articles -%}
+        <article class="content-card stack">
+          {%- if article.image != blank -%}
+            <a href="{{ article.url }}">
+              {{
+                article.image
+                | image_url: width: 900
+                | image_tag:
+                  widths: '360, 540, 720, 900',
+                  sizes: '(min-width: 768px) 33vw, 100vw',
+                  loading: 'lazy',
+                  alt: article.image.alt
+              }}
+            </a>
+          {%- endif -%}
+          <div>{{ article.published_at | date: format: 'date' }}</div>
+          <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+          <p>{{ article.excerpt_or_content | strip_html | truncatewords: 28 }}</p>
+        </article>
+      {%- endfor -%}
+    </div>
+    {% render 'pagination', paginate: paginate %}
+  {%- endpaginate -%}
+</section>
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": [
+    {
+      "type": "range",
+      "id": "articles_per_page",
+      "min": 3,
+      "max": 24,
+      "step": 3,
+      "label": "Artikel pro Seite",
+      "default": 9
+    }
+  ]
+}
+{% endschema %}

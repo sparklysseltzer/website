@@ -1,0 +1,33 @@
+<section class="section page-width stack">
+  <h1 class="page-title">{{ 'collections.general.title' | t }}</h1>
+  <div class="content-grid">
+    {%- for collection in collections -%}
+      {%- unless collection.handle == 'frontpage' -%}
+        <article class="content-card stack">
+          {%- if collection.featured_image != blank -%}
+            <a href="{{ collection.url }}">
+              {{
+                collection.featured_image
+                | image_url: width: 900
+                | image_tag:
+                  widths: '360, 540, 720, 900',
+                  sizes: '(min-width: 768px) 33vw, 100vw',
+                  loading: 'lazy',
+                  alt: collection.featured_image.alt
+              }}
+            </a>
+          {%- endif -%}
+          <h2><a href="{{ collection.url }}">{{ collection.title }}</a></h2>
+          <p>{{ collection.all_products_count }} {{ 'collections.general.products' | t }}</p>
+        </article>
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Kollektionsliste",
+  "settings": []
+}
+{% endschema %}

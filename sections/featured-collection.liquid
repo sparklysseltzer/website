@@ -1,0 +1,56 @@
+<section class="section page-width stack" style="--stack-space: 2rem">
+  <div class="cluster" style="justify-content: space-between">
+    <h2>{{ section.settings.heading }}</h2>
+    {%- if section.settings.collection != blank -%}
+      <a href="{{ section.settings.collection.url }}">{{ 'sections.featured_collection.view_all' | t }}</a>
+    {%- endif -%}
+  </div>
+
+  <div class="product-grid">
+    {%- if section.settings.collection != blank -%}
+      {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+        {% render 'product-card', card_product: product %}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for index in (1..4) -%}
+        <article class="product-card">
+          <div class="product-card__media">{{ 'product-' | append: index | placeholder_svg_tag }}</div>
+          <h3 class="product-card__title">Produkt</h3>
+        </article>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ausgewählte Kollektion",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Titel",
+      "default": "Unsere Sparklys"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Kollektion"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "label": "Anzahl Produkte",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ausgewählte Kollektion"
+    }
+  ]
+}
+{% endschema %}

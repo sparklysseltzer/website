@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Sparklys Switzerland",
+        "heading": "Prickelnd anders.",
+        "text": "<p>Natürlicher Seltzer aus der Schweiz.</p>",
+        "button_label": "Produkte entdecken",
+        "background": "#e6d783",
+        "foreground": "#172019",
+        "overlay": 20
+      }
+    },
+    "intro": {
+      "type": "rich-text",
+      "settings": {
+        "eyebrow": "Weniger ist mehr",
+        "heading": "Echter Geschmack. Klare Zutaten.",
+        "text": "<p>Hier entsteht die neue digitale Heimat von Sparklys.</p>"
+      }
+    },
+    "products": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Unsere Sparklys",
+        "products_to_show": 4
+      }
+    }
+  },
+  "order": ["hero", "intro", "products"]
+}

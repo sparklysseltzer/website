@@ -1,0 +1,24 @@
+<article class="product-card">
+  <a class="product-card__link" href="{{ card_product.url }}">
+    <div class="product-card__media">
+      {%- if card_product.featured_image != blank -%}
+        {{
+          card_product.featured_image
+          | image_url: width: 900
+          | image_tag:
+            widths: '240, 360, 480, 720, 900',
+            sizes: '(min-width: 768px) 25vw, 50vw',
+            loading: 'lazy',
+            alt: card_product.featured_image.alt
+        }}
+      {%- endif -%}
+    </div>
+    <h3 class="product-card__title">{{ card_product.title }}</h3>
+    <div class="price">
+      {{ card_product.price | money }}
+      {%- if card_product.compare_at_price > card_product.price -%}
+        <s>{{ card_product.compare_at_price | money }}</s>
+      {%- endif -%}
+    </div>
+  </a>
+</article>
