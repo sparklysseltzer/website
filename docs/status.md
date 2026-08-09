@@ -23,7 +23,7 @@ This file is a capability map, not a promise of production readiness.
 | Area | Status | Required work |
 | --- | --- | --- |
 | Approved brand design | Blocked on design inputs | Replace placeholder visual language with supplied Figma/assets/tokens. |
-| Real store preview | Not connected | Requires approval for `shopify theme dev` and authentication. |
+| Real store preview | Development theme connected | Normal Shopify authentication and `theme dev` are working against `sparklys-hard-seltzer.myshopify.com`; representative storefront and editor QA remain. |
 | Product variants | Basic only | Option-based UI, variant URL state, media/price/availability sync, quantity rules, high-variant cases. |
 | Discounts | Incomplete | Accessible regular/sale labels, line/cart discount allocations, checkout consistency. |
 | Subscriptions | Not implemented | Selling-plan selector, pricing, cart display, provider audit, account portal verification. |
@@ -46,7 +46,7 @@ This file is a capability map, not a promise of production readiness.
 
 ## Recommended next sequence
 
-1. Approve a development-theme connection and inspect real catalog/navigation/settings.
+1. Inspect real catalog, navigation, theme settings, and current storefront apps through the connected development theme.
 2. Confirm Shopify Markets and published-language configuration for Switzerland/Liechtenstein, including German and English content ownership.
 3. Inventory installed storefront apps, subscription provider, discount setup, shipping thresholds, and age-verification options.
 4. Collect Figma, brand assets, fonts, and responsive design rules.
