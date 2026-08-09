@@ -5,7 +5,7 @@
 Sparklys is rebuilding its public commerce storefront as a custom native Shopify Online Store 2.0 theme.
 
 - Public storefront: `https://sparklys.ch`
-- Shopify store: `sparklysswitzerland.myshopify.com`
+- Shopify store: `sparklys-hard-seltzer.myshopify.com`
 - Repository: `sparklysseltzer/website`
 - Initial markets: Switzerland and Liechtenstein
 - Minimum storefront languages: German and English

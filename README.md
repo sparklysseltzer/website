@@ -10,7 +10,7 @@ Start with the [documentation index](docs/README.md) for product context, archit
 
 - Node.js 22 or newer
 - Shopify CLI 4.x
-- Access to `sparklysswitzerland.myshopify.com` for preview work
+- Access to `sparklys-hard-seltzer.myshopify.com` for preview work
 
 ## Local checks
 

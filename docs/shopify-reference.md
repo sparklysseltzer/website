@@ -20,7 +20,7 @@ Reviewed: 2026-08-08.
 
 | Topic / search terms | Official source | Local conclusion |
 | --- | --- | --- |
-| CLI, theme dev, development theme, authentication, ignore | [Shopify CLI for themes](https://shopify.dev/docs/storefronts/themes/tools/cli) | Use a pinned CLI. `theme dev` is a remote write to a temporary hidden theme and needs approval. |
+| CLI, theme dev, development theme, authentication, ignore | [Shopify CLI for themes](https://shopify.dev/docs/storefronts/themes/tools/cli) | Use a pinned CLI. `theme dev` is a remote write to a temporary hidden theme and needs approval. Target the store's permanent `.myshopify.com` domain; an incorrect hostname can appear to be an account-authorization failure. |
 | environment, store config, Theme Access | [Theme environments](https://shopify.dev/docs/storefronts/themes/tools/cli/environments) | Introduce environment files only when multiple approved store/theme targets exist. Never commit credentials. |
 | lint Liquid JSON, checks, configuration | [Theme Check](https://shopify.dev/docs/storefronts/themes/tools/theme-check) and [configuration](https://shopify.dev/docs/storefronts/themes/tools/theme-check/configuration) | Keep `theme-check:recommended` clean locally and in CI. |
 | performance CI, accessibility CI, benchmark store | [Shopify Lighthouse CI](https://shopify.dev/docs/storefronts/themes/tools/lighthouse-ci) | Add only with a dedicated store and approved secrets; it requires theme-write capability. |

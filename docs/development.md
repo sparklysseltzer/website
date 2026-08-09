@@ -48,13 +48,15 @@ After approval:
 npm run dev
 ```
 
-The command targets `sparklysswitzerland.myshopify.com`, uses real store data, supports hot reload, and opens a theme preview. Shopify states that development themes are hidden, temporary, and deleted after seven days of inactivity. See [Shopify CLI for themes](https://shopify.dev/docs/storefronts/themes/tools/cli).
+The command targets `sparklys-hard-seltzer.myshopify.com`, uses real store data, supports hot reload, and opens a theme preview. Shopify states that development themes are hidden, temporary, and deleted after seven days of inactivity. See [Shopify CLI for themes](https://shopify.dev/docs/storefronts/themes/tools/cli).
 
 Before previewing, confirm the authenticated store with:
 
 ```sh
 npx shopify theme info
 ```
+
+Always target the store's permanent `.myshopify.com` domain, not its public custom domain or a guessed Shopify hostname. If normal browser authentication succeeds but the CLI reports that the account is not authorized for the provided store, verify the hostname first. For this project, the permanent domain is `sparklys-hard-seltzer.myshopify.com`.
 
 ## Remote safety levels
 

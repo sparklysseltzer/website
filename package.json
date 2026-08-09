@@ -5,7 +5,7 @@
   "description": "Custom Shopify Online Store 2.0 theme for Sparklys Switzerland",
   "scripts": {
     "check": "shopify theme check --fail-level error",
-    "dev": "shopify theme dev --store sparklysswitzerland.myshopify.com"
+    "dev": "shopify theme dev --store sparklys-hard-seltzer.myshopify.com"
   },
   "engines": {
     "node": ">=22"
