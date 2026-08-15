@@ -1,27 +1,180 @@
-<footer class="site-footer">
-  <div class="page-width">
-    <div class="site-footer__grid">
-      <div class="stack">
-        <strong>{{ shop.name }}</strong>
-        {%- if section.settings.text != blank -%}
-          <div class="rte">{{ section.settings.text }}</div>
-        {%- endif -%}
-      </div>
+{%- liquid
+  assign footer_context = 'default'
+  assign soda_collection = section.settings.soda_collection
+  assign seltzer_collection = section.settings.seltzer_collection
 
-      {%- for block in section.blocks -%}
-        <div {{ block.shopify_attributes }}>
-          <h2 class="site-footer__heading">{{ block.settings.heading }}</h2>
-          <ul class="footer-menu">
-            {%- for link in block.settings.menu.links -%}
-              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-            {%- endfor -%}
-          </ul>
+  if soda_collection == blank
+    assign soda_collection = collections['soda']
+  endif
+
+  if seltzer_collection == blank
+    assign seltzer_collection = collections['hard-seltzer']
+  endif
+
+  if request.page_type == 'collection'
+    if template.suffix == 'soda'
+      assign footer_context = 'soda'
+    elsif template.suffix == 'seltzer'
+      assign footer_context = 'seltzer'
+    elsif soda_collection != blank and collection.id == soda_collection.id
+      assign footer_context = 'soda'
+    elsif seltzer_collection != blank and collection.id == seltzer_collection.id
+      assign footer_context = 'seltzer'
+    endif
+  endif
+-%}
+
+<footer class="site-footer site-footer--{{ footer_context }}" data-footer-context="{{ footer_context }}">
+  <div class="site-footer__container">
+    <div class="site-footer__main">
+      <section class="site-footer__newsletter" aria-labelledby="footer-newsletter-heading">
+        <h2 id="footer-newsletter-heading" class="visually-hidden">
+          {{ 'sections.footer.newsletter_heading' | t }}
+        </h2>
+
+        {%- case footer_context -%}
+          {%- when 'soda' -%}
+            <img
+              class="site-footer__brand-logo site-footer__brand-logo--soda"
+              src="{{ 'sparklys-soda-logo.svg' | asset_url }}"
+              width="406"
+              height="195"
+              alt="{{ 'sections.header.soda' | t }}"
+            >
+          {%- when 'seltzer' -%}
+            <img
+              class="site-footer__brand-logo site-footer__brand-logo--seltzer"
+              src="{{ 'footer-logo-seltzer.svg' | asset_url }}"
+              width="205"
+              height="56"
+              alt="{{ 'sections.footer.logo_alt' | t }}"
+            >
+          {%- else -%}
+            <img
+              class="site-footer__brand-logo site-footer__brand-logo--arc"
+              src="{{ 'sparklys-arc-logo.svg' | asset_url }}"
+              width="185"
+              height="44"
+              alt="{{ shop.name }}"
+            >
+        {%- endcase -%}
+
+        <div class="site-footer__newsletter-copy">
+          <p>{{ 'sections.footer.newsletter_copy' | t }}</p>
+          <p>{{ 'sections.footer.newsletter_offer' | t }}</p>
         </div>
-      {%- endfor -%}
+        <div class="site-footer__newsletter-shell" aria-label="{{ 'sections.footer.newsletter_preview' | t }}">
+          <span class="site-footer__newsletter-placeholder">{{ 'sections.footer.email_placeholder' | t }}</span>
+          <span class="site-footer__newsletter-button">{{ 'sections.footer.subscribe' | t }}</span>
+        </div>
+      </section>
+
+      {%- if footer_context == 'default' -%}
+        <div class="site-footer__navigation site-footer__navigation--general">
+          <section class="site-footer__card site-footer__card--product" aria-labelledby="footer-seltzer-heading">
+            <h2 id="footer-seltzer-heading" class="site-footer__product-heading">
+              <img
+                class="site-footer__product-logo site-footer__product-logo--seltzer"
+                src="{{ 'footer-logo-seltzer.svg' | asset_url }}"
+                width="205"
+                height="56"
+                alt="{{ 'sections.footer.logo_alt' | t }}"
+              >
+            </h2>
+            <ul class="site-footer__menu">
+              <li>{{ 'sections.footer.hard_seltzer_maracuja' | t }}</li>
+              <li>{{ 'sections.footer.hard_seltzer_elderflower' | t }}</li>
+              <li class="site-footer__menu-separator">{{ 'sections.footer.sparklys_subscription' | t }}</li>
+              <li class="site-footer__menu-separator">{{ 'sections.footer.clothing' | t }}</li>
+              <li>{{ 'sections.footer.accessories' | t }}</li>
+            </ul>
+          </section>
+
+          <section class="site-footer__card site-footer__card--product" aria-labelledby="footer-soda-heading">
+            <h2 id="footer-soda-heading" class="site-footer__product-heading">
+              <img
+                class="site-footer__product-logo site-footer__product-logo--soda"
+                src="{{ 'sparklys-soda-logo.svg' | asset_url }}"
+                width="406"
+                height="195"
+                alt="{{ 'sections.header.soda' | t }}"
+              >
+            </h2>
+            <ul class="site-footer__menu">
+              <li>{{ 'sections.footer.soda_yuzu' | t }}</li>
+              <li>{{ 'sections.footer.soda_blueberry' | t }}</li>
+              <li class="site-footer__menu-separator">{{ 'sections.footer.soda_subscription' | t }}</li>
+              <li class="site-footer__menu-separator">{{ 'sections.footer.store_finder' | t }}</li>
+              <li class="site-footer__menu-separator">{{ 'sections.footer.clothing' | t }}</li>
+              <li>{{ 'sections.footer.accessories' | t }}</li>
+            </ul>
+          </section>
+
+          <div class="site-footer__card-stack">
+            {% render 'footer-card-learn' %}
+            {% render 'footer-card-company' %}
+          </div>
+        </div>
+      {%- else -%}
+        <div class="site-footer__navigation">
+          <section class="site-footer__card" aria-labelledby="footer-shop-heading">
+            <h2 id="footer-shop-heading" class="site-footer__card-heading">{{ 'sections.footer.shop' | t }}</h2>
+            <ul class="site-footer__menu">
+              {%- if footer_context == 'soda' -%}
+                <li>{{ 'sections.footer.soda_yuzu' | t }}</li>
+                <li>{{ 'sections.footer.soda_blueberry' | t }}</li>
+                <li class="site-footer__menu-separator">{{ 'sections.footer.soda_subscription' | t }}</li>
+              {%- else -%}
+                <li>{{ 'sections.footer.maracuja' | t }}</li>
+                <li>{{ 'sections.footer.elderflower' | t }}</li>
+                <li class="site-footer__menu-separator">{{ 'sections.footer.subscription' | t }}</li>
+              {%- endif -%}
+              <li class="site-footer__menu-separator">{{ 'sections.footer.store_finder' | t }}</li>
+              <li class="site-footer__menu-separator">{{ 'sections.footer.clothing' | t }}</li>
+              <li>{{ 'sections.footer.accessories' | t }}</li>
+            </ul>
+          </section>
+
+          {% render 'footer-card-learn' %}
+          {% render 'footer-card-company' %}
+        </div>
+      {%- endif -%}
     </div>
 
-    <div class="site-footer__bottom">
-      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ powered_by_link }}
+    <div class="site-footer__meta">
+      <p class="site-footer__copyright">{{ 'sections.footer.copyright' | t }}</p>
+      <div class="site-footer__meta-end">
+        <ul class="site-footer__legal" aria-label="{{ 'sections.footer.legal_navigation' | t }}">
+          <li>{{ 'sections.footer.terms' | t }}</li>
+          <li>{{ 'sections.footer.privacy' | t }}</li>
+          <li>{{ 'sections.footer.legal_notice' | t }}</li>
+          <li>{{ 'sections.footer.shipping' | t }}</li>
+        </ul>
+        <div class="site-footer__social" aria-label="{{ 'sections.footer.social_media' | t }}">
+          <img src="{{ 'footer-social-instagram.svg' | asset_url }}" width="32" height="32" alt="Instagram">
+          <img src="{{ 'footer-social-tiktok.svg' | asset_url }}" width="32" height="32" alt="TikTok">
+          <img src="{{ 'footer-social-linkedin.svg' | asset_url }}" width="32" height="32" alt="LinkedIn">
+          <img src="{{ 'footer-social-facebook.svg' | asset_url }}" width="32" height="32" alt="Facebook">
+        </div>
+      </div>
+    </div>
+
+    <div class="site-footer__commerce">
+      <div class="site-footer__payments" aria-label="{{ 'sections.footer.payment_methods' | t }}">
+        <img src="{{ 'footer-payment-01.svg' | asset_url }}" width="39" height="25" alt="">
+        <img src="{{ 'footer-payment-02.svg' | asset_url }}" width="39" height="25" alt="">
+        <img src="{{ 'footer-payment-03.svg' | asset_url }}" width="39" height="25" alt="">
+        <img src="{{ 'footer-payment-04.svg' | asset_url }}" width="39" height="25" alt="">
+        <img src="{{ 'footer-payment-05.svg' | asset_url }}" width="39" height="25" alt="">
+        <img src="{{ 'footer-payment-06.svg' | asset_url }}" width="39" height="25" alt="">
+        <img src="{{ 'footer-payment-07.svg' | asset_url }}" width="39" height="25" alt="">
+        <img src="{{ 'footer-payment-08.svg' | asset_url }}" width="39" height="25" alt="">
+      </div>
+      <div class="site-footer__controls" aria-label="{{ 'sections.footer.controls_preview' | t }}">
+        <img src="{{ 'footer-store-finder.svg' | asset_url }}" width="138" height="46" alt="">
+        <img src="{{ 'footer-language-ch.svg' | asset_url }}" width="51" height="40" alt="{{ 'sections.footer.switzerland' | t }}">
+        <img src="{{ 'footer-language-en.svg' | asset_url }}" width="51" height="40" alt="{{ 'sections.footer.english' | t }}">
+      </div>
     </div>
   </div>
 </footer>
@@ -29,32 +182,16 @@
 {% schema %}
 {
   "name": "Footer",
-  "max_blocks": 2,
   "settings": [
     {
-      "type": "richtext",
-      "id": "text",
-      "label": "Text",
-      "default": "<p>Natürlicher Genuss mit prickelndem Charakter.</p>"
-    }
-  ],
-  "blocks": [
+      "type": "collection",
+      "id": "soda_collection",
+      "label": "Soda collection"
+    },
     {
-      "type": "menu",
-      "name": "Menü",
-      "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Titel",
-          "default": "Entdecken"
-        },
-        {
-          "type": "link_list",
-          "id": "menu",
-          "label": "Menü"
-        }
-      ]
+      "type": "collection",
+      "id": "seltzer_collection",
+      "label": "Hard Seltzer collection"
     }
   ]
 }

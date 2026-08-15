@@ -4,7 +4,10 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "settings": {}
+      "settings": {
+        "soda_collection": "soda",
+        "seltzer_collection": "hard-seltzer"
+      }
     }
   },
   "order": ["footer"]

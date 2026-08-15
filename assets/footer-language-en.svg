@@ -1,0 +1,73 @@
+<svg width="51" height="40" viewBox="0 0 51 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="51" height="40" fill="#232323"/>
+<g id="footer">
+<rect x="-1288.5" y="-1123.5" width="1479" height="1793" rx="4.5" stroke="#232323" stroke-dasharray="10 5"/>
+<g id="Property 1=Seltzer">
+<rect width="1440" height="459" transform="translate(-1269 -396)" fill="black"/>
+<g id="Frame 583">
+<rect width="1440" height="66" transform="translate(-1269 -3)" fill="black"/>
+<g id="Frame 615">
+<g id="container">
+<g id="Sec Nav">
+<g id="Group 3415">
+<g id="Group 396">
+<rect id="Rectangle 182" width="51" height="40" rx="20" fill="#1F1F1F"/>
+</g>
+<g id="flag">
+<mask id="mask0_1677_9282" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="8" y="7" width="35" height="26">
+<rect id="mask" x="8" y="7" width="34.6667" height="26" fill="white"/>
+</mask>
+<g mask="url(#mask0_1677_9282)">
+</g>
+<mask id="mask1_1677_9282" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="8" y="7" width="35" height="26">
+<path id="background" fill-rule="evenodd" clip-rule="evenodd" d="M21 7C13.8203 7 8 12.8203 8 20C8 27.1797 13.8203 33 21 33H30C37.1797 33 43 27.1797 43 20C43 12.8203 37.1797 7 30 7H21Z" fill="white"/>
+</mask>
+<g mask="url(#mask1_1677_9282)">
+<g id="contents">
+<path id="background_2" fill-rule="evenodd" clip-rule="evenodd" d="M8 7V33H43V7H8Z" fill="#E31D1C"/>
+<g id="Group 3416">
+<g id="GB-UKM - United Kingdom">
+<g id="flag_2">
+<mask id="mask2_1677_9282" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="7" y="7" width="36" height="26">
+<rect id="mask_2" x="7" y="7" width="36" height="26" fill="white"/>
+</mask>
+<g mask="url(#mask2_1677_9282)">
+<g id="contents_2">
+<path id="background_3" fill-rule="evenodd" clip-rule="evenodd" d="M8.00098 7V33H43.001V7H8.00098Z" fill="#2E42A5"/>
+<g id="mark 1">
+<g id="contents_3">
+<g id="stripe">
+<path id="white" d="M7 29.2874L13.428 32L39.6094 11.9376L43 7.90664L36.1262 7L25.4474 15.6454L16.8521 21.4704L7 29.2874Z" fill="white"/>
+<path id="red" d="M9.50098 30.3098L12.4905 31.75L40.4505 8.66755H36.2529L9.50098 30.3098Z" fill="#F50100"/>
+</g>
+<g id="stripe_2">
+<path id="white_2" d="M43 29.2874L36.572 32L10.3906 11.9376L7 7.90664L13.8738 7L24.5526 15.6454L33.1479 21.4704L43 29.2874Z" fill="white"/>
+<path id="red_2" d="M41.1025 29.8176L38.113 31.2578L26.2074 21.375L22.6776 20.2708L8.14055 9.0215H12.3382L26.867 20.0038L30.7262 21.3279L41.1025 29.8176Z" fill="#F50100"/>
+</g>
+<g id="cross">
+<g id="red_3">
+<mask id="path-13-inside-1_1677_9282" fill="white">
+<path d="M28.001 17H45V23H28.001V35H22.001V23H6V17H22.001V5H28.001V17Z"/>
+</mask>
+<path d="M28.001 17H45V23H28.001V35H22.001V23H6V17H22.001V5H28.001V17Z" fill="#F50100"/>
+<path d="M28.001 17H26.3343V18.6667H28.001V17ZM45 17H46.6667V15.3333H45V17ZM45 23V24.6667H46.6667V23H45ZM28.001 23V21.3333H26.3343V23H28.001ZM28.001 35V36.6667H29.6676V35H28.001ZM22.001 35H20.3343V36.6667H22.001V35ZM22.001 23H23.6676V21.3333H22.001V23ZM6 23H4.33333V24.6667H6V23ZM6 17V15.3333H4.33333V17H6ZM22.001 17V18.6667H23.6676V17H22.001ZM22.001 5V3.33333H20.3343V5H22.001ZM28.001 5H29.6676V3.33333H28.001V5ZM28.001 17V18.6667H45V17V15.3333H28.001V17ZM45 17H43.3333V23H45H46.6667V17H45ZM45 23V21.3333H28.001V23V24.6667H45V23ZM28.001 23H26.3343V35H28.001H29.6676V23H28.001ZM28.001 35V33.3333H22.001V35V36.6667H28.001V35ZM22.001 35H23.6676V23H22.001H20.3343V35H22.001ZM22.001 23V21.3333H6V23V24.6667H22.001V23ZM6 23H7.66667V17H6H4.33333V23H6ZM6 17V18.6667H22.001V17V15.3333H6V17ZM22.001 17H23.6676V5H22.001H20.3343V17H22.001ZM22.001 5V6.66667H28.001V5V3.33333H22.001V5ZM28.001 5H26.3343V17H28.001H29.6676V5H28.001Z" fill="white" mask="url(#path-13-inside-1_1677_9282)"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>

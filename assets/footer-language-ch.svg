@@ -1,0 +1,39 @@
+<svg width="51" height="40" viewBox="0 0 51 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="51" height="40" fill="#232323"/>
+<g id="footer">
+<rect x="-1234.5" y="-1123.5" width="1479" height="1793" rx="4.5" stroke="#232323" stroke-dasharray="10 5"/>
+<g id="Property 1=Seltzer">
+<rect width="1440" height="459" transform="translate(-1215 -396)" fill="black"/>
+<g id="Frame 583">
+<rect width="1440" height="66" transform="translate(-1215 -3)" fill="black"/>
+<g id="Frame 615">
+<g id="container">
+<g id="Sec Nav">
+<g id="Group 3391">
+<g id="Group 396">
+<rect id="Rectangle 182" x="1" y="1" width="49" height="38" rx="19" fill="#1F1F1F" stroke="white" stroke-width="2"/>
+</g>
+<g id="flag">
+<mask id="mask0_1677_9282" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="8" y="7" width="35" height="26">
+<rect id="mask" x="8" y="7" width="34.6667" height="26" fill="white"/>
+</mask>
+<g mask="url(#mask0_1677_9282)">
+</g>
+<mask id="mask1_1677_9282" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="8" y="7" width="35" height="26">
+<path id="background" fill-rule="evenodd" clip-rule="evenodd" d="M21 7C13.8203 7 8 12.8203 8 20C8 27.1797 13.8203 33 21 33H30C37.1797 33 43 27.1797 43 20C43 12.8203 37.1797 7 30 7H21Z" fill="white"/>
+</mask>
+<g mask="url(#mask1_1677_9282)">
+<g id="contents">
+<path id="background_2" fill-rule="evenodd" clip-rule="evenodd" d="M8 7V33H43V7H8Z" fill="#E31D1C"/>
+<path id="Combined Shape" d="M27.501 17.835H31.834V22.168H27.501V26.5H23.168V22.168H18.834V17.835H23.168V13.5H27.501V17.835Z" fill="#F1F9FF"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>
