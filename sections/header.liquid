@@ -1,56 +1,176 @@
-<header class="site-header">
-  <div class="site-header__inner page-width">
-    <details class="mobile-menu">
-      <summary aria-label="{{ 'sections.header.open_menu' | t }}">
-        <span aria-hidden="true">&#9776;</span>
-      </summary>
-      <nav class="mobile-menu__panel" aria-label="{{ 'sections.header.navigation' | t }}">
-        <ul class="site-header__menu">
-          {%- for link in section.settings.menu.links -%}
-            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-          {%- endfor -%}
-        </ul>
+{%- liquid
+  assign header_context = 'default'
+  assign active_menu = section.settings.menu
+  assign soda_collection = section.settings.soda_collection
+  assign seltzer_collection = section.settings.seltzer_collection
+
+  if soda_collection == blank
+    assign soda_collection = collections['soda']
+  endif
+
+  if seltzer_collection == blank
+    assign seltzer_collection = collections['hard-seltzer']
+  endif
+
+  if request.page_type == 'collection'
+    if template.suffix == 'soda'
+      assign header_context = 'soda'
+      assign active_menu = section.settings.soda_menu
+    elsif template.suffix == 'seltzer'
+      assign header_context = 'seltzer'
+      assign active_menu = section.settings.seltzer_menu
+    elsif soda_collection != blank and collection.id == soda_collection.id
+      assign header_context = 'soda'
+      assign active_menu = section.settings.soda_menu
+    elsif seltzer_collection != blank and collection.id == seltzer_collection.id
+      assign header_context = 'seltzer'
+      assign active_menu = section.settings.seltzer_menu
+    endif
+  endif
+
+  if active_menu == blank
+    assign active_menu = section.settings.menu
+  endif
+-%}
+
+<header class="site-header" data-header-context="{{ header_context }}">
+  <div class="site-header__switcher" aria-label="{{ 'sections.header.brand_navigation' | t }}">
+    <div class="site-header__switcher-inner">
+      <div class="site-header__brands">
+        {%- if seltzer_collection != blank -%}
+          <a
+            class="site-header__brand-tab{% if header_context == 'seltzer' %} site-header__brand-tab--active{% endif %}"
+            href="{{ seltzer_collection.url }}"
+            {% if header_context == 'seltzer' %}aria-current="page"{% endif %}
+          >
+            <span class="site-header__brand-tab-surface">{{ 'sections.header.hard_seltzer' | t }}</span>
+          </a>
+        {%- else -%}
+          <span class="site-header__brand-tab">
+            <span class="site-header__brand-tab-surface">{{ 'sections.header.hard_seltzer' | t }}</span>
+          </span>
+        {%- endif -%}
+
+        {%- if soda_collection != blank -%}
+          <a
+            class="site-header__brand-tab{% if header_context == 'soda' %} site-header__brand-tab--active{% endif %}"
+            href="{{ soda_collection.url }}"
+            {% if header_context == 'soda' %}aria-current="page"{% endif %}
+          >
+            <span class="site-header__brand-tab-surface">{{ 'sections.header.soda' | t }}</span>
+          </a>
+        {%- else -%}
+          <span class="site-header__brand-tab">
+            <span class="site-header__brand-tab-surface">{{ 'sections.header.soda' | t }}</span>
+          </span>
+        {%- endif -%}
+      </div>
+
+      <nav class="site-header__utility" aria-label="{{ 'sections.header.utility_navigation' | t }}">
+        <span class="site-header__utility-item site-header__utility-item--dropdown">
+          {{ 'sections.header.company' | t }}
+          <img src="{{ 'icon-chevron-down-white.svg' | asset_url }}" width="9" height="6" alt="">
+        </span>
+        <span class="site-header__utility-item">{{ 'sections.header.blog' | t }}</span>
+        <span class="site-header__utility-item">{{ 'sections.header.contact' | t }}</span>
       </nav>
-    </details>
+    </div>
+  </div>
 
-    <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
-      {%- if settings.logo != blank -%}
-        {%- assign logo_width_2x = settings.logo_width | times: 2 -%}
-        {{
-          settings.logo
-          | image_url: width: logo_width_2x
-          | image_tag:
-            class: 'site-header__logo-image',
-            widths: '100, 150, 200, 300, 400, 520',
-            width: settings.logo_width,
-            alt: shop.name,
-            style: '--logo-width: ' | append: settings.logo_width | append: 'px'
-        }}
-      {%- else -%}
-        {{ shop.name }}
-      {%- endif -%}
-    </a>
+  <div class="site-header__main">
+    <div class="site-header__inner">
+      <details class="mobile-menu">
+        <summary aria-label="{{ 'sections.header.open_menu' | t }}">
+          <span class="mobile-menu__icon" aria-hidden="true"></span>
+        </summary>
+        <nav class="mobile-menu__panel" aria-label="{{ 'sections.header.navigation' | t }}">
+          <ul class="site-header__menu">
+            {%- if active_menu.links != blank -%}
+              {%- for link in active_menu.links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            {%- else -%}
+              <li><span>{{ 'sections.header.shop' | t }}</span></li>
+              <li><span>{{ 'sections.header.learn' | t }}</span></li>
+              <li><span>{{ 'sections.header.subscribe' | t }}</span></li>
+            {%- endif -%}
+          </ul>
+        </nav>
+      </details>
 
-    <nav class="site-header__nav" aria-label="{{ 'sections.header.navigation' | t }}">
-      <ul class="site-header__menu">
-        {%- for link in section.settings.menu.links -%}
-          <li>
-            <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
-          </li>
-        {%- endfor -%}
-      </ul>
-    </nav>
+      <nav class="site-header__nav" aria-label="{{ 'sections.header.navigation' | t }}">
+        <div class="site-header__nav-group">
+          {%- if active_menu.links != blank -%}
+            {%- for link in active_menu.links -%}
+              <a
+                class="site-header__nav-item{% if forloop.first %} site-header__nav-item--active{% endif %}{% if link.links != blank %} site-header__nav-item--dropdown{% endif %}"
+                href="{{ link.url }}"
+                {% if link.current %}aria-current="page"{% endif %}
+              >
+                {{ link.title }}
+                {%- if link.links != blank -%}
+                  <img
+                    src="{{ 'icon-chevron-down.svg' | asset_url }}"
+                    width="9"
+                    height="6"
+                    alt=""
+                    {% if forloop.first %}class="site-header__nav-chevron--inverse"{% endif %}
+                  >
+                {%- endif -%}
+              </a>
+            {%- endfor -%}
+          {%- else -%}
+            <span class="site-header__nav-item site-header__nav-item--active site-header__nav-item--dropdown">
+              {{ 'sections.header.shop' | t }}
+              <img src="{{ 'icon-chevron-down-white.svg' | asset_url }}" width="9" height="6" alt="">
+            </span>
+            <span class="site-header__nav-item site-header__nav-item--dropdown">
+              {{ 'sections.header.learn' | t }}
+              <img src="{{ 'icon-chevron-down.svg' | asset_url }}" width="9" height="6" alt="">
+            </span>
+            <span class="site-header__nav-item">{{ 'sections.header.subscribe' | t }}</span>
+          {%- endif -%}
+        </div>
+      </nav>
 
-    <div class="site-header__actions">
-      <a class="site-header__action" href="{{ routes.search_url }}">
-        <span aria-hidden="true">&#9906;</span>
-        <span class="visually-hidden">{{ 'general.search.search' | t }}</span>
+      <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+        {%- if header_context == 'soda' -%}
+          <img
+            class="site-header__logo-image"
+            src="{{ 'sparklys-soda-logo.svg' | asset_url }}"
+            width="300"
+            height="144"
+            alt="{{ 'sections.header.soda' | t }}"
+          >
+        {%- else -%}
+          <img
+            class="site-header__logo-image site-header__logo-image--arc"
+            src="{{ 'sparklys-arc-logo.svg' | asset_url }}"
+            width="185"
+            height="44"
+            alt="{{ shop.name }}"
+          >
+        {%- endif -%}
       </a>
-      <a class="site-header__action" href="{{ routes.cart_url }}">
-        <span aria-hidden="true">&#9675;</span>
-        <span class="visually-hidden">{{ 'sections.header.cart' | t }}</span>
-        <span aria-hidden="true">(<span data-cart-count>{{ cart.item_count }}</span>)</span>
-      </a>
+
+      <div class="site-header__actions">
+        <span class="site-header__store-finder">
+          {{ 'sections.header.store_finder' | t }}
+          <img src="{{ 'icon-location-pin.svg' | asset_url }}" width="12" height="14" alt="">
+        </span>
+        <span class="site-header__action" aria-hidden="true">
+          <img src="{{ 'icon-account.svg' | asset_url }}" width="18" height="18" alt="">
+        </span>
+        <a class="site-header__action site-header__cart" href="{{ routes.cart_url }}">
+          <img src="{{ 'icon-cart.svg' | asset_url }}" width="18" height="18" alt="">
+          <span class="visually-hidden">{{ 'sections.header.cart' | t }}</span>
+          {%- if cart.item_count > 0 -%}
+            <span class="site-header__cart-count" data-cart-count aria-hidden="true">{{ cart.item_count }}</span>
+          {%- else -%}
+            <span data-cart-count hidden aria-hidden="true">0</span>
+          {%- endif -%}
+        </a>
+      </div>
     </div>
   </div>
 </header>
@@ -63,8 +183,36 @@
     {
       "type": "link_list",
       "id": "menu",
-      "label": "Menü",
+      "label": "Default navigation",
       "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Soda"
+    },
+    {
+      "type": "collection",
+      "id": "soda_collection",
+      "label": "Brand collection"
+    },
+    {
+      "type": "link_list",
+      "id": "soda_menu",
+      "label": "Navigation"
+    },
+    {
+      "type": "header",
+      "content": "Hard Seltzer"
+    },
+    {
+      "type": "collection",
+      "id": "seltzer_collection",
+      "label": "Brand collection"
+    },
+    {
+      "type": "link_list",
+      "id": "seltzer_menu",
+      "label": "Navigation"
     }
   ]
 }

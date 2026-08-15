@@ -4,7 +4,11 @@
   "sections": {
     "header": {
       "type": "header",
-      "settings": {}
+      "settings": {
+        "menu": "main-menu",
+        "soda_collection": "soda",
+        "seltzer_collection": "hard-seltzer"
+      }
     }
   },
   "order": ["header"]

@@ -1,0 +1,45 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Sparklys",
+        "heading": "Sparklys Hard Seltzer",
+        "text": "",
+        "button_label": "",
+        "button_link": "",
+        "background": "#f7f3eb",
+        "foreground": "#172019",
+        "overlay": 20
+      }
+    },
+    "intro": {
+      "type": "rich-text",
+      "settings": {
+        "eyebrow": "Sparklys Hard Seltzer",
+        "heading": "Über Sparklys Hard Seltzer",
+        "text": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "products": {
+      "type": "main-collection",
+      "settings": {
+        "show_header": false,
+        "products_per_page": 16
+      }
+    },
+    "details": {
+      "type": "rich-text",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Mehr über Sparklys Hard Seltzer",
+        "text": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    }
+  },
+  "order": ["hero", "intro", "products", "details"]
+}

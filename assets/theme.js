@@ -45,3 +45,75 @@ class ProductForm extends HTMLElement {
 if (!customElements.get('product-form')) {
   customElements.define('product-form', ProductForm);
 }
+
+class HeaderScrollIntent {
+  constructor(section) {
+    this.section = section;
+    this.desktopQuery = window.matchMedia('(min-width: 64rem)');
+    this.lastScrollY = window.scrollY;
+    this.upwardDistance = 0;
+    this.downwardDistance = 0;
+    this.ticking = false;
+
+    this.handleScroll = this.handleScroll.bind(this);
+    this.handleViewportChange = this.handleViewportChange.bind(this);
+
+    window.addEventListener('scroll', this.handleScroll, { passive: true });
+    this.desktopQuery.addEventListener('change', this.handleViewportChange);
+  }
+
+  handleScroll() {
+    if (this.ticking) return;
+
+    this.ticking = true;
+    window.requestAnimationFrame(() => {
+      this.update();
+      this.ticking = false;
+    });
+  }
+
+  handleViewportChange() {
+    this.section.classList.remove('is-switcher-visible');
+    this.lastScrollY = window.scrollY;
+    this.upwardDistance = 0;
+    this.downwardDistance = 0;
+  }
+
+  update() {
+    const currentScrollY = window.scrollY;
+    const delta = currentScrollY - this.lastScrollY;
+
+    if (!this.desktopQuery.matches) {
+      this.handleViewportChange();
+      return;
+    }
+
+    if (currentScrollY === 0) {
+      this.section.classList.remove('is-switcher-visible');
+      this.upwardDistance = 0;
+      this.downwardDistance = 0;
+    } else if (delta < 0) {
+      this.upwardDistance += Math.abs(delta);
+      this.downwardDistance = 0;
+
+      if (this.upwardDistance >= 120) {
+        this.section.classList.add('is-switcher-visible');
+      }
+    } else if (delta > 0) {
+      this.downwardDistance += delta;
+      this.upwardDistance = 0;
+
+      if (this.downwardDistance >= 12) {
+        this.section.classList.remove('is-switcher-visible');
+      }
+    }
+
+    this.lastScrollY = currentScrollY;
+  }
+}
+
+const headerSection = document.querySelector('.shopify-section-header');
+
+if (headerSection) {
+  new HeaderScrollIntent(headerSection);
+}

@@ -1,3 +1,16 @@
+{%- liquid
+  assign page_brand_context = 'default'
+
+  if template.suffix == 'soda'
+    assign page_brand_context = 'soda'
+  elsif template.suffix == 'seltzer'
+    assign page_brand_context = 'seltzer'
+  elsif request.page_type == 'collection' and collection.handle == 'soda'
+    assign page_brand_context = 'soda'
+  elsif request.page_type == 'collection' and collection.handle == 'hard-seltzer'
+    assign page_brand_context = 'seltzer'
+  endif
+-%}
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
@@ -23,13 +36,56 @@
 
     {% render 'meta-tags' %}
 
+    {{ 'maison-neue-demi.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    {%- if page_brand_context == 'soda' -%}
+      {{ 'erode-regular.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    {%- else -%}
+      {{ 'newake-regular.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    {%- endif -%}
+
     <style>
+      @font-face {
+        font-family: 'Maison Neue Demi';
+        src: url('{{ 'maison-neue-demi.woff2' | asset_url }}') format('woff2');
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Maison Neue Bold';
+        src: url('{{ 'maison-neue-bold.woff2' | asset_url }}') format('woff2');
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Newake';
+        src: url('{{ 'newake-regular.woff2' | asset_url }}') format('woff2');
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Erode';
+        src: url('{{ 'erode-regular.woff2' | asset_url }}') format('woff2');
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+      }
+
       :root {
         --color-background: {{ settings.color_background }};
         --color-foreground: {{ settings.color_foreground }};
         --color-accent: {{ settings.color_accent }};
         --color-surface: {{ settings.color_surface }};
         --page-width: {{ settings.page_width }}px;
+        --font-body: 'Maison Neue Demi', Arial, Helvetica, sans-serif;
+        --font-heading-default: 'Newake', 'Maison Neue Demi', Arial, Helvetica, sans-serif;
+        --font-heading-soda: 'Erode', 'Maison Neue Demi', Arial, Helvetica, sans-serif;
+        --font-heading: var(--font-heading-default);
       }
     </style>
 
@@ -40,7 +96,7 @@
     {{ content_for_header }}
   </head>
 
-  <body>
+  <body class="brand-context--{{ page_brand_context }}">
     <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
 
     {% sections 'header-group' %}
