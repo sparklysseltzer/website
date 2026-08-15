@@ -10,7 +10,8 @@ This directory is the durable context for the Sparklys storefront. It records ou
 4. [Quality](quality.md) — accessibility, performance, SEO, and verification standards.
 5. [Commerce](commerce.md) — product, cart, subscriptions, markets, and app integration boundaries.
 6. [Status](status.md) — what the skeleton currently supports and what remains.
-7. [Shopify reference](shopify-reference.md) — searchable topic index into official documentation.
+7. [Task inbox](tasks.md) — temporary pending ideas that must not be implemented without explicit approval.
+8. [Shopify reference](shopify-reference.md) — searchable topic index into official documentation.
 
 ## Source policy
 

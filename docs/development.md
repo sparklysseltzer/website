@@ -27,6 +27,8 @@ git diff --check
 
 Theme Check detects Liquid/JSON syntax problems, missing templates, deprecated constructs, unused code, and selected performance issues. Configuration lives in `.theme-check.yml`. See [Theme Check](https://shopify.dev/docs/storefronts/themes/tools/theme-check) and its [configuration reference](https://shopify.dev/docs/storefronts/themes/tools/theme-check/configuration).
 
+`npm run check` also runs `npm run check:assets`, which reports raw, gzip, and Brotli estimates and enforces review thresholds for the global CSS and JavaScript payloads. Shopify performs the actual production minification, compression negotiation, versioning, and CDN caching. See [Frontend asset structure and delivery](frontend-assets.md) for placement rules and release verification.
+
 ## Searching current Shopify documentation
 
 The pinned CLI can query Shopify's current documentation directly:
