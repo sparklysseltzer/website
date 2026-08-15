@@ -4,7 +4,8 @@
   "private": true,
   "description": "Custom Shopify Online Store 2.0 theme for Sparklys Switzerland",
   "scripts": {
-    "check": "shopify theme check --fail-level error",
+    "check": "shopify theme check --fail-level error && npm run check:assets",
+    "check:assets": "node scripts/check-assets.mjs",
     "dev": "shopify theme dev --store sparklys-hard-seltzer.myshopify.com"
   },
   "engines": {
