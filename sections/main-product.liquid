@@ -59,11 +59,13 @@
           </label>
 
           <button class="button" type="submit"{% unless product.selected_or_first_available_variant.available %} disabled{% endunless %}>
-            {%- if product.selected_or_first_available_variant.available -%}
-              {{ 'products.product.add_to_cart' | t }}
-            {%- else -%}
-              {{ 'products.product.sold_out' | t }}
-            {%- endif -%}
+            <span class="button__label">
+              {%- if product.selected_or_first_available_variant.available -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- else -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- endif -%}
+            </span>
           </button>
           <p data-product-status role="status" aria-live="polite"></p>
         {%- endform -%}

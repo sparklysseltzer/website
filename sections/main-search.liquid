@@ -6,7 +6,7 @@
       <span class="visually-hidden">{{ 'general.search.search' | t }}</span>
       <input class="field__input" id="SearchInput" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}">
     </label>
-    <button class="button" type="submit">{{ 'general.search.submit' | t }}</button>
+    <button class="button" type="submit"><span class="button__label">{{ 'general.search.submit' | t }}</span></button>
   </form>
 
   {%- if search.performed -%}
@@ -18,7 +18,7 @@
             {% render 'product-card', card_product: item %}
           {%- else -%}
             <article>
-              <a href="{{ item.url }}"><h2>{{ item.title }}</h2></a>
+              <h2><a class="text-link" href="{{ item.url }}"><span class="text-link__label">{{ item.title }}</span></a></h2>
               <p>{{ item.content | strip_html | truncatewords: 25 }}</p>
             </article>
           {%- endif -%}

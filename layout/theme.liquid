@@ -17,6 +17,10 @@
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
+    {%- else -%}
+      <link rel="icon" type="image/png" sizes="32x32" href="{{ 'favicon.png' | asset_url }}">
+      <link rel="apple-touch-icon" sizes="180x180" href="{{ 'apple-touch-icon.png' | asset_url }}">
     {%- endif -%}
 
     <title>
@@ -77,7 +81,7 @@
         --color-foreground: {{ settings.color_foreground }};
         --color-accent: {{ settings.color_accent }};
         --color-surface: {{ settings.color_surface }};
-        --page-width: {{ settings.page_width }}px;
+        --page-width: 120rem;
         --font-body: 'Maison Neue Demi', Arial, Helvetica, sans-serif;
         --font-heading-default: 'Newake', 'Maison Neue Demi', Arial, Helvetica, sans-serif;
         --font-heading-soda: 'Erode', 'Maison Neue Demi', Arial, Helvetica, sans-serif;

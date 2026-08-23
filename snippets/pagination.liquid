@@ -2,11 +2,11 @@
   <nav aria-label="{{ 'general.pagination.label' | t }}">
     <div class="cluster">
       {%- if paginate.previous -%}
-        <a class="button button--secondary" href="{{ paginate.previous.url }}">{{ 'general.pagination.previous' | t }}</a>
+        <a class="button button--secondary" href="{{ paginate.previous.url }}"><span class="button__label">{{ 'general.pagination.previous' | t }}</span></a>
       {%- endif -%}
       <span>{{ 'general.pagination.page' | t: current: paginate.current_page, total: paginate.pages }}</span>
       {%- if paginate.next -%}
-        <a class="button button--secondary" href="{{ paginate.next.url }}">{{ 'general.pagination.next' | t }}</a>
+        <a class="button button--secondary" href="{{ paginate.next.url }}"><span class="button__label">{{ 'general.pagination.next' | t }}</span></a>
       {%- endif -%}
     </div>
   </nav>

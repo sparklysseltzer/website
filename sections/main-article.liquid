@@ -14,7 +14,7 @@
     }}
   {%- endif -%}
   <div class="rte">{{ article.content }}</div>
-  <a href="{{ blog.url }}">{{ 'blogs.article.back_to_blog' | t: title: blog.title }}</a>
+  <a class="text-link" href="{{ blog.url }}"><span class="text-link__label">{{ 'blogs.article.back_to_blog' | t: title: blog.title }}</span></a>
 </article>
 
 {% schema %}

@@ -4,7 +4,6 @@
     "color_foreground": "#172019",
     "color_accent": "#e34f2f",
     "color_surface": "#ffffff",
-    "page_width": 1320,
     "logo_width": 150
   },
   "presets": {
@@ -13,7 +12,6 @@
       "color_foreground": "#172019",
       "color_accent": "#e34f2f",
       "color_surface": "#ffffff",
-      "page_width": 1320,
       "logo_width": 150
     }
   }

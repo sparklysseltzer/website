@@ -27,6 +27,10 @@
   if footer_menu == blank
     assign footer_menu = section.settings.menu
   endif
+
+  assign newsletter_form_id = 'FooterNewsletterForm-' | append: section.id
+  assign newsletter_email_id = 'FooterNewsletterEmail-' | append: section.id
+  assign newsletter_status_id = 'FooterNewsletterStatus-' | append: section.id
 -%}
 
 <footer class="site-footer site-footer--{{ footer_context }}" data-footer-context="{{ footer_context }}">
@@ -68,10 +72,61 @@
           <p>{{ 'sections.footer.newsletter_copy' | t }}</p>
           <p>{{ 'sections.footer.newsletter_offer' | t }}</p>
         </div>
-        <div class="site-footer__newsletter-shell" aria-label="{{ 'sections.footer.newsletter_preview' | t }}">
-          <span class="site-footer__newsletter-placeholder">{{ 'sections.footer.email_placeholder' | t }}</span>
-          <span class="site-footer__newsletter-button">{{ 'sections.footer.subscribe' | t }}</span>
-        </div>
+        <newsletter-form
+          class="site-footer__newsletter-enhancement"
+          data-submitting-label="{{ 'sections.footer.newsletter_submitting' | t }}"
+        >
+          {%- form 'customer', id: newsletter_form_id, class: 'site-footer__newsletter-form' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="site-footer__newsletter-shell">
+              <label class="visually-hidden" for="{{ newsletter_email_id }}">
+                {{ 'sections.footer.email_label' | t }}
+              </label>
+              <input
+                class="site-footer__newsletter-input"
+                id="{{ newsletter_email_id }}"
+                type="email"
+                name="contact[email]"
+                value="{{ form.email | escape }}"
+                autocapitalize="off"
+                autocomplete="email"
+                autocorrect="off"
+                spellcheck="false"
+                placeholder="{{ 'sections.footer.email_placeholder' | t }}"
+                required
+                {% if form.errors %}
+                  aria-invalid="true"
+                  aria-describedby="{{ newsletter_status_id }}"
+                {% elsif form.posted_successfully? %}
+                  aria-describedby="{{ newsletter_status_id }}"
+                {% endif %}
+              >
+              <button class="button site-footer__newsletter-button" type="submit">
+                <span class="button__label">{{ 'sections.footer.subscribe' | t }}</span>
+              </button>
+            </div>
+
+            {%- if form.posted_successfully? -%}
+              <p
+                class="site-footer__newsletter-status site-footer__newsletter-status--success"
+                id="{{ newsletter_status_id }}"
+                role="status"
+                tabindex="-1"
+              >
+                {{ 'sections.footer.newsletter_success' | t }}
+              </p>
+            {%- elsif form.errors -%}
+              <div
+                class="site-footer__newsletter-status site-footer__newsletter-status--error"
+                id="{{ newsletter_status_id }}"
+                role="alert"
+                tabindex="-1"
+              >
+                {{ form.errors | default_errors }}
+              </div>
+            {%- endif -%}
+          {%- endform -%}
+        </newsletter-form>
       </section>
 
       <nav
@@ -87,8 +142,8 @@
               <ul class="site-footer__menu">
                 {%- for child_link in link.links -%}
                   <li>
-                    <a href="{{ child_link.url }}"{% if child_link.current %} aria-current="page"{% endif %}>
-                      {{ child_link.title }}
+                    <a class="text-link" href="{{ child_link.url }}"{% if child_link.current %} aria-current="page"{% endif %}>
+                      <span class="text-link__label">{{ child_link.title }}</span>
                     </a>
                   </li>
                 {%- endfor -%}
@@ -105,7 +160,7 @@
         <ul class="site-footer__legal" aria-label="{{ 'sections.footer.legal_navigation' | t }}">
           {%- for link in legal_menu.links -%}
             <li>
-              <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+              <a class="text-link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}><span class="text-link__label">{{ link.title }}</span></a>
             </li>
           {%- endfor -%}
         </ul>

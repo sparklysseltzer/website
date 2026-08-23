@@ -2,7 +2,7 @@
   <div class="cluster" style="justify-content: space-between">
     <h2>{{ section.settings.heading }}</h2>
     {%- if section.settings.collection != blank -%}
-      <a href="{{ section.settings.collection.url }}">{{ 'sections.featured_collection.view_all' | t }}</a>
+      <a class="text-link" href="{{ section.settings.collection.url }}"><span class="text-link__label">{{ 'sections.featured_collection.view_all' | t }}</span></a>
     {%- endif -%}
   </div>
 

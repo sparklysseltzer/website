@@ -37,21 +37,6 @@
     ]
   },
   {
-    "name": "Layout",
-    "settings": [
-      {
-        "type": "range",
-        "id": "page_width",
-        "min": 1080,
-        "max": 1600,
-        "step": 20,
-        "unit": "px",
-        "label": "Maximale Seitenbreite",
-        "default": 1320
-      }
-    ]
-  },
-  {
     "name": "Marke",
     "settings": [
       {
