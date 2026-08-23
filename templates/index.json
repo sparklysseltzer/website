@@ -26,7 +26,70 @@
         "heading": "Unsere Sparklys",
         "products_to_show": 4
       }
+    },
+    "offer_cards": {
+      "type": "offer-cards",
+      "blocks": {
+        "retail": {
+          "type": "card",
+          "settings": {
+            "default_image": "retail",
+            "title": "Retail",
+            "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "tag_1": "Detailhandel",
+            "tag_2": "Fachhandel",
+            "tag_3": "Shops",
+            "tag_4": "Delivery",
+            "tag_5": "Automaten"
+          }
+        },
+        "gastro": {
+          "type": "card",
+          "settings": {
+            "default_image": "gastro",
+            "title": "Gastro",
+            "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "tag_1": "Kantinen",
+            "tag_2": "Degustationen",
+            "tag_3": "Take-Aways",
+            "tag_4": "Bars",
+            "tag_5": "Cafés"
+          }
+        },
+        "events": {
+          "type": "card",
+          "settings": {
+            "default_image": "events",
+            "title": "Events",
+            "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "tag_1": "Day-Dances",
+            "tag_2": "Festivals",
+            "tag_3": "Veranstaltungen",
+            "tag_4": "Partys",
+            "tag_5": "Clubs"
+          }
+        },
+        "companies": {
+          "type": "card",
+          "settings": {
+            "default_image": "companies",
+            "title": "Firmen",
+            "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "tag_1": "Firmen-Abo",
+            "tag_2": "Kühlschränke",
+            "tag_3": "Snack-Automaten",
+            "tag_4": "Firmen-Events"
+          }
+        }
+      },
+      "block_order": ["retail", "gastro", "events", "companies"],
+      "settings": {
+        "show_heading": true,
+        "heading": "Unser Angebot",
+        "show_intro": true,
+        "intro": "<p>Mit unseren zwei Produkten Sparklys Soda und Sparklys Hard Seltzer decken wir eine breite Palette an Einsatzmöglichkeiten ab. Ob in Kantinen mit Sparklys Soda, an Events mit Sparklys Hard Seltzer oder im Detailhandel im Regal: Sparklys passt in unterschiedlichste Verkaufssituationen.</p>"
+      }
     }
   },
-  "order": ["hero", "intro", "products"]
+  "order": ["hero", "intro", "products", "offer_cards"]
 }

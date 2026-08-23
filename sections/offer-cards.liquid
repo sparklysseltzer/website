@@ -1,0 +1,475 @@
+<offer-cards-motion>
+<section class="offer-cards section page-width">
+  {%- if section.settings.show_heading or section.settings.show_intro -%}
+    <header class="offer-cards__header">
+      {%- if section.settings.show_heading and section.settings.heading != blank -%}
+        <h2 class="offer-cards__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.show_intro and section.settings.intro != blank -%}
+        <div class="offer-cards__intro rte">{{ section.settings.intro }}</div>
+      {%- endif -%}
+    </header>
+  {%- endif -%}
+
+  <div class="offer-cards__grid">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign fallback_image = blank
+        case block.settings.default_image
+          when 'retail'
+            assign fallback_image = 'offer-retail.jpg'
+          when 'gastro'
+            assign fallback_image = 'offer-gastro.jpg'
+          when 'events'
+            assign fallback_image = 'offer-events.jpg'
+          when 'companies'
+            assign fallback_image = 'offer-companies.jpg'
+        endcase
+      -%}
+
+      {%- if block.settings.link != blank -%}
+        <a class="offer-card" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+      {%- else -%}
+        <article class="offer-card" {{ block.shopify_attributes }}>
+      {%- endif -%}
+        <div class="offer-card__media" aria-hidden="true">
+          {%- if block.settings.image != blank -%}
+            {{
+              block.settings.image
+              | image_url: width: 1600
+              | image_tag:
+                widths: '480, 720, 960, 1200, 1600',
+                sizes: '(min-width: 120rem) 28rem, (min-width: 64rem) calc((100vw - 7.75rem) / 4), (min-width: 48rem) calc((100vw - 5.25rem) / 2), calc(100vw - 2rem)',
+                loading: 'lazy',
+                alt: ''
+            }}
+          {%- elsif fallback_image != blank -%}
+            <img
+              src="{{ fallback_image | asset_url }}"
+              alt=""
+              width="1043"
+              height="1800"
+              loading="lazy"
+            >
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag }}
+          {%- endif -%}
+        </div>
+
+        <div class="offer-card__content">
+          <div class="offer-card__title-row">
+            {%- if block.settings.title != blank -%}
+              <h3 class="offer-card__title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+            <span class="offer-card__arrow" aria-hidden="true">
+              <img src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="16" height="16">
+            </span>
+          </div>
+
+          {%- if block.settings.subtitle != blank -%}
+            <p class="offer-card__subtitle">{{ block.settings.subtitle }}</p>
+          {%- endif -%}
+        </div>
+
+        <div class="offer-card__tags">
+          {%- for tag_index in (1..5) -%}
+            {%- assign tag_key = 'tag_' | append: tag_index -%}
+            {%- assign tag = block.settings[tag_key] -%}
+            {%- if tag != blank -%}
+              <span class="offer-card__tag">{{ tag }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- if block.settings.link != blank -%}
+        </a>
+      {%- else -%}
+        </article>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+</offer-cards-motion>
+
+{% stylesheet %}
+  offer-cards-motion {
+    display: block;
+  }
+
+  .offer-cards.section {
+    padding-block: clamp(3rem, 4vw, 3.75rem);
+  }
+
+  .offer-cards__header {
+    max-width: 58rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .offer-cards__heading {
+    margin: 0;
+    font-size: clamp(2.75rem, 4.2vw, 3.75rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+
+  .offer-cards__intro {
+    margin-top: 0.625rem;
+    font-size: clamp(1rem, 1.55vw, 1.375rem);
+    line-height: 1.3;
+  }
+
+  .offer-cards__intro > :first-child {
+    margin-top: 0;
+  }
+
+  .offer-cards__intro > :last-child {
+    margin-bottom: 0;
+  }
+
+  .offer-cards__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  .offer-card {
+    position: relative;
+    isolation: isolate;
+    min-width: 0;
+    min-height: 32rem;
+    padding: 1.875rem 1.5625rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #fff;
+    background: #1a1a1a;
+    border-radius: 1.875rem;
+    text-decoration: none;
+  }
+
+  .offer-card:focus-visible {
+    outline: 3px solid currentcolor;
+    outline-offset: 3px;
+  }
+
+  .offer-card::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgb(0 0 0 / 52%), transparent 34%),
+      linear-gradient(to top, rgb(0 0 0 / 42%), transparent 26%);
+    content: '';
+    pointer-events: none;
+  }
+
+  .offer-card__media {
+    position: absolute;
+    z-index: -2;
+    inset: -7% 0;
+    width: 100%;
+    height: 114%;
+  }
+
+  .offer-card__media img,
+  .offer-card__media svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .offer-card__media img,
+  .offer-card__media svg {
+    object-fit: cover;
+  }
+
+  .offer-card__media img {
+    transform: scale(1);
+    transition: transform 700ms var(--motion-ease);
+  }
+
+  .offer-card__media svg {
+    color: rgb(255 255 255 / 35%);
+    background: #333;
+  }
+
+  .offer-card__title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+
+  .offer-card__title {
+    min-width: 0;
+    margin: 0;
+    flex: 1 1 auto;
+    font-family: var(--font-heading-default);
+    font-size: clamp(2.5rem, 3.5vw, 3.125rem);
+    font-weight: 400;
+    line-height: 1;
+    overflow-wrap: anywhere;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .offer-card__arrow {
+    width: 3rem;
+    height: 3rem;
+    margin-left: auto;
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0.125rem 0.1875rem rgb(0 0 0 / 10%);
+  }
+
+  .offer-card__arrow img {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .offer-card__subtitle {
+    display: none;
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+    line-height: 1.26;
+  }
+
+  .offer-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    align-items: flex-start;
+  }
+
+  .offer-card__tag {
+    padding: 0.5rem 0.625rem;
+    color: #fff;
+    background: rgb(255 255 255 / 42%);
+    border-radius: 2.5rem;
+    font-size: 0.875rem;
+    line-height: 1;
+    white-space: nowrap;
+    backdrop-filter: blur(0.9375rem);
+  }
+
+  @media (min-width: 48rem) {
+    .offer-cards__header {
+      width: 66.666%;
+    }
+
+    .offer-cards__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .offer-card {
+      min-height: clamp(32rem, 42vw, 36.75rem);
+    }
+
+    .offer-card__subtitle {
+      display: block;
+      opacity: 0;
+      transform: translateY(-0.25rem);
+      transition:
+        opacity var(--motion-duration-base) var(--motion-ease),
+        transform var(--motion-duration-base) var(--motion-ease);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .offer-cards__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .offer-card__tag {
+      font-size: 1rem;
+    }
+  }
+
+  @media (hover: hover) and (min-width: 48rem) {
+    .offer-card:hover .offer-card__media img {
+      transform: scale(1.07);
+    }
+
+    .offer-card:hover .offer-card__subtitle {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .offer-card:focus-visible .offer-card__media img {
+      transform: scale(1.07);
+    }
+
+    .offer-card:focus-visible .offer-card__subtitle {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .offer-card__media img {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Angebotskarten",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Titel anzeigen",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Titel",
+      "default": "Unser Angebot"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_intro",
+      "label": "Untertitel anzeigen",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Untertitel",
+      "default": "<p>Mit unseren zwei Produkten Sparklys Soda und Sparklys Hard Seltzer decken wir eine breite Palette an Einsatzmöglichkeiten ab. Ob in Kantinen mit Sparklys Soda, an Events mit Sparklys Hard Seltzer oder im Detailhandel im Regal: Sparklys passt in unterschiedlichste Verkaufssituationen.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Karte",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Bild"
+        },
+        {
+          "type": "select",
+          "id": "default_image",
+          "label": "Figma-Standardbild",
+          "options": [
+            { "value": "none", "label": "Keines" },
+            { "value": "retail", "label": "Retail" },
+            { "value": "gastro", "label": "Gastro" },
+            { "value": "events", "label": "Events" },
+            { "value": "companies", "label": "Firmen" }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "Titel",
+          "default": "Angebot"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Untertitel",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+        {
+          "type": "text",
+          "id": "tag_1",
+          "label": "Chip 1"
+        },
+        {
+          "type": "text",
+          "id": "tag_2",
+          "label": "Chip 2"
+        },
+        {
+          "type": "text",
+          "id": "tag_3",
+          "label": "Chip 3"
+        },
+        {
+          "type": "text",
+          "id": "tag_4",
+          "label": "Chip 4"
+        },
+        {
+          "type": "text",
+          "id": "tag_5",
+          "label": "Chip 5"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Angebotskarten",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "default_image": "retail",
+            "title": "Retail",
+            "tag_1": "Detailhandel",
+            "tag_2": "Fachhandel",
+            "tag_3": "Shops",
+            "tag_4": "Delivery",
+            "tag_5": "Automaten"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "default_image": "gastro",
+            "title": "Gastro",
+            "tag_1": "Kantinen",
+            "tag_2": "Degustationen",
+            "tag_3": "Take-Aways",
+            "tag_4": "Bars",
+            "tag_5": "Cafés"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "default_image": "events",
+            "title": "Events",
+            "tag_1": "Day-Dances",
+            "tag_2": "Festivals",
+            "tag_3": "Veranstaltungen",
+            "tag_4": "Partys",
+            "tag_5": "Clubs"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "default_image": "companies",
+            "title": "Firmen",
+            "tag_1": "Firmen-Abo",
+            "tag_2": "Kühlschränke",
+            "tag_3": "Snack-Automaten",
+            "tag_4": "Firmen-Events"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
