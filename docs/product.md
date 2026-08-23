@@ -46,15 +46,17 @@ The storefront has one general Sparklys layer and two product-world layers. Thes
 | --- | --- | --- | --- | --- |
 | General Sparklys | Home and shared/global content such as cart, search, account entry points, and unclassified editorial pages | The Sparklys “Arc” wordmark | Neither Soda nor Hard Seltzer is active | General Sparklys menu |
 | Sparklys Soda | The Soda landing page and Soda-classified products, collections, and supporting content | Sparklys Soda logo | Soda is active | Soda-specific menu |
-| Sparklys Hard Seltzer | The Hard Seltzer landing page and Hard-Seltzer-classified products, collections, and supporting content | Approved Hard Seltzer identity; the current live reference uses the Arc wordmark | Hard Seltzer is active | Hard-Seltzer-specific menu |
+| Sparklys Hard Seltzer | The Hard Seltzer landing page and Hard-Seltzer-classified products, collections, and supporting content | Sparklys Hard Seltzer logo | Hard Seltzer is active | Hard-Seltzer-specific menu |
 
 The homepage introduces both product worlds and the overall Sparklys brand. It must not imply that either product world is selected. Soda is non-alcoholic; Hard Seltzer is alcoholic. Content, navigation, compliance behavior, and product claims must preserve that distinction.
 
 The black top bar is the product-world switcher. The white bar below it changes logo and navigation according to the current context. Direct entry to any classified URL must render the correct context without requiring the visitor to select a tab first.
 
-Heading typography also follows the product-world context. General and Hard Seltzer pages use Newake for `h1` and `h2`; Soda pages use Erode Regular. Headings from `h3` onward and body/UI copy continue to use Maison Neue Demi in every context.
+Heading typography also follows the product-world context. General and Hard Seltzer pages use Newake for `h1` and `h2`; Soda pages use Erode Bold with `-0.03em` letter spacing (the CSS equivalent of −3%). Headings from `h3` onward and body/UI copy continue to use Maison Neue Demi in every context.
 
-The footer follows the same three contexts. General pages present the Arc plus separate Soda and Hard Seltzer navigation cards. Soda pages present the Soda logo and Soda shop card. Hard Seltzer pages present the Hard Seltzer logo and Hard Seltzer shop card. Shared newsletter, learning, company, legal, social, payment, store-finder, and language surfaces keep a consistent visual system across all three variants.
+Product detail pages belong to the same product world as their products. A Soda product receives the Soda header, active Soda tab, Soda navigation, Erode Bold headings, and Soda footer. A Hard Seltzer product receives the corresponding Hard Seltzer header, tab, navigation, Newake headings, and footer. Product-world styling is not limited to collection landing pages.
+
+The footer follows the same three contexts. General pages present the Arc plus separate Soda and Hard Seltzer navigation cards. Soda pages present the Soda logo and Soda shop card. Hard Seltzer pages present the Hard Seltzer logo and Hard Seltzer shop card. Shared newsletter, learning, company, legal, social, payment, store-finder, and language surfaces keep a consistent visual system across all three variants. Footer card headings are an intentional typography exception: they use Newake at weight 400 in every context, including Soda pages.
 
 ### Confirmed brand-landing decision
 

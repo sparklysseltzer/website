@@ -66,13 +66,15 @@ The header has three explicit server-rendered contexts: `default`, `soda`, and `
 
 | Context | Logo asset | Navigation source | Switcher state |
 | --- | --- | --- | --- |
-| `default` | `assets/sparklys-arc-logo.svg` | Default header menu | No active product-world tab |
-| `soda` | `assets/sparklys-soda-logo.svg` | Soda header menu | Soda tab active |
-| `seltzer` | Approved Hard Seltzer mark; currently `assets/sparklys-arc-logo.svg` based on the live collection reference | Hard Seltzer header menu | Hard Seltzer tab active |
+| `default` | `assets/sparklys-arc-logo.svg` | `main nav general` (`main-nav-general`) | No active product-world tab |
+| `soda` | `assets/sparklys-soda-logo.svg` | `main nav soda` (`main-nav-soda`) | Soda tab active |
+| `seltzer` | `assets/footer-logo-seltzer.svg`, inverted to black on the white header | `main nav seltzer` (`main-nav-seltzer`) | Hard Seltzer tab active |
 
-The contexts remain distinct even when two contexts temporarily share the same logo asset. Do not infer Soda or Hard Seltzer context from a logo alone.
+The contexts remain explicit server-rendered states. Do not infer Soda or Hard Seltzer context from a logo alone.
 
-The server-rendered page context also owns heading typography. `default` and `seltzer` use Newake for `h1` and `h2`; `soda` uses Erode Regular. A matching alternate-template suffix applies the context to future explicitly classified product and content templates, while the known collection handles bootstrap the two current brand landings. The header's resolved Soda context remains a CSS fallback for a merchant-configured Soda collection before its alternate template is assigned. No JavaScript is required for typography selection.
+The three primary-navigation menus are separate Shopify Navigation resources. Their initial Shop, Learn, and Subscribe items are placeholders until their destinations and dropdown structures are approved. Maintain each context independently in Shopify Admin; do not reuse or overwrite the old `main-menu` navigation.
+
+The server-rendered page context also owns heading typography. `default` and `seltzer` use Newake at weight 400 for `h1` and `h2`; `soda` uses Erode Bold at weight 700 with `-0.03em` letter spacing. Matching alternate-template suffixes apply the context to explicitly classified products and content, while membership in the configured brand collections classifies existing products without waiting for manual template assignment. The header's resolved Soda context remains a CSS fallback when section settings and the layout's bootstrap collection handles temporarily differ. No JavaScript is required for typography selection.
 
 Collection composition is split across three JSON templates:
 
@@ -84,24 +86,46 @@ Collection composition is split across three JSON templates:
 
 The branded templates are independent composition roots. They may diverge section-by-section as approved designs arrive; they do not need to retain matching layouts. Both must keep the native `collection.products` grid as the authoritative catalog surface.
 
+Product composition has the same three roots:
+
+| Template | Purpose |
+| --- | --- |
+| `templates/product.json` | General or not-yet-classified products |
+| `templates/product.soda.json` | Explicit Soda product context |
+| `templates/product.seltzer.json` | Explicit Hard Seltzer product context |
+
+The branded product templates currently share the same `main-product` composition. Their suffixes exist to make brand ownership explicit and allow the layouts to diverge later without changing the routing contract.
+
 Context resolution must be deterministic on the server so direct links, localized URLs, search engines, and no-JavaScript browsing receive the correct header:
 
-1. The `collection.soda` and `collection.seltzer` template suffixes select their matching contexts.
-2. The configured Soda and Hard Seltzer collection objects also select their matching contexts, including before alternate templates are assigned. The known `soda` and `hard-seltzer` handles bootstrap those object references when a fresh development theme has not persisted its collection-picker settings yet; merchant picker selections remain authoritative.
-3. Product pages must later inherit context through explicit Shopify-owned classification, such as dedicated JSON templates or a validated metafield/taxonomy rule.
-4. Supporting pages and articles may opt into a product-world context through the same explicit mechanism.
-5. Unclassified and shared surfaces fall back to `default`.
+1. Any `.soda` or `.seltzer` alternate-template suffix selects its matching context. This is authoritative for collections, products, and future explicitly branded content.
+2. The configured Soda and Hard Seltzer collection objects select their matching collection contexts even before alternate templates are assigned. The known `soda` and `hard-seltzer` handles bootstrap those object references when a fresh development theme has not persisted its collection-picker settings yet; merchant picker selections remain authoritative.
+3. A product in exactly one configured brand collection inherits that collection's context, so existing direct product URLs render the correct complete brand shell immediately.
+4. A product in both brand collections remains `default` unless an explicit branded product template resolves the ambiguity. Never let collection iteration order choose a product world accidentally.
+5. Supporting pages and articles may opt into a product-world context through an explicit `.soda` or `.seltzer` alternate template.
+6. Unclassified and shared surfaces fall back to `default`.
 
 Do not use browser session state as the authority for context. A visitor arriving directly on a Soda product must receive the Soda logo/menu, and a visitor arriving directly on a Hard Seltzer product must receive the Hard Seltzer logo/menu. The top tabs render Shopify collection objects and their `.url` values; never output hardcoded `/collections/soda`, `/collections/hard-seltzer`, or vanity paths, because localized storefront paths may change. The bootstrap handles above are only object lookups and must be updated or removed after a collection handle changes.
 
 The black bar is the top-level context switcher. It stays in normal document flow and scrolls away while the white bar becomes sticky at the viewport top. On desktop, progressive JavaScript reveals the complete header after 120px of cumulative upward scrolling, which signals deliberate return navigation rather than a tiny accidental movement. It hides the switcher again after 12px of downward movement. Without JavaScript, the white-bar-only sticky behavior remains the fallback. The white bar is context-dependent and owns the corresponding logo, main menu, and later dropdown content. Dropdown panels, expanded mobile behavior, and context propagation beyond the two landing pages remain separate implementation steps.
+
+The desktop utility navigation in the black bar is owned by the separate Shopify navigation menu `Corporate Nav` (`corporate-nav`). The header renders its top-level items in merchant-defined order. A leaf item renders as a normal link; any item with children automatically renders as a non-link disclosure trigger with a chevron and popover. Shopify's three navigation levels are supported, so a nested item inside the first popover can expose one further disclosure level. The disclosure works without JavaScript through native `details`/`summary`; progressive JavaScript adds outside-click, scroll, and Escape dismissal while restoring focus to the trigger.
+
+Blog and Contact are resource-backed menu items rather than hardcoded theme paths. Their destinations and labels belong to Shopify Navigation and can be maintained in Admin without a theme change. Do not repurpose or edit `Main Menu`, `Übersicht`, or the customer-account menu for this utility navigation. Keep `Corporate Nav` separate so development can evolve without altering a live menu's contents.
+
+The white-bar Store Finder action is backed by the Shopify `Händler` Page selected in the header settings, with `pages['haendler']` only as a bootstrap fallback. Its 46px pill matches the account and cart control height and transitions a rounded black border on hover and keyboard focus without changing layout.
+
+The account and cart controls both use 46px circles, but their Figma-exported glyph bounds are intentionally different inside the shared 18px icon frame: account is 13.6702×15.17px and cart is 16.5865×16.67px. Both source SVGs use the same 1.67px stroke. Preserve those exported glyph dimensions instead of forcing both files to 18px wide, which enlarges the narrower account mark and makes its stroke appear heavier.
 
 The desktop product-world tabs follow this interaction contract:
 
 - The active tab is a plain white surface with matching concave white joins into the white navigation bar. It never uses the noise texture.
 - An inactive tab has a stable 33px interaction box. Its 25px inner surface moves down 4px on hover or keyboard focus while the outer box stays fixed, preventing pointer-boundary oscillation when the cursor enters from above.
 - The inactive hover/focus surface and its joins use `bg-noise-pattern2x.png` over `#4d4d4d`. The 200px source is rendered at 100px CSS size to respect its 2x density.
+- The brand-tab container clips its animated joins at the switcher boundary, preventing their translated start state from flashing into the white navigation bar. The switcher itself remains overflow-visible so utility popovers are not clipped.
 - Hover styling is guarded by `(hover: hover)`, keyboard focus receives the equivalent visual state, and the global reduced-motion rule collapses the transitions for visitors who request it.
+
+Storefront motion uses one shared response curve, `cubic-bezier(0.22, 1, 0.36, 1)`, exposed as `--motion-ease`. Durations remain proportional to the interaction: `--motion-duration-fast` (200ms) for color, opacity, border, icon, and chevron states; `--motion-duration-base` (260ms) for tabs, buttons, and header movement; and `--motion-duration-slow` (360ms) for product-image zoom. Declare transitioned properties individually rather than using `transition: all`, and preserve the global `prefers-reduced-motion` override.
 
 ## Footer brand-context routing
 
@@ -109,11 +133,17 @@ The footer resolves the same `default`, `soda`, and `seltzer` contexts on the se
 
 | Context | Newsletter identity | Navigation composition |
 | --- | --- | --- |
-| `default` | Sparklys Arc | Separate Hard Seltzer and Soda product-world cards plus stacked Learn and Get to know cards |
+| `default` | Sparklys Arc | Combined Shop, Learn, and Get to know cards |
 | `soda` | Sparklys Soda | Soda Shop, Learn, and Get to know cards |
 | `seltzer` | Sparklys Hard Seltzer | Hard Seltzer Shop, Learn, and Get to know cards |
 
-All variants are full-bleed black surfaces with a centered 1200px desktop container. The Seltzer frame's outer gaps in Figma are placement artifacts, not storefront spacing. Footer destinations, newsletter submission, payment rendering, store finder, social links, and localization controls remain visual-only until their behavior is explicitly defined.
+Each context owns a separate Shopify Navigation resource: `footer nav general` (`footer-nav-general`), `footer nav soda` (`footer-nav-soda`), and `footer nav seltzer` (`footer-nav-seltzer`). Top-level menu items create footer cards, and their child links create the card content. All three menus must keep the Shop, Learn, and Get to know top-level structure unless a new footer design is approved. The initial destinations are placeholders pending the final routing concept.
+
+All footer contexts share `Legal Nav` (`legal-nav`) for policy links. Its AGB, Datenschutz, Impressum, Versandinformationen, and Rückgaberecht items are Shopify `SHOP_POLICY` resources for Terms of service, Privacy policy, Legal notice, Shipping policy, and Refund policy. Keep these resource-backed rather than hardcoding policy paths in Liquid so Shopify can render the appropriate storefront URLs.
+
+All variants are full-bleed black surfaces with a centered 1200px desktop container. The Seltzer frame's outer gaps in Figma are placement artifacts, not storefront spacing. The copyright year is rendered from Shopify's server-side `now` value and interpolated into the locale string. Newsletter submission, legal and social destinations, payment rendering, store finder, and localization controls remain visual-only until their behavior is explicitly defined.
+
+Footer card headings deliberately do not inherit the page-context heading family. `.site-footer__card-heading` always uses `--font-heading-default` (Newake) at weight 400, including on Soda pages where content-level `h1` and `h2` headings use Erode Bold. Preserve this exception when adding or reorganizing footer cards.
 
 ## Brand asset inventory
 
@@ -122,10 +152,10 @@ All variants are full-bleed black surfaces with a centered 1200px desktop contai
 | `maison-neue-demi.woff2` | Body copy, UI text, and headings from `h3` onward in every context |
 | `maison-neue-bold.woff2` | Registered for future approved uses; not preloaded |
 | `newake-regular.woff2` | General and Hard Seltzer `h1`/`h2` headings |
-| `erode-regular.woff2` | Soda `h1`/`h2` headings |
-| `sparklys-arc-logo.svg` | General header/footer identity and temporary Hard Seltzer header identity |
-| `sparklys-soda-logo.svg` | Soda header/footer identity and general-footer Soda card |
-| `footer-logo-seltzer.svg` | Hard Seltzer footer identity and general-footer Hard Seltzer card |
+| `erode-bold.woff2` | Soda `h1`/`h2` headings at weight 700 |
+| `sparklys-arc-logo.svg` | General header/footer identity |
+| `sparklys-soda-logo.svg` | Soda header/footer identity |
+| `footer-logo-seltzer.svg` | Hard Seltzer header/footer identity |
 | `bg-noise-pattern2x.png` | Inactive desktop brand-tab hover/focus texture only |
 
 These are theme-owned local assets and must be referenced through `asset_url`. Do not replace them with remote runtime URLs. Any logo replacement must preserve the three-context routing contract rather than changing every surface globally.

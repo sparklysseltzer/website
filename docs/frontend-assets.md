@@ -54,7 +54,7 @@ Rules:
 ## Fonts, images, and preloads
 
 - Serve theme fonts as local WOFF2 assets through `asset_url`.
-- Preload only fonts required for above-the-fold rendering. Maison Neue Demi is global; Erode is preloaded only in Soda context and Newake only outside Soda context. Maison Neue Bold must remain non-preloaded until an above-the-fold use justifies it.
+- Preload only fonts required for above-the-fold rendering. Maison Neue Demi is global; Erode Bold is preloaded only in Soda context and Newake only outside Soda context. Soda pages may load Newake normally when the below-the-fold footer renders its context-independent card headings; that exception does not justify a second heading-font preload. Maison Neue Bold must remain non-preloaded until an above-the-fold use justifies it.
 - Keep decorative theme textures local. `bg-noise-pattern2x.png` is a 2x source and is rendered at 100 by 100 CSS pixels where the header hover state uses it; active tabs deliberately remain untextured.
 - Render merchant images through `image_url` and `image_tag` with bounded widths, realistic `sizes`, and intrinsic dimensions.
 - Do not preload below-the-fold assets. Every preload competes with critical CSS, fonts, and the likely LCP image.

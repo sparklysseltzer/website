@@ -11,18 +11,12 @@ This file is temporary storage for ideas and follow-up work that arise while ano
 
 ## Pending approval
 
-### TASK-001 — Dynamic footer year
+### TASK-003 — Optically align the black-bar brand tabs
 
-- Replace the hardcoded footer copyright year (`2025`) with the current year so it renders `2026` in 2026 and continues updating automatically.
-- Preserve the localized copyright wording in German and English.
-- Status: Pending explicit approval.
-- Added: 2026-08-16.
-
-### TASK-002 — Hard Seltzer header logo
-
-- Replace the Arc logo with the correct Hard Seltzer logo on Hard Seltzer pages.
-- Preserve the Arc logo on home and general pages and the Soda logo on Soda pages.
-- Status: Pending explicit approval.
+- Reduce the desktop left inset of the black-bar brand-tab group so the visible “Sparklys Hard Seltzer” label aligns optically with the left edge of the white-bar Shop button.
+- Account for the tab's normally invisible hover joins when determining the optical edge; do not force mathematical left/right symmetry when it produces visible misalignment.
+- Preserve the current right-side utility alignment unless a wider header-spacing review is separately approved.
+- Status: Pending approval; do not implement until explicitly approved.
 - Added: 2026-08-16.
 
 ## Approved
@@ -31,4 +25,16 @@ None.
 
 ## Completed
 
-None.
+### TASK-001 — Dynamic footer year
+
+- Replaced the hardcoded footer year with Shopify's server-rendered current year while preserving localized German and English copyright strings.
+- Status: Completed.
+- Added: 2026-08-16.
+- Approved and completed: 2026-08-16.
+
+### TASK-002 — Hard Seltzer header logo
+
+- Replaced the Arc with the Hard Seltzer logo on Hard Seltzer pages while preserving the Arc for general pages and the Soda logo for Soda pages.
+- Status: Completed.
+- Added: 2026-08-16.
+- Approved and completed: 2026-08-16.

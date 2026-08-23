@@ -10,9 +10,16 @@ This file is a capability map, not a promise of production readiness.
 - Persistent header and footer section groups.
 - Figma-based responsive header shell with configurable default, Soda, and Hard Seltzer navigation contexts.
 - Desktop brand switcher with active concave joins, textured hover/focus treatment, stable animated hit areas, and scroll-intent restoration of the black bar.
-- Three context-aware Figma footer shells for General, Soda, and Hard Seltzer pages, with static newsletter, navigation, legal, social, payment, store-finder, and language-control previews.
+- Shopify-managed `Corporate Nav` black-bar navigation with resource-backed Blog and Contact links, automatic disclosure popovers and chevrons for nested items, and keyboard-accessible native details behavior.
+- Separate Shopify-managed General, Soda, and Hard Seltzer primary-navigation menus, each initialized with Shop, Learn, and Subscribe placeholders and connected to its matching header context.
+- Resource-backed Store Finder header action linked to the Shopify Händler page with an accessible animated pill treatment.
+- Three context-aware Figma footer shells with separate Shopify-managed General, Soda, and Hard Seltzer nested navigation menus; newsletter, legal, social, payment, store-finder, and language controls remain static previews.
+- Shared Shopify-managed Legal Nav with resource-backed AGB, Datenschutz, Impressum, and Versandinformationen policy links across every footer context.
+- Context-specific Arc, Soda, and Hard Seltzer header identities, plus a server-rendered localized footer year.
 - Default grid-only, Soda brand, and Hard Seltzer brand collection-template skeletons.
-- Context-aware local typography: Maison Neue Demi for body/UI and h3-h6, Erode Regular for Soda h1/h2, and Newake for general and Hard Seltzer h1/h2, with Maison Neue Bold registered for future use.
+- Context-aware local typography: Maison Neue Demi for body/UI and h3-h6, Erode Bold with −3% letter spacing for Soda h1/h2, and Newake for general and Hard Seltzer h1/h2, with Maison Neue Bold registered for future use.
+- Context-independent footer card typography: Newake at weight 400 in General, Soda, and Hard Seltzer variants.
+- Product detail pages inherit the complete Soda or Hard Seltzer shell through explicit branded templates or unambiguous membership in the configured brand collection.
 - Configurable hero, rich text, and featured collection sections.
 - JSON templates for home, product, collection, collection list, cart, search, page, blog, article, and 404.
 - Responsive product cards and basic product media.
@@ -39,8 +46,8 @@ This file is a capability map, not a promise of production readiness.
 | Last-minute sale / “others took this” | Definition required | Clarify product behavior, merchandising source, eligibility, inventory, analytics, and app-vs-custom ownership. |
 | Free-shipping upsell | Discovery required | Authoritative threshold by market/currency, qualifying subtotal, recommendations, progress UI, checkout consistency. |
 | App blocks/embeds | Not implemented | Add supported hosts and audit installed apps. |
-| Navigation | Basic | The general/Soda/Hard Seltzer context contract is documented and collection/menu switching is scaffolded. Configure the three menus, then add dropdown panels, utility destinations, explicit product/content classification, robust mobile disclosures, and long-content testing. |
-| Footer | Visual shell only | Connect real menus, newsletter submission, legal and social destinations, Shopify-supported payment methods, store finder, and accessible localization controls after their behavior is defined. |
+| Navigation | Basic | The general/Soda/Hard Seltzer context contract is documented; collection and product routing plus all four Shopify-managed menus are connected. Replace placeholder destinations, then add main-navigation dropdown panels, explicit supporting-content classification, robust mobile disclosures, and long-content testing. |
+| Footer | Menu-driven visual shell | Replace footer-card placeholder destinations, then connect newsletter submission, social destinations, Shopify-supported payment methods, store finder, and accessible localization controls after their behavior is defined. Legal policy destinations are connected through the shared Legal Nav. |
 | Cart | Basic | Discounts, properties, notes if required, selling plans, richer errors, accessible table semantics. |
 | Markets/localization | Partial | Initial scope is Switzerland and Liechtenstein. URLs and Ajax are locale-aware; language/market selectors and real Markets QA remain. |
 | Languages | Partial | German and English theme UI strings exist. Merchant content, published-language configuration, and likely French/Italian locale files remain. |
