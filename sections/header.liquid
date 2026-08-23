@@ -1,8 +1,13 @@
 {%- liquid
-  assign header_context = 'default'
   assign active_menu = section.settings.menu
+  assign corporate_menu = section.settings.corporate_menu
+  assign store_finder_page = section.settings.store_finder_page
   assign soda_collection = section.settings.soda_collection
   assign seltzer_collection = section.settings.seltzer_collection
+
+  if store_finder_page == blank
+    assign store_finder_page = pages['haendler']
+  endif
 
   if soda_collection == blank
     assign soda_collection = collections['soda']
@@ -12,20 +17,15 @@
     assign seltzer_collection = collections['hard-seltzer']
   endif
 
-  if request.page_type == 'collection'
-    if template.suffix == 'soda'
-      assign header_context = 'soda'
-      assign active_menu = section.settings.soda_menu
-    elsif template.suffix == 'seltzer'
-      assign header_context = 'seltzer'
-      assign active_menu = section.settings.seltzer_menu
-    elsif soda_collection != blank and collection.id == soda_collection.id
-      assign header_context = 'soda'
-      assign active_menu = section.settings.soda_menu
-    elsif seltzer_collection != blank and collection.id == seltzer_collection.id
-      assign header_context = 'seltzer'
-      assign active_menu = section.settings.seltzer_menu
-    endif
+  capture header_context
+    render 'brand-context', soda_collection: soda_collection, seltzer_collection: seltzer_collection
+  endcapture
+  assign header_context = header_context | strip
+
+  if header_context == 'soda'
+    assign active_menu = section.settings.soda_menu
+  elsif header_context == 'seltzer'
+    assign active_menu = section.settings.seltzer_menu
   endif
 
   if active_menu == blank
@@ -67,12 +67,51 @@
       </div>
 
       <nav class="site-header__utility" aria-label="{{ 'sections.header.utility_navigation' | t }}">
-        <span class="site-header__utility-item site-header__utility-item--dropdown">
-          {{ 'sections.header.company' | t }}
-          <img src="{{ 'icon-chevron-down-white.svg' | asset_url }}" width="9" height="6" alt="">
-        </span>
-        <span class="site-header__utility-item">{{ 'sections.header.blog' | t }}</span>
-        <span class="site-header__utility-item">{{ 'sections.header.contact' | t }}</span>
+        {%- for link in corporate_menu.links -%}
+          {%- if link.links != blank -%}
+            <header-corporate-menu class="site-header__corporate-menu">
+              <details data-corporate-menu>
+                <summary class="site-header__utility-item">
+                  {{ link.title }}
+                  <img src="{{ 'icon-chevron-down-white.svg' | asset_url }}" width="9" height="6" alt="">
+                </summary>
+                <div class="site-header__corporate-popover">
+                  <ul class="site-header__corporate-list" aria-label="{{ link.title | escape }}">
+                    {%- for child_link in link.links -%}
+                      <li>
+                        {%- if child_link.links != blank -%}
+                          <details class="site-header__corporate-submenu">
+                            <summary>
+                              {{ child_link.title }}
+                              <img src="{{ 'icon-chevron-down-white.svg' | asset_url }}" width="9" height="6" alt="">
+                            </summary>
+                            <ul>
+                              {%- for grandchild_link in child_link.links -%}
+                                <li>
+                                  <a href="{{ grandchild_link.url }}"{% if grandchild_link.current %} aria-current="page"{% endif %}>
+                                    {{ grandchild_link.title }}
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          </details>
+                        {%- else -%}
+                          <a href="{{ child_link.url }}"{% if child_link.current %} aria-current="page"{% endif %}>
+                            {{ child_link.title }}
+                          </a>
+                        {%- endif -%}
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              </details>
+            </header-corporate-menu>
+          {%- else -%}
+            <a class="site-header__utility-item" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>
+              {{ link.title }}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
       </nav>
     </div>
   </div>
@@ -142,6 +181,14 @@
             height="144"
             alt="{{ 'sections.header.soda' | t }}"
           >
+        {%- elsif header_context == 'seltzer' -%}
+          <img
+            class="site-header__logo-image site-header__logo-image--seltzer"
+            src="{{ 'footer-logo-seltzer.svg' | asset_url }}"
+            width="205"
+            height="56"
+            alt="{{ 'sections.footer.logo_alt' | t }}"
+          >
         {%- else -%}
           <img
             class="site-header__logo-image site-header__logo-image--arc"
@@ -154,15 +201,38 @@
       </a>
 
       <div class="site-header__actions">
-        <span class="site-header__store-finder">
-          {{ 'sections.header.store_finder' | t }}
-          <img src="{{ 'icon-location-pin.svg' | asset_url }}" width="12" height="14" alt="">
-        </span>
+        {%- if store_finder_page != blank -%}
+          <a
+            class="site-header__store-finder"
+            href="{{ store_finder_page.url }}"
+            {% if request.page_type == 'page' and page.id == store_finder_page.id %}aria-current="page"{% endif %}
+          >
+            {{ 'sections.header.store_finder' | t }}
+            <img src="{{ 'icon-location-pin.svg' | asset_url }}" width="12" height="14" alt="">
+          </a>
+        {%- else -%}
+          <span class="site-header__store-finder">
+            {{ 'sections.header.store_finder' | t }}
+            <img src="{{ 'icon-location-pin.svg' | asset_url }}" width="12" height="14" alt="">
+          </span>
+        {%- endif -%}
         <span class="site-header__action" aria-hidden="true">
-          <img src="{{ 'icon-account.svg' | asset_url }}" width="18" height="18" alt="">
+          <img
+            class="site-header__action-icon site-header__action-icon--account"
+            src="{{ 'icon-account.svg' | asset_url }}"
+            width="14"
+            height="15"
+            alt=""
+          >
         </span>
         <a class="site-header__action site-header__cart" href="{{ routes.cart_url }}">
-          <img src="{{ 'icon-cart.svg' | asset_url }}" width="18" height="18" alt="">
+          <img
+            class="site-header__action-icon site-header__action-icon--cart"
+            src="{{ 'icon-cart.svg' | asset_url }}"
+            width="17"
+            height="17"
+            alt=""
+          >
           <span class="visually-hidden">{{ 'sections.header.cart' | t }}</span>
           {%- if cart.item_count > 0 -%}
             <span class="site-header__cart-count" data-cart-count aria-hidden="true">{{ cart.item_count }}</span>
@@ -185,6 +255,20 @@
       "id": "menu",
       "label": "Default navigation",
       "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Utility navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "corporate_menu",
+      "label": "Corporate navigation"
+    },
+    {
+      "type": "page",
+      "id": "store_finder_page",
+      "label": "Store finder page"
     },
     {
       "type": "header",

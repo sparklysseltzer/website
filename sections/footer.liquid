@@ -1,5 +1,7 @@
 {%- liquid
-  assign footer_context = 'default'
+  assign current_year = 'now' | date: '%Y'
+  assign footer_menu = section.settings.menu
+  assign legal_menu = section.settings.legal_menu
   assign soda_collection = section.settings.soda_collection
   assign seltzer_collection = section.settings.seltzer_collection
 
@@ -11,16 +13,19 @@
     assign seltzer_collection = collections['hard-seltzer']
   endif
 
-  if request.page_type == 'collection'
-    if template.suffix == 'soda'
-      assign footer_context = 'soda'
-    elsif template.suffix == 'seltzer'
-      assign footer_context = 'seltzer'
-    elsif soda_collection != blank and collection.id == soda_collection.id
-      assign footer_context = 'soda'
-    elsif seltzer_collection != blank and collection.id == seltzer_collection.id
-      assign footer_context = 'seltzer'
-    endif
+  capture footer_context
+    render 'brand-context', soda_collection: soda_collection, seltzer_collection: seltzer_collection
+  endcapture
+  assign footer_context = footer_context | strip
+
+  if footer_context == 'soda'
+    assign footer_menu = section.settings.soda_menu
+  elsif footer_context == 'seltzer'
+    assign footer_menu = section.settings.seltzer_menu
+  endif
+
+  if footer_menu == blank
+    assign footer_menu = section.settings.menu
   endif
 -%}
 
@@ -69,86 +74,40 @@
         </div>
       </section>
 
-      {%- if footer_context == 'default' -%}
-        <div class="site-footer__navigation site-footer__navigation--general">
-          <section class="site-footer__card site-footer__card--product" aria-labelledby="footer-seltzer-heading">
-            <h2 id="footer-seltzer-heading" class="site-footer__product-heading">
-              <img
-                class="site-footer__product-logo site-footer__product-logo--seltzer"
-                src="{{ 'footer-logo-seltzer.svg' | asset_url }}"
-                width="205"
-                height="56"
-                alt="{{ 'sections.footer.logo_alt' | t }}"
-              >
+      <nav
+        class="site-footer__navigation{% if footer_context == 'default' %} site-footer__navigation--general{% endif %}"
+        aria-label="{{ 'sections.footer.navigation' | t }}"
+      >
+        {%- for link in footer_menu.links -%}
+          <section class="site-footer__card" aria-labelledby="footer-navigation-heading-{{ forloop.index }}">
+            <h2 id="footer-navigation-heading-{{ forloop.index }}" class="site-footer__card-heading">
+              {{ link.title }}
             </h2>
-            <ul class="site-footer__menu">
-              <li>{{ 'sections.footer.hard_seltzer_maracuja' | t }}</li>
-              <li>{{ 'sections.footer.hard_seltzer_elderflower' | t }}</li>
-              <li class="site-footer__menu-separator">{{ 'sections.footer.sparklys_subscription' | t }}</li>
-              <li class="site-footer__menu-separator">{{ 'sections.footer.clothing' | t }}</li>
-              <li>{{ 'sections.footer.accessories' | t }}</li>
-            </ul>
+            {%- if link.links != blank -%}
+              <ul class="site-footer__menu">
+                {%- for child_link in link.links -%}
+                  <li>
+                    <a href="{{ child_link.url }}"{% if child_link.current %} aria-current="page"{% endif %}>
+                      {{ child_link.title }}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
           </section>
-
-          <section class="site-footer__card site-footer__card--product" aria-labelledby="footer-soda-heading">
-            <h2 id="footer-soda-heading" class="site-footer__product-heading">
-              <img
-                class="site-footer__product-logo site-footer__product-logo--soda"
-                src="{{ 'sparklys-soda-logo.svg' | asset_url }}"
-                width="406"
-                height="195"
-                alt="{{ 'sections.header.soda' | t }}"
-              >
-            </h2>
-            <ul class="site-footer__menu">
-              <li>{{ 'sections.footer.soda_yuzu' | t }}</li>
-              <li>{{ 'sections.footer.soda_blueberry' | t }}</li>
-              <li class="site-footer__menu-separator">{{ 'sections.footer.soda_subscription' | t }}</li>
-              <li class="site-footer__menu-separator">{{ 'sections.footer.store_finder' | t }}</li>
-              <li class="site-footer__menu-separator">{{ 'sections.footer.clothing' | t }}</li>
-              <li>{{ 'sections.footer.accessories' | t }}</li>
-            </ul>
-          </section>
-
-          <div class="site-footer__card-stack">
-            {% render 'footer-card-learn' %}
-            {% render 'footer-card-company' %}
-          </div>
-        </div>
-      {%- else -%}
-        <div class="site-footer__navigation">
-          <section class="site-footer__card" aria-labelledby="footer-shop-heading">
-            <h2 id="footer-shop-heading" class="site-footer__card-heading">{{ 'sections.footer.shop' | t }}</h2>
-            <ul class="site-footer__menu">
-              {%- if footer_context == 'soda' -%}
-                <li>{{ 'sections.footer.soda_yuzu' | t }}</li>
-                <li>{{ 'sections.footer.soda_blueberry' | t }}</li>
-                <li class="site-footer__menu-separator">{{ 'sections.footer.soda_subscription' | t }}</li>
-              {%- else -%}
-                <li>{{ 'sections.footer.maracuja' | t }}</li>
-                <li>{{ 'sections.footer.elderflower' | t }}</li>
-                <li class="site-footer__menu-separator">{{ 'sections.footer.subscription' | t }}</li>
-              {%- endif -%}
-              <li class="site-footer__menu-separator">{{ 'sections.footer.store_finder' | t }}</li>
-              <li class="site-footer__menu-separator">{{ 'sections.footer.clothing' | t }}</li>
-              <li>{{ 'sections.footer.accessories' | t }}</li>
-            </ul>
-          </section>
-
-          {% render 'footer-card-learn' %}
-          {% render 'footer-card-company' %}
-        </div>
-      {%- endif -%}
+        {%- endfor -%}
+      </nav>
     </div>
 
     <div class="site-footer__meta">
-      <p class="site-footer__copyright">{{ 'sections.footer.copyright' | t }}</p>
+      <p class="site-footer__copyright">{{ 'sections.footer.copyright' | t: year: current_year }}</p>
       <div class="site-footer__meta-end">
         <ul class="site-footer__legal" aria-label="{{ 'sections.footer.legal_navigation' | t }}">
-          <li>{{ 'sections.footer.terms' | t }}</li>
-          <li>{{ 'sections.footer.privacy' | t }}</li>
-          <li>{{ 'sections.footer.legal_notice' | t }}</li>
-          <li>{{ 'sections.footer.shipping' | t }}</li>
+          {%- for link in legal_menu.links -%}
+            <li>
+              <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+            </li>
+          {%- endfor -%}
         </ul>
         <div class="site-footer__social" aria-label="{{ 'sections.footer.social_media' | t }}">
           <img src="{{ 'footer-social-instagram.svg' | asset_url }}" width="32" height="32" alt="Instagram">
@@ -183,6 +142,34 @@
 {
   "name": "Footer",
   "settings": [
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "General footer navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "soda_menu",
+      "label": "Soda footer navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "seltzer_menu",
+      "label": "Hard Seltzer footer navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "Legal navigation"
+    },
+    {
+      "type": "header",
+      "content": "Brand context"
+    },
     {
       "type": "collection",
       "id": "soda_collection",

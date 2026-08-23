@@ -112,6 +112,47 @@ class HeaderScrollIntent {
   }
 }
 
+class HeaderCorporateMenu extends HTMLElement {
+  connectedCallback() {
+    this.details = this.querySelector('[data-corporate-menu]');
+    this.summary = this.details?.querySelector(':scope > summary');
+
+    if (!this.details || !this.summary) return;
+
+    this.handleDocumentClick = this.handleDocumentClick.bind(this);
+    this.handleKeydown = this.handleKeydown.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+    document.addEventListener('click', this.handleDocumentClick);
+    document.addEventListener('keydown', this.handleKeydown);
+    window.addEventListener('scroll', this.handleScroll, { passive: true });
+  }
+
+  disconnectedCallback() {
+    document.removeEventListener('click', this.handleDocumentClick);
+    document.removeEventListener('keydown', this.handleKeydown);
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleDocumentClick(event) {
+    if (!this.contains(event.target)) this.details.removeAttribute('open');
+  }
+
+  handleKeydown(event) {
+    if (event.key !== 'Escape' || !this.details.open) return;
+
+    this.details.removeAttribute('open');
+    this.summary.focus();
+  }
+
+  handleScroll() {
+    this.details.removeAttribute('open');
+  }
+}
+
+if (!customElements.get('header-corporate-menu')) {
+  customElements.define('header-corporate-menu', HeaderCorporateMenu);
+}
+
 const headerSection = document.querySelector('.shopify-section-header');
 
 if (headerSection) {
