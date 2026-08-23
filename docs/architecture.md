@@ -45,6 +45,12 @@ Shopify supports only its defined theme directories for uploaded theme files. No
 - Use section blocks for content owned by one section. Use theme blocks only when a reusable nested block system is actually needed. See [Blocks](https://shopify.dev/docs/storefronts/themes/architecture/blocks).
 - Use app blocks in relevant sections when an installed storefront app needs merchant-controlled placement. App-block support is not yet implemented in the skeleton.
 
+A section file is the reusable structural component; every section instance stores its own settings and section-block content in the JSON template that contains it. Pages using the same JSON template therefore share that configured instance, while alternate templates can place the same section structure with different content. Do not duplicate Liquid to create content variants. If unrelated templates must display one centrally synchronized content record, introduce an approved metaobject/dynamic-source contract; if a surface must appear on every storefront page in one fixed shell position, use a layout-owned section group. Those global approaches are different from an ordinary add-anywhere content section.
+
+`offer-cards.liquid` follows the ordinary reusable-section model. It owns optional section heading and introduction settings plus up to four local card blocks. Each card has an editable Shopify image, title, optional Shopify URL, hover-only desktop subtitle, and five plain-text chip slots. Its bundled Figma image is only the initial fallback and is replaced when the merchant selects an image. A configured URL turns the complete card into one semantic link with matching pointer and keyboard-focus motion; a card without a URL remains a non-interactive article rather than emitting a placeholder route. Chips deliberately remain plain text until their own destinations and link semantics are approved.
+
+`offer-cards-motion` progressively enhances this section with a project-owned scroll-scrubbed timeline rather than a third-party animation runtime. The header and cards fade and translate upward with staggered progress ranges, while each oversized media layer receives a small scroll-linked vertical parallax transform. A requestAnimationFrame loop adds a short 110ms catch-up response while keeping the target playhead derived from the current scroll position, so scrolling upward reverses the scene. Desktop pointer hover independently scales the image inside its parallax layer. Without JavaScript or when `prefers-reduced-motion: reduce` matches, the Web Animations are not created and the complete static section remains visible.
+
 ## Liquid and URLs
 
 - Use Shopify's Liquid reference rather than generic Liquid assumptions: [Liquid reference](https://shopify.dev/docs/api/liquid).
@@ -120,12 +126,35 @@ The account and cart controls both use 46px circles, but their Figma-exported gl
 The desktop product-world tabs follow this interaction contract:
 
 - The active tab is a plain white surface with matching concave white joins into the white navigation bar. It never uses the noise texture.
+- The active joins overlap the tab surface by one CSS pixel so fractional text-driven tab widths cannot expose an antialiasing seam.
 - An inactive tab has a stable 33px interaction box. Its 25px inner surface moves down 4px on hover or keyboard focus while the outer box stays fixed, preventing pointer-boundary oscillation when the cursor enters from above.
 - The inactive hover/focus surface and its joins use `bg-noise-pattern2x.png` over `#4d4d4d`. The 200px source is rendered at 100px CSS size to respect its 2x density.
 - The brand-tab container clips its animated joins at the switcher boundary, preventing their translated start state from flashing into the white navigation bar. The switcher itself remains overflow-visible so utility popovers are not clipped.
 - Hover styling is guarded by `(hover: hover)`, keyboard focus receives the equivalent visual state, and the global reduced-motion rule collapses the transitions for visitors who request it.
 
-Storefront motion uses one shared response curve, `cubic-bezier(0.22, 1, 0.36, 1)`, exposed as `--motion-ease`. Durations remain proportional to the interaction: `--motion-duration-fast` (200ms) for color, opacity, border, icon, and chevron states; `--motion-duration-base` (260ms) for tabs, buttons, and header movement; and `--motion-duration-slow` (360ms) for product-image zoom. Declare transitioned properties individually rather than using `transition: all`, and preserve the global `prefers-reduced-motion` override.
+Storefront motion uses `cubic-bezier(0.22, 1, 0.36, 1)`, exposed as `--motion-ease`, for responsive state and positional transitions. Durations remain proportional to the interaction: `--motion-duration-fast` (200ms) for color, opacity, border, icon, and chevron states; `--motion-duration-base` (260ms) for tabs and header movement; and `--motion-duration-slow` (360ms) for product-image zoom. Highlight Sweep links use the symmetric `--motion-ease-emphasis` curve (`cubic-bezier(0.65, 0, 0.35, 1)`) over 200ms. Bubble Sweep buttons use their tuned Gentle curve (`cubic-bezier(0.4, 0, 0.2, 1)`) with an 800ms entrance and 600ms exit. Declare transitioned properties individually rather than using `transition: all`, and preserve the global `prefers-reduced-motion` override.
+
+### Sparklys base motion language
+
+The approved base style is calm, hierarchical, and scroll-scrubbed. It is a design contract independent of the eventual animation runtime: native Web Animations, CSS scroll timelines, or GSAP must produce the same visual behavior. New sections and components should opt into the appropriate role rather than animating every descendant indiscriminately.
+
+| Role | Base treatment |
+| --- | --- |
+| Section or scene | Establish the surface without moving document layout; reveal its primary content through opacity and no more than 48px of upward travel. |
+| Title | Fade and rise 24–32px before supporting copy. Keep words and lines grouped unless a separately approved story requires text splitting. |
+| Supporting copy and actions | Follow the title with shorter 8–24px travel and a restrained stagger that preserves reading order. |
+| Cards in one visual row | Fade and rise up to 48px with approximately 6% scroll-progress separation from left to right. |
+| Stacked mobile cards | Bind each card to its own viewport progress so it reveals when it actually arrives rather than inheriting a desktop-row timeline. |
+| Card media | Move vertically by approximately ±4% across the viewport passage. Oversize and clip the media layer so parallax never exposes an empty edge. |
+| Pointer hover media | Scale the image—not the card layout—to approximately `1.07` over 700ms using `--motion-ease`. Keep hover motion independent from entrance timelines. |
+
+Scrubbed reveals begin when the relevant element reaches roughly 84% of the viewport and resolve across a long scroll range toward the upper 15–25%. The current reference response uses about 110ms of catch-up smoothing: the target playhead always comes from scroll position, scrolling upward reverses it, and stopping scroll lets the rendered playhead settle without overshoot. Do not replace this with a delayed one-shot entrance or a bouncy easing. Use opacity and transforms only where practical, avoid scroll locking and layout shifts, and keep simultaneous movement limited enough that the page never feels nervous.
+
+Without JavaScript, the complete final state must remain visible and usable. `prefers-reduced-motion: reduce` skips non-essential reveals, parallax, and zoom while preserving content, focus order, and interaction. The runtime decision for expanding this language across the storefront—including whether to adopt locally hosted GSAP Core and ScrollTrigger—is tracked separately in `TASK-006`; do not couple the visual standard to that pending choice.
+
+Shared `.button` controls use the Sparklys Bubble Sweep: a 2px pill outline contains a circular inverse-color surface that expands completely across the control on pointer hover and keyboard focus. Button colors are deliberately black and white so the label can use per-pixel `difference` blending: each part of a letter inverts exactly when the tuned surface passes beneath it, with no separately timed text-color flash. The approved motion parameters are 800ms in, 600ms out, and the Gentle `cubic-bezier(0.4, 0, 0.2, 1)` easing. Primary and secondary buttons use inverse starting states but share the same motion, label treatment, disabled behavior, and reduced-motion fallback. The footer newsletter submit adopts the same primitive with its white resting border adapted to the black footer; header icon and utility controls retain their purpose-specific interactions.
+
+Standalone textual links use the shared `.text-link` Highlight Sweep without a resting underline. An inverse-color highlight expands from left to right over 200ms on pointer hover and keyboard focus. A dedicated label layer uses per-pixel `difference` blending, so every letter inverts only where the moving highlight has reached it instead of running a separate color transition. The highlight and link use a nearly square 1px corner radius, and footer links invert the primitive to white on black. Footer pointer hover adds a 75ms entry-only intent delay so fast movement across adjacent links does not flash partial sweeps; pointer exit and keyboard focus remain immediate. Navigation controls, linked images, logos, product cards, brand tabs, and button-styled anchors keep their purpose-specific interactions rather than inheriting this text-link treatment.
 
 ## Footer brand-context routing
 
@@ -141,7 +170,9 @@ Each context owns a separate Shopify Navigation resource: `footer nav general` (
 
 All footer contexts share `Legal Nav` (`legal-nav`) for policy links. Its AGB, Datenschutz, Impressum, Versandinformationen, and Rückgaberecht items are Shopify `SHOP_POLICY` resources for Terms of service, Privacy policy, Legal notice, Shipping policy, and Refund policy. Keep these resource-backed rather than hardcoding policy paths in Liquid so Shopify can render the appropriate storefront URLs.
 
-All variants are full-bleed black surfaces with a centered 1200px desktop container. The Seltzer frame's outer gaps in Figma are placement artifacts, not storefront spacing. The copyright year is rendered from Shopify's server-side `now` value and interpolated into the locale string. Newsletter submission, legal and social destinations, payment rendering, store finder, and localization controls remain visual-only until their behavior is explicitly defined.
+All variants are full-bleed black surfaces with the shared centered layout frame. The frame expands fluidly through 1920px including its responsive side gutters, then remains boxed and centered on wider viewports. The Seltzer frame's outer gaps in Figma are placement artifacts, not storefront spacing. The copyright year is rendered from Shopify's server-side `now` value and interpolated into the locale string. The newsletter uses Shopify's native customer form with the `newsletter` tag, matching the production form contract; the existing Shopify–Klaviyo integration owns subscriber synchronization, list routing, and opt-in behavior outside the theme. JavaScript progressively replaces the submitted form with Shopify's rendered success or error response in place, avoiding a full-page jump while preserving the native server-rendered submission when JavaScript is unavailable. Legal and social destinations, payment rendering, store finder, and localization controls remain visual-only until their behavior is explicitly defined.
+
+On desktop, the three general-footer navigation cards share one auto-sized grid row. The tallest card's content determines the row height and the other cards stretch to match it; neither the card grid nor the general footer main row carries a fixed minimum height. The navigation grid aligns to the start of the newsletter column so a taller neighboring newsletter surface cannot introduce empty card space. Stacked mobile cards remain independently content-sized.
 
 Footer card headings deliberately do not inherit the page-context heading family. `.site-footer__card-heading` always uses `--font-heading-default` (Newake) at weight 400, including on Soda pages where content-level `h1` and `h2` headings use Erode Bold. Preserve this exception when adding or reorganizing footer cards.
 
@@ -157,11 +188,16 @@ Footer card headings deliberately do not inherit the page-context heading family
 | `sparklys-soda-logo.svg` | Soda header/footer identity |
 | `footer-logo-seltzer.svg` | Hard Seltzer header/footer identity |
 | `bg-noise-pattern2x.png` | Inactive desktop brand-tab hover/focus texture only |
+| `favicon.png` | 32×32 browser favicon copied from the production storefront |
+| `apple-touch-icon.png` | 180×180 Apple touch icon copied from the production storefront |
+| `offer-retail.jpg`, `offer-gastro.jpg`, `offer-events.jpg`, `offer-companies.jpg` | Optimized local fallbacks for the Figma-based offer-card section |
+| `arrow-right.svg` | Exported Figma arrow used as the decorative offer-card direction cue |
 
 These are theme-owned local assets and must be referenced through `asset_url`. Do not replace them with remote runtime URLs. Any logo replacement must preserve the three-context routing contract rather than changing every surface globally.
 
 ## Styling
 
+- `--page-width` is the fixed shared outer-frame limit of `120rem` (1920px at the default root size). The frame includes its responsive side gutters, grows fluidly up to that limit, and stays centered above it. Keep this as an architecture token rather than a merchant setting so every theme instance uses the same layout contract. Individual content measures may remain narrower where readability or the approved composition requires it.
 - CSS custom properties in `theme.liquid` expose global design tokens.
 - `base.css` owns global primitives and shared component styles. Substantial portable feature styles should move into their owning section when page cost and ownership become clearer than one small global stylesheet.
 - Use native CSS and avoid Sass. Shopify serves and optimizes assets from its CDN.

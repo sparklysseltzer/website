@@ -11,19 +11,61 @@ This file is temporary storage for ideas and follow-up work that arise while ano
 
 ## Pending approval
 
-### TASK-003 — Optically align the black-bar brand tabs
+### TASK-006 — Establish the motion framework and storefront build-up intro
 
-- Reduce the desktop left inset of the black-bar brand-tab group so the visible “Sparklys Hard Seltzer” label aligns optically with the left edge of the white-bar Shop button.
-- Account for the tab's normally invisible hover joins when determining the optical edge; do not force mathematical left/right symmetry when it produces visible misalignment.
-- Preserve the current right-side utility alignment unless a wider header-spacing review is separately approved.
-- Status: Pending approval; do not implement until explicitly approved.
-- Added: 2026-08-16.
+- The runtime-independent Sparklys base motion language is approved and documented in `docs/architecture.md`; this task chooses and hardens the shared implementation engine rather than redefining that visual standard.
+- Decide whether GSAP Core plus ScrollTrigger should become the project motion runtime now that multiple heavy, coordinated, and scroll-scrubbed scenes are planned. Compare locally vendored GSAP against project-owned Web Animations/CSS, including payload, buildless-theme integration, lifecycle cleanup in the Shopify Theme Editor, browser consistency, reduced-motion behavior, and long-term maintenance. Do not load animation libraries from a third-party CDN.
+- Treat the intro as a calm construction of the storefront rather than a blocking splash screen. The page background and usable document remain present immediately; motion progressively layers the interface into place.
+- Header storyline:
+  1. Establish the black product-world strip with a short opacity reveal and restrained downward settle.
+  2. Reveal the white navigation surface from the top edge without bouncing or overshooting.
+  3. Settle the centered Sparklys identity with a small fade/vertical movement rather than an attention-seeking scale effect.
+  4. Bring in the left navigation group and right utility group with opposing 8–12px horizontal movements and a quiet 50–70ms internal stagger.
+  5. Finish on the active navigation state so the header is completely stable before the primary page content takes visual priority.
+- First-content handoff: after the header establishes the frame, allow the first page heading, supporting copy, and primary action to fade and rise in sequence. Avoid animating every word or character by default; use grouped elements and long, smooth easing to prevent nervous motion.
+- Footer storyline:
+  1. Let the black footer surface establish itself without moving the document layout.
+  2. Fade and lift the brand/newsletter column first, making it the footer anchor.
+  3. Bring in the navigation cards from left to right with a restrained stagger and matching vertical travel.
+  4. Resolve legal, copyright, social, payment, store-finder, and language surfaces as the final quieter layer.
+  5. Decide during prototyping whether the footer entrance should play once per visit or use a shallow reversible scrub; it must not repeatedly flash during small scroll-direction changes.
+- Motion direction: favor opacity plus 8–48px translations, smooth non-bouncy easing, limited simultaneous movement, and clear visual hierarchy. Keep hover motion independent from entrance timelines.
+- Accessibility and resilience: render the complete final state without JavaScript, skip non-essential animation for `prefers-reduced-motion`, preserve focus order and interaction during playback, avoid scroll locking, and prevent layout shifts.
+- Build an isolated tuning preview before applying the intro globally. Expose duration, stagger, travel, easing, and scrub/catch-up values so the motion can be approved visually before hardening.
+- Status: Pending framework decision, motion prototype, and implementation approval.
+- Added: 2026-08-23.
+
+### TASK-004 — Define and implement smooth scrolling
+
+- Consult Sandro before implementation and compare native CSS scrolling with established libraries such as Lenis and other credible alternatives.
+- Present the tradeoffs for feel, browser support, bundle size, maintenance, accessibility, sticky-header behavior, anchor links, touch input, and Shopify theme compatibility.
+- Preserve normal scrolling without JavaScript and disable enhanced motion for visitors who request reduced motion.
+- Do not add a dependency or implement scrolling behavior until the preferred approach is explicitly approved.
+- Status: Pending discovery and approval.
+- Added: 2026-08-23.
 
 ## Approved
 
 None.
 
 ## Completed
+
+### TASK-005 — Integrate the footer newsletter field with Klaviyo
+
+- Replaced the static footer preview with an accessible Shopify customer form tagged `newsletter`, matching the production storefront's form contract and relying on the existing Shopify–Klaviyo integration for synchronization.
+- Added localized German and English labels, placeholders, submit text, and success feedback while preserving Shopify's server-rendered errors and a complete no-JavaScript submission path.
+- Kept Klaviyo list routing, double opt-in, and consent behavior out of theme code; these remain provider-account configuration that must be verified before launch.
+- Status: Theme implementation completed; provider synchronization verification remains an operational launch check.
+- Added: 2026-08-23.
+- Approved and completed: 2026-08-23.
+
+### TASK-003 — Optically align the black-bar brand tabs
+
+- Reduced the desktop brand-tab inset by 4px so the visible “Sparklys Hard Seltzer” label aligns with the white-bar Shop label while preserving the utility-navigation edge.
+- Verified desktop hover alignment and the unchanged mobile header in the connected development preview.
+- Status: Completed.
+- Added: 2026-08-16.
+- Approved and completed: 2026-08-23.
 
 ### TASK-001 — Dynamic footer year
 
