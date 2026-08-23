@@ -1,0 +1,33 @@
+{%- liquid
+  assign resolved_brand_context = 'default'
+
+  if template.suffix == 'soda'
+    assign resolved_brand_context = 'soda'
+  elsif template.suffix == 'seltzer'
+    assign resolved_brand_context = 'seltzer'
+  elsif request.page_type == 'collection'
+    if soda_collection != blank and collection.id == soda_collection.id
+      assign resolved_brand_context = 'soda'
+    elsif seltzer_collection != blank and collection.id == seltzer_collection.id
+      assign resolved_brand_context = 'seltzer'
+    endif
+  elsif request.page_type == 'product'
+    assign product_is_soda = false
+    assign product_is_seltzer = false
+
+    for product_collection in product.collections
+      if soda_collection != blank and product_collection.id == soda_collection.id
+        assign product_is_soda = true
+      elsif seltzer_collection != blank and product_collection.id == seltzer_collection.id
+        assign product_is_seltzer = true
+      endif
+    endfor
+
+    if product_is_soda and product_is_seltzer == false
+      assign resolved_brand_context = 'soda'
+    elsif product_is_seltzer and product_is_soda == false
+      assign resolved_brand_context = 'seltzer'
+    endif
+  endif
+-%}
+{{- resolved_brand_context -}}

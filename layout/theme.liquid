@@ -1,15 +1,11 @@
 {%- liquid
-  assign page_brand_context = 'default'
+  assign page_soda_collection = collections['soda']
+  assign page_seltzer_collection = collections['hard-seltzer']
 
-  if template.suffix == 'soda'
-    assign page_brand_context = 'soda'
-  elsif template.suffix == 'seltzer'
-    assign page_brand_context = 'seltzer'
-  elsif request.page_type == 'collection' and collection.handle == 'soda'
-    assign page_brand_context = 'soda'
-  elsif request.page_type == 'collection' and collection.handle == 'hard-seltzer'
-    assign page_brand_context = 'seltzer'
-  endif
+  capture page_brand_context
+    render 'brand-context', soda_collection: page_soda_collection, seltzer_collection: page_seltzer_collection
+  endcapture
+  assign page_brand_context = page_brand_context | strip
 -%}
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
@@ -38,7 +34,7 @@
 
     {{ 'maison-neue-demi.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
     {%- if page_brand_context == 'soda' -%}
-      {{ 'erode-regular.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+      {{ 'erode-bold.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
     {%- else -%}
       {{ 'newake-regular.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
     {%- endif -%}
@@ -70,9 +66,9 @@
 
       @font-face {
         font-family: 'Erode';
-        src: url('{{ 'erode-regular.woff2' | asset_url }}') format('woff2');
+        src: url('{{ 'erode-bold.woff2' | asset_url }}') format('woff2');
         font-style: normal;
-        font-weight: 400;
+        font-weight: 700;
         font-display: swap;
       }
 
@@ -86,6 +82,8 @@
         --font-heading-default: 'Newake', 'Maison Neue Demi', Arial, Helvetica, sans-serif;
         --font-heading-soda: 'Erode', 'Maison Neue Demi', Arial, Helvetica, sans-serif;
         --font-heading: var(--font-heading-default);
+        --font-heading-weight: 400;
+        --font-heading-letter-spacing: normal;
       }
     </style>
 

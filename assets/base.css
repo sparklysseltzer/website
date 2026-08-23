@@ -17,12 +17,15 @@ html {
 h1,
 h2 {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: var(--font-heading-weight);
+  letter-spacing: var(--font-heading-letter-spacing);
 }
 
 .brand-context--soda,
 body:has(.site-header[data-header-context='soda']) {
   --font-heading: var(--font-heading-soda);
+  --font-heading-weight: 700;
+  --font-heading-letter-spacing: -0.03em;
 }
 
 h3,
@@ -659,7 +662,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   margin: 0;
   font-size: clamp(2.5rem, 8vw, 6.5rem);
   line-height: 0.94;
-  letter-spacing: normal;
+  letter-spacing: var(--font-heading-letter-spacing);
 }
 
 .hero__text {
@@ -682,7 +685,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   margin: 0;
   font-size: clamp(2rem, 6vw, 4.5rem);
   line-height: 1;
-  letter-spacing: normal;
+  letter-spacing: var(--font-heading-letter-spacing);
 }
 
 .product-grid {
@@ -754,7 +757,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   margin: 0;
   font-size: clamp(2rem, 5vw, 4rem);
   line-height: 1;
-  letter-spacing: normal;
+  letter-spacing: var(--font-heading-letter-spacing);
 }
 
 .price {
