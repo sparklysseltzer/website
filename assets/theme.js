@@ -249,9 +249,11 @@ class OfferCardsMotion extends HTMLElement {
   }
 
   setupMotion() {
-    this.section = this.querySelector('.offer-cards');
-    this.header = this.querySelector('.offer-cards__header');
-    this.cards = [...this.querySelectorAll('.offer-card')];
+    this.section = this.querySelector('[data-card-motion-section], .offer-cards');
+    this.header = this.querySelector('[data-card-motion-header], .offer-cards__header');
+    this.cards = [
+      ...this.querySelectorAll('[data-card-motion-card], .offer-card'),
+    ];
 
     if (!this.section || this.cards.length === 0) return;
 
@@ -274,7 +276,7 @@ class OfferCardsMotion extends HTMLElement {
     });
 
     this.parallaxAnimations = this.cards.map((card) => {
-      const media = card.querySelector('.offer-card__media');
+      const media = card.querySelector('[data-card-motion-media], .offer-card__media');
       const animation = media.animate(
         [
           { transform: 'translate3d(0, -4%, 0)' },
@@ -340,7 +342,7 @@ class OfferCardsMotion extends HTMLElement {
     const revealStart = viewportHeight * 0.84;
     const revealDistance = viewportHeight * 0.78;
     const sectionProgress = this.clamp((revealStart - bounds.top) / revealDistance);
-    const grid = this.querySelector('.offer-cards__grid');
+    const grid = this.querySelector('[data-card-motion-grid], .offer-cards__grid');
     const columnCount = grid
       ? getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length
       : 1;
@@ -453,6 +455,195 @@ class OfferCardsMotion extends HTMLElement {
 
 if (!customElements.get('offer-cards-motion')) {
   customElements.define('offer-cards-motion', OfferCardsMotion);
+}
+
+class ProductOverviewMotion extends OfferCardsMotion {}
+
+if (!customElements.get('product-overview-motion')) {
+  customElements.define('product-overview-motion', ProductOverviewMotion);
+}
+
+class PosterMotion extends HTMLElement {
+  connectedCallback() {
+    this.motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    this.handleMotionPreference = this.handleMotionPreference.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+    this.handleResize = this.handleResize.bind(this);
+    this.renderFrame = this.renderFrame.bind(this);
+
+    this.motionPreference.addEventListener('change', this.handleMotionPreference);
+    this.handleMotionPreference();
+  }
+
+  disconnectedCallback() {
+    this.motionPreference?.removeEventListener('change', this.handleMotionPreference);
+    this.teardownMotion();
+  }
+
+  handleMotionPreference() {
+    this.teardownMotion();
+
+    if (!this.motionPreference.matches) this.setupMotion();
+  }
+
+  setupMotion() {
+    this.section = this.querySelector('.poster-section');
+    this.surface = this.querySelector('[data-poster-surface]');
+    this.media = this.querySelector('[data-poster-media] .poster__media-inner');
+    this.revealTargets = [...this.querySelectorAll('[data-poster-reveal]')];
+
+    if (!this.section || !this.surface) return;
+
+    this.surfaceAnimation = this.surface.animate(
+      [
+        { opacity: 0, transform: 'translate3d(0, 3rem, 0)' },
+        { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+      ],
+      {
+        duration: 1000,
+        easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+        fill: 'both',
+      },
+    );
+    this.surfaceAnimation.pause();
+
+    this.revealAnimations = this.revealTargets.map((target) => {
+      const animation = target.animate(
+        [
+          { opacity: 0, transform: 'translate3d(0, 1.75rem, 0)' },
+          { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+        ],
+        {
+          duration: 1000,
+          easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+          fill: 'both',
+        },
+      );
+      animation.pause();
+      return animation;
+    });
+
+    if (this.media) {
+      this.parallaxAnimation = this.media.animate(
+        [
+          { transform: 'translate3d(0, -3%, 0) scale(1.08)' },
+          { transform: 'translate3d(0, 3%, 0) scale(1.08)' },
+        ],
+        { duration: 1000, easing: 'linear', fill: 'both' },
+      );
+      this.parallaxAnimation.pause();
+    }
+
+    this.currentProgress = null;
+    this.targetProgress = 0;
+    this.lastFrameTime = null;
+    this.frameRequest = null;
+    this.isNearViewport = false;
+
+    this.viewportObserver = new IntersectionObserver(
+      ([entry]) => {
+        this.isNearViewport = entry.isIntersecting;
+        this.updateTargetProgress();
+      },
+      { rootMargin: '100% 0px' },
+    );
+    this.viewportObserver.observe(this.section);
+
+    window.addEventListener('scroll', this.handleScroll, { passive: true });
+    window.addEventListener('resize', this.handleResize);
+    this.updateTargetProgress(true);
+  }
+
+  teardownMotion() {
+    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.handleResize);
+    this.viewportObserver?.disconnect();
+
+    if (this.frameRequest) window.cancelAnimationFrame(this.frameRequest);
+
+    this.surfaceAnimation?.cancel();
+    this.revealAnimations?.forEach((animation) => animation.cancel());
+    this.parallaxAnimation?.cancel();
+    this.revealAnimations = [];
+    this.frameRequest = null;
+  }
+
+  handleScroll() {
+    if (this.isNearViewport) this.updateTargetProgress();
+  }
+
+  handleResize() {
+    this.updateTargetProgress(true);
+  }
+
+  updateTargetProgress(renderImmediately = false) {
+    if (!this.section) return;
+
+    const bounds = this.section.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const revealStart = viewportHeight * 0.86;
+    const revealDistance = viewportHeight * 0.8;
+
+    this.targetProgress = this.clamp((revealStart - bounds.top) / revealDistance);
+
+    if (renderImmediately || this.currentProgress === null) {
+      this.currentProgress = this.targetProgress;
+      this.applyProgress();
+      return;
+    }
+
+    if (!this.frameRequest) {
+      this.lastFrameTime = null;
+      this.frameRequest = window.requestAnimationFrame(this.renderFrame);
+    }
+  }
+
+  renderFrame(timestamp) {
+    const elapsed = this.lastFrameTime === null ? 16 : Math.min(timestamp - this.lastFrameTime, 64);
+    const smoothing = 1 - Math.exp(-elapsed / 110);
+
+    this.lastFrameTime = timestamp;
+    this.currentProgress += (this.targetProgress - this.currentProgress) * smoothing;
+    this.applyProgress();
+
+    if (Math.abs(this.targetProgress - this.currentProgress) > 0.0005) {
+      this.frameRequest = window.requestAnimationFrame(this.renderFrame);
+    } else {
+      this.currentProgress = this.targetProgress;
+      this.applyProgress();
+      this.frameRequest = null;
+    }
+  }
+
+  applyProgress() {
+    this.setAnimationProgress(
+      this.surfaceAnimation,
+      this.rangeProgress(this.currentProgress, 0, 0.78),
+    );
+
+    this.revealAnimations.forEach((animation, index) => {
+      const start = 0.12 + index * 0.055;
+      this.setAnimationProgress(animation, this.rangeProgress(this.currentProgress, start, 0.9));
+    });
+
+    this.setAnimationProgress(this.parallaxAnimation, this.currentProgress);
+  }
+
+  setAnimationProgress(animation, progress) {
+    if (animation) animation.currentTime = progress * 1000;
+  }
+
+  rangeProgress(progress, start, end) {
+    return this.clamp((progress - start) / (end - start));
+  }
+
+  clamp(value) {
+    return Math.min(1, Math.max(0, value));
+  }
+}
+
+if (!customElements.get('poster-motion')) {
+  customElements.define('poster-motion', PosterMotion);
 }
 
 const headerSection = document.querySelector('.shopify-section-header');

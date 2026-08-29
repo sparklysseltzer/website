@@ -1,0 +1,672 @@
+{%- liquid
+  assign poster_image = section.settings.image
+  assign fallback_image = blank
+  assign fallback_width = 1229
+  assign fallback_height = 630
+
+  case section.settings.fallback_image
+    when 'subscription'
+      assign fallback_image = 'poster-subscription.webp'
+    when 'team'
+      assign fallback_image = 'poster-team.jpg'
+      assign fallback_width = 1280
+      assign fallback_height = 1600
+  endcase
+
+  assign image_alt = section.settings.image_alt
+  if image_alt == blank and poster_image != blank
+    assign image_alt = poster_image.alt
+  endif
+
+  assign image_sizes = '(min-width: 120rem) 120rem, calc(100vw - 2rem)'
+  if section.settings.layout == 'split'
+    assign image_sizes = '(min-width: 48rem) 50vw, calc(100vw - 2rem)'
+  endif
+
+  assign heading_tag = section.settings.heading_level
+  assign image_position_x = 50
+  case section.settings.image_position
+    when 'left center'
+      assign image_position_x = 0
+    when 'right center'
+      assign image_position_x = 100
+  endcase
+  assign image_position_x = image_position_x | plus: section.settings.image_offset_x
+  assign image_position_y = 50 | plus: section.settings.image_offset_y
+  assign overlay_opacity = section.settings.overlay_strength | divided_by: 100.0
+  assign overlay_mid_opacity = section.settings.overlay_strength | times: 0.78 | divided_by: 100.0
+  assign overlay_center_opacity = section.settings.overlay_strength | times: 0.72 | divided_by: 100.0
+  assign button_class = 'button'
+  if section.settings.button_style == 'light'
+    assign button_class = button_class | append: ' button--secondary'
+  elsif section.settings.button_style == 'automatic' and section.settings.layout == 'poster'
+    assign button_class = button_class | append: ' button--secondary'
+  endif
+-%}
+
+<poster-motion>
+  <section
+    class="poster-section section page-width"
+    style="
+      --poster-min-height: {{ section.settings.minimum_height }}px;
+      --poster-split-media-width: {{ section.settings.split_media_width }}%;
+      --poster-panel-color: {{ section.settings.panel_color }};
+      --poster-poster-color: {{ section.settings.poster_text_color }};
+      --poster-split-color: {{ section.settings.split_text_color }};
+      --poster-overlay-opacity: {{ overlay_opacity }};
+      --poster-overlay-mid-opacity: {{ overlay_mid_opacity }};
+      --poster-overlay-center-opacity: {{ overlay_center_opacity }};
+      --poster-image-position: {{ image_position_x }}% {{ image_position_y }}%;
+      --poster-check-icon: url('{{ 'check-circle.svg' | asset_url }}');
+    "
+  >
+    <div
+      class="poster poster--{{ section.settings.layout }} poster--image-{{ section.settings.image_side }} poster--content-{{ section.settings.content_position }}"
+      data-poster-surface
+    >
+      <div class="poster__media" data-poster-media>
+        <div class="poster__media-inner">
+          {%- if poster_image != blank -%}
+            {{
+              poster_image
+              | image_url: width: 2400
+              | image_tag:
+                widths: '480, 750, 1100, 1500, 2000, 2400',
+                sizes: image_sizes,
+                loading: 'lazy',
+                alt: image_alt
+            }}
+          {%- elsif fallback_image != blank -%}
+            <img
+              src="{{ fallback_image | asset_url }}"
+              alt="{{ image_alt | escape }}"
+              width="{{ fallback_width }}"
+              height="{{ fallback_height }}"
+              loading="lazy"
+            >
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag }}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="poster__overlay" aria-hidden="true"></div>
+
+      <div class="poster__content">
+        <div class="poster__content-inner">
+          {%- if section.settings.show_heading and section.settings.heading != blank -%}
+            <{{ heading_tag }} class="poster__heading" data-poster-reveal>
+              {{ section.settings.heading }}
+            </{{ heading_tag }}>
+          {%- endif -%}
+
+          {%- if section.settings.show_subtext and section.settings.subtext != blank -%}
+            <div class="poster__subtext rte" data-poster-reveal>{{ section.settings.subtext }}</div>
+          {%- endif -%}
+
+          {%- if section.settings.show_list and section.blocks.size > 0 -%}
+            <ul class="poster__list" data-poster-reveal>
+              {%- for block in section.blocks -%}
+                {%- if block.settings.text != blank -%}
+                  <li class="poster__list-item" {{ block.shopify_attributes }}>
+                    <span class="poster__check" aria-hidden="true"></span>
+                    <span>{{ block.settings.text }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+
+          {%- if section.settings.show_button and section.settings.button_label != blank and section.settings.button_link != blank -%}
+            <div class="poster__action" data-poster-reveal>
+              <a class="{{ button_class }}" href="{{ section.settings.button_link }}">
+                <span class="button__label poster__button-label">
+                  <span>{{ section.settings.button_label }}</span>
+                  <img
+                    class="poster__button-icon"
+                    src="{{ 'arrow-right.svg' | asset_url }}"
+                    alt=""
+                    width="16"
+                    height="16"
+                  >
+                </span>
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+</poster-motion>
+
+{% stylesheet %}
+  poster-motion {
+    display: block;
+  }
+
+  .poster {
+    position: relative;
+    min-height: var(--poster-min-height);
+    overflow: hidden;
+    color: var(--poster-poster-color);
+    background: #111;
+    border-radius: var(--radius-panel);
+  }
+
+  .poster__media,
+  .poster__media-inner,
+  .poster__media img,
+  .poster__media svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .poster__media {
+    overflow: hidden;
+  }
+
+  .poster__media-inner {
+    position: relative;
+    transform: scale(1.08);
+  }
+
+  .poster__media img,
+  .poster__media svg {
+    display: block;
+    object-fit: cover;
+    object-position: var(--poster-image-position);
+  }
+
+  .poster__media svg {
+    color: rgb(255 255 255 / 35%);
+    background: #333;
+  }
+
+  .poster__overlay {
+    display: none;
+    pointer-events: none;
+  }
+
+  .poster__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+  }
+
+  .poster__content-inner {
+    width: 100%;
+    max-width: 42rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .poster__heading {
+    margin: 0;
+    font-family: var(--font-heading-default);
+    font-size: clamp(2.5rem, 4.2vw, 3.75rem);
+    font-weight: 400;
+    line-height: 1;
+    overflow-wrap: anywhere;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .poster__subtext {
+    font-size: 1.0625rem;
+    line-height: 1.3;
+  }
+
+  .poster__subtext > :first-child {
+    margin-top: 0;
+  }
+
+  .poster__subtext > :last-child {
+    margin-bottom: 0;
+  }
+
+  .poster__list {
+    padding: 0;
+    margin: 0.125rem 0 0;
+    display: grid;
+    gap: 0.625rem;
+    list-style: none;
+  }
+
+  .poster__list-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    font-size: 1.0625rem;
+    line-height: 1.3;
+  }
+
+  .poster__check {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.05em;
+    flex: 0 0 auto;
+    background: currentcolor;
+    mask: var(--poster-check-icon) center / contain no-repeat;
+  }
+
+  .poster__action {
+    margin-top: 1rem;
+  }
+
+  .poster__button-label {
+    display: inline-flex;
+    gap: 0.625rem;
+    align-items: center;
+  }
+
+  .poster__button-icon {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 auto;
+    filter: invert(1);
+  }
+
+  .poster--poster .poster__media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .poster--poster .poster__overlay {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    display: block;
+    background: linear-gradient(
+      to left,
+      rgb(0 0 0 / var(--poster-overlay-opacity)) 8%,
+      rgb(0 0 0 / var(--poster-overlay-mid-opacity)) 44%,
+      transparent 78%
+    );
+  }
+
+  .poster--poster.poster--content-left .poster__overlay {
+    background: linear-gradient(
+      to right,
+      rgb(0 0 0 / var(--poster-overlay-opacity)) 8%,
+      rgb(0 0 0 / var(--poster-overlay-mid-opacity)) 44%,
+      transparent 78%
+    );
+  }
+
+  .poster--poster.poster--content-center .poster__overlay {
+    background: rgb(0 0 0 / var(--poster-overlay-center-opacity));
+  }
+
+  .poster--poster .poster__content {
+    width: 50%;
+    min-height: var(--poster-min-height);
+    padding: clamp(2rem, 4vw, 5rem);
+  }
+
+  .poster--poster.poster--content-right .poster__content {
+    margin-left: auto;
+  }
+
+  .poster--poster.poster--content-left .poster__content {
+    margin-right: auto;
+  }
+
+  .poster--poster.poster--content-center .poster__content {
+    width: min(75%, 52rem);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .poster--content-center .poster__content-inner {
+    margin-inline: auto;
+    align-items: center;
+  }
+
+  .poster--content-center .poster__list-item {
+    text-align: left;
+  }
+
+  .poster--split {
+    display: grid;
+    grid-template-columns:
+      minmax(0, var(--poster-split-media-width))
+      minmax(0, calc(100% - var(--poster-split-media-width)));
+    color: var(--poster-split-color);
+    background: var(--poster-panel-color);
+  }
+
+  .poster--split .poster__media,
+  .poster--split .poster__content {
+    min-height: var(--poster-min-height);
+  }
+
+  .poster--split .poster__media {
+    position: relative;
+  }
+
+  .poster--split .poster__media-inner {
+    position: absolute;
+    inset: 0;
+  }
+
+  .poster--split .poster__content {
+    padding: clamp(2rem, 4vw, 3.75rem);
+    background: var(--poster-panel-color);
+  }
+
+  .poster--split.poster--image-right .poster__media {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .poster--split.poster--image-right .poster__content {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  @media (max-width: 47.999rem) {
+    .poster {
+      min-height: 0;
+    }
+
+    .poster--poster {
+      min-height: max(34rem, var(--poster-min-height));
+    }
+
+    .poster--poster .poster__content {
+      width: 100%;
+      min-height: max(34rem, var(--poster-min-height));
+      padding: 2rem 1.5rem;
+      align-items: flex-end;
+    }
+
+    .poster--poster.poster--content-center .poster__content {
+      width: 100%;
+      align-items: center;
+    }
+
+    .poster--poster .poster__overlay,
+    .poster--poster.poster--content-left .poster__overlay {
+      background: linear-gradient(
+        to top,
+        rgb(0 0 0 / var(--poster-overlay-opacity)) 5%,
+        rgb(0 0 0 / var(--poster-overlay-mid-opacity)) 48%,
+        transparent 82%
+      );
+    }
+
+    .poster--split {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .poster--split .poster__media {
+      min-height: clamp(20rem, 100vw, 32rem);
+      order: 1;
+    }
+
+    .poster--split .poster__content {
+      min-height: 0;
+      padding: 2rem 1.5rem 2.5rem;
+      order: 2;
+    }
+
+    .poster__heading {
+      font-size: clamp(2.25rem, 11vw, 3.25rem);
+    }
+
+    .poster__subtext,
+    .poster__list-item {
+      font-size: 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .poster__media-inner {
+      transform: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Poster",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "poster", "label": "Poster — full image" },
+        { "value": "split", "label": "Split — image and text" }
+      ],
+      "default": "poster"
+    },
+    {
+      "type": "select",
+      "id": "image_side",
+      "label": "Image side in split layout",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "fallback_image",
+      "label": "Figma fallback image",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "subscription", "label": "Subscription poster" },
+        { "value": "team", "label": "Team portrait" }
+      ],
+      "default": "none",
+      "info": "A selected Shopify image always replaces the bundled fallback."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alternative text",
+      "info": "Leave blank to use the selected image's alt text."
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image anchor",
+      "options": [
+        { "value": "left center", "label": "Left" },
+        { "value": "center center", "label": "Center" },
+        { "value": "right center", "label": "Right" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "range",
+      "id": "image_offset_x",
+      "min": -50,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "label": "Horizontal image offset",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "image_offset_y",
+      "min": -50,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "label": "Vertical image offset",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content position in poster layout",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Add your poster heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "Heading level",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subtext",
+      "label": "Show subtext",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Add supporting copy for this poster.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_list",
+      "label": "Show tick list",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        { "value": "automatic", "label": "Automatic" },
+        { "value": "dark", "label": "Dark" },
+        { "value": "light", "label": "Light" }
+      ],
+      "default": "automatic"
+    },
+    {
+      "type": "color",
+      "id": "panel_color",
+      "label": "Split panel color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "poster_text_color",
+      "label": "Poster text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "split_text_color",
+      "label": "Split text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_strength",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Poster overlay strength",
+      "default": 55
+    },
+    {
+      "type": "range",
+      "id": "split_media_width",
+      "min": 35,
+      "max": 65,
+      "step": 5,
+      "unit": "%",
+      "label": "Split image width",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "minimum_height",
+      "min": 420,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum height",
+      "default": 630
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Tick item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Add a benefit or key point"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Poster",
+      "settings": {
+        "layout": "poster",
+        "fallback_image": "subscription",
+        "image_alt": "Sparklys cans on a cart",
+        "show_list": true
+      },
+      "blocks": [
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

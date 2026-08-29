@@ -1,0 +1,877 @@
+{%- liquid
+  assign all_products_link = section.settings.all_products_link
+  assign soda_link = section.settings.soda_link
+  assign hard_seltzer_link = section.settings.hard_seltzer_link
+-%}
+
+<product-overview-motion>
+  <section class="product-overview section page-width" data-card-motion-section>
+    <div class="product-overview__header" data-card-motion-header>
+      {%- if section.settings.heading != blank -%}
+        <h2 class="product-overview__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      <nav class="product-overview__navigation" aria-label="{{ 'sections.product_overview.navigation' | t }}">
+        {%- if section.settings.all_products_label != blank and all_products_link != blank -%}
+          <a class="product-overview__navigation-link" href="{{ all_products_link }}">
+            <span>{{ section.settings.all_products_label }}</span>
+            <span class="product-overview__navigation-arrow" aria-hidden="true">
+              <img src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="16" height="16">
+            </span>
+          </a>
+        {%- endif -%}
+
+        {%- if soda_link != blank -%}
+          <a class="product-overview__navigation-link product-overview__navigation-link--soda" href="{{ soda_link }}">
+            <img
+              class="product-overview__navigation-logo"
+              src="{{ 'sparklys-soda-logo.svg' | asset_url }}"
+              alt="{{ 'sections.header.soda' | t | escape }}"
+              width="406"
+              height="195"
+            >
+            <span class="product-overview__navigation-arrow" aria-hidden="true">
+              <img src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="16" height="16">
+            </span>
+          </a>
+        {%- endif -%}
+
+        {%- if hard_seltzer_link != blank -%}
+          <a class="product-overview__navigation-link product-overview__navigation-link--seltzer" href="{{ hard_seltzer_link }}">
+            <img
+              class="product-overview__navigation-logo product-overview__navigation-logo--seltzer"
+              src="{{ 'footer-logo-seltzer.svg' | asset_url }}"
+              alt="{{ 'sections.header.hard_seltzer' | t | escape }}"
+              width="205"
+              height="56"
+            >
+            <span class="product-overview__navigation-arrow" aria-hidden="true">
+              <img src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="16" height="16">
+            </span>
+          </a>
+        {%- endif -%}
+      </nav>
+    </div>
+
+    <div class="product-overview__grid" data-card-motion-grid>
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign card_image = block.settings.image
+          assign card_title = block.settings.title
+          assign soda_title_parts = card_title | split: ' & '
+          assign card_url = block.settings.link
+          assign fallback_image = blank
+          assign fallback_width = 600
+          assign fallback_height = 1072
+          assign card_image_aspect = 1
+          assign card_shadow_asset = 'shadow-soda.svg'
+          assign card_shadow_width = 206
+          assign card_shadow_height = 11
+          assign card_flavor_logo = blank
+          assign soda_title_break_before_ampersand = false
+
+          if block.settings.brand == 'hard_seltzer'
+            assign card_shadow_asset = 'shadow-seltzer.svg'
+            assign card_shadow_width = 223
+            assign card_shadow_height = 34
+          endif
+
+          if card_image != blank
+            assign card_image_aspect = card_image.aspect_ratio
+          endif
+
+          case block.settings.fallback_image
+            when 'soda_yuzu'
+              assign fallback_image = 'product-overview-soda-yuzu.webp'
+            when 'soda_blueberry'
+              assign fallback_image = 'product-overview-soda-blueberry.webp'
+              assign card_shadow_asset = 'shadow-soda-blueberry.svg'
+              assign soda_title_break_before_ampersand = true
+            when 'seltzer_maracuja'
+              assign fallback_image = 'product-overview-seltzer-maracuja.webp'
+              assign fallback_width = 296
+              assign fallback_height = 755
+              assign card_flavor_logo = 'product-overview-maracuja-wave-logo.svg'
+            when 'seltzer_holunder'
+              assign fallback_image = 'product-overview-seltzer-holunder.webp'
+              assign fallback_width = 297
+              assign fallback_height = 757
+              assign card_shadow_asset = 'shadow-seltzer-holunder.svg'
+              assign card_flavor_logo = 'product-overview-holunder-wave-logo.svg'
+          endcase
+
+          if card_image == blank and fallback_image != blank
+            assign card_image_aspect = fallback_width | times: 1.0 | divided_by: fallback_height
+          endif
+        -%}
+
+        {%- if card_url != blank -%}
+          <a
+            class="product-overview-card product-overview-card--{{ block.settings.brand }}"
+            href="{{ card_url }}"
+            style="
+              --product-card-background: {{ block.settings.background }};
+              --product-card-background-end: {{ block.settings.background_end }};
+              --product-card-accent: {{ block.settings.accent }};
+              --product-card-image-glow: {{ block.settings.image_glow }};
+              --product-card-image-width: {{ block.settings.image_width }}%;
+              --product-card-image-aspect: {{ card_image_aspect }};
+              --product-card-image-x: {{ block.settings.image_offset_x }}%;
+              --product-card-image-y: {{ block.settings.image_offset_y }}%;
+            "
+            data-card-motion-card
+            {{ block.shopify_attributes }}
+          >
+        {%- else -%}
+          <article
+            class="product-overview-card product-overview-card--{{ block.settings.brand }}"
+            style="
+              --product-card-background: {{ block.settings.background }};
+              --product-card-background-end: {{ block.settings.background_end }};
+              --product-card-accent: {{ block.settings.accent }};
+              --product-card-image-glow: {{ block.settings.image_glow }};
+              --product-card-image-width: {{ block.settings.image_width }}%;
+              --product-card-image-aspect: {{ card_image_aspect }};
+              --product-card-image-x: {{ block.settings.image_offset_x }}%;
+              --product-card-image-y: {{ block.settings.image_offset_y }}%;
+            "
+            data-card-motion-card
+            {{ block.shopify_attributes }}
+          >
+        {%- endif -%}
+          <div class="product-overview-card__media" data-card-motion-media>
+            <div class="product-overview-card__artwork">
+              <img
+                class="product-overview-card__floor-shadow"
+                src="{{ card_shadow_asset | asset_url }}"
+                alt=""
+                width="{{ card_shadow_width }}"
+                height="{{ card_shadow_height }}"
+                aria-hidden="true"
+              >
+
+              {%- if card_image != blank -%}
+                {{
+                  card_image
+                  | image_url: width: 1200
+                  | image_tag:
+                    widths: '320, 480, 640, 800, 1000, 1200',
+                    sizes: '(min-width: 120rem) 28rem, (min-width: 64rem) calc((100vw - 10rem) / 4), (min-width: 48rem) 42vw, 78vw',
+                    loading: 'lazy',
+                    alt: card_image.alt
+                }}
+              {%- elsif fallback_image != blank -%}
+                <img
+                  src="{{ fallback_image | asset_url }}"
+                  alt=""
+                  width="{{ fallback_width }}"
+                  height="{{ fallback_height }}"
+                  loading="lazy"
+                >
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag }}
+              {%- endif -%}
+            </div>
+          </div>
+
+          {%- if block.settings.show_alcohol_badge -%}
+            <span class="product-overview-card__badge">{{ 'sections.product_overview.alcoholic' | t }}</span>
+          {%- endif -%}
+
+          <div class="product-overview-card__content">
+            <div class="product-overview-card__identity">
+              {%- if block.settings.brand == 'soda' -%}
+                <img
+                  class="product-overview-card__brand product-overview-card__brand--soda"
+                  src="{{ 'sparklys-soda-logo.svg' | asset_url }}"
+                  alt=""
+                  width="406"
+                  height="195"
+                >
+              {%- else -%}
+                <img
+                  class="product-overview-card__brand product-overview-card__brand--seltzer"
+                  src="{{ 'footer-logo-seltzer.svg' | asset_url }}"
+                  alt=""
+                  width="205"
+                  height="56"
+                >
+              {%- endif -%}
+
+              {%- if card_title != blank -%}
+                {%- if card_flavor_logo != blank -%}
+                  <h3 class="product-overview-card__title product-overview-card__title--flavor-logo">
+                    <span class="visually-hidden">{{ card_title }}</span>
+                    <img
+                      class="product-overview-card__flavor-logo"
+                      src="{{ card_flavor_logo | asset_url }}"
+                      alt=""
+                      width="192"
+                      height="74"
+                      aria-hidden="true"
+                    >
+                  </h3>
+                {%- elsif block.settings.brand == 'soda' and soda_title_parts.size == 2 -%}
+                  <h3 class="product-overview-card__title">
+                    {%- if soda_title_break_before_ampersand -%}
+                      <span class="product-overview-card__title-line">{{ soda_title_parts.first }}</span>
+                      <span class="product-overview-card__title-line">&amp; {{ soda_title_parts.last }}</span>
+                    {%- else -%}
+                      <span class="product-overview-card__title-line">{{ soda_title_parts.first }} &amp;</span>
+                      <span class="product-overview-card__title-line">{{ soda_title_parts.last }}</span>
+                    {%- endif -%}
+                  </h3>
+                {%- else -%}
+                  <h3 class="product-overview-card__title">{{ card_title }}</h3>
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+
+            {%- if card_url != blank -%}
+              <span class="product-overview-card__arrow" aria-hidden="true">
+                <img src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="16" height="16">
+              </span>
+            {%- endif -%}
+          </div>
+        {%- if card_url != blank -%}
+          </a>
+        {%- else -%}
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </section>
+</product-overview-motion>
+
+{% stylesheet %}
+  product-overview-motion {
+    display: block;
+    background: #fff;
+  }
+
+  .product-overview__header {
+    margin-bottom: 1.875rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .product-overview__heading {
+    margin: 0;
+    flex: 0 0 auto;
+    font-family: var(--font-heading-default);
+    font-size: clamp(2.5rem, 3.75vw, 3.75rem);
+    font-weight: 400;
+    line-height: 0.95;
+    text-transform: uppercase;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .product-overview__navigation {
+    min-width: 0;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+  }
+
+  .product-overview__navigation-link {
+    padding: 0.75rem 0.75rem 0.75rem 1.5rem;
+    display: inline-flex;
+    gap: 0.75rem;
+    align-items: center;
+    border-radius: 999px;
+    color: #000;
+    background: #e0e0e0;
+    font-size: clamp(1rem, 2vw, 2rem);
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .product-overview__navigation-logo {
+    width: 7.5rem;
+    height: 3.5rem;
+    object-fit: contain;
+  }
+
+  .product-overview__navigation-logo--seltzer {
+    width: 10.5rem;
+    filter: invert(1);
+  }
+
+  .product-overview__navigation-arrow,
+  .product-overview-card__arrow {
+    width: 3.75rem;
+    height: 3.75rem;
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 3px rgb(0 0 0 / 10%);
+  }
+
+  .product-overview__navigation-arrow img,
+  .product-overview-card__arrow img {
+    width: 1rem;
+    height: 1rem;
+    transition: transform var(--motion-duration-base) var(--motion-ease);
+  }
+
+  .product-overview__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .product-overview-card {
+    --product-card-collision-lift: clamp(0.5rem, calc(23rem - 100cqi), 2rem);
+
+    position: relative;
+    isolation: isolate;
+    container-type: inline-size;
+    min-width: 0;
+    aspect-ratio: 335 / 575;
+    overflow: hidden;
+    display: flex;
+    color: #000;
+    background: linear-gradient(
+      to bottom,
+      var(--product-card-background) 0%,
+      var(--product-card-background) 42%,
+      var(--product-card-background-end) 100%
+    );
+    border-radius: var(--radius-panel);
+    text-decoration: none;
+  }
+
+  .product-overview-card::before {
+    position: absolute;
+    z-index: -3;
+    top: 7.61%;
+    left: 19.83%;
+    width: 59.5%;
+    height: 60.52%;
+    border-radius: 50%;
+    background: var(--product-card-image-glow);
+    filter: blur(14.21cqi);
+    transform: translateY(calc(0rem - var(--product-card-collision-lift)));
+    content: '';
+    pointer-events: none;
+  }
+
+  .product-overview-card::after {
+    position: absolute;
+    z-index: -1;
+    inset: 65.85% 0 0;
+    background: radial-gradient(
+      ellipse 136.8% 100% at left bottom,
+      rgb(255 255 255 / 70%) 23.856%,
+      rgb(255 255 255 / 0%) 98.765%
+    );
+    content: '';
+    pointer-events: none;
+  }
+
+  .product-overview-card__media {
+    position: absolute;
+    z-index: -2;
+    inset: -13% -6% calc(25% + var(--product-card-collision-lift));
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    container-type: size;
+    pointer-events: none;
+  }
+
+  .product-overview-card__artwork {
+    position: relative;
+    width: min(var(--product-card-image-width), calc(72cqh * var(--product-card-image-aspect)));
+    height: auto;
+    container-type: inline-size;
+    scale: var(--product-card-size-scale, 1);
+    transform-origin: center bottom;
+    transform: translate3d(var(--product-card-image-x), var(--product-card-image-y), 0) scale(1);
+    transition:
+      scale 700ms var(--motion-ease),
+      transform 700ms var(--motion-ease);
+  }
+
+  .product-overview-card--soda .product-overview-card__artwork {
+    --product-card-size-scale: 0.9;
+  }
+
+  .product-overview-card--hard_seltzer .product-overview-card__artwork {
+    --product-card-size-scale: 1.05;
+  }
+
+  .product-overview-card__floor-shadow {
+    position: absolute;
+    z-index: 0;
+    display: block;
+    max-width: none;
+    height: auto;
+    object-fit: fill;
+    mix-blend-mode: normal;
+    filter: brightness(0.6);
+    pointer-events: none;
+  }
+
+  .product-overview-card--soda .product-overview-card__floor-shadow {
+    top: 97.94%;
+    left: 16.75%;
+    width: 102%;
+    aspect-ratio: 206.022 / 11.1433;
+  }
+
+  .product-overview-card--hard_seltzer .product-overview-card__floor-shadow {
+    top: 94.5%;
+    left: -0.54%;
+    width: 145%;
+    aspect-ratio: 223 / 34;
+  }
+
+  .product-overview-card__artwork > img:not(.product-overview-card__floor-shadow),
+  .product-overview-card__artwork svg {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  .product-overview-card--hard_seltzer .product-overview-card__artwork > img:not(.product-overview-card__floor-shadow) {
+    mix-blend-mode: normal;
+  }
+
+  .product-overview-card__artwork svg {
+    opacity: 0.22;
+  }
+
+  .product-overview-card__badge {
+    position: absolute;
+    z-index: 2;
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.625rem 0.75rem;
+    border-radius: 999px;
+    color: #fff;
+    background: #000;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .product-overview-card__content {
+    width: 100%;
+    margin-top: auto;
+    padding: 1.25rem 1.25rem 2.5rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .product-overview-card__identity {
+    min-width: 0;
+  }
+
+  .product-overview-card__brand {
+    display: block;
+    margin-bottom: 0.5rem;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  .product-overview-card__brand--soda {
+    width: clamp(5rem, 28cqi, 6.5rem);
+    height: auto;
+  }
+
+  .product-overview-card__brand--seltzer {
+    width: clamp(6.25rem, 35cqi, 7.5rem);
+    height: auto;
+    margin-bottom: -0.25rem;
+    filter: invert(1);
+  }
+
+  .product-overview-card__title {
+    max-width: 10.5rem;
+    margin: 0;
+    color: var(--product-card-accent);
+    font-family: var(--font-heading-default);
+    font-size: clamp(1.75rem, 2.2vw, 2.5rem);
+    font-weight: 400;
+    line-height: 0.9;
+    overflow-wrap: anywhere;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .product-overview-card--soda .product-overview-card__title {
+    max-width: none;
+    font-family: var(--font-heading-soda);
+    font-size: clamp(2.25rem, calc(21cqi - 1.25rem), 3.875rem);
+    font-weight: 700;
+    line-height: 0.75;
+    letter-spacing: -0.03em;
+  }
+
+  .product-overview-card__title-line {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .product-overview-card__title--flavor-logo {
+    max-width: none;
+  }
+
+  .product-overview-card__flavor-logo {
+    display: block;
+    width: clamp(10.5rem, 65cqi, 15rem);
+    max-width: 100%;
+    height: auto;
+  }
+
+  .product-overview-card__arrow {
+    width: clamp(3rem, 16.25cqi, 3.75rem);
+    height: clamp(3rem, 16.25cqi, 3.75rem);
+  }
+
+  .product-overview-card:focus-visible,
+  .product-overview__navigation-link:focus-visible {
+    outline: 3px solid #000;
+    outline-offset: 3px;
+  }
+
+  @media (hover: hover) {
+    .product-overview-card:hover .product-overview-card__artwork {
+      transform: translate3d(var(--product-card-image-x), var(--product-card-image-y), 0) scale(1.07);
+    }
+
+    .product-overview-card:hover .product-overview-card__arrow img,
+    .product-overview__navigation-link:hover .product-overview__navigation-arrow img {
+      transform: translateX(0.2rem);
+    }
+  }
+
+  @media (max-width: 74.999rem) {
+    .product-overview__header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .product-overview__navigation {
+      width: 100%;
+      padding-bottom: 0.25rem;
+      overflow-x: auto;
+      justify-content: flex-start;
+      scrollbar-width: thin;
+    }
+
+    .product-overview__navigation-link {
+      flex: 0 0 auto;
+    }
+
+    .product-overview__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 47.999rem) {
+    .product-overview__heading {
+      font-size: clamp(2.25rem, 12vw, 3.25rem);
+    }
+
+    .product-overview__navigation-link {
+      padding: 0.5rem 0.5rem 0.5rem 1rem;
+      font-size: 1rem;
+    }
+
+    .product-overview__navigation-logo {
+      width: 5.5rem;
+      height: 2.5rem;
+    }
+
+    .product-overview__navigation-logo--seltzer {
+      width: 7.5rem;
+    }
+
+    .product-overview__navigation-arrow {
+      width: 2.75rem;
+      height: 2.75rem;
+    }
+
+    .product-overview-card__arrow {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .product-overview__grid {
+      margin-inline: calc(var(--page-gutter) * -1);
+      padding-inline: var(--page-gutter);
+      padding-bottom: 0.5rem;
+      grid-template-columns: none;
+      grid-auto-columns: min(78vw, 20rem);
+      grid-auto-flow: column;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+    }
+
+    .product-overview-card {
+      scroll-snap-align: start;
+    }
+
+    .product-overview-card__title {
+      font-size: 2rem;
+    }
+  }
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Product overview",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our drinks"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "text",
+      "id": "all_products_label",
+      "label": "All products label",
+      "default": "All products"
+    },
+    {
+      "type": "url",
+      "id": "all_products_link",
+      "label": "All products link"
+    },
+    {
+      "type": "url",
+      "id": "soda_link",
+      "label": "Soda link"
+    },
+    {
+      "type": "url",
+      "id": "hard_seltzer_link",
+      "label": "Hard Seltzer link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Replaces the starter image when selected."
+        },
+        {
+          "type": "select",
+          "id": "fallback_image",
+          "label": "Starter image",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "soda_yuzu",
+              "label": "Soda Yuzu & Ginger"
+            },
+            {
+              "value": "soda_blueberry",
+              "label": "Soda Blueberry & Pomelo"
+            },
+            {
+              "value": "seltzer_maracuja",
+              "label": "Hard Seltzer Maracuja"
+            },
+            {
+              "value": "seltzer_holunder",
+              "label": "Hard Seltzer Holunder"
+            }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "brand",
+          "label": "Product world",
+          "options": [
+            {
+              "value": "soda",
+              "label": "Soda"
+            },
+            {
+              "value": "hard_seltzer",
+              "label": "Hard Seltzer"
+            }
+          ],
+          "default": "soda"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_alcohol_badge",
+          "label": "Show alcohol badge",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "#ff9d00"
+        },
+        {
+          "type": "color",
+          "id": "background_end",
+          "label": "Background fade",
+          "default": "#ffeda3"
+        },
+        {
+          "type": "color",
+          "id": "accent",
+          "label": "Title color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "image_glow",
+          "label": "Image glow",
+          "info": "Soft color glow rendered behind the product image.",
+          "default": "#ffbf3c"
+        },
+        {
+          "type": "header",
+          "content": "Image position"
+        },
+        {
+          "type": "range",
+          "id": "image_width",
+          "min": 40,
+          "max": 110,
+          "step": 1,
+          "unit": "%",
+          "label": "Image width",
+          "default": 82
+        },
+        {
+          "type": "range",
+          "id": "image_offset_x",
+          "min": -30,
+          "max": 30,
+          "step": 1,
+          "unit": "%",
+          "label": "Horizontal offset",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "image_offset_y",
+          "min": -30,
+          "max": 30,
+          "step": 1,
+          "unit": "%",
+          "label": "Vertical offset",
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product overview",
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "title": "Yuzu & Ginger",
+            "fallback_image": "soda_yuzu",
+            "brand": "soda",
+            "background": "#ff9d00",
+            "background_end": "#ffeda3",
+            "accent": "#000000",
+            "image_glow": "#ffbf3c",
+            "image_width": 82,
+            "image_offset_y": 0
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Blueberry & Pomelo",
+            "fallback_image": "soda_blueberry",
+            "brand": "soda",
+            "background": "#00519a",
+            "background_end": "#65d3f4",
+            "accent": "#000000",
+            "image_glow": "#2885c2",
+            "image_width": 82,
+            "image_offset_y": 0
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Maracuja",
+            "fallback_image": "seltzer_maracuja",
+            "brand": "hard_seltzer",
+            "show_alcohol_badge": true,
+            "background": "#ff9d00",
+            "background_end": "#ffeda3",
+            "accent": "#ef9a00",
+            "image_glow": "#ffbf3c",
+            "image_width": 40,
+            "image_offset_y": 0
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Holunder",
+            "fallback_image": "seltzer_holunder",
+            "brand": "hard_seltzer",
+            "show_alcohol_badge": true,
+            "background": "#009e52",
+            "background_end": "#88f688",
+            "accent": "#1eb445",
+            "image_glow": "#36c16a",
+            "image_width": 40,
+            "image_offset_y": 0
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

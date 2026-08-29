@@ -21,10 +21,84 @@
       }
     },
     "products": {
-      "type": "featured-collection",
+      "type": "product-overview-teaser",
+      "blocks": {
+        "soda_yuzu": {
+          "type": "product",
+          "settings": {
+            "fallback_image": "soda_yuzu",
+            "title": "Yuzu & Ginger",
+            "link": "shopify://products/sparklys-soda-yuzu-ginger",
+            "brand": "soda",
+            "show_alcohol_badge": false,
+            "background": "#ff9d00",
+            "background_end": "#ffeda3",
+            "image_glow": "#ffbf3c",
+            "accent": "#000000",
+            "image_width": 82,
+            "image_offset_x": 0,
+            "image_offset_y": 0
+          }
+        },
+        "soda_blueberry": {
+          "type": "product",
+          "settings": {
+            "fallback_image": "soda_blueberry",
+            "title": "Blueberry & Pomelo",
+            "link": "shopify://products/sparklys-soda-blueberry-pomelo",
+            "brand": "soda",
+            "show_alcohol_badge": false,
+            "background": "#00519a",
+            "background_end": "#65d3f4",
+            "image_glow": "#2885c2",
+            "accent": "#000000",
+            "image_width": 82,
+            "image_offset_x": 0,
+            "image_offset_y": 0
+          }
+        },
+        "seltzer_maracuja": {
+          "type": "product",
+          "settings": {
+            "fallback_image": "seltzer_maracuja",
+            "title": "Maracuja",
+            "link": "shopify://products/sparklys-hard-seltzer-maracuja",
+            "brand": "hard_seltzer",
+            "show_alcohol_badge": true,
+            "background": "#ff9d00",
+            "background_end": "#ffeda3",
+            "image_glow": "#ffbf3c",
+            "accent": "#ef9a00",
+            "image_width": 40,
+            "image_offset_x": 0,
+            "image_offset_y": 0
+          }
+        },
+        "seltzer_holunder": {
+          "type": "product",
+          "settings": {
+            "fallback_image": "seltzer_holunder",
+            "title": "Holunder",
+            "link": "shopify://products/sparklys-hard-seltzer-holunder",
+            "brand": "hard_seltzer",
+            "show_alcohol_badge": true,
+            "background": "#009e52",
+            "background_end": "#88f688",
+            "image_glow": "#36c16a",
+            "accent": "#1eb445",
+            "image_width": 40,
+            "image_offset_x": 0,
+            "image_offset_y": 0
+          }
+        }
+      },
+      "block_order": ["soda_yuzu", "soda_blueberry", "seltzer_maracuja", "seltzer_holunder"],
       "settings": {
-        "heading": "Unsere Sparklys",
-        "products_to_show": 4
+        "heading": "Our drinks",
+        "all_products_label": "All products",
+        "all_products_link": "shopify://collections/all",
+        "soda_link": "shopify://collections/soda",
+        "hard_seltzer_link": "shopify://collections/hard-seltzer"
       }
     },
     "offer_cards": {
@@ -89,7 +163,15 @@
         "show_intro": true,
         "intro": "<p>Mit unseren zwei Produkten Sparklys Soda und Sparklys Hard Seltzer decken wir eine breite Palette an Einsatzmöglichkeiten ab. Ob in Kantinen mit Sparklys Soda, an Events mit Sparklys Hard Seltzer oder im Detailhandel im Regal: Sparklys passt in unterschiedlichste Verkaufssituationen.</p>"
       }
+    },
+    "logo_marquee": {
+      "type": "logo-marquee",
+      "settings": {
+        "duration": 32,
+        "direction": "normal",
+        "pause_on_interaction": true
+      }
     }
   },
-  "order": ["hero", "intro", "products", "offer_cards"]
+  "order": ["hero", "intro", "products", "offer_cards", "logo_marquee"]
 }

@@ -1,0 +1,261 @@
+{%- liquid
+  assign merchant_collection = section.settings.merchant_collection
+  assign merchants = blank
+
+  if merchant_collection != blank
+    assign merchants = merchant_collection.merchants.value
+  endif
+
+  assign merchant_count = merchants | size
+  assign repeat_count = 4
+
+  if merchant_count == 1
+    assign repeat_count = 20
+  elsif merchant_count == 2
+    assign repeat_count = 10
+  elsif merchant_count < 5
+    assign repeat_count = 6
+  endif
+-%}
+
+{%- if merchant_count > 0 or request.design_mode -%}
+  <section
+    class="logo-marquee"
+    style="--logo-marquee-duration: {{ section.settings.duration }}s; --logo-marquee-direction: {{ section.settings.direction }};"
+    aria-labelledby="LogoMarquee-{{ section.id }}"
+  >
+    <h2 class="visually-hidden" id="LogoMarquee-{{ section.id }}">
+      {{ 'sections.logo_marquee.label' | t }}
+    </h2>
+
+    {%- if merchant_count > 0 -%}
+      <div
+        class="logo-marquee__viewport{% if section.settings.pause_on_interaction %} logo-marquee__viewport--pausable{% endif %}"
+      >
+        <div class="logo-marquee__track">
+          {%- for repetition in (1..repeat_count) -%}
+            <ul
+              class="logo-marquee__list"
+              {% unless forloop.first %}
+                aria-hidden="true"
+              {% endunless %}
+            >
+              {%- for merchant in merchants -%}
+                {%- liquid
+                  assign merchant_name = merchant.name.value
+                  assign merchant_url = merchant.url.value
+                  assign merchant_logo = merchant.logo.value
+                  assign is_duplicate = true
+
+                  if repetition == 1
+                    assign is_duplicate = false
+                  endif
+                -%}
+                <li class="logo-marquee__item">
+                  {%- if merchant_url != blank -%}
+                    <a
+                      class="logo-marquee__tile"
+                      href="{{ merchant_url }}"
+                      aria-label="{{ merchant_name | escape }}"
+                      {% if is_duplicate %}tabindex="-1"{% endif %}
+                    >
+                  {%- else -%}
+                    <div class="logo-marquee__tile">
+                  {%- endif -%}
+
+                    {%- if merchant_logo != blank -%}
+                      {%- if merchant_logo.media_type == 'image' -%}
+                        {{
+                          merchant_logo
+                          | image_url: width: 410
+                          | image_tag:
+                            widths: '205, 410',
+                            sizes: '(min-width: 48rem) 205px, 172px',
+                            loading: 'lazy',
+                            alt: merchant_name,
+                            class: 'logo-marquee__image'
+                        }}
+                      {%- elsif merchant_logo.url != blank -%}
+                        <img
+                          class="logo-marquee__image"
+                          src="{{ merchant_logo.url }}"
+                          alt="{{ merchant_name | escape }}"
+                          loading="lazy"
+                          width="205"
+                          height="100"
+                        >
+                      {%- endif -%}
+                    {%- else -%}
+                      <span class="logo-marquee__fallback">{{ merchant_name }}</span>
+                    {%- endif -%}
+
+                  {%- if merchant_url != blank -%}
+                    </a>
+                  {%- else -%}
+                    </div>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- elsif request.design_mode -%}
+      <div class="logo-marquee__empty page-width">
+        Wähle eine veröffentlichte Merchant Collection mit mindestens einem Händler aus.
+      </div>
+    {%- endif -%}
+  </section>
+{%- endif -%}
+
+{% stylesheet %}
+  .logo-marquee {
+    padding-block: clamp(1.5rem, 2.5vw, 2.5rem);
+    overflow: hidden;
+    background: #e0e0e0;
+  }
+
+  .logo-marquee__viewport {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .logo-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: logo-marquee-scroll var(--logo-marquee-duration) linear infinite;
+    animation-direction: var(--logo-marquee-direction);
+    will-change: transform;
+  }
+
+  .logo-marquee__list {
+    display: flex;
+    flex: none;
+    gap: 1rem;
+    padding: 0 1rem 0 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .logo-marquee__item {
+    flex: none;
+  }
+
+  .logo-marquee__tile {
+    width: clamp(10.75rem, 12.8125vw, 12.8125rem);
+    aspect-ratio: 2.05;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #000;
+    background: #fff;
+    border-radius: 1.25rem;
+    text-decoration: none;
+  }
+
+  .logo-marquee__tile:focus-visible {
+    outline-color: #000;
+    outline-offset: -0.3125rem;
+  }
+
+  .logo-marquee__image {
+    width: auto;
+    max-width: 72%;
+    height: auto;
+    max-height: 58%;
+    object-fit: contain;
+  }
+
+  .logo-marquee__fallback {
+    max-width: 80%;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .logo-marquee__empty {
+    min-height: 6.25rem;
+    display: grid;
+    place-items: center;
+    color: #4d4d4d;
+    text-align: center;
+  }
+
+  @keyframes logo-marquee-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (hover: hover) {
+    .logo-marquee__viewport--pausable:hover .logo-marquee__track {
+      animation-play-state: paused;
+    }
+  }
+
+  .logo-marquee__viewport--pausable:focus-within .logo-marquee__track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-marquee__viewport {
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .logo-marquee__track {
+      animation: none;
+      will-change: auto;
+    }
+
+    .logo-marquee__list[aria-hidden='true'] {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Merchant Marquee",
+  "settings": [
+    {
+      "type": "metaobject",
+      "id": "merchant_collection",
+      "label": "Merchant Collection",
+      "metaobject_type": "merchant_collection"
+    },
+    {
+      "type": "range",
+      "id": "duration",
+      "label": "Loop duration",
+      "min": 12,
+      "max": 60,
+      "step": 2,
+      "unit": "s",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Direction",
+      "options": [
+        { "value": "normal", "label": "Left" },
+        { "value": "reverse", "label": "Right" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_interaction",
+      "label": "Pause on hover and focus",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Merchant Marquee"
+    }
+  ]
+}
+{% endschema %}
