@@ -8,12 +8,12 @@
     "theme_support_url": "https://github.com/sparklysseltzer/website/issues"
   },
   {
-    "name": "Farben",
+    "name": "Colors",
     "settings": [
       {
         "type": "color",
         "id": "color_background",
-        "label": "Hintergrund",
+        "label": "Background",
         "default": "#f7f3eb"
       },
       {
@@ -25,19 +25,35 @@
       {
         "type": "color",
         "id": "color_accent",
-        "label": "Akzent",
+        "label": "Accent",
         "default": "#e34f2f"
       },
       {
         "type": "color",
         "id": "color_surface",
-        "label": "Fläche",
+        "label": "Surface",
         "default": "#ffffff"
       }
     ]
   },
   {
-    "name": "Marke",
+    "name": "Effects",
+    "settings": [
+      {
+        "type": "range",
+        "id": "grain_intensity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "label": "Grain intensity",
+        "info": "Set to 0% to disable the global grain effect.",
+        "default": 30
+      }
+    ]
+  },
+  {
+    "name": "Brand",
     "settings": [
       {
         "type": "image_picker",
@@ -51,7 +67,7 @@
         "max": 260,
         "step": 10,
         "unit": "px",
-        "label": "Logobreite",
+        "label": "Logo width",
         "default": 150
       },
       {

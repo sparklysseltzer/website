@@ -81,6 +81,7 @@
         --color-foreground: {{ settings.color_foreground }};
         --color-accent: {{ settings.color_accent }};
         --color-surface: {{ settings.color_surface }};
+        --page-grain-opacity: {{ settings.grain_intensity | divided_by: 100.0 }};
         --page-width: 120rem;
         --font-body: 'Maison Neue Demi', Arial, Helvetica, sans-serif;
         --font-heading-default: 'Newake', 'Maison Neue Demi', Arial, Helvetica, sans-serif;
@@ -99,6 +100,8 @@
   </head>
 
   <body class="brand-context--{{ page_brand_context }}">
+    <div class="page-grain" aria-hidden="true"></div>
+
     <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
 
     {% sections 'header-group' %}

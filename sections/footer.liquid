@@ -31,6 +31,15 @@
   assign newsletter_form_id = 'FooterNewsletterForm-' | append: section.id
   assign newsletter_email_id = 'FooterNewsletterEmail-' | append: section.id
   assign newsletter_status_id = 'FooterNewsletterStatus-' | append: section.id
+  assign instagram_url = 'https://www.instagram.com/sparklysseltzer/'
+  assign tiktok_url = 'https://www.tiktok.com/@sparklysseltzer'
+  assign facebook_url = 'https://www.facebook.com/sparklysseltzer'
+
+  if footer_context == 'soda'
+    assign instagram_url = 'https://www.instagram.com/sparklyssoda/'
+    assign tiktok_url = 'https://www.tiktok.com/@sparklyssoda'
+    assign facebook_url = 'https://www.facebook.com/sparklyssoda'
+  endif
 -%}
 
 <footer class="site-footer site-footer--{{ footer_context }}" data-footer-context="{{ footer_context }}">
@@ -165,10 +174,42 @@
           {%- endfor -%}
         </ul>
         <div class="site-footer__social" aria-label="{{ 'sections.footer.social_media' | t }}">
-          <img src="{{ 'footer-social-instagram.svg' | asset_url }}" width="32" height="32" alt="Instagram">
-          <img src="{{ 'footer-social-tiktok.svg' | asset_url }}" width="32" height="32" alt="TikTok">
-          <img src="{{ 'footer-social-linkedin.svg' | asset_url }}" width="32" height="32" alt="LinkedIn">
-          <img src="{{ 'footer-social-facebook.svg' | asset_url }}" width="32" height="32" alt="Facebook">
+          <a
+            class="site-footer__social-link"
+            href="{{ instagram_url }}"
+            aria-label="{{ 'sections.footer.social_media' | t }}: Instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="{{ 'footer-social-instagram.svg' | asset_url }}" width="32" height="32" alt="">
+          </a>
+          <a
+            class="site-footer__social-link"
+            href="{{ tiktok_url }}"
+            aria-label="{{ 'sections.footer.social_media' | t }}: TikTok"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="{{ 'footer-social-tiktok.svg' | asset_url }}" width="32" height="32" alt="">
+          </a>
+          <a
+            class="site-footer__social-link"
+            href="https://www.linkedin.com/company/sparklys/"
+            aria-label="{{ 'sections.footer.social_media' | t }}: LinkedIn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="{{ 'footer-social-linkedin.svg' | asset_url }}" width="32" height="32" alt="">
+          </a>
+          <a
+            class="site-footer__social-link"
+            href="{{ facebook_url }}"
+            aria-label="{{ 'sections.footer.social_media' | t }}: Facebook"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="{{ 'footer-social-facebook.svg' | asset_url }}" width="32" height="32" alt="">
+          </a>
         </div>
       </div>
     </div>
