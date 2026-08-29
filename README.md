@@ -6,6 +6,8 @@ This repository is a buildless Liquid theme. It deliberately starts small so the
 
 Start with the [documentation index](docs/README.md) for product context, architecture, current capability status, development rules, and the curated official Shopify reference stack.
 
+The theme currently provides 18 documented Liquid sections covering the global header/footer shell, reusable editorial and merchandising modules, and Shopify resource templates. See the authoritative [Section reference](docs/sections/README.md) for the available sections and their implementation contracts.
+
 ## Requirements
 
 - Node.js 22 or newer
@@ -36,6 +38,7 @@ Publishing or pushing a persistent theme is never part of the default developmen
 - `layout/` contains the global document shell.
 - `templates/` maps Shopify resources to sections.
 - `sections/` contains merchant-configurable page modules and section groups.
+- `docs/sections/` documents every Liquid section and its current contract.
 - `snippets/` contains small reusable rendering primitives.
 - `assets/` contains buildless CSS and JavaScript.
 - `config/` contains global theme settings and their current values.

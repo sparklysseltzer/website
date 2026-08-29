@@ -1,5 +1,9 @@
 # Development workflow
 
+## Language policy
+
+English is the source language and default theme locale. Always author code, identifiers, comments, tests, commits, technical documentation, Shopify definition names and field labels, Theme Editor schema names/labels/help text, and every other technical or administrative interface in English. Reusable storefront UI starts in `locales/en.default.json` and is translated into `locales/de.json`; never author German as the source. Merchant content follows the same source-first translation model when Shopify translation support is configured.
+
 ## Toolchain
 
 - Node.js 22 or newer
@@ -74,14 +78,14 @@ Never put passwords or tokens on a command line that will be committed or docume
 
 ## Implementation loop
 
-1. Read the product and architecture docs.
-2. Find the existing section, template, or primitive that owns the behavior.
+1. Read the product, architecture, and development docs.
+2. Find the existing section, template, or primitive that owns the behavior. For section work, read its file in [Section reference](sections/README.md).
 3. Verify current Shopify platform requirements for unfamiliar or unstable behavior.
 4. Implement the narrowest durable change.
 5. Run local quality gates.
 6. With approved store access, verify the theme editor and storefront using real data.
 7. Test phone and desktop layouts, keyboard navigation, reduced motion, and no-JavaScript fallback where relevant.
-8. Record new capability status and architecture decisions.
+8. Update the owning section reference plus capability status or architecture decisions when their contract changes.
 
 ## Git and delivery
 

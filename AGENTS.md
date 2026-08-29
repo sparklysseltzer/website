@@ -11,10 +11,19 @@ Read these files before changing behavior:
 
 `docs/status.md` is the current capability map and implementation backlog.
 
+Before changing a section:
+
+1. Read `docs/sections/README.md`.
+2. Read the matching `docs/sections/<section-name>.md` file.
+3. Update that section document in the same change when its schema, rendering contract, fallback assets, motion, data source, or known limitations change.
+
+Keep `docs/sections/README.md` as the single authoritative list of available sections. Do not duplicate that complete list in `AGENTS.md` or other documentation indexes.
+
 ## Product and language
 
 - This repository is the custom native Shopify Online Store 2.0 theme for Sparklys Switzerland.
-- German is the default storefront language, and English is required for launch readiness. French and Italian are likely additions for the Swiss market. Put reusable customer-facing UI in locale files rather than hardcoding it in Liquid. Use English for code, identifiers, comments, tests, commits, and technical documentation.
+- English is the source language and default theme locale. German is a required storefront translation. French and Italian are likely additions for the Swiss market. Put reusable customer-facing UI in locale files rather than hardcoding it in Liquid.
+- Always author code, identifiers, comments, tests, commits, technical documentation, Shopify definition names and field labels, Theme Editor schema names/labels/help text, and other administrative interfaces in English. Author reusable storefront UI in English in `locales/en.default.json`, then translate it in `locales/de.json` and later locale files. Never use German as the source for technical, administrative, or reusable theme content.
 - Do not reintroduce Webflow/Udesly, Hydrogen, a commercial theme, or another frontend framework without an explicit architecture decision.
 - Do not invent product claims, ingredients, legal copy, subscription terms, shipping rules, discounts, or market behavior.
 

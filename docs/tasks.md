@@ -11,6 +11,16 @@ This file is temporary storage for ideas and follow-up work that arise while ano
 
 ## Pending approval
 
+### TASK-009 — Validate demand before building back-in-stock notifications
+
+- Add a lightweight out-of-stock interest “trapdoor” before committing to a complete notification feature. Its only initial purpose is to measure whether visitors want to buy the unavailable product.
+- Present an honest, localized action on unavailable product surfaces without promising that the visitor will receive a notification. Keep the interaction low-friction and make the distinction between registering interest and subscribing to marketing explicit.
+- Define the smallest trustworthy demand signal before implementation: product and variant identity, interaction event, reporting destination, duplicate handling, consent implications, and the success metric that would justify the next stage. Prefer an anonymous interaction if it provides enough evidence; do not collect email addresses merely for analytics.
+- Preserve the normal unavailable-product and no-JavaScript experience. The trapdoor must not imply inventory reservation, product availability, a purchase commitment, or a guaranteed restock.
+- Stage two, only after demand is validated: design a real back-in-stock notification flow with variant-level subscriptions, email consent and confirmation behavior, Klaviyo/Shopify ownership, inventory-trigger reliability, localization, unsubscribe handling, privacy retention, accessibility, and end-to-end testing.
+- Status: Pending discovery and implementation approval for the demand-validation stage. Back-in-stock notifications are deliberately deferred.
+- Added: 2026-08-25.
+
 ### TASK-006 — Establish the motion framework and storefront build-up intro
 
 - The runtime-independent Sparklys base motion language is approved and documented in `docs/architecture.md`; this task chooses and hardens the shared implementation engine rather than redefining that visual standard.
@@ -49,6 +59,22 @@ This file is temporary storage for ideas and follow-up work that arise while ano
 None.
 
 ## Completed
+
+### TASK-008 — Eliminate the newsletter button sweep edge bleed
+
+- Removed the separate border-color animation from the shared Bubble Sweep instead of continuing to tune competing timelines.
+- Primary and secondary buttons now keep a permanent black 2px border; the footer newsletter button keeps a permanent white 2px border. Only the clipped fill circle animates, matching the motion lab and removing the border/fill timing seam.
+- Status: Completed.
+- Added: 2026-08-23.
+- Approved and completed: 2026-08-23.
+
+### TASK-007 — Apply the approved Bubble Sweep tuning candidate
+
+- Updated the shared `.button` Bubble Sweep to the approved preview parameters: 800ms entrance, 880ms exit, symmetric easing, 336px bubble, `-216px` horizontal origin, `-168px` vertical origin, and scale `0.30` to `2.45`.
+- The shared primitive carries the change into primary, secondary, footer newsletter, pointer-hover, keyboard-focus, and reduced-motion states without altering their semantic behavior.
+- Status: Completed.
+- Added: 2026-08-23.
+- Approved and completed: 2026-08-23.
 
 ### TASK-005 — Integrate the footer newsletter field with Klaviyo
 

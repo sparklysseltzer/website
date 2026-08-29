@@ -2,7 +2,7 @@
 
 This is the fast routing index for official Shopify documentation. Search this file by implementation topic, then open the linked official page for current details.
 
-Reviewed: 2026-08-08.
+Reviewed: 2026-08-29.
 
 ## Architecture and rendering
 
@@ -10,11 +10,13 @@ Reviewed: 2026-08-08.
 | --- | --- | --- |
 | directories, layout, assets, config, locales, sections, snippets, templates | [Theme architecture](https://shopify.dev/docs/storefronts/themes/architecture) | Keep the uploaded theme in Shopify's supported directory structure. `layout/theme.liquid` is the required shell. |
 | JSON template, section order, alternate template | [JSON templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/json-templates) | JSON owns composition; rendered markup lives in referenced sections. |
-| section schema, presets, section group, app blocks | [Sections](https://shopify.dev/docs/storefronts/themes/architecture/sections) | Make page modules merchant-configurable and add app-block support deliberately. |
+| section schema, presets, section group, app blocks | [Sections](https://shopify.dev/docs/storefronts/themes/architecture/sections) | Make page modules merchant-configurable and add app-block support deliberately. Keep the local implemented contracts in the [Section reference](sections/README.md). |
 | theme block, section block, app block, nesting | [Blocks](https://shopify.dev/docs/storefronts/themes/architecture/blocks) | Prefer section blocks for local content; use theme blocks for genuinely reusable nested composition. |
 | theme settings, section settings, dynamic source, visible_if, blank | [Settings](https://shopify.dev/docs/storefronts/themes/architecture/settings) | Global brand tokens belong in config; local behavior belongs in section/block settings; guard optional resources with `blank`. |
 | locale JSON, default locale, schema translations | [Locales](https://shopify.dev/docs/storefronts/themes/architecture/locales) | One `*.default.json` is required; schema translations are separate from storefront translations. |
 | tag, filter, object, form, paginate, image_tag | [Liquid reference](https://shopify.dev/docs/api/liquid) | Shopify Liquid extends open-source Liquid; verify Shopify-specific object availability by template/context. |
+| merchant-owned metaobject, metaobject setting, metaobject list | [About metaobjects](https://shopify.dev/docs/apps/build/metaobjects) and [input settings](https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings) | Shared Merchant content uses public merchant-owned `merchant` and `merchant_collection` definitions. Sections select a collection with the native `metaobject` picker; store-level definition provisioning remains outside the theme and requires approval. |
+| synchronized section, shared content, JSON template instance | [JSON templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/json-templates), [section groups](https://shopify.dev/docs/storefronts/themes/architecture/section-groups), and [metaobjects](https://shopify.dev/docs/apps/build/metaobjects) | Shopify has no native freely placed cross-template section instance. Sparklys sections that need this behavior keep placement settings local and resolve an approved canonical metaobject when Global content is selected. |
 
 ## Tools and workflow
 

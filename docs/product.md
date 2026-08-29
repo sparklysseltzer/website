@@ -36,7 +36,7 @@ We chose a custom native Shopify theme because it provides:
 
 ## Current scope
 
-The theme foundation includes global layout, navigation, footer, homepage composition, products, collections, cart, search, standard pages, blogs, articles, and error handling.
+The current theme includes the global layout, three-context header and footer, homepage composition, products, collections, cart, search, standard pages, blogs, articles, and error handling. The homepage currently composes Hero, Rich Text, Product Overview Teaser, Offer Cards, and Logo Marquee. Poster and Featured Collection are reusable Theme Editor sections but are not currently placed on the homepage. See the [Section reference](sections/README.md) for the exact implemented contract and the [Implementation status](status.md) for remaining production gaps.
 
 ## Storefront brand contexts
 
@@ -70,7 +70,7 @@ Soda and Hard Seltzer use Shopify collections as their primary brand-and-shop la
 
 This keeps brand storytelling, merchandising, sorting, filtering, pagination, SEO ownership, and product discovery on one canonical collection destination per product world.
 
-The first visual prototype should prove:
+The current visual implementation has established the core brand language and responsive section system. Continuing implementation and launch verification must prove:
 
 1. the new Sparklys design language can be reproduced precisely;
 2. the theme stays fast and responsive on real storefront data;

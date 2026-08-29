@@ -2,11 +2,13 @@
 
 This file is a capability map, not a promise of production readiness.
 
-## Implemented in the skeleton
+Last reconciled with the repository on 2026-08-29.
+
+## Implemented in the current theme
 
 - Shopify theme directory structure and global `theme.liquid` layout.
-- German default and English storefront UI locale files.
-- Global color, logo, and favicon settings plus a fixed shared 1920px layout-frame token.
+- English source/default and German translated storefront UI locale files.
+- Global color, logo, and favicon settings, a fixed shared 1920px layout-frame token, and a lightweight Figma-derived page-grain treatment.
 - Persistent header and footer section groups.
 - Figma-based responsive header shell with configurable default, Soda, and Hard Seltzer navigation contexts.
 - Desktop brand switcher with active concave joins, textured hover/focus treatment, stable animated hit areas, and scroll-intent restoration of the black bar.
@@ -16,11 +18,12 @@ This file is a capability map, not a promise of production readiness.
 - Three context-aware Figma footer shells with separate Shopify-managed General, Soda, and Hard Seltzer nested navigation menus and a native Shopify newsletter form prepared for the existing Klaviyo sync; social, payment, store-finder, and language controls remain static previews.
 - Shared Shopify-managed Legal Nav with resource-backed AGB, Datenschutz, Impressum, and Versandinformationen policy links across every footer context.
 - Context-specific Arc, Soda, and Hard Seltzer header identities, plus a server-rendered localized footer year.
-- Default grid-only, Soda brand, and Hard Seltzer brand collection-template skeletons.
+- Default grid-only, Soda brand, and Hard Seltzer brand collection templates.
 - Context-aware local typography: Maison Neue Demi for body/UI and h3-h6, Erode Bold with −3% letter spacing for Soda h1/h2, and Newake for general and Hard Seltzer h1/h2, with Maison Neue Bold registered for future use.
 - Context-independent footer card typography: Newake at weight 400 in General, Soda, and Hard Seltzer variants.
 - Product detail pages inherit the complete Soda or Hard Seltzer shell through explicit branded templates or unambiguous membership in the configured brand collection.
-- Configurable hero, rich text, featured collection, and Figma-based offer-card sections. Offer cards support optional section title/intro, four editable image/title/subtitle cards with optional whole-card links, and five editable text chips per card; desktop subtitles reveal over a background-image zoom, while a reduced-motion-aware, two-way scroll-scrubbed reveal and parallax timeline progressively enhances the section.
+- Eighteen documented Liquid sections covering the persistent shell, resource templates, and reusable editorial modules. The homepage currently composes Hero, Rich Text, Product Overview Teaser, Offer Cards, and Logo Marquee; Poster and Featured Collection remain available as presets. See the [Section reference](sections/README.md) for their settings, behavior, responsive rules, assets, accessibility contracts, and known gaps.
+- A polished four-card Product Overview composition with responsive no-overlap scaling, a shared product floor, product-specific glows and tinted progressive SVG shadows, 90% Soda and 105% Hard Seltzer can scales, wave-logo SVG titles for Maracuja and Holunder, and horizontally scrollable phone layouts.
 - JSON templates for home, product, collection, collection list, cart, search, page, blog, article, and 404.
 - Responsive product cards and basic product media.
 - Server-rendered product and cart forms.
@@ -35,7 +38,9 @@ This file is a capability map, not a promise of production readiness.
 
 | Area | Status | Required work |
 | --- | --- | --- |
-| Approved brand design | Partially implemented | Header and three footer shells use supplied Figma references and brand assets. Remaining page sections and responsive states still need approved designs and QA. |
+| Approved brand design | Homepage and global shell substantially implemented | Header, three footer shells, and the principal homepage editorial modules use supplied Figma references and brand assets. Continue representative responsive/editor QA and complete dedicated Soda, Hard Seltzer, product, and commerce surfaces. |
+| Merchant content | Definitions and theme contract implemented; entries pending | The merchant-owned `merchant` and `merchant_collection` definitions exist on the connected store. Create the approved Merchant entries and collection, then select that collection in the Logo Marquee section. Future storefinder locations should reference these Merchant records. |
+| Shared offer content | Implemented on development store | The `offer_card` and `offer_teaser` definitions and active canonical entries exist. Offer cards placements default to Local and can opt into the synchronized global record; verify editing and translation workflows before production deployment. |
 | Real store preview | Development theme connected | Normal Shopify authentication and `theme dev` are working against `sparklys-hard-seltzer.myshopify.com`; representative storefront and editor QA remain. |
 | Product variants | Basic only | Option-based UI, variant URL state, media/price/availability sync, quantity rules, high-variant cases. |
 | Discounts | Incomplete | Accessible regular/sale labels, line/cart discount allocations, checkout consistency. |
@@ -47,7 +52,7 @@ This file is a capability map, not a promise of production readiness.
 | Free-shipping upsell | Discovery required | Authoritative threshold by market/currency, qualifying subtotal, recommendations, progress UI, checkout consistency. |
 | App blocks/embeds | Not implemented | Add supported hosts and audit installed apps. |
 | Navigation | Basic | The general/Soda/Hard Seltzer context contract is documented; collection and product routing plus all four Shopify-managed menus are connected. Replace placeholder destinations, then add main-navigation dropdown panels, explicit supporting-content classification, robust mobile disclosures, and long-content testing. |
-| Footer | Menu-driven shell with newsletter submission | Replace footer-card placeholder destinations, then connect social destinations, Shopify-supported payment methods, store finder, and accessible localization controls after their behavior is defined. Legal policy destinations are connected through the shared Legal Nav. Verify Shopify-to-Klaviyo list routing and opt-in behavior in the provider account before launch. |
+| Footer | Menu-driven shell with newsletter submission and social links | Replace footer-card placeholder destinations, then connect Shopify-supported payment methods, store finder, and accessible localization controls after their behavior is defined. Instagram, TikTok, and Facebook follow the Soda or Hard Seltzer footer context, while LinkedIn uses the shared company profile. Legal policy destinations are connected through the shared Legal Nav. Verify Shopify-to-Klaviyo list routing and opt-in behavior in the provider account before launch. |
 | Cart | Basic | Discounts, properties, notes if required, selling plans, richer errors, accessible table semantics. |
 | Markets/localization | Partial | Initial scope is Switzerland and Liechtenstein. URLs and Ajax are locale-aware; language/market selectors and real Markets QA remain. |
 | Languages | Partial | German and English theme UI strings exist. Merchant content, published-language configuration, and likely French/Italian locale files remain. |
@@ -55,15 +60,15 @@ This file is a capability map, not a promise of production readiness.
 | Search | Basic | Predictive search and refined mixed-result UI remain. |
 | Customer accounts | Platform-dependent | Decide new customer accounts behavior and required storefront entry points. |
 | Analytics/consent | Not implemented | Provider inventory, event contract, consent mode, duplication tests. |
-| Automated browser tests | Not implemented | Requires approved preview/store data and stable selectors. |
+| Automated browser tests | Not implemented | A connected development theme and real store data are available; define stable selectors and add repeatable journey, accessibility, and visual-regression coverage. |
 | Lighthouse CI | Not configured | Requires dedicated store and approved GitHub secrets. |
 
 ## Recommended next sequence
 
-1. Inspect real catalog, navigation, theme settings, and current storefront apps through the connected development theme.
-2. Confirm Shopify Markets and published-language configuration for Switzerland/Liechtenstein, including German and English content ownership.
-3. Inventory installed storefront apps, subscription provider, discount setup, shipping thresholds, and age-verification options.
-4. Complete the approved homepage, Soda, and Hard Seltzer page-section designs around the existing global shell.
-5. Implement one representative product journey to production quality.
+1. Finish representative phone, desktop, keyboard, reduced-motion, and Theme Editor QA for the implemented homepage and shell.
+2. Create and select the approved Merchant records required by Logo Marquee and verify the shared offer editing/translation workflow.
+3. Confirm Shopify Markets and published-language configuration for Switzerland/Liechtenstein, including German and English content ownership.
+4. Inventory installed storefront apps, subscription provider, discount setup, shipping thresholds, and age-verification options.
+5. Complete Soda, Hard Seltzer, and one representative product journey to production quality.
 6. Close product/cart accessibility and commerce gaps exposed by real data.
-7. Add visual, journey, and Lighthouse checks once preview URLs are stable.
+7. Add visual, journey, accessibility, and Lighthouse checks against a stable preview target.

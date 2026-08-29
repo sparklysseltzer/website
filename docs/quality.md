@@ -37,7 +37,7 @@ Follow Shopify's [Performance best practices](https://shopify.dev/docs/storefron
 - use resource hints sparingly;
 - test home, product, and collection pages with realistic data.
 
-The skeleton uses one CSS asset and one deferred JavaScript asset. This can be revisited when real page composition makes per-section bundling materially better.
+The current theme uses one global CSS asset and one deferred JavaScript asset, with section behavior scoped through custom elements. This can be revisited when measured page composition makes per-section delivery materially better.
 
 ## SEO
 
@@ -75,9 +75,11 @@ Current:
 - JSON parsing;
 - whitespace validation.
 
-Planned after an approved development environment exists:
+Not yet automated on the connected development theme:
 
 - Shopify Lighthouse CI for home, product, and collection pages;
 - browser journey tests for navigation, product selection, add-to-cart, cart editing, and checkout handoff;
 - screenshot comparisons against approved designs;
 - HTML and accessibility audits on rendered pages.
+
+The development theme is available for approved manual phone and desktop QA, but that does not replace the missing repeatable browser, accessibility, screenshot, and Lighthouse suites.

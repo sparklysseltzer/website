@@ -97,7 +97,7 @@ Shopify Markets can introduce locale and market path prefixes. [Support multiple
 - structured-data currency from `cart.currency.iso_code`;
 - translation keys in storefront locale files and, when needed, schema locale files.
 
-The skeleton is URL-aware but does not yet expose country or language selectors.
+The current theme is URL-aware but does not yet expose country or language selectors.
 
 Planned rollout:
 

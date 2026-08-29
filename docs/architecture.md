@@ -1,5 +1,7 @@
 # Architecture
 
+Last reconciled with the repository on 2026-08-29.
+
 ## System boundary
 
 ```text
@@ -18,219 +20,136 @@ Semantic HTML + native CSS + progressive JavaScript
 Shopify-hosted checkout
 ```
 
-This is a buildless theme. Shopify renders Liquid on the server, JSON templates select sections, and the browser receives HTML enhanced by a small CSS and JavaScript layer. Shopify documents the supported structure in [Theme architecture](https://shopify.dev/docs/storefronts/themes/architecture).
+Sparklys is a buildless Shopify Online Store 2.0 theme. Shopify renders Liquid on the server, JSON templates select page sections, and a small native CSS and JavaScript layer enhances the resulting HTML. Webflow/Udesly, Hydrogen, commercial themes, and frontend build frameworks are outside the current architecture.
 
 ## Repository map
 
 | Path | Responsibility |
 | --- | --- |
-| `layout/theme.liquid` | Global HTML document, metadata, assets, header/footer groups, and `content_for_layout`. |
+| `layout/theme.liquid` | Global HTML shell, metadata, assets, header/footer groups, and `content_for_layout`. |
 | `templates/*.json` | Resource-to-section composition and merchant-editable page layouts. |
-| `sections/*.liquid` | Reusable storefront features with local schema and settings. |
-| `sections/*-group.json` | Persistent header and footer section groups. |
-| `snippets/*.liquid` | Small rendering primitives such as product cards, pagination, and metadata. |
-| `assets/base.css` | Global design tokens, primitives, responsive layout, header/footer, and genuinely shared component styling. |
-| `assets/theme.js` | Small progressive enhancement used across most pages. |
-| `config/` | Global theme settings and their current values. |
-| `locales/` | Customer-facing translations. |
-| `docs/` | Product decisions, platform references, and delivery guidance. |
+| `sections/*.liquid` | Reusable storefront features with local schemas and settings. |
+| `sections/*-group.json` | Persistent header and footer composition. |
+| `snippets/*.liquid` | Small rendering primitives such as icons, prices, cards, and metadata. |
+| `assets/` | Theme-owned CSS, JavaScript, fonts, icons, textures, and starter artwork. |
+| `config/` | Global Theme Editor schema and current settings data. |
+| `locales/` | English source/default UI and German storefront translation. |
+| `docs/sections/` | Detailed contract and current state of every Liquid section. |
 
-Shopify supports only its defined theme directories for uploaded theme files. Non-theme repository content is excluded through `.shopifyignore`.
+Shopify accepts only its supported theme directories in an uploaded theme. Documentation, tests, and development tooling remain repository-only.
 
-## Composition rules
+## Composition and ownership
 
-- Use JSON templates as the composition layer. HTML and Liquid referenced by a JSON template belong in sections. See [JSON templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/json-templates).
-- Put merchant-adjustable content and layout decisions in section settings or blocks. Put genuinely global brand tokens in `settings_schema.json`. See [Settings](https://shopify.dev/docs/storefronts/themes/architecture/settings).
-- Check resource settings against `blank`; a resource may be unselected, deleted, or hidden.
-- Use section blocks for content owned by one section. Use theme blocks only when a reusable nested block system is actually needed. See [Blocks](https://shopify.dev/docs/storefronts/themes/architecture/blocks).
-- Use app blocks in relevant sections when an installed storefront app needs merchant-controlled placement. App-block support is not yet implemented in the skeleton.
+JSON templates own page composition. A section owns its markup, section-level settings, blocks, scoped behavior, and progressive enhancement. Snippets render small shared primitives and must not hide page-level behavior.
 
-A section file is the reusable structural component; every section instance stores its own settings and section-block content in the JSON template that contains it. Pages using the same JSON template therefore share that configured instance, while alternate templates can place the same section structure with different content. Do not duplicate Liquid to create content variants. If unrelated templates must display one centrally synchronized content record, introduce an approved metaobject/dynamic-source contract; if a surface must appear on every storefront page in one fixed shell position, use a layout-owned section group. Those global approaches are different from an ordinary add-anywhere content section.
+Each section instance stores its own settings and blocks in the JSON template that contains it. Alternate templates can therefore reuse the same Liquid section with different content. Do not duplicate a section merely to create a content variant.
 
-`offer-cards.liquid` follows the ordinary reusable-section model. It owns optional section heading and introduction settings plus up to four local card blocks. Each card has an editable Shopify image, title, optional Shopify URL, hover-only desktop subtitle, and five plain-text chip slots. Its bundled Figma image is only the initial fallback and is replaced when the merchant selects an image. A configured URL turns the complete card into one semantic link with matching pointer and keyboard-focus motion; a card without a URL remains a non-interactive article rather than emitting a placeholder route. Chips deliberately remain plain text until their own destinations and link semantics are approved.
+Two explicit shared-content patterns exist:
 
-`offer-cards-motion` progressively enhances this section with a project-owned scroll-scrubbed timeline rather than a third-party animation runtime. The header and cards fade and translate upward with staggered progress ranges, while each oversized media layer receives a small scroll-linked vertical parallax transform. A requestAnimationFrame loop adds a short 110ms catch-up response while keeping the target playhead derived from the current scroll position, so scrolling upward reverses the scene. Desktop pointer hover independently scales the image inside its parallax layer. Without JavaScript or when `prefers-reduced-motion: reduce` matches, the Web Animations are not created and the complete static section remains visible.
+- `logo-marquee` reads an ordered merchant collection built from reusable Merchant metaobjects.
+- `offer-cards` can use local template blocks or the canonical global offer-teaser metaobject while retaining local presentation settings.
 
-## Liquid and URLs
+See [Section reference](sections/README.md), [Merchant content](merchant-content.md), and [Shared section content](shared-section-content.md) for the detailed contracts. Section-specific implementation notes belong in the corresponding file under `docs/sections/`, not in this architecture overview.
 
-- Use Shopify's Liquid reference rather than generic Liquid assumptions: [Liquid reference](https://shopify.dev/docs/api/liquid).
-- Use resource `.url` properties and the [`routes` object](https://shopify.dev/docs/api/liquid/objects/routes) in Liquid.
-- In JavaScript, prefix Ajax endpoints with `window.Shopify.routes.root` so market and language subfolders are preserved.
-- Never hardcode `/cart`, `/search`, product paths, a currency, or the shop's primary locale.
+## Current template map
+
+| Template | Main composition |
+| --- | --- |
+| Home | Hero, Rich text, Product Overview Teaser, Offer Cards, Logo Marquee |
+| Product | Main Product |
+| Collection | Main Collection; Soda and Seltzer alternate templates currently use the same section with branded context |
+| Cart | Main Cart |
+| Search | Main Search |
+| Collections list | Main List Collections |
+| Page | Main Page |
+| Blog | Main Blog |
+| Article | Main Article |
+| 404 | Main 404 |
+
+Poster and Featured Collection are reusable preset sections but are not currently placed in the homepage template. The exact section identifiers, blocks, settings, assets, and known gaps are catalogued in [Section reference](sections/README.md).
+
+## Product-world context
+
+The server resolves one of three presentation contexts: `default`, `soda`, or `seltzer`. Header identity, navigation, heading typography, and footer variant follow that context.
+
+Resolution order:
+
+1. An explicit alternate template suffix such as `.soda` or `.seltzer` wins.
+2. A configured Soda or Hard Seltzer collection resolves its own context.
+3. A product belonging to exactly one configured brand collection inherits that context.
+4. A product in both brand collections remains `default` unless an alternate template resolves the ambiguity.
+5. Supporting pages and articles can opt in through an alternate template.
+6. Shared or unclassified surfaces remain `default`.
+
+Browser session state is never the authority. A direct product URL must render the correct complete shell on the server.
+
+| Context | `h1`/`h2` family | Header/footer identity |
+| --- | --- | --- |
+| General | Newake | Sparklys Arc |
+| Soda | Erode Bold, `-0.03em` tracking | Sparklys Soda |
+| Hard Seltzer | Newake | Sparklys Hard Seltzer |
+
+Maison Neue Demi remains the body, UI, and `h3`–`h6` family. Footer card headings intentionally use Newake in every context.
+
+## Navigation and URL rules
+
+- Render Shopify resource URLs and `routes`; never hardcode locale-sensitive storefront paths.
+- The black header bar switches product worlds. The white bar owns context-specific primary navigation and becomes sticky after the black bar leaves normal flow.
+- `Corporate Nav` owns utility links and native nested disclosures.
+- Separate General, Soda, and Hard Seltzer menus own primary and footer navigation.
+- `Legal Nav` uses Shopify policy resources rather than hand-authored policy paths.
+- The Store Finder action resolves a selected Shopify Page, with the documented Händler bootstrap fallback.
+
+Header and footer interaction details live in [Header](sections/header.md) and [Footer](sections/footer.md).
 
 ## Localization
 
-- German is the default locale; English is required. French and Italian remain planned candidates.
-- Reusable UI strings belong in storefront locale JSON and are rendered with the `t` filter.
-- Theme editor labels should move to schema locale files when editor translation becomes a requirement.
-- Merchant-entered settings and resource content are translated in Shopify, not by duplicating Liquid templates.
-- Render only countries and languages exposed by Shopify's `localization` object.
+English is the source language and default locale in `locales/en.default.json`; German is the required translation in `locales/de.json`. Reusable customer-facing UI belongs in locale JSON and is rendered with the `t` filter. Merchant-entered resource and section content is translated through Shopify. French and Italian remain future candidates and must not be claimed as enabled.
 
-## Header and brand-context routing
+## Layout and visual tokens
 
-The header has three explicit server-rendered contexts: `default`, `soda`, and `seltzer`.
+- `--page-width` is the shared 120rem/1920px outer-frame limit.
+- `--page-gutter` is 1rem below 768px and 2rem from 768px.
+- `--radius-panel` is the shared 1.875rem/30px radius for major branded panels.
+- `--page-grain-opacity` maps Theme Settings grain intensity; the current project default is 30%.
+- One document-attached `.page-grain` layer repeats `noise-3.webp` at Retina density and scrolls with the content.
+- `base.css` owns global primitives and shared components. A section may own substantial portable styling when its dependencies remain explicit.
 
-| Context | Logo asset | Navigation source | Switcher state |
-| --- | --- | --- | --- |
-| `default` | `assets/sparklys-arc-logo.svg` | `main nav general` (`main-nav-general`) | No active product-world tab |
-| `soda` | `assets/sparklys-soda-logo.svg` | `main nav soda` (`main-nav-soda`) | Soda tab active |
-| `seltzer` | `assets/footer-logo-seltzer.svg`, inverted to black on the white header | `main nav seltzer` (`main-nav-seltzer`) | Hard Seltzer tab active |
+Theme assets are local and referenced with `asset_url`. Shopify-hosted merchant images use `image_url` and `image_tag` with responsive widths, accurate `sizes`, dimensions, loading intent, and useful alt text.
 
-The contexts remain explicit server-rendered states. Do not infer Soda or Hard Seltzer context from a logo alone.
+## Motion language
 
-The three primary-navigation menus are separate Shopify Navigation resources. Their initial Shop, Learn, and Subscribe items are placeholders until their destinations and dropdown structures are approved. Maintain each context independently in Shopify Admin; do not reuse or overwrite the old `main-menu` navigation.
+The base motion is calm, reversible, and hierarchy-led. Scroll scenes reveal primary content through opacity and no more than 48px of upward travel; grouped cards use restrained staggering; oversized clipped media may move approximately ±4%. Pointer hover transforms media rather than layout.
 
-The server-rendered page context also owns heading typography. `default` and `seltzer` use Newake at weight 400 for `h1` and `h2`; `soda` uses Erode Bold at weight 700 with `-0.03em` letter spacing. Matching alternate-template suffixes apply the context to explicitly classified products and content, while membership in the configured brand collections classifies existing products without waiting for manual template assignment. The header's resolved Soda context remains a CSS fallback when section settings and the layout's bootstrap collection handles temporarily differ. No JavaScript is required for typography selection.
+The current scroll enhancements derive their target state from viewport progress and use a short catch-up response, so upward scrolling reverses them. The complete final content remains visible without JavaScript. `prefers-reduced-motion: reduce` disables non-essential reveal, parallax, and zoom behavior.
 
-Collection composition is split across three JSON templates:
+Shared interaction primitives include:
 
-| Template | Purpose | Initial composition |
-| --- | --- | --- |
-| `templates/collection.json` | Ordinary collections | Native collection product grid only |
-| `templates/collection.soda.json` | Soda brand landing | Soda hero, editable introduction, native collection product grid, editable follow-up content |
-| `templates/collection.seltzer.json` | Hard Seltzer brand landing | Hard Seltzer hero, editable introduction, native collection product grid, editable follow-up content |
+- `--motion-ease`: `cubic-bezier(0.22, 1, 0.36, 1)` for general responsive motion;
+- Highlight Sweep for standalone text links;
+- Bubble Sweep for primary, secondary, and footer newsletter buttons;
+- purpose-specific header controls, cards, logos, and linked media.
 
-The branded templates are independent composition roots. They may diverge section-by-section as approved designs arrive; they do not need to retain matching layouts. Both must keep the native `collection.products` grid as the authoritative catalog surface.
+Do not use `transition: all`, scroll locking, delayed one-shot reveals, or motion that changes document layout.
 
-Product composition has the same three roots:
+## JavaScript contract
 
-| Template | Purpose |
+JavaScript is progressive enhancement and loads deferred. Core navigation, product submission, cart editing, and checkout entry remain server-rendered and usable without it.
+
+Current custom elements/controllers are:
+
+| Component | Ownership |
 | --- | --- |
-| `templates/product.json` | General or not-yet-classified products |
-| `templates/product.soda.json` | Explicit Soda product context |
-| `templates/product.seltzer.json` | Explicit Hard Seltzer product context |
+| `product-form` | Ajax add-to-cart and live status feedback |
+| `header-corporate-menu` | Enhanced dismissal for native header disclosures |
+| Header scroll-intent controller | Desktop restoration/hiding of the black switcher bar |
+| `newsletter-form` | In-place rendering of Shopify's native form response |
+| `offer-cards-motion` | Reversible card reveal, media parallax, and hover zoom |
+| `product-overview-motion` | Reversible Product Overview reveal and artwork parallax |
+| `poster-motion` | Reversible Poster reveal and media parallax |
 
-The branded product templates currently share the same `main-product` composition. Their suffixes exist to make brand ownership explicit and allow the layouts to diverge later without changing the routing contract.
-
-Context resolution must be deterministic on the server so direct links, localized URLs, search engines, and no-JavaScript browsing receive the correct header:
-
-1. Any `.soda` or `.seltzer` alternate-template suffix selects its matching context. This is authoritative for collections, products, and future explicitly branded content.
-2. The configured Soda and Hard Seltzer collection objects select their matching collection contexts even before alternate templates are assigned. The known `soda` and `hard-seltzer` handles bootstrap those object references when a fresh development theme has not persisted its collection-picker settings yet; merchant picker selections remain authoritative.
-3. A product in exactly one configured brand collection inherits that collection's context, so existing direct product URLs render the correct complete brand shell immediately.
-4. A product in both brand collections remains `default` unless an explicit branded product template resolves the ambiguity. Never let collection iteration order choose a product world accidentally.
-5. Supporting pages and articles may opt into a product-world context through an explicit `.soda` or `.seltzer` alternate template.
-6. Unclassified and shared surfaces fall back to `default`.
-
-Do not use browser session state as the authority for context. A visitor arriving directly on a Soda product must receive the Soda logo/menu, and a visitor arriving directly on a Hard Seltzer product must receive the Hard Seltzer logo/menu. The top tabs render Shopify collection objects and their `.url` values; never output hardcoded `/collections/soda`, `/collections/hard-seltzer`, or vanity paths, because localized storefront paths may change. The bootstrap handles above are only object lookups and must be updated or removed after a collection handle changes.
-
-The black bar is the top-level context switcher. It stays in normal document flow and scrolls away while the white bar becomes sticky at the viewport top. On desktop, progressive JavaScript reveals the complete header after 120px of cumulative upward scrolling, which signals deliberate return navigation rather than a tiny accidental movement. It hides the switcher again after 12px of downward movement. Without JavaScript, the white-bar-only sticky behavior remains the fallback. The white bar is context-dependent and owns the corresponding logo, main menu, and later dropdown content. Dropdown panels, expanded mobile behavior, and context propagation beyond the two landing pages remain separate implementation steps.
-
-The desktop utility navigation in the black bar is owned by the separate Shopify navigation menu `Corporate Nav` (`corporate-nav`). The header renders its top-level items in merchant-defined order. A leaf item renders as a normal link; any item with children automatically renders as a non-link disclosure trigger with a chevron and popover. Shopify's three navigation levels are supported, so a nested item inside the first popover can expose one further disclosure level. The disclosure works without JavaScript through native `details`/`summary`; progressive JavaScript adds outside-click, scroll, and Escape dismissal while restoring focus to the trigger.
-
-Blog and Contact are resource-backed menu items rather than hardcoded theme paths. Their destinations and labels belong to Shopify Navigation and can be maintained in Admin without a theme change. Do not repurpose or edit `Main Menu`, `Übersicht`, or the customer-account menu for this utility navigation. Keep `Corporate Nav` separate so development can evolve without altering a live menu's contents.
-
-The white-bar Store Finder action is backed by the Shopify `Händler` Page selected in the header settings, with `pages['haendler']` only as a bootstrap fallback. Its 46px pill matches the account and cart control height and transitions a rounded black border on hover and keyboard focus without changing layout.
-
-The account and cart controls both use 46px circles, but their Figma-exported glyph bounds are intentionally different inside the shared 18px icon frame: account is 13.6702×15.17px and cart is 16.5865×16.67px. Both source SVGs use the same 1.67px stroke. Preserve those exported glyph dimensions instead of forcing both files to 18px wide, which enlarges the narrower account mark and makes its stroke appear heavier.
-
-The desktop product-world tabs follow this interaction contract:
-
-- The active tab is a plain white surface with matching concave white joins into the white navigation bar. It never uses the noise texture.
-- The active joins overlap the tab surface by one CSS pixel so fractional text-driven tab widths cannot expose an antialiasing seam.
-- An inactive tab has a stable 33px interaction box. Its 25px inner surface moves down 4px on hover or keyboard focus while the outer box stays fixed, preventing pointer-boundary oscillation when the cursor enters from above.
-- The inactive hover/focus surface and its joins use `bg-noise-pattern2x.png` over `#4d4d4d`. The 200px source is rendered at 100px CSS size to respect its 2x density.
-- The brand-tab container clips its animated joins at the switcher boundary, preventing their translated start state from flashing into the white navigation bar. The switcher itself remains overflow-visible so utility popovers are not clipped.
-- Hover styling is guarded by `(hover: hover)`, keyboard focus receives the equivalent visual state, and the global reduced-motion rule collapses the transitions for visitors who request it.
-
-Storefront motion uses `cubic-bezier(0.22, 1, 0.36, 1)`, exposed as `--motion-ease`, for responsive state and positional transitions. Durations remain proportional to the interaction: `--motion-duration-fast` (200ms) for color, opacity, border, icon, and chevron states; `--motion-duration-base` (260ms) for tabs and header movement; and `--motion-duration-slow` (360ms) for product-image zoom. Highlight Sweep links use the symmetric `--motion-ease-emphasis` curve (`cubic-bezier(0.65, 0, 0.35, 1)`) over 200ms. Bubble Sweep buttons use their tuned Gentle curve (`cubic-bezier(0.4, 0, 0.2, 1)`) with an 800ms entrance and 600ms exit. Declare transitioned properties individually rather than using `transition: all`, and preserve the global `prefers-reduced-motion` override.
-
-### Sparklys base motion language
-
-The approved base style is calm, hierarchical, and scroll-scrubbed. It is a design contract independent of the eventual animation runtime: native Web Animations, CSS scroll timelines, or GSAP must produce the same visual behavior. New sections and components should opt into the appropriate role rather than animating every descendant indiscriminately.
-
-| Role | Base treatment |
-| --- | --- |
-| Section or scene | Establish the surface without moving document layout; reveal its primary content through opacity and no more than 48px of upward travel. |
-| Title | Fade and rise 24–32px before supporting copy. Keep words and lines grouped unless a separately approved story requires text splitting. |
-| Supporting copy and actions | Follow the title with shorter 8–24px travel and a restrained stagger that preserves reading order. |
-| Cards in one visual row | Fade and rise up to 48px with approximately 6% scroll-progress separation from left to right. |
-| Stacked mobile cards | Bind each card to its own viewport progress so it reveals when it actually arrives rather than inheriting a desktop-row timeline. |
-| Card media | Move vertically by approximately ±4% across the viewport passage. Oversize and clip the media layer so parallax never exposes an empty edge. |
-| Pointer hover media | Scale the image—not the card layout—to approximately `1.07` over 700ms using `--motion-ease`. Keep hover motion independent from entrance timelines. |
-
-Scrubbed reveals begin when the relevant element reaches roughly 84% of the viewport and resolve across a long scroll range toward the upper 15–25%. The current reference response uses about 110ms of catch-up smoothing: the target playhead always comes from scroll position, scrolling upward reverses it, and stopping scroll lets the rendered playhead settle without overshoot. Do not replace this with a delayed one-shot entrance or a bouncy easing. Use opacity and transforms only where practical, avoid scroll locking and layout shifts, and keep simultaneous movement limited enough that the page never feels nervous.
-
-Without JavaScript, the complete final state must remain visible and usable. `prefers-reduced-motion: reduce` skips non-essential reveals, parallax, and zoom while preserving content, focus order, and interaction. The runtime decision for expanding this language across the storefront—including whether to adopt locally hosted GSAP Core and ScrollTrigger—is tracked separately in `TASK-006`; do not couple the visual standard to that pending choice.
-
-Shared `.button` controls use the Sparklys Bubble Sweep: a 2px pill outline contains a circular inverse-color surface that expands completely across the control on pointer hover and keyboard focus. Button colors are deliberately black and white so the label can use per-pixel `difference` blending: each part of a letter inverts exactly when the tuned surface passes beneath it, with no separately timed text-color flash. The approved motion parameters are 800ms in, 600ms out, and the Gentle `cubic-bezier(0.4, 0, 0.2, 1)` easing. Primary and secondary buttons use inverse starting states but share the same motion, label treatment, disabled behavior, and reduced-motion fallback. The footer newsletter submit adopts the same primitive with its white resting border adapted to the black footer; header icon and utility controls retain their purpose-specific interactions.
-
-Standalone textual links use the shared `.text-link` Highlight Sweep without a resting underline. An inverse-color highlight expands from left to right over 200ms on pointer hover and keyboard focus. A dedicated label layer uses per-pixel `difference` blending, so every letter inverts only where the moving highlight has reached it instead of running a separate color transition. The highlight and link use a nearly square 1px corner radius, and footer links invert the primitive to white on black. Footer pointer hover adds a 75ms entry-only intent delay so fast movement across adjacent links does not flash partial sweeps; pointer exit and keyboard focus remain immediate. Navigation controls, linked images, logos, product cards, brand tabs, and button-styled anchors keep their purpose-specific interactions rather than inheriting this text-link treatment.
-
-## Footer brand-context routing
-
-The footer resolves the same `default`, `soda`, and `seltzer` contexts on the server. It uses the configured Soda and Hard Seltzer collection objects, their alternate template suffixes, and the same bootstrap handles as the header. The variants are:
-
-| Context | Newsletter identity | Navigation composition |
-| --- | --- | --- |
-| `default` | Sparklys Arc | Combined Shop, Learn, and Get to know cards |
-| `soda` | Sparklys Soda | Soda Shop, Learn, and Get to know cards |
-| `seltzer` | Sparklys Hard Seltzer | Hard Seltzer Shop, Learn, and Get to know cards |
-
-Each context owns a separate Shopify Navigation resource: `footer nav general` (`footer-nav-general`), `footer nav soda` (`footer-nav-soda`), and `footer nav seltzer` (`footer-nav-seltzer`). Top-level menu items create footer cards, and their child links create the card content. All three menus must keep the Shop, Learn, and Get to know top-level structure unless a new footer design is approved. The initial destinations are placeholders pending the final routing concept.
-
-All footer contexts share `Legal Nav` (`legal-nav`) for policy links. Its AGB, Datenschutz, Impressum, Versandinformationen, and Rückgaberecht items are Shopify `SHOP_POLICY` resources for Terms of service, Privacy policy, Legal notice, Shipping policy, and Refund policy. Keep these resource-backed rather than hardcoding policy paths in Liquid so Shopify can render the appropriate storefront URLs.
-
-All variants are full-bleed black surfaces with the shared centered layout frame. The frame expands fluidly through 1920px including its responsive side gutters, then remains boxed and centered on wider viewports. The Seltzer frame's outer gaps in Figma are placement artifacts, not storefront spacing. The copyright year is rendered from Shopify's server-side `now` value and interpolated into the locale string. The newsletter uses Shopify's native customer form with the `newsletter` tag, matching the production form contract; the existing Shopify–Klaviyo integration owns subscriber synchronization, list routing, and opt-in behavior outside the theme. JavaScript progressively replaces the submitted form with Shopify's rendered success or error response in place, avoiding a full-page jump while preserving the native server-rendered submission when JavaScript is unavailable. Legal and social destinations, payment rendering, store finder, and localization controls remain visual-only until their behavior is explicitly defined.
-
-On desktop, the three general-footer navigation cards share one auto-sized grid row. The tallest card's content determines the row height and the other cards stretch to match it; neither the card grid nor the general footer main row carries a fixed minimum height. The navigation grid aligns to the start of the newsletter column so a taller neighboring newsletter surface cannot introduce empty card space. Stacked mobile cards remain independently content-sized.
-
-Footer card headings deliberately do not inherit the page-context heading family. `.site-footer__card-heading` always uses `--font-heading-default` (Newake) at weight 400, including on Soda pages where content-level `h1` and `h2` headings use Erode Bold. Preserve this exception when adding or reorganizing footer cards.
-
-## Brand asset inventory
-
-| Asset | Current use |
-| --- | --- |
-| `maison-neue-demi.woff2` | Body copy, UI text, and headings from `h3` onward in every context |
-| `maison-neue-bold.woff2` | Registered for future approved uses; not preloaded |
-| `newake-regular.woff2` | General and Hard Seltzer `h1`/`h2` headings |
-| `erode-bold.woff2` | Soda `h1`/`h2` headings at weight 700 |
-| `sparklys-arc-logo.svg` | General header/footer identity |
-| `sparklys-soda-logo.svg` | Soda header/footer identity |
-| `footer-logo-seltzer.svg` | Hard Seltzer header/footer identity |
-| `bg-noise-pattern2x.png` | Inactive desktop brand-tab hover/focus texture only |
-| `favicon.png` | 32×32 browser favicon copied from the production storefront |
-| `apple-touch-icon.png` | 180×180 Apple touch icon copied from the production storefront |
-| `offer-retail.jpg`, `offer-gastro.jpg`, `offer-events.jpg`, `offer-companies.jpg` | Optimized local fallbacks for the Figma-based offer-card section |
-| `arrow-right.svg` | Exported Figma arrow used as the decorative offer-card direction cue |
-
-These are theme-owned local assets and must be referenced through `asset_url`. Do not replace them with remote runtime URLs. Any logo replacement must preserve the three-context routing contract rather than changing every surface globally.
-
-## Styling
-
-- `--page-width` is the fixed shared outer-frame limit of `120rem` (1920px at the default root size). The frame includes its responsive side gutters, grows fluidly up to that limit, and stays centered above it. Keep this as an architecture token rather than a merchant setting so every theme instance uses the same layout contract. Individual content measures may remain narrower where readability or the approved composition requires it.
-- CSS custom properties in `theme.liquid` expose global design tokens.
-- `base.css` owns global primitives and shared component styles. Substantial portable feature styles should move into their owning section when page cost and ownership become clearer than one small global stylesheet.
-- Use native CSS and avoid Sass. Shopify serves and optimizes assets from its CDN.
-- Section-specific `{% stylesheet %}` can be introduced for portable sections, but cross-file selector dependencies must remain explicit because Shopify may subset these styles. See [JavaScript and stylesheet tags](https://shopify.dev/docs/storefronts/themes/best-practices/javascript-and-stylesheet-tags).
-- Keep repository source readable; Shopify owns production minification, Brotli/gzip negotiation, versioned URLs, and CDN caching. Do not commit pre-minified or pre-compressed duplicates.
-- Follow the ownership rules and enforced global budgets in [Frontend asset structure and delivery](frontend-assets.md).
-
-## JavaScript
-
-- JavaScript is progressive enhancement. Server-rendered forms and links are the fallback.
-- Use custom elements to scope behavior and avoid global selectors or state.
-- Load scripts with `defer`; never add parser-blocking scripts.
-- Use native browser APIs rather than a frontend framework or general-purpose dependency.
-- Dynamic messages must be surfaced through an appropriate live region.
-- Keep only broadly used behavior in `theme.js`; load large page-specific behavior from its owning context or on interaction.
-- Follow [Frontend asset structure and delivery](frontend-assets.md) for script placement, loading, and size review.
-
-## Images and media
-
-- Render Shopify-hosted images using `image_url` and `image_tag` with explicit responsive widths and `sizes`.
-- Do not lazy-load likely above-the-fold/LCP imagery. Lazy-load media below the fold.
-- Preserve width/height metadata and useful alt text. Decorative images use empty alt text.
-- Do not autoplay media with sound.
+Use custom elements to scope behavior, native browser APIs instead of broad dependencies, and live regions for dynamic status. Follow [Frontend asset structure and delivery](frontend-assets.md) for budgets and placement.
 
 ## Extension points
 
-The architecture anticipates, but does not yet claim, support for:
-
-- theme app blocks in product and content sections;
-- selling plans and subscriptions;
-- market and language selectors;
-- product recommendations and predictive search;
-- structured product data;
-- app-specific analytics and consent integration.
-
-Each extension must be designed and tested end to end rather than inserted as an isolated widget.
+The architecture anticipates, but does not yet claim, support for app blocks, selling plans, localization controls, product recommendations, predictive search, structured product data, analytics/consent integration, and richer cart behavior. Each capability requires an end-to-end contract across every affected surface before it is marked supported.
