@@ -1,6 +1,6 @@
 {
   "type": "footer",
-  "name": "Footer-Gruppe",
+  "name": "Footer group",
   "sections": {
     "footer": {
       "type": "footer",

@@ -95,6 +95,13 @@
     },
     "featured_collection": {
       "view_all": "View all"
+    },
+    "product_overview": {
+      "navigation": "Product ranges",
+      "alcoholic": "Contains alcohol"
+    },
+    "logo_marquee": {
+      "label": "Merchants"
     }
   },
   "products": {
