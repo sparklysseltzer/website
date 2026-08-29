@@ -1,22 +1,69 @@
+{%- liquid
+  assign use_global_content = false
+  assign offer_heading = section.settings.heading
+  assign offer_intro = section.settings.intro
+  assign offer_cards = section.blocks
+
+  if section.settings.content_source == 'global'
+    assign global_offer_teaser = metaobjects.offer_teaser['global-offer-teaser']
+    if global_offer_teaser != blank
+      assign use_global_content = true
+      assign offer_heading = global_offer_teaser.heading.value
+      assign offer_intro = global_offer_teaser.intro
+      assign offer_cards = global_offer_teaser.cards.value
+    endif
+  endif
+-%}
+
 <offer-cards-motion>
 <section class="offer-cards section page-width">
   {%- if section.settings.show_heading or section.settings.show_intro -%}
     <header class="offer-cards__header">
-      {%- if section.settings.show_heading and section.settings.heading != blank -%}
-        <h2 class="offer-cards__heading">{{ section.settings.heading }}</h2>
+      {%- if section.settings.show_heading and offer_heading != blank -%}
+        <h2 class="offer-cards__heading">{{ offer_heading }}</h2>
       {%- endif -%}
 
-      {%- if section.settings.show_intro and section.settings.intro != blank -%}
-        <div class="offer-cards__intro rte">{{ section.settings.intro }}</div>
+      {%- if section.settings.show_intro and offer_intro != blank -%}
+        <div class="offer-cards__intro rte">
+          {%- if use_global_content -%}
+            {{ offer_intro | metafield_tag }}
+          {%- else -%}
+            {{ offer_intro }}
+          {%- endif -%}
+        </div>
       {%- endif -%}
     </header>
   {%- endif -%}
 
   <div class="offer-cards__grid">
-    {%- for block in section.blocks -%}
+    {%- for card in offer_cards -%}
       {%- liquid
+        assign card_image = blank
+        assign card_title = blank
+        assign card_link = blank
+        assign card_subtitle = blank
+        assign card_tags = blank
+        assign card_attributes = blank
+        assign default_image = blank
         assign fallback_image = blank
-        case block.settings.default_image
+
+        if use_global_content
+          assign card_image = card.image.value
+          assign card_title = card.title.value
+          assign card_link = card.link.value
+          assign card_subtitle = card.subtitle.value
+          assign card_tags = card.tags.value
+          assign default_image = card.system.handle
+        else
+          assign card_image = card.settings.image
+          assign card_title = card.settings.title
+          assign card_link = card.settings.link
+          assign card_subtitle = card.settings.subtitle
+          assign default_image = card.settings.default_image
+          assign card_attributes = card.shopify_attributes
+        endif
+
+        case default_image
           when 'retail'
             assign fallback_image = 'offer-retail.jpg'
           when 'gastro'
@@ -28,15 +75,15 @@
         endcase
       -%}
 
-      {%- if block.settings.link != blank -%}
-        <a class="offer-card" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+      {%- if card_link != blank -%}
+        <a class="offer-card" href="{{ card_link }}" {{ card_attributes }}>
       {%- else -%}
-        <article class="offer-card" {{ block.shopify_attributes }}>
+        <article class="offer-card" {{ card_attributes }}>
       {%- endif -%}
         <div class="offer-card__media" aria-hidden="true">
-          {%- if block.settings.image != blank -%}
+          {%- if card_image != blank -%}
             {{
-              block.settings.image
+              card_image
               | image_url: width: 1600
               | image_tag:
                 widths: '480, 720, 960, 1200, 1600',
@@ -59,29 +106,37 @@
 
         <div class="offer-card__content">
           <div class="offer-card__title-row">
-            {%- if block.settings.title != blank -%}
-              <h3 class="offer-card__title">{{ block.settings.title }}</h3>
+            {%- if card_title != blank -%}
+              <h3 class="offer-card__title">{{ card_title }}</h3>
             {%- endif -%}
             <span class="offer-card__arrow" aria-hidden="true">
               <img src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="16" height="16">
             </span>
           </div>
 
-          {%- if block.settings.subtitle != blank -%}
-            <p class="offer-card__subtitle">{{ block.settings.subtitle }}</p>
+          {%- if card_subtitle != blank -%}
+            <p class="offer-card__subtitle">{{ card_subtitle }}</p>
           {%- endif -%}
         </div>
 
         <div class="offer-card__tags">
-          {%- for tag_index in (1..5) -%}
-            {%- assign tag_key = 'tag_' | append: tag_index -%}
-            {%- assign tag = block.settings[tag_key] -%}
-            {%- if tag != blank -%}
-              <span class="offer-card__tag">{{ tag }}</span>
-            {%- endif -%}
-          {%- endfor -%}
+          {%- if use_global_content -%}
+            {%- for tag in card_tags -%}
+              {%- if tag != blank -%}
+                <span class="offer-card__tag">{{ tag }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for tag_index in (1..5) -%}
+              {%- assign tag_key = 'tag_' | append: tag_index -%}
+              {%- assign tag = card.settings[tag_key] -%}
+              {%- if tag != blank -%}
+                <span class="offer-card__tag">{{ tag }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
         </div>
-      {%- if block.settings.link != blank -%}
+      {%- if card_link != blank -%}
         </a>
       {%- else -%}
         </article>
@@ -144,7 +199,7 @@
     justify-content: space-between;
     color: #fff;
     background: #1a1a1a;
-    border-radius: 1.875rem;
+    border-radius: var(--radius-panel);
     text-decoration: none;
   }
 
@@ -321,105 +376,138 @@
 
 {% schema %}
 {
-  "name": "Angebotskarten",
+  "name": "Offer Cards",
   "max_blocks": 4,
   "settings": [
     {
+      "type": "select",
+      "id": "content_source",
+      "label": "Content source",
+      "options": [
+        { "value": "local", "label": "Local to this template" },
+        { "value": "global", "label": "Globally synchronized" }
+      ],
+      "default": "local",
+      "info": "Edit global content under Content > Metaobjects > Offer teaser. Visibility settings remain local to each placement."
+    },
+    {
+      "type": "paragraph",
+      "content": "Global content is active. [Edit the global offer teaser](/admin/content/entries/offer_teaser/667814527363) or [manage its offer cards](/admin/content/entries/offer_card?selectedView=all). Local text and cards remain saved and return unchanged when Local is selected.",
+      "visible_if": "{{ section.settings.content_source == 'global' }}"
+    },
+    {
       "type": "checkbox",
       "id": "show_heading",
-      "label": "Titel anzeigen",
+      "label": "Show heading",
       "default": true
     },
     {
       "type": "inline_richtext",
       "id": "heading",
-      "label": "Titel",
-      "default": "Unser Angebot"
+      "label": "Heading",
+      "default": "Unser Angebot",
+      "visible_if": "{{ section.settings.content_source == 'local' }}"
     },
     {
       "type": "checkbox",
       "id": "show_intro",
-      "label": "Untertitel anzeigen",
+      "label": "Show introduction",
       "default": true
     },
     {
       "type": "richtext",
       "id": "intro",
-      "label": "Untertitel",
-      "default": "<p>Mit unseren zwei Produkten Sparklys Soda und Sparklys Hard Seltzer decken wir eine breite Palette an Einsatzmöglichkeiten ab. Ob in Kantinen mit Sparklys Soda, an Events mit Sparklys Hard Seltzer oder im Detailhandel im Regal: Sparklys passt in unterschiedlichste Verkaufssituationen.</p>"
+      "label": "Introduction",
+      "default": "<p>Mit unseren zwei Produkten Sparklys Soda und Sparklys Hard Seltzer decken wir eine breite Palette an Einsatzmöglichkeiten ab. Ob in Kantinen mit Sparklys Soda, an Events mit Sparklys Hard Seltzer oder im Detailhandel im Regal: Sparklys passt in unterschiedlichste Verkaufssituationen.</p>",
+      "visible_if": "{{ section.settings.content_source == 'local' }}"
     }
   ],
   "blocks": [
     {
       "type": "card",
-      "name": "Karte",
+      "name": "Card",
       "settings": [
+        {
+          "type": "paragraph",
+          "content": "This local card is saved but inactive while Global content is selected. [Manage the global offer cards](/admin/content/entries/offer_card?selectedView=all).",
+          "visible_if": "{{ section.settings.content_source == 'global' }}"
+        },
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Bild"
+          "label": "Image",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {
           "type": "select",
           "id": "default_image",
-          "label": "Figma-Standardbild",
+          "label": "Figma default image",
           "options": [
-            { "value": "none", "label": "Keines" },
+            { "value": "none", "label": "None" },
             { "value": "retail", "label": "Retail" },
             { "value": "gastro", "label": "Gastro" },
             { "value": "events", "label": "Events" },
-            { "value": "companies", "label": "Firmen" }
+            { "value": "companies", "label": "Companies" }
           ],
-          "default": "none"
+          "default": "none",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {
           "type": "inline_richtext",
           "id": "title",
-          "label": "Titel",
-          "default": "Angebot"
+          "label": "Title",
+          "default": "Angebot",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Link"
+          "label": "Link",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {
           "type": "textarea",
           "id": "subtitle",
-          "label": "Untertitel",
-          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          "label": "Subtitle",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {
           "type": "text",
           "id": "tag_1",
-          "label": "Chip 1"
+          "label": "Chip 1",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {
           "type": "text",
           "id": "tag_2",
-          "label": "Chip 2"
+          "label": "Chip 2",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {
           "type": "text",
           "id": "tag_3",
-          "label": "Chip 3"
+          "label": "Chip 3",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {
           "type": "text",
           "id": "tag_4",
-          "label": "Chip 4"
+          "label": "Chip 4",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {
           "type": "text",
           "id": "tag_5",
-          "label": "Chip 5"
+          "label": "Chip 5",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Angebotskarten",
+      "name": "Offer Cards",
       "blocks": [
         {
           "type": "card",
