@@ -1,6 +1,6 @@
 # Architecture
 
-Last reconciled with the repository on 2026-08-29.
+Last reconciled with the repository on 2026-08-30.
 
 ## System boundary
 
@@ -57,7 +57,7 @@ See [Section reference](sections/README.md), [Merchant content](merchant-content
 | --- | --- |
 | Home | Hero, Rich text, Product Overview Teaser, Offer Cards, Logo Marquee |
 | Product | Main Product |
-| Collection | Main Collection; Soda and Seltzer alternate templates currently use the same section with branded context |
+| Collection | Main Collection; Soda and Seltzer alternate templates add context-aware Hero, Rich text, and USP Section editorial modules |
 | Cart | Main Cart |
 | Search | Main Search |
 | Collections list | Main List Collections |

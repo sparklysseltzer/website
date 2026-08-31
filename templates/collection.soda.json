@@ -23,6 +23,17 @@
         "button_link": ""
       }
     },
+    "usp": {
+      "type": "usp-section",
+      "settings": {
+        "variant": "automatic",
+        "heading": "",
+        "text": "",
+        "image_position": "left center",
+        "heading_font": "automatic",
+        "color_mode": "automatic"
+      }
+    },
     "products": {
       "type": "main-collection",
       "settings": {
@@ -41,5 +52,5 @@
       }
     }
   },
-  "order": ["hero", "intro", "products", "details"]
+  "order": ["hero", "intro", "usp", "products", "details"]
 }

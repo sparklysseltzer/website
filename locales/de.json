@@ -102,6 +102,26 @@
     },
     "logo_marquee": {
       "label": "Händler"
+    },
+    "usp": {
+      "soda": {
+        "heading": "Your body’s\nfavorite Soda",
+        "text": "Wie deine Lieblingslimo – nur smarter. Mit pflanzlichen Ballaststoffen und Folsäure, die dein Wohlbefinden und dein Immunsystem unterstützen*. Vertrau auf dein Bauchgefühl!",
+        "item_1": "Immune system support*",
+        "item_2": "High plant fiber",
+        "item_3": "Kalorien- & zuckerarm",
+        "item_4": "With real fruit",
+        "item_5": "Swiss made"
+      },
+      "seltzer": {
+        "heading": "Original\nZeitgeist",
+        "text": "Ein Drink, der leicht bleibt – auch wenn’s laut wird. Kaum Zucker, klarer Geschmack und 5% Alkohol, die genau richtig sind. Sparklys Hard Seltzer macht jede Runde erfrischender.",
+        "item_1": "Perfect alc. vol.",
+        "item_2": "Kalorien-reduziert*",
+        "item_3": "Natural flavors",
+        "item_4": "Gluten-frei",
+        "item_5": "Vegan"
+      }
     }
   },
   "products": {

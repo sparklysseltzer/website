@@ -102,6 +102,26 @@
     },
     "logo_marquee": {
       "label": "Merchants"
+    },
+    "usp": {
+      "soda": {
+        "heading": "Your body’s\nfavorite Soda",
+        "text": "Like your favorite soda – only smarter. With plant-based fiber and folic acid to support your well-being and immune system*. Trust your gut feeling!",
+        "item_1": "Immune system support*",
+        "item_2": "High plant fiber",
+        "item_3": "Low in calories & sugar",
+        "item_4": "With real fruit",
+        "item_5": "Swiss made"
+      },
+      "seltzer": {
+        "heading": "Original\nZeitgeist",
+        "text": "A drink that stays light – even when things get loud. Barely any sugar, a clear taste, and 5% alcohol that feels just right. Sparklys Hard Seltzer makes every round more refreshing.",
+        "item_1": "Perfect alc. vol.",
+        "item_2": "Calorie-reduced*",
+        "item_3": "Natural flavors",
+        "item_4": "Gluten-free",
+        "item_5": "Vegan"
+      }
     }
   },
   "products": {

@@ -2,7 +2,7 @@
 
 This directory documents every Liquid section in `sections/`. Keep implementation details here; keep cross-cutting rules in [Architecture](../architecture.md), commerce requirements in [Commerce](../commerce.md), and capability state in [Status](../status.md).
 
-Last reconciled with the repository: 2026-08-29.
+Last reconciled with the repository: 2026-08-30.
 
 ## Global shell
 
@@ -21,6 +21,7 @@ Last reconciled with the repository: 2026-08-29.
 | [Product overview teaser](product-overview-teaser.md) | Four-card Soda and Hard Seltzer editorial product navigation |
 | [Offer cards](offer-cards.md) | Local or globally synchronized audience/use-case cards |
 | [Poster](poster.md) | Full-image or split editorial poster |
+| [USP Section](usp-section.md) | Context-aware Soda or Hard Seltzer image, copy, and five USP items |
 | [Merchant marquee](logo-marquee.md) | Metaobject-driven merchant-logo loop |
 
 ## Resource sections

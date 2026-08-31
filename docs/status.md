@@ -2,7 +2,7 @@
 
 This file is a capability map, not a promise of production readiness.
 
-Last reconciled with the repository on 2026-08-29.
+Last reconciled with the repository on 2026-08-30.
 
 ## Implemented in the current theme
 
@@ -22,7 +22,7 @@ Last reconciled with the repository on 2026-08-29.
 - Context-aware local typography: Maison Neue Demi for body/UI and h3-h6, Erode Bold with −3% letter spacing for Soda h1/h2, and Newake for general and Hard Seltzer h1/h2, with Maison Neue Bold registered for future use.
 - Context-independent footer card typography: Newake at weight 400 in General, Soda, and Hard Seltzer variants.
 - Product detail pages inherit the complete Soda or Hard Seltzer shell through explicit branded templates or unambiguous membership in the configured brand collection.
-- Eighteen documented Liquid sections covering the persistent shell, resource templates, and reusable editorial modules. The homepage currently composes Hero, Rich Text, Product Overview Teaser, Offer Cards, and Logo Marquee; Poster and Featured Collection remain available as presets. See the [Section reference](sections/README.md) for their settings, behavior, responsive rules, assets, accessibility contracts, and known gaps.
+- Nineteen documented Liquid sections covering the persistent shell, resource templates, and reusable editorial modules. The homepage currently composes Hero, Rich Text, Product Overview Teaser, Offer Cards, and Logo Marquee; Poster and Featured Collection remain available as presets. Soda and Hard Seltzer collection templates share one context-aware USP Section with product-world defaults and merchant overrides. See the [Section reference](sections/README.md) for their settings, behavior, responsive rules, assets, accessibility contracts, and known gaps.
 - A polished four-card Product Overview composition with responsive no-overlap scaling, a shared product floor, product-specific glows and tinted progressive SVG shadows, 90% Soda and 105% Hard Seltzer can scales, wave-logo SVG titles for Maracuja and Holunder, and horizontally scrollable phone layouts.
 - JSON templates for home, product, collection, collection list, cart, search, page, blog, article, and 404.
 - Responsive product cards and basic product media.

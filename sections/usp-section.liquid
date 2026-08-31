@@ -1,0 +1,605 @@
+{%- liquid
+  assign soda_collection = collections['soda']
+  assign seltzer_collection = collections['hard-seltzer']
+
+  capture page_context
+    render 'brand-context', soda_collection: soda_collection, seltzer_collection: seltzer_collection
+  endcapture
+  assign page_context = page_context | strip
+
+  assign usp_variant = section.settings.variant | default: 'automatic'
+  if usp_variant == 'automatic'
+    assign usp_variant = page_context
+  endif
+
+  assign should_render = false
+  if usp_variant == 'soda' or usp_variant == 'seltzer'
+    assign should_render = true
+  endif
+
+  if usp_variant == 'soda'
+    assign fallback_media = 'usp-soda-media.webp'
+    assign fallback_heading_key = 'sections.usp.soda.heading'
+    assign fallback_text_key = 'sections.usp.soda.text'
+    assign panel_background = '#69bdf7'
+    assign text_color = '#000000'
+  else
+    assign fallback_media = 'usp-seltzer-media.webp'
+    assign fallback_heading_key = 'sections.usp.seltzer.heading'
+    assign fallback_text_key = 'sections.usp.seltzer.text'
+    assign panel_background = '#000000'
+    assign text_color = '#ffffff'
+  endif
+
+  if section.settings.color_mode == 'custom'
+    assign panel_background = section.settings.background
+    assign text_color = section.settings.text_color
+  endif
+
+  assign usp_heading = section.settings.heading
+  if usp_heading == blank and should_render
+    assign usp_heading = fallback_heading_key | t
+  endif
+
+  assign heading_font = section.settings.heading_font | default: 'automatic'
+  if heading_font == 'automatic'
+    assign heading_font = usp_variant
+  endif
+  if heading_font == 'seltzer'
+    assign heading_font = 'default'
+  endif
+
+  assign needs_media_overlay = false
+  if section.settings.image != blank or section.settings.color_mode == 'custom'
+    assign needs_media_overlay = true
+  endif
+-%}
+
+{%- if should_render -%}
+  <section
+    class="usp-section usp-section--{{ usp_variant }} usp-section--heading-{{ heading_font }}{% if needs_media_overlay %} usp-section--media-overlay{% endif %} section--tight"
+    style="--usp-panel-background: {{ panel_background }}; --usp-text-color: {{ text_color }}; --usp-image-position: {{ section.settings.image_position }};"
+  >
+    <div class="usp-section__panel">
+      <div class="usp-section__media" aria-hidden="true">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 2800
+            | image_tag:
+              widths: '720, 1000, 1400, 2000, 2800',
+              sizes: '(min-width: 90rem) 1400px, calc(100vw - 2rem)',
+              loading: 'lazy',
+              alt: ''
+          }}
+        {%- else -%}
+          <img
+            src="{{ fallback_media | asset_url }}"
+            width="1400"
+            height="630"
+            loading="lazy"
+            alt=""
+          >
+        {%- endif -%}
+      </div>
+
+      <div class="usp-section__content">
+        <div class="usp-section__copy">
+          {%- if usp_heading != blank -%}
+            <h2 class="usp-section__heading">{{ usp_heading | newline_to_br }}</h2>
+          {%- endif -%}
+
+          {%- if section.settings.text != blank -%}
+            <div class="usp-section__text rte">{{ section.settings.text }}</div>
+          {%- else -%}
+            <div class="usp-section__text rte"><p>{{ fallback_text_key | t }}</p></div>
+          {%- endif -%}
+        </div>
+
+        <div class="usp-section__items" role="list">
+          {%- if section.blocks.size > 0 -%}
+            {%- for block in section.blocks -%}
+              {%- if block.settings.label != blank -%}
+                <div class="usp-section__item" role="listitem" {{ block.shopify_attributes }}>
+                  <div class="usp-section__icon" aria-hidden="true">
+                    {%- if block.settings.icon != blank -%}
+                      {{
+                        block.settings.icon
+                        | image_url: width: 160
+                        | image_tag:
+                          widths: '80, 120, 160',
+                          sizes: '69px',
+                          loading: 'lazy',
+                          alt: ''
+                      }}
+                    {%- endif -%}
+                  </div>
+                  <p class="usp-section__label">{{ block.settings.label | newline_to_br }}</p>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for usp_index in (1..5) -%}
+              {%- capture label_key -%}sections.usp.{{ usp_variant }}.item_{{ usp_index }}{%- endcapture -%}
+              <div class="usp-section__item" role="listitem">
+                <div
+                  class="usp-section__icon usp-section__icon--{{ usp_variant }}-{{ usp_index }}"
+                  aria-hidden="true"
+                >
+                  {%- if usp_variant == 'soda' -%}
+                    {%- case usp_index -%}
+                      {%- when 1 -%}
+                        <img src="{{ 'usp-soda-immune.svg' | asset_url }}" width="69" height="69" alt="">
+                      {%- when 2 -%}
+                        <img src="{{ 'usp-soda-fiber.svg' | asset_url }}" width="69" height="69" alt="">
+                      {%- when 3 -%}
+                        <img src="{{ 'usp-soda-low-calorie.svg' | asset_url }}" width="69" height="69" alt="">
+                      {%- when 4 -%}
+                        <img
+                          class="usp-section__icon-layer usp-section__icon-layer--full"
+                          src="{{ 'usp-soda-fruit-base.svg' | asset_url }}"
+                          width="69"
+                          height="69"
+                          alt=""
+                        >
+                        <img
+                          class="usp-section__icon-layer usp-section__icon-layer--soda-fruit"
+                          src="{{ 'usp-soda-fruit-mark.svg' | asset_url }}"
+                          width="37"
+                          height="42"
+                          alt=""
+                        >
+                      {%- when 5 -%}
+                        <img
+                          class="usp-section__icon-layer usp-section__icon-layer--full"
+                          src="{{ 'usp-soda-swiss-base.svg' | asset_url }}"
+                          width="69"
+                          height="69"
+                          alt=""
+                        >
+                        <img
+                          class="usp-section__icon-layer usp-section__icon-layer--soda-swiss"
+                          src="{{ 'usp-soda-swiss-mark.svg' | asset_url }}"
+                          width="30"
+                          height="30"
+                          alt=""
+                        >
+                    {%- endcase -%}
+                  {%- else -%}
+                    {%- case usp_index -%}
+                      {%- when 1 -%}
+                        <img
+                          class="usp-section__icon-layer usp-section__icon-layer--full"
+                          src="{{ 'usp-seltzer-alcohol-base.svg' | asset_url }}"
+                          width="68"
+                          height="68"
+                          alt=""
+                        >
+                        <img
+                          class="usp-section__icon-layer usp-section__icon-layer--seltzer-alcohol-main"
+                          src="{{ 'usp-seltzer-alcohol-main.svg' | asset_url }}"
+                          width="23"
+                          height="29"
+                          alt=""
+                        >
+                        <img
+                          class="usp-section__icon-layer usp-section__icon-layer--seltzer-alcohol-detail-1"
+                          src="{{ 'usp-seltzer-alcohol-detail-1.svg' | asset_url }}"
+                          width="17"
+                          height="15"
+                          alt=""
+                        >
+                        <img
+                          class="usp-section__icon-layer usp-section__icon-layer--seltzer-alcohol-detail-2"
+                          src="{{ 'usp-seltzer-alcohol-detail-2.svg' | asset_url }}"
+                          width="15"
+                          height="5"
+                          alt=""
+                        >
+                        <img
+                          class="usp-section__icon-layer usp-section__icon-layer--seltzer-alcohol-detail-3"
+                          src="{{ 'usp-seltzer-alcohol-detail-3.svg' | asset_url }}"
+                          width="15"
+                          height="5"
+                          alt=""
+                        >
+                      {%- when 2 -%}
+                        <img src="{{ 'usp-seltzer-calories.svg' | asset_url }}" width="68" height="68" alt="">
+                      {%- when 3 -%}
+                        <img src="{{ 'usp-seltzer-natural.svg' | asset_url }}" width="68" height="68" alt="">
+                      {%- when 4 -%}
+                        <img src="{{ 'usp-seltzer-gluten-free.svg' | asset_url }}" width="68" height="68" alt="">
+                      {%- when 5 -%}
+                        <img src="{{ 'usp-seltzer-vegan.svg' | asset_url }}" width="68" height="68" alt="">
+                    {%- endcase -%}
+                  {%- endif -%}
+                </div>
+                <p class="usp-section__label">{{ label_key | t }}</p>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+{%- elsif request.design_mode -%}
+  <section class="usp-section section--tight">
+    <div class="usp-section__editor-note">
+      Automatic content needs a Soda or Hard Seltzer page context. Select an explicit content variant to preview this section here.
+    </div>
+  </section>
+{%- endif -%}
+
+{% stylesheet %}
+  .usp-section {
+    padding-inline: var(--page-gutter);
+  }
+
+  .usp-section__panel {
+    position: relative;
+    width: 100%;
+    max-width: 87.5rem;
+    aspect-ratio: 1400 / 630;
+    min-height: 34rem;
+    margin-inline: auto;
+    overflow: hidden;
+    color: var(--usp-text-color);
+    background: var(--usp-panel-background);
+    border-radius: 1rem;
+  }
+
+  .usp-section__media {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+  }
+
+  .usp-section__media::after {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 38%, var(--usp-panel-background) 70%);
+    content: '';
+    pointer-events: none;
+  }
+
+  .usp-section--media-overlay .usp-section__media::after {
+    display: block;
+  }
+
+  .usp-section__media > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--usp-image-position, center center);
+  }
+
+  .usp-section__content {
+    position: relative;
+    z-index: 1;
+    width: 50%;
+    min-height: 100%;
+    padding: clamp(2rem, 2.5vw, 2.5rem) 7.142857% clamp(2rem, 2.5vw, 2.5rem) clamp(1.25rem, 2vw, 1.875rem);
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 1.25vw, 1.25rem);
+    justify-content: center;
+  }
+
+  .usp-section__copy {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .usp-section__heading {
+    margin: 0;
+    font-family: var(--font-heading-default);
+    font-size: clamp(3rem, 4.7705vw, 4.7705rem);
+    font-weight: 400;
+    line-height: 0.852;
+    letter-spacing: normal;
+  }
+
+  .usp-section--heading-soda .usp-section__heading {
+    font-family: var(--font-heading-soda);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .usp-section--seltzer .usp-section__heading {
+    text-transform: uppercase;
+  }
+
+  .usp-section__text {
+    max-width: 100%;
+    font-size: clamp(0.9375rem, 1.0625vw, 1.0625rem);
+    line-height: 1.3;
+  }
+
+  .usp-section__text > :first-child {
+    margin-top: 0;
+  }
+
+  .usp-section__text > :last-child {
+    margin-bottom: 0;
+  }
+
+  .usp-section__items {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.25rem;
+  }
+
+  .usp-section__item {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.5rem, 0.75vw, 0.75rem);
+    align-items: center;
+  }
+
+  .usp-section__icon {
+    position: relative;
+    width: clamp(3.25rem, 4.31vw, 4.3125rem);
+    height: clamp(3.25rem, 4.31vw, 4.3125rem);
+    flex: none;
+  }
+
+  .usp-section__icon > img:not(.usp-section__icon-layer),
+  .usp-section__icon > picture,
+  .usp-section__icon > picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .usp-section__icon-layer {
+    position: absolute;
+    display: block;
+  }
+
+  .usp-section__icon-layer--full {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .usp-section__icon-layer--soda-fruit {
+    top: 22.84%;
+    left: 17.48%;
+    width: 53.54%;
+    height: 60.08%;
+  }
+
+  .usp-section__icon-layer--soda-swiss {
+    top: 28.46%;
+    left: 28.79%;
+    width: 43.47%;
+    height: 43.47%;
+  }
+
+  .usp-section__icon-layer--seltzer-alcohol-main {
+    top: 29.71%;
+    left: 20.28%;
+    width: 33.78%;
+    height: 42%;
+  }
+
+  .usp-section__icon-layer--seltzer-alcohol-detail-1 {
+    top: 29.57%;
+    left: 52.75%;
+    width: 24.81%;
+    height: 22.21%;
+  }
+
+  .usp-section__icon-layer--seltzer-alcohol-detail-2 {
+    top: 63.95%;
+    left: 56.29%;
+    width: 21.69%;
+    height: 7.06%;
+  }
+
+  .usp-section__icon-layer--seltzer-alcohol-detail-3 {
+    top: 54.27%;
+    left: 56.29%;
+    width: 21.04%;
+    height: 7.06%;
+  }
+
+  .usp-section__label {
+    width: 100%;
+    margin: 0;
+    font-family: 'Maison Neue Bold', var(--font-body);
+    font-size: clamp(0.6875rem, 0.956vw, 0.956rem);
+    font-weight: 700;
+    line-height: 1.055;
+    text-align: center;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+  }
+
+  .usp-section__editor-note {
+    max-width: 87.5rem;
+    padding: 2rem;
+    margin-inline: auto;
+    color: #000;
+    background: #e1f2fc;
+    border: 1px dashed #000;
+    border-radius: 1rem;
+    text-align: center;
+  }
+
+  @media (max-width: 74.999rem) {
+    .usp-section__panel {
+      min-height: 30rem;
+    }
+
+    .usp-section__content {
+      padding-right: 4%;
+    }
+
+    .usp-section__heading {
+      font-size: clamp(2.625rem, 6vw, 4rem);
+    }
+
+    .usp-section__label {
+      font-size: clamp(0.625rem, 1.2vw, 0.8125rem);
+    }
+  }
+
+  @media (max-width: 55.999rem) {
+    .usp-section__panel {
+      aspect-ratio: auto;
+      min-height: 0;
+    }
+
+    .usp-section__media {
+      position: relative;
+      aspect-ratio: 4 / 3;
+    }
+
+    .usp-section__media > img {
+      object-position: var(--usp-image-position, left center);
+    }
+
+    .usp-section__content {
+      width: 100%;
+      min-height: 0;
+      padding: clamp(1.5rem, 7vw, 2.5rem);
+      margin-left: 0;
+    }
+
+    .usp-section__heading {
+      font-size: clamp(2.75rem, 13vw, 4.25rem);
+    }
+
+    .usp-section__items {
+      grid-template-columns: repeat(5, minmax(4.5rem, 1fr));
+      padding-bottom: 0.5rem;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      scrollbar-width: thin;
+    }
+
+    .usp-section__icon {
+      width: 3.75rem;
+      height: 3.75rem;
+    }
+
+    .usp-section__label {
+      font-size: 0.75rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "USP Section",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "select",
+      "id": "variant",
+      "label": "Content variant",
+      "options": [
+        { "value": "automatic", "label": "Automatic — page context" },
+        { "value": "soda", "label": "Sparklys Soda" },
+        { "value": "seltzer", "label": "Sparklys Hard Seltzer" }
+      ],
+      "default": "automatic",
+      "info": "Automatic uses Soda content on Soda pages and Hard Seltzer content on Hard Seltzer pages. Choose an explicit variant on shared pages."
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Leave blank to use the selected product world's Figma heading. Line breaks are preserved."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "info": "Leave blank to use the selected product world's Figma text."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image",
+      "info": "Leave blank to use the selected product world's Figma image."
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "left center", "label": "Left" },
+        { "value": "center center", "label": "Center" },
+        { "value": "right center", "label": "Right" }
+      ],
+      "default": "left center"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading typeface",
+      "options": [
+        { "value": "automatic", "label": "Automatic — content variant" },
+        { "value": "default", "label": "Sparklys / Hard Seltzer — Newake" },
+        { "value": "soda", "label": "Sparklys Soda — Erode" }
+      ],
+      "default": "automatic"
+    },
+    {
+      "type": "select",
+      "id": "color_mode",
+      "label": "Color treatment",
+      "options": [
+        { "value": "automatic", "label": "Automatic — content variant" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "default": "automatic"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background color",
+      "default": "#69bdf7",
+      "visible_if": "{{ section.settings.color_mode == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000",
+      "visible_if": "{{ section.settings.color_mode == 'custom' }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "USP",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "textarea",
+          "id": "label",
+          "label": "Label",
+          "default": "USP",
+          "info": "Line breaks are preserved."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "USP Section"
+    }
+  ]
+}
+{% endschema %}
