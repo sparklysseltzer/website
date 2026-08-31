@@ -7,6 +7,7 @@
         "heading": "Prickelnd anders.",
         "text": "<p>Natürlicher Seltzer aus der Schweiz.</p>",
         "button_label": "Produkte entdecken",
+        "button_link": "",
         "background": "#e6d783",
         "foreground": "#172019",
         "overlay": 20
@@ -17,7 +18,9 @@
       "settings": {
         "eyebrow": "Weniger ist mehr",
         "heading": "Echter Geschmack. Klare Zutaten.",
-        "text": "<p>Hier entsteht die neue digitale Heimat von Sparklys.</p>"
+        "text": "<p>Hier entsteht die neue digitale Heimat von Sparklys.</p>",
+        "button_label": "",
+        "button_link": ""
       }
     },
     "products": {
@@ -33,8 +36,8 @@
             "show_alcohol_badge": false,
             "background": "#ff9d00",
             "background_end": "#ffeda3",
-            "image_glow": "#ffbf3c",
             "accent": "#000000",
+            "image_glow": "#ffbf3c",
             "image_width": 82,
             "image_offset_x": 0,
             "image_offset_y": 0
@@ -50,8 +53,8 @@
             "show_alcohol_badge": false,
             "background": "#00519a",
             "background_end": "#65d3f4",
-            "image_glow": "#2885c2",
             "accent": "#000000",
+            "image_glow": "#2885c2",
             "image_width": 82,
             "image_offset_x": 0,
             "image_offset_y": 0
@@ -67,8 +70,8 @@
             "show_alcohol_badge": true,
             "background": "#ff9d00",
             "background_end": "#ffeda3",
-            "image_glow": "#ffbf3c",
             "accent": "#ef9a00",
+            "image_glow": "#ffbf3c",
             "image_width": 40,
             "image_offset_x": 0,
             "image_offset_y": 0
@@ -84,21 +87,37 @@
             "show_alcohol_badge": true,
             "background": "#009e52",
             "background_end": "#88f688",
-            "image_glow": "#36c16a",
             "accent": "#1eb445",
+            "image_glow": "#36c16a",
             "image_width": 40,
             "image_offset_x": 0,
             "image_offset_y": 0
           }
         }
       },
-      "block_order": ["soda_yuzu", "soda_blueberry", "seltzer_maracuja", "seltzer_holunder"],
+      "block_order": [
+        "soda_yuzu",
+        "soda_blueberry",
+        "seltzer_maracuja",
+        "seltzer_holunder"
+      ],
       "settings": {
         "heading": "Our drinks",
         "all_products_label": "All products",
         "all_products_link": "shopify://collections/all",
         "soda_link": "shopify://collections/soda",
         "hard_seltzer_link": "shopify://collections/hard-seltzer"
+      }
+    },
+    "rich_text_8KfU6y": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "eyebrow": "Weniger ist mehr",
+        "heading": "Echter Geschmack. Klare Zutaten.",
+        "text": "<p>Hier entsteht die neue digitale Heimat von Sparklys.</p>",
+        "button_label": "",
+        "button_link": ""
       }
     },
     "offer_cards": {
@@ -109,6 +128,7 @@
           "settings": {
             "default_image": "retail",
             "title": "Retail",
+            "link": "",
             "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "tag_1": "Detailhandel",
             "tag_2": "Fachhandel",
@@ -122,6 +142,7 @@
           "settings": {
             "default_image": "gastro",
             "title": "Gastro",
+            "link": "",
             "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "tag_1": "Kantinen",
             "tag_2": "Degustationen",
@@ -135,6 +156,7 @@
           "settings": {
             "default_image": "events",
             "title": "Events",
+            "link": "",
             "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "tag_1": "Day-Dances",
             "tag_2": "Festivals",
@@ -148,16 +170,24 @@
           "settings": {
             "default_image": "companies",
             "title": "Firmen",
+            "link": "",
             "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "tag_1": "Firmen-Abo",
             "tag_2": "Kühlschränke",
             "tag_3": "Snack-Automaten",
-            "tag_4": "Firmen-Events"
+            "tag_4": "Firmen-Events",
+            "tag_5": ""
           }
         }
       },
-      "block_order": ["retail", "gastro", "events", "companies"],
+      "block_order": [
+        "retail",
+        "gastro",
+        "events",
+        "companies"
+      ],
       "settings": {
+        "content_source": "local",
         "show_heading": true,
         "heading": "Unser Angebot",
         "show_intro": true,
@@ -167,11 +197,36 @@
     "logo_marquee": {
       "type": "logo-marquee",
       "settings": {
+        "merchant_collection": "online-shops",
+        "heading": "Jetzt erhältlich in deiner Nähe",
+        "background_style": "transparent",
         "duration": 32,
         "direction": "normal",
         "pause_on_interaction": true
       }
+    },
+    "usp_section_4Uicmb": {
+      "type": "usp-section",
+      "name": "USP Section",
+      "settings": {
+        "variant": "soda",
+        "heading": "",
+        "text": "",
+        "image_position": "left center",
+        "heading_font": "automatic",
+        "color_mode": "automatic",
+        "background": "#69bdf7",
+        "text_color": "#000000"
+      }
     }
   },
-  "order": ["hero", "intro", "products", "offer_cards", "logo_marquee"]
+  "order": [
+    "hero",
+    "intro",
+    "products",
+    "rich_text_8KfU6y",
+    "offer_cards",
+    "logo_marquee",
+    "usp_section_4Uicmb"
+  ]
 }
