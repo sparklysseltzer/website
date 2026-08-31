@@ -56,6 +56,8 @@ npm run dev
 
 The command targets `sparklys-hard-seltzer.myshopify.com`, uses real store data, supports hot reload, and opens a theme preview. Shopify states that development themes are hidden, temporary, and deleted after seven days of inactivity. See [Shopify CLI for themes](https://shopify.dev/docs/storefronts/themes/tools/cli).
 
+The development script enables Theme Editor synchronization. Editor changes are written back to the local JSON files, while local theme changes continue to update the development theme. Startup reconciliation aborts on a genuine JSON conflict instead of silently discarding either local or remote settings; resolve the conflict deliberately, then restart. Review and commit intentional synchronized JSON changes with the corresponding implementation work.
+
 Before previewing, confirm the authenticated store with:
 
 ```sh
