@@ -31,7 +31,7 @@ Blank section-level content uses localized Figma defaults. When no custom USP bl
 
 Desktop reproduces the 1400 by 630 composition inside a centered 16px-radius panel. The exact flattened Figma media/gradient export remains decorative background artwork; the title, description, and USP labels remain real localized HTML. Original Figma SVG layers render the icons without remote runtime assets.
 
-Below 896px the panel stacks the cropped media above the content. USP items become an internal horizontal scroller rather than causing page-level overflow. The section requires no JavaScript and has no motion-only content.
+Below 896px the panel stacks the cropped media above the content. The five USP items use a centered two-row grid with three items on the first row and two on the second; shorter custom sets are centered where necessary. The section requires no JavaScript and has no motion-only content.
 
 ## Accessibility and maintenance
 
