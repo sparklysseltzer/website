@@ -1,5 +1,6 @@
 {%- liquid
   assign merchant_collection = section.settings.merchant_collection
+  assign marquee_heading = section.settings.heading
   assign merchants = blank
 
   if merchant_collection != blank
@@ -20,12 +21,19 @@
 
 {%- if merchant_count > 0 or request.design_mode -%}
   <section
-    class="logo-marquee"
+    class="logo-marquee logo-marquee--{{ section.settings.background_style | default: 'gray' }}{% if marquee_heading != blank %} logo-marquee--with-heading{% endif %}"
     style="--logo-marquee-duration: {{ section.settings.duration }}s; --logo-marquee-direction: {{ section.settings.direction }};"
     aria-labelledby="LogoMarquee-{{ section.id }}"
   >
-    <h2 class="visually-hidden" id="LogoMarquee-{{ section.id }}">
-      {{ 'sections.logo_marquee.label' | t }}
+    <h2
+      class="{% if marquee_heading != blank %}logo-marquee__heading{% else %}visually-hidden{% endif %}"
+      id="LogoMarquee-{{ section.id }}"
+    >
+      {%- if marquee_heading != blank -%}
+        {{ marquee_heading }}
+      {%- else -%}
+        {{ 'sections.logo_marquee.label' | t }}
+      {%- endif -%}
     </h2>
 
     {%- if merchant_count > 0 -%}
@@ -113,6 +121,35 @@
     padding-block: clamp(1.5rem, 2.5vw, 2.5rem);
     overflow: hidden;
     background: #e0e0e0;
+  }
+
+  .logo-marquee--with-heading {
+    padding-block: clamp(2rem, 3.125vw, 3.125rem);
+  }
+
+  .logo-marquee__heading {
+    padding-inline: var(--page-gutter);
+    margin: 0 0 clamp(1rem, 1.25vw, 1.25rem);
+    color: #000;
+    font-family: var(--font-heading-default);
+    font-size: clamp(2rem, 2.8125vw, 2.8125rem);
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .logo-marquee--transparent {
+    background: transparent;
+  }
+
+  .logo-marquee--transparent .logo-marquee__tile {
+    background: transparent;
+  }
+
+  .logo-marquee--white,
+  .logo-marquee--white .logo-marquee__tile {
+    background: #fff;
   }
 
   .logo-marquee__viewport {
@@ -224,6 +261,23 @@
       "id": "merchant_collection",
       "label": "Merchant Collection",
       "metaobject_type": "merchant_collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Leave blank to hide the visible heading."
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background treatment",
+      "options": [
+        { "value": "gray", "label": "Gray section with white cards" },
+        { "value": "transparent", "label": "Fully transparent" },
+        { "value": "white", "label": "Fully white" }
+      ],
+      "default": "gray"
     },
     {
       "type": "range",

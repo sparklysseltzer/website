@@ -9,13 +9,17 @@ The marquee renders an ordered `merchant_collection` metaobject whose `merchants
 ## Merchant controls
 
 - Merchant Collection metaobject;
-- 12–80 second loop duration, default 32;
+- optional visible heading;
+- background treatment: gray section with white cards, fully transparent section and cards, or fully white section and cards; default gray;
+- 12–60 second loop duration, default 32;
 - left or right direction;
 - pause on pointer hover and keyboard focus.
 
 ## Rendering contract
 
-The full-width gray surface contains white logo tiles and duplicated visual groups for a seamless CSS loop. Duplicate groups are hidden from assistive technology and removed from keyboard order. A merchant URL makes only the canonical tile interactive. Missing or empty data emits no storefront section.
+The optional heading follows the Figma module: centered uppercase Newake, responsive up to 45px, with a 20px desktop gap above the logo track and 50px desktop section padding. When the heading is blank, the localized section label remains as a visually hidden `h2` for the section landmark.
+
+The full-width surface uses the Figma-derived gray background with white logo cards, a fully transparent treatment, or a fully white treatment for both the section and cards. Duplicated visual groups create a seamless CSS loop. Duplicate groups are hidden from assistive technology and removed from keyboard order. A merchant URL makes only the canonical tile interactive. Missing or empty data emits no storefront section.
 
 ## Motion and accessibility
 
@@ -23,4 +27,4 @@ The animation is CSS-only. Reduced-motion mode disables the loop and exposes the
 
 ## Operational state
 
-The `merchant` and `merchant_collection` definitions exist on the connected store. Approved Merchant entries and a selected collection are still required for final storefront content.
+The `merchant` and `merchant_collection` definitions exist on the connected store. The homepage development instance currently selects the `online-shops` collection; Merchant entries remain store-owned content.
