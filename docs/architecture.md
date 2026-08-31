@@ -75,9 +75,9 @@ The server resolves one of three presentation contexts: `default`, `soda`, or `s
 Resolution order:
 
 1. An explicit alternate template suffix such as `.soda` or `.seltzer` wins.
-2. A configured Soda or Hard Seltzer collection resolves its own context.
-3. A product belonging to exactly one configured brand collection inherits that context.
-4. A product in both brand collections remains `default` unless an alternate template resolves the ambiguity.
+2. The canonical `soda` or `hard-seltzer` collection resolves its own context.
+3. A product belonging to exactly one canonical brand collection inherits that context.
+4. A product in both canonical brand collections remains `default` unless an alternate template resolves the ambiguity.
 5. Supporting pages and articles can opt in through an alternate template.
 6. Shared or unclassified surfaces remain `default`.
 

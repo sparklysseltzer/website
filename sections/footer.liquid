@@ -2,16 +2,8 @@
   assign current_year = 'now' | date: '%Y'
   assign footer_menu = section.settings.menu
   assign legal_menu = section.settings.legal_menu
-  assign soda_collection = section.settings.soda_collection
-  assign seltzer_collection = section.settings.seltzer_collection
-
-  if soda_collection == blank
-    assign soda_collection = collections['soda']
-  endif
-
-  if seltzer_collection == blank
-    assign seltzer_collection = collections['hard-seltzer']
-  endif
+  assign soda_collection = collections['soda']
+  assign seltzer_collection = collections['hard-seltzer']
 
   capture footer_context
     render 'brand-context', soda_collection: soda_collection, seltzer_collection: seltzer_collection
@@ -261,20 +253,6 @@
       "type": "link_list",
       "id": "legal_menu",
       "label": "Legal navigation"
-    },
-    {
-      "type": "header",
-      "content": "Brand context"
-    },
-    {
-      "type": "collection",
-      "id": "soda_collection",
-      "label": "Soda collection"
-    },
-    {
-      "type": "collection",
-      "id": "seltzer_collection",
-      "label": "Hard Seltzer collection"
     }
   ]
 }

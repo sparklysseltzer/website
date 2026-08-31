@@ -5,8 +5,6 @@
     "footer": {
       "type": "footer",
       "settings": {
-        "soda_collection": "soda",
-        "seltzer_collection": "hard-seltzer",
         "menu": "footer-nav-general",
         "soda_menu": "footer-nav-soda",
         "seltzer_menu": "footer-nav-seltzer",

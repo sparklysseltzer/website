@@ -9,9 +9,7 @@
         "store_finder_page": "haendler",
         "menu": "main-nav-general",
         "soda_menu": "main-nav-soda",
-        "seltzer_menu": "main-nav-seltzer",
-        "soda_collection": "soda",
-        "seltzer_collection": "hard-seltzer"
+        "seltzer_menu": "main-nav-seltzer"
       }
     }
   },

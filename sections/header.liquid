@@ -2,19 +2,11 @@
   assign active_menu = section.settings.menu
   assign corporate_menu = section.settings.corporate_menu
   assign store_finder_page = section.settings.store_finder_page
-  assign soda_collection = section.settings.soda_collection
-  assign seltzer_collection = section.settings.seltzer_collection
+  assign soda_collection = collections['soda']
+  assign seltzer_collection = collections['hard-seltzer']
 
   if store_finder_page == blank
     assign store_finder_page = pages['haendler']
-  endif
-
-  if soda_collection == blank
-    assign soda_collection = collections['soda']
-  endif
-
-  if seltzer_collection == blank
-    assign seltzer_collection = collections['hard-seltzer']
   endif
 
   capture header_context
@@ -275,11 +267,6 @@
       "content": "Soda"
     },
     {
-      "type": "collection",
-      "id": "soda_collection",
-      "label": "Brand collection"
-    },
-    {
       "type": "link_list",
       "id": "soda_menu",
       "label": "Navigation"
@@ -287,11 +274,6 @@
     {
       "type": "header",
       "content": "Hard Seltzer"
-    },
-    {
-      "type": "collection",
-      "id": "seltzer_collection",
-      "label": "Brand collection"
     },
     {
       "type": "link_list",

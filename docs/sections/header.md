@@ -12,10 +12,9 @@ The persistent header renders the global Sparklys shell in one of three server-r
 
 - General, Soda, and Hard Seltzer Shopify Navigation menus;
 - Corporate Nav for the black utility bar;
-- Store Finder Shopify Page;
-- Soda and Hard Seltzer collection objects used for context and switcher destinations.
+- Store Finder Shopify Page.
 
-Blank collection/page selections use the `soda`, `hard-seltzer`, and `haendler` handles only as development bootstrap fallbacks. Resource URLs remain authoritative.
+The canonical `soda` and `hard-seltzer` collection handles are an architectural contract rather than merchant settings. They determine context and the product-world switcher destinations. A blank Store Finder selection uses the `haendler` handle as a development bootstrap fallback. Resource URLs remain authoritative.
 
 ## Rendering contract
 
