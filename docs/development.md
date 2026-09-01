@@ -58,6 +58,8 @@ The command targets `sparklys-hard-seltzer.myshopify.com`, uses real store data,
 
 The development script enables Theme Editor synchronization. Editor changes are written back to the local JSON files, while local theme changes continue to update the development theme. Startup reconciliation aborts on a genuine JSON conflict instead of silently discarding either local or remote settings; resolve the conflict deliberately, then restart. Review and commit intentional synchronized JSON changes with the corresponding implementation work.
 
+Do not use the embedded Theme Editor canvas as the final reference for high-frequency visual effects. Shopify renders that preview inside a potentially scaled iframe, and its inspector adds translucent hover and selection layers. Resampling and overlays can make the global grain—especially with `mix-blend-mode: overlay`—look softer than it does on the storefront. Disable the preview inspector and open the editor's standalone Preview for a closer comparison; use `http://127.0.0.1:9292/` at native browser scale as the local visual-QA reference.
+
 Before previewing, confirm the authenticated store with:
 
 ```sh
