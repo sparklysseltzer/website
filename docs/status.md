@@ -2,7 +2,7 @@
 
 This file is a capability map, not a promise of production readiness.
 
-Last reconciled with the repository on 2026-08-30.
+Last reconciled with the repository on 2026-09-01.
 
 ## Implemented in the current theme
 
@@ -22,7 +22,8 @@ Last reconciled with the repository on 2026-08-30.
 - Context-aware local typography: Maison Neue Demi for body/UI and h3-h6, Erode Bold with −3% letter spacing for Soda h1/h2, and Newake for general and Hard Seltzer h1/h2, with Maison Neue Bold registered for future use.
 - Context-independent footer card typography: Newake at weight 400 in General, Soda, and Hard Seltzer variants.
 - Product detail pages inherit the complete Soda or Hard Seltzer shell through explicit branded templates or unambiguous membership in the configured brand collection.
-- Nineteen documented Liquid sections covering the persistent shell, resource templates, and reusable editorial modules. The homepage currently composes Hero, Rich Text, Product Overview Teaser, Offer Cards, and Logo Marquee; Poster and Featured Collection remain available as presets. Soda and Hard Seltzer collection templates share one context-aware USP Section with product-world defaults and merchant overrides. See the [Section reference](sections/README.md) for their settings, behavior, responsive rules, assets, accessibility contracts, and known gaps.
+- Merchant-owned `custom.product_world` definitions for Pages, Products, and Collections provide an explicit Soda or Hard Seltzer classification that overrides template and canonical-collection fallbacks.
+- Nineteen documented Liquid sections covering the persistent shell, resource templates, and reusable editorial modules. The homepage currently composes Hero, Rich Text, Product Overview Teaser, Offer Cards, and Logo Marquee; Poster and Featured Collection remain available as presets. Soda and Hard Seltzer collection templates share one context-aware USP Section with product-world defaults, merchant overrides, reversible content staggering, and clipped-media parallax. See the [Section reference](sections/README.md) for their settings, behavior, responsive rules, assets, accessibility contracts, and known gaps.
 - A polished four-card Product Overview composition with responsive no-overlap scaling, a shared product floor, product-specific glows and tinted progressive SVG shadows, 90% Soda and 105% Hard Seltzer can scales, wave-logo SVG titles for Maracuja and Holunder, and horizontally scrollable phone layouts.
 - JSON templates for home, product, collection, collection list, cart, search, page, blog, article, and 404.
 - Responsive product cards and basic product media.
@@ -51,7 +52,7 @@ Last reconciled with the repository on 2026-08-30.
 | Last-minute sale / “others took this” | Definition required | Clarify product behavior, merchandising source, eligibility, inventory, analytics, and app-vs-custom ownership. |
 | Free-shipping upsell | Discovery required | Authoritative threshold by market/currency, qualifying subtotal, recommendations, progress UI, checkout consistency. |
 | App blocks/embeds | Not implemented | Add supported hosts and audit installed apps. |
-| Navigation | Basic | The general/Soda/Hard Seltzer context contract is documented; collection and product routing plus all four Shopify-managed menus are connected. Replace placeholder destinations, then add main-navigation dropdown panels, explicit supporting-content classification, robust mobile disclosures, and long-content testing. |
+| Navigation | Basic | The general/Soda/Hard Seltzer context contract is documented; collection and product routing, Page/Product/Collection classification metafields, and all four Shopify-managed menus are connected. Assign product-world values to supporting resources as their content is created, replace placeholder destinations, then add main-navigation dropdown panels, robust mobile disclosures, and long-content testing. |
 | Footer | Menu-driven shell with newsletter submission and social links | Replace footer-card placeholder destinations, then connect Shopify-supported payment methods, store finder, and accessible localization controls after their behavior is defined. Instagram, TikTok, and Facebook follow the Soda or Hard Seltzer footer context, while LinkedIn uses the shared company profile. Legal policy destinations are connected through the shared Legal Nav. Verify Shopify-to-Klaviyo list routing and opt-in behavior in the provider account before launch. |
 | Cart | Basic | Discounts, properties, notes if required, selling plans, richer errors, accessible table semantics. |
 | Markets/localization | Partial | Initial scope is Switzerland and Liechtenstein. URLs and Ajax are locale-aware; language/market selectors and real Markets QA remain. |
