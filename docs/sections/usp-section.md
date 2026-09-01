@@ -33,8 +33,10 @@ Blank section-level content uses localized Figma defaults. When no custom USP bl
 
 Desktop reproduces the 1400 by 630 composition inside a centered 16px-radius panel. The exact flattened Figma media/gradient export remains decorative background artwork; the title, description, and USP labels remain real localized HTML. Original Figma SVG layers render the icons without remote runtime assets.
 
-Below 896px the panel stacks the cropped media above the content. The five USP items use a centered two-row grid with three items on the first row and two on the second; shorter custom sets are centered where necessary. The section requires no JavaScript and has no motion-only content.
+Below 896px the panel stacks the cropped media above the content. The five USP items use a centered two-row grid with three items on the first row and two on the second; shorter custom sets are centered where necessary.
+
+`usp-section-motion` reuses the theme's reversible scroll-progress engine. The panel reveals through the shared 48px maximum upward travel, heading and text follow in hierarchy, USP items use restrained staggering, and the clipped media moves through ±3% vertical parallax. The target state follows viewport progress in both scroll directions with the shared short catch-up response.
 
 ## Accessibility and maintenance
 
-The title is an `h2`, the USP collection exposes list semantics, decorative images have empty alternative text, and all claims remain readable without images or JavaScript. Do not change fallback claims or icons without approved Soda/Hard Seltzer content. If either Figma composition changes, re-export the media and vector layers rather than recreating them in CSS.
+The title is an `h2`, the USP collection exposes list semantics, decorative images have empty alternative text, and all claims remain readable without images or JavaScript. The server-rendered final composition remains the no-JavaScript fallback, and reduced-motion mode cancels all non-essential reveals and parallax. Do not change fallback claims or icons without approved Soda/Hard Seltzer content. If either Figma composition changes, re-export the media and vector layers rather than recreating them in CSS.

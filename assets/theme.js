@@ -487,10 +487,14 @@ class PosterMotion extends HTMLElement {
   }
 
   setupMotion() {
-    this.section = this.querySelector('.poster-section');
-    this.surface = this.querySelector('[data-poster-surface]');
-    this.media = this.querySelector('[data-poster-media] .poster__media-inner');
-    this.revealTargets = [...this.querySelectorAll('[data-poster-reveal]')];
+    this.section = this.querySelector('[data-scroll-motion-section], .poster-section');
+    this.surface = this.querySelector('[data-scroll-motion-surface], [data-poster-surface]');
+    this.media = this.querySelector(
+      '[data-scroll-motion-media], [data-poster-media] .poster__media-inner',
+    );
+    this.revealTargets = [
+      ...this.querySelectorAll('[data-scroll-motion-reveal], [data-poster-reveal]'),
+    ];
 
     if (!this.section || !this.surface) return;
 
@@ -644,6 +648,12 @@ class PosterMotion extends HTMLElement {
 
 if (!customElements.get('poster-motion')) {
   customElements.define('poster-motion', PosterMotion);
+}
+
+class UspSectionMotion extends PosterMotion {}
+
+if (!customElements.get('usp-section-motion')) {
+  customElements.define('usp-section-motion', UspSectionMotion);
 }
 
 const headerSection = document.querySelector('.shopify-section-header');

@@ -149,6 +149,7 @@ Current custom elements/controllers are:
 | `offer-cards-motion` | Reversible card reveal, media parallax, and hover zoom |
 | `product-overview-motion` | Reversible Product Overview reveal and artwork parallax |
 | `poster-motion` | Reversible Poster reveal and media parallax |
+| `usp-section-motion` | Reversible USP panel/content reveals, item staggering, and media parallax |
 
 Use custom elements to scope behavior, native browser APIs instead of broad dependencies, and live regions for dynamic status. Follow [Frontend asset structure and delivery](frontend-assets.md) for budgets and placement.
 
