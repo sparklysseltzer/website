@@ -13,7 +13,7 @@ The persistent footer mirrors the server-resolved `default`, `soda`, and `seltze
 - separate General, Soda, and Hard Seltzer nested Shopify Navigation menus;
 - shared Legal Nav.
 
-The canonical `soda` and `hard-seltzer` collection handles resolve product-world context and are not merchant-configurable. Top-level footer menu items create cards and their children create card links. The footer year is rendered from Shopify's server time.
+Pages, Products, and Collections can explicitly select their context through the `custom.product_world` metafield. The canonical `soda` and `hard-seltzer` collection handles remain classification fallbacks and are not Theme Editor settings. Top-level footer menu items create cards and their children create card links. The footer year is rendered from Shopify's server time.
 
 ## Rendering contract
 

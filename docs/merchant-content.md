@@ -2,6 +2,20 @@
 
 Merchant content is shared storefront data, not content owned by one theme section. The Logo Marquee is its first consumer; the planned storefinder and a later CRM or ERP integration must reuse the same records rather than duplicating names, logos, links, or descriptions.
 
+## Product-world classification
+
+Pages, Products, and Collections each have the same merchant-owned metafield definition:
+
+| Admin name | Namespace and key | Shopify type | Allowed values |
+| --- | --- | --- | --- |
+| Product world | `custom.product_world` | `single_line_text_field` | `soda`, `seltzer` |
+
+Use the field on a resource when it belongs explicitly to one product world. Leave it blank for shared/general content or when the established template and canonical-collection fallbacks are sufficient. The metafield is authoritative over those fallbacks, which makes it suitable for supporting pages and resolves products or collections whose URL, template, or membership is ambiguous.
+
+The field changes the server-rendered header, footer, navigation, and heading typography. It does not change the resource's JSON template or add sections. Choose the appropriate template separately when Soda and Hard Seltzer need different page composition.
+
+The three definitions were provisioned on `sparklys-hard-seltzer.myshopify.com` on 2026-09-01. Values remain merchant-managed store data and are not stored in this repository.
+
 ## Definitions
 
 ### `merchant`
@@ -43,4 +57,4 @@ After the definitions exist:
 3. Select that collection in a Logo Marquee section in the theme editor.
 4. In the later integration, upload files through Shopify Files and use `metaobjectUpsert` with stable handles to create or update records.
 
-Official references: [About metaobjects](https://shopify.dev/docs/apps/build/metaobjects), [metaobject theme settings](https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings), and [dynamic sources](https://shopify.dev/docs/storefronts/themes/architecture/settings/dynamic-sources).
+Official references: [Metafield definitions](https://shopify.dev/docs/apps/build/metafields/definitions), [Liquid metafields](https://shopify.dev/docs/api/liquid/objects/metafield), [About metaobjects](https://shopify.dev/docs/apps/build/metaobjects), [metaobject theme settings](https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings), and [dynamic sources](https://shopify.dev/docs/storefronts/themes/architecture/settings/dynamic-sources).

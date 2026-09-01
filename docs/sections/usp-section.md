@@ -16,6 +16,8 @@ USP Section implements the shared Soda and Hard Seltzer Figma module in one reus
 
 This runtime resolution is intentional because Shopify section-schema defaults cannot vary by the template being previewed. Moving an Automatic instance between classified templates therefore updates its complete product-world presentation without saving a stale brand choice.
 
+For Pages, Products, and Collections, the resource's `custom.product_world` metafield is the authoritative Automatic classification. Branded template suffixes and canonical collection membership remain fallbacks when that field is blank.
+
 ## Merchant controls
 
 - automatic, Soda, or Hard Seltzer content variant;

@@ -14,7 +14,7 @@ The persistent header renders the global Sparklys shell in one of three server-r
 - Corporate Nav for the black utility bar;
 - Store Finder Shopify Page.
 
-The canonical `soda` and `hard-seltzer` collection handles are an architectural contract rather than merchant settings. They determine context and the product-world switcher destinations. A blank Store Finder selection uses the `haendler` handle as a development bootstrap fallback. Resource URLs remain authoritative.
+Pages, Products, and Collections can explicitly select their context through the `custom.product_world` metafield. The canonical `soda` and `hard-seltzer` collection handles remain the fallback classification contract and product-world switcher destinations rather than Theme Editor settings. A blank Store Finder selection uses the `haendler` handle as a development bootstrap fallback. Resource URLs remain authoritative.
 
 ## Rendering contract
 

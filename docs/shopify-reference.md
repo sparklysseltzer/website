@@ -2,7 +2,7 @@
 
 This is the fast routing index for official Shopify documentation. Search this file by implementation topic, then open the linked official page for current details.
 
-Reviewed: 2026-08-29.
+Reviewed: 2026-09-01.
 
 ## Architecture and rendering
 
@@ -15,6 +15,7 @@ Reviewed: 2026-08-29.
 | theme settings, section settings, dynamic source, visible_if, blank | [Settings](https://shopify.dev/docs/storefronts/themes/architecture/settings) | Global brand tokens belong in config; local behavior belongs in section/block settings; guard optional resources with `blank`. |
 | locale JSON, default locale, schema translations | [Locales](https://shopify.dev/docs/storefronts/themes/architecture/locales) | One `*.default.json` is required; schema translations are separate from storefront translations. |
 | tag, filter, object, form, paginate, image_tag | [Liquid reference](https://shopify.dev/docs/api/liquid) | Shopify Liquid extends open-source Liquid; verify Shopify-specific object availability by template/context. |
+| metafield definition, custom data, page metafield, product metafield, collection metafield | [Metafield definitions](https://shopify.dev/docs/apps/build/metafields/definitions) and [Liquid metafields](https://shopify.dev/docs/api/liquid/objects/metafield) | Pages, Products, and Collections share the merchant-owned `custom.product_world` definition. Its `soda` and `seltzer` choices provide explicit server-side brand classification; theme/template inference is only a fallback. |
 | merchant-owned metaobject, metaobject setting, metaobject list | [About metaobjects](https://shopify.dev/docs/apps/build/metaobjects) and [input settings](https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings) | Shared Merchant content uses public merchant-owned `merchant` and `merchant_collection` definitions. Sections select a collection with the native `metaobject` picker; store-level definition provisioning remains outside the theme and requires approval. |
 | synchronized section, shared content, JSON template instance | [JSON templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/json-templates), [section groups](https://shopify.dev/docs/storefronts/themes/architecture/section-groups), and [metaobjects](https://shopify.dev/docs/apps/build/metaobjects) | Shopify has no native freely placed cross-template section instance. Sparklys sections that need this behavior keep placement settings local and resolve an approved canonical metaobject when Global content is selected. |
 
