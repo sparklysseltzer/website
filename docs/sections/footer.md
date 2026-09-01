@@ -23,7 +23,7 @@ Payment marks, Store Finder, and language chips currently render as non-interact
 
 ## Progressive enhancement and accessibility
 
-`newsletter-form` submits progressively and replaces the form with Shopify's rendered success/error state without losing the native fallback. Labels, live error/status regions, focus targets, external-link relations, visible focus, 44px social targets, and reduced-motion behavior are included.
+`newsletter-form` submits progressively and replaces the form with Shopify's rendered success/error state without losing the native fallback. Shopify's hCaptcha protection remains active, while its injected floating badge is visually suppressed so it cannot cover footer controls. Labels, live error/status regions, focus targets, external-link relations, visible focus, 44px social targets, and reduced-motion behavior are included.
 
 ## Known gaps
 

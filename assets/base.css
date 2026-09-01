@@ -1132,6 +1132,10 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   width: 100%;
 }
 
+#shop-hcaptcha-badge-container {
+  display: none !important;
+}
+
 .site-footer__newsletter-shell {
   width: 100%;
   min-height: 2.75rem;
