@@ -21,6 +21,8 @@ The optional heading follows the Figma module: centered uppercase Newake, respon
 
 The full-width surface uses the Figma-derived gray background with white logo cards, a fully transparent treatment, or a fully white treatment for both the section and cards. Duplicated visual groups create a seamless CSS loop. Duplicate groups are hidden from assistive technology and removed from keyboard order. A merchant URL makes only the canonical tile interactive. Missing or empty data emits no storefront section.
 
+Shopify's Add section visual-preview mode renders a static row of neutral logo placeholders when no Merchant Collection is available. This preview-only state communicates the layout without coupling the theme preset to a store-specific metaobject ID. After placement, an empty section continues to show the localized editor instruction and emits no customer-facing marquee until a published collection is selected.
+
 ## Motion and accessibility
 
 The animation is CSS-only. Reduced-motion mode disables the loop and exposes the canonical list as a horizontal scroller. Pause-on-interaction applies to hover and focus-within. Logo alternative text uses the merchant name.

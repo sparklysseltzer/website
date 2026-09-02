@@ -57,7 +57,7 @@ See [Section reference](sections/README.md), [Merchant content](merchant-content
 | --- | --- |
 | Home | Hero, Rich text, Product Overview Teaser, Offer Cards, Logo Marquee |
 | Product | Main Product |
-| Collection | Main Collection; Soda and Seltzer alternate templates add context-aware Hero, Rich text, and USP Section editorial modules |
+| Collection | Main Collection; Soda and Seltzer alternate templates add context-aware Hero, Rich text, and USP editorial modules |
 | Cart | Main Cart |
 | Search | Main Search |
 | Collections list | Main List Collections |
@@ -66,7 +66,13 @@ See [Section reference](sections/README.md), [Merchant content](merchant-content
 | Article | Main Article |
 | 404 | Main 404 |
 
-Poster and Featured Collection are reusable preset sections but are not currently placed in the homepage template. The exact section identifiers, blocks, settings, assets, and known gaps are catalogued in [Section reference](sections/README.md).
+Poster, Split Image-Text, and Featured Collection are reusable preset sections but are not currently placed in the homepage template. The exact section identifiers, blocks, settings, assets, and known gaps are catalogued in [Section reference](sections/README.md).
+
+## Theme Editor configuration design
+
+Section schemas should expose only controls that are relevant to the merchant's current choices. Use Shopify's `visible_if` attribute for dependent settings, such as showing heading fields only when a heading is enabled or action fields only when an action is enabled. Hidden settings retain their stored values, so merchants can switch options without losing prior configuration.
+
+Organize longer schemas with concise `header` settings in the same order as the rendered composition: layout, media, content, appearance, and spacing where applicable. Prefer sensible presets and a small number of meaningful controls. When layouts have substantially different structure or configuration, implement separate sections instead of combining them behind a large layout selector. Do not misuse blocks as visual fieldsets; blocks represent independently editable or repeatable content.
 
 ## Product-world context
 
@@ -112,7 +118,8 @@ English is the source language and default locale in `locales/en.default.json`; 
 
 - `--page-width` is the shared 120rem/1920px outer-frame limit.
 - `--page-gutter` is 1rem below 768px and 2rem from 768px.
-- `--radius-panel` is the shared 1.875rem/30px radius for major branded panels.
+- `--radius-small` and `--radius-large` map the Theme Settings border-radius controls. Their defaults are 1rem/16px for compact UI panels and tiles, and 1.875rem/30px for editorial panels, generic cards, and collection/product media. Pills, circles, controls, and special header geometry keep purpose-specific radii.
+- The global background, foreground, accent, and surface palette is fixed in the theme CSS rather than exposed as generic Theme Settings; section-specific color controls remain local to the sections that use them.
 - `--page-grain-opacity` maps Theme Settings grain intensity; the current project default is 30%.
 - One document-attached `.page-grain` layer repeats `noise-3.webp` at Retina density and scrolls with the content.
 - `base.css` owns global primitives and shared components. A section may own substantial portable styling when its dependencies remain explicit.

@@ -2,7 +2,7 @@
 
 This directory documents every Liquid section in `sections/`. Keep implementation details here; keep cross-cutting rules in [Architecture](../architecture.md), commerce requirements in [Commerce](../commerce.md), and capability state in [Status](../status.md).
 
-Last reconciled with the repository: 2026-08-30.
+Last reconciled with the repository: 2026-09-01.
 
 ## Global shell
 
@@ -13,16 +13,17 @@ Last reconciled with the repository: 2026-08-30.
 
 ## Reusable editorial and merchandising sections
 
-| Section | Role |
-| --- | --- |
-| [Hero](hero.md) | Full-width heading, optional image, copy, and action |
-| [Rich text](rich-text.md) | Narrow editorial copy and optional action |
-| [Featured collection](featured-collection.md) | Configured collection preview using the shared product card |
-| [Product overview teaser](product-overview-teaser.md) | Four-card Soda and Hard Seltzer editorial product navigation |
-| [Offer cards](offer-cards.md) | Local or globally synchronized audience/use-case cards |
-| [Poster](poster.md) | Full-image or split editorial poster |
-| [USP Section](usp-section.md) | Context-aware Soda or Hard Seltzer image, copy, and five USP items |
-| [Merchant marquee](logo-marquee.md) | Metaobject-driven merchant-logo loop |
+| Section | Add-section category | Role |
+| --- | --- | --- |
+| [Hero](hero.md) | Brand storytelling | Full-width heading, optional image, copy, and action |
+| [Rich text](rich-text.md) | Brand storytelling | Narrow editorial copy and optional action |
+| [Poster](poster.md) | Brand storytelling | Full-image editorial poster with overlaid content |
+| [Split Image-Text](split-image-text.md) | Brand storytelling | Side-by-side editorial image and content panel |
+| [USP](usp-section.md) | Brand storytelling | Context-aware Soda or Hard Seltzer image, copy, and five USP items |
+| [Featured collection](featured-collection.md) | Products & offers | Configured collection preview using the shared product card |
+| [Product overview teaser](product-overview-teaser.md) | Products & offers | Four-card Soda and Hard Seltzer editorial product navigation |
+| [Offer cards](offer-cards.md) | Products & offers | Local or globally synchronized audience/use-case cards |
+| [Merchant marquee](logo-marquee.md) | Trust & partners | Metaobject-driven merchant-logo loop |
 
 ## Resource sections
 

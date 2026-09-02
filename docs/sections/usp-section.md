@@ -1,10 +1,10 @@
-# USP Section
+# USP
 
 Source: `sections/usp-section.liquid`
 
 ## Purpose and placement
 
-USP Section implements the shared Soda and Hard Seltzer Figma module in one reusable section. It is currently placed after the introduction in both branded collection templates.
+USP implements the shared Soda and Hard Seltzer Figma module in one reusable section. It is currently placed after the introduction in both branded collection templates.
 
 ## Context and defaults
 
@@ -29,9 +29,11 @@ For Pages, Products, and Collections, the resource's `custom.product_world` meta
 
 Blank section-level content uses localized Figma defaults. When no custom USP blocks exist, the section renders the five exact product-world icon/label defaults. Adding any custom blocks replaces that default set for the current section instance.
 
+The Add section picker exposes separate `USP — Soda` and `USP — Hard Seltzer` presets so Shopify's generated visual previews render the correct product-world design. Both presets set an explicit starting variant; merchants can switch a placed instance back to Automatic when it should follow the resource context.
+
 ## Rendering contract
 
-Desktop reproduces the 1400 by 630 composition inside a centered 16px-radius panel. The exact flattened Figma media/gradient export remains decorative background artwork; the title, description, and USP labels remain real localized HTML. Original Figma SVG layers render the icons without remote runtime assets.
+Desktop reproduces the 1400 by 630 composition inside a centered panel using the theme's large-radius token, which defaults to 30px. The exact flattened Figma media/gradient export remains decorative background artwork; the title, description, and USP labels remain real localized HTML. Original Figma SVG layers render the icons without remote runtime assets.
 
 Below 896px the panel stacks the cropped media above the content. The five USP items use a centered two-row grid with three items on the first row and two on the second; shorter custom sets are centered where necessary.
 
