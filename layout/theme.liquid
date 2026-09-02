@@ -12,16 +12,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="{{ settings.color_background }}">
+    <meta name="theme-color" content="#f7f3eb">
     <link rel="canonical" href="{{ canonical_url }}">
 
-    {%- if settings.favicon != blank -%}
-      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
-      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
-    {%- else -%}
-      <link rel="icon" type="image/png" sizes="32x32" href="{{ 'favicon.png' | asset_url }}">
-      <link rel="apple-touch-icon" sizes="180x180" href="{{ 'apple-touch-icon.png' | asset_url }}">
-    {%- endif -%}
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ 'favicon.png' | asset_url }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ 'apple-touch-icon.png' | asset_url }}">
 
     <title>
       {{ page_title }}
@@ -77,10 +72,12 @@
       }
 
       :root {
-        --color-background: {{ settings.color_background }};
-        --color-foreground: {{ settings.color_foreground }};
-        --color-accent: {{ settings.color_accent }};
-        --color-surface: {{ settings.color_surface }};
+        --color-background: #f7f3eb;
+        --color-foreground: #172019;
+        --color-accent: #e34f2f;
+        --color-surface: #ffffff;
+        --radius-small: {{ settings.border_radius_small }}px;
+        --radius-large: {{ settings.border_radius_large }}px;
         --page-grain-opacity: {{ settings.grain_intensity | divided_by: 100.0 }};
         --page-width: 120rem;
         --font-body: 'Maison Neue Demi', Arial, Helvetica, sans-serif;

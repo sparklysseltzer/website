@@ -8,7 +8,12 @@
   endif
 
   assign merchant_count = merchants | size
+  assign show_visual_preview = false
   assign repeat_count = 4
+
+  if request.visual_preview_mode and merchant_count == 0
+    assign show_visual_preview = true
+  endif
 
   if merchant_count == 1
     assign repeat_count = 20
@@ -19,7 +24,7 @@
   endif
 -%}
 
-{%- if merchant_count > 0 or request.design_mode -%}
+{%- if merchant_count > 0 or request.design_mode or show_visual_preview -%}
   <section
     class="logo-marquee logo-marquee--{{ section.settings.background_style | default: 'gray' }}{% if marquee_heading != blank %} logo-marquee--with-heading{% endif %}"
     style="--logo-marquee-duration: {{ section.settings.duration }}s; --logo-marquee-direction: {{ section.settings.direction }};"
@@ -108,9 +113,23 @@
           {%- endfor -%}
         </div>
       </div>
+    {%- elsif show_visual_preview -%}
+      <div class="logo-marquee__viewport" aria-hidden="true">
+        <div class="logo-marquee__track logo-marquee__track--preview">
+          <ul class="logo-marquee__list logo-marquee__list--preview">
+            {%- for preview_index in (1..6) -%}
+              <li class="logo-marquee__item">
+                <div class="logo-marquee__tile">
+                  <span class="logo-marquee__preview-logo">Logo {{ preview_index }}</span>
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
     {%- elsif request.design_mode -%}
       <div class="logo-marquee__empty page-width">
-        Wähle eine veröffentlichte Merchant Collection mit mindestens einem Händler aus.
+        {{ 'sections.logo_marquee.empty' | t }}
       </div>
     {%- endif -%}
   </section>
@@ -165,6 +184,12 @@
     will-change: transform;
   }
 
+  .logo-marquee__track--preview {
+    width: 100%;
+    animation: none;
+    will-change: auto;
+  }
+
   .logo-marquee__list {
     display: flex;
     flex: none;
@@ -172,6 +197,12 @@
     padding: 0 1rem 0 0;
     margin: 0;
     list-style: none;
+  }
+
+  .logo-marquee__list--preview {
+    width: max-content;
+    padding-inline: 1rem;
+    margin-inline: auto;
   }
 
   .logo-marquee__item {
@@ -187,7 +218,7 @@
     overflow: hidden;
     color: #000;
     background: #fff;
-    border-radius: 1.25rem;
+    border-radius: var(--radius-small);
     text-decoration: none;
   }
 
@@ -209,6 +240,13 @@
     font-weight: 700;
     line-height: 1.15;
     text-align: center;
+  }
+
+  .logo-marquee__preview-logo {
+    font-family: var(--font-heading-default);
+    font-size: clamp(1.25rem, 2vw, 2rem);
+    line-height: 1;
+    text-transform: uppercase;
   }
 
   .logo-marquee__empty {
@@ -308,7 +346,8 @@
   ],
   "presets": [
     {
-      "name": "Merchant Marquee"
+      "name": "Merchant Marquee",
+      "category": "Trust & partners"
     }
   ]
 }

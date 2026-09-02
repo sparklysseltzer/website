@@ -259,7 +259,7 @@
     overflow: hidden;
     color: var(--usp-text-color);
     background: var(--usp-panel-background);
-    border-radius: 1rem;
+    border-radius: var(--radius-large);
   }
 
   .usp-section__media {
@@ -446,7 +446,7 @@
     color: #000;
     background: #e1f2fc;
     border: 1px dashed #000;
-    border-radius: 1rem;
+    border-radius: var(--radius-small);
     text-align: center;
   }
 
@@ -530,7 +530,7 @@
 
 {% schema %}
 {
-  "name": "USP Section",
+  "name": "USP",
   "max_blocks": 5,
   "settings": [
     {
@@ -632,7 +632,18 @@
   ],
   "presets": [
     {
-      "name": "USP Section"
+      "name": "USP — Soda",
+      "category": "Brand storytelling",
+      "settings": {
+        "variant": "soda"
+      }
+    },
+    {
+      "name": "USP — Hard Seltzer",
+      "category": "Brand storytelling",
+      "settings": {
+        "variant": "seltzer"
+      }
     }
   ]
 }

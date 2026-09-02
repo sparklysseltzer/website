@@ -101,7 +101,8 @@
       "alcoholic": "Alkoholhaltig"
     },
     "logo_marquee": {
-      "label": "Händler"
+      "label": "Händler",
+      "empty": "Wähle eine veröffentlichte Merchant Collection mit mindestens einem Händler aus."
     },
     "usp": {
       "soda": {

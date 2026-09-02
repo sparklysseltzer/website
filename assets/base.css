@@ -6,7 +6,6 @@
 
 :root {
   --page-gutter: 1rem;
-  --radius-panel: 1.875rem;
   --motion-duration-fast: 200ms;
   --motion-duration-base: 260ms;
   --motion-duration-slow: 360ms;
@@ -550,7 +549,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   min-width: 12rem;
   padding: 0.5rem;
   border: 1px solid rgb(255 255 255 / 14%);
-  border-radius: 0.75rem;
+  border-radius: var(--radius-small);
   color: #fff;
   background: #191919;
   box-shadow: 0 0.75rem 2rem rgb(0 0 0 / 28%);
@@ -965,7 +964,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 .content-card {
   padding: 1.5rem;
   border: 1px solid color-mix(in srgb, var(--color-foreground) 14%, transparent);
-  border-radius: 0.75rem;
+  border-radius: var(--radius-large);
   background: var(--color-surface);
 }
 
@@ -976,7 +975,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 .product-card__media {
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  border-radius: 0.75rem;
+  border-radius: var(--radius-large);
   background: color-mix(in srgb, var(--color-foreground) 7%, transparent);
 }
 
@@ -1007,7 +1006,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 
 .product__media {
   overflow: hidden;
-  border-radius: 0.75rem;
+  border-radius: var(--radius-large);
   background: color-mix(in srgb, var(--color-foreground) 7%, transparent);
 }
 
@@ -1146,7 +1145,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   gap: 0.625rem;
   color: #000;
   background: #fff;
-  border-radius: var(--radius-panel);
+  border-radius: 999px;
 }
 
 .site-footer__newsletter-input {
@@ -1205,7 +1204,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   margin: 0.75rem 0 0;
   padding: 0.75rem 1rem;
   border: 1px solid currentcolor;
-  border-radius: 0.75rem;
+  border-radius: var(--radius-small);
   font-size: 0.9375rem;
   line-height: 1.35;
 }
@@ -1241,7 +1240,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   padding: 1rem 1rem 1.25rem;
   flex: 1 1 0;
   background: #191919;
-  border-radius: 1rem;
+  border-radius: var(--radius-small);
 }
 
 .site-footer__card-heading {

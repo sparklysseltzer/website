@@ -24,14 +24,5 @@
       }
     }
   },
-  "presets": {
-    "Sparklys": {
-      "color_background": "#f7f3eb",
-      "color_foreground": "#172019",
-      "color_accent": "#e34f2f",
-      "color_surface": "#ffffff",
-      "grain_intensity": 30,
-      "logo_width": 150
-    }
-  }
+  "presets": {}
 }

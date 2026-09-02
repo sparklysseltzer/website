@@ -1,0 +1,521 @@
+{%- liquid
+  assign section_image = section.settings.image
+  assign fallback_image = blank
+  assign fallback_width = 1280
+  assign fallback_height = 1600
+
+  if section.settings.fallback_image == 'team'
+    assign fallback_image = 'poster-team.jpg'
+  endif
+
+  assign image_alt = section.settings.image_alt
+  if image_alt == blank and section_image != blank
+    assign image_alt = section_image.alt
+  endif
+
+  assign heading_tag = section.settings.heading_level
+  assign image_position_x = 50
+  case section.settings.image_position
+    when 'left center'
+      assign image_position_x = 0
+    when 'right center'
+      assign image_position_x = 100
+  endcase
+  assign image_position_x = image_position_x | plus: section.settings.image_offset_x
+  assign image_position_y = 50 | plus: section.settings.image_offset_y
+
+  assign button_class = 'button'
+  if section.settings.button_style == 'light'
+    assign button_class = button_class | append: ' button--secondary'
+  endif
+-%}
+
+<poster-motion>
+  <section
+    class="split-image-text-section section page-width"
+    data-scroll-motion-section
+    style="
+      --split-image-text-min-height: {{ section.settings.minimum_height }}px;
+      --split-image-text-media-width: {{ section.settings.image_width }}%;
+      --split-image-text-panel-color: {{ section.settings.panel_color }};
+      --split-image-text-color: {{ section.settings.text_color }};
+      --split-image-text-position: {{ image_position_x }}% {{ image_position_y }}%;
+      --split-image-text-check-icon: url('{{ 'check-circle.svg' | asset_url }}');
+    "
+  >
+    <div
+      class="split-image-text split-image-text--image-{{ section.settings.image_side }}"
+      data-scroll-motion-surface
+    >
+      <div class="split-image-text__media">
+        <div class="split-image-text__media-inner" data-scroll-motion-media>
+          {%- if section_image != blank -%}
+            {{
+              section_image
+              | image_url: width: 1600
+              | image_tag:
+                widths: '480, 750, 1100, 1500, 1600',
+                sizes: '(min-width: 120rem) 60rem, (min-width: 48rem) 50vw, calc(100vw - 2rem)',
+                loading: 'lazy',
+                alt: image_alt
+            }}
+          {%- elsif fallback_image != blank -%}
+            <img
+              src="{{ fallback_image | asset_url }}"
+              alt="{{ image_alt | escape }}"
+              width="{{ fallback_width }}"
+              height="{{ fallback_height }}"
+              loading="lazy"
+            >
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag }}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="split-image-text__content">
+        <div class="split-image-text__content-inner">
+          {%- if section.settings.show_heading and section.settings.heading != blank -%}
+            <{{ heading_tag }} class="split-image-text__heading" data-scroll-motion-reveal>
+              {{ section.settings.heading }}
+            </{{ heading_tag }}>
+          {%- endif -%}
+
+          {%- if section.settings.show_subtext and section.settings.subtext != blank -%}
+            <div class="split-image-text__subtext rte" data-scroll-motion-reveal>{{ section.settings.subtext }}</div>
+          {%- endif -%}
+
+          {%- if section.settings.show_list and section.blocks.size > 0 -%}
+            <ul class="split-image-text__list" data-scroll-motion-reveal>
+              {%- for block in section.blocks -%}
+                {%- if block.settings.text != blank -%}
+                  <li class="split-image-text__list-item" {{ block.shopify_attributes }}>
+                    <span class="split-image-text__check" aria-hidden="true"></span>
+                    <span>{{ block.settings.text }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+
+          {%- if section.settings.show_button and section.settings.button_label != blank and section.settings.button_link != blank -%}
+            <div class="split-image-text__action" data-scroll-motion-reveal>
+              <a class="{{ button_class }}" href="{{ section.settings.button_link }}">
+                <span class="button__label split-image-text__button-label">
+                  <span>{{ section.settings.button_label }}</span>
+                  <img
+                    class="split-image-text__button-icon"
+                    src="{{ 'arrow-right.svg' | asset_url }}"
+                    alt=""
+                    width="16"
+                    height="16"
+                  >
+                </span>
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+</poster-motion>
+
+{% stylesheet %}
+  poster-motion {
+    display: block;
+  }
+
+  .split-image-text {
+    min-height: var(--split-image-text-min-height);
+    display: grid;
+    grid-template-columns:
+      minmax(0, var(--split-image-text-media-width))
+      minmax(0, calc(100% - var(--split-image-text-media-width)));
+    overflow: hidden;
+    color: var(--split-image-text-color);
+    background: var(--split-image-text-panel-color);
+    border-radius: var(--radius-large);
+  }
+
+  .split-image-text__media,
+  .split-image-text__content {
+    min-height: var(--split-image-text-min-height);
+  }
+
+  .split-image-text__media {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .split-image-text__media-inner {
+    position: absolute;
+    inset: 0;
+    transform: scale(1.08);
+  }
+
+  .split-image-text__media img,
+  .split-image-text__media svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: var(--split-image-text-position);
+  }
+
+  .split-image-text__media svg {
+    color: rgb(255 255 255 / 35%);
+    background: #333;
+  }
+
+  .split-image-text__content {
+    position: relative;
+    z-index: 2;
+    padding: clamp(2rem, 4vw, 3.75rem);
+    display: flex;
+    align-items: center;
+    background: var(--split-image-text-panel-color);
+  }
+
+  .split-image-text__content-inner {
+    width: 100%;
+    max-width: 42rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .split-image-text__heading {
+    margin: 0;
+    font-family: var(--font-heading-default);
+    font-size: clamp(2.5rem, 4.2vw, 3.75rem);
+    font-weight: 400;
+    line-height: 1;
+    overflow-wrap: anywhere;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .split-image-text__subtext {
+    font-size: 1.0625rem;
+    line-height: 1.3;
+  }
+
+  .split-image-text__subtext > :first-child {
+    margin-top: 0;
+  }
+
+  .split-image-text__subtext > :last-child {
+    margin-bottom: 0;
+  }
+
+  .split-image-text__list {
+    padding: 0;
+    margin: 0.125rem 0 0;
+    display: grid;
+    gap: 0.625rem;
+    list-style: none;
+  }
+
+  .split-image-text__list-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    font-size: 1.0625rem;
+    line-height: 1.3;
+  }
+
+  .split-image-text__check {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.05em;
+    flex: 0 0 auto;
+    background: currentcolor;
+    mask: var(--split-image-text-check-icon) center / contain no-repeat;
+  }
+
+  .split-image-text__action {
+    margin-top: 1rem;
+  }
+
+  .split-image-text__button-label {
+    display: inline-flex;
+    gap: 0.625rem;
+    align-items: center;
+  }
+
+  .split-image-text__button-icon {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 auto;
+    filter: invert(1);
+  }
+
+  .split-image-text--image-right .split-image-text__media {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .split-image-text--image-right .split-image-text__content {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  @media (max-width: 47.999rem) {
+    .split-image-text {
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .split-image-text__media {
+      min-height: clamp(20rem, 100vw, 32rem);
+      order: 1;
+    }
+
+    .split-image-text__content {
+      min-height: 0;
+      padding: 2rem 1.5rem 2.5rem;
+      order: 2;
+    }
+
+    .split-image-text__heading {
+      font-size: clamp(2.25rem, 11vw, 3.25rem);
+    }
+
+    .split-image-text__subtext,
+    .split-image-text__list-item {
+      font-size: 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .split-image-text__media-inner {
+      transform: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Split Image-Text",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "image_side",
+      "label": "Image side",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 35,
+      "max": 65,
+      "step": 5,
+      "unit": "%",
+      "label": "Image width",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "minimum_height",
+      "min": 420,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum height",
+      "default": 630
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "fallback_image",
+      "label": "Figma fallback image",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "team", "label": "Team portrait" }
+      ],
+      "default": "none",
+      "info": "A selected Shopify image always replaces the bundled fallback."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alternative text",
+      "info": "Leave blank to use the selected image's alt text."
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image anchor",
+      "options": [
+        { "value": "left center", "label": "Left" },
+        { "value": "center center", "label": "Center" },
+        { "value": "right center", "label": "Right" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "range",
+      "id": "image_offset_x",
+      "min": -50,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "label": "Horizontal image offset",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "image_offset_y",
+      "min": -50,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "label": "Vertical image offset",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Add your split section heading",
+      "visible_if": "{{ section.settings.show_heading }}"
+    },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "Heading level",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2",
+      "visible_if": "{{ section.settings.show_heading }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subtext",
+      "label": "Show subtext",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Add supporting copy for this section.</p>",
+      "visible_if": "{{ section.settings.show_subtext }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_list",
+      "label": "Show tick list",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Learn more",
+      "visible_if": "{{ section.settings.show_button }}"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "visible_if": "{{ section.settings.show_button }}"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        { "value": "automatic", "label": "Automatic" },
+        { "value": "dark", "label": "Dark" },
+        { "value": "light", "label": "Light" }
+      ],
+      "default": "automatic",
+      "visible_if": "{{ section.settings.show_button }}"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "panel_color",
+      "label": "Panel color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Tick item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Add a benefit or key point"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Split Image-Text",
+      "category": "Brand storytelling",
+      "settings": {
+        "fallback_image": "team",
+        "image_alt": "Sparklys team portrait",
+        "show_list": true
+      },
+      "blocks": [
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

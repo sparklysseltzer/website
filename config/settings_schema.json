@@ -8,35 +8,6 @@
     "theme_support_url": "https://github.com/sparklysseltzer/website/issues"
   },
   {
-    "name": "Colors",
-    "settings": [
-      {
-        "type": "color",
-        "id": "color_background",
-        "label": "Background",
-        "default": "#f7f3eb"
-      },
-      {
-        "type": "color",
-        "id": "color_foreground",
-        "label": "Text",
-        "default": "#172019"
-      },
-      {
-        "type": "color",
-        "id": "color_accent",
-        "label": "Accent",
-        "default": "#e34f2f"
-      },
-      {
-        "type": "color",
-        "id": "color_surface",
-        "label": "Surface",
-        "default": "#ffffff"
-      }
-    ]
-  },
-  {
     "name": "Effects",
     "settings": [
       {
@@ -53,27 +24,29 @@
     ]
   },
   {
-    "name": "Brand",
+    "name": "Layout",
     "settings": [
       {
-        "type": "image_picker",
-        "id": "logo",
-        "label": "Logo"
+        "type": "range",
+        "id": "border_radius_small",
+        "min": 0,
+        "max": 32,
+        "step": 1,
+        "unit": "px",
+        "label": "Small border radius",
+        "info": "Used for compact cards, media, and logo tiles.",
+        "default": 16
       },
       {
         "type": "range",
-        "id": "logo_width",
-        "min": 80,
-        "max": 260,
-        "step": 10,
+        "id": "border_radius_large",
+        "min": 0,
+        "max": 48,
+        "step": 1,
         "unit": "px",
-        "label": "Logo width",
-        "default": 150
-      },
-      {
-        "type": "image_picker",
-        "id": "favicon",
-        "label": "Favicon"
+        "label": "Large border radius",
+        "info": "Used for editorial panels, generic cards, and product media.",
+        "default": 30
       }
     ]
   }

@@ -101,7 +101,8 @@
       "alcoholic": "Contains alcohol"
     },
     "logo_marquee": {
-      "label": "Merchants"
+      "label": "Merchants",
+      "empty": "Select a published Merchant Collection with at least one merchant."
     },
     "usp": {
       "soda": {
