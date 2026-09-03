@@ -1,6 +1,6 @@
 # Architecture
 
-Last reconciled with the repository on 2026-09-01.
+Last reconciled with the repository on 2026-09-03.
 
 ## System boundary
 
@@ -74,6 +74,12 @@ Section schemas should expose only controls that are relevant to the merchant's 
 
 Organize longer schemas with concise `header` settings in the same order as the rendered composition: layout, media, content, appearance, and spacing where applicable. Prefer sensible presets and a small number of meaningful controls. When layouts have substantially different structure or configuration, implement separate sections instead of combining them behind a large layout selector. Do not misuse blocks as visual fieldsets; blocks represent independently editable or repeatable content.
 
+Theme Editor labels, option names, headers, help text, and other merchant-facing schema copy must describe the editable content or behavior, never its implementation source. Do not use “Figma” in schema copy; use terms such as “default image” or “default content” where a default needs to be explained.
+
+Prefer Shopify's native image controls over duplicate section settings. Merchant-selected cover images must render through `image_url` and `image_tag`, which automatically applies the focal point saved in Shopify as `object-position`; do not add image-anchor or offset controls for the same crop. Transparent product artwork may retain explicit scale/translation controls when positioning the complete object—not cropping it—is part of the approved composition.
+
+When a section has approved bundled Figma artwork, that asset is the automatic blank-state fallback. Expose only the Shopify image picker: a merchant-selected image replaces the bundled asset, while a blank picker renders the fallback. Do not expose fallback selectors, “None” switches, or Figma implementation terminology in the Theme Editor. Keep the fallback filename, intrinsic dimensions, alternative-text contract, and any source-controlled crop in the section implementation and its section document.
+
 ## Product-world context
 
 The server resolves one of three presentation contexts: `default`, `soda`, or `seltzer`. Header identity, navigation, heading typography, and footer variant follow that context.
@@ -118,6 +124,7 @@ English is the source language and default locale in `locales/en.default.json`; 
 
 - `--page-width` is the shared 120rem/1920px outer-frame limit.
 - `--page-gutter` is 1rem below 768px and 2rem from 768px.
+- `.section` and the compatibility alias `.section--tight` use one shared vertical rhythm: `clamp(2rem, 5vw, 4rem)`, or 32–64px per side. Do not introduce a looser default section gap.
 - `--radius-small` and `--radius-large` map the Theme Settings border-radius controls. Their defaults are 1rem/16px for compact UI panels and tiles, and 1.875rem/30px for editorial panels, generic cards, and collection/product media. Pills, circles, controls, and special header geometry keep purpose-specific radii.
 - The global background, foreground, accent, and surface palette is fixed in the theme CSS rather than exposed as generic Theme Settings; section-specific color controls remain local to the sections that use them.
 - `--page-grain-opacity` maps Theme Settings grain intensity; the current project default is 30%.

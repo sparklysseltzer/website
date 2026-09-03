@@ -135,10 +135,7 @@ input[type='submit'] {
   margin-inline: auto;
 }
 
-.section {
-  padding-block: clamp(3rem, 8vw, 7rem);
-}
-
+.section,
 .section--tight {
   padding-block: clamp(2rem, 5vw, 4rem);
 }

@@ -18,7 +18,7 @@
         "step": 5,
         "unit": "%",
         "label": "Grain intensity",
-        "info": "Set to 0% to disable the global grain effect.",
+        "info": "Set to 0% to disable. Check the standalone Preview for the actual effect; grain appears softer in the Theme Editor canvas.",
         "default": 30
       }
     ]
