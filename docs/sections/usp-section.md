@@ -22,7 +22,6 @@ For Pages, Products, and Collections, the resource's `custom.product_world` meta
 
 - automatic, Soda, or Hard Seltzer content variant;
 - optional heading, rich text, and Shopify background-image overrides;
-- left, center, or right custom-image position;
 - automatic, Newake, or Erode heading typeface;
 - automatic product-world colors or custom background/text colors;
 - up to five custom USP blocks, each with an image icon and label.
@@ -33,7 +32,7 @@ The Add section picker exposes separate `USP — Soda` and `USP — Hard Seltzer
 
 ## Rendering contract
 
-Desktop reproduces the 1400 by 630 composition inside a centered panel using the theme's large-radius token, which defaults to 30px. The exact flattened Figma media/gradient export remains decorative background artwork; the title, description, and USP labels remain real localized HTML. Original Figma SVG layers render the icons without remote runtime assets.
+Desktop reproduces the 1400 by 630 composition inside a centered panel using the theme's large-radius token, which defaults to 30px. The exact flattened Figma media/gradient export remains the automatic decorative background while the image picker is blank; a Shopify-selected replacement uses its native focal point with no separate crop control. The title, description, and USP labels remain real localized HTML. Original Figma SVG layers render the icons without remote runtime assets.
 
 Below 896px the panel stacks the cropped media above the content. The five USP items use a centered two-row grid with three items on the first row and two on the second; shorter custom sets are centered where necessary.
 

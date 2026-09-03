@@ -2,7 +2,7 @@
 
 This is the fast routing index for official Shopify documentation. Search this file by implementation topic, then open the linked official page for current details.
 
-Reviewed: 2026-09-01.
+Reviewed: 2026-09-02.
 
 ## Architecture and rendering
 
@@ -37,7 +37,7 @@ Reviewed: 2026-09-01.
 | keyboard, focus, skip link, forms, contrast, touch, dialog | [Accessibility best practices](https://shopify.dev/docs/storefronts/themes/best-practices/accessibility) | Accessibility is an implementation gate. Primary touch targets are at least 44 by 44 CSS pixels. |
 | javascript tag, stylesheet tag, section assets, CSS subsetting | [JavaScript and stylesheet tags](https://shopify.dev/docs/storefronts/themes/best-practices/javascript-and-stylesheet-tags) | Assets can stay global while small; section-bundled assets must avoid hidden cross-file dependencies. |
 | title, description, canonical | [SEO metadata](https://shopify.dev/docs/storefronts/themes/seo/metadata) | Derive metadata from Shopify Liquid objects in `theme.liquid`. |
-| image_url, image_tag, srcset, sizes | [Performance: responsive images](https://shopify.dev/docs/storefronts/themes/best-practices/performance#use-responsive-images) | Always request a bounded source width and supply realistic `sizes`. |
+| image_url, image_tag, srcset, sizes, focal point, object-position | [Performance: responsive images](https://shopify.dev/docs/storefronts/themes/best-practices/performance#use-responsive-images) and [`image_tag`](https://shopify.dev/docs/api/liquid/filters/image_tag) | Always request a bounded source width and supply realistic `sizes`. `image_tag` automatically applies a Shopify-saved focal point through `object-position`; prefer it over duplicate crop controls. |
 
 ## Products and merchandising
 

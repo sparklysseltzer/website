@@ -9,7 +9,7 @@ Poster owns the approved full-image editorial composition with overlaid content.
 ## Merchant controls
 
 - left/center/right content alignment;
-- Shopify desktop image, optional mobile image, or bundled subscription-poster fallback;
+- optional Shopify desktop and mobile images;
 - shared image alternative text and Shopify-native focal points for selected images;
 - optional heading (`h2` or `h3`), rich text, tick-list blocks, and linked action;
 - automatic/dark/light button treatment;
@@ -19,11 +19,11 @@ Heading, subtext, and action fields are conditionally visible only while their c
 
 Tick-list blocks render whenever at least one non-empty block exists, so the section does not duplicate that state with a separate display toggle. The preset uses `#` as its initial action URL, and the renderer applies the same fallback to older blank instances, so an enabled button remains visible until the merchant selects its destination.
 
-The shared `--radius-large` token and `.section` rhythm keep the Poster aligned with the theme-wide layout system.
+The Poster surface uses the same centered 87.5rem/1400px maximum width as USP. The shared `--radius-large` token and `.section` rhythm keep both modules aligned with the theme-wide layout system.
 
 ## Rendering and motion
 
-Shopify-selected media replaces the fallback and renders responsively with intrinsic dimensions. An optional mobile image provides true art direction through a `<picture>` element, so the browser downloads only the source that matches the viewport; when it is blank, the desktop image is reused. Each selected image's Shopify focal point controls its crop. `poster-motion` adds reversible scroll-scrubbed surface/content reveals and clipped media parallax. The static final composition is the server-rendered default; JavaScript and motion are skipped for reduced-motion users.
+The bundled `poster-subscription.webp` artwork renders automatically while the desktop image picker is blank. It is a 1632 by 686 high-quality WebP with alpha preserved from the approved source export. Shopify-selected media replaces it and renders responsively with intrinsic dimensions. An optional mobile image provides true art direction through a `<picture>` element, so the browser downloads only the source that matches the viewport; when it is blank, the desktop image is reused. Each selected image's Shopify focal point controls its crop, with no separate fallback or crop selector in the section schema. `poster-motion` adds reversible scroll-scrubbed surface/content reveals and clipped-media parallax. The static final composition is the server-rendered default; JavaScript and motion are skipped for reduced-motion users.
 
 ## Accessibility and limits
 

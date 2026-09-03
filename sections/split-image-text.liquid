@@ -1,12 +1,8 @@
 {%- liquid
   assign section_image = section.settings.image
-  assign fallback_image = blank
+  assign fallback_image = 'poster-team.jpg'
   assign fallback_width = 1280
   assign fallback_height = 1600
-
-  if section.settings.fallback_image == 'team'
-    assign fallback_image = 'poster-team.jpg'
-  endif
 
   assign image_alt = section.settings.image_alt
   if image_alt == blank and section_image != blank
@@ -14,17 +10,9 @@
   endif
 
   assign heading_tag = section.settings.heading_level
-  assign image_position_x = 50
-  case section.settings.image_position
-    when 'left center'
-      assign image_position_x = 0
-    when 'right center'
-      assign image_position_x = 100
-  endcase
-  assign image_position_x = image_position_x | plus: section.settings.image_offset_x
-  assign image_position_y = 50 | plus: section.settings.image_offset_y
 
   assign button_class = 'button'
+  assign button_link = section.settings.button_link | default: '#'
   if section.settings.button_style == 'light'
     assign button_class = button_class | append: ' button--secondary'
   endif
@@ -39,7 +27,6 @@
       --split-image-text-media-width: {{ section.settings.image_width }}%;
       --split-image-text-panel-color: {{ section.settings.panel_color }};
       --split-image-text-color: {{ section.settings.text_color }};
-      --split-image-text-position: {{ image_position_x }}% {{ image_position_y }}%;
       --split-image-text-check-icon: url('{{ 'check-circle.svg' | asset_url }}');
     "
   >
@@ -66,9 +53,8 @@
               width="{{ fallback_width }}"
               height="{{ fallback_height }}"
               loading="lazy"
+              style="object-position: 50% 50%;"
             >
-          {%- else -%}
-            {{ 'image' | placeholder_svg_tag }}
           {%- endif -%}
         </div>
       </div>
@@ -98,9 +84,9 @@
             </ul>
           {%- endif -%}
 
-          {%- if section.settings.show_button and section.settings.button_label != blank and section.settings.button_link != blank -%}
+          {%- if section.settings.show_button and section.settings.button_label != blank -%}
             <div class="split-image-text__action" data-scroll-motion-reveal>
-              <a class="{{ button_class }}" href="{{ section.settings.button_link }}">
+              <a class="{{ button_class }}" href="{{ button_link }}">
                 <span class="button__label split-image-text__button-label">
                   <span>{{ section.settings.button_label }}</span>
                   <img
@@ -159,7 +145,6 @@
     height: 100%;
     display: block;
     object-fit: cover;
-    object-position: var(--split-image-text-position);
   }
 
   .split-image-text__media svg {
@@ -342,55 +327,14 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Image"
-    },
-    {
-      "type": "select",
-      "id": "fallback_image",
-      "label": "Figma fallback image",
-      "options": [
-        { "value": "none", "label": "None" },
-        { "value": "team", "label": "Team portrait" }
-      ],
-      "default": "none",
-      "info": "A selected Shopify image always replaces the bundled fallback."
+      "label": "Image",
+      "info": "Set the crop focal point in Shopify's image editor."
     },
     {
       "type": "text",
       "id": "image_alt",
       "label": "Image alternative text",
       "info": "Leave blank to use the selected image's alt text."
-    },
-    {
-      "type": "select",
-      "id": "image_position",
-      "label": "Image anchor",
-      "options": [
-        { "value": "left center", "label": "Left" },
-        { "value": "center center", "label": "Center" },
-        { "value": "right center", "label": "Right" }
-      ],
-      "default": "center center"
-    },
-    {
-      "type": "range",
-      "id": "image_offset_x",
-      "min": -50,
-      "max": 50,
-      "step": 1,
-      "unit": "%",
-      "label": "Horizontal image offset",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "image_offset_y",
-      "min": -50,
-      "max": 50,
-      "step": 1,
-      "unit": "%",
-      "label": "Vertical image offset",
-      "default": 0
     },
     {
       "type": "header",
@@ -506,9 +450,9 @@
       "name": "Split Image-Text",
       "category": "Brand storytelling",
       "settings": {
-        "fallback_image": "team",
         "image_alt": "Sparklys team portrait",
-        "show_list": true
+        "show_list": true,
+        "button_link": "#"
       },
       "blocks": [
         { "type": "item" },

@@ -59,7 +59,7 @@
   <usp-section-motion>
     <section
       class="usp-section usp-section--{{ usp_variant }} usp-section--heading-{{ heading_font }}{% if needs_media_overlay %} usp-section--media-overlay{% endif %} section--tight"
-      style="--usp-panel-background: {{ panel_background }}; --usp-text-color: {{ text_color }}; --usp-image-position: {{ section.settings.image_position }};"
+      style="--usp-panel-background: {{ panel_background }}; --usp-text-color: {{ text_color }};"
       data-scroll-motion-section
     >
       <div class="usp-section__panel" data-scroll-motion-surface>
@@ -82,6 +82,7 @@
                 height="630"
                 loading="lazy"
                 alt=""
+                style="object-position: left center;"
               >
             {%- endif -%}
           </div>
@@ -290,7 +291,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: var(--usp-image-position, center center);
   }
 
   .usp-section__content {
@@ -479,10 +479,6 @@
       aspect-ratio: 4 / 3;
     }
 
-    .usp-section__media-inner > img {
-      object-position: var(--usp-image-position, left center);
-    }
-
     .usp-section__content {
       width: 100%;
       min-height: 0;
@@ -549,30 +545,19 @@
       "type": "textarea",
       "id": "heading",
       "label": "Heading",
-      "info": "Leave blank to use the selected product world's Figma heading. Line breaks are preserved."
+      "info": "Leave blank to use the selected product world's default heading. Line breaks are preserved."
     },
     {
       "type": "richtext",
       "id": "text",
       "label": "Text",
-      "info": "Leave blank to use the selected product world's Figma text."
+      "info": "Leave blank to use the selected product world's default text."
     },
     {
       "type": "image_picker",
       "id": "image",
       "label": "Background image",
-      "info": "Leave blank to use the selected product world's Figma image."
-    },
-    {
-      "type": "select",
-      "id": "image_position",
-      "label": "Image position",
-      "options": [
-        { "value": "left center", "label": "Left" },
-        { "value": "center center", "label": "Center" },
-        { "value": "right center", "label": "Right" }
-      ],
-      "default": "left center"
+      "info": "Set the crop focal point in Shopify's image editor."
     },
     {
       "type": "select",

@@ -59,7 +59,7 @@
           assign card_title = card.settings.title
           assign card_link = card.settings.link
           assign card_subtitle = card.settings.subtitle
-          assign default_image = card.settings.default_image
+          assign default_image = card.id
           assign card_attributes = card.shopify_attributes
         endif
 
@@ -73,6 +73,19 @@
           when 'companies'
             assign fallback_image = 'offer-companies.jpg'
         endcase
+
+        if fallback_image == blank
+          case forloop.index
+            when 1
+              assign fallback_image = 'offer-retail.jpg'
+            when 2
+              assign fallback_image = 'offer-gastro.jpg'
+            when 3
+              assign fallback_image = 'offer-events.jpg'
+            when 4
+              assign fallback_image = 'offer-companies.jpg'
+          endcase
+        endif
       -%}
 
       {%- if card_link != blank -%}
@@ -149,10 +162,6 @@
 {% stylesheet %}
   offer-cards-motion {
     display: block;
-  }
-
-  .offer-cards.section {
-    padding-block: clamp(3rem, 4vw, 3.75rem);
   }
 
   .offer-cards__header {
@@ -439,20 +448,6 @@
           "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {
-          "type": "select",
-          "id": "default_image",
-          "label": "Figma default image",
-          "options": [
-            { "value": "none", "label": "None" },
-            { "value": "retail", "label": "Retail" },
-            { "value": "gastro", "label": "Gastro" },
-            { "value": "events", "label": "Events" },
-            { "value": "companies", "label": "Companies" }
-          ],
-          "default": "none",
-          "visible_if": "{{ section.settings.content_source == 'local' }}"
-        },
-        {
           "type": "inline_richtext",
           "id": "title",
           "label": "Title",
@@ -513,7 +508,6 @@
         {
           "type": "card",
           "settings": {
-            "default_image": "retail",
             "title": "Retail",
             "tag_1": "Detailhandel",
             "tag_2": "Fachhandel",
@@ -525,7 +519,6 @@
         {
           "type": "card",
           "settings": {
-            "default_image": "gastro",
             "title": "Gastro",
             "tag_1": "Kantinen",
             "tag_2": "Degustationen",
@@ -537,7 +530,6 @@
         {
           "type": "card",
           "settings": {
-            "default_image": "events",
             "title": "Events",
             "tag_1": "Day-Dances",
             "tag_2": "Festivals",
@@ -549,7 +541,6 @@
         {
           "type": "card",
           "settings": {
-            "default_image": "companies",
             "title": "Firmen",
             "tag_1": "Firmen-Abo",
             "tag_2": "Kühlschränke",

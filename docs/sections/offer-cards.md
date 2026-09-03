@@ -12,11 +12,13 @@ Offer cards present up to four customer/use-case destinations. The homepage curr
 
 ## Card contract
 
-Each card supports a Shopify image or one of four bundled Figma fallbacks, title, optional whole-card URL, desktop subtitle, and up to five plain-text chips. A URL produces one semantic linked card; no URL produces a non-interactive article. Chips are intentionally not links.
+Each card supports an optional Shopify image, title, optional whole-card URL, desktop subtitle, and up to five plain-text chips. When the image is blank, the approved Retail, Gastro, Events, or Companies artwork is selected automatically from the canonical card identity, with card order as the fallback for newly created local blocks. Shopify-selected images replace that artwork and use their native focal points. A URL produces one semantic linked card; no URL produces a non-interactive article. Chips are intentionally not links.
 
 ## Motion and accessibility
 
 `offer-cards-motion` creates reversible scroll-scrubbed header/card reveals and restrained media parallax with native Web Animations. Desktop hover/focus zooms linked media. Without JavaScript or with reduced motion, the complete static content remains visible. Keyboard focus receives the same meaningful linked-card state as pointer hover.
+
+The section uses the shared tight vertical section rhythm without a section-specific spacing override.
 
 ## Known limits
 

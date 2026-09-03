@@ -10,12 +10,12 @@ Product Overview is an editorial navigation module, not a Shopify collection que
 
 The section owns a heading and optional All Products, Soda, and Hard Seltzer destinations. Each product block provides:
 
-- Shopify image or one of four starter can assets;
+- optional Shopify image with an automatic slot-specific can fallback;
 - title and optional whole-card URL;
 - Soda or Hard Seltzer product world;
 - optional alcohol badge;
 - start/end background colors, title color, and image-glow color;
-- image width and horizontal/vertical art-direction offsets.
+- image width and horizontal/vertical artwork translation.
 
 ## Starter visual system
 
@@ -40,4 +40,4 @@ The three top navigation pills use equal top/right/bottom padding around their a
 
 ## Maintenance notes
 
-Starter assets are fallbacks only; a merchant-selected image replaces the corresponding can cutout but retains the card lighting/shadow system. When starter exports change, update intrinsic dimensions and verify alpha bounds, shadow contact, shared floor, responsive collisions from 390px through 1600px, keyboard focus, reduced motion, and no-JavaScript rendering.
+Starter assets are assigned automatically from the canonical block identity, with block order as the fallback for newly created preset blocks; merchants never select them in the Theme Editor. A merchant-selected image replaces the corresponding can cutout but retains the card lighting/shadow system. The retained width and translation controls position complete transparent can artwork and are intentionally not crop controls. When starter exports change, update intrinsic dimensions and verify alpha bounds, shadow contact, shared floor, responsive collisions from 390px through 1600px, keyboard focus, reduced motion, and no-JavaScript rendering.

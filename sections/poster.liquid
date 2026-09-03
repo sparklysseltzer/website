@@ -1,18 +1,9 @@
 {%- liquid
   assign poster_image = section.settings.image
   assign mobile_image = section.settings.mobile_image
-  assign fallback_image = blank
-  assign fallback_width = 1229
-  assign fallback_height = 630
-
-  case section.settings.fallback_image
-    when 'subscription'
-      assign fallback_image = 'poster-subscription.webp'
-    when 'team'
-      assign fallback_image = 'poster-team.jpg'
-      assign fallback_width = 1280
-      assign fallback_height = 1600
-  endcase
+  assign fallback_image = 'poster-subscription.webp'
+  assign fallback_width = 1632
+  assign fallback_height = 686
 
   assign image_alt = section.settings.image_alt
   if image_alt == blank and poster_image != blank
@@ -153,7 +144,10 @@
 
   .poster {
     position: relative;
+    width: 100%;
+    max-width: 87.5rem;
     min-height: var(--poster-min-height-desktop);
+    margin-inline: auto;
     overflow: hidden;
     color: var(--poster-poster-color);
     background: #111;
@@ -418,17 +412,6 @@
       "info": "Optional. When blank, the desktop image is used on all screen sizes. Set each image's focal point in Shopify's image editor."
     },
     {
-      "type": "select",
-      "id": "fallback_image",
-      "label": "Figma fallback image",
-      "options": [
-        { "value": "none", "label": "None" },
-        { "value": "subscription", "label": "Subscription poster" }
-      ],
-      "default": "none",
-      "info": "A selected Shopify image always replaces the bundled fallback."
-    },
-    {
       "type": "text",
       "id": "image_alt",
       "label": "Image alternative text",
@@ -583,7 +566,6 @@
       "name": "Poster",
       "category": "Brand storytelling",
       "settings": {
-        "fallback_image": "subscription",
         "image_alt": "Sparklys cans on a cart",
         "button_link": "#"
       },

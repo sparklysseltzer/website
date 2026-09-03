@@ -60,6 +60,7 @@
           assign card_title = block.settings.title
           assign soda_title_parts = card_title | split: ' & '
           assign card_url = block.settings.link
+          assign default_image = block.id
           assign fallback_image = blank
           assign fallback_width = 600
           assign fallback_height = 1072
@@ -80,7 +81,7 @@
             assign card_image_aspect = card_image.aspect_ratio
           endif
 
-          case block.settings.fallback_image
+          case default_image
             when 'soda_yuzu'
               assign fallback_image = 'product-overview-soda-yuzu.webp'
             when 'soda_blueberry'
@@ -99,6 +100,28 @@
               assign card_shadow_asset = 'shadow-seltzer-holunder.svg'
               assign card_flavor_logo = 'product-overview-holunder-wave-logo.svg'
           endcase
+
+          if fallback_image == blank
+            case forloop.index
+              when 1
+                assign fallback_image = 'product-overview-soda-yuzu.webp'
+              when 2
+                assign fallback_image = 'product-overview-soda-blueberry.webp'
+                assign card_shadow_asset = 'shadow-soda-blueberry.svg'
+                assign soda_title_break_before_ampersand = true
+              when 3
+                assign fallback_image = 'product-overview-seltzer-maracuja.webp'
+                assign fallback_width = 296
+                assign fallback_height = 755
+                assign card_flavor_logo = 'product-overview-maracuja-wave-logo.svg'
+              when 4
+                assign fallback_image = 'product-overview-seltzer-holunder.webp'
+                assign fallback_width = 297
+                assign fallback_height = 757
+                assign card_shadow_asset = 'shadow-seltzer-holunder.svg'
+                assign card_flavor_logo = 'product-overview-holunder-wave-logo.svg'
+            endcase
+          endif
 
           if card_image == blank and fallback_image != blank
             assign card_image_aspect = fallback_width | times: 1.0 | divided_by: fallback_height
@@ -679,36 +702,7 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image",
-          "info": "Replaces the starter image when selected."
-        },
-        {
-          "type": "select",
-          "id": "fallback_image",
-          "label": "Starter image",
-          "options": [
-            {
-              "value": "none",
-              "label": "None"
-            },
-            {
-              "value": "soda_yuzu",
-              "label": "Soda Yuzu & Ginger"
-            },
-            {
-              "value": "soda_blueberry",
-              "label": "Soda Blueberry & Pomelo"
-            },
-            {
-              "value": "seltzer_maracuja",
-              "label": "Hard Seltzer Maracuja"
-            },
-            {
-              "value": "seltzer_holunder",
-              "label": "Hard Seltzer Holunder"
-            }
-          ],
-          "default": "none"
+          "label": "Image"
         },
         {
           "type": "text",
@@ -817,7 +811,6 @@
           "type": "product",
           "settings": {
             "title": "Yuzu & Ginger",
-            "fallback_image": "soda_yuzu",
             "brand": "soda",
             "background": "#ff9d00",
             "background_end": "#ffeda3",
@@ -831,7 +824,6 @@
           "type": "product",
           "settings": {
             "title": "Blueberry & Pomelo",
-            "fallback_image": "soda_blueberry",
             "brand": "soda",
             "background": "#00519a",
             "background_end": "#65d3f4",
@@ -845,7 +837,6 @@
           "type": "product",
           "settings": {
             "title": "Maracuja",
-            "fallback_image": "seltzer_maracuja",
             "brand": "hard_seltzer",
             "show_alcohol_badge": true,
             "background": "#ff9d00",
@@ -860,7 +851,6 @@
           "type": "product",
           "settings": {
             "title": "Holunder",
-            "fallback_image": "seltzer_holunder",
             "brand": "hard_seltzer",
             "show_alcohol_badge": true,
             "background": "#009e52",

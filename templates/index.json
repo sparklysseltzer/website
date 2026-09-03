@@ -38,7 +38,6 @@
         "soda_yuzu": {
           "type": "product",
           "settings": {
-            "fallback_image": "soda_yuzu",
             "title": "Yuzu & Ginger",
             "link": "shopify://products/sparklys-soda-yuzu-ginger",
             "brand": "soda",
@@ -55,7 +54,6 @@
         "soda_blueberry": {
           "type": "product",
           "settings": {
-            "fallback_image": "soda_blueberry",
             "title": "Blueberry & Pomelo",
             "link": "shopify://products/sparklys-soda-blueberry-pomelo",
             "brand": "soda",
@@ -72,7 +70,6 @@
         "seltzer_maracuja": {
           "type": "product",
           "settings": {
-            "fallback_image": "seltzer_maracuja",
             "title": "Maracuja",
             "link": "shopify://products/sparklys-hard-seltzer-maracuja",
             "brand": "hard_seltzer",
@@ -89,7 +86,6 @@
         "seltzer_holunder": {
           "type": "product",
           "settings": {
-            "fallback_image": "seltzer_holunder",
             "title": "Holunder",
             "link": "shopify://products/sparklys-hard-seltzer-holunder",
             "brand": "hard_seltzer",
@@ -135,7 +131,6 @@
         "retail": {
           "type": "card",
           "settings": {
-            "default_image": "retail",
             "title": "Retail",
             "link": "",
             "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -149,7 +144,6 @@
         "gastro": {
           "type": "card",
           "settings": {
-            "default_image": "gastro",
             "title": "Gastro",
             "link": "",
             "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -163,7 +157,6 @@
         "events": {
           "type": "card",
           "settings": {
-            "default_image": "events",
             "title": "Events",
             "link": "",
             "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -177,7 +170,6 @@
         "companies": {
           "type": "card",
           "settings": {
-            "default_image": "companies",
             "title": "Firmen",
             "link": "",
             "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -221,11 +213,104 @@
         "variant": "soda",
         "heading": "",
         "text": "",
-        "image_position": "left center",
         "heading_font": "automatic",
         "color_mode": "automatic",
         "background": "#69bdf7",
         "text_color": "#000000"
+      }
+    },
+    "split_image_text_PpH6Yp": {
+      "type": "split-image-text",
+      "blocks": {
+        "item_cyNBUz": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        },
+        "item_iHBHDL": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        },
+        "item_i49PwD": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        }
+      },
+      "block_order": [
+        "item_cyNBUz",
+        "item_iHBHDL",
+        "item_i49PwD"
+      ],
+      "name": "Split Image-Text",
+      "settings": {
+        "image_side": "left",
+        "image_width": 50,
+        "minimum_height": 630,
+        "image_alt": "Sparklys team portrait",
+        "show_heading": true,
+        "heading": "Add your split section heading",
+        "heading_level": "h2",
+        "show_subtext": true,
+        "subtext": "<p>Add supporting copy for this section.</p>",
+        "show_list": true,
+        "show_button": true,
+        "button_label": "Learn more",
+        "button_link": "",
+        "button_style": "automatic",
+        "panel_color": "#e0e0e0",
+        "text_color": "#000000"
+      }
+    },
+    "poster_PND9wT": {
+      "type": "poster",
+      "blocks": {
+        "item_NEAwnR": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        },
+        "item_34apTz": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        },
+        "item_TTCdFg": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        }
+      },
+      "block_order": [
+        "item_NEAwnR",
+        "item_34apTz",
+        "item_TTCdFg"
+      ],
+      "name": "Poster",
+      "settings": {
+        "image_alt": "Sparklys cans on a cart",
+        "content_position": "right",
+        "show_heading": true,
+        "heading": "Add your poster heading",
+        "heading_level": "h2",
+        "show_subtext": true,
+        "subtext": "<p>Add supporting copy for this poster.</p>",
+        "show_button": true,
+        "button_label": "Learn more",
+        "button_link": "#",
+        "button_style": "automatic",
+        "poster_text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_strength": 80,
+        "minimum_height": 630,
+        "minimum_height_mobile": 540
       }
     }
   },
@@ -236,6 +321,8 @@
     "rich_text_8KfU6y",
     "offer_cards",
     "logo_marquee",
-    "usp_section_4Uicmb"
+    "usp_section_4Uicmb",
+    "split_image_text_PpH6Yp",
+    "poster_PND9wT"
   ]
 }
