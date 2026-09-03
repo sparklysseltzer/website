@@ -44,6 +44,19 @@ npx shopify doc fetch --url https://shopify.dev/docs/api/ajax/reference/cart
 
 Use `doc search` to discover the correct current page and `doc fetch` when full context is needed. Add durable conclusions and links to `docs/shopify-reference.md`; do not commit verbatim copies of entire Shopify manuals.
 
+## Figma production-component typography
+
+The `Components - Production` page in the Sparklys Figma file mirrors the live section library. Keep editable text mapped to the same native font family and style pairs as the theme:
+
+- Maison Neue / DemiBold for body copy and standard UI;
+- Maison Neue / Bold for emphasized UI;
+- Newake / Regular for general and Hard Seltzer display headings;
+- Erode / Bold for Soda display headings.
+
+Figma's remote automation runtime cannot access fonts installed only on the local Mac. Use a temporary local Figma development plugin when a generated component library must be remapped to locally installed licensed fonts. The plugin must discover the exact names with `figma.listAvailableFontsAsync()`, load every target with `figma.loadFontAsync()`, and then update each text range. Do not upload or redistribute licensed font files unless the license and destination have been explicitly approved.
+
+Figma Desktop can retain its previous glyph raster even after the inspector shows the corrected family and style. Selecting a text node or toggling its opacity is insufficient to invalidate this cache. Force a real text-layout pass for each affected node by loading all fonts used by that node, inserting a zero-width space (`U+200B`) at the end, yielding briefly, and deleting it again. This preserves the original characters and range styling while reproducing the refresh caused by entering text-edit mode. Verify both the inspector assignment and the visible canvas before considering the typography synchronized.
+
 ## Preview workflow
 
 `shopify theme dev` creates or updates a temporary remote development theme. This is a Shopify write and requires explicit approval.
