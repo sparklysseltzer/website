@@ -104,6 +104,22 @@
       "label": "Händler",
       "empty": "Wähle eine veröffentlichte Merchant Collection mit mindestens einem Händler aus."
     },
+    "faq": {
+      "heading": "Häufig gestellte Fragen",
+      "footer_text": "Du hast noch weitere Fragen?",
+      "footer_link_label": "Schreib uns hier!"
+    },
+    "faq_directory": {
+      "search_label": "Häufig gestellte Fragen durchsuchen",
+      "search_placeholder": "Fragen und Antworten durchsuchen",
+      "filter_label": "Häufig gestellte Fragen nach Kategorie filtern",
+      "all": "Alle",
+      "result_singular": "1 Frage angezeigt",
+      "results": "{count} Fragen angezeigt",
+      "no_results": "Keine passenden Fragen gefunden.",
+      "empty": "Es sind noch keine häufig gestellten Fragen verfügbar.",
+      "limit_note": "Auf dieser Seite können nur die ersten 250 Fragen durchsucht werden."
+    },
     "usp": {
       "soda": {
         "heading": "Your body’s\nfavorite Soda",

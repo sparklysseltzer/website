@@ -1,0 +1,181 @@
+{{ 'component-faq.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign selected_faq_items = section.settings.selected_faqs
+  assign category_faq_items = blank
+  if section.settings.faq_category != blank
+    assign category_faq_items = section.settings.faq_category.faqs.value
+  endif
+
+  assign selected_faq_count = selected_faq_items | size
+  assign category_faq_count = category_faq_items | size
+  assign faq_count = selected_faq_count | plus: category_faq_count
+  assign show_preview = false
+  if request.visual_preview_mode and faq_count == 0
+    assign show_preview = true
+  endif
+
+  assign faq_heading = section.settings.heading
+  if faq_heading == blank
+    assign faq_heading = 'sections.faq.heading' | t
+  endif
+
+  assign footer_text = section.settings.footer_text
+  if footer_text == blank
+    assign footer_text = 'sections.faq.footer_text' | t
+  endif
+
+  assign footer_link_label = section.settings.footer_link_label
+  if footer_link_label == blank
+    assign footer_link_label = 'sections.faq.footer_link_label' | t
+  endif
+
+  assign faq_heading_id = 'FaqHeading-' | append: section.id
+
+  assign show_footer = false
+  if section.settings.show_footer
+    if faq_count > 0 or show_preview
+      assign show_footer = true
+    endif
+  endif
+-%}
+
+{%- if faq_count > 0 or show_preview or request.design_mode -%}
+  <faq-section-motion>
+    <section
+      class="faq-surface faq-section section--tight"
+      aria-labelledby="FaqHeading-{{ section.id }}"
+      data-scroll-motion-section
+    >
+      <div class="faq-shell" data-scroll-motion-surface>
+        <div data-scroll-motion-reveal>
+          {% render 'faq-heading',
+            heading: faq_heading,
+            heading_tag: 'h2',
+            heading_id: faq_heading_id
+          %}
+        </div>
+
+        {%- if faq_count > 0 -%}
+          <faq-accordion class="faq-list">
+            {%- assign rendered_faq_handles = '|' -%}
+            {%- for faq_item in category_faq_items -%}
+              {% render 'faq-item', faq_item: faq_item, section_id: section.id %}
+              {%- assign rendered_faq_handles = rendered_faq_handles | append: faq_item.system.handle | append: '|' -%}
+            {%- endfor -%}
+            {%- for faq_item in selected_faq_items -%}
+              {%- assign faq_handle_token = faq_item.system.handle | prepend: '|' | append: '|' -%}
+              {%- unless rendered_faq_handles contains faq_handle_token -%}
+                {% render 'faq-item', faq_item: faq_item, section_id: section.id %}
+                {%- assign rendered_faq_handles = rendered_faq_handles | append: faq_item.system.handle | append: '|' -%}
+              {%- endunless -%}
+            {%- endfor -%}
+          </faq-accordion>
+        {%- elsif show_preview -%}
+          <div class="faq-list" aria-hidden="true">
+            {%- for preview_index in (1..4) -%}
+              <div class="faq-item">
+                <div class="faq-item__summary">
+                  <span class="faq-item__question">Example FAQ question {{ preview_index }}</span>
+                  <span class="faq-item__icon">
+                    <img src="{{ 'icon-faq-chevron.svg' | asset_url }}" width="14" height="8" alt="">
+                  </span>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <div class="faq-editor-note">
+            Select individual FAQ entries or an FAQ Category with published entries.
+          </div>
+        {%- endif -%}
+
+        {%- if show_footer -%}
+          <div class="faq-section__footer" data-scroll-motion-reveal>
+            <p>{{ footer_text }}</p>
+            {%- if section.settings.footer_link != blank and footer_link_label != blank -%}
+              <a href="{{ section.settings.footer_link }}">{{ footer_link_label }}</a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </section>
+  </faq-section-motion>
+{%- endif -%}
+
+{% render 'faq-structured-data',
+  faq_items: category_faq_items,
+  additional_faq_items: selected_faq_items
+%}
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "metaobject_list",
+      "id": "selected_faqs",
+      "label": "FAQs",
+      "metaobject_type": "faq",
+      "limit": 20,
+      "info": "Optional individual FAQs. When a category is also selected, these are appended and duplicates are removed."
+    },
+    {
+      "type": "metaobject",
+      "id": "faq_category",
+      "label": "FAQ Category",
+      "metaobject_type": "faq_category",
+      "info": "Optional ordered FAQ set. Individual FAQs selected above are appended."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Leave blank to use the translated default heading."
+    },
+    {
+      "type": "header",
+      "content": "Closing link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_footer",
+      "label": "Show closing text and link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Text",
+      "info": "Leave blank to use the translated default text.",
+      "visible_if": "{{ section.settings.show_footer }}"
+    },
+    {
+      "type": "text",
+      "id": "footer_link_label",
+      "label": "Link label",
+      "info": "Leave blank to use the translated default label.",
+      "visible_if": "{{ section.settings.show_footer }}"
+    },
+    {
+      "type": "url",
+      "id": "footer_link",
+      "label": "Link",
+      "visible_if": "{{ section.settings.show_footer }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "category": "Trust & information",
+      "settings": {
+        "footer_link": "#"
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -656,6 +656,233 @@ if (!customElements.get('usp-section-motion')) {
   customElements.define('usp-section-motion', UspSectionMotion);
 }
 
+class FaqSectionMotion extends PosterMotion {
+  setupMotion() {
+    super.setupMotion();
+
+    if (!this.section || !Number.isFinite(this.targetProgress) || this.targetProgress <= 0) return;
+
+    const initialTarget = this.targetProgress;
+    this.currentProgress = 0;
+    this.applyProgress();
+    this.targetProgress = initialTarget;
+    this.lastFrameTime = null;
+    this.frameRequest = window.requestAnimationFrame(this.renderFrame);
+  }
+}
+
+if (!customElements.get('faq-section-motion')) {
+  customElements.define('faq-section-motion', FaqSectionMotion);
+}
+
+class FaqAccordion extends HTMLElement {
+  connectedCallback() {
+    this.items = [...this.querySelectorAll(':scope > details')];
+    this.motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    this.animations = new Map();
+    this.handleClick = this.handleClick.bind(this);
+    this.handleMotionPreference = this.handleMotionPreference.bind(this);
+
+    this.addEventListener('click', this.handleClick);
+    this.motionPreference.addEventListener('change', this.handleMotionPreference);
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener('click', this.handleClick);
+    this.motionPreference?.removeEventListener('change', this.handleMotionPreference);
+    this.animations?.forEach((animation) => animation.cancel());
+    this.animations?.clear();
+  }
+
+  handleClick(event) {
+    const summary = event.target.closest('summary');
+    if (!summary || !this.contains(summary)) return;
+
+    const item = summary.parentElement;
+    if (!this.items.includes(item)) return;
+
+    event.preventDefault();
+    const shouldOpen = !item.open;
+
+    if (shouldOpen) {
+      this.items.forEach((otherItem) => {
+        if (otherItem !== item && otherItem.open) this.setItemOpen(otherItem, false);
+      });
+    }
+
+    this.setItemOpen(item, shouldOpen);
+  }
+
+  handleMotionPreference() {
+    this.animations.forEach((animation, item) => {
+      animation.cancel();
+      this.resetAnswer(item);
+    });
+    this.animations.clear();
+  }
+
+  setItemOpen(item, shouldOpen) {
+    const answer = item.querySelector('.faq-item__answer');
+    if (!answer || this.motionPreference.matches) {
+      item.toggleAttribute('open', shouldOpen);
+      return;
+    }
+
+    this.animations.get(item)?.cancel();
+    if (shouldOpen) item.setAttribute('open', '');
+
+    const startHeight = shouldOpen ? 0 : answer.getBoundingClientRect().height;
+    const endHeight = shouldOpen ? answer.scrollHeight : 0;
+    const animation = answer.animate(
+      [
+        {
+          height: `${startHeight}px`,
+          opacity: shouldOpen ? 0 : 1,
+          transform: shouldOpen ? 'translate3d(0, -0.5rem, 0)' : 'translate3d(0, 0, 0)',
+        },
+        {
+          height: `${endHeight}px`,
+          opacity: shouldOpen ? 1 : 0,
+          transform: shouldOpen ? 'translate3d(0, 0, 0)' : 'translate3d(0, -0.35rem, 0)',
+        },
+      ],
+      {
+        duration: shouldOpen ? 380 : 280,
+        easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+      },
+    );
+
+    this.animations.set(item, animation);
+    animation.onfinish = () => {
+      if (!shouldOpen) item.removeAttribute('open');
+      this.resetAnswer(item);
+      this.animations.delete(item);
+    };
+    animation.oncancel = () => this.resetAnswer(item);
+  }
+
+  resetAnswer(item) {
+    const answer = item.querySelector('.faq-item__answer');
+    answer?.style.removeProperty('height');
+    answer?.style.removeProperty('opacity');
+    answer?.style.removeProperty('transform');
+  }
+}
+
+if (!customElements.get('faq-accordion')) {
+  customElements.define('faq-accordion', FaqAccordion);
+}
+
+class FaqDirectory extends HTMLElement {
+  connectedCallback() {
+    this.searchInput = this.querySelector('[data-faq-search]');
+    this.filterButtons = [...this.querySelectorAll('[data-faq-filter]')];
+    this.items = [...this.querySelectorAll('[data-faq-entry]')];
+    this.status = this.querySelector('[data-faq-status]');
+    this.emptyState = this.querySelector('[data-faq-empty]');
+    this.activeCategory = 'all';
+
+    if (!this.searchInput || this.items.length === 0) return;
+
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
+    this.handlePopState = this.handlePopState.bind(this);
+
+    this.searchInput.addEventListener('input', this.handleSearch);
+    this.filterButtons.forEach((button) => button.addEventListener('click', this.handleFilter));
+    window.addEventListener('popstate', this.handlePopState);
+
+    this.restoreFromUrl();
+    this.update(false);
+  }
+
+  disconnectedCallback() {
+    this.searchInput?.removeEventListener('input', this.handleSearch);
+    this.filterButtons?.forEach((button) => button.removeEventListener('click', this.handleFilter));
+    window.removeEventListener('popstate', this.handlePopState);
+  }
+
+  normalize(value) {
+    return value
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLocaleLowerCase(document.documentElement.lang);
+  }
+
+  restoreFromUrl() {
+    const parameters = new URLSearchParams(window.location.search);
+    const requestedCategory = parameters.get('faq-category') || 'all';
+    const categoryExists = this.filterButtons.some(
+      (button) => button.dataset.faqFilter === requestedCategory,
+    );
+
+    this.activeCategory = categoryExists ? requestedCategory : 'all';
+    this.searchInput.value = parameters.get('faq-query') || '';
+  }
+
+  handleSearch() {
+    this.update();
+  }
+
+  handleFilter(event) {
+    this.activeCategory = event.currentTarget.dataset.faqFilter;
+    this.update();
+  }
+
+  handlePopState() {
+    this.restoreFromUrl();
+    this.update(false);
+  }
+
+  update(writeUrl = true) {
+    const query = this.normalize(this.searchInput.value.trim());
+    let visibleCount = 0;
+
+    this.filterButtons.forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.faqFilter === this.activeCategory));
+    });
+
+    this.items.forEach((item) => {
+      const categories = item.dataset.faqCategories.split('|').filter(Boolean);
+      const matchesCategory =
+        this.activeCategory === 'all' || categories.includes(this.activeCategory);
+      const matchesQuery = query === '' || this.normalize(item.textContent).includes(query);
+      const isVisible = matchesCategory && matchesQuery;
+
+      item.hidden = !isVisible;
+      if (!isVisible) item.removeAttribute('open');
+      if (isVisible) visibleCount += 1;
+    });
+
+    if (this.status) {
+      this.status.textContent =
+        visibleCount === 1
+          ? this.dataset.resultSingular
+          : this.dataset.resultsTemplate.replace('{count}', visibleCount);
+    }
+
+    if (this.emptyState) this.emptyState.hidden = visibleCount !== 0;
+    if (writeUrl) this.updateUrl();
+  }
+
+  updateUrl() {
+    const url = new URL(window.location.href);
+    const query = this.searchInput.value.trim();
+
+    if (this.activeCategory === 'all') url.searchParams.delete('faq-category');
+    else url.searchParams.set('faq-category', this.activeCategory);
+
+    if (query === '') url.searchParams.delete('faq-query');
+    else url.searchParams.set('faq-query', query);
+
+    window.history.replaceState({}, '', url);
+  }
+}
+
+if (!customElements.get('faq-directory')) {
+  customElements.define('faq-directory', FaqDirectory);
+}
+
 const headerSection = document.querySelector('.shopify-section-header');
 
 if (headerSection) {

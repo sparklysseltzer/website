@@ -1,0 +1,27 @@
+{%- liquid
+  assign faq_handle = faq_item.system.handle
+  assign faq_question = faq_item.question.value
+  assign faq_answer = faq_item.answer
+-%}
+
+{%- if faq_question != blank and faq_answer != blank -%}
+  <details
+    class="faq-item"
+    id="Faq-{{ section_id }}-{{ faq_handle }}"
+    data-faq-entry
+    data-faq-categories="{{ category_handles | strip | escape }}"
+    data-scroll-motion-reveal
+  >
+    <summary class="faq-item__summary">
+      <span class="faq-item__question">{{ faq_question }}</span>
+      <span class="faq-item__icon" aria-hidden="true">
+        <img src="{{ 'icon-faq-chevron.svg' | asset_url }}" width="14" height="8" alt="">
+      </span>
+    </summary>
+    <div class="faq-item__answer">
+      <div class="faq-item__answer-inner rte">
+        {{ faq_answer | metafield_tag }}
+      </div>
+    </div>
+  </details>
+{%- endif -%}

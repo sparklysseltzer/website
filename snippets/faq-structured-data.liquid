@@ -1,0 +1,70 @@
+{%- comment -%}
+  Renders one FAQPage JSON-LD entity for the FAQ entries visible in the calling
+  section. faq_items render first; additional_faq_items are appended with
+  duplicate metaobject handles suppressed.
+{%- endcomment -%}
+
+{%- liquid
+  assign faq_json_has_entries = false
+  assign faq_json_handles = '|'
+-%}
+
+{%- capture faq_json_entities -%}
+  {%- for faq_item in faq_items -%}
+    {%- liquid
+      assign faq_handle = faq_item.system.handle
+      assign faq_handle_token = faq_handle | prepend: '|' | append: '|'
+      assign faq_question = faq_item.question.value | strip
+      assign faq_answer_text = faq_item.answer | metafield_text | strip
+    -%}
+    {%- unless faq_json_handles contains faq_handle_token -%}
+      {%- if faq_question != blank and faq_answer_text != blank -%}
+        {%- if faq_json_has_entries -%},{%- endif -%}
+        {
+          "@type": "Question",
+          "name": {{ faq_question | json }},
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": {{ faq_answer_text | json }}
+          }
+        }
+        {%- assign faq_json_has_entries = true -%}
+        {%- assign faq_json_handles = faq_json_handles | append: faq_handle | append: '|' -%}
+      {%- endif -%}
+    {%- endunless -%}
+  {%- endfor -%}
+
+  {%- for faq_item in additional_faq_items -%}
+    {%- liquid
+      assign faq_handle = faq_item.system.handle
+      assign faq_handle_token = faq_handle | prepend: '|' | append: '|'
+      assign faq_question = faq_item.question.value | strip
+      assign faq_answer_text = faq_item.answer | metafield_text | strip
+    -%}
+    {%- unless faq_json_handles contains faq_handle_token -%}
+      {%- if faq_question != blank and faq_answer_text != blank -%}
+        {%- if faq_json_has_entries -%},{%- endif -%}
+        {
+          "@type": "Question",
+          "name": {{ faq_question | json }},
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": {{ faq_answer_text | json }}
+          }
+        }
+        {%- assign faq_json_has_entries = true -%}
+        {%- assign faq_json_handles = faq_json_handles | append: faq_handle | append: '|' -%}
+      {%- endif -%}
+    {%- endunless -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if faq_json_has_entries -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{{ faq_json_entities }}]
+    }
+  </script>
+{%- endif -%}

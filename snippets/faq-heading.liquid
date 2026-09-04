@@ -1,0 +1,23 @@
+{%- liquid
+  assign heading_tag = heading_tag | default: 'h2'
+-%}
+
+<div class="faq-heading">
+  <div class="faq-heading__art" aria-hidden="true">
+    <img
+      class="faq-heading__bubble faq-heading__bubble--light"
+      src="{{ 'faq-title-bubble-white.svg' | asset_url }}"
+      width="150"
+      height="98"
+      alt=""
+    >
+    <img
+      class="faq-heading__bubble faq-heading__bubble--beige"
+      src="{{ 'faq-title-bubble-beige.svg' | asset_url }}"
+      width="260"
+      height="98"
+      alt=""
+    >
+  </div>
+  <{{ heading_tag }} class="faq-heading__title" id="{{ heading_id }}">{{ heading }}</{{ heading_tag }}>
+</div>

@@ -2,7 +2,7 @@
 
 This directory documents every Liquid section in `sections/`. Keep implementation details here; keep cross-cutting rules in [Architecture](../architecture.md), commerce requirements in [Commerce](../commerce.md), and capability state in [Status](../status.md).
 
-Last reconciled with the repository: 2026-09-02.
+Last reconciled with the repository: 2026-09-04.
 
 ## Global shell
 
@@ -20,6 +20,7 @@ Last reconciled with the repository: 2026-09-02.
 | [Poster](poster.md) | Brand storytelling | Full-image editorial poster with overlaid content |
 | [Split Image-Text](split-image-text.md) | Brand storytelling | Side-by-side editorial image and content panel |
 | [USP](usp-section.md) | Brand storytelling | Context-aware Soda or Hard Seltzer image, copy, and five USP items |
+| [FAQ](faq.md) | Trust & information | Additive selected and category-driven FAQ accordion with a closing contact link |
 | [Featured collection](featured-collection.md) | Products & offers | Configured collection preview using the shared product card |
 | [Product overview teaser](product-overview-teaser.md) | Products & offers | Four-card Soda and Hard Seltzer editorial product navigation |
 | [Offer cards](offer-cards.md) | Products & offers | Local or globally synchronized audience/use-case cards |
@@ -36,6 +37,7 @@ Last reconciled with the repository: 2026-09-02.
 | [Main blog](main-blog.md) | `blog.json` |
 | [Main article](main-article.md) | `article.json` |
 | [Main page](main-page.md) | `page.json` |
+| [FAQ directory](main-faq.md) | `page.faq.json` |
 | [Main collection list](main-list-collections.md) | `list-collections.json` |
 | [Main 404](main-404.md) | `404.json` |
 

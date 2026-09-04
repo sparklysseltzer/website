@@ -1,6 +1,6 @@
 # Architecture
 
-Last reconciled with the repository on 2026-09-03.
+Last reconciled with the repository on 2026-09-04.
 
 ## System boundary
 
@@ -44,10 +44,11 @@ JSON templates own page composition. A section owns its markup, section-level se
 
 Each section instance stores its own settings and blocks in the JSON template that contains it. Alternate templates can therefore reuse the same Liquid section with different content. Do not duplicate a section merely to create a content variant.
 
-Two explicit shared-content patterns exist:
+Three explicit shared-content patterns exist:
 
 - `logo-marquee` reads an ordered merchant collection built from reusable Merchant metaobjects.
 - `offer-cards` can use local template blocks or the canonical global offer-teaser metaobject while retaining local presentation settings.
+- `faq` reads reusable FAQ entries directly, through an ordered FAQ Category, or from both sources with duplicate removal; `main-faq` exposes the complete active library with client-side search and filtering.
 
 See [Section reference](sections/README.md), [Merchant content](merchant-content.md), and [Shared section content](shared-section-content.md) for the detailed contracts. Section-specific implementation notes belong in the corresponding file under `docs/sections/`, not in this architecture overview.
 
@@ -61,7 +62,7 @@ See [Section reference](sections/README.md), [Merchant content](merchant-content
 | Cart | Main Cart |
 | Search | Main Search |
 | Collections list | Main List Collections |
-| Page | Main Page |
+| Page | Main Page; the `page.faq` alternate template renders the searchable FAQ directory |
 | Blog | Main Blog |
 | Article | Main Article |
 | 404 | Main 404 |
@@ -71,6 +72,8 @@ Poster, Split Image-Text, and Featured Collection are reusable preset sections b
 ## Theme Editor configuration design
 
 Section schemas should expose only controls that are relevant to the merchant's current choices. Use Shopify's `visible_if` attribute for dependent settings, such as showing heading fields only when a heading is enabled or action fields only when an action is enabled. Hidden settings retain their stored values, so merchants can switch options without losing prior configuration.
+
+Before shipping any new or changed section, audit every checkbox and select setting for dependent controls. Every supported dependent control must use `visible_if`. Shopify does not currently support conditional visibility on resource pickers such as `metaobject`, `metaobject_list`, product, collection, or page settings. When one of those pickers would become irrelevant, prefer an additive contract or separate focused sections instead of exposing a mode selector beside permanently visible inactive fields. Record any unavoidable exception in the section document.
 
 Organize longer schemas with concise `header` settings in the same order as the rendered composition: layout, media, content, appearance, and spacing where applicable. Prefer sensible presets and a small number of meaningful controls. When layouts have substantially different structure or configuration, implement separate sections instead of combining them behind a large layout selector. Do not misuse blocks as visual fieldsets; blocks represent independently editable or repeatable content.
 
@@ -115,6 +118,14 @@ Maison Neue Demi remains the body, UI, and `h3`–`h6` family. Footer card headi
 - The Store Finder action resolves a selected Shopify Page, with the documented Händler bootstrap fallback.
 
 Header and footer interaction details live in [Header](sections/header.md) and [Footer](sections/footer.md).
+
+## Structured data
+
+Structured data is part of the rendering contract for every entity-like content feature. Products, offers, FAQs, articles/news, events, organizations, recipes, reviews, and other typed models must ship with an applicable Schema.org representation serialized as server-rendered JSON-LD in the same change. Treat this as an implementation requirement, not deferred SEO polish.
+
+The JSON-LD must be derived from the same Shopify data rendered for visitors, describe only content accessible on that page, follow the active locale and market, suppress duplicate entities, and omit unknown values rather than inventing them. Prefer one shared renderer per entity type so reusable sections and resource templates cannot drift. If no applicable Schema.org type or honest mapping exists, document that decision in the owning feature reference. Validate rendered output, not merely Liquid source, before claiming support.
+
+Schema.org supplies the entity vocabulary and property meanings. JSON-LD is the preferred serialization used to place those definitions in an `application/ld+json` script without coupling them to the visible HTML structure.
 
 ## Localization
 
@@ -164,6 +175,9 @@ Current custom elements/controllers are:
 | `product-overview-motion` | Reversible Product Overview reveal and artwork parallax |
 | `poster-motion` | Reversible Poster reveal and media parallax |
 | `usp-section-motion` | Reversible USP panel/content reveals, item staggering, and media parallax |
+| `faq-section-motion` | Reversible FAQ heading, controls, item, and closing-link reveals |
+| `faq-accordion` | One-open-at-a-time enhancement for native FAQ details elements |
+| `faq-directory` | Client-side FAQ text search, category filtering, count feedback, and URL state |
 
 Use custom elements to scope behavior, native browser APIs instead of broad dependencies, and live regions for dynamic status. Follow [Frontend asset structure and delivery](frontend-assets.md) for budgets and placement.
 

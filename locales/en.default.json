@@ -104,6 +104,22 @@
       "label": "Merchants",
       "empty": "Select a published Merchant Collection with at least one merchant."
     },
+    "faq": {
+      "heading": "Frequently asked questions",
+      "footer_text": "Do you have any other questions?",
+      "footer_link_label": "Write to us here!"
+    },
+    "faq_directory": {
+      "search_label": "Search frequently asked questions",
+      "search_placeholder": "Search questions and answers",
+      "filter_label": "Filter frequently asked questions by category",
+      "all": "All",
+      "result_singular": "1 question shown",
+      "results": "{count} questions shown",
+      "no_results": "No matching questions found.",
+      "empty": "No frequently asked questions are available yet.",
+      "limit_note": "Only the first 250 questions can be searched on this page."
+    },
     "usp": {
       "soda": {
         "heading": "Your body’s\nfavorite Soda",

@@ -98,11 +98,12 @@ Never put passwords or tokens on a command line that will be committed or docume
 1. Read the product, architecture, and development docs.
 2. Find the existing section, template, or primitive that owns the behavior. For section work, read its file in [Section reference](sections/README.md).
 3. Verify current Shopify platform requirements for unfamiliar or unstable behavior.
-4. Implement the narrowest durable change.
-5. Run local quality gates.
-6. With approved store access, verify the theme editor and storefront using real data.
-7. Test phone and desktop layouts, keyboard navigation, reduced motion, and no-JavaScript fallback where relevant.
-8. Update the owning section reference plus capability status or architecture decisions when their contract changes.
+4. For entity-like content, implement the applicable Schema.org vocabulary as server-rendered JSON-LD and validate the rendered data against the visible content. Document an explicit exception when no honest mapping exists.
+5. Implement the narrowest durable change.
+6. Run local quality gates.
+7. With approved store access, verify the theme editor and storefront using real data.
+8. Test phone and desktop layouts, keyboard navigation, reduced motion, and no-JavaScript fallback where relevant.
+9. Update the owning section reference plus capability status or architecture decisions when their contract changes.
 
 ## Git and delivery
 

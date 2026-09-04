@@ -1,0 +1,126 @@
+{{ 'component-faq.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign faq_entries = metaobjects.faq.values
+  assign faq_categories = metaobjects.faq_category.values
+  assign faq_heading = page.title
+  if faq_heading == blank
+    assign faq_heading = 'sections.faq.heading' | t
+  endif
+  assign faq_heading_id = 'FaqDirectoryHeading-' | append: section.id
+-%}
+
+<faq-section-motion>
+  <section
+    class="faq-surface faq-directory section--tight"
+    aria-labelledby="FaqDirectoryHeading-{{ section.id }}"
+    data-scroll-motion-section
+  >
+    <faq-directory
+      class="faq-shell"
+      data-scroll-motion-surface
+      data-result-singular="{{ 'sections.faq_directory.result_singular' | t | escape }}"
+      data-results-template="{{ 'sections.faq_directory.results' | t | escape }}"
+    >
+      <div data-scroll-motion-reveal>
+        {% render 'faq-heading',
+          heading: faq_heading,
+          heading_tag: 'h1',
+          heading_id: faq_heading_id
+        %}
+      </div>
+
+      {%- if faq_entries != blank -%}
+        <div class="faq-directory__controls" data-scroll-motion-reveal>
+          <div class="faq-directory__search">
+            <label class="visually-hidden" for="FaqSearch-{{ section.id }}">
+              {{ 'sections.faq_directory.search_label' | t }}
+            </label>
+            <input
+              class="faq-directory__search-input"
+              id="FaqSearch-{{ section.id }}"
+              type="search"
+              placeholder="{{ 'sections.faq_directory.search_placeholder' | t | escape }}"
+              autocomplete="off"
+              data-faq-search
+            >
+          </div>
+
+          <div class="faq-directory__filters" aria-label="{{ 'sections.faq_directory.filter_label' | t }}">
+            <button
+              class="faq-directory__filter"
+              type="button"
+              aria-pressed="true"
+              data-faq-filter="all"
+            >
+              {{ 'sections.faq_directory.all' | t }}
+            </button>
+            {%- for faq_category in faq_categories -%}
+              {%- assign category_faqs = faq_category.faqs.value -%}
+              {%- if faq_category.title.value != blank and category_faqs != blank -%}
+                <button
+                  class="faq-directory__filter"
+                  type="button"
+                  aria-pressed="false"
+                  data-faq-filter="{{ faq_category.system.handle | escape }}"
+                >
+                  {{ faq_category.title.value }}
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          <p class="faq-directory__status" role="status" aria-live="polite" data-faq-status></p>
+        </div>
+
+        {%- paginate faq_entries by 250 -%}
+          <faq-accordion class="faq-list" data-faq-list>
+            {%- for faq_item in faq_entries -%}
+              {%- capture category_handles -%}
+                {%- for faq_category in faq_categories -%}
+                  {%- assign category_faqs = faq_category.faqs.value -%}
+                  {%- for category_faq in category_faqs -%}
+                    {%- if category_faq.system.handle == faq_item.system.handle -%}
+                      {{- faq_category.system.handle -}}|
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endfor -%}
+              {%- endcapture -%}
+              {% render 'faq-item',
+                faq_item: faq_item,
+                section_id: section.id,
+                category_handles: category_handles
+              %}
+            {%- endfor -%}
+          </faq-accordion>
+
+          {% render 'faq-structured-data', faq_items: faq_entries %}
+
+          <p class="faq-directory__empty" data-faq-empty hidden>
+            {{ 'sections.faq_directory.no_results' | t }}
+          </p>
+
+          {%- if paginate.pages > 1 -%}
+            <p class="faq-directory__limit-note">
+              {{ 'sections.faq_directory.limit_note' | t }}
+            </p>
+          {%- endif -%}
+        {%- endpaginate -%}
+      {%- elsif request.design_mode -%}
+        <div class="faq-editor-note">
+          Create and publish FAQ entries under Content &gt; Metaobjects to populate this page.
+        </div>
+      {%- else -%}
+        <p class="faq-directory__empty">{{ 'sections.faq_directory.empty' | t }}</p>
+      {%- endif -%}
+    </faq-directory>
+  </section>
+</faq-section-motion>
+
+{% schema %}
+{
+  "name": "FAQ directory",
+  "settings": []
+}
+{% endschema %}

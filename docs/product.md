@@ -36,7 +36,7 @@ We chose a custom native Shopify theme because it provides:
 
 ## Current scope
 
-The current theme includes the global layout, three-context header and footer, homepage composition, products, collections, cart, search, standard pages, blogs, articles, and error handling. The homepage currently composes Hero, Rich Text, Product Overview Teaser, Offer Cards, and Logo Marquee. Poster, Split Image-Text, and Featured Collection are reusable Theme Editor sections but are not currently placed on the homepage. See the [Section reference](sections/README.md) for the exact implemented contract and the [Implementation status](status.md) for remaining production gaps.
+The current theme includes the global layout, three-context header and footer, homepage composition, products, collections, cart, search, standard pages, a dedicated FAQ directory, blogs, articles, and error handling. The homepage currently composes Hero, Rich Text, Product Overview Teaser, Offer Cards, and Logo Marquee. Poster, Split Image-Text, Featured Collection, and FAQ are reusable Theme Editor sections but are not currently placed on the homepage. See the [Section reference](sections/README.md) for the exact implemented contract and the [Implementation status](status.md) for remaining production gaps.
 
 ## Storefront brand contexts
 
