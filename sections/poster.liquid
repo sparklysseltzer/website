@@ -4,6 +4,7 @@
   assign fallback_image = 'poster-subscription.webp'
   assign fallback_width = 1632
   assign fallback_height = 686
+  assign layout_mode = section.settings.layout_mode | default: 'with_content'
 
   assign image_alt = section.settings.image_alt
   if image_alt == blank and poster_image != blank
@@ -43,7 +44,7 @@
     "
   >
     <div
-      class="poster poster--poster poster--content-{{ section.settings.content_position }}"
+      class="poster poster--poster{% if layout_mode == 'image_only' %} poster--image-only{% else %} poster--content-{{ section.settings.content_position }}{% endif %}"
       data-poster-surface
     >
       <div class="poster__media" data-poster-media>
@@ -88,51 +89,53 @@
         </div>
       </div>
 
-      <div class="poster__overlay" aria-hidden="true"></div>
+      {%- unless layout_mode == 'image_only' -%}
+        <div class="poster__overlay" aria-hidden="true"></div>
 
-      <div class="poster__content">
-        <div class="poster__content-inner">
-          {%- if section.settings.show_heading and section.settings.heading != blank -%}
-            <{{ heading_tag }} class="poster__heading" data-poster-reveal>
-              {{ section.settings.heading }}
-            </{{ heading_tag }}>
-          {%- endif -%}
+        <div class="poster__content">
+          <div class="poster__content-inner">
+            {%- if section.settings.show_heading and section.settings.heading != blank -%}
+              <{{ heading_tag }} class="poster__heading" data-poster-reveal>
+                {{ section.settings.heading }}
+              </{{ heading_tag }}>
+            {%- endif -%}
 
-          {%- if section.settings.show_subtext and section.settings.subtext != blank -%}
-            <div class="poster__subtext rte" data-poster-reveal>{{ section.settings.subtext }}</div>
-          {%- endif -%}
+            {%- if section.settings.show_subtext and section.settings.subtext != blank -%}
+              <div class="poster__subtext rte" data-poster-reveal>{{ section.settings.subtext }}</div>
+            {%- endif -%}
 
-          {%- if section.blocks.size > 0 -%}
-            <ul class="poster__list" data-poster-reveal>
-              {%- for block in section.blocks -%}
-                {%- if block.settings.text != blank -%}
-                  <li class="poster__list-item" {{ block.shopify_attributes }}>
-                    <span class="poster__check" aria-hidden="true"></span>
-                    <span>{{ block.settings.text }}</span>
-                  </li>
-                {%- endif -%}
-              {%- endfor -%}
-            </ul>
-          {%- endif -%}
+            {%- if section.blocks.size > 0 -%}
+              <ul class="poster__list" data-poster-reveal>
+                {%- for block in section.blocks -%}
+                  {%- if block.settings.text != blank -%}
+                    <li class="poster__list-item" {{ block.shopify_attributes }}>
+                      <span class="poster__check" aria-hidden="true"></span>
+                      <span>{{ block.settings.text }}</span>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
 
-          {%- if section.settings.show_button and section.settings.button_label != blank -%}
-            <div class="poster__action" data-poster-reveal>
-              <a class="{{ button_class }}" href="{{ button_link }}">
-                <span class="button__label poster__button-label">
-                  <span>{{ section.settings.button_label }}</span>
-                  <img
-                    class="poster__button-icon"
-                    src="{{ 'arrow-right.svg' | asset_url }}"
-                    alt=""
-                    width="16"
-                    height="16"
-                  >
-                </span>
-              </a>
-            </div>
-          {%- endif -%}
+            {%- if section.settings.show_button and section.settings.button_label != blank -%}
+              <div class="poster__action" data-poster-reveal>
+                <a class="{{ button_class }}" href="{{ button_link }}">
+                  <span class="button__label poster__button-label">
+                    <span>{{ section.settings.button_label }}</span>
+                    <img
+                      class="poster__button-icon"
+                      src="{{ 'arrow-right.svg' | asset_url }}"
+                      alt=""
+                      width="16"
+                      height="16"
+                    >
+                  </span>
+                </a>
+              </div>
+            {%- endif -%}
+          </div>
         </div>
-      </div>
+      {%- endunless -%}
     </div>
   </section>
 </poster-motion>
@@ -398,6 +401,20 @@
   "settings": [
     {
       "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout_mode",
+      "label": "Poster layout",
+      "options": [
+        { "value": "with_content", "label": "Poster with Content" },
+        { "value": "image_only", "label": "Image only Poster" }
+      ],
+      "default": "with_content"
+    },
+    {
+      "type": "header",
       "content": "Image"
     },
     {
@@ -419,7 +436,8 @@
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "Content",
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
     },
     {
       "type": "select",
@@ -430,20 +448,22 @@
         { "value": "center", "label": "Center" },
         { "value": "right", "label": "Right" }
       ],
-      "default": "right"
+      "default": "right",
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
     },
     {
       "type": "checkbox",
       "id": "show_heading",
       "label": "Show heading",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
     },
     {
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
       "default": "Add your poster heading",
-      "visible_if": "{{ section.settings.show_heading }}"
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_heading }}"
     },
     {
       "type": "select",
@@ -454,39 +474,41 @@
         { "value": "h3", "label": "H3" }
       ],
       "default": "h2",
-      "visible_if": "{{ section.settings.show_heading }}"
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_heading }}"
     },
     {
       "type": "checkbox",
       "id": "show_subtext",
       "label": "Show subtext",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
     },
     {
       "type": "richtext",
       "id": "subtext",
       "label": "Subtext",
       "default": "<p>Add supporting copy for this poster.</p>",
-      "visible_if": "{{ section.settings.show_subtext }}"
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_subtext }}"
     },
     {
       "type": "checkbox",
       "id": "show_button",
       "label": "Show button",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
     },
     {
       "type": "text",
       "id": "button_label",
       "label": "Button label",
       "default": "Learn more",
-      "visible_if": "{{ section.settings.show_button }}"
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_button }}"
     },
     {
       "type": "url",
       "id": "button_link",
       "label": "Button link",
-      "visible_if": "{{ section.settings.show_button }}"
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_button }}"
     },
     {
       "type": "select",
@@ -498,23 +520,26 @@
         { "value": "light", "label": "Light" }
       ],
       "default": "automatic",
-      "visible_if": "{{ section.settings.show_button }}"
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_button }}"
     },
     {
       "type": "header",
-      "content": "Appearance"
+      "content": "Appearance",
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
     },
     {
       "type": "color",
       "id": "poster_text_color",
       "label": "Poster text color",
-      "default": "#ffffff"
+      "default": "#ffffff",
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
     },
     {
       "type": "color",
       "id": "overlay_color",
       "label": "Overlay color",
-      "default": "#000000"
+      "default": "#000000",
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
     },
     {
       "type": "range",
@@ -524,7 +549,12 @@
       "step": 5,
       "unit": "%",
       "label": "Poster overlay strength",
-      "default": 55
+      "default": 55,
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "header",
+      "content": "Size"
     },
     {
       "type": "range",
@@ -556,7 +586,8 @@
           "type": "text",
           "id": "text",
           "label": "Text",
-          "default": "Add a benefit or key point"
+          "default": "Add a benefit or key point",
+          "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
         }
       ]
     }

@@ -4,18 +4,17 @@ Source: `sections/poster.liquid`
 
 ## Purpose
 
-Poster owns the approved full-image editorial composition with overlaid content. It is available as a section preset but is not currently placed in a JSON template. The side-by-side composition is a separate [Split Image-Text](split-image-text.md) section so each Theme Editor contract stays focused.
+Poster owns the approved full-image editorial composition, either with overlaid content or as an image-only surface. It is available as a section preset but is not currently placed in a JSON template. The side-by-side composition is a separate [Split Image-Text](split-image-text.md) section so each Theme Editor contract stays focused.
 
 ## Merchant controls
 
-- left/center/right content alignment;
+- Poster with Content or Image only Poster layout;
 - optional Shopify desktop and mobile images;
 - shared image alternative text and Shopify-native focal points for selected images;
-- optional heading (`h2` or `h3`), rich text, tick-list blocks, and linked action;
-- automatic/dark/light button treatment;
-- text color, overlay color and strength, and independent desktop/mobile minimum heights.
+- independent desktop/mobile minimum heights;
+- in Poster with Content: left/center/right content alignment, optional heading (`h2` or `h3`), rich text, tick-list blocks, linked action, automatic/dark/light button treatment, text color, and overlay color/strength.
 
-Heading, subtext, and action fields are conditionally visible only while their corresponding display toggle is enabled. Headers divide media, content, and appearance controls.
+Image-only mode hides the content, tick-item, action, and overlay fields while retaining media and size controls. Its renderer omits the overlay and complete content subtree, including configured tick-list blocks. Poster with Content reveals those controls; heading, subtext, and action fields remain conditionally visible only while their corresponding display toggle is enabled. Headers divide layout, media, content, appearance, and size controls.
 
 Tick-list blocks render whenever at least one non-empty block exists, so the section does not duplicate that state with a separate display toggle. The preset uses `#` as its initial action URL, and the renderer applies the same fallback to older blank instances, so an enabled button remains visible until the merchant selects its destination.
 
@@ -23,7 +22,7 @@ The Poster surface uses the same centered 87.5rem/1400px maximum width as USP. T
 
 ## Rendering and motion
 
-The bundled `poster-subscription.webp` artwork renders automatically while the desktop image picker is blank. It is a 1632 by 686 high-quality WebP with alpha preserved from the approved source export. Shopify-selected media replaces it and renders responsively with intrinsic dimensions. An optional mobile image provides true art direction through a `<picture>` element, so the browser downloads only the source that matches the viewport; when it is blank, the desktop image is reused. Each selected image's Shopify focal point controls its crop, with no separate fallback or crop selector in the section schema. `poster-motion` adds reversible scroll-scrubbed surface/content reveals and clipped-media parallax. The static final composition is the server-rendered default; JavaScript and motion are skipped for reduced-motion users.
+The bundled `poster-subscription.webp` artwork renders automatically while the desktop image picker is blank. It is a 1632 by 686 high-quality WebP with alpha preserved from the approved source export. Shopify-selected media replaces it and renders responsively with intrinsic dimensions. An optional mobile image provides true art direction through a `<picture>` element, so the browser downloads only the source that matches the viewport; when it is blank, the desktop image is reused. Each selected image's Shopify focal point controls its crop, with no separate fallback or crop selector in the section schema. `poster-motion` adds reversible scroll-scrubbed surface/content reveals and clipped-media parallax; image-only mode retains the surface and media motion without creating content reveal targets. The static final composition is the server-rendered default; JavaScript and motion are skipped for reduced-motion users.
 
 ## Accessibility and limits
 

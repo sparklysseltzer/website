@@ -295,6 +295,7 @@
       ],
       "name": "Poster",
       "settings": {
+        "layout_mode": "with_content",
         "image_alt": "Sparklys cans on a cart",
         "content_position": "right",
         "show_heading": true,
@@ -312,6 +313,30 @@
         "minimum_height": 630,
         "minimum_height_mobile": 540
       }
+    },
+    "poster_YYRazM": {
+      "type": "poster",
+      "name": "Poster",
+      "settings": {
+        "layout_mode": "image_only",
+        "image": "shopify://shop_images/Sparklys-Soda-Beach-Girl-with-Towel.jpg",
+        "image_alt": "Sparklys cans on a cart",
+        "content_position": "right",
+        "show_heading": true,
+        "heading": "Add your poster heading",
+        "heading_level": "h2",
+        "show_subtext": true,
+        "subtext": "<p>Add supporting copy for this poster.</p>",
+        "show_button": true,
+        "button_label": "Learn more",
+        "button_link": "#",
+        "button_style": "automatic",
+        "poster_text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_strength": 55,
+        "minimum_height": 800,
+        "minimum_height_mobile": 540
+      }
     }
   },
   "order": [
@@ -323,6 +348,7 @@
     "logo_marquee",
     "usp_section_4Uicmb",
     "split_image_text_PpH6Yp",
-    "poster_PND9wT"
+    "poster_PND9wT",
+    "poster_YYRazM"
   ]
 }
