@@ -11,6 +11,8 @@ This file is temporary storage for ideas and follow-up work that arise while ano
 
 ## Pending approval
 
+Structured-data retrofit work is maintained in the separate [Structured-data task list](structured-data-tasks.md). Every unchecked item there follows the same pending-approval rule as this inbox.
+
 ### TASK-009 — Validate demand before building back-in-stock notifications
 
 - Add a lightweight out-of-stock interest “trapdoor” before committing to a complete notification feature. Its only initial purpose is to measure whether visitors want to buy the unavailable product.

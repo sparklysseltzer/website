@@ -12,9 +12,10 @@ This directory is the durable context for the Sparklys storefront. It records ou
 6. [Commerce](commerce.md) — product, cart, subscriptions, markets, and app integration boundaries.
 7. [Status](status.md) — what the current theme supports and what remains.
 8. [Task inbox](tasks.md) — temporary pending ideas that must not be implemented without explicit approval.
-9. [Merchant content](merchant-content.md) — shared Merchant and Merchant Collection model for the Logo Marquee, storefinder, and later integrations.
-10. [Shared section content](shared-section-content.md) — Local/Global content-source contract for freely placed synchronized sections.
-11. [Shopify reference](shopify-reference.md) — searchable topic index into official documentation.
+9. [Structured-data tasks](structured-data-tasks.md) — deferred Schema.org and JSON-LD retrofit audit.
+10. [Merchant content](merchant-content.md) — shared Merchant and Merchant Collection model for the Logo Marquee, storefinder, and later integrations.
+11. [Shared section content](shared-section-content.md) — Local/Global content-source contract for freely placed synchronized sections.
+12. [Shopify reference](shopify-reference.md) — searchable topic index into official documentation.
 
 ## Source policy
 

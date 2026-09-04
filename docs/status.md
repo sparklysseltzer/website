@@ -2,7 +2,7 @@
 
 This file is a capability map, not a promise of production readiness.
 
-Last reconciled with the repository on 2026-09-01.
+Last reconciled with the repository on 2026-09-04.
 
 ## Implemented in the current theme
 
@@ -23,7 +23,7 @@ Last reconciled with the repository on 2026-09-01.
 - Context-independent footer card typography: Newake at weight 400 in General, Soda, and Hard Seltzer variants.
 - Product detail pages inherit the complete Soda or Hard Seltzer shell through explicit branded templates or unambiguous membership in the configured brand collection.
 - Merchant-owned `custom.product_world` definitions for Pages, Products, and Collections provide an explicit Soda or Hard Seltzer classification that overrides template and canonical-collection fallbacks.
-- Twenty documented Liquid sections covering the persistent shell, resource templates, and reusable editorial modules. The homepage currently composes Hero, Rich Text, Product Overview Teaser, Offer Cards, and Logo Marquee; Poster, Split Image-Text, and Featured Collection remain available as presets. Soda and Hard Seltzer collection templates share one context-aware USP module with product-world defaults, merchant overrides, reversible content staggering, and clipped-media parallax. See the [Section reference](sections/README.md) for their settings, behavior, responsive rules, assets, accessibility contracts, and known gaps.
+- Twenty-two documented Liquid sections covering the persistent shell, resource templates, and reusable editorial modules. The homepage currently composes Hero, Rich Text, Product Overview Teaser, Offer Cards, and Logo Marquee; Poster, Split Image-Text, Featured Collection, and FAQ remain available as presets. Soda and Hard Seltzer collection templates share one context-aware USP module with product-world defaults, merchant overrides, reversible content staggering, and clipped-media parallax. The `page.faq` template provides a server-rendered FAQ directory with progressive client-side search and category filtering. See the [Section reference](sections/README.md) for their settings, behavior, responsive rules, assets, accessibility contracts, and known gaps.
 - A polished four-card Product Overview composition with responsive no-overlap scaling, a shared product floor, product-specific glows and tinted progressive SVG shadows, 90% Soda and 105% Hard Seltzer can scales, wave-logo SVG titles for Maracuja and Holunder, and horizontally scrollable phone layouts.
 - JSON templates for home, product, collection, collection list, cart, search, page, blog, article, and 404.
 - Responsive product cards and basic product media.
@@ -42,6 +42,7 @@ Last reconciled with the repository on 2026-09-01.
 | Approved brand design | Homepage and global shell substantially implemented | Header, three footer shells, and the principal homepage editorial modules use supplied Figma references and brand assets. Continue representative responsive/editor QA and complete dedicated Soda, Hard Seltzer, product, and commerce surfaces. |
 | Merchant content | Definitions and theme contract implemented; entries pending | The merchant-owned `merchant` and `merchant_collection` definitions exist on the connected store. Create the approved Merchant entries and collection, then select that collection in the Logo Marquee section. Future storefinder locations should reference these Merchant records. |
 | Shared offer content | Implemented on development store | The `offer_card` and `offer_teaser` definitions and active canonical entries exist. Offer cards placements default to Local and can opt into the synchronized global record; verify editing and translation workflows before production deployment. |
+| FAQ content | German legacy content imported; review and translations pending | The connected store has 11 active FAQ entries and four ordered categories imported from the previous public FAQ page. Review the inherited claims and destinations, add English source content and further translations, assign `page.faq` to the Shopify FAQ Page, and verify the section picker plus full directory against real data. The structured nutrition table remains outside the FAQ model pending a dedicated data decision. |
 | Real store preview | Development theme connected | Normal Shopify authentication and `theme dev` are working against `sparklys-hard-seltzer.myshopify.com`; representative storefront and editor QA remain. |
 | Product variants | Basic only | Option-based UI, variant URL state, media/price/availability sync, quantity rules, high-variant cases. |
 | Discounts | Incomplete | Accessible regular/sale labels, line/cart discount allocations, checkout consistency. |
@@ -57,7 +58,7 @@ Last reconciled with the repository on 2026-09-01.
 | Cart | Basic | Discounts, properties, notes if required, selling plans, richer errors, accessible table semantics. |
 | Markets/localization | Partial | Initial scope is Switzerland and Liechtenstein. URLs and Ajax are locale-aware; language/market selectors and real Markets QA remain. |
 | Languages | Partial | German and English theme UI strings exist. Merchant content, published-language configuration, and likely French/Italian locale files remain. |
-| SEO | Partial | Product structured data and rendered validation remain. |
+| SEO | Partial | FAQ sections and the FAQ directory emit server-rendered, deduplicated `FAQPage` JSON-LD matching their visible content. Company/site identity, Product, Article, and later applicable model work is tracked in the [structured-data task list](structured-data-tasks.md). |
 | Search | Basic | Predictive search and refined mixed-result UI remain. |
 | Customer accounts | Platform-dependent | Decide new customer accounts behavior and required storefront entry points. |
 | Analytics/consent | Not implemented | Provider inventory, event contract, consent mode, duplication tests. |
