@@ -2,6 +2,8 @@
 
 Source: `sections/footer.liquid`
 
+Display headings use the centrally resolved font-specific line height from the [design system](../design-system.md); section CSS must not introduce a separate heading rhythm.
+
 Group: `sections/footer-group.json`
 
 ## Purpose
@@ -28,3 +30,9 @@ Payment marks, Store Finder, and language chips currently render as non-interact
 ## Known gaps
 
 Verify Shopify-to-Klaviyo list routing and opt-in behavior operationally. Replace placeholder footer-menu destinations. Connect payment rendering, Store Finder, and localization controls only after their authoritative Shopify behavior is defined.
+
+## Shared typography roles
+
+Compact newsletter/card headings; label navigation/legal copy; UI newsletter input/action; small status text. Newake card-heading family remains unchanged.
+
+Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.

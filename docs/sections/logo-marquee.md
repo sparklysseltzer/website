@@ -2,6 +2,8 @@
 
 Source: `sections/logo-marquee.liquid`
 
+Display headings use the centrally resolved font-specific line height from the [design system](../design-system.md); section CSS must not introduce a separate heading rhythm.
+
 ## Purpose and data source
 
 The marquee renders an ordered `merchant_collection` metaobject whose `merchants` field references shared `merchant` records. The section owns presentation only; merchant names, URLs, and logo files remain reusable store data. See [Merchant content](../merchant-content.md).
@@ -17,7 +19,7 @@ The marquee renders an ordered `merchant_collection` metaobject whose `merchants
 
 ## Rendering contract
 
-The optional heading follows the Figma module: centered uppercase Newake, responsive up to 45px, with a 20px desktop gap above the logo track and 50px desktop section padding. When the heading is blank, the localized section label remains as a visually hidden `h2` for the section landmark.
+The optional heading uses centered uppercase Newake with the shared section-heading size role. When the heading is blank, the localized section label remains as a visually hidden `h2` for the section landmark.
 
 The full-width surface uses the Figma-derived gray background with white logo cards, a fully transparent treatment, or a fully white treatment for both the section and cards. Duplicated visual groups create a seamless CSS loop. Duplicate groups are hidden from assistive technology and removed from keyboard order. A merchant URL makes only the canonical tile interactive. Missing or empty data emits no storefront section.
 
@@ -30,3 +32,9 @@ The animation is CSS-only. Reduced-motion mode disables the loop and exposes the
 ## Operational state
 
 The `merchant` and `merchant_collection` definitions exist on the connected store. The homepage development instance currently selects the `online-shops` collection; Merchant entries remain store-owned content.
+
+## Shared typography roles
+
+Section heading; card-size neutral preview wordmarks. Logo artwork dimensions are independent of font sizing.
+
+Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.

@@ -19,3 +19,9 @@ When a collection exists, the section links to `collection.url` and renders the 
 ## Known limits
 
 The section inherits the basic shared product card and grid. It does not provide merchandising overrides, quick add, variant selection, badges, slider behavior, or per-product blocks.
+
+## Shared typography roles
+
+Section heading; compact product-card names; body prices; UI actions.
+
+Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.

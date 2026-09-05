@@ -20,6 +20,8 @@ npm install
 
 ## Read-only local validation
 
+`npm run check:typography` enforces the shared typography roles and documented composition exceptions. It runs as part of `npm run check`. Update roles centrally in `assets/base.css`, never through section-local clamps. See [Design system](design-system.md).
+
 Run before every implementation handoff:
 
 ```sh

@@ -31,3 +31,9 @@ Pages, Products, and Collections can explicitly select their context through the
 ## Known gaps
 
 The account circle is still a visual preview. Main-navigation desktop dropdown panels, robust nested mobile navigation, final menu destinations, and long/localized-content QA remain. See [Architecture](../architecture.md) for the shared context-routing contract.
+
+## Shared typography roles
+
+Label navigation text and UI mobile menu text; small secondary text; dedicated tiny cart-count badge role. No changes to navigation behavior.
+
+Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.

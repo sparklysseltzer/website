@@ -2,6 +2,8 @@
 
 Source: `sections/product-overview-teaser.liquid`
 
+Display headings use the centrally resolved font-specific line height from the [design system](../design-system.md); section CSS must not introduce a separate heading rhythm.
+
 ## Purpose and placement
 
 Product Overview is an editorial navigation module, not a Shopify collection query. The homepage places it after the introduction and currently renders four manually authored Soda/Hard Seltzer cards plus three optional navigation pills.
@@ -41,3 +43,9 @@ The three top navigation pills use equal top/right/bottom padding around their a
 ## Maintenance notes
 
 Starter assets are assigned automatically from the canonical block identity, with block order as the fallback for newly created preset blocks; merchants never select them in the Theme Editor. A merchant-selected image replaces the corresponding can cutout but retains the card lighting/shadow system. The retained width and translation controls position complete transparent can artwork and are intentionally not crop controls. When starter exports change, update intrinsic dimensions and verify alpha bounds, shadow contact, shared floor, responsive collisions from 390px through 1600px, keyboard focus, reduced motion, and no-JavaScript rendering.
+
+## Shared typography roles
+
+Section heading; UI navigation pills; label badges. Approved artwork-like flavor titles retain their existing container-responsive exception and collision contract.
+
+Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.

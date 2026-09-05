@@ -280,13 +280,13 @@
     justify-content: space-between;
   }
 
-  .product-overview__heading {
+.product-overview__heading {
     margin: 0;
     flex: 0 0 auto;
     font-family: var(--font-heading-default);
-    font-size: clamp(2.5rem, 3.75vw, 3.75rem);
+    font-size: var(--font-size-section);
     font-weight: 400;
-    line-height: 0.95;
+    line-height: var(--line-height-heading);
     text-transform: uppercase;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -307,9 +307,9 @@
     border-radius: 999px;
     color: #000;
     background: #e0e0e0;
-    font-size: clamp(1rem, 2vw, 2rem);
+    font-size: var(--font-size-ui);
     font-weight: 700;
-    line-height: 1;
+    line-height: var(--line-height-solid);
     text-decoration: none;
   }
 
@@ -484,9 +484,9 @@
     border-radius: 999px;
     color: #fff;
     background: #000;
-    font-size: 0.875rem;
+    font-size: var(--font-size-label);
     font-weight: 700;
-    line-height: 1;
+    line-height: var(--line-height-solid);
   }
 
   .product-overview-card__content {
@@ -529,7 +529,7 @@
     font-family: var(--font-heading-default);
     font-size: clamp(1.75rem, 2.2vw, 2.5rem);
     font-weight: 400;
-    line-height: 0.9;
+    line-height: var(--line-height-heading);
     overflow-wrap: anywhere;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -540,7 +540,7 @@
     font-family: var(--font-heading-soda);
     font-size: clamp(2.25rem, calc(21cqi - 1.25rem), 3.875rem);
     font-weight: 700;
-    line-height: 0.75;
+    line-height: var(--line-height-flavor-lockup);
     letter-spacing: -0.03em;
   }
 
@@ -606,13 +606,10 @@
   }
 
   @media (max-width: 47.999rem) {
-    .product-overview__heading {
-      font-size: clamp(2.25rem, 12vw, 3.25rem);
-    }
 
     .product-overview__navigation-link {
       padding: 0.5rem 0.5rem 0.5rem 1rem;
-      font-size: 1rem;
+
     }
 
     .product-overview__navigation-logo {

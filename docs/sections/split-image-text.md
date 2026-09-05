@@ -2,6 +2,8 @@
 
 Source: `sections/split-image-text.liquid`
 
+Display headings use the centrally resolved font-specific line height from the [design system](../design-system.md); section CSS must not introduce a separate heading rhythm.
+
 ## Purpose
 
 Split Image-Text owns the approved side-by-side editorial composition with a media panel and a solid-color content panel. It is available as a section preset but is not currently placed in a JSON template. Full-background image compositions belong to the separate [Poster](poster.md) section.
@@ -25,3 +27,9 @@ The bundled team portrait renders automatically while the image picker is blank.
 ## Accessibility and limits
 
 The selected heading level preserves page hierarchy, decorative tick icons are hidden from assistive technology, and the action renders when enabled with a non-empty label. Editors must replace the `#` placeholder with a meaningful destination and supply useful image alternative text when the image conveys content. Video, multiple actions, app blocks, and per-breakpoint art direction are not implemented.
+
+## Shared typography roles
+
+Section heading; body copy and tick-list text; UI actions.
+
+Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.

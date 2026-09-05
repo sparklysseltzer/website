@@ -216,20 +216,20 @@
     align-items: flex-start;
   }
 
-  .poster__heading {
+.poster__heading {
     margin: 0;
     font-family: var(--font-heading-default);
-    font-size: clamp(2.5rem, 4.2vw, 3.75rem);
+    font-size: var(--font-size-section);
     font-weight: 400;
-    line-height: 1;
+    line-height: var(--line-height-heading);
     overflow-wrap: anywhere;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   .poster__subtext {
-    font-size: 1.0625rem;
-    line-height: 1.3;
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body-compact);
   }
 
   .poster__subtext > :first-child {
@@ -252,8 +252,8 @@
     display: flex;
     gap: 0.75rem;
     align-items: flex-start;
-    font-size: 1.0625rem;
-    line-height: 1.3;
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body-compact);
   }
 
   .poster__check {
@@ -377,13 +377,9 @@
       );
     }
 
-    .poster__heading {
-      font-size: clamp(2.25rem, 11vw, 3.25rem);
-    }
-
     .poster__subtext,
     .poster__list-item {
-      font-size: 1rem;
+      font-size: var(--font-size-body);
     }
   }
 

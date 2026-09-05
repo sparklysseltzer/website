@@ -14,6 +14,7 @@ Read these files before changing behavior:
 Before changing a section:
 
 1. Read `docs/sections/README.md`.
+   Read `docs/design-system.md` before styling: normalize frame inconsistencies through shared tokens, with one heading line height per font. Do not add section-specific heading line heights without a documented composition exception.
 2. Read the matching `docs/sections/<section-name>.md` file.
 3. Update that section document in the same change when its schema, rendering contract, fallback assets, motion, data source, or known limitations change.
 
@@ -48,6 +49,8 @@ Keep `docs/sections/README.md` as the single authoritative list of available sec
 - Never commit store credentials, Theme Access passwords, tokens, customer data, `.env` files, or browser/auth state.
 
 ## Quality gates
+
+Typography must use the shared `--font-size-*` roles in `assets/base.css`. Never add a section-specific font-size clamp, raw size, local role override, or breakpoint-specific size to solve wrapping. Adjust layout first; document genuine artwork exceptions in `docs/design-system.md` and the owning section. `npm run check:typography` enforces the size contract as part of `npm run check`.
 
 Before handing off implementation changes, run:
 

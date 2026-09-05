@@ -146,14 +146,14 @@
     padding-block: clamp(2rem, 3.125vw, 3.125rem);
   }
 
-  .logo-marquee__heading {
+.logo-marquee__heading {
     padding-inline: var(--page-gutter);
     margin: 0 0 clamp(1rem, 1.25vw, 1.25rem);
     color: #000;
     font-family: var(--font-heading-default);
-    font-size: clamp(2rem, 2.8125vw, 2.8125rem);
+    font-size: var(--font-size-section);
     font-weight: 400;
-    line-height: normal;
+    line-height: var(--line-height-heading);
     text-align: center;
     text-transform: uppercase;
   }
@@ -238,14 +238,14 @@
   .logo-marquee__fallback {
     max-width: 80%;
     font-weight: 700;
-    line-height: 1.15;
+    line-height: var(--line-height-ui);
     text-align: center;
   }
 
   .logo-marquee__preview-logo {
     font-family: var(--font-heading-default);
-    font-size: clamp(1.25rem, 2vw, 2rem);
-    line-height: 1;
+    font-size: var(--font-size-card);
+    line-height: var(--line-height-solid);
     text-transform: uppercase;
   }
 

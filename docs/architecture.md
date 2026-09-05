@@ -133,6 +133,12 @@ English is the source language and default locale in `locales/en.default.json`; 
 
 ## Layout and visual tokens
 
+All text sizes use the centrally defined fluid roles in [Design system](design-system.md#shared-fluid-roles). Standard body copy shares the 16–17px curve across 390–1440px, independent of section and product world. Labels, actions and heading tiers have their own shared roles; documented artwork compositions are the only local size exceptions. The root remains 100%. `npm run check:typography` prevents new section-specific size rules.
+
+[Design system](design-system.md) owns the visual normalization rules. Heading rhythm is centralized in `assets/base.css`: Newake uses `--line-height-heading-newake` (`0.95`), Erode uses `--line-height-heading-erode` (`0.9`), and `--line-height-heading` resolves the active font. Explicit font choices also select their matching rhythm. Do not copy inconsistent line-height values from individual frames into section CSS.
+
+Small multiline Erode editorial card titles use the centrally mapped `--line-height-heading-small-erode` (`1`) role rather than large-display leading. Compact editorial body/UI copy can use `--line-height-body-compact` (`1.3`). Keep role definitions shared across sections; composition-specific exceptions remain documented in the design system.
+
 - `--page-width` is the shared 120rem/1920px outer-frame limit.
 - `--page-gutter` is 1rem below 768px and 2rem from 768px.
 - `.section` and the compatibility alias `.section--tight` use one shared vertical rhythm: `clamp(2rem, 5vw, 4rem)`, or 32–64px per side. Do not introduce a looser default section gap.

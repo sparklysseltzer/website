@@ -2,6 +2,8 @@
 
 Source: `sections/main-faq.liquid`
 
+Display headings use the centrally resolved font-specific line height from the [design system](../design-system.md); section CSS must not introduce a separate heading rhythm.
+
 Template: `templates/page.faq.json`
 
 ## Purpose
@@ -31,3 +33,9 @@ The directory shares the FAQ motion contract: its panel, heading, controls, and 
 Shopify limits a normal metaobject-definition loop to 50 entries and permits pagination up to 250 entries. This section paginates the definition at 250 so the initial implementation can search the complete expected library on one page. If the library exceeds 250 active questions, the section exposes a translated limit notice; a future server-backed index or multi-page search contract is required before claiming complete search above that boundary.
 
 The current full-page layout intentionally shares the reusable FAQ visual language. Its final category/search composition should be reconciled when the dedicated full FAQ Page design arrives.
+
+## Shared typography roles
+
+Section heading in the decorated FAQ composition; compact questions; body answers with reading line height; UI search and filter controls.
+
+Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.
