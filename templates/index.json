@@ -253,7 +253,7 @@
         "minimum_height": 630,
         "image_alt": "Sparklys team portrait",
         "show_heading": true,
-        "heading": "Add your split section heading",
+        "heading": "ADD YOUR SPLIT TRALLALLA HERE WTF",
         "heading_level": "h2",
         "show_subtext": true,
         "subtext": "<p>Add supporting copy for this section.</p>",
@@ -337,6 +337,469 @@
         "minimum_height": 800,
         "minimum_height_mobile": 540
       }
+    },
+    "faq_MHKD6W": {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": {
+        "selected_faqs": [
+          "wo-kann-ich-sparklys-hard-seltzer-kaufen",
+          "wie-viele-kalorien-befinden-sich-in-einer-dose-sparklys-hard-seltzer",
+          "beinhaltet-sparklys-hard-seltzer-koffein",
+          "ist-sparklys-hard-seltzer-glutenfrei",
+          "ist-sparklys-hard-seltzer-vegan",
+          "welche-zutaten-befinden-sich-in-sparklys-hard-seltzer",
+          "enthalt-sparklys-hard-seltzer-garalkohol-oder-ethylalkohol"
+        ],
+        "faq_category": "",
+        "heading": "",
+        "show_footer": true,
+        "footer_text": "",
+        "footer_link_label": "",
+        "footer_link": "#"
+      }
+    },
+    "hard_seltzer_ingredients_wicMyT": {
+      "type": "hard-seltzer-ingredients",
+      "blocks": {
+        "ingredient_nxrCGD": {
+          "type": "ingredient",
+          "settings": {
+            "text": ""
+          }
+        },
+        "ingredient_w4zCKU": {
+          "type": "ingredient",
+          "settings": {
+            "text": ""
+          }
+        },
+        "ingredient_7Q9jiK": {
+          "type": "ingredient",
+          "settings": {
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_nxrCGD",
+        "ingredient_w4zCKU",
+        "ingredient_7Q9jiK"
+      ],
+      "name": "Hard Seltzer Ingredients",
+      "settings": {
+        "heading": "",
+        "intro": ""
+      }
+    },
+    "soda_three_reasons_HfBDUy": {
+      "type": "soda-three-reasons",
+      "blocks": {
+        "reason_DLaQNt": {
+          "type": "reason",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "reason_p4hXzp": {
+          "type": "reason",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "reason_HE84hP": {
+          "type": "reason",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "reason_DLaQNt",
+        "reason_p4hXzp",
+        "reason_HE84hP"
+      ],
+      "name": "Soda 3 Reasons",
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "link_label": "",
+        "link": "",
+        "footnote": ""
+      }
+    },
+    "soda_ingredients_Q8Qkne": {
+      "type": "soda-ingredients",
+      "blocks": {
+        "ingredient_TYdUJQ": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_jfFkh8": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_rtpXLC": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_3hVenF": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_aagQb3": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_6mEi6D": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_TYdUJQ",
+        "ingredient_jfFkh8",
+        "ingredient_rtpXLC",
+        "ingredient_3hVenF",
+        "ingredient_aagQb3",
+        "ingredient_6mEi6D"
+      ],
+      "name": "Soda Ingredients",
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "link_label": "",
+        "link": "",
+        "footnote": ""
+      }
+    },
+    "versus_gX4bjY": {
+      "type": "versus",
+      "blocks": {
+        "item_ixFtAn": {
+          "type": "item",
+          "settings": {
+            "featured": true,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_KLaiEL": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_Cqprp9": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_URxn98": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_JDVyGR": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_ixFtAn",
+        "item_KLaiEL",
+        "item_Cqprp9",
+        "item_URxn98",
+        "item_JDVyGR"
+      ],
+      "name": "Versus — Hard Seltzer",
+      "settings": {
+        "variant": "seltzer",
+        "heading": "",
+        "comparison_basis": "",
+        "disclaimer": "",
+        "footnote": ""
+      }
+    },
+    "versus_jX3Efm": {
+      "type": "versus",
+      "blocks": {
+        "item_beYJj3": {
+          "type": "item",
+          "settings": {
+            "featured": true,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_nNmjyd": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_XW3C4E": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_YmXVL3": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_qVM636": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_beYJj3",
+        "item_nNmjyd",
+        "item_XW3C4E",
+        "item_YmXVL3",
+        "item_qVM636"
+      ],
+      "name": "Versus — Soda",
+      "settings": {
+        "variant": "soda",
+        "heading": "",
+        "comparison_basis": "",
+        "disclaimer": "",
+        "footnote": ""
+      }
+    },
+    "hard_seltzer_awards_BVVJyN": {
+      "type": "hard-seltzer-awards",
+      "blocks": {
+        "award_JQNizJ": {
+          "type": "award",
+          "settings": {
+            "alt": ""
+          }
+        },
+        "award_8WfeeA": {
+          "type": "award",
+          "settings": {
+            "alt": ""
+          }
+        },
+        "award_QyJcpL": {
+          "type": "award",
+          "settings": {
+            "alt": ""
+          }
+        }
+      },
+      "block_order": [
+        "award_JQNizJ",
+        "award_8WfeeA",
+        "award_QyJcpL"
+      ],
+      "name": "Hard Seltzer Awards",
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "subscription_9QeTg7": {
+      "type": "subscription",
+      "blocks": {
+        "benefit_UXYpRG": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "discount",
+            "text": ""
+          }
+        },
+        "benefit_3eDpVr": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "shipping",
+            "text": ""
+          }
+        },
+        "benefit_7bRknU": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "flexibility",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "benefit_UXYpRG",
+        "benefit_3eDpVr",
+        "benefit_7bRknU"
+      ],
+      "name": "Subscription - Soda",
+      "settings": {
+        "variant": "soda",
+        "image_alt": "",
+        "show_logo": true,
+        "show_heading": true,
+        "heading": "",
+        "heading_font": "automatic",
+        "show_intro": true,
+        "intro": "",
+        "show_button": true,
+        "button_label": "",
+        "button_link": "#",
+        "show_account": true,
+        "account_prompt": "",
+        "account_label": "",
+        "account_link": "",
+        "minimum_height": 630,
+        "minimum_height_mobile": 680
+      }
+    },
+    "subscription_MCaDqq": {
+      "type": "subscription",
+      "blocks": {
+        "benefit_Akhdew": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "discount",
+            "text": ""
+          }
+        },
+        "benefit_rhk36P": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "shipping",
+            "text": ""
+          }
+        },
+        "benefit_MCeTbQ": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "flexibility",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "benefit_Akhdew",
+        "benefit_rhk36P",
+        "benefit_MCeTbQ"
+      ],
+      "name": "Subscription - Hard Seltzer",
+      "settings": {
+        "variant": "seltzer",
+        "image_alt": "",
+        "show_logo": true,
+        "show_heading": true,
+        "heading": "",
+        "heading_font": "automatic",
+        "show_intro": true,
+        "intro": "",
+        "show_button": true,
+        "button_label": "",
+        "button_link": "#",
+        "show_account": true,
+        "account_prompt": "",
+        "account_label": "",
+        "account_link": "",
+        "minimum_height": 630,
+        "minimum_height_mobile": 680
+      }
     }
   },
   "order": [
@@ -349,6 +812,15 @@
     "usp_section_4Uicmb",
     "split_image_text_PpH6Yp",
     "poster_PND9wT",
-    "poster_YYRazM"
+    "poster_YYRazM",
+    "faq_MHKD6W",
+    "hard_seltzer_ingredients_wicMyT",
+    "soda_three_reasons_HfBDUy",
+    "soda_ingredients_Q8Qkne",
+    "versus_gX4bjY",
+    "versus_jX3Efm",
+    "hard_seltzer_awards_BVVJyN",
+    "subscription_9QeTg7",
+    "subscription_MCaDqq"
   ]
 }

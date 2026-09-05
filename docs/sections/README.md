@@ -18,8 +18,14 @@ Last reconciled with the repository: 2026-09-04.
 | [Hero](hero.md) | Brand storytelling | Full-width heading, optional image, copy, and action |
 | [Rich text](rich-text.md) | Brand storytelling | Narrow editorial copy and optional action |
 | [Poster](poster.md) | Brand storytelling | Full-image editorial poster with overlaid content |
+| [Subscription](subscription.md) | Brand storytelling | Soda/Hard Seltzer subscription poster with benefits, subscribe action and sign-in link |
 | [Split Image-Text](split-image-text.md) | Brand storytelling | Side-by-side editorial image and content panel |
 | [USP](usp-section.md) | Brand storytelling | Context-aware Soda or Hard Seltzer image, copy, and five USP items |
+| [Hard Seltzer Ingredients](hard-seltzer-ingredients.md) | Trust & information | Three-part Hard Seltzer ingredient story with replaceable illustrations |
+| [Hard Seltzer Awards](hard-seltzer-awards.md) | Trust & information | Hard Seltzer award presentation with an optional shop action |
+| [Soda Ingredients](soda-ingredients.md) | Trust & information | Six-item Soda ingredient overview and legal footnote |
+| [Soda 3 Reasons](soda-three-reasons.md) | Trust & information | Three illustrated Soda benefit statements and legal footnote |
+| [Versus](versus.md) | Trust & information | Soda or Hard Seltzer comparison cards in a responsive horizontal flow |
 | [FAQ](faq.md) | Trust & information | Additive selected and category-driven FAQ accordion with a closing contact link |
 | [Featured collection](featured-collection.md) | Products & offers | Configured collection preview using the shared product card |
 | [Product overview teaser](product-overview-teaser.md) | Products & offers | Four-card Soda and Hard Seltzer editorial product navigation |
