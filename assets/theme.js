@@ -781,6 +781,11 @@ if (!customElements.get('faq-accordion')) {
 
 class FaqDirectory extends HTMLElement {
   connectedCallback() {
+    this.results = this.querySelector('[data-faq-list]');
+    this.resultAnimation = null;
+    this.resultRevision = (this.resultRevision || 0) + 1;
+    this.searchTimer = null;
+    this.motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
     this.searchInput = this.querySelector('[data-faq-search]');
     this.filterButtons = [...this.querySelectorAll('[data-faq-filter]')];
     this.items = [...this.querySelectorAll('[data-faq-entry]')];
@@ -793,17 +798,25 @@ class FaqDirectory extends HTMLElement {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
     this.handlePopState = this.handlePopState.bind(this);
+    this.handleMotionPreference = () => this.update(false, false);
 
     this.searchInput.addEventListener('input', this.handleSearch);
+    this.searchInput.addEventListener('compositionend', this.handleSearch);
     this.filterButtons.forEach((button) => button.addEventListener('click', this.handleFilter));
     window.addEventListener('popstate', this.handlePopState);
+    this.motionPreference.addEventListener('change', this.handleMotionPreference);
 
     this.restoreFromUrl();
-    this.update(false);
+    this.update(false, false);
   }
 
   disconnectedCallback() {
+    this.resultRevision += 1;
+    window.clearTimeout(this.searchTimer);
+    this.resultAnimation?.cancel();
+    this.motionPreference?.removeEventListener('change', this.handleMotionPreference);
     this.searchInput?.removeEventListener('input', this.handleSearch);
+    this.searchInput?.removeEventListener('compositionend', this.handleSearch);
     this.filterButtons?.forEach((button) => button.removeEventListener('click', this.handleFilter));
     window.removeEventListener('popstate', this.handlePopState);
   }
@@ -826,38 +839,83 @@ class FaqDirectory extends HTMLElement {
     this.searchInput.value = parameters.get('faq-query') || '';
   }
 
-  handleSearch() {
-    this.update();
+  handleSearch(event) {
+    window.clearTimeout(this.searchTimer);
+    // Invalidate in-flight result swaps as soon as the query changes, not after debounce.
+    this.resultRevision += 1;
+    this.resultAnimation?.cancel();
+    this.resultAnimation = null;
+    if (event?.isComposing) return;
+
+    if (this.searchInput.value.trim().length < 3) {
+      this.update();
+      return;
+    }
+
+    this.searchTimer = window.setTimeout(() => {
+      this.searchTimer = null;
+      this.update();
+    }, 200);
   }
 
   handleFilter(event) {
+    window.clearTimeout(this.searchTimer);
     this.activeCategory = event.currentTarget.dataset.faqFilter;
     this.update();
   }
 
   handlePopState() {
+    window.clearTimeout(this.searchTimer);
     this.restoreFromUrl();
     this.update(false);
   }
 
-  update(writeUrl = true) {
-    const query = this.normalize(this.searchInput.value.trim());
-    let visibleCount = 0;
+  async update(writeUrl = true, animate = true) {
+    const search = this.searchInput.value.trim();
+    const query = search.length >= 3 ? this.normalize(search) : '';
+    const matches = this.items.map((item) => {
+      const categories = item.dataset.faqCategories.split('|').filter(Boolean);
+      return (this.activeCategory === 'all' || categories.includes(this.activeCategory)) &&
+        (query === '' || this.normalize(item.textContent).includes(query));
+    });
+    const signature = matches.map(Number).join('');
+    const revision = ++this.resultRevision;
+    const opacity = this.results ? getComputedStyle(this.results).opacity : '1';
+    this.resultAnimation?.cancel();
+    this.resultAnimation = null;
 
     this.filterButtons.forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.faqFilter === this.activeCategory));
     });
 
-    this.items.forEach((item) => {
-      const categories = item.dataset.faqCategories.split('|').filter(Boolean);
-      const matchesCategory =
-        this.activeCategory === 'all' || categories.includes(this.activeCategory);
-      const matchesQuery = query === '' || this.normalize(item.textContent).includes(query);
-      const isVisible = matchesCategory && matchesQuery;
+    if (writeUrl) this.updateUrl();
+    const shouldAnimate = animate && !this.motionPreference.matches && this.results?.animate &&
+      signature !== this.resultSignature;
+    const styles = getComputedStyle(this);
+    const duration = parseFloat(styles.getPropertyValue('--motion-duration-base')) || 260;
+    const easing = styles.getPropertyValue('--motion-ease').trim() || 'ease-out';
+
+    if (shouldAnimate && this.items.some((item) => !item.hidden)) {
+      this.resultAnimation = this.results.animate(
+        [{ opacity }, { opacity: 0, transform: 'translateY(-6px)' }],
+        { duration: duration * .4, easing, fill: 'forwards' },
+      );
+      await this.resultAnimation.finished.catch(() => {});
+      if (revision !== this.resultRevision || !this.isConnected) return;
+      this.resultAnimation.cancel();
+    }
+
+    const visibleCount = matches.filter(Boolean).length;
+    this.items.forEach((item, index) => {
+      const isVisible = matches[index];
 
       item.hidden = !isVisible;
-      if (!isVisible) item.removeAttribute('open');
-      if (isVisible) visibleCount += 1;
+      if (!isVisible) {
+        const accordion = item.closest('faq-accordion');
+        accordion?.animations?.get(item)?.cancel();
+        accordion?.animations?.delete(item);
+        item.removeAttribute('open');
+      }
     });
 
     if (this.status) {
@@ -868,7 +926,19 @@ class FaqDirectory extends HTMLElement {
     }
 
     if (this.emptyState) this.emptyState.hidden = visibleCount !== 0;
-    if (writeUrl) this.updateUrl();
+    this.resultSignature = signature;
+    if (shouldAnimate) {
+      const target = visibleCount ? this.results : this.emptyState;
+      if (!target) return;
+      const animation = target.animate(
+        [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }],
+        { duration, easing },
+      );
+      this.resultAnimation = animation;
+      animation.onfinish = () => {
+        if (this.resultAnimation === animation) this.resultAnimation = null;
+      };
+    }
   }
 
   updateUrl() {

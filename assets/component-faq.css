@@ -193,6 +193,8 @@ faq-directory {
 }
 
 .faq-directory__filter {
+  transition: color var(--motion-duration-fast) var(--motion-ease),
+    background-color var(--motion-duration-fast) var(--motion-ease);
   min-height: 2.75rem;
   padding: 0.625rem 1rem;
   border: 1px solid #000;
@@ -243,6 +245,9 @@ faq-directory:not(:defined) .faq-directory__controls {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .faq-directory__filter {
+    transition: none;
+  }
   .faq-item__icon {
     transition: none;
   }

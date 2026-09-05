@@ -17,6 +17,7 @@ The section server-renders every active `faq` entry available through `metaobjec
 `faq-directory` progressively enhances the page with:
 
 - case- and accent-insensitive question-and-answer search;
+- search begins at three trimmed characters after a 200ms typing pause; shorter queries apply no text filter, clearing restores category results immediately, and IME composition waits until completion;
 - category buttons with `aria-pressed` state;
 - a live visible-result count and empty result message;
 - shareable `faq-category` and `faq-query` URL parameters;
@@ -27,6 +28,10 @@ The complete question and answer text exists in the initial HTML. Without JavaSc
 The directory emits one server-rendered Schema.org `FAQPage` JSON-LD object through the shared `faq-structured-data` snippet. Its `mainEntity` array contains the same valid FAQ entries included in the paginated page HTML; client-side search and category filters do not change or regenerate this source data. Questions or answers that are blank are omitted from both the structured representation and the reusable FAQ item markup.
 
 The directory shares the FAQ motion contract: its panel, heading, controls, and entries reveal with reversible viewport progress, including an initial catch-up reveal when the section is already visible. Accordion answers use the shared height/fade transition while retaining native keyboard interaction and a reduced-motion path.
+
+## Search and category motion
+
+Changed result sets briefly fade upward (6px), then the matching list fades in from 8px below using the shared base duration/easing. Empty results receive the same entrance. Category pills transition their foreground/background with the fast token. Initial URL restoration is immediate, unchanged matches do not replay motion, and every new input cancels the preceding transition so stale searches cannot overwrite newer results. Reduced-motion changes settle immediately; disconnecting cancels pending work. Focus stays on the search/category control and the live count updates with the actual rendered result set. Hidden entries close and cancel any outstanding answer animation. The list owns this interaction animation separately from the existing section scroll reveals; server HTML and JSON-LD are unchanged.
 
 ## Scale and limits
 
