@@ -16,6 +16,7 @@ This directory is the durable context for the Sparklys storefront. It records ou
 10. [Merchant content](merchant-content.md) — shared Merchant and Merchant Collection model for the Logo Marquee, storefinder, and later integrations.
 11. [Shared section content](shared-section-content.md) — Local/Global content-source contract for freely placed synchronized sections.
 12. [Shopify reference](shopify-reference.md) — searchable topic index into official documentation.
+13. [Annotation history](annotation-history.md) — approved visual fixes archived before removing their onUI markers.
 
 ## Source policy
 
