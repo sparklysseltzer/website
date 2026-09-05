@@ -120,6 +120,77 @@
       "empty": "Es sind noch keine häufig gestellten Fragen verfügbar.",
       "limit_note": "Auf dieser Seite können nur die ersten 250 Fragen durchsucht werden."
     },
+    "hard_seltzer_ingredients": {
+      "heading": "Einfache\nZutaten",
+      "intro": "Sparklys ist authentisch. Sparklys wurde von Hard Seltzer-Liebhabern und meisterlichen Neo-Alchemisten entwickelt — für uns selbst und für dich! Unser Herstellungsprozess und unsere Inhaltsstoffe sind naturbelassen.",
+      "items": {
+        "1": { "text": "Gegärte Alkoholbasis, hergestellt aus natürlichen Inhaltsstoffen." },
+        "2": { "text": "Kohlensäurehaltiges Wasser aus dem wunderschönen Rheintal." },
+        "3": { "text": "Ein Hauch von köstlichem und natürlichem Aroma." }
+      }
+    },
+    "hard_seltzer_awards": {
+      "heading": "Der beste\nHard Seltzer der Welt",
+      "intro": "Naja, zumindest laut einer bekannten Spirituosenzeitschrift (The Spirits Business). Wir wissen nicht, was wir damit anfangen sollen, aber wir dachten, wir lassen es dich wissen. PS: In der wunderbaren Welt der Bewertungen ist „Master“ tatsächlich das neue „Gold“ — wer hätte das gedacht? Also ja, wir haben das Prädikat „Super-Gut“ gleich doppelt abgeräumt und einmal nur „Sehr-Gut“.",
+      "button_label": "Jetzt einkaufen",
+      "items": {
+        "1": { "alt": "Taste Master-Auszeichnung für Sparklys Hard Seltzer Holunder" },
+        "2": { "alt": "Master-Auszeichnung für Sparklys Hard Seltzer Holunder" },
+        "3": { "alt": "Gold-Auszeichnung für Sparklys Hard Seltzer Maracuja" }
+      }
+    },
+    "soda_ingredients": {
+      "heading": "Hergestellt mit sorgfältig\nausgewählten Zutaten",
+      "intro": "Entwickelt für Erfrischung und Leichtigkeit – mit pflanzlichen Ballaststoffen und natürlichen Extrakten.",
+      "link_label": "Alle Zutaten anzeigen",
+      "footnote": "*Folsäure trägt zu einer normalen psychischen Funktion und zu einer normalen Funktion des Immunsystems bei. Eine abwechslungsreiche, ausgewogene Ernährung und eine gesunde Lebensweise sind wichtig.",
+      "items": {
+        "1": { "title": "Tapioka & Topinambur", "text": "Eine Quelle pflanzlicher Ballaststoffe für smarte Erfrischung." },
+        "2": { "title": "Folsäure (Vitamin B9)", "text": "Unterstützt dein Wohlbefinden und dein Immunsystem.*" },
+        "3": { "title": "Yuzu oder Heidelbeere", "text": "Einzigartige, lebendige Aromen aus natürlichen Quellen." },
+        "4": { "title": "Apfelsaft-\nkonzentrat", "text": "Verleiht eine feine, natürliche Fruchtnote – ohne zu viel Zucker." },
+        "5": { "title": "Grüntee-Extrakt", "text": "Natürliche Koffeinquelle, die dich fokussiert hält." },
+        "6": { "title": "Schweizer Quellwasser", "text": "Reines, alpines Quellwasser aus der Säntis-Region." }
+      }
+    },
+    "soda_three_reasons": {
+      "heading": "Einfache\nGründe",
+      "intro": "Entwickelt um Geschmack und Funktion zu vereinen und deinem Körper etwas Gutes zu tun.",
+      "link_label": "Mehr erfahren",
+      "footnote": "*Folsäure trägt zu einer normalen psychischen Funktion und zu einer normalen Funktion des Immunsystems bei. Eine abwechslungsreiche, ausgewogene Ernährung und eine gesunde Lebensweise sind wichtig.",
+      "items": {
+        "1": { "title": "Zucker- &\nkalorienarm", "text": "Nur 1,4 g Zucker aus Fruchtsaft und 12 kcal pro 100 ml. Ohne zugesetzten Zucker und ohne künstliche Süssungsmittel." },
+        "2": { "title": "Mit pflanzlichen\nBallaststoffen", "text": "Mit pflanzlichen Ballaststoffen – plus Folsäure (Vitamin B9), die dein Wohlbefinden und Immunsystem unterstützt.*" },
+        "3": { "title": "Natürlich vitalisierend", "text": "Enthält natürliches Koffein aus Grüntee für einen leichten Energiekick ohne Crash." }
+      }
+    },
+    "versus": {
+      "comparison_basis": "Vergleich pro 100 ml",
+      "disclaimer": "Die Nährwerte basieren auf führenden Produkten der jeweiligen Kategorie. Die visuellen Darstellungen stehen nicht für spezifische Marken, sondern dienen lediglich der Veranschaulichung.",
+      "soda": {
+        "heading": "Vergleich mit anderen Limos",
+        "footnote": "*Folsäure trägt zu einer normalen psychischen Funktion und zu einer normalen Funktion des Immunsystems bei. Eine abwechslungsreiche, ausgewogene Ernährung und eine gesunde Lebensweise sind wichtig.",
+        "labels": { "1": "Zucker", "2": "Kalorien", "3": "Ballaststoffe", "4": "Zuckerzusatz", "5": "Pflanzliche Ballaststoffe", "6": "Koffein", "no_added_sugar": "Ohne Zuckerzusatz", "with_added_sugar": "Mit Zuckerzusatz", "high_fiber": "High Plant Fiber", "no_fiber": "No Fiber" },
+        "items": {
+          "1": { "title": "Sparklys Soda", "values": { "1": "1,4 g", "2": "12 kcal", "3": "1 g", "4": "-", "5": "-", "6": "15 mg" } },
+          "2": { "title": "Mate", "values": { "1": "5,8 g", "2": "24 kcal", "3": "0 g", "4": "-", "5": "-", "6": "23 mg" } },
+          "3": { "title": "Energy Drink", "values": { "1": "11 g", "2": "46 kcal", "3": "0 g", "4": "-", "5": "-", "6": "32 mg" } },
+          "4": { "title": "Vitamin Water", "values": { "1": "4 g", "2": "17 kcal", "3": "0 g", "4": "-", "5": "-", "6": "0 mg" } },
+          "5": { "title": "Cola", "values": { "1": "10,6 g", "2": "42 kcal", "3": "0 g", "4": "-", "5": "-", "6": "11 mg" } }
+        }
+      },
+      "seltzer": {
+        "heading": "Vergleich mit anderen\nAlkoholgetränken",
+        "labels": { "1": "Kalorien", "2": "Zucker", "3": "Alkohol" },
+        "items": {
+          "1": { "title": "Sparklys Hard Seltzer", "values": { "1": "32 kcal", "2": "0,7 g", "3": "5 %" } },
+          "2": { "title": "Vodka Mate", "values": { "1": "55 kcal", "2": "5,8 g", "3": "4,8 %" } },
+          "3": { "title": "Alcopop Lemon", "values": { "1": "63 kcal", "2": "5,2 g", "3": "4 %" } },
+          "4": { "title": "Spritz", "values": { "1": "116 kcal", "2": "8,9 g", "3": "9 %" } },
+          "5": { "title": "Weisswein", "values": { "1": "70 kcal", "2": "2 g", "3": "12 %" } }
+        }
+      }
+    },
     "usp": {
       "soda": {
         "heading": "Your body’s\nfavorite Soda",

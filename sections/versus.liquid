@@ -1,0 +1,332 @@
+{%- liquid
+  assign variant = section.settings.variant | default: 'soda'
+  assign heading = section.settings.heading
+  if heading == blank
+    assign heading_key = 'sections.versus.' | append: variant | append: '.heading'
+    assign heading = heading_key | t
+  endif
+  assign comparison_basis = section.settings.comparison_basis
+  if comparison_basis == blank
+    assign comparison_basis = 'sections.versus.comparison_basis' | t
+  endif
+  assign disclaimer = section.settings.disclaimer
+  if disclaimer == blank
+    assign disclaimer = 'sections.versus.disclaimer' | t
+  endif
+  assign footnote = section.settings.footnote
+  if footnote == blank and variant == 'soda'
+    assign footnote = 'sections.versus.soda.footnote' | t
+  endif
+  assign competitor_order = 0
+-%}
+
+<editorial-section-motion>
+  <section class="versus versus--{{ variant }} section" data-scroll-motion-section>
+    <div class="versus__inner page-width" data-scroll-motion-surface>
+      <header class="versus__header">
+        <h2 data-scroll-motion-reveal>{{ heading | newline_to_br }}</h2>
+        <p data-scroll-motion-reveal>{{ comparison_basis }}</p>
+      </header>
+
+      <div class="versus__scroller" tabindex="0" role="region" aria-label="{{ heading | strip_html | escape }}" data-scroll-motion-reveal>
+        <div class="versus__track" role="list">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign is_featured = block.settings.featured
+              if is_featured
+                assign desktop_order = 3
+              else
+                assign competitor_order = competitor_order | plus: 1
+                assign desktop_order = competitor_order
+                if desktop_order >= 3
+                  assign desktop_order = desktop_order | plus: 1
+                endif
+              endif
+
+              capture title_key
+                echo 'sections.versus.' | append: variant | append: '.items.' | append: forloop.index | append: '.title'
+              endcapture
+              assign item_title = block.settings.title
+              if item_title == blank
+                assign item_title = title_key | t
+              endif
+
+              assign row_count = 3
+              if variant == 'soda'
+                assign row_count = 6
+              endif
+            -%}
+            <article
+              class="versus__card{% if is_featured %} versus__card--featured{% endif %}"
+              style="--desktop-order: {{ desktop_order }};"
+              role="listitem"
+              {{ block.shopify_attributes }}
+            >
+              {%- if is_featured and variant == 'soda' -%}
+                <span class="versus__badge" aria-hidden="true">
+                  <img src="{{ 'versus-soda-badge-circle.svg' | asset_url }}" width="75" height="75" alt="">
+                  <img src="{{ 'versus-soda-badge-type.svg' | asset_url }}" width="64" height="64" alt="">
+                  <img src="{{ 'versus-soda-badge-symbol.svg' | asset_url }}" width="39" height="39" alt="">
+                </span>
+              {%- endif -%}
+              <div class="versus__media versus__media--{{ forloop.index }}{% if block.settings.image != blank %} versus__media--custom{% endif %}" aria-hidden="true">
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 720 | image_tag: widths: '240, 360, 480, 720', sizes: '14rem', loading: 'lazy', alt: '' }}
+                {%- elsif variant == 'soda' -%}
+                  {%- case forloop.index -%}
+                    {%- when 1 -%}
+                      <span class="versus__pair versus__pair--soda"><img src="{{ 'versus-soda-blueberry.webp' | asset_url }}" width="221" height="281" loading="lazy" alt=""><img src="{{ 'versus-soda-yuzu.webp' | asset_url }}" width="221" height="281" loading="lazy" alt=""></span>
+                    {%- when 2 -%}<img src="{{ 'versus-mate.webp' | asset_url }}" width="221" height="281" loading="lazy" alt="">
+                    {%- when 3 -%}<span class="versus__crop versus__crop--energy-drink"><img src="{{ 'versus-energy-drink.webp' | asset_url }}" width="500" height="500" loading="lazy" alt=""></span>
+                    {%- when 4 -%}<span class="versus__crop versus__crop--vitamin-water"><img src="{{ 'versus-vitamin-water.webp' | asset_url }}" width="512" height="512" loading="lazy" alt=""></span>
+                    {%- else -%}<img src="{{ 'versus-cola.webp' | asset_url }}" width="221" height="281" loading="lazy" alt="">
+                  {%- endcase -%}
+                {%- else -%}
+                  {%- case forloop.index -%}
+                    {%- when 1 -%}
+                      <span class="versus__pair versus__pair--seltzer"><img src="{{ 'versus-seltzer-holunder.webp' | asset_url }}" width="115" height="296" loading="lazy" alt=""><img src="{{ 'versus-seltzer-maracuja.webp' | asset_url }}" width="115" height="296" loading="lazy" alt=""></span>
+                    {%- when 2 -%}
+                      <span class="versus__pair versus__pair--mixed"><span class="versus__vodka"><img src="{{ 'versus-vodka.webp' | asset_url }}" width="512" height="512" loading="lazy" alt=""></span><img src="{{ 'versus-mate.webp' | asset_url }}" width="221" height="281" loading="lazy" alt=""></span>
+                    {%- when 3 -%}<span class="versus__crop versus__crop--alcopop"><img src="{{ 'versus-alcopop.webp' | asset_url }}" width="500" height="500" loading="lazy" alt=""></span>
+                    {%- when 4 -%}<span class="versus__crop versus__crop--spritz"><img src="{{ 'versus-spritz.webp' | asset_url }}" width="2500" height="2500" loading="lazy" alt=""></span>
+                    {%- else -%}<span class="versus__crop versus__crop--white-wine"><img src="{{ 'versus-white-wine.webp' | asset_url }}" width="500" height="500" loading="lazy" alt=""></span>
+                  {%- endcase -%}
+                {%- endif -%}
+              </div>
+
+              <h3>{{ item_title }}</h3>
+              <dl class="versus__facts">
+                {%- for row_number in (1..row_count) -%}
+                  {%- liquid
+                    case row_number
+                      when 1
+                        assign custom_value = block.settings.value_1
+                      when 2
+                        assign custom_value = block.settings.value_2
+                      when 3
+                        assign custom_value = block.settings.value_3
+                      when 4
+                        assign custom_value = block.settings.value_4
+                      when 5
+                        assign custom_value = block.settings.value_5
+                      else
+                        assign custom_value = block.settings.value_6
+                    endcase
+                    capture value_key
+                      echo 'sections.versus.' | append: variant | append: '.items.' | append: forloop.parentloop.index | append: '.values.' | append: row_number
+                    endcapture
+                    assign fact_value = custom_value
+                    if fact_value == blank
+                      assign fact_value = value_key | t
+                    endif
+
+                    if variant == 'soda'
+                      capture label_key
+                        echo 'sections.versus.soda.labels.' | append: row_number
+                      endcapture
+                      if row_number == 4
+                        if is_featured
+                          assign label_key = 'sections.versus.soda.labels.no_added_sugar'
+                        else
+                          assign label_key = 'sections.versus.soda.labels.with_added_sugar'
+                        endif
+                      elsif row_number == 5
+                        if is_featured
+                          assign label_key = 'sections.versus.soda.labels.high_fiber'
+                        else
+                          assign label_key = 'sections.versus.soda.labels.no_fiber'
+                        endif
+                      endif
+                    else
+                      capture label_key
+                        echo 'sections.versus.seltzer.labels.' | append: row_number
+                      endcapture
+                    endif
+                    assign fact_label = label_key | t
+
+                    assign icon_asset = blank
+                    if variant == 'soda'
+                      if row_number == 4 or row_number == 5
+                        if is_featured
+                          assign icon_asset = 'versus-check.svg'
+                        else
+                          assign icon_asset = 'versus-cross.svg'
+                        endif
+                      endif
+                    endif
+                    if icon_asset == blank and row_number <= 2
+                      if is_featured
+                        assign icon_asset = 'versus-arrow-good.svg'
+                      else
+                        assign icon_asset = 'versus-arrow-bad-up.svg'
+                      endif
+                    elsif icon_asset == blank and variant == 'soda' and row_number == 3
+                      if is_featured
+                        assign icon_asset = 'versus-arrow-good-up.svg'
+                      else
+                          assign icon_asset = 'versus-arrow-bad-down.svg'
+                      endif
+                    elsif icon_asset == blank and variant == 'soda' and row_number == 6
+                      if is_featured
+                        assign icon_asset = 'versus-caffeine-leaf.svg'
+                      elsif forloop.parentloop.index >= 4
+                        assign icon_asset = 'versus-arrow-neutral-down.svg'
+                      else
+                        assign icon_asset = 'versus-arrow-neutral.svg'
+                      endif
+                    endif
+                  -%}
+                  <div class="versus__fact{% if variant == 'soda' %}{% if row_number == 4 or row_number == 5 %} versus__fact--boolean{% endif %}{% endif %}">
+                    <dt>{{ fact_label }}</dt>
+                    <dd>
+                      {%- if icon_asset != blank -%}<img src="{{ icon_asset | asset_url }}" width="22" height="22" alt="">{%- endif -%}
+                      {%- if fact_value != blank and fact_value != '-' -%}<strong>{{ fact_value }}</strong>{%- endif -%}
+                    </dd>
+                  </div>
+                {%- endfor -%}
+              </dl>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="versus__notes" data-scroll-motion-reveal>
+        {%- if disclaimer != blank -%}<p>{{ disclaimer }}</p>{%- endif -%}
+        {%- if variant == 'soda' and footnote != blank -%}<p>{{ footnote }}</p>{%- endif -%}
+      </div>
+    </div>
+  </section>
+</editorial-section-motion>
+
+{% stylesheet %}
+  .versus { color: var(--color-editorial-heading); background: #e5e1d9; --versus-fact-color: var(--color-editorial-muted); --versus-card-color: #faf8f3; }
+  .versus--seltzer { color: var(--color-editorial-heading); background: #dfdfdd; }
+  .versus--seltzer { --versus-fact-color: #4e4e4e; --versus-card-color: #fff; }
+  .versus__inner { max-width: calc(75rem + 2 * var(--page-gutter)); }
+  .versus__header { text-align: center; }
+.versus__header h2 { margin: 0; font-size: var(--font-size-section); line-height: var(--line-height-heading); }
+  .versus--soda .versus__header h2 { font-family: var(--font-heading-soda); font-weight: 700; letter-spacing: -.03em; }
+  .versus--seltzer .versus__header h2 { font-family: var(--font-heading-default); font-size: var(--font-size-section); font-weight: 400; letter-spacing: normal; text-transform: uppercase; }
+  .versus__header p { display: inline-flex; padding: .75rem 1.5rem; margin: .75rem 0 0; align-items: center; border-radius: 999px; background: rgb(255 255 255 / .5); font-size: var(--font-size-body); line-height: var(--line-height-body-compact); }
+  .versus__scroller { padding-top: 1.25rem; padding-bottom: .25rem; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: inline proximity; scrollbar-color: rgb(0 0 0 / .35) transparent; scrollbar-width: thin; }
+  .versus__scroller:focus-visible { outline: 2px solid currentColor; outline-offset: .35rem; }
+  .versus__track { display: flex; gap: .75rem; min-width: min-content; }
+  .versus__card { position: relative; display: flex; width: min(78vw, 14.4rem); flex: 0 0 min(78vw, 14.4rem); flex-direction: column; padding: 1.5rem 1.25rem 1.875rem; border-radius: var(--radius-small); background: var(--versus-card-color); scroll-snap-align: start; order: 0; }
+  .versus__card--featured { box-shadow: inset 0 0 0 3px rgb(0 110 57 / .4); order: -1; }
+  .versus__badge { position: absolute; display: grid; place-items: center; z-index: 1; top: -.875rem; right: -.25rem; width: 4.664rem; height: 4.664rem; transform: rotate(-11.26deg); }
+  .versus__badge img { grid-area: 1 / 1; width: 100%; height: 100%; }
+  .versus__badge img:nth-child(2) { width: 85.7%; height: 85.7%; }
+  .versus__badge img:nth-child(3) { width: 52%; height: 52%; }
+  .versus__media { display: grid; height: 7rem; flex: 0 0 7rem; place-items: center; }
+  .versus__media > img { width: 5.5rem; height: 7rem; object-fit: contain; }
+  .versus__media--custom > img { width: 100%; }
+  .versus__crop { position: relative; display: block; height: 7rem; width: var(--crop-width); overflow: hidden; }
+  .versus__crop img { position: absolute; max-width: none; width: var(--crop-image-width); height: var(--crop-image-height); left: var(--crop-left); top: var(--crop-top); }
+  .versus__crop--energy-drink { --crop-width: 2.875rem; --crop-image-width: 297.18%; --crop-image-height: 121.58%; --crop-left: -98.59%; --crop-top: -10.79%; }
+  .versus__crop--vitamin-water { --crop-width: 2.6875rem; --crop-image-width: 294.68%; --crop-image-height: 113.18%; --crop-left: -97.34%; --crop-top: -4.86%; }
+  .versus__crop--alcopop { --crop-width: 2.75rem; --crop-image-width: 313.97%; --crop-image-height: 123.69%; --crop-left: -106.99%; --crop-top: -11.84%; }
+  .versus__crop--spritz { --crop-width: 4.25rem; --crop-image-width: 177.3%; --crop-image-height: 107.94%; --crop-left: -38.65%; --crop-top: -3.97%; }
+  .versus__crop--white-wine { --crop-width: 3rem; --crop-image-width: 266.67%; --crop-image-height: 114.03%; --crop-left: -83.33%; --crop-top: -7.01%; }
+  .versus__pair { position: relative; display: block; width: 7.625rem; height: 7rem; }
+  .versus__pair img { position: absolute; bottom: 0; width: 5.5rem; height: 7rem; object-fit: contain; }
+  .versus__pair img:first-child { left: 0; }
+  .versus__pair img:last-child { right: 0; }
+  .versus__pair--seltzer { width: 5.1875rem; }
+  .versus__pair--seltzer img { bottom: .3125rem; width: 2.45rem; height: 6.375rem; }
+  .versus__pair--seltzer img:first-child { left: .23rem; }
+  .versus__pair--seltzer img:last-child { right: .23rem; }
+  .versus__pair--mixed { width: 5.0625rem; }
+  .versus__vodka { position: absolute; left: 2.74rem; top: 0; width: 2.3rem; height: 6.81rem; overflow: hidden; }
+  .versus__pair .versus__vodka img { left: -131.24%; top: -12.14%; width: 362.48%; max-width: none; height: 120.97%; }
+  .versus__pair--mixed > img:last-child { right: auto; left: 0; width: 4.2rem; height: 5.28rem; }
+  .versus__card h3 { display: grid; min-height: 1.625rem; margin: .25rem 0 1.25rem; place-items: center; font-family: var(--font-body); font-size: var(--font-size-compact); font-weight: 600; line-height: var(--line-height-body-compact); text-align: center; }
+  .versus--seltzer .versus__card--featured h3 { font-size: var(--font-size-compact); }
+  .versus__facts { display: grid; gap: .5rem; margin: 0; color: var(--versus-fact-color); }
+  .versus__fact { display: grid; min-height: 4.2rem; grid-template-columns: 1fr; padding: .375rem 0; place-content: center; border-radius: calc(var(--radius-small) / 2); text-align: center; }
+  .versus__fact dt { font-size: var(--font-size-label); line-height: var(--line-height-body-compact); order: 2; }
+  .versus__fact dd { display: flex; margin: 0 0 -.125rem; align-items: center; justify-content: center; gap: .375rem; font-size: var(--font-size-stat); line-height: var(--line-height-body-compact); order: 1; }
+  .versus__fact dd img { width: .675rem; height: 1.055rem; object-fit: contain; }
+  .versus__fact--boolean { min-height: 4.375rem; padding: .75rem .5rem; gap: .375rem; }
+  .versus__fact--boolean dt { line-height: var(--line-height-ui); }
+  .versus__fact--boolean dd { margin: 0; }
+  .versus__fact--boolean dd img { width: 1.4rem; height: 1.4rem; }
+  .versus__fact dd strong { font-family: var(--font-body-strong); font-weight: 700; }
+  .versus--soda .versus__card--featured .versus__fact:nth-child(-n+5), .versus--seltzer .versus__card--featured .versus__fact:nth-child(-n+2) { color: #006c38; background: rgb(35 199 120 / .1); }
+  .versus__notes { margin: 1.25rem auto 0; color: var(--color-editorial-muted); font-size: var(--font-size-small); line-height: var(--line-height-body-compact); text-align: center; }
+  .versus--seltzer .versus__notes { color: #929292; }
+  .versus__notes p { margin: .25rem 0; }
+  @media (min-width: 750px) {
+    .versus__card { order: var(--desktop-order); }
+    .versus__card--featured { order: 3; }
+  }
+  @media (min-width: 1264px) {
+    .versus__track { min-width: 0; }
+    .versus__card { width: auto; min-width: 0; flex: 1 1 0; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Versus",
+  "tag": "section",
+  "class": "section-versus",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    {
+      "type": "select",
+      "id": "variant",
+      "label": "Product world",
+      "options": [
+        { "value": "soda", "label": "Soda" },
+        { "value": "seltzer", "label": "Hard Seltzer" }
+      ],
+      "default": "soda"
+    },
+    { "type": "textarea", "id": "heading", "label": "Heading" },
+    { "type": "text", "id": "comparison_basis", "label": "Comparison basis" },
+    { "type": "textarea", "id": "disclaimer", "label": "Comparison disclaimer" },
+    { "type": "textarea", "id": "footnote", "label": "Footnote", "visible_if": "{{ section.settings.variant == 'soda' }}" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Comparison item",
+      "limit": 5,
+      "settings": [
+        { "type": "header", "content": "Product" },
+        { "type": "checkbox", "id": "featured", "label": "Sparklys product", "default": false, "info": "Shown first on mobile and third on desktop." },
+        { "type": "image_picker", "id": "image", "label": "Product image" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "header", "content": "Comparison values" },
+        { "type": "text", "id": "value_1", "label": "Value 1" },
+        { "type": "text", "id": "value_2", "label": "Value 2" },
+        { "type": "text", "id": "value_3", "label": "Value 3" },
+        { "type": "text", "id": "value_4", "label": "Value 4", "visible_if": "{{ section.settings.variant == 'soda' }}" },
+        { "type": "text", "id": "value_5", "label": "Value 5", "visible_if": "{{ section.settings.variant == 'soda' }}" },
+        { "type": "text", "id": "value_6", "label": "Value 6", "visible_if": "{{ section.settings.variant == 'soda' }}" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Versus — Soda",
+      "category": "Trust & information",
+      "settings": { "variant": "soda" },
+      "blocks": [
+        { "type": "item", "settings": { "featured": true } },
+        { "type": "item" }, { "type": "item" }, { "type": "item" }, { "type": "item" }
+      ]
+    },
+    {
+      "name": "Versus — Hard Seltzer",
+      "category": "Trust & information",
+      "settings": { "variant": "seltzer" },
+      "blocks": [
+        { "type": "item", "settings": { "featured": true } },
+        { "type": "item" }, { "type": "item" }, { "type": "item" }, { "type": "item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

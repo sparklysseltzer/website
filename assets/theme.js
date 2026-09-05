@@ -675,6 +675,12 @@ if (!customElements.get('faq-section-motion')) {
   customElements.define('faq-section-motion', FaqSectionMotion);
 }
 
+class EditorialSectionMotion extends FaqSectionMotion {}
+
+if (!customElements.get('editorial-section-motion')) {
+  customElements.define('editorial-section-motion', EditorialSectionMotion);
+}
+
 class FaqAccordion extends HTMLElement {
   connectedCallback() {
     this.items = [...this.querySelectorAll(':scope > details')];

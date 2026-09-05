@@ -1,0 +1,154 @@
+{%- liquid
+  assign heading = section.settings.heading
+  if heading == blank
+    assign heading = 'sections.hard_seltzer_ingredients.heading' | t
+  endif
+
+  assign intro = section.settings.intro
+  if intro == blank
+    assign intro = 'sections.hard_seltzer_ingredients.intro' | t
+  endif
+-%}
+
+<editorial-section-motion>
+  <section class="seltzer-ingredients section" data-scroll-motion-section>
+    <div class="seltzer-ingredients__inner page-width" data-scroll-motion-surface>
+      <header class="seltzer-ingredients__header">
+        <h2 class="seltzer-ingredients__heading" data-scroll-motion-reveal>
+          <span class="visually-hidden">3 </span>
+          <img
+            src="{{ 'heading-three.svg' | asset_url }}"
+            width="92"
+            height="130"
+            alt=""
+            aria-hidden="true"
+          >
+          <span class="seltzer-ingredients__heading-text">{{ heading | newline_to_br }}</span>
+        </h2>
+        <div class="seltzer-ingredients__intro rte" data-scroll-motion-reveal><p>{{ intro }}</p></div>
+      </header>
+
+      <div class="seltzer-ingredients__list" role="list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign item_text = block.settings.text
+            if item_text == blank
+              capture item_text_key
+                echo 'sections.hard_seltzer_ingredients.items.' | append: forloop.index | append: '.text'
+              endcapture
+              assign item_text = item_text_key | t
+            endif
+          -%}
+          <div class="seltzer-ingredients__item" role="listitem" data-scroll-motion-reveal {{ block.shopify_attributes }}>
+            <div class="seltzer-ingredients__art" aria-hidden="true">
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 720
+                  | image_tag:
+                    widths: '240, 360, 480, 720',
+                    sizes: '(min-width: 750px) 18rem, 13rem',
+                    loading: 'lazy',
+                    class: 'seltzer-ingredients__custom-art',
+                    alt: ''
+                }}
+              {%- else -%}
+              {%- case forloop.index -%}
+                {%- when 1 -%}
+                  <img class="seltzer-ingredients__blob" src="{{ 'base-blob.svg' | asset_url }}" width="273" height="194" alt="">
+                  <span class="seltzer-ingredients__base-mark">
+                    <img src="{{ 'base-ring.svg' | asset_url }}" width="109" height="109" alt="">
+                    <img class="seltzer-ingredients__base-a" src="{{ 'base-icon-a.svg' | asset_url }}" width="58" height="59" alt="">
+                    <img class="seltzer-ingredients__base-b" src="{{ 'base-icon-b.svg' | asset_url }}" width="27" height="31" alt="">
+                    <img class="seltzer-ingredients__base-c" src="{{ 'base-icon-c.svg' | asset_url }}" width="25" height="9" alt="">
+                    <img class="seltzer-ingredients__base-d" src="{{ 'base-icon-d.svg' | asset_url }}" width="26" height="9" alt="">
+                  </span>
+                {%- when 2 -%}
+                  <img class="seltzer-ingredients__blob" src="{{ 'water-blob.svg' | asset_url }}" width="190" height="210" alt="">
+                  <img class="seltzer-ingredients__symbol" src="{{ 'water-icon.svg' | asset_url }}" width="109" height="109" alt="">
+                {%- else -%}
+                  <img class="seltzer-ingredients__blob" src="{{ 'flavor-blob.svg' | asset_url }}" width="184" height="181" alt="">
+                  <img class="seltzer-ingredients__symbol" src="{{ 'flavor-icon.svg' | asset_url }}" width="109" height="109" alt="">
+              {%- endcase -%}
+              {%- endif -%}
+            </div>
+            <p>{{ item_text }}</p>
+          </div>
+          {%- unless forloop.last -%}<span class="seltzer-ingredients__plus" aria-hidden="true">+</span>{%- endunless -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+</editorial-section-motion>
+
+{% stylesheet %}
+  .seltzer-ingredients { color: var(--color-editorial-heading); background: #fff; }
+  .seltzer-ingredients__inner { max-width: 77rem; text-align: center; }
+  .seltzer-ingredients__header { max-width: 40rem; margin-inline: auto; }
+.seltzer-ingredients__heading { display: flex; margin: 0; align-items: center; justify-content: center; gap: clamp(.75rem, 1.4vw, 1.25rem); font-family: var(--font-heading-default); font-size: var(--font-size-display); font-weight: 400; line-height: var(--line-height-heading); letter-spacing: normal; text-align: left; text-transform: uppercase; }
+  .seltzer-ingredients__heading img { width: clamp(3rem, 14vw, 5.75rem); flex: 0 0 auto; }
+  /* Optical alignment against the outlined numeral; Newake's font box is asymmetric. */
+  .seltzer-ingredients__heading-text { position: relative; top: .08em; }
+  .seltzer-ingredients__intro { max-width: 38rem; margin: 1.5rem auto 0; font-size: var(--font-size-body); line-height: var(--line-height-body-compact); }
+  .seltzer-ingredients__intro p { margin: 0; }
+  .seltzer-ingredients__list { display: grid; max-width: 44.75rem; grid-template-columns: minmax(0, 1fr) 1.1875rem minmax(0, 1fr) 1.1875rem minmax(0, 1fr); margin: 3.125rem auto 0; align-items: start; gap: 0; }
+  .seltzer-ingredients__item { min-width: 0; }
+  .seltzer-ingredients__art { position: relative; display: grid; width: 100%; height: 6.8125rem; margin-inline: auto; place-items: center; }
+  .seltzer-ingredients__art > img, .seltzer-ingredients__base-mark { grid-area: 1 / 1; }
+  .seltzer-ingredients__blob { position: absolute; width: 11.875rem; max-width: none; height: 10.5rem; object-fit: contain; top: -2.3rem; left: calc(50% - 5.9375rem); }
+  .seltzer-ingredients__item:first-child .seltzer-ingredients__blob { width: 17.05rem; height: 12.125rem; left: calc(50% - 11.25rem); top: -2rem; }
+  .seltzer-ingredients__item:last-child .seltzer-ingredients__blob { width: 10.08rem; height: 10.08rem; left: calc(50% - 5.04rem); top: -1.4rem; }
+  .seltzer-ingredients__symbol { position: relative; width: 6.8rem; }
+  .seltzer-ingredients__base-mark { position: relative; display: block; width: 6.8rem; aspect-ratio: 1; }
+  .seltzer-ingredients__base-mark > img { position: absolute; }
+  .seltzer-ingredients__base-mark > img:first-child { inset: 0; width: 100%; }
+  .seltzer-ingredients__base-a { width: 33.8%; left: 20.3%; top: 29.6%; }
+  .seltzer-ingredients__base-b { width: 24.8%; left: 52.8%; top: 29.6%; }
+  .seltzer-ingredients__base-c { width: 21.7%; left: 56.3%; top: 64%; }
+  .seltzer-ingredients__base-d { width: 21%; left: 56.3%; top: 54.3%; }
+  .seltzer-ingredients__custom-art { width: 100%; height: 100%; object-fit: contain; }
+  .seltzer-ingredients__item p { position: relative; max-width: 14.375rem; margin: 1.3125rem auto 0; font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 400; line-height: var(--line-height-body-compact); }
+  .seltzer-ingredients__plus { padding-top: 1.8125rem; font-size: var(--font-size-symbol); font-weight: 700; line-height: var(--line-height-body-compact); }
+  @media (max-width: 749px) {
+    .seltzer-ingredients__list { grid-template-columns: 1fr; gap: 2.75rem; }
+    .seltzer-ingredients__plus { padding: 0; }
+    .seltzer-ingredients__art { width: min(100%, 14rem); }
+  }
+  @media (prefers-reduced-motion: reduce) { .seltzer-ingredients *, .seltzer-ingredients *::before, .seltzer-ingredients *::after { scroll-behavior: auto !important; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hard Seltzer Ingredients",
+  "tag": "section",
+  "class": "section-hard-seltzer-ingredients",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "textarea", "id": "heading", "label": "Heading" },
+    { "type": "textarea", "id": "intro", "label": "Introduction" }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "limit": 3,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Illustration" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Hard Seltzer Ingredients",
+      "category": "Trust & information",
+      "blocks": [
+        { "type": "ingredient" },
+        { "type": "ingredient" },
+        { "type": "ingredient" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,126 @@
+{%- liquid
+  assign heading = section.settings.heading
+  if heading == blank
+    assign heading = 'sections.hard_seltzer_awards.heading' | t
+  endif
+  assign intro = section.settings.intro
+  if intro == blank
+    assign intro = 'sections.hard_seltzer_awards.intro' | t
+  endif
+  assign button_label = section.settings.button_label
+  if button_label == blank
+    assign button_label = 'sections.hard_seltzer_awards.button_label' | t
+  endif
+  assign button_link = section.settings.button_link | default: '#'
+-%}
+
+<editorial-section-motion>
+  <section class="seltzer-awards section" data-scroll-motion-section>
+    <div class="seltzer-awards__inner page-width" data-scroll-motion-surface>
+      <header class="seltzer-awards__header">
+        <h2 class="seltzer-awards__heading" data-scroll-motion-reveal>{{ heading | newline_to_br }}</h2>
+        <div class="seltzer-awards__intro rte" data-scroll-motion-reveal><p>{{ intro }}</p></div>
+      </header>
+
+      <div class="seltzer-awards__list" role="list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign award_alt = block.settings.alt
+            if award_alt == blank
+              capture award_alt_key
+                echo 'sections.hard_seltzer_awards.items.' | append: forloop.index | append: '.alt'
+              endcapture
+              assign award_alt = award_alt_key | t
+            endif
+            case forloop.index
+              when 1
+                assign award_asset = 'seltzer-award-taste-master.webp'
+                assign award_width = 802
+              when 2
+                assign award_asset = 'seltzer-award-master.webp'
+                assign award_width = 803
+              else
+                assign award_asset = 'seltzer-award-gold.webp'
+                assign award_width = 803
+            endcase
+          -%}
+          <figure class="seltzer-awards__item" role="listitem" data-scroll-motion-reveal {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 900
+                | image_tag:
+                  widths: '260, 390, 520, 780, 900',
+                  sizes: '(min-width: 750px) 15rem, 13rem',
+                  loading: 'lazy',
+                  alt: award_alt
+              }}
+            {%- else -%}
+              <img class="seltzer-awards__fallback" src="{{ award_asset | asset_url }}" width="{{ award_width }}" height="807" loading="lazy" alt="{{ award_alt | escape }}">
+            {%- endif -%}
+          </figure>
+        {%- endfor -%}
+      </div>
+
+      {%- if button_label != blank -%}
+        <div class="seltzer-awards__action" data-scroll-motion-reveal>
+          <a class="button" href="{{ button_link }}">{{ button_label }}</a>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+</editorial-section-motion>
+
+{% stylesheet %}
+  .seltzer-awards { color: var(--color-editorial-heading); background: #fff; }
+  .seltzer-awards__inner { max-width: 77rem; text-align: center; }
+  .seltzer-awards__header { max-width: 75rem; margin-inline: auto; }
+.seltzer-awards__heading { margin: 0; font-family: var(--font-heading-default); font-size: var(--font-size-display); font-weight: 400; line-height: var(--line-height-heading); letter-spacing: normal; text-transform: uppercase; }
+  .seltzer-awards__intro { max-width: 50rem; margin: .875rem auto 0; font-size: var(--font-size-body); line-height: var(--line-height-body-compact); }
+  .seltzer-awards__intro p { margin: 0; }
+  .seltzer-awards__list { display: grid; max-width: 42.25rem; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: .875rem auto 0; gap: 0; align-items: center; }
+  .seltzer-awards__item { min-width: 0; margin: 0; }
+  .seltzer-awards__item > img, .seltzer-awards__fallback { display: block; width: calc(100% + 2.625rem); max-width: none; margin-inline: -1.3125rem; }
+  .seltzer-awards__action { margin-top: .875rem; }
+  @media (max-width: 749px) {
+    .seltzer-awards__list { grid-template-columns: 1fr; }
+    .seltzer-awards__item > img, .seltzer-awards__fallback { max-width: min(100%, 15.25rem); margin-inline: auto; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hard Seltzer Awards",
+  "tag": "section",
+  "class": "section-hard-seltzer-awards",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "textarea", "id": "heading", "label": "Heading" },
+    { "type": "textarea", "id": "intro", "label": "Introduction" },
+    { "type": "header", "content": "Action" },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "award",
+      "name": "Award",
+      "limit": 3,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Award image" },
+        { "type": "text", "id": "alt", "label": "Image alternative text" }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Hard Seltzer Awards",
+      "category": "Trust & information",
+      "blocks": [
+        { "type": "award" }, { "type": "award" }, { "type": "award" }
+      ]
+    }
+  ]
+}
+{% endschema %}

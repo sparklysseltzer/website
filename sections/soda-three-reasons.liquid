@@ -1,0 +1,136 @@
+{%- liquid
+  assign heading = section.settings.heading
+  if heading == blank
+    assign heading = 'sections.soda_three_reasons.heading' | t
+  endif
+  assign intro = section.settings.intro
+  if intro == blank
+    assign intro = 'sections.soda_three_reasons.intro' | t
+  endif
+  assign link_label = section.settings.link_label
+  if link_label == blank
+    assign link_label = 'sections.soda_three_reasons.link_label' | t
+  endif
+  assign link_url = section.settings.link | default: '#'
+-%}
+
+<editorial-section-motion>
+  <section class="soda-reasons section" data-scroll-motion-section>
+    <div class="soda-reasons__inner page-width" data-scroll-motion-surface>
+      <header class="soda-reasons__header">
+        <h2 class="soda-reasons__heading" data-scroll-motion-reveal><span class="visually-hidden">3 </span><span class="soda-reasons__number" aria-hidden="true">3</span><strong>{{ heading | newline_to_br }}</strong></h2>
+        <p class="soda-reasons__intro" data-scroll-motion-reveal>
+          {{ intro }}
+          {%- if link_label != blank %} <a href="{{ link_url }}">{{ link_label }}</a>{% endif -%}
+        </p>
+      </header>
+
+      <div class="soda-reasons__grid" role="list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            capture title_key
+              echo 'sections.soda_three_reasons.items.' | append: forloop.index | append: '.title'
+            endcapture
+            capture text_key
+              echo 'sections.soda_three_reasons.items.' | append: forloop.index | append: '.text'
+            endcapture
+            assign item_title = block.settings.title
+            if item_title == blank
+              assign item_title = title_key | t
+            endif
+            assign item_text = block.settings.text
+            if item_text == blank
+              assign item_text = text_key | t
+            endif
+          -%}
+          <article class="soda-reasons__item" role="listitem" data-scroll-motion-reveal {{ block.shopify_attributes }}>
+            <div class="soda-reasons__art" aria-hidden="true">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 720 | image_tag: widths: '240, 360, 480, 720', sizes: '(min-width: 750px) 12rem, 10rem', loading: 'lazy', alt: '' }}
+              {%- else -%}
+              {%- case forloop.index -%}
+                {%- when 1 -%}<img src="{{ 'soda-reason-low-sugar.svg' | asset_url }}" width="187" height="172" alt="">
+                {%- when 2 -%}<img src="{{ 'soda-reason-fiber.svg' | asset_url }}" width="143" height="168" alt="">
+                {%- else -%}
+                  <img class="soda-reasons__leaf" src="{{ 'soda-reason-leaf.svg' | asset_url }}" width="170" height="166" alt="">
+              {%- endcase -%}
+              {%- endif -%}
+            </div>
+            <h3>{{ item_title | newline_to_br }}</h3>
+            <p>{{ item_text }}</p>
+          </article>
+        {%- endfor -%}
+      </div>
+
+      {%- liquid
+        assign footnote = section.settings.footnote
+        if footnote == blank
+          assign footnote = 'sections.soda_three_reasons.footnote' | t
+        endif
+      -%}
+      {%- if footnote != blank -%}<p class="soda-reasons__footnote" data-scroll-motion-reveal>{{ footnote }}</p>{%- endif -%}
+    </div>
+  </section>
+</editorial-section-motion>
+
+{% stylesheet %}
+  .soda-reasons { color: var(--color-editorial-heading); background: #f2f0e9; }
+  .soda-reasons__inner { max-width: calc(75rem + 2 * var(--page-gutter)); text-align: center; }
+  .soda-reasons__header { max-width: 42rem; margin-inline: auto; }
+  /* Approved composition exception: 82px / 62px words beside a 192px numeral. */
+  .soda-reasons__heading { --soda-reasons-lockup-line-height: calc(62 / 82); display: flex; margin: 0; align-items: last baseline; justify-content: center; gap: calc(8 / 82 * 1em); font-family: var(--font-heading-soda); font-size: clamp(3.5rem, 6vw, 5.125rem); letter-spacing: var(--font-heading-letter-spacing); text-align: left; }
+  .soda-reasons__number { flex: 0 0 auto; font-size: calc(192 / 82 * 1em); font-weight: 700; line-height: normal; }
+  .soda-reasons__heading strong { font-size: 1em; font-weight: 700; line-height: var(--soda-reasons-lockup-line-height); }
+  .soda-reasons__number, .soda-reasons__heading strong { text-box-trim: trim-both; text-box-edge: cap alphabetic; }
+  .soda-reasons__intro { max-width: 37.5rem; margin: 1.625rem auto 0; font-size: var(--font-size-body); line-height: var(--line-height-body-compact); }
+  .soda-reasons__intro a { color: var(--color-editorial-muted); text-underline-offset: .18em; }
+  .soda-reasons__grid { display: grid; max-width: 53.125rem; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 1.25rem auto 0; gap: clamp(1.5rem, 3.5vw, 3.125rem); }
+  .soda-reasons__art { display: grid; width: 100%; height: 11.25rem; margin-inline: auto; place-items: center; }
+  .soda-reasons__art > img, .soda-reasons__leaf { grid-area: 1 / 1; max-height: 100%; }
+  .soda-reasons__art > img { width: auto; object-fit: contain; }
+  .soda-reasons__item:nth-child(2) .soda-reasons__art > img[src*="soda-reason-fiber"] { transform: scaleX(-1); }
+  .soda-reasons__leaf { display: block; width: 10.59rem; height: auto; }
+.soda-reasons__item h3 { margin: .1875rem 0 .75rem; font-family: var(--font-heading-soda); font-size: var(--font-size-card); font-weight: 700; line-height: var(--line-height-heading); letter-spacing: -.03em; }
+  .soda-reasons__item p { margin: 0; color: var(--color-editorial-muted); font-size: var(--font-size-body); line-height: var(--line-height-body-compact); }
+  .soda-reasons__footnote { max-width: 37.5rem; margin: 1.25rem auto 0; color: #d7d1c0; font-size: var(--font-size-small); line-height: var(--line-height-body-compact); }
+  @media (max-width: 749px) {
+    .soda-reasons__grid { grid-template-columns: 1fr; gap: 3rem; }
+    .soda-reasons__item { max-width: 20rem; margin-inline: auto; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Soda 3 Reasons",
+  "tag": "section",
+  "class": "section-soda-three-reasons",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "textarea", "id": "heading", "label": "Heading" },
+    { "type": "textarea", "id": "intro", "label": "Introduction" },
+    { "type": "text", "id": "link_label", "label": "Link label" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "textarea", "id": "footnote", "label": "Footnote" }
+  ],
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Reason",
+      "limit": 3,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Illustration" },
+        { "type": "textarea", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Soda 3 Reasons",
+      "category": "Trust & information",
+      "blocks": [ { "type": "reason" }, { "type": "reason" }, { "type": "reason" } ]
+    }
+  ]
+}
+{% endschema %}

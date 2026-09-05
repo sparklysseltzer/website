@@ -120,6 +120,77 @@
       "empty": "No frequently asked questions are available yet.",
       "limit_note": "Only the first 250 questions can be searched on this page."
     },
+    "hard_seltzer_ingredients": {
+      "heading": "Simple\ningredients",
+      "intro": "Sparklys is authentic. Sparklys was developed by Hard Seltzer lovers and masterful neo-alchemists — for ourselves and for you! Our production process and ingredients are natural.",
+      "items": {
+        "1": { "text": "A fermented alcohol base made from natural ingredients." },
+        "2": { "text": "Carbonated water from the beautiful Rhine Valley." },
+        "3": { "text": "A touch of delicious natural flavor." }
+      }
+    },
+    "hard_seltzer_awards": {
+      "heading": "The best\nHard Seltzer in the world",
+      "intro": "Well, at least according to a well-known spirits magazine (The Spirits Business). We are not quite sure what to do with that, but thought we should let you know. PS: In the wonderful world of ratings, “Master” really is the new “Gold” — who knew? So yes, we received the “Super Good” distinction twice and “Very Good” once.",
+      "button_label": "Shop now",
+      "items": {
+        "1": { "alt": "Taste Master award for Sparklys Hard Seltzer Holunder" },
+        "2": { "alt": "Master award for Sparklys Hard Seltzer Holunder" },
+        "3": { "alt": "Gold award for Sparklys Hard Seltzer Maracuja" }
+      }
+    },
+    "soda_ingredients": {
+      "heading": "Made with carefully\nselected ingredients",
+      "intro": "Developed for refreshment and lightness — with plant-based fiber and natural extracts.",
+      "link_label": "View all ingredients",
+      "footnote": "*Folic acid contributes to normal psychological function and normal immune-system function. A varied, balanced diet and a healthy lifestyle are important.",
+      "items": {
+        "1": { "title": "Tapioca & Jerusalem artichoke", "text": "A source of plant-based fiber for smart refreshment." },
+        "2": { "title": "Folic acid (vitamin B9)", "text": "Supports your well-being and immune system.*" },
+        "3": { "title": "Yuzu or blueberry", "text": "Unique, vibrant flavors from natural sources." },
+        "4": { "title": "Apple juice concentrate", "text": "Adds a delicate, natural fruit note — without too much sugar." },
+        "5": { "title": "Green tea extract", "text": "A natural source of caffeine that helps keep you focused." },
+        "6": { "title": "Swiss spring water", "text": "Pure Alpine spring water from the Säntis region." }
+      }
+    },
+    "soda_three_reasons": {
+      "heading": "Simple\nreasons",
+      "intro": "Developed to combine taste and function while doing something good for your body.",
+      "link_label": "Learn more",
+      "footnote": "*Folic acid contributes to normal psychological function and normal immune-system function. A varied, balanced diet and a healthy lifestyle are important.",
+      "items": {
+        "1": { "title": "Low in sugar &\ncalories", "text": "Only 1.4 g of sugar from fruit juice and 12 kcal per 100 ml. No added sugar and no artificial sweeteners." },
+        "2": { "title": "With plant-based\nfiber", "text": "With plant-based fiber — plus folic acid (vitamin B9), which supports your well-being and immune system.*" },
+        "3": { "title": "Naturally invigorating", "text": "Contains natural caffeine from green tea for a gentle energy boost without the crash." }
+      }
+    },
+    "versus": {
+      "comparison_basis": "Comparison per 100 ml",
+      "disclaimer": "Nutrition information is based on leading products in each category. The visual representations do not stand for specific brands and are for illustration only.",
+      "soda": {
+        "heading": "Compared with other sodas",
+        "footnote": "*Folic acid contributes to normal psychological function and normal immune-system function. A varied, balanced diet and a healthy lifestyle are important.",
+        "labels": { "1": "Sugar", "2": "Calories", "3": "Fiber", "4": "Added sugar", "5": "Plant fiber", "6": "Caffeine", "no_added_sugar": "No added sugar", "with_added_sugar": "With added sugar", "high_fiber": "High plant fiber", "no_fiber": "No fiber" },
+        "items": {
+          "1": { "title": "Sparklys Soda", "values": { "1": "1.4 g", "2": "12 kcal", "3": "1 g", "4": "-", "5": "-", "6": "15 mg" } },
+          "2": { "title": "Mate", "values": { "1": "5.8 g", "2": "24 kcal", "3": "0 g", "4": "-", "5": "-", "6": "23 mg" } },
+          "3": { "title": "Energy drink", "values": { "1": "11 g", "2": "46 kcal", "3": "0 g", "4": "-", "5": "-", "6": "32 mg" } },
+          "4": { "title": "Vitamin water", "values": { "1": "4 g", "2": "17 kcal", "3": "0 g", "4": "-", "5": "-", "6": "0 mg" } },
+          "5": { "title": "Cola", "values": { "1": "10.6 g", "2": "42 kcal", "3": "0 g", "4": "-", "5": "-", "6": "11 mg" } }
+        }
+      },
+      "seltzer": {
+        "heading": "Compared with other\nalcoholic beverages",
+        "labels": { "1": "Calories", "2": "Sugar", "3": "Alcohol" },
+        "items": {
+          "1": { "title": "Sparklys Hard Seltzer", "values": { "1": "32 kcal", "2": "0.7 g", "3": "5%" } },
+          "2": { "title": "Vodka Mate", "values": { "1": "55 kcal", "2": "5.8 g", "3": "4.8%" } },
+          "3": { "title": "Alcopop Lemon", "values": { "1": "63 kcal", "2": "5.2 g", "3": "4%" } },
+          "4": { "title": "Spritz", "values": { "1": "116 kcal", "2": "8.9 g", "3": "9%" } },
+          "5": { "title": "White wine", "values": { "1": "70 kcal", "2": "2 g", "3": "12%" } }
+        }
+      }
+    },
     "usp": {
       "soda": {
         "heading": "Your body’s\nfavorite Soda",
