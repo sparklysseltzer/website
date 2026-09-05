@@ -28,6 +28,20 @@
     }
   },
   "sections": {
+    "subscription": {
+      "heading": "Subscription",
+      "button_label": "Jetzt abonnieren",
+      "account_prompt": "Schon abonniert?",
+      "account_label": "Jetzt anmelden",
+      "context_hint": "Wähle Soda oder Hard Seltzer oder weise dieser Seite eine Produktwelt zu, um automatische Inhalte anzuzeigen.",
+      "soda": { "intro": "Wenn du Sparklys Soda abonnierst, geht dir dein Lieblings-Getränk nie aus. Ausserdem erhältst du..." },
+      "seltzer": { "intro": "Wenn du Sparklys abonnierst, geht dir dein Lieblings-Getränk nie aus. Ausserdem erhältst du..." },
+      "benefits": {
+        "discount": "15% Rabatt auf jede Abonnementbestellung.",
+        "shipping": "Kostenloser Versand innerhalb der Schweiz.",
+        "flexibility": "Jederzeit tauschen, überspringen oder kündigen."
+      }
+    },
     "header": {
       "open_menu": "Menü öffnen",
       "navigation": "Hauptnavigation",

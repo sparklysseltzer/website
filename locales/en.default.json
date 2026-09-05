@@ -28,6 +28,20 @@
     }
   },
   "sections": {
+    "subscription": {
+      "heading": "Subscription",
+      "button_label": "Subscribe now",
+      "account_prompt": "Already subscribed?",
+      "account_label": "Sign in now",
+      "context_hint": "Choose Soda or Hard Seltzer, or assign a product world to this page to preview automatic content.",
+      "soda": { "intro": "When you subscribe to Sparklys Soda, you never run out of your favourite drink. Plus, you get..." },
+      "seltzer": { "intro": "When you subscribe to Sparklys, you never run out of your favourite drink. Plus, you get..." },
+      "benefits": {
+        "discount": "15% off every subscription order.",
+        "shipping": "Free shipping within Switzerland.",
+        "flexibility": "Swap, skip or cancel at any time."
+      }
+    },
     "header": {
       "open_menu": "Open menu",
       "navigation": "Main navigation",
