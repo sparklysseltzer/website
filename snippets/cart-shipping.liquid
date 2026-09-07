@@ -1,0 +1,63 @@
+{% comment %}Shared shipping rules: default renders progress; mode totals renders fixed-rule shipping/total. Shopify checkout remains authoritative.{% endcomment %}
+{%- liquid
+  assign threshold = settings.free_shipping_threshold | default: 50 | times: 100 | round
+  assign supported_destination = false
+  if localization.country.iso_code == 'CH' or localization.country.iso_code == 'LI'
+    assign supported_destination = true
+  endif
+  assign qualified_product = false
+  for item in cart.items
+    if settings.free_shipping_products != blank
+      for product in settings.free_shipping_products
+        if item.product.id == product.id
+          assign qualified_product = true
+        endif
+      endfor
+    elsif item.product.handle == 'sparklys-soda-probierpaket'
+      assign qualified_product = true
+    endif
+  endfor
+  assign remaining = threshold | minus: cart.total_price | at_least: 0
+  assign progress = 0
+  if threshold > 0
+    assign progress = cart.total_price | times: 100.0 | divided_by: threshold | at_most: 100 | at_least: 0
+  endif
+  if qualified_product
+    assign remaining = 0
+    assign progress = 100
+  endif
+-%}
+{%- if mode == 'totals' -%}
+  {%- if supported_destination and cart.currency.iso_code == 'CHF' and threshold > 0 -%}
+    {%- liquid
+      assign shipping_amount = settings.flat_shipping_rate | default: 9 | times: 100 | round | at_least: 0
+      if remaining == 0 or cart.requires_shipping == false
+        assign shipping_amount = 0
+      endif
+      assign shipping_total = cart.total_price | plus: shipping_amount
+    -%}
+    <p data-cart-shipping-cost><span>{{ 'cart.general.shipping' | t }} <span aria-hidden="true">🚚</span></span><span>{% if shipping_amount == 0 %}{{ 'cart.general.shipping_free' | t }}{% else %}{% render 'cart-money', amount: shipping_amount %}{% endif %}</span></p>
+    <p class="cart-totals__total" data-cart-total><strong>{{ 'cart.label.total' | t }}</strong><strong>{% render 'cart-money', amount: shipping_total %}</strong></p>
+    {% if cart.taxes_included %}<p class="cart-tax">{{ 'cart.general.tax_included_short' | t }}</p>{% endif %}
+  {%- else -%}
+    <p class="cart-totals__total"><strong>{{ 'cart.label.total' | t }}</strong><strong>{% render 'cart-money', amount: cart.total_price %}</strong></p>
+    <p class="cart-tax">{% if cart.taxes_included %}{{ 'cart.general.taxes_included' | t }}{% else %}{{ 'cart.general.taxes_and_shipping' | t }}{% endif %}</p>
+  {%- endif -%}
+{%- elsif supported_destination and cart.currency.iso_code == 'CHF' and threshold > 0 -%}
+  <div class="cart-shipping cart-shipping--progress{% if remaining == 0 and cart.item_count > 0 %} cart-shipping--qualified{% endif %}">
+    <p id="CartShipping-{{ surface }}" class="cart-shipping__message">
+      <span aria-hidden="true">📦</span>
+      {% if remaining == 0 and cart.item_count > 0 %}
+        {{ 'cart.general.shipping_qualified' | t }} <span aria-hidden="true">🥳</span>
+      {%- else -%}
+        {%- capture amount -%}{% render 'cart-money', amount: remaining %}{%- endcapture -%}
+        {{ 'cart.general.shipping_remaining' | t: amount: amount }} <span aria-hidden="true">✌️</span>
+      {%- endif -%}
+    </p>
+    <div class="cart-shipping__track" role="progressbar" aria-label="{{ 'cart.general.shipping_progress' | t }}" aria-describedby="CartShipping-{{ surface }}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ progress | round }}">
+      <span class="cart-shipping__fill" style="width: {{ progress }}%"></span>
+    </div>
+  </div>
+{%- else -%}
+  <p class="cart-shipping">{{ 'cart.general.shipping_notice' | t }}</p>
+{%- endif -%}

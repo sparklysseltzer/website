@@ -8,11 +8,12 @@
   assign page_brand_context = page_brand_context | strip
 -%}
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}">
+<html data-color-world="{{ page_brand_context | replace: 'default', 'general' }}" class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#f7f3eb">
+    {%- assign world_background_key = page_brand_context | replace: 'default', 'general' | prepend: 'color_' | append: '_background' -%}
+    <meta name="theme-color" content="{{ settings[world_background_key] | default: '#ffffff' }}">
     <link rel="canonical" href="{{ canonical_url }}">
 
     <link rel="icon" type="image/png" sizes="32x32" href="{{ 'favicon.png' | asset_url }}">
@@ -72,10 +73,6 @@
       }
 
       :root {
-        --color-background: #f7f3eb;
-        --color-foreground: #172019;
-        --color-accent: #e34f2f;
-        --color-surface: #ffffff;
         --radius-small: {{ settings.border_radius_small }}px;
         --radius-large: {{ settings.border_radius_large }}px;
         --page-grain-opacity: {{ settings.grain_intensity | divided_by: 100.0 }};
@@ -87,6 +84,7 @@
         --font-heading-weight: 400;
         --font-heading-letter-spacing: normal;
       }
+      {% render 'color-palettes' %}
     </style>
 
     {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
@@ -108,5 +106,6 @@
     </main>
 
     {% sections 'footer-group' %}
+    {% section 'cart-drawer' %}
   </body>
 </html>

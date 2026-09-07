@@ -1,0 +1,31 @@
+{% comment %}Inside the cart form: buttons are JS-enhanced, never a nested form.{% endcomment %}
+{%- liquid
+  assign codes = cart.cart_level_discount_applications | where: 'type', 'discount_code' | map: 'title'
+  for item in cart.items
+    assign applications = item.line_level_discount_allocations | map: 'discount_application'
+    assign line_codes = applications | where: 'type', 'discount_code' | map: 'title'
+    assign codes = codes | concat: line_codes
+  endfor
+  assign codes = codes | uniq
+-%}
+<div class="cart-coupons" data-cart-coupons
+  data-single="{{ 'cart.coupons.single' | t | escape }}"
+  data-applied="{{ 'cart.coupons.applied' | t | escape }}"
+  data-rejected="{{ 'cart.coupons.rejected' | t | escape }}"
+  data-unallocated="{{ 'cart.coupons.unallocated' | t | escape }}"
+  data-removed="{{ 'cart.coupons.removed' | t | escape }}"
+  data-pending="{{ 'cart.coupons.pending' | t | escape }}"
+  data-remove-label="{{ 'cart.coupons.remove' | t | escape }}"
+  data-duplicate="{{ 'cart.coupons.duplicate' | t | escape }}"
+  data-failed="{{ 'cart.coupons.failed' | t | escape }}">
+  <label class="visually-hidden" for="CartCoupon-{{ surface }}">{{ 'cart.coupons.label' | t }}</label>
+  <div class="cart-coupons__entry">
+    <input class="field__input" id="CartCoupon-{{ surface }}" data-cart-coupon-input type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="CartCouponStatus-{{ surface }}" placeholder="{{ 'cart.coupons.placeholder' | t }}">
+    <button type="button" class="button button--secondary" data-cart-coupon-apply><span class="button__label">{{ 'cart.coupons.apply' | t }}</span></button>
+  </div>
+  <ul class="cart-coupons__codes" data-cart-coupon-codes aria-label="{{ 'cart.coupons.codes' | t }}">
+    {% for code in codes %}<li data-applied-code="{{ code | escape }}"><span aria-hidden="true">🏷️</span><span>{{ code | escape }}</span></li>{% endfor %}
+  </ul>
+  <p class="cart-coupons__status" id="CartCouponStatus-{{ surface }}" data-cart-coupon-status role="status" aria-live="polite" aria-atomic="true"></p>
+  <noscript><p class="cart-coupons__fallback">{{ 'cart.coupons.no_js' | t }}</p></noscript>
+</div>

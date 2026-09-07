@@ -28,8 +28,14 @@ The numeral and heading words align on the final text baseline, not the bottom o
 
 These are editorial benefit statements, not a supported standalone Schema.org entity. The section intentionally emits no JSON-LD and must not be represented as Review, Claim, Product, or Offer data without a future canonical data contract.
 
-## Shared typography roles
+## Typography roles
 
 The documented numeral headline exception is preserved. Card headings; the same body role for introduction and descriptions; small footnote.
 
-Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.
+## Shared color settings
+
+Shared neutral UI colors now resolve through **Theme settings → Colors**, following the [color contract](../design-system.md#theme-color-settings). This supersedes fixed neutral hex values in earlier frame descriptions. Primary text, inverse text, gray/cream surfaces and hover states use global roles; product artwork, deliberate product-world accents and explicit section color overrides remain local. No schema/data-source, motion or structured-data behavior changes.
+
+## Brand-world palettes
+
+Colors now follow the [brand-world palette contract](../design-system.md#theme-color-settings). Explicit Soda/Seltzer sections and cards select their own palette on mixed pages; the header/footer inherit page context, and both cart surfaces always use General. Shared accent/status roles and explicit artwork/section overrides remain unchanged. Notice copy resolves through its world’s Notice text setting.

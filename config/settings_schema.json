@@ -8,6 +8,326 @@
     "theme_support_url": "https://github.com/sparklysseltzer/website/issues"
   },
   {
+    "name": "Colors \u2014 Shared",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Accent, interaction and success/error colors are shared across all brand worlds."
+      },
+      {
+        "type": "header",
+        "content": "Accent and interaction"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent / focus / shipping progress",
+        "default": "#e34f2f"
+      },
+      {
+        "type": "color",
+        "id": "color_surface_hover",
+        "label": "Muted surface hover",
+        "default": "#dddddd"
+      },
+      {
+        "type": "color",
+        "id": "color_inverse_hover",
+        "label": "Dark surface hover",
+        "default": "#4d4d4d"
+      },
+      {
+        "type": "header",
+        "content": "Status colors"
+      },
+      {
+        "type": "color",
+        "id": "color_success_text",
+        "label": "Success text",
+        "default": "#0a4d2e"
+      },
+      {
+        "type": "color",
+        "id": "color_success_surface",
+        "label": "Success surface",
+        "default": "#d9f8e5"
+      },
+      {
+        "type": "color",
+        "id": "color_error_text",
+        "label": "Error text",
+        "default": "#7a1d1d"
+      },
+      {
+        "type": "color",
+        "id": "color_error_surface",
+        "label": "Error surface",
+        "default": "#ffe3e3"
+      }
+    ]
+  },
+  {
+    "name": "Colors \u2014 General Sparklys",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "General Sparklys palette. Sections explicitly belonging to this world use these colors even on another world\u2019s page."
+      },
+      {
+        "type": "header",
+        "content": "Backgrounds"
+      },
+      {
+        "type": "color",
+        "id": "color_general_background",
+        "label": "Page background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_general_surface",
+        "label": "Surface / cards",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_general_surface_muted",
+        "label": "Muted surface / progress track",
+        "default": "#eeeeee"
+      },
+      {
+        "type": "color",
+        "id": "color_general_surface_warm",
+        "label": "Supporting surface / editorial cards",
+        "default": "#f2f2f2"
+      },
+      {
+        "type": "color",
+        "id": "color_general_surface_inverse",
+        "label": "Dark surface / footer cards",
+        "default": "#191919"
+      },
+      {
+        "type": "header",
+        "content": "Text colors"
+      },
+      {
+        "type": "color",
+        "id": "color_general_foreground",
+        "label": "Primary text / dark actions",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "color_general_text_inverse",
+        "label": "Text on dark surfaces / actions",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_general_text_secondary",
+        "label": "Secondary neutral text",
+        "default": "#4d4d4d"
+      },
+      {
+        "type": "color",
+        "id": "color_general_text_muted",
+        "label": "Muted text",
+        "default": "#4d4d4d"
+      },
+      {
+        "type": "header",
+        "content": "Notice colors"
+      },
+      {
+        "type": "color",
+        "id": "color_general_notice_text",
+        "label": "Notice text",
+        "default": "#9e9e9d"
+      },
+      {
+        "type": "color",
+        "id": "color_general_notice_surface",
+        "label": "Notice surface",
+        "default": "#eeeeee"
+      }
+    ]
+  },
+  {
+    "name": "Colors \u2014 Soda",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Soda palette. Sections explicitly belonging to this world use these colors even on another world\u2019s page."
+      },
+      {
+        "type": "header",
+        "content": "Backgrounds"
+      },
+      {
+        "type": "color",
+        "id": "color_soda_background",
+        "label": "Page background",
+        "default": "#f7f3eb"
+      },
+      {
+        "type": "color",
+        "id": "color_soda_surface",
+        "label": "Surface / cards",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_soda_surface_muted",
+        "label": "Muted surface / progress track",
+        "default": "#eeeeee"
+      },
+      {
+        "type": "color",
+        "id": "color_soda_surface_warm",
+        "label": "Supporting surface / editorial cards",
+        "default": "#faf8f2"
+      },
+      {
+        "type": "color",
+        "id": "color_soda_surface_inverse",
+        "label": "Dark surface / footer cards",
+        "default": "#191919"
+      },
+      {
+        "type": "header",
+        "content": "Text colors"
+      },
+      {
+        "type": "color",
+        "id": "color_soda_foreground",
+        "label": "Primary text / dark actions",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "color_soda_text_inverse",
+        "label": "Text on dark surfaces / actions",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_soda_text_secondary",
+        "label": "Secondary neutral text",
+        "default": "#4d4d4d"
+      },
+      {
+        "type": "color",
+        "id": "color_soda_text_muted",
+        "label": "Muted text",
+        "default": "#786e5b"
+      },
+      {
+        "type": "header",
+        "content": "Notice colors"
+      },
+      {
+        "type": "color",
+        "id": "color_soda_notice_text",
+        "label": "Notice text",
+        "default": "#786e5b"
+      },
+      {
+        "type": "color",
+        "id": "color_soda_notice_surface",
+        "label": "Notice surface",
+        "default": "#faf8f2"
+      }
+    ]
+  },
+  {
+    "name": "Colors \u2014 Hard Seltzer",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Hard Seltzer palette. Sections explicitly belonging to this world use these colors even on another world\u2019s page."
+      },
+      {
+        "type": "header",
+        "content": "Backgrounds"
+      },
+      {
+        "type": "color",
+        "id": "color_seltzer_background",
+        "label": "Page background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_seltzer_surface",
+        "label": "Surface / cards",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_seltzer_surface_muted",
+        "label": "Muted surface / progress track",
+        "default": "#eeeeee"
+      },
+      {
+        "type": "color",
+        "id": "color_seltzer_surface_warm",
+        "label": "Supporting surface / editorial cards",
+        "default": "#f2f2f2"
+      },
+      {
+        "type": "color",
+        "id": "color_seltzer_surface_inverse",
+        "label": "Dark surface / footer cards",
+        "default": "#191919"
+      },
+      {
+        "type": "header",
+        "content": "Text colors"
+      },
+      {
+        "type": "color",
+        "id": "color_seltzer_foreground",
+        "label": "Primary text / dark actions",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "color_seltzer_text_inverse",
+        "label": "Text on dark surfaces / actions",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_seltzer_text_secondary",
+        "label": "Secondary neutral text",
+        "default": "#4d4d4d"
+      },
+      {
+        "type": "color",
+        "id": "color_seltzer_text_muted",
+        "label": "Muted text",
+        "default": "#4d4d4d"
+      },
+      {
+        "type": "header",
+        "content": "Notice colors"
+      },
+      {
+        "type": "color",
+        "id": "color_seltzer_notice_text",
+        "label": "Notice text",
+        "default": "#9e9e9d"
+      },
+      {
+        "type": "color",
+        "id": "color_seltzer_notice_surface",
+        "label": "Notice surface",
+        "default": "#eeeeee"
+      }
+    ]
+  },
+  {
     "name": "Effects",
     "settings": [
       {
@@ -47,6 +367,31 @@
         "label": "Large border radius",
         "info": "Used for editorial panels, generic cards, and product media.",
         "default": 30
+      }
+    ]
+  },
+  {
+    "name": "Cart shipping",
+    "settings": [
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold (CHF)",
+        "default": 50,
+        "info": "Match the minimum order value in Shopify shipping settings. Uses the cart total after discounts for Switzerland and Liechtenstein in CHF. Set to 0 to hide progress and shipping estimates."
+      },
+      {
+        "type": "number",
+        "id": "flat_shipping_rate",
+        "label": "Flat shipping rate (CHF)",
+        "default": 9,
+        "info": "Estimated shipping below the free-shipping threshold. Keep aligned with Shopify rates for Switzerland and Liechtenstein."
+      },
+      {
+        "type": "product_list",
+        "id": "free_shipping_products",
+        "label": "Products qualifying for free shipping",
+        "info": "A cart containing any selected product qualifies. Leave empty to use the Sparklys Soda trial pack. Keep this selection aligned with Shopify shipping rules."
       }
     ]
   }

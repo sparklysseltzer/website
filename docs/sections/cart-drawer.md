@@ -1,35 +1,24 @@
-# Main cart
+# Cart drawer
 
-Source: `sections/main-cart.liquid`; shared rendering: `snippets/cart-content.liquid`.
-Template: `templates/cart.json`.
+Source: `sections/cart-drawer.liquid`, statically included by `layout/theme.liquid` on every page. Shared rows, empty state and totals: `snippets/cart-content.liquid`. Global controller: `assets/theme.js`; shared styling: `assets/base.css`.
 
-## Rendering contract
+## Rendering and behavior
 
-A neutral, centered cart column follows the composition recorded in [Cart reference](../cart-reference.md), using shared typography, 80px phone/104px desktop rounded image tiles, compact product rows with quantity/line-total alignment, gray circular remove targets, outlined pill quantity controls, a right-aligned Update action, a checkout notice, outlined notes and totals, and a full-width checkout button. A shared free-shipping meter replaces the shipping strip for supported destinations/currency; see its contract below. Desktop notes sit beside totals; phone totals precede notes. There are no section settings or fallback product assets beyond a generic Shopify placeholder when an item has no image.
+A white right-side native modal dialog, at most 600px wide and full width on phones, follows the reference composition with a bag/title header, close button, cart rows, checkout summary and cart-page link. Short carts push the summary toward the bottom; long carts scroll the entire panel so checkout remains reachable without trapping content in a short inner scroller. The drawer always uses the neutral Newake card-size heading, including on Soda pages. Shared global Cart shipping settings control the free-shipping meter; see below. Compact product rows align quantity controls and line totals; the bottom summary shows the merchandise subtotal, any applicable cart discounts, estimated shipping and estimated total, and retains a cart-page link.
 
-Shopify supplies responsive images, product/option names, public line properties (private underscore-prefixed properties are omitted), selling-plan names when present, unit/unit-measurement prices, original/final line prices, line/cart discount allocations, savings, currency and tax state. Savings are informational, not subtracted twice. English source and German UI live in locale files. Shipping progress follows the confirmed rule and editable settings documented below.
+The header's real cart link opens the enhanced drawer. Successful product addition renders Shopify's bundled sections and opens it. Opening from the header refreshes server state. Changes render both surfaces and the badge together from Shopify section HTML; no client-side price arithmetic or duplicated cart templates are used. Mutations are serialized across theme product/cart forms, controls show pending state, Shopify errors are visible, and failed requests reconcile without retrying additions. Missing section responses are treated as failures, not empty carts. Native cart-page links remain recovery paths.
 
-Empty carts show the approved framed Bob Ross artwork, the existing English playful quote, localized explanatory text and a shopping link, with no form or checkout action. The bundled `assets/cart-empty-bob-ross.png` is the original 592 × 790 image (about 147 KiB) from the legacy Sparklys theme, reused at the user’s request. Alternative text is localized; the quote remains English in both locales with `lang="en"` and is not attributed as an authentic Bob Ross quote. No runtime remote image is used.
+Native `dialog.showModal()` provides modal focus containment and background inertness. Close, backdrop and Escape dismiss it; focus returns to its opener. Quantity refreshes preserve line focus where possible. Reduced motion disables the entry animation. The document is not scroll-locked. Without dialog support or JavaScript, the header navigates to the normal cart and product forms submit normally.
 
-## Forms and enhancement
-
-Native locale-aware cart POST forms retain quantities, notes, update and checkout without JavaScript. Remove links use Shopify's removal URLs. JavaScript adds plus/minus controls and inventory-validated changes through `change.js`, persists notes on Update, and refreshes both cart surfaces plus the header count. Checkout uses the native form; drawer checkout carries an unsaved note from the page when present. Quantity zero removes a line. Shopify quantity increments/maxima are rendered; Shopify remains authoritative for inventory and rule validation.
-
-The global `cart-drawer` controller owns synchronization, request serialization, visible errors and polite status announcements. Dirty page notes survive drawer refreshes. Failed requests trigger read-only reconciliation, never automatic mutation retries. See [Cart drawer](cart-drawer.md).
-
-## Structured data
-
-A cart is a transactional summary, not a new Product/Offer entity. No duplicate Product/Offer JSON-LD is emitted for cart lines; entity markup belongs on the product resource pages.
-
-## Verification and limitations
-
-Theme Check, syntax, JSON, whitespace, typography and asset checks run locally. A temporary Liquid/browser fixture exercises phone/desktop layout, synchronization, inventory-error recovery, draft preservation, add/open, empty transitions and Escape/focus restoration. This fixture is not Shopify integration certification.
-
-Real-store preview checks remain for checkout handoff, inventory/discount combinations, German merchant data, quantity rules, uploads, long carts, native no-JavaScript POST/note persistence and mobile keyboard use. Subscription selection/checkout charge presentation, cart attributes, recommendations, last-minute offers remain outside this phase. Displaying a selling-plan name does not establish subscription support.
+There is no drawer note field; notes belong to the full cart. An existing page-note draft is included in drawer checkout. Empty carts suppress checkout and show the same shopping state as the page. Shared line data, discount display, fallback assets, localization and structured-data decision follow [Main cart](main-cart.md).
 
 ## Typography roles
 
-Hero page title; bold body product titles; compact total and empty-state quote; body/UI forms; label line prices; small options, discounts and guidance. The empty-state quote uses Erode Bold with explicitly synthesized italic styling and body-compact leading, rather than introducing a new typeface or size. It is supporting copy, not a heading. No heading-size or rhythm exceptions.
+Card heading, bold body product titles, compact total and empty-state quote, body/UI controls, label prices and small metadata/guidance. Newake uses its existing shared heading rhythm and tracking; no composition exceptions.
+
+## Verification and limitations
+
+Local browser fixtures cover phone/desktop sizing, quantity/header synchronization, rejection recovery, note drafts, removal to empty, add/open and Escape/focus restoration. Shopify-hosted preview verification of real product addition, checkout, discounts, long carts, keyboard and no-JavaScript journeys remains required. Subscriptions and recommendations remain deferred. The user explicitly requested Bob Ross artwork on the subsequent visual revision; it is now bundled and shared with the cart page. Shipping progress uses the user-confirmed rule below.
 
 ## Section refresh regression — 2026-09-06
 
@@ -37,13 +26,11 @@ Do not send `Accept: application/json` when fetching `/cart?sections=...`: the d
 
 Verified the fix in the Shopify development preview with a real Yuzu & Ginger 12-pack: add opens the drawer, drawer quantity 1 → 2 recalculates the total, cart-page quantity 2 → 3 synchronizes both surfaces/count, and explicit Update succeeds. Tested desktop drawer and phone cart contexts. Checkout was not submitted.
 
-## Faster quantity updates
+## Visual revision and response time — 2026-09-06
 
-A normal quantity change renders the bundled sections from `change.js` directly: one request, with no redundant note save or section GET. Notes save only when their value differs from the server-rendered default. The Update button still refreshes when there are no edits. Repeated taps on the active line update quantity fields in both surfaces immediately and coalesce into the latest desired quantity while a request is in flight. Requests remain serialized; totals and count use only Shopify-confirmed values. Other lines and checkout wait until confirmation. The next request uses Shopify’s returned line key because discounts may change it. Removal to zero stops further taps until reconciliation. Errors still use read-only reconciliation and never retry mutations automatically.
+Re-inspected the live empty/filled drawer and restored the framed Bob Ross empty-state composition: centered local artwork, English playful quote, localized copy and shopping action. Asset dimensions, provenance and quote typography are documented in [Main cart](main-cart.md). The image scales to the panel and viewport height; long/short viewport layouts keep content scrollable. The summary stays near the bottom of short filled carts.
 
-Verified in the real preview: an ordinary page quantity change makes exactly one `change.js` request; three rapid taps show the final quantity immediately on both surfaces and reconcile through two requests. One observed Shopify response took approximately 600 ms, so this is fewer round trips and immediate control feedback, not a promise of instant server totals.
-
-The visual revision was checked against the live reference at 390px and 1440px; the 320px drawer also had no horizontal overflow. Real preview tests covered two product lines, note save/reset, rapid-tap reconciliation, removal to the illustrated empty state, and a simulated 422 response restoring pending quantities without retrying the mutation. Checkout was not submitted.
+Quantity edits now reuse Shopify’s bundled section response instead of issuing a follow-up refresh. Active-line taps remain responsive while requests run, with pending values shared across both surfaces and final totals confirmed by Shopify. See the shared controller contract in [Main cart](main-cart.md#faster-quantity-updates).
 
 ## Free-shipping progress — 2026-09-06
 
@@ -97,6 +84,11 @@ Discount-code and order-discount labels end with a decorative 🏷️ emoji; sav
 ### Shipping progress panel — 2026-09-07
 
 The shared progress message and meter sit in a padded, rounded General Muted surface panel with centered text. A decorative 📦 precedes the label and ✌️ follows it. At the existing qualifying threshold or trial-pack condition, the panel uses shared Success surface and Success text tokens, and the trailing emoji becomes 🥳. Returning below eligibility restores the neutral panel. Empty carts remain neutral. Emojis are hidden from assistive technology; translated messages and accessible progress semantics remain unchanged. The track uses Surface to remain visible within the muted panel; the fill retains the global Accent. Server-rendered state updates through the existing section responses without extra requests or animation.
+
+
+### Drawer footer — 2026-09-07
+
+The drawer ends with the checkout button. The merchant requested removal of the secondary View cart link (Warenkorb ansehen); the cart page remains available at Shopify’s cart route.
 
 The compact shipping panel uses 8px vertical / 12px horizontal padding, 6px message-to-track spacing, a 6px track, and 16px bottom spacing. Message typography uses the shared Small role. These dimensions apply consistently to both cart surfaces and both eligibility states.
 

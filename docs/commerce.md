@@ -18,16 +18,13 @@ The cart must display line items, quantities, totals, discounts, properties, sel
 
 For JavaScript enhancement, use the locale-aware [Cart Ajax API](https://shopify.dev/docs/api/ajax/reference/cart). Build endpoints from `window.Shopify.routes.root` and handle non-2xx JSON responses visibly.
 
-Current cart gaps before production:
+The cart page and global drawer now share server-rendered rows and totals, including images, public properties, line/cart discount allocations and selling-plan names where present. Native forms retain quantity edits, notes and checkout; enhanced mutations use `change.js` for inventory validation and refresh both surfaces/count from Shopify sections. See [Main cart](sections/main-cart.md) and [Cart drawer](sections/cart-drawer.md).
 
-- cart-level and line-level discounts;
-- selling-plan names and checkout charge details;
-- line-item properties;
-- quantity rules and inventory-specific messaging;
-- optional notes/attributes if the business requires them;
-- more accessible table semantics and price labels.
+Remaining production work includes real-store inventory/discount/checkout verification, subscription checkout-charge details and end-to-end selling-plan support, cart attributes, and the separately scoped coupon and upsell features below. The user-confirmed CHF 50 threshold and trial-pack exception now drive the shared progress bar; see [Main cart](sections/main-cart.md#free-shipping-progress--2026-09-06).
 
 ## Subscriptions
+
+The [Subscription section](sections/subscription.md) is an implemented promotional poster, not selling-plan commerce support. Keep its existence separate from the integration requirements below.
 
 Subscriptions are supported by Shopify but not automatically supported by a custom theme. Shopify requires coordinated behavior across product and cart surfaces. See [Add subscriptions to your theme](https://shopify.dev/docs/storefronts/themes/pricing-payments/subscriptions/add-subscriptions-to-your-theme).
 
@@ -62,6 +59,8 @@ Until that is resolved, age verification is a product requirement and architectu
 
 ## Coupon experience
 
+See the [cart coupon implementation plan](cart-coupons-plan.md) for the theme-first decision, shared cart/drawer UX and shipping-code limitations. The confirmed MVP covers applied-code visibility and known campaign/newsletter code entry; coupon discovery and catalog synchronization are excluded. The cart/drawer MVP is implemented; see the section contracts for the remaining real-code and checkout verification.
+
 Shopify's Cart Ajax API now supports adding or removing discount codes through the `discount` parameter on `cart/update.js`; see [Update discounts in the cart](https://shopify.dev/docs/api/ajax/reference/cart#update-discounts-in-the-cart). Final behavior still depends on Shopify's discount validation and combinations.
 
 Desired surfaces:
@@ -84,7 +83,7 @@ The cart drawer should support two future conversion patterns:
 
 Before building either, define recommendation source, eligibility, inventory handling, merchandising control, analytics, dismiss behavior, repetition limits, and fallbacks. An app, Shopify product recommendations, manually selected products, or custom logic might own the offers.
 
-Free-shipping progress must be calculated from the same effective threshold used by Shopify for the current market/currency and must account for qualifying subtotal semantics and discounts. If the shipping rule cannot be read reliably by the theme, use a synchronized configuration or app rather than silently duplicating business logic.
+Free-shipping progress must be calculated from the same effective threshold used by Shopify for the current market/currency and must account for qualifying subtotal semantics and discounts. The theme uses an explicit merchant-maintained Cart shipping setting matching the confirmed checkout rule. Shopify does not synchronize it automatically; keep the threshold, flat rate and qualifying product selection aligned with shipping settings. Cart and drawer also show estimated shipping and a total including shipping: CHF 9 below CHF 50, free from CHF 50 or with a qualifying trial pack. These estimates use the discounted cart total for CH/LI in CHF; final shipping, taxes and shipping discounts are confirmed at checkout.
 
 ## Markets, currencies, and languages
 
@@ -137,3 +136,5 @@ Before finalizing commerce architecture, inventory the exact installed providers
 - customer accounts and subscription management.
 
 For each provider, record placement, data source, required scripts/API, consent category, checkout behavior, failure mode, and test plan.
+
+Cart shipping copy now uses Shipping and Total for the confirmed fixed rule, without estimate or checkout-confirmation wording. Cart currency display uses the Shopify presentment ISO code once; see the current main-cart rendering contract.

@@ -1,6 +1,6 @@
 # Architecture
 
-Last reconciled with the repository on 2026-09-04.
+Last reconciled with the repository on 2026-09-06.
 
 ## System boundary
 
@@ -54,20 +54,7 @@ See [Section reference](sections/README.md), [Merchant content](merchant-content
 
 ## Current template map
 
-| Template | Main composition |
-| --- | --- |
-| Home | Hero, Rich text, Product Overview Teaser, Offer Cards, Logo Marquee |
-| Product | Main Product |
-| Collection | Main Collection; Soda and Seltzer alternate templates add context-aware Hero, Rich text, and USP editorial modules |
-| Cart | Main Cart |
-| Search | Main Search |
-| Collections list | Main List Collections |
-| Page | Main Page; the `page.faq` alternate template renders the searchable FAQ directory |
-| Blog | Main Blog |
-| Article | Main Article |
-| 404 | Main 404 |
-
-Poster, Split Image-Text, and Featured Collection are reusable preset sections but are not currently placed in the homepage template. The exact section identifiers, blocks, settings, assets, and known gaps are catalogued in [Section reference](sections/README.md).
+`templates/*.json` is the authoritative composition map. Branded collection/product templates retain distinct resource contexts, and `page.faq.json` hosts the searchable FAQ directory. The development homepage contains a growing working section showcase and merchant test settings; do not treat it as approved launch composition. Resource-to-section mappings and available presets are indexed in the [Section reference](sections/README.md).
 
 ## Theme Editor configuration design
 
@@ -106,7 +93,7 @@ Browser session state is never the authority. A direct product URL must render t
 | Soda | Erode Bold, `-0.03em` tracking | Sparklys Soda |
 | Hard Seltzer | Newake | Sparklys Hard Seltzer |
 
-Maison Neue Demi remains the body, UI, and `h3`–`h6` family. Footer card headings intentionally use Newake in every context.
+The [design system](design-system.md) owns exact font roles and intentional exceptions, including small Erode editorial titles and Newake footer card headings.
 
 ## Navigation and URL rules
 
@@ -133,22 +120,7 @@ English is the source language and default locale in `locales/en.default.json`; 
 
 ## Layout and visual tokens
 
-All text sizes use the centrally defined fluid roles in [Design system](design-system.md#shared-fluid-roles). Standard body copy shares the 16–17px curve across 390–1440px, independent of section and product world. Labels, actions and heading tiers have their own shared roles; documented artwork compositions are the only local size exceptions. The root remains 100%. `npm run check:typography` prevents new section-specific size rules.
-
-[Design system](design-system.md) owns the visual normalization rules. Heading rhythm is centralized in `assets/base.css`: Newake uses `--line-height-heading-newake` (`0.95`), Erode uses `--line-height-heading-erode` (`0.9`), and `--line-height-heading` resolves the active font. Explicit font choices also select their matching rhythm. Do not copy inconsistent line-height values from individual frames into section CSS.
-
-Small multiline Erode editorial card titles use the centrally mapped `--line-height-heading-small-erode` (`1`) role rather than large-display leading. Compact editorial body/UI copy can use `--line-height-body-compact` (`1.3`). Keep role definitions shared across sections; composition-specific exceptions remain documented in the design system.
-
-- `--page-width` is the shared 120rem/1920px outer-frame limit.
-- `--page-gutter` is 1rem below 768px and 2rem from 768px.
-- `.section` and the compatibility alias `.section--tight` use one shared vertical rhythm: `clamp(2rem, 5vw, 4rem)`, or 32–64px per side. Do not introduce a looser default section gap.
-- `--radius-small` and `--radius-large` map the Theme Settings border-radius controls. Their defaults are 1rem/16px for compact UI panels and tiles, and 1.875rem/30px for editorial panels, generic cards, and collection/product media. Pills, circles, controls, and special header geometry keep purpose-specific radii.
-- The global background, foreground, accent, and surface palette is fixed in the theme CSS rather than exposed as generic Theme Settings; section-specific color controls remain local to the sections that use them.
-- `--page-grain-opacity` maps Theme Settings grain intensity; the current project default is 30%.
-- One document-attached `.page-grain` layer repeats `noise-3.webp` at Retina density and scrolls with the content.
-- `base.css` owns global primitives and shared components. A section may own substantial portable styling when its dependencies remain explicit.
-
-Theme assets are local and referenced with `asset_url`. Shopify-hosted merchant images use `image_url` and `image_tag` with responsive widths, accurate `sizes`, dimensions, loading intent, and useful alt text.
+The [design system](design-system.md) owns typography, spacing, radius, palette, grain, and approved composition exceptions. `assets/base.css` defines shared roles; `npm run check:typography` guards against local size drift. [Frontend assets](frontend-assets.md) owns CSS/JS placement, font/image delivery, export rules, and budgets. Keep section-specific geometry in the owning section document.
 
 ## Motion language
 
@@ -173,7 +145,8 @@ Current custom elements/controllers are:
 
 | Component | Ownership |
 | --- | --- |
-| `product-form` | Ajax add-to-cart and live status feedback |
+| `product-form` | Ajax add-to-cart through the shared cart controller and live status feedback |
+| `cart-drawer` | Native modal, serialized cart mutations, synchronized section rendering, notes and header count |
 | `header-corporate-menu` | Enhanced dismissal for native header disclosures |
 | Header scroll-intent controller | Desktop restoration/hiding of the black switcher bar |
 | `newsletter-form` | In-place rendering of Shopify's native form response |
@@ -184,9 +157,12 @@ Current custom elements/controllers are:
 | `faq-section-motion` | Reversible FAQ heading, controls, item, and closing-link reveals |
 | `faq-accordion` | One-open-at-a-time enhancement for native FAQ details elements |
 | `faq-directory` | Client-side FAQ text search, category filtering, count feedback, and URL state |
+| `editorial-section-motion` | Shared reversible reveals for ingredients, reasons, awards, and comparisons |
 
 Use custom elements to scope behavior, native browser APIs instead of broad dependencies, and live regions for dynamic status. Follow [Frontend asset structure and delivery](frontend-assets.md) for budgets and placement.
 
 ## Extension points
 
-The architecture anticipates, but does not yet claim, support for app blocks, selling plans, localization controls, product recommendations, predictive search, structured product data, analytics/consent integration, and richer cart behavior. Each capability requires an end-to-end contract across every affected surface before it is marked supported.
+The architecture anticipates, but does not yet claim, support for app blocks, selling plans, localization controls, product recommendations, predictive search, structured product data, analytics/consent integration, and further cart integrations. Each capability requires an end-to-end contract across every affected surface before it is marked supported.
+
+Shared UI colors are merchant-editable through Shared, General Sparklys, Soda and Hard Seltzer color groups. The existing brand-context resolver selects the document palette, explicit world sections select their own palette, and carts use General. The layout emits the [semantic color roles](design-system.md#theme-color-settings), with artwork and section-override exceptions.

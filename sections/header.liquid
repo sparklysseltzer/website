@@ -217,7 +217,7 @@
             alt=""
           >
         </span>
-        <a class="site-header__action site-header__cart" href="{{ routes.cart_url }}">
+        <a class="site-header__action site-header__cart" data-cart-open href="{{ routes.cart_url }}">
           <img
             class="site-header__action-icon site-header__action-icon--cart"
             src="{{ 'icon-cart.svg' | asset_url }}"
@@ -229,7 +229,7 @@
           {%- if cart.item_count > 0 -%}
             <span class="site-header__cart-count" data-cart-count aria-hidden="true">{{ cart.item_count }}</span>
           {%- else -%}
-            <span data-cart-count hidden aria-hidden="true">0</span>
+            <span class="site-header__cart-count" data-cart-count hidden aria-hidden="true">0</span>
           {%- endif -%}
         </a>
       </div>

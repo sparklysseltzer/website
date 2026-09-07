@@ -36,7 +36,7 @@ We chose a custom native Shopify theme because it provides:
 
 ## Current scope
 
-The current theme includes the global layout, three-context header and footer, homepage composition, products, collections, cart, search, standard pages, a dedicated FAQ directory, blogs, articles, and error handling. The homepage currently composes Hero, Rich Text, Product Overview Teaser, Offer Cards, and Logo Marquee. Poster, Split Image-Text, Featured Collection, and FAQ are reusable Theme Editor sections but are not currently placed on the homepage. See the [Section reference](sections/README.md) for the exact implemented contract and the [Implementation status](status.md) for remaining production gaps.
+The theme covers the global shell, reusable editorial modules, and native Shopify resource pages. The development homepage is a working composition with merchant-entered test content, not final launch copy. See [Implementation status](status.md) for supported capabilities and production gaps, and the [Section reference](sections/README.md) for module contracts. JSON templates own current page composition.
 
 ## Storefront brand contexts
 
@@ -52,7 +52,7 @@ The homepage introduces both product worlds and the overall Sparklys brand. It m
 
 The black top bar is the product-world switcher. The white bar below it changes logo and navigation according to the current context. Direct entry to any classified URL must render the correct context without requiring the visitor to select a tab first.
 
-Heading typography also follows the product-world context. General and Hard Seltzer pages use Newake for `h1` and `h2`; Soda pages use Erode Bold with `-0.03em` letter spacing (the CSS equivalent of −3%). Headings from `h3` onward and body/UI copy continue to use Maison Neue Demi in every context.
+Typography follows product-world identity, with shared body/UI roles across worlds. The [design system](design-system.md) owns font selection, sizing, rhythm, and explicit editorial exceptions.
 
 Product detail pages belong to the same product world as their products. A Soda product receives the Soda header, active Soda tab, Soda navigation, Erode Bold headings, and Soda footer. A Hard Seltzer product receives the corresponding Hard Seltzer header, tab, navigation, Newake headings, and footer. Product-world styling is not limited to collection landing pages.
 
@@ -65,7 +65,7 @@ Soda and Hard Seltzer use Shopify collections as their primary brand-and-shop la
 - The default collection template is a neutral product-grid surface for ordinary collections.
 - The Soda collection uses the `collection.soda` template and combines its own brand design and editorial sections with the native Soda product grid.
 - The Hard Seltzer collection uses the `collection.seltzer` template and combines its own brand design and editorial sections with the native Hard Seltzer product grid.
-- The black-bar Soda and Hard Seltzer tabs link directly to these configured collection objects.
+- The black-bar Soda and Hard Seltzer tabs link to the canonical brand collections resolved by the theme.
 - Regular Pages remain appropriate for distinct supporting content such as ingredients, brand stories, FAQs, campaigns, or other editorial topics—not a duplicate brand catalog.
 
 This keeps brand storytelling, merchandising, sorting, filtering, pagination, SEO ownership, and product discovery on one canonical collection destination per product world.

@@ -14,8 +14,6 @@ The image uses bounded responsive widths and intrinsic metadata. The complete ar
 
 Author, tags, social sharing, comments, related articles, and article structured data are not implemented.
 
-## Shared typography roles
+## Typography roles
 
 Hero-size page title; body reading copy; shared semantic heading roles inside rich text.
-
-Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.

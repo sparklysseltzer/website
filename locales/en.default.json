@@ -34,8 +34,12 @@
       "account_prompt": "Already subscribed?",
       "account_label": "Sign in now",
       "context_hint": "Choose Soda or Hard Seltzer, or assign a product world to this page to preview automatic content.",
-      "soda": { "intro": "When you subscribe to Sparklys Soda, you never run out of your favourite drink. Plus, you get..." },
-      "seltzer": { "intro": "When you subscribe to Sparklys, you never run out of your favourite drink. Plus, you get..." },
+      "soda": {
+        "intro": "When you subscribe to Sparklys Soda, you never run out of your favourite drink. Plus, you get..."
+      },
+      "seltzer": {
+        "intro": "When you subscribe to Sparklys, you never run out of your favourite drink. Plus, you get..."
+      },
       "benefits": {
         "discount": "15% off every subscription order.",
         "shipping": "Free shipping within Switzerland.",
@@ -138,9 +142,15 @@
       "heading": "Simple\ningredients",
       "intro": "Sparklys is authentic. Sparklys was developed by Hard Seltzer lovers and masterful neo-alchemists — for ourselves and for you! Our production process and ingredients are natural.",
       "items": {
-        "1": { "text": "A fermented alcohol base made from natural ingredients." },
-        "2": { "text": "Carbonated water from the beautiful Rhine Valley." },
-        "3": { "text": "A touch of delicious natural flavor." }
+        "1": {
+          "text": "A fermented alcohol base made from natural ingredients."
+        },
+        "2": {
+          "text": "Carbonated water from the beautiful Rhine Valley."
+        },
+        "3": {
+          "text": "A touch of delicious natural flavor."
+        }
       }
     },
     "hard_seltzer_awards": {
@@ -148,9 +158,15 @@
       "intro": "Well, at least according to a well-known spirits magazine (The Spirits Business). We are not quite sure what to do with that, but thought we should let you know. PS: In the wonderful world of ratings, “Master” really is the new “Gold” — who knew? So yes, we received the “Super Good” distinction twice and “Very Good” once.",
       "button_label": "Shop now",
       "items": {
-        "1": { "alt": "Taste Master award for Sparklys Hard Seltzer Holunder" },
-        "2": { "alt": "Master award for Sparklys Hard Seltzer Holunder" },
-        "3": { "alt": "Gold award for Sparklys Hard Seltzer Maracuja" }
+        "1": {
+          "alt": "Taste Master award for Sparklys Hard Seltzer Holunder"
+        },
+        "2": {
+          "alt": "Master award for Sparklys Hard Seltzer Holunder"
+        },
+        "3": {
+          "alt": "Gold award for Sparklys Hard Seltzer Maracuja"
+        }
       }
     },
     "soda_ingredients": {
@@ -159,12 +175,30 @@
       "link_label": "View all ingredients",
       "footnote": "*Folic acid contributes to normal psychological function and normal immune-system function. A varied, balanced diet and a healthy lifestyle are important.",
       "items": {
-        "1": { "title": "Tapioca & Jerusalem artichoke", "text": "A source of plant-based fiber for smart refreshment." },
-        "2": { "title": "Folic acid (vitamin B9)", "text": "Supports your well-being and immune system.*" },
-        "3": { "title": "Yuzu or blueberry", "text": "Unique, vibrant flavors from natural sources." },
-        "4": { "title": "Apple juice concentrate", "text": "Adds a delicate, natural fruit note — without too much sugar." },
-        "5": { "title": "Green tea extract", "text": "A natural source of caffeine that helps keep you focused." },
-        "6": { "title": "Swiss spring water", "text": "Pure Alpine spring water from the Säntis region." }
+        "1": {
+          "title": "Tapioca & Jerusalem artichoke",
+          "text": "A source of plant-based fiber for smart refreshment."
+        },
+        "2": {
+          "title": "Folic acid (vitamin B9)",
+          "text": "Supports your well-being and immune system.*"
+        },
+        "3": {
+          "title": "Yuzu or blueberry",
+          "text": "Unique, vibrant flavors from natural sources."
+        },
+        "4": {
+          "title": "Apple juice concentrate",
+          "text": "Adds a delicate, natural fruit note — without too much sugar."
+        },
+        "5": {
+          "title": "Green tea extract",
+          "text": "A natural source of caffeine that helps keep you focused."
+        },
+        "6": {
+          "title": "Swiss spring water",
+          "text": "Pure Alpine spring water from the Säntis region."
+        }
       }
     },
     "soda_three_reasons": {
@@ -173,9 +207,18 @@
       "link_label": "Learn more",
       "footnote": "*Folic acid contributes to normal psychological function and normal immune-system function. A varied, balanced diet and a healthy lifestyle are important.",
       "items": {
-        "1": { "title": "Low in sugar &\ncalories", "text": "Only 1.4 g of sugar from fruit juice and 12 kcal per 100 ml. No added sugar and no artificial sweeteners." },
-        "2": { "title": "With plant-based\nfiber", "text": "With plant-based fiber — plus folic acid (vitamin B9), which supports your well-being and immune system.*" },
-        "3": { "title": "Naturally invigorating", "text": "Contains natural caffeine from green tea for a gentle energy boost without the crash." }
+        "1": {
+          "title": "Low in sugar &\ncalories",
+          "text": "Only 1.4 g of sugar from fruit juice and 12 kcal per 100 ml. No added sugar and no artificial sweeteners."
+        },
+        "2": {
+          "title": "With plant-based\nfiber",
+          "text": "With plant-based fiber — plus folic acid (vitamin B9), which supports your well-being and immune system.*"
+        },
+        "3": {
+          "title": "Naturally invigorating",
+          "text": "Contains natural caffeine from green tea for a gentle energy boost without the crash."
+        }
       }
     },
     "versus": {
@@ -184,24 +227,124 @@
       "soda": {
         "heading": "Compared with other sodas",
         "footnote": "*Folic acid contributes to normal psychological function and normal immune-system function. A varied, balanced diet and a healthy lifestyle are important.",
-        "labels": { "1": "Sugar", "2": "Calories", "3": "Fiber", "4": "Added sugar", "5": "Plant fiber", "6": "Caffeine", "no_added_sugar": "No added sugar", "with_added_sugar": "With added sugar", "high_fiber": "High plant fiber", "no_fiber": "No fiber" },
+        "labels": {
+          "1": "Sugar",
+          "2": "Calories",
+          "3": "Fiber",
+          "4": "Added sugar",
+          "5": "Plant fiber",
+          "6": "Caffeine",
+          "no_added_sugar": "No added sugar",
+          "with_added_sugar": "With added sugar",
+          "high_fiber": "High plant fiber",
+          "no_fiber": "No fiber"
+        },
         "items": {
-          "1": { "title": "Sparklys Soda", "values": { "1": "1.4 g", "2": "12 kcal", "3": "1 g", "4": "-", "5": "-", "6": "15 mg" } },
-          "2": { "title": "Mate", "values": { "1": "5.8 g", "2": "24 kcal", "3": "0 g", "4": "-", "5": "-", "6": "23 mg" } },
-          "3": { "title": "Energy drink", "values": { "1": "11 g", "2": "46 kcal", "3": "0 g", "4": "-", "5": "-", "6": "32 mg" } },
-          "4": { "title": "Vitamin water", "values": { "1": "4 g", "2": "17 kcal", "3": "0 g", "4": "-", "5": "-", "6": "0 mg" } },
-          "5": { "title": "Cola", "values": { "1": "10.6 g", "2": "42 kcal", "3": "0 g", "4": "-", "5": "-", "6": "11 mg" } }
+          "1": {
+            "title": "Sparklys Soda",
+            "values": {
+              "1": "1.4 g",
+              "2": "12 kcal",
+              "3": "1 g",
+              "4": "-",
+              "5": "-",
+              "6": "15 mg"
+            }
+          },
+          "2": {
+            "title": "Mate",
+            "values": {
+              "1": "5.8 g",
+              "2": "24 kcal",
+              "3": "0 g",
+              "4": "-",
+              "5": "-",
+              "6": "23 mg"
+            }
+          },
+          "3": {
+            "title": "Energy drink",
+            "values": {
+              "1": "11 g",
+              "2": "46 kcal",
+              "3": "0 g",
+              "4": "-",
+              "5": "-",
+              "6": "32 mg"
+            }
+          },
+          "4": {
+            "title": "Vitamin water",
+            "values": {
+              "1": "4 g",
+              "2": "17 kcal",
+              "3": "0 g",
+              "4": "-",
+              "5": "-",
+              "6": "0 mg"
+            }
+          },
+          "5": {
+            "title": "Cola",
+            "values": {
+              "1": "10.6 g",
+              "2": "42 kcal",
+              "3": "0 g",
+              "4": "-",
+              "5": "-",
+              "6": "11 mg"
+            }
+          }
         }
       },
       "seltzer": {
         "heading": "Compared with other\nalcoholic beverages",
-        "labels": { "1": "Calories", "2": "Sugar", "3": "Alcohol" },
+        "labels": {
+          "1": "Calories",
+          "2": "Sugar",
+          "3": "Alcohol"
+        },
         "items": {
-          "1": { "title": "Sparklys Hard Seltzer", "values": { "1": "32 kcal", "2": "0.7 g", "3": "5%" } },
-          "2": { "title": "Vodka Mate", "values": { "1": "55 kcal", "2": "5.8 g", "3": "4.8%" } },
-          "3": { "title": "Alcopop Lemon", "values": { "1": "63 kcal", "2": "5.2 g", "3": "4%" } },
-          "4": { "title": "Spritz", "values": { "1": "116 kcal", "2": "8.9 g", "3": "9%" } },
-          "5": { "title": "White wine", "values": { "1": "70 kcal", "2": "2 g", "3": "12%" } }
+          "1": {
+            "title": "Sparklys Hard Seltzer",
+            "values": {
+              "1": "32 kcal",
+              "2": "0.7 g",
+              "3": "5%"
+            }
+          },
+          "2": {
+            "title": "Vodka Mate",
+            "values": {
+              "1": "55 kcal",
+              "2": "5.8 g",
+              "3": "4.8%"
+            }
+          },
+          "3": {
+            "title": "Alcopop Lemon",
+            "values": {
+              "1": "63 kcal",
+              "2": "5.2 g",
+              "3": "4%"
+            }
+          },
+          "4": {
+            "title": "Spritz",
+            "values": {
+              "1": "116 kcal",
+              "2": "8.9 g",
+              "3": "9%"
+            }
+          },
+          "5": {
+            "title": "White wine",
+            "values": {
+              "1": "70 kcal",
+              "2": "2 g",
+              "3": "12%"
+            }
+          }
         }
       }
     },
@@ -256,13 +399,57 @@
       "subtotal": "Subtotal",
       "taxes_and_shipping": "Taxes and shipping are calculated at checkout.",
       "update": "Update",
-      "checkout": "Checkout"
+      "checkout": "Checkout",
+      "close": "Close cart",
+      "view_cart": "View cart",
+      "note": "Order note",
+      "savings": "Savings",
+      "taxes_included": "Tax included. Shipping calculated at checkout.",
+      "upload": "View uploaded file",
+      "error": "We could not refresh your cart. Please open the cart page to check your items before trying again.",
+      "updating": "Updating your cart…",
+      "updated": "Cart updated.",
+      "shipping_notice": "Shipping calculated at checkout.",
+      "shipping_details": "Delivery details",
+      "empty_image_alt": "A framed picture of Bob Ross holding his palette and brush.",
+      "empty_quote": "«We don't do empty carts, just happy little opportunities to fill it with Sparklys»",
+      "empty_bob_ross": "Your cart is empty, so here's Bob Ross to keep you company. He'll be here until you add something nice.",
+      "empty_action": "Find something nice",
+      "shipping_remaining": "Add {{ amount }} more for free shipping!",
+      "shipping_qualified": "Your order qualifies for free shipping!",
+      "shipping_progress": "Progress toward free shipping",
+      "shipping_free": "Free",
+      "tax_included_short": "Tax included.",
+      "shipping": "Shipping"
     },
     "label": {
       "product": "Product",
       "quantity": "Quantity",
       "quantity_for": "Quantity for {{ product }}",
-      "total": "Total"
+      "total": "Total",
+      "unit_price": "Unit price",
+      "original_price": "Original price",
+      "decrease": "Decrease quantity for {{ product }}",
+      "increase": "Increase quantity for {{ product }}",
+      "remove_for": "Remove {{ product }}"
+    },
+    "coupons": {
+      "label": "Discount code",
+      "placeholder": "Enter discount code",
+      "apply": "Apply",
+      "codes": "Discount codes",
+      "remove": "Remove code",
+      "applied": "Discount applied. Your savings are shown below.",
+      "rejected": "This code is not applicable to your current cart.",
+      "unallocated": "Code accepted. Any additional benefit will be confirmed at checkout.",
+      "removed": "Discount code removed.",
+      "pending": "Checking your code…",
+      "duplicate": "This code is already on your cart.",
+      "failed": "The code could not be confirmed. Check your connection and try again.",
+      "automatic": "Automatic discount",
+      "no_js": "You can enter or manage discount codes at checkout.",
+      "single": "Enter one discount code at a time.",
+      "order": "Order discount"
     }
   }
 }

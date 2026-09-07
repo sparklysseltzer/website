@@ -153,7 +153,7 @@
     margin-inline: auto;
     overflow: hidden;
     color: var(--poster-poster-color);
-    background: #111;
+    background: var(--color-surface-inverse);
     border-radius: var(--radius-large);
   }
 
@@ -191,8 +191,8 @@
   }
 
   .poster__media svg {
-    color: rgb(255 255 255 / 35%);
-    background: #333;
+    color: color-mix(in srgb, var(--color-text-inverse) 35%, transparent);
+    background: var(--color-inverse-hover);
   }
 
   .poster__overlay {

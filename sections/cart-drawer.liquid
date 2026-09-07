@@ -1,0 +1,17 @@
+<cart-drawer data-section-id="{{ section.id }}" data-cart-url="{{ routes.cart_url }}" data-error="{{ 'cart.general.error' | t | escape }}" data-updating="{{ 'cart.general.updating' | t | escape }}" data-updated="{{ 'cart.general.updated' | t | escape }}">
+  <dialog class="cart-drawer" aria-labelledby="CartDrawerTitle">
+    <div class="cart-drawer__panel" data-cart-surface="drawer" data-section-id="{{ section.id }}">
+      <header class="cart-drawer__header">
+        <img src="{{ 'icon-cart.svg' | asset_url }}" width="36" height="36" alt="">
+        <h2 id="CartDrawerTitle">{{ 'cart.general.title' | t }}</h2>
+        <button class="cart-remove cart-drawer__close" type="button" data-cart-close autofocus aria-label="{{ 'cart.general.close' | t }}">×</button>
+      </header>
+      <p class="cart-status" data-cart-status role="status" aria-live="polite"></p>
+      <a href="{{ routes.cart_url }}" class="cart-view" data-cart-recovery hidden>{{ 'cart.general.view_cart' | t }}</a>
+      {% render 'cart-content', surface: 'drawer' %}
+    </div>
+  </dialog>
+</cart-drawer>
+{% schema %}
+{"name":"Cart drawer","settings":[]}
+{% endschema %}

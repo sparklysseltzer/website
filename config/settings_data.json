@@ -9,14 +9,17 @@
  */
 {
   "current": {
+    "color_accent": "#e34f2f",
     "grain_intensity": 30,
     "border_radius_small": 16,
     "border_radius_large": 32,
-    "color_background": "#f7f3eb",
-    "color_foreground": "#172019",
-    "color_accent": "#e34f2f",
-    "color_surface": "#ffffff",
     "logo_width": 150,
+    "sections": {
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {}
+      }
+    },
     "content_for_index": [],
     "blocks": {
       "855628211100114053": {
@@ -24,7 +27,40 @@
         "disabled": false,
         "settings": {}
       }
-    }
+    },
+    "color_general_background": "#ffffff",
+    "color_general_surface": "#ffffff",
+    "color_general_surface_muted": "#eeeeee",
+    "color_general_surface_warm": "#f2f2f2",
+    "color_general_surface_inverse": "#191919",
+    "color_general_foreground": "#000000",
+    "color_general_text_inverse": "#ffffff",
+    "color_general_text_secondary": "#4d4d4d",
+    "color_general_text_muted": "#4d4d4d",
+    "color_general_notice_text": "#9e9e9d",
+    "color_general_notice_surface": "#eeeeee",
+    "color_soda_background": "#f7f3eb",
+    "color_soda_surface": "#ffffff",
+    "color_soda_surface_muted": "#eeeeee",
+    "color_soda_surface_warm": "#faf8f2",
+    "color_soda_surface_inverse": "#191919",
+    "color_soda_foreground": "#000000",
+    "color_soda_text_inverse": "#ffffff",
+    "color_soda_text_secondary": "#4d4d4d",
+    "color_soda_text_muted": "#786e5b",
+    "color_soda_notice_text": "#D1CAB6",
+    "color_soda_notice_surface": "#faf8f2",
+    "color_seltzer_background": "#ffffff",
+    "color_seltzer_surface": "#ffffff",
+    "color_seltzer_surface_muted": "#eeeeee",
+    "color_seltzer_surface_warm": "#f2f2f2",
+    "color_seltzer_surface_inverse": "#191919",
+    "color_seltzer_foreground": "#000000",
+    "color_seltzer_text_inverse": "#ffffff",
+    "color_seltzer_text_secondary": "#4d4d4d",
+    "color_seltzer_text_muted": "#4d4d4d",
+    "color_seltzer_notice_text": "#9e9e9d",
+    "color_seltzer_notice_surface": "#eeeeee"
   },
   "presets": {}
 }

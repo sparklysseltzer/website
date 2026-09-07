@@ -2,8 +2,6 @@
 
 Source: `sections/hard-seltzer-awards.liquid`
 
-Display headings use the centrally resolved font-specific line height from the [design system](../design-system.md); section CSS must not introduce a separate heading rhythm.
-
 ## Purpose and placement
 
 Hard Seltzer Awards presents the approved award statement, three medal graphics, and a shop action. It is available under **Trust & information**.
@@ -26,8 +24,14 @@ The awards form a centered three-column row on desktop and a single column on ph
 
 The section does not emit Award, Product, Review, or Offer JSON-LD. It lacks the canonical product linkage and evidence fields required to make those claims as a trustworthy machine-readable entity; the visible editorial claim remains the honest representation until a product/organization structured-data model is approved.
 
-## Shared typography roles
+## Typography roles
 
 Display heading; body introduction; UI action.
 
-Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.
+## Shared color settings
+
+Shared neutral UI colors now resolve through **Theme settings → Colors**, following the [color contract](../design-system.md#theme-color-settings). This supersedes fixed neutral hex values in earlier frame descriptions. Primary text, inverse text, gray/cream surfaces and hover states use global roles; product artwork, deliberate product-world accents and explicit section color overrides remain local. No schema/data-source, motion or structured-data behavior changes.
+
+## Brand-world palettes
+
+Colors now follow the [brand-world palette contract](../design-system.md#theme-color-settings). Explicit Soda/Seltzer sections and cards select their own palette on mixed pages; the header/footer inherit page context, and both cart surfaces always use General. Shared accent/status roles and explicit artwork/section overrides remain unchanged. Notice copy resolves through its world’s Notice text setting.

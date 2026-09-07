@@ -6,6 +6,8 @@ The implementation follows the approved visual intent while normalizing inconsis
 
 ### Shared fluid roles
 
+Maison Neue Demi (registered at weight 400) is the standard body/UI face. Maison Neue Bold supplies explicitly emphasized UI such as FAQ questions. General/Hard Seltzer display headings use Newake; Soda display headings use Erode Bold. Small Soda editorial card titles also use Erode, while footer card headings deliberately use Newake in every world. Semantic heading level alone does not select a visual size or override an explicit section role.
+
 All ordinary typography uses `--font-size-*` roles defined in `assets/base.css`. Sections select a role, never an independent clamp, pixel/rem size, or mobile font-size override. The shared interpolation interval is 390–1440 CSS px at the normal 16px root. Bounds are in rem and preferred values combine rem with vw. Keep `html` at 100%; scaling the root would also scale layout dimensions. Equivalent roles must compute identically at the same viewport, independent of section width or product world.
 
 | Role | Narrow → wide | Contract |
@@ -58,11 +60,45 @@ The existing Product Overview flavor lockups are an intentional exception: their
 
 ## Color, spacing, and shape
 
-- Editorial headings in the ingredient, reasons, awards, and comparison frames are black. Product-world font selection must not implicitly recolor them green.
+- Editorial headings and primary body/UI text share the Primary text role (black by default). Product-world font selection must not recolor them.
 - `--color-editorial-heading` and `--color-editorial-muted` provide black and the shared brown supporting-copy color (`#786e5b`).
 - Intentional variant colors stay scoped: Versus uses cream cards/brown facts for Soda and white cards/gray facts for Hard Seltzer. Green identifies the highlighted Sparklys facts, not all Sparklys text.
-- Preserve the existing shared section rhythm, page gutters, and small/large radius tokens documented in [Architecture](architecture.md). Use the matching shared token before introducing a custom measurement.
+- `--page-width` is the shared 120rem/1920px outer-frame limit. `--page-gutter` is 1rem below 768px and 2rem from 768px.
+- `.section` and its compatibility alias `.section--tight` share `clamp(2rem, 5vw, 4rem)` vertical padding (32–64px per side at the usual root). Do not introduce a looser default section gap.
+- `--radius-small` and `--radius-large` map the global radius settings. Defaults are 1rem/16px for compact panels and 1.875rem/30px for editorial panels, generic cards, and collection/product media. Pills, circles, controls, and special header geometry retain purpose-specific radii.
+- Shared interface colors are editable in **Theme settings → Colors — Shared / General Sparklys / Soda / Hard Seltzer** and emitted once by `layout/theme.liquid`. Section-specific color overrides and product artwork retain their own colors.
+- `--page-grain-opacity` maps the global grain setting. Its schema default is 30%; saved merchant settings can differ. One document-attached `.page-grain` layer repeats `noise-3.webp` at Retina density and scrolls with the content. Judge grain in standalone preview, not the potentially scaled/overlaid Theme Editor canvas; see [Preview workflow](development.md#preview-workflow).
 - Image crops and layered illustrations may retain exact source geometry when it expresses the actual artwork. They must not force page overflow or brittle text positioning.
+
+## Iconography
+
+[Untitled UI Icons](https://www.untitledui.com/icons) is the primary icon library for Sparklys. For every new or replaced UI icon, search this library first and reuse an existing project export where available. Do not draw a substitute or introduce another icon family when a suitable Untitled UI icon exists.
+
+### Shared icon contract
+
+These are design-system decisions for new icon work, not CSS custom properties or a claim that existing icons have already been migrated.
+
+| Role | Value | Contract |
+| --- | --- | --- |
+| `icon.library` | Untitled UI Icons | First-choice source for interface icons |
+| `icon.style` | Line | Default; use another library variant only when the approved design calls for it |
+| `icon.viewBox` | `0 0 24 24` | Preserve the original SVG coordinate system |
+| `icon.stroke` | 2 source units | Preserve Line geometry, rounded caps and joins; scales with the SVG |
+| `icon.color` | `currentColor` | Inherit the control's semantic color and interaction state |
+| `icon.size.small` | 1rem | Compact supporting icons |
+| `icon.size.default` | 1.25rem | Standard inline actions |
+| `icon.size.large` | 1.5rem | Standalone navigation and controls |
+
+Icon dimensions are independent of text-size roles. A small glyph still needs a 44 by 44 CSS pixel primary interaction target. When adding a shared renderer, implement these size roles centrally in `assets/base.css`; do not scatter independent sizes across sections. Preserve explicitly approved artwork and brand/social logos as separate assets rather than forcing them into this UI icon family.
+
+### Finding and adding icons
+
+1. Check existing theme exports, then search the [official SVG catalog](https://www.untitledui.com/free-icons) by meaning and exact icon name. Prefer a consistent variant for repeated actions.
+2. Sandro confirms the icons also exist in the Sparklys Figma file. Use the original Figma icon component to export an exact SVG when the website does not expose the needed asset or the approved frame uses a specific variant. If that file is unavailable in a session, request its link/node rather than approximating the icon. Access to the file has not been verified by this documentation change.
+3. Import only the icons used by the theme, as local SVG assets or reusable Liquid rendering snippets. Preserve source geometry and use `currentColor` for monochrome inline SVGs. Do not install the React library, an icon font, a remote runtime loader, or the entire catalog.
+4. Record the original icon name, variant, source URL or Figma node, and applicable license/notice alongside each imported icon or in its owning documentation. Use the project's licensed source for paid variants and retain required notices.
+5. Decorative inline SVGs use `aria-hidden="true"` and `focusable="false"`. Give icon-only buttons/links a translated accessible name on the control; never rely on the glyph or a tooltip alone.
+6. If the library has no suitable icon, document the exception and its source in the owning section. Existing icons migrate when deliberately updated, with visual and accessibility verification of the affected journey.
 
 ## Review procedure
 
@@ -73,3 +109,38 @@ The initial fluid-role migration was checked in the development storefront at 32
 3. Preserve distinctive composition, such as comparison fact panels, without inventing a new visual pattern.
 4. Verify actual font loading, resolved colors, wrapping, and overflow in desktop and phone previews. Compare the final reveal state, not an animation's partially transparent state.
 5. Record deliberate exceptions in the section document and update this guide when a shared token changes.
+
+## Cart supporting quotation
+
+The shared cart empty state uses the existing Erode Bold family for its playful quotation, at the compact role with body-compact leading and muted editorial color. It explicitly permits synthesized italic styling (`font-synthesis: style`) to echo the legacy quotation without adding another font asset. This is supporting copy, not a heading; all Newake/Erode heading rhythm and size rules remain unchanged.
+
+## Shipping progress
+
+Completion meters use the existing global `--color-accent` for their fill and `--color-progress-track` (an alias of Muted surface) for their track. Do not introduce a separate progress-fill color. The cart uses a pill track and label typography, with server-rendered values and no animation, respecting reduced motion. No new heading or icon role is introduced.
+
+## Theme color settings
+
+Theme settings groups colors by ownership:
+
+- **Colors — Shared**: accent, hover surfaces and success/error text/background pairs.
+- **Colors — General Sparklys**: neutral shared-page palette, including the cart.
+- **Colors — Soda**: beige/cream surfaces and warm supporting/notice text.
+- **Colors — Hard Seltzer**: white/gray surfaces and neutral supporting/notice text.
+
+Each world exposes Backgrounds, Text colors and Notice colors. The world roles are page background, surface, muted surface, supporting surface, dark surface, primary text, inverse text, secondary text, muted text, notice text and notice surface. Keep foreground/background pairs legible when editing. The shared accent continues to drive shipping progress and focus. General and Hard Seltzer notice text defaults to `#9e9e9d` (RGB 158, 158, 157). Soda preserves the merchant's saved `#D1CAB6` notice color; fresh installs retain its warm default. General and Hard Seltzer default to neutral white/gray backgrounds; Soda retains the beige page and cream supporting surface.
+
+`snippets/color-palettes.liquid`, included in the layout's style block, emits saved palette values and binds them to semantic `--color-*` roles. Existing `brand-context` resolution sets `data-color-world` on the document: `default` maps to General, with Soda/Seltzer following the real page/product/collection context. No session or client-side world inference is needed. The theme-color metadata follows the same page background.
+
+Explicit Soda sections (Ingredients, 3 Reasons, Soda Versus, Subscription, USP and product-overview cards) select Soda even on General pages. Explicit Hard Seltzer counterparts select Hard Seltzer. Unclassified sections inherit the page. `.cart-page` and `.cart-drawer` explicitly bind General in every world. Header and footer inherit page context. New world-specific sections must declare `data-color-world="soda"` or `"seltzer"`, or be added to the central selector map; shared sections should inherit.
+
+Rebind compatibility aliases at every world boundary: editorial heading → primary text, editorial muted → muted text, progress track → muted surface. Defining aliases only at the root would freeze them to the root palette when inherited. Components consume semantic roles, never another world's raw settings. Both Versus variants use their world's Notice text for disclaimers.
+
+The previous flat world-dependent settings have been migrated into explicit world settings, preserving saved Soda choices and common text/surface values. Shared setting IDs remain unchanged. This is a one-time saved-data migration, not an ongoing synchronization between worlds.
+
+Photography, exported logos/SVG artwork, flavor gradients, blue Soda compositions, green comparison highlights, and explicit section color settings remain intentional exceptions. Global palettes do not recolor image pixels or override merchant-saved section colors. Physical shadows/image overlays may retain black. Button/text-link labels retain the existing difference-blend sweep effect; inspect hover/focus on edited palettes. Color controls do not enforce contrast automatically. No entity data or JSON-LD changes are introduced.
+
+The cart shipping meter is enclosed in a centered Muted surface panel, switching to shared Success surface/text when qualified. Its track uses Surface for separation from the panel while retaining the global Accent fill. User-requested decorative 📦 / ✌️ / 🥳 emojis accompany the translated state text.
+
+`--radius-compact` is the shared 0.5rem/8px radius for dense supporting surfaces, currently cart panels, product image tiles and applied-code rows. It complements the merchant-configured Small and Large roles without changing controls or pill geometry.
+
+The shipping progress panel uses General Warm surface (`--color-surface-warm`, currently #f2f2f2) for a lighter neutral gray than Muted surface. The qualified state continues to use shared Success surface/text.

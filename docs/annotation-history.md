@@ -1,8 +1,8 @@
 # Annotation history
 
-Archive of approved onUI fixes. Save the original comment, annotation ID, affected section, implementation summary, approval date, and commit reference before deleting an annotation from the canvas. Delete only the approved IDs, never indiscriminately clear a page that may contain new feedback.
+Archive of approved storefront annotation fixes. Ananotes is the current review tool; older entries retain their original onUI provenance. See [Ananotes browser annotations](development.md#ananotes-browser-annotations) for tool and bridge context. Save the original comment, annotation ID, affected section, implementation summary, approval date, and commit reference before deleting an annotation from the canvas. Delete only the approved IDs, never indiscriminately clear a page that may contain new feedback.
 
-Keep durable implementation rules in the [design system](design-system.md) and owning section documents. This history records decisions; it is not a restorable backup of onUI's complete annotation metadata.
+Keep durable implementation rules in the [design system](design-system.md) and owning section documents. This history records decisions; it is not a restorable backup of the annotation tools' complete metadata.
 
 ## 2026-09-05 — Homepage visual corrections
 

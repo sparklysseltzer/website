@@ -2,8 +2,6 @@
 
 Source: `sections/soda-ingredients.liquid`
 
-Display headings use the centrally resolved font-specific line height from the [design system](../design-system.md); section CSS must not introduce a separate heading rhythm.
-
 The smaller multiline ingredient titles use the shared `--line-height-heading-small-erode` token (`1`, or 32px leading at 32px desktop type). This preserves the reference's readable separation without applying the tighter large-display rhythm to card copy.
 
 ## Purpose and placement
@@ -26,8 +24,18 @@ The six-column desktop grid becomes three columns on tablets and two columns on 
 
 The section is marketing-oriented ingredient information, not a Recipe, nutrition table, or canonical Product record. It emits no standalone JSON-LD. Any future machine-readable product ingredients belong to the product model and must remain consistent with visible product data.
 
-## Shared typography roles
+## Typography roles
 
 Section heading; card headings; the same body role for introduction and descriptions; small footnote.
 
-Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.
+## Shared color settings
+
+Shared neutral UI colors now resolve through **Theme settings → Colors**, following the [color contract](../design-system.md#theme-color-settings). This supersedes fixed neutral hex values in earlier frame descriptions. Primary text, inverse text, gray/cream surfaces and hover states use global roles; product artwork, deliberate product-world accents and explicit section color overrides remain local. No schema/data-source, motion or structured-data behavior changes.
+
+## Ananotes correction — notice text
+
+The legal footnote uses `--color-notice-text` (Theme settings → Colors → Notice text), independently of ordinary muted supporting copy.
+
+## Brand-world palettes
+
+Colors now follow the [brand-world palette contract](../design-system.md#theme-color-settings). Explicit Soda/Seltzer sections and cards select their own palette on mixed pages; the header/footer inherit page context, and both cart surfaces always use General. Shared accent/status roles and explicit artwork/section overrides remain unchanged. Notice copy resolves through its world’s Notice text setting.

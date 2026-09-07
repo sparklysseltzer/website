@@ -139,7 +139,7 @@
   .logo-marquee {
     padding-block: clamp(1.5rem, 2.5vw, 2.5rem);
     overflow: hidden;
-    background: #e0e0e0;
+    background: var(--color-surface-muted);
   }
 
   .logo-marquee--with-heading {
@@ -149,7 +149,7 @@
 .logo-marquee__heading {
     padding-inline: var(--page-gutter);
     margin: 0 0 clamp(1rem, 1.25vw, 1.25rem);
-    color: #000;
+    color: var(--color-foreground);
     font-family: var(--font-heading-default);
     font-size: var(--font-size-section);
     font-weight: 400;
@@ -168,7 +168,7 @@
 
   .logo-marquee--white,
   .logo-marquee--white .logo-marquee__tile {
-    background: #fff;
+    background: var(--color-surface);
   }
 
   .logo-marquee__viewport {
@@ -216,14 +216,14 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    color: #000;
-    background: #fff;
+    color: var(--color-foreground);
+    background: var(--color-surface);
     border-radius: var(--radius-small);
     text-decoration: none;
   }
 
   .logo-marquee__tile:focus-visible {
-    outline-color: #000;
+    outline-color: var(--color-foreground);
     outline-offset: -0.3125rem;
   }
 
@@ -253,7 +253,7 @@
     min-height: 6.25rem;
     display: grid;
     place-items: center;
-    color: #4d4d4d;
+    color: var(--color-text-secondary);
     text-align: center;
   }
 

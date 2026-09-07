@@ -4,10 +4,16 @@
   "private": true,
   "description": "Custom Shopify Online Store 2.0 theme for Sparklys Switzerland",
   "scripts": {
-    "check": "shopify theme check --fail-level error && npm run check:assets && npm run check:typography",
+    "check": "shopify theme check --fail-level error && npm run check:assets && npm run check:typography && npm run check:cart",
     "check:typography": "node scripts/check-typography.mjs",
     "check:assets": "node scripts/check-assets.mjs",
-    "dev": "shopify theme dev --store sparklys-hard-seltzer.myshopify.com --theme-editor-sync --reconciliation-strategy=abort"
+    "dev": "node scripts/dev-preview.mjs start",
+    "dev:stop": "node scripts/dev-preview.mjs stop",
+    "dev:restart": "node scripts/dev-preview.mjs restart",
+    "dev:status": "node scripts/dev-preview.mjs status",
+    "dev:logs": "node scripts/dev-preview.mjs logs",
+    "dev:foreground": "shopify theme dev --store sparklys-hard-seltzer.myshopify.com --theme-editor-sync --reconciliation-strategy=abort",
+    "check:cart": "node --test tests/cart-coupons.test.mjs"
   },
   "engines": {
     "node": ">=22"

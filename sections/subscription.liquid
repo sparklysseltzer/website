@@ -140,14 +140,14 @@
 {%- endif -%}
 
 {% stylesheet %}
-  .subscription { position: relative; max-width: 87.5rem; margin-inline: auto; overflow: hidden; border-radius: var(--radius-large); background: #000; color: #fff; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-  .subscription--soda { background: #8cd0ff; color: #000; }
+  .subscription { position: relative; max-width: 87.5rem; margin-inline: auto; overflow: hidden; border-radius: var(--radius-large); background: var(--color-foreground); color: var(--color-text-inverse); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  .subscription--soda { background: #8cd0ff; color: var(--color-foreground); }
   .subscription__media { position: absolute; inset: 0; overflow: hidden; --subscription-current-focal: var(--subscription-focal); }
   .subscription--soda:not(.subscription--custom-image) .subscription__media { left: 17%; }
   .subscription__media-inner, .subscription__media picture, .subscription__media img { display: block; width: 100%; height: 100%; }
   .subscription__media-inner { transform: scale(1.08); }
   .subscription__media img { object-fit: cover; object-position: var(--subscription-current-focal); }
-  .subscription__overlay { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, #000 8%, rgb(0 0 0 / 90%) 25%, transparent 59%); }
+  .subscription__overlay { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, var(--color-foreground) 8%, rgb(0 0 0 / 90%) 25%, transparent 59%); }
   .subscription--soda .subscription__overlay { background: linear-gradient(90deg, #8cd0ff 12%, rgb(140 208 255 / 95%) 20%, transparent 47%); }
   .subscription__inner { position: relative; max-width: 75rem; min-height: var(--subscription-height); margin-inline: auto; padding: 3rem 0; display: flex; align-items: center; }
   .subscription__content { width: 27.25rem; max-width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 1.5rem; }
@@ -155,6 +155,7 @@
   .subscription__logo { display: block; width: 12.75rem; height: auto; margin-bottom: 1.25rem; }
   .subscription--soda .subscription__logo { width: 9.6875rem; margin-bottom: .5rem; }
   .subscription__heading { margin: 0; font-family: var(--font-heading-default); font-weight: 400; line-height: var(--line-height-heading); font-size: var(--font-size-display); overflow-wrap: anywhere; }
+  .subscription--seltzer .subscription__heading { width: max-content; white-space: nowrap; }
   .subscription--heading-seltzer .subscription__heading { text-transform: uppercase; }
   .subscription--heading-soda .subscription__heading { font-family: var(--font-heading-soda); font-weight: 700; }
   .subscription__intro, .subscription__benefits, .subscription__account { font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 400; line-height: var(--line-height-body-compact); }
@@ -169,26 +170,27 @@
   .subscription__account .text-link { position: relative; display: inline-flex; align-items: center; text-decoration: underline; text-underline-offset: .15em; }
   /* Extend the hit area, not the visible line box, to preserve the compact pair. */
   .subscription__account .text-link::after { content: ''; position: absolute; inset-inline: 0; top: 50%; height: max(100%, 2.75rem); transform: translateY(-50%); }
-  .subscription--seltzer .text-link { --text-link-highlight: #fff; }
+  .subscription--seltzer .text-link { --text-link-highlight: var(--color-surface); }
   .subscription .text-link__label { color: inherit; mix-blend-mode: normal; }
-  .subscription .text-link:focus-visible .text-link__label { color: #000; }
-  .subscription--soda .text-link:focus-visible .text-link__label { color: #fff; }
+  .subscription .text-link:focus-visible .text-link__label { color: var(--color-foreground); }
+  .subscription--soda .text-link:focus-visible .text-link__label { color: var(--color-text-inverse); }
   @media (hover: hover) {
-    .subscription .text-link:hover .text-link__label { color: #000; }
-    .subscription--soda .text-link:hover .text-link__label { color: #fff; }
+    .subscription .text-link:hover .text-link__label { color: var(--color-foreground); }
+    .subscription--soda .text-link:hover .text-link__label { color: var(--color-text-inverse); }
   }
   @media (max-width: 84rem) { .subscription__inner { padding-inline: clamp(1.5rem, 5vw, 4rem); } }
   @media (min-width: 48rem) and (max-width: 64rem) { .subscription__content { width: 25rem; } .subscription--soda .subscription__overlay { background: linear-gradient(90deg, #8cd0ff 8%, rgb(140 208 255 / 95%) 34%, transparent 78%); } }
   @media (max-width: 47.999rem) {
     .subscription__inner { min-height: var(--subscription-mobile-height); align-items: flex-end; padding: 15rem 1.5rem 2rem; }
     .subscription__content { width: 100%; gap: 1.25rem; }
+    .subscription--seltzer .subscription__heading { margin-inline: -.875rem; }
     .subscription__logo { width: 10rem; margin-bottom: .875rem; }
     .subscription--soda .subscription__logo { width: 8rem; }
     .subscription__media { --subscription-current-focal: 65% 0%; }
     .subscription--custom-image .subscription__media, .subscription--mobile-image .subscription__media { --subscription-current-focal: var(--subscription-mobile-focal); }
     .subscription--soda:not(.subscription--custom-image) .subscription__media { left: 0; }
     .subscription__media { bottom: 25%; }
-    .subscription__overlay { background: linear-gradient(0deg, #000 28%, rgb(0 0 0 / 94%) 48%, transparent 88%); }
+    .subscription__overlay { background: linear-gradient(0deg, var(--color-foreground) 28%, rgb(0 0 0 / 94%) 48%, transparent 88%); }
     .subscription--soda .subscription__overlay { background: linear-gradient(0deg, #8cd0ff 28%, rgb(140 208 255 / 96%) 48%, transparent 88%); }
   }
   @media (prefers-reduced-motion: reduce) { .subscription__media-inner { transform: none; } }

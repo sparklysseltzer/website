@@ -1,50 +1,424 @@
+class CartDrawer extends HTMLElement {
+  connectedCallback() {
+    this.dialog = this.querySelector('dialog');
+    if (!this.dialog?.showModal) return;
+    this.abort = new AbortController();
+    const options = { signal: this.abort.signal };
+    document.documentElement.classList.add('cart-ready');
+    this.captureAllocatedCodes();
+    this.couponReady = this.readDiscountCart().then((cart) => this.setDiscountCart(cart)).catch(() => {});
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' && event.target.matches('[data-cart-coupon-input]')) {
+        event.preventDefault();
+        this.updateDiscount(event.target.closest('[data-cart-coupons]'));
+      }
+    }, options);
+    document.addEventListener('click', (event) => this.handleClick(event), options);
+    document.addEventListener('change', (event) => {
+      if (event.target.matches('[data-cart-form] input[name="updates[]"]')) {
+        this.updateForm(event.target.form, event.target);
+      }
+    }, options);
+    document.addEventListener('submit', (event) => {
+      if (!event.target.matches('[data-cart-form]')) return;
+      if (this.busy) { event.preventDefault(); return; }
+      if (event.submitter?.name === 'checkout') {
+        const note = document.querySelector('[data-cart-note]');
+        if (note && !event.target.contains(note)) {
+          let field = event.target.querySelector('input[name="note"]');
+          if (!field) {
+            field = document.createElement('input');
+            field.type = 'hidden';
+            field.name = 'note';
+            event.target.append(field);
+          }
+          field.value = note.value;
+        }
+        return;
+      }
+      event.preventDefault();
+      this.updateForm(event.target, event.submitter);
+    }, options);
+    this.dialog.addEventListener('click', (event) => {
+      if (event.target === this.dialog) this.dialog.close();
+    }, options);
+    this.dialog.addEventListener('keydown', (event) => {
+      if (event.key !== 'Tab') return;
+      const controls = [...this.dialog.querySelectorAll('a[href], button, input, textarea, select, [tabindex="0"]')]
+        .filter((control) => !control.disabled && control.getClientRects().length > 0);
+      const first = controls[0];
+      const last = controls.at(-1);
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    }, options);
+    this.dialog.addEventListener('close', () => {
+      if (this.opener?.isConnected) this.opener.focus({ preventScroll: true });
+    }, options);
+  }
+
+  disconnectedCallback() {
+    this.abort?.abort();
+  }
+
+  open(opener) {
+    this.opener = opener || document.activeElement;
+    if (!this.dialog.open) this.dialog.showModal();
+  }
+
+  handleClick(event) {
+    const coupon = event.target.closest('[data-cart-coupon-apply], [data-cart-coupon-remove]');
+    if (coupon) {
+      event.preventDefault();
+      this.updateDiscount(coupon.closest('[data-cart-coupons]'), coupon.dataset.cartCouponRemove);
+      return;
+    }
+    const open = event.target.closest('[data-cart-open]');
+    if (open && !event.metaKey && !event.ctrlKey && !event.shiftKey && event.button === 0) {
+      event.preventDefault();
+      this.open(open);
+      this.run(() => this.refresh());
+      return;
+    }
+    if (event.target.closest('[data-cart-close]')) this.dialog.close();
+    const control = event.target.closest('[data-cart-step], [data-cart-remove]');
+    if (!control) return;
+    event.preventDefault();
+    const line = control.closest('[data-cart-line]');
+    if (this.busy && (!control.hasAttribute('data-cart-step') || this.quantityEdit?.key !== line.dataset.cartLine || this.quantityEdit.quantity === 0)) return;
+    const input = line.querySelector('input');
+    if (control.hasAttribute('data-cart-remove')) input.value = 0;
+    else {
+      const step = Number(input.step) || 1;
+      const minimum = Number(input.dataset.minimum) || 1;
+      let quantity = Number(input.value) + Number(control.dataset.cartStep) * step;
+      if (quantity > 0 && quantity < minimum) quantity = control.dataset.cartStep === '1' ? minimum : 0;
+      input.value = Math.min(input.max ? Number(input.max) : Infinity, Math.max(0, quantity));
+    }
+    if (this.busy) {
+      if (!input.validity.valid) return;
+      this.quantityEdit.quantity = Number(input.value);
+      this.showQuantity(this.quantityEdit.key, this.quantityEdit.quantity);
+      return;
+    }
+    this.updateForm(input.form, input);
+  }
+
+  async readDiscountCart() {
+    const response = await fetch(`${window.Shopify.routes.root}cart.js`, { cache: 'no-store' });
+    if (!response.ok) throw new Error('Cart code refresh failed');
+    return response.json();
+  }
+
+  captureAllocatedCodes() {
+    this.allocatedCodes = new Set([...document.querySelectorAll('[data-applied-code]')]
+      .map((node) => node.dataset.appliedCode.toLowerCase()));
+  }
+
+  setDiscountCart(cart) {
+    if (!Array.isArray(cart?.discount_codes)) throw new Error('Missing discount code state');
+    this.discountCodes = cart.discount_codes;
+    this.renderDiscountCodes();
+  }
+
+  renderDiscountCodes() {
+    if (!this.discountCodes) return;
+    document.querySelectorAll('[data-cart-coupons]').forEach((panel) => {
+      const list = panel.querySelector('[data-cart-coupon-codes]');
+      list.replaceChildren();
+      const seen = new Set();
+      this.discountCodes.forEach(({ code, applicable }) => {
+        const key = code.toLowerCase();
+        if (seen.has(key)) return;
+        seen.add(key);
+        const item = document.createElement('li');
+        const label = document.createElement('span');
+        label.textContent = code;
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.dataset.cartCouponRemove = code;
+        remove.textContent = panel.dataset.removeLabel;
+        remove.setAttribute('aria-label', `${panel.dataset.removeLabel}: ${code}`);
+        remove.disabled = this.busy;
+        const icon = document.createElement('span');
+        icon.setAttribute('aria-hidden', 'true');
+        icon.textContent = '🏷️';
+        item.append(icon, label, remove);
+        if (!applicable || !this.allocatedCodes.has(key)) {
+          const detail = document.createElement('span');
+          detail.className = 'cart-coupons__detail';
+          detail.textContent = applicable ? panel.dataset.unallocated : panel.dataset.rejected;
+          item.append(detail);
+        }
+        list.append(item);
+      });
+    });
+  }
+
+  couponStatus(message, error = false) {
+    document.querySelectorAll('[data-cart-coupon-status]').forEach((node) => {
+      node.textContent = message;
+      node.dataset.error = String(error);
+    });
+  }
+
+  async updateDiscount(panel, removeCode) {
+    if (this.busy) return;
+    const input = panel.querySelector('[data-cart-coupon-input]');
+    const code = (removeCode ?? input.value).trim();
+    if (!code) { input.focus(); return; }
+    if (removeCode === undefined && code.includes(',')) { this.couponStatus(panel.dataset.single, true); input.focus(); return; }
+    const surfaceName = panel.closest('[data-cart-surface]').dataset.cartSurface;
+    const messages = { ...panel.dataset };
+    let accepted = false;
+    let message = messages.failed;
+    const success = await this.run(async () => {
+      this.couponStatus(messages.pending);
+      await this.couponReady;
+      if (!this.discountCodes) this.setDiscountCart(await this.readDiscountCart());
+      const existing = this.discountCodes.map((entry) => entry.code);
+      const same = (value) => value.toLowerCase() === code.toLowerCase();
+      if (removeCode === undefined && this.discountCodes.some((entry) => same(entry.code) && entry.applicable)) {
+        message = messages.duplicate;
+        accepted = true;
+        return;
+      }
+      const next = existing.filter((value) => !same(value));
+      if (removeCode === undefined) next.push(code);
+      const result = await this.request('update', { discount: next.join(',') });
+      this.render(result.sections);
+      this.setDiscountCart(result);
+      const returned = this.discountCodes.find((entry) => same(entry.code));
+      if (removeCode !== undefined) {
+        accepted = !returned;
+        message = accepted ? messages.removed : messages.failed;
+      } else {
+        accepted = returned?.applicable === true;
+        message = accepted ? (this.allocatedCodes.has(code.toLowerCase()) ? messages.applied : messages.unallocated) : messages.rejected;
+      }
+    });
+    this.couponStatus(success ? message : messages.failed, !success || !accepted);
+    const surface = document.querySelector(`[data-cart-surface="${surfaceName}"]`);
+    const replacement = surface?.querySelector('[data-cart-coupon-input]');
+    if (replacement) {
+      replacement.setAttribute('aria-invalid', String(!success || !accepted));
+      if (success && accepted && removeCode === undefined) replacement.value = '';
+      if (surfaceName !== 'drawer' || this.dialog.open) replacement.focus({ preventScroll: true });
+    }
+  }
+
+  showQuantity(key, quantity) {
+    document.querySelectorAll('[data-cart-line]').forEach((line) => {
+      if (line.dataset.cartLine === key) line.querySelector('input').value = quantity;
+    });
+  }
+
+  status(message, error = false) {
+    this.querySelector('[data-cart-recovery]').hidden = !error;
+    document.querySelectorAll('[data-cart-status]').forEach((node) => { node.textContent = message; node.classList.toggle('visually-hidden', !error); });
+  }
+
+  async run(action) {
+    if (this.busy) return false;
+    this.busy = true;
+    this.status(this.dataset.updating);
+    const controls = [...document.querySelectorAll('[data-cart-form] button, [data-cart-form] input, [data-cart-form] textarea, product-form button[type="submit"]')];
+    const previous = controls.map((control) => control.disabled);
+    this.pendingControls = controls;
+    this.pendingDisabled = previous;
+    controls.forEach((control) => { control.disabled = true; });
+    if (this.quantityEdit) {
+      document.querySelectorAll('[data-cart-line]').forEach((line) => {
+        if (line.dataset.cartLine === this.quantityEdit.key) {
+          line.querySelectorAll('[data-cart-step]').forEach((button) => { button.disabled = false; });
+        }
+      });
+    }
+    document.querySelectorAll('[data-cart-content]').forEach((node) => node.setAttribute('aria-busy', 'true'));
+    try {
+      await action();
+      this.status(this.dataset.updated);
+      return true;
+    } catch (error) {
+      // A failed response may still have changed Shopify's cart. Never retry a mutation automatically.
+      this.quantityEdit = null;
+      try { await this.refresh(); } catch { /* Keep the native cart-page recovery link available. */ }
+      this.status(error.cartMessage || this.dataset.error, true);
+      return false;
+    } finally {
+      controls.forEach((control, index) => { control.disabled = previous[index]; });
+      document.querySelectorAll('[data-cart-content]').forEach((node) => node.removeAttribute('aria-busy'));
+      this.busy = false;
+      this.pendingControls = null;
+      this.pendingDisabled = null;
+      this.renderDiscountCodes();
+    }
+  }
+
+  sectionIds() {
+    return [...new Set([...document.querySelectorAll('[data-cart-surface]')].map((node) => node.dataset.sectionId))];
+  }
+
+  async request(endpoint, data) {
+    await this.couponReady;
+    const response = await fetch(`${window.Shopify.routes.root}cart/${endpoint}.js`, {
+      method: 'POST', headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...data, sections: this.sectionIds(), sections_url: this.dataset.cartUrl }),
+    });
+    const result = await response.json();
+    if (!response.ok) {
+      const error = new Error();
+      error.cartMessage = typeof result.description === 'string' ? result.description : this.dataset.error;
+      throw error;
+    }
+    return result;
+  }
+
+  render(sections) {
+    const surfaces = [...document.querySelectorAll('[data-cart-surface]')];
+    // Validate every fragment before replacing any surface.
+    const replacements = surfaces.map((surface) => {
+      const html = sections?.[surface.dataset.sectionId];
+      if (!html) throw new Error('Missing cart section');
+      const parsed = new DOMParser().parseFromString(html, 'text/html');
+      const content = parsed.querySelector('[data-cart-content]');
+      if (!content) throw new Error('Missing cart content');
+      return content;
+    });
+    const note = document.querySelector('[data-cart-note]');
+    const draft = note && note.value !== note.defaultValue ? note.value : null;
+    const couponDrafts = new Map(surfaces.map((surface) => [surface.dataset.cartSurface, surface.querySelector('[data-cart-coupon-input]')?.value || '']));
+    surfaces.forEach((surface, index) => surface.querySelector('[data-cart-content]').replaceWith(replacements[index]));
+    surfaces.forEach((surface) => {
+      const input = surface.querySelector('[data-cart-coupon-input]');
+      if (input) input.value = couponDrafts.get(surface.dataset.cartSurface);
+    });
+    this.captureAllocatedCodes();
+    if (this.busy && this.pendingControls) {
+      surfaces.forEach((surface) => surface.querySelectorAll('button, input, textarea').forEach((control) => {
+        this.pendingControls.push(control);
+        this.pendingDisabled.push(control.disabled);
+        control.disabled = true;
+      }));
+    }
+    if (draft !== null) {
+      const replacement = document.querySelector('[data-cart-note]');
+      if (replacement) replacement.value = draft;
+    }
+    const count = Number(replacements[0].dataset.cartCountValue);
+    document.querySelectorAll('[data-cart-count]').forEach((node) => {
+      node.textContent = count;
+      node.hidden = count === 0;
+    });
+  }
+
+  async refresh() {
+    await this.couponReady;
+    const url = new URL(this.dataset.cartUrl, window.location.origin);
+    url.searchParams.set('sections', this.sectionIds().join(','));
+    // On /cart, Accept: application/json selects raw cart data instead of section HTML.
+    const [response, cart] = await Promise.all([fetch(url, { cache: 'no-store' }), this.readDiscountCart()]);
+    if (!response.ok) throw new Error('Cart refresh failed');
+    this.render(await response.json());
+    this.setDiscountCart(cart);
+  }
+
+  async updateForm(form, focusTarget) {
+    if (this.busy || !form.reportValidity()) return;
+    const surfaceName = form.closest('[data-cart-surface]').dataset.cartSurface;
+    const focusKey = focusTarget?.closest('[data-cart-line]')?.dataset.cartLine;
+    const wasOpen = this.dialog.open;
+    const updates = [...form.querySelectorAll('[data-cart-line]')].map((line) => {
+      const input = line.querySelector('input');
+      return { id: line.dataset.cartLine, quantity: Number(input.value), current: Number(input.dataset.current) };
+    }).filter((line) => line.quantity !== line.current);
+    const note = form.querySelector('[data-cart-note]');
+    const noteValue = note?.value;
+    if (updates.length === 1) {
+      const line = updates[0];
+      this.quantityEdit = { key: line.id, quantity: line.quantity,
+        index: [...form.querySelectorAll('[data-cart-line]')].findIndex((row) => row.dataset.cartLine === line.id) };
+      this.showQuantity(line.id, line.quantity);
+    }
+    await this.run(async () => {
+      // change.js validates inventory, unlike bulk update.js for existing quantities.
+      let result;
+      if (this.quantityEdit) {
+        let key = this.quantityEdit.key;
+        let sent;
+        do {
+          sent = this.quantityEdit.quantity;
+          result = await this.request('change', { id: key, quantity: sent });
+          // Discounts can change the line key. No other line mutates during this loop.
+          key = result.items?.[this.quantityEdit.index]?.key;
+        } while (key && sent !== this.quantityEdit.quantity && sent !== 0);
+      } else {
+        for (const line of updates) result = await this.request('change', { id: line.id, quantity: line.quantity });
+      }
+      this.quantityEdit = null;
+      document.querySelectorAll('[data-cart-step]').forEach((button) => { button.disabled = true; });
+      if (note && noteValue !== note.defaultValue) result = await this.request('update', { note: noteValue });
+      // Mutations already include authoritative section HTML: avoid another round trip.
+      if (result) { this.render(result.sections); this.setDiscountCart(result); }
+      else await this.refresh();
+    });
+    this.quantityEdit = null;
+    const surface = document.querySelector(`[data-cart-surface="${surfaceName}"]`);
+    if (surfaceName === 'drawer' && wasOpen && !this.dialog.open) return;
+    const matchingLine = [...surface.querySelectorAll('[data-cart-line]')].find((line) => line.dataset.cartLine === focusKey);
+    const target = matchingLine?.querySelector('input') || surface.querySelector('[data-cart-focus], a, button');
+    target?.focus({ preventScroll: true });
+  }
+
+  async add(form, opener) {
+    const body = new FormData(form);
+    body.set('sections', this.sectionIds().join(','));
+    body.set('sections_url', this.dataset.cartUrl);
+    let added = false;
+    const success = await this.run(async () => {
+      await this.couponReady;
+      const response = await fetch(`${window.Shopify.routes.root}cart/add.js`, {
+        method: 'POST', headers: { Accept: 'application/json' }, body,
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        const error = new Error();
+        error.cartMessage = typeof result.description === 'string' ? result.description : this.dataset.error;
+        throw error;
+      }
+      added = true;
+      this.render(result.sections);
+      this.setDiscountCart(await this.readDiscountCart());
+    });
+    if (added || !success) this.open(opener);
+    return success;
+  }
+}
+if (!customElements.get('cart-drawer')) customElements.define('cart-drawer', CartDrawer);
+
 class ProductForm extends HTMLElement {
   connectedCallback() {
     this.form = this.querySelector('form');
     this.status = this.querySelector('[data-product-status]');
-
     if (!this.form || !this.status) return;
-
-    this.form.addEventListener('submit', this.handleSubmit.bind(this));
+    this.abort = new AbortController();
+    this.form.addEventListener('submit', async (event) => {
+      const cart = document.querySelector('cart-drawer');
+      if (!cart?.dialog?.showModal) return;
+      event.preventDefault();
+      if (cart.busy) return;
+      this.status.textContent = cart.dataset.updating;
+      const success = await cart.add(this.form, this.form.querySelector('[type="submit"]'));
+      this.status.textContent = success ? this.dataset.successMessage : cart.dataset.error;
+    }, { signal: this.abort.signal });
   }
-
-  async handleSubmit(event) {
-    event.preventDefault();
-
-    const submitButton = this.form.querySelector('[type="submit"]');
-    submitButton.disabled = true;
-    this.status.textContent = '';
-
-    try {
-      const response = await fetch(`${window.Shopify.routes.root}cart/add.js`, {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: new FormData(this.form),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.description || 'Das Produkt konnte nicht hinzugefügt werden.');
-      }
-
-      const cartResponse = await fetch(`${window.Shopify.routes.root}cart.js`);
-      const cart = await cartResponse.json();
-      document.querySelectorAll('[data-cart-count]').forEach((element) => {
-        element.textContent = cart.item_count;
-      });
-
-      this.status.textContent = this.dataset.successMessage;
-    } catch (error) {
-      this.status.textContent = error.message;
-    } finally {
-      submitButton.disabled = false;
-    }
-  }
+  disconnectedCallback() { this.abort?.abort(); }
 }
-
-if (!customElements.get('product-form')) {
-  customElements.define('product-form', ProductForm);
-}
+if (!customElements.get('product-form')) customElements.define('product-form', ProductForm);
 
 class HeaderScrollIntent {
   constructor(section) {

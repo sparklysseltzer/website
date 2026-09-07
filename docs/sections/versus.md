@@ -2,8 +2,6 @@
 
 Source: `sections/versus.liquid`
 
-Display headings use the centrally resolved font-specific line height from the [design system](../design-system.md); section CSS must not introduce a separate heading rhythm.
-
 ## Purpose and variants
 
 Versus combines the structurally identical Soda and Hard Seltzer comparison designs into one section with a `Product world` switch. The Add section picker exposes **Versus — Soda** and **Versus — Hard Seltzer** presets so generated previews start with the correct typography, background, products, facts, and legal notes.
@@ -30,8 +28,18 @@ The DOM stays a semantic list of articles and descriptions. There are no JavaScr
 
 The competitor cards describe illustrative beverage categories, not canonical Shopify products or offers, and the disclaimer explicitly says they are not specific brands. Emitting Product, Offer, Review, or ItemList entity data would therefore overstate the model. Versus intentionally emits no JSON-LD until comparison data has canonical entities and a validated Schema.org purpose.
 
-## Shared typography roles
+## Typography roles
 
 Section heading; body comparison basis; compact product names; label fact captions; stat figures; small notes. Desktop/mobile ordering is unchanged.
 
-Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.
+## Shared color settings
+
+Shared neutral UI colors now resolve through **Theme settings → Colors**, following the [color contract](../design-system.md#theme-color-settings). This supersedes fixed neutral hex values in earlier frame descriptions. Primary text, inverse text, gray/cream surfaces and hover states use global roles; product artwork, deliberate product-world accents and explicit section color overrides remain local. No schema/data-source, motion or structured-data behavior changes.
+
+## Ananotes correction — notice text
+
+Soda comparison disclaimers and footnotes use `--color-notice-text` (Theme settings → Colors → Notice text). Hard Seltzer comparison notes also use its world-specific Notice text role.
+
+## Brand-world palettes
+
+Colors now follow the [brand-world palette contract](../design-system.md#theme-color-settings). Explicit Soda/Seltzer sections and cards select their own palette on mixed pages; the header/footer inherit page context, and both cart surfaces always use General. Shared accent/status roles and explicit artwork/section overrides remain unchanged. Notice copy resolves through its world’s Notice text setting.

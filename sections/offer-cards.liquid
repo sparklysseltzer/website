@@ -206,8 +206,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    color: #fff;
-    background: #1a1a1a;
+    color: var(--color-text-inverse);
+    background: var(--color-surface-inverse);
     border-radius: var(--radius-large);
     text-decoration: none;
   }
@@ -255,8 +255,8 @@
   }
 
   .offer-card__media svg {
-    color: rgb(255 255 255 / 35%);
-    background: #333;
+    color: color-mix(in srgb, var(--color-text-inverse) 35%, transparent);
+    background: var(--color-inverse-hover);
   }
 
   .offer-card__title-row {
@@ -286,7 +286,7 @@
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-    background: #fff;
+    background: var(--color-surface);
     border-radius: 50%;
     box-shadow: 0 0.125rem 0.1875rem rgb(0 0 0 / 10%);
   }
@@ -312,8 +312,8 @@
 
   .offer-card__tag {
     padding: 0.5rem 0.625rem;
-    color: #fff;
-    background: rgb(255 255 255 / 42%);
+    color: var(--color-text-inverse);
+    background: color-mix(in srgb, var(--color-text-inverse) 42%, transparent);
     border-radius: 2.5rem;
     font-size: var(--font-size-label);
     line-height: var(--line-height-solid);

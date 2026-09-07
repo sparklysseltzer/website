@@ -6,7 +6,7 @@ This repository is a buildless Liquid theme. It deliberately starts small so the
 
 Start with the [documentation index](docs/README.md) for product context, architecture, current capability status, development rules, and the curated official Shopify reference stack.
 
-The theme currently provides 22 documented Liquid sections covering the global header/footer shell, reusable editorial and merchandising modules, and Shopify resource templates. See the authoritative [Section reference](docs/sections/README.md) for the available sections and their implementation contracts.
+The theme provides the global header/footer shell, reusable editorial and merchandising modules, and Shopify resource templates. See the authoritative [Section reference](docs/sections/README.md) for the available sections and their implementation contracts.
 
 ## Requirements
 
@@ -21,7 +21,7 @@ npm install
 npm run check
 ```
 
-`npm run check` runs Shopify Theme Check. It is read-only and does not connect to a Shopify store.
+`npm run check` runs Shopify Theme Check, global asset-budget checks, and typography regression checks. It is read-only and does not connect to a Shopify store. See [Development](docs/development.md#read-only-local-validation) for the complete handoff checks.
 
 ## Store preview
 
@@ -31,17 +31,10 @@ Running a development server creates or updates a temporary development theme in
 npm run dev
 ```
 
+On macOS this runs as a background service that survives terminal closure and restarts after exits. Use `npm run dev:status`, `npm run dev:logs`, and `npm run dev:stop` to manage it. See [Preview workflow and recovery](docs/development.md#preview-workflow) for login startup, sync-conflict handling, and the foreground fallback.
+
 Publishing or pushing a persistent theme is never part of the default development workflow. Do not run `shopify theme push`, `shopify theme publish`, or modify the live theme without explicit approval.
 
 ## Architecture
 
-- `layout/` contains the global document shell.
-- `templates/` maps Shopify resources to sections.
-- `sections/` contains merchant-configurable page modules and section groups.
-- `docs/sections/` documents every Liquid section and its current contract.
-- `snippets/` contains small reusable rendering primitives.
-- `assets/` contains buildless CSS and JavaScript.
-- `config/` contains global theme settings and their current values.
-- `locales/` contains storefront and theme-editor translations.
-
-Keep Liquid responsible for content and server rendering. Use JavaScript only for progressive enhancement. Prefer sections and blocks over hardcoded page composition so content remains editable in Shopify.
+Liquid owns server-rendered content; native CSS and vanilla JavaScript provide presentation and progressive enhancement. JSON templates own editable page composition. The [architecture guide](docs/architecture.md#repository-map) owns the repository map and integration boundaries.

@@ -1,0 +1,91 @@
+{% comment %}World palettes and semantic roles. Keep selectors aligned with documented section contexts.{% endcomment %}
+:root {
+  --color-accent: {{ settings.color_accent | default: '#e34f2f' }};
+  --color-surface-hover: {{ settings.color_surface_hover | default: '#dddddd' }};
+  --color-inverse-hover: {{ settings.color_inverse_hover | default: '#4d4d4d' }};
+  --color-success-text: {{ settings.color_success_text | default: '#0a4d2e' }};
+  --color-success-surface: {{ settings.color_success_surface | default: '#d9f8e5' }};
+  --color-error-text: {{ settings.color_error_text | default: '#7a1d1d' }};
+  --color-error-surface: {{ settings.color_error_surface | default: '#ffe3e3' }};
+  --color-general-background: {{ settings.color_general_background | default: '#ffffff' }};
+  --color-general-surface: {{ settings.color_general_surface | default: '#ffffff' }};
+  --color-general-surface-muted: {{ settings.color_general_surface_muted | default: '#eeeeee' }};
+  --color-general-surface-warm: {{ settings.color_general_surface_warm | default: '#f2f2f2' }};
+  --color-general-surface-inverse: {{ settings.color_general_surface_inverse | default: '#191919' }};
+  --color-general-foreground: {{ settings.color_general_foreground | default: '#000000' }};
+  --color-general-text-inverse: {{ settings.color_general_text_inverse | default: '#ffffff' }};
+  --color-general-text-secondary: {{ settings.color_general_text_secondary | default: '#4d4d4d' }};
+  --color-general-text-muted: {{ settings.color_general_text_muted | default: '#4d4d4d' }};
+  --color-general-notice-text: {{ settings.color_general_notice_text | default: '#9e9e9d' }};
+  --color-general-notice-surface: {{ settings.color_general_notice_surface | default: '#eeeeee' }};
+  --color-soda-background: {{ settings.color_soda_background | default: '#f7f3eb' }};
+  --color-soda-surface: {{ settings.color_soda_surface | default: '#ffffff' }};
+  --color-soda-surface-muted: {{ settings.color_soda_surface_muted | default: '#eeeeee' }};
+  --color-soda-surface-warm: {{ settings.color_soda_surface_warm | default: '#faf8f2' }};
+  --color-soda-surface-inverse: {{ settings.color_soda_surface_inverse | default: '#191919' }};
+  --color-soda-foreground: {{ settings.color_soda_foreground | default: '#000000' }};
+  --color-soda-text-inverse: {{ settings.color_soda_text_inverse | default: '#ffffff' }};
+  --color-soda-text-secondary: {{ settings.color_soda_text_secondary | default: '#4d4d4d' }};
+  --color-soda-text-muted: {{ settings.color_soda_text_muted | default: '#786e5b' }};
+  --color-soda-notice-text: {{ settings.color_soda_notice_text | default: '#786e5b' }};
+  --color-soda-notice-surface: {{ settings.color_soda_notice_surface | default: '#faf8f2' }};
+  --color-seltzer-background: {{ settings.color_seltzer_background | default: '#ffffff' }};
+  --color-seltzer-surface: {{ settings.color_seltzer_surface | default: '#ffffff' }};
+  --color-seltzer-surface-muted: {{ settings.color_seltzer_surface_muted | default: '#eeeeee' }};
+  --color-seltzer-surface-warm: {{ settings.color_seltzer_surface_warm | default: '#f2f2f2' }};
+  --color-seltzer-surface-inverse: {{ settings.color_seltzer_surface_inverse | default: '#191919' }};
+  --color-seltzer-foreground: {{ settings.color_seltzer_foreground | default: '#000000' }};
+  --color-seltzer-text-inverse: {{ settings.color_seltzer_text_inverse | default: '#ffffff' }};
+  --color-seltzer-text-secondary: {{ settings.color_seltzer_text_secondary | default: '#4d4d4d' }};
+  --color-seltzer-text-muted: {{ settings.color_seltzer_text_muted | default: '#4d4d4d' }};
+  --color-seltzer-notice-text: {{ settings.color_seltzer_notice_text | default: '#9e9e9d' }};
+  --color-seltzer-notice-surface: {{ settings.color_seltzer_notice_surface | default: '#eeeeee' }};
+}
+:root, [data-color-world='general'], .cart-page, .cart-drawer {
+  --color-background: var(--color-general-background);
+  --color-surface: var(--color-general-surface);
+  --color-surface-muted: var(--color-general-surface-muted);
+  --color-surface-warm: var(--color-general-surface-warm);
+  --color-surface-inverse: var(--color-general-surface-inverse);
+  --color-foreground: var(--color-general-foreground);
+  --color-text-inverse: var(--color-general-text-inverse);
+  --color-text-secondary: var(--color-general-text-secondary);
+  --color-text-muted: var(--color-general-text-muted);
+  --color-notice-text: var(--color-general-notice-text);
+  --color-notice-surface: var(--color-general-notice-surface);
+  --color-editorial-heading: var(--color-foreground);
+  --color-editorial-muted: var(--color-text-muted);
+  --color-progress-track: var(--color-surface-muted);
+}
+[data-color-world='soda'], .soda-ingredients, .soda-reasons, .versus--soda, .subscription--soda, .usp-section--soda, .product-overview-card--soda {
+  --color-background: var(--color-soda-background);
+  --color-surface: var(--color-soda-surface);
+  --color-surface-muted: var(--color-soda-surface-muted);
+  --color-surface-warm: var(--color-soda-surface-warm);
+  --color-surface-inverse: var(--color-soda-surface-inverse);
+  --color-foreground: var(--color-soda-foreground);
+  --color-text-inverse: var(--color-soda-text-inverse);
+  --color-text-secondary: var(--color-soda-text-secondary);
+  --color-text-muted: var(--color-soda-text-muted);
+  --color-notice-text: var(--color-soda-notice-text);
+  --color-notice-surface: var(--color-soda-notice-surface);
+  --color-editorial-heading: var(--color-foreground);
+  --color-editorial-muted: var(--color-text-muted);
+  --color-progress-track: var(--color-surface-muted);
+}
+[data-color-world='seltzer'], .seltzer-ingredients, .seltzer-awards, .versus--seltzer, .subscription--seltzer, .usp-section--seltzer, .product-overview-card--seltzer {
+  --color-background: var(--color-seltzer-background);
+  --color-surface: var(--color-seltzer-surface);
+  --color-surface-muted: var(--color-seltzer-surface-muted);
+  --color-surface-warm: var(--color-seltzer-surface-warm);
+  --color-surface-inverse: var(--color-seltzer-surface-inverse);
+  --color-foreground: var(--color-seltzer-foreground);
+  --color-text-inverse: var(--color-seltzer-text-inverse);
+  --color-text-secondary: var(--color-seltzer-text-secondary);
+  --color-text-muted: var(--color-seltzer-text-muted);
+  --color-notice-text: var(--color-seltzer-notice-text);
+  --color-notice-surface: var(--color-seltzer-notice-surface);
+  --color-editorial-heading: var(--color-foreground);
+  --color-editorial-muted: var(--color-text-muted);
+  --color-progress-track: var(--color-surface-muted);
+}

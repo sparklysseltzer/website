@@ -16,8 +16,6 @@ The section renders the blog title, a responsive card grid, lazy-loaded article 
 
 Tag filtering, featured articles, author display, reading time, search, and richer editorial card variants are not implemented.
 
-## Shared typography roles
+## Typography roles
 
 Hero-size page title; card-size article headings; body excerpts.
-
-Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.

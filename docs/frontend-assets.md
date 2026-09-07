@@ -53,11 +53,17 @@ Rules:
 
 ## Fonts, images, and preloads
 
+For design exports, exclude the separate grain layer: the theme adds grain at runtime. Preserve required transparency and complete effect bounds (including shadows) and verify the exported asset before replacing it. Photographic texture already present in the source photo is distinct from the removable grain overlay. Blank image pickers use the approved bundled asset automatically; never expose the implementation source in merchant labels. See [Theme Editor conventions](architecture.md#theme-editor-configuration-design) for fallback and native focal-point rules.
+
 - Serve theme fonts as local WOFF2 assets through `asset_url`.
 - Preload only fonts required for above-the-fold rendering. Maison Neue Demi is global; Erode Bold is preloaded only in Soda context and Newake only outside Soda context. Soda pages may load Newake normally when the below-the-fold footer renders its context-independent card headings; that exception does not justify a second heading-font preload. Maison Neue Bold must remain non-preloaded until an above-the-fold use justifies it.
 - Keep decorative theme textures local. `bg-noise-pattern2x.png` is a 2x source and is rendered at 100 by 100 CSS pixels where the header hover state uses it; active tabs deliberately remain untextured.
 - Render merchant images through `image_url` and `image_tag` with bounded widths, realistic `sizes`, and intrinsic dimensions.
 - Do not preload below-the-fold assets. Every preload competes with critical CSS, fonts, and the likely LCP image.
+
+## UI icons
+
+Use Untitled UI Icons as the primary source, following the [iconography contract](design-system.md#iconography). Bundle only the SVGs actually used, as local assets or reusable Liquid snippets. The official SVG catalog and the original components in the Sparklys Figma file are source options; no runtime icon dependency is required.
 
 ## Project review thresholds
 
@@ -74,7 +80,7 @@ The local compression numbers are deterministic comparison estimates. The Shopif
 
 ## Verification
 
-Before handoff, run the repository quality gates in `docs/development.md`. `npm run check` includes Theme Check and the global asset budget.
+Before handoff, run the [development quality gates](development.md#read-only-local-validation). `npm run check` includes Theme Check, the global asset budget, and typography regression checks.
 
 For release performance verification on a Shopify-hosted preview or production theme:
 

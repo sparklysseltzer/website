@@ -2,11 +2,9 @@
 
 Source: `sections/poster.liquid`
 
-Display headings use the centrally resolved font-specific line height from the [design system](../design-system.md); section CSS must not introduce a separate heading rhythm.
-
 ## Purpose
 
-Poster owns the approved full-image editorial composition, either with overlaid content or as an image-only surface. It is available as a section preset but is not currently placed in a JSON template. The side-by-side composition is a separate [Split Image-Text](split-image-text.md) section so each Theme Editor contract stays focused.
+Poster owns the approved full-image editorial composition, either with overlaid content or as an image-only surface. It is available as a reusable section preset. The side-by-side composition is a separate [Split Image-Text](split-image-text.md) section so each Theme Editor contract stays focused.
 
 ## Merchant controls
 
@@ -30,8 +28,10 @@ The bundled `poster-subscription.webp` artwork renders automatically while the d
 
 The selected heading level preserves page hierarchy, decorative tick icons are hidden from assistive technology, and the action renders only when enabled with a non-empty label. Editors must replace the `#` placeholder with a meaningful destination and supply useful image alternative text when the image conveys content. Video, multiple actions, and app blocks are not implemented.
 
-## Shared typography roles
+## Typography roles
 
 Section heading; body copy and tick-list text; UI actions. Image-only mode is unchanged.
 
-Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.
+## Shared color settings
+
+Shared neutral UI colors now resolve through **Theme settings → Colors**, following the [color contract](../design-system.md#theme-color-settings). This supersedes fixed neutral hex values in earlier frame descriptions. Primary text, inverse text, gray/cream surfaces and hover states use global roles; product artwork, deliberate product-world accents and explicit section color overrides remain local. No schema/data-source, motion or structured-data behavior changes.

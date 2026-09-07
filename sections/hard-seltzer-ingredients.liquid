@@ -74,7 +74,7 @@
             </div>
             <p>{{ item_text }}</p>
           </div>
-          {%- unless forloop.last -%}<span class="seltzer-ingredients__plus" aria-hidden="true">+</span>{%- endunless -%}
+          {%- unless forloop.last -%}<span class="seltzer-ingredients__plus" aria-hidden="true" data-scroll-motion-reveal>+</span>{%- endunless -%}
         {%- endfor -%}
       </div>
     </div>
@@ -82,7 +82,7 @@
 </editorial-section-motion>
 
 {% stylesheet %}
-  .seltzer-ingredients { color: var(--color-editorial-heading); background: #fff; }
+  .seltzer-ingredients { color: var(--color-editorial-heading); background: var(--color-surface); }
   .seltzer-ingredients__inner { max-width: 77rem; text-align: center; }
   .seltzer-ingredients__header { max-width: 40rem; margin-inline: auto; }
 .seltzer-ingredients__heading { display: flex; margin: 0; align-items: center; justify-content: center; gap: clamp(.75rem, 1.4vw, 1.25rem); font-family: var(--font-heading-default); font-size: var(--font-size-display); font-weight: 400; line-height: var(--line-height-heading); letter-spacing: normal; text-align: left; text-transform: uppercase; }

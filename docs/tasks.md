@@ -23,9 +23,9 @@ Structured-data retrofit work is maintained in the separate [Structured-data tas
 - Status: Pending discovery and implementation approval for the demand-validation stage. Back-in-stock notifications are deliberately deferred.
 - Added: 2026-08-25.
 
-### TASK-006 — Establish the motion framework and storefront build-up intro
+### TASK-006 — Evaluate motion-runtime expansion and storefront build-up intro
 
-- The runtime-independent Sparklys base motion language is approved and documented in `docs/architecture.md`; this task chooses and hardens the shared implementation engine rather than redefining that visual standard.
+- The native CSS/Web Animations framework is already implemented across editorial sections and FAQ interactions; its current contract is in [Architecture](architecture.md#motion-language). This pending task concerns optional runtime expansion and a new header/footer intro, not replacing the existing engine without approval.
 - Decide whether GSAP Core plus ScrollTrigger should become the project motion runtime now that multiple heavy, coordinated, and scroll-scrubbed scenes are planned. Compare locally vendored GSAP against project-owned Web Animations/CSS, including payload, buildless-theme integration, lifecycle cleanup in the Shopify Theme Editor, browser consistency, reduced-motion behavior, and long-term maintenance. Do not load animation libraries from a third-party CDN.
 - Treat the intro as a calm construction of the storefront rather than a blocking splash screen. The page background and usable document remain present immediately; motion progressively layers the interface into place.
 - Header storyline:
@@ -44,7 +44,7 @@ Structured-data retrofit work is maintained in the separate [Structured-data tas
 - Motion direction: favor opacity plus 8–48px translations, smooth non-bouncy easing, limited simultaneous movement, and clear visual hierarchy. Keep hover motion independent from entrance timelines.
 - Accessibility and resilience: render the complete final state without JavaScript, skip non-essential animation for `prefers-reduced-motion`, preserve focus order and interaction during playback, avoid scroll locking, and prevent layout shifts.
 - Build an isolated tuning preview before applying the intro globally. Expose duration, stagger, travel, easing, and scrub/catch-up values so the motion can be approved visually before hardening.
-- Status: Pending framework decision, motion prototype, and implementation approval.
+- Status: Existing native framework implemented; alternative-runtime evaluation and header/footer intro remain pending explicit approval.
 - Added: 2026-08-23.
 
 ### TASK-004 — Define and implement smooth scrolling

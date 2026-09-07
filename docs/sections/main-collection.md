@@ -19,8 +19,6 @@ Soda and Hard Seltzer collection templates place editorial Hero and Rich text se
 
 Sorting, filtering, active-filter state, merchandising badges, quick add, and richer collection SEO presentation are not implemented.
 
-## Shared typography roles
+## Typography roles
 
 Hero-size page title; body description; compact product-card names.
-
-Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.

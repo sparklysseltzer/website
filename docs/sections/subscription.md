@@ -39,8 +39,18 @@ The three benefit defaults are supplied design copy, not newly invented subscrip
 
 No section-owned Offer JSON-LD: this is a marketing teaser, with no concrete product, selling plan, price or actionable offer data. Do not invent an Offer or claim end-to-end subscription support. Canonical Product/Offer structured data must come from the future real selling-plan integration, consistent with the actual displayed price and terms.
 
-## Shared typography roles
+## Typography roles
 
 Display heading; body introduction, benefits and account copy; UI actions in both worlds.
 
-Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.
+## Shared color settings
+
+Shared neutral UI colors now resolve through **Theme settings → Colors**, following the [color contract](../design-system.md#theme-color-settings). This supersedes fixed neutral hex values in earlier frame descriptions. Primary text, inverse text, gray/cream surfaces and hover states use global roles; product artwork, deliberate product-world accents and explicit section color overrides remain local. No schema/data-source, motion or structured-data behavior changes.
+
+## Brand-world palettes
+
+Colors now follow the [brand-world palette contract](../design-system.md#theme-color-settings). Explicit Soda/Seltzer sections and cards select their own palette on mixed pages; the header/footer inherit page context, and both cart surfaces always use General. Shared accent/status roles and explicit artwork/section overrides remain unchanged. Notice copy resolves through its world’s Notice text setting.
+
+## Ananotes correction — single-line Seltzer heading
+
+The Hard Seltzer heading uses its natural content width and no wrapping, so “Subscription” extends beyond the narrower body-copy column on desktop. On phones its inline margins reclaim 14px of the existing panel padding on each side, keeping the 44px shared display role inside the panel at 320px. No font size or line-height exception is introduced. The Soda heading is unchanged. Longer merchant-supplied Seltzer headings must be checked against the available panel width because this heading intentionally stays on one line.

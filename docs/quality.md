@@ -22,7 +22,7 @@ Required conventions:
 - motion respects `prefers-reduced-motion`;
 - drawers and dialogs manage focus, Escape, and focus restoration.
 
-Current known remediation: cart table headers still need explicit `scope`, and sale-price markup needs clearer screen-reader labels before production readiness.
+Current remediation is tracked in [Status](status.md#known-incomplete-capabilities) and the owning section references. In particular, validate cart table semantics, sale-price labels, and enlarged-text reflow before production readiness.
 
 ## Performance
 
@@ -37,7 +37,7 @@ Follow Shopify's [Performance best practices](https://shopify.dev/docs/storefron
 - use resource hints sparingly;
 - test home, product, and collection pages with realistic data.
 
-The current theme uses one global CSS asset and one deferred JavaScript asset, with section behavior scoped through custom elements. This can be revisited when measured page composition makes per-section delivery materially better.
+Asset ownership, actual loading patterns and budgets are defined in [Frontend assets](frontend-assets.md). The theme uses shared global assets plus section-compiled CSS and the FAQ stylesheet; do not assume every style is loaded globally.
 
 ## SEO
 
@@ -45,7 +45,7 @@ The layout currently provides page titles, meta descriptions, canonical URLs, Op
 
 Remaining SEO work:
 
-- add valid product structured data with presentment currency;
+- complete applicable entity markup following the [structured-data retrofit checklist](structured-data-tasks.md), without duplicating its task inventory here;
 - validate sharing metadata for products and articles;
 - verify heading hierarchy against real editor configurations;
 - validate indexability and canonical behavior on preview and production domains;
@@ -68,12 +68,7 @@ For every affected journey, cover applicable rows:
 
 ## Automated gates
 
-Current:
-
-- Theme Check in local scripts and GitHub Actions;
-- JavaScript syntax validation;
-- JSON parsing;
-- whitespace validation.
+`npm run check` runs Theme Check, global asset-budget checks, and shared typography regression checks locally and in GitHub Actions. JavaScript syntax, JSON parsing, and whitespace validation are additional local handoff gates. The [development guide](development.md#read-only-local-validation) owns the commands and the handling of Shopify-generated JSON headers.
 
 Not yet automated on the connected development theme:
 

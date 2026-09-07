@@ -88,3 +88,7 @@ npx shopify doc fetch --url https://shopify.dev/docs/storefronts/themes/architec
 ```
 
 After research, update the relevant local guide with the project decision and a direct official link.
+
+### Cart section content negotiation
+
+For [Section Rendering API](https://shopify.dev/docs/api/ajax/section-rendering) requests at `/cart?sections=...`, use the default Accept header. On the development storefront, explicitly requesting `application/json` selected the raw cart JSON response instead of the section map, despite HTTP 200. Reproduced and fixed on 2026-09-06. This does not apply to JSON Cart Ajax mutation endpoints.

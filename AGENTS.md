@@ -1,5 +1,11 @@
 # Sparklys storefront repository guidelines
 
+## Browser cleanup
+
+Run automated browser checks headlessly by default so they never steal focus. Use explicit `--headed false`; for extension-loaded test sessions also pass `--args '--headless=new'`, since the launcher otherwise forces a visible extension browser. Screenshots work headlessly. Ask before any test that requires a visible browser, and never activate the user's regular Chrome during automated checks.
+
+Use isolated test browsers only when needed and prefer headless checks when visual interaction is unnecessary. Close every test browser session created for the task before handing back, including after failed checks. Do not leave Chrome for Testing windows running. Never close the user's regular Chrome profiles or unrelated active sessions. Keep a test window open only when the user explicitly requests it.
+
 ## Start here
 
 Read these files before changing behavior:
@@ -19,6 +25,10 @@ Before changing a section:
 3. Update that section document in the same change when its schema, rendering contract, fallback assets, motion, data source, or known limitations change.
 
 Keep `docs/sections/README.md` as the single authoritative list of available sections. Do not duplicate that complete list in `AGENTS.md` or other documentation indexes.
+
+For new or replaced UI icons, use Untitled UI Icons first. Follow the sourcing, Figma fallback, style and accessibility contract in `docs/design-system.md#iconography`.
+
+Use Ananotes for storefront annotations. Read `docs/development.md#ananotes-browser-annotations` for the MCP bridge; the fork retains `onui_*` protocol identifiers for compatibility.
 
 ## Product and language
 

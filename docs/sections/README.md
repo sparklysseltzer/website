@@ -2,13 +2,18 @@
 
 This directory documents every Liquid section in `sections/`. Keep implementation details here; keep cross-cutting rules in [Architecture](../architecture.md), commerce requirements in [Commerce](../commerce.md), and capability state in [Status](../status.md).
 
-Last reconciled with the repository: 2026-09-04.
+Last reconciled with the repository: 2026-09-06. The tables below cover all 29 Liquid sections; variants and presets do not count as separate sections.
+
+## Shared contracts
+
+All sections follow the [design system](../design-system.md), [asset-delivery rules](../frontend-assets.md), [Theme Editor conventions](../architecture.md#theme-editor-configuration-design), and [quality standards](../quality.md). Section documents list their typography role mappings and genuine exceptions; shared numeric scales and general rules live only in the owning guides. For current placement and merchant settings, inspect the relevant JSON template rather than treating a preset's availability as proof of placement.
 
 ## Global shell
 
 | Section | Role | Placement |
 | --- | --- | --- |
 | [Header](header.md) | Brand-context navigation, utility menu, store finder, account preview, and cart link | `header-group.json` |
+| [Cart drawer](cart-drawer.md) | Global modal cart with synchronized rows, totals and checkout | Static section in `layout/theme.liquid` |
 | [Footer](footer.md) | Brand-context newsletter, navigation, legal, social, and commerce preview | `footer-group.json` |
 
 ## Reusable editorial and merchandising sections

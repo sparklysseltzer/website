@@ -199,9 +199,9 @@
 </editorial-section-motion>
 
 {% stylesheet %}
-  .versus { color: var(--color-editorial-heading); background: #e5e1d9; --versus-fact-color: var(--color-editorial-muted); --versus-card-color: #faf8f3; }
-  .versus--seltzer { color: var(--color-editorial-heading); background: #dfdfdd; }
-  .versus--seltzer { --versus-fact-color: #4e4e4e; --versus-card-color: #fff; }
+  .versus { color: var(--color-editorial-heading); background: var(--color-background); --versus-fact-color: var(--color-editorial-muted); --versus-card-color: var(--color-surface-warm); }
+  .versus--seltzer { color: var(--color-editorial-heading); background: var(--color-surface-muted); }
+  .versus--seltzer { --versus-fact-color: var(--color-text-secondary); --versus-card-color: var(--color-surface); }
   .versus__inner { max-width: calc(75rem + 2 * var(--page-gutter)); }
   .versus__header { text-align: center; }
 .versus__header h2 { margin: 0; font-size: var(--font-size-section); line-height: var(--line-height-heading); }
@@ -252,8 +252,7 @@
   .versus__fact--boolean dd img { width: 1.4rem; height: 1.4rem; }
   .versus__fact dd strong { font-family: var(--font-body-strong); font-weight: 700; }
   .versus--soda .versus__card--featured .versus__fact:nth-child(-n+5), .versus--seltzer .versus__card--featured .versus__fact:nth-child(-n+2) { color: #006c38; background: rgb(35 199 120 / .1); }
-  .versus__notes { margin: 1.25rem auto 0; color: var(--color-editorial-muted); font-size: var(--font-size-small); line-height: var(--line-height-body-compact); text-align: center; }
-  .versus--seltzer .versus__notes { color: #929292; }
+  .versus__notes { margin: 1.25rem auto 0; color: var(--color-notice-text); font-size: var(--font-size-small); line-height: var(--line-height-body-compact); text-align: center; }
   .versus__notes p { margin: .25rem 0; }
   @media (min-width: 750px) {
     .versus__card { order: var(--desktop-order); }

@@ -1,0 +1,2 @@
+{% comment %}Cart amounts use Shopify's presentment currency code once, with Shopify-formatted numeric values.{% endcomment %}
+{{- cart.currency.iso_code | escape }} {{ amount | money_without_currency -}}

@@ -2,8 +2,6 @@
 
 Source: `sections/faq.liquid`
 
-Display headings use the centrally resolved font-specific line height from the [design system](../design-system.md); section CSS must not introduce a separate heading rhythm.
-
 ## Purpose
 
 FAQ is a reusable, centrally managed accordion for editorial, collection, and product templates. A placement can render an explicitly ordered list of FAQ entries, the ordered list owned by one FAQ Category, or both sources together. Questions and answers remain Shopify metaobject content rather than being copied into template blocks.
@@ -34,8 +32,6 @@ Add-section visual preview mode renders four neutral sample rows so the picker s
 
 The reusable selected list is capped at 20 entries to keep the section editorially focused. Use the dedicated [FAQ directory](main-faq.md) when every published FAQ must be discoverable. Individual FAQ webpages are not implemented.
 
-## Shared typography roles
+## Typography roles
 
 Section heading; compact questions; body answers with reading line height; body closing copy.
-
-Sizes follow the central [fluid typography system](../design-system.md#shared-fluid-roles), not section-specific clamps or mobile overrides. All standard body text shares the 16–17px curve across 390–1440px at the normal browser root; font-specific heading rhythm remains centralized.
