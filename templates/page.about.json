@@ -1,0 +1,120 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "split_image_text_KGaiyb": {
+      "type": "split-image-text",
+      "blocks": {
+        "item_pWgbXM": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        },
+        "item_kh4GD8": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        },
+        "item_d3ikUE": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        }
+      },
+      "block_order": [
+        "item_pWgbXM",
+        "item_kh4GD8",
+        "item_d3ikUE"
+      ],
+      "name": "Split Image-Text",
+      "settings": {
+        "image_side": "left",
+        "image_width": 50,
+        "minimum_height": 630,
+        "image_alt": "Sparklys team portrait",
+        "show_heading": true,
+        "heading": "asdfasdfasdf",
+        "heading_level": "h2",
+        "show_subtext": true,
+        "subtext": "<p>Add supporting copy for this section.</p>",
+        "show_list": true,
+        "show_button": true,
+        "button_label": "Learn more",
+        "button_link": "#",
+        "button_style": "automatic",
+        "panel_color": "#e0e0e0",
+        "text_color": "#000000"
+      }
+    },
+    "subscription_eY9YGM": {
+      "type": "subscription",
+      "blocks": {
+        "benefit_r4VCxC": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "discount",
+            "text": ""
+          }
+        },
+        "benefit_aPW3hE": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "shipping",
+            "text": ""
+          }
+        },
+        "benefit_TEgbND": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "flexibility",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "benefit_r4VCxC",
+        "benefit_aPW3hE",
+        "benefit_TEgbND"
+      ],
+      "name": "Subscription - Soda",
+      "settings": {
+        "variant": "soda",
+        "image_alt": "",
+        "show_logo": true,
+        "show_heading": true,
+        "heading": "",
+        "heading_font": "automatic",
+        "show_intro": true,
+        "intro": "",
+        "show_button": true,
+        "button_label": "",
+        "button_link": "#",
+        "show_account": true,
+        "account_prompt": "",
+        "account_label": "",
+        "account_link": "",
+        "minimum_height": 630,
+        "minimum_height_mobile": 680
+      }
+    }
+  },
+  "order": [
+    "main",
+    "split_image_text_KGaiyb",
+    "subscription_eY9YGM"
+  ]
+}
