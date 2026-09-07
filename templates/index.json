@@ -188,7 +188,7 @@
         "companies"
       ],
       "settings": {
-        "content_source": "local",
+        "content_source": "global",
         "show_heading": true,
         "heading": "Unser Angebot",
         "show_intro": true,
@@ -800,6 +800,19 @@
         "minimum_height": 630,
         "minimum_height_mobile": 680
       }
+    },
+    "usp_section_UCGrUT": {
+      "type": "usp-section",
+      "name": "USP — Hard Seltzer",
+      "settings": {
+        "variant": "seltzer",
+        "heading": "",
+        "text": "",
+        "heading_font": "automatic",
+        "color_mode": "automatic",
+        "background": "#69bdf7",
+        "text_color": "#000000"
+      }
     }
   },
   "order": [
@@ -821,6 +834,7 @@
     "versus_jX3Efm",
     "hard_seltzer_awards_BVVJyN",
     "subscription_9QeTg7",
-    "subscription_MCaDqq"
+    "subscription_MCaDqq",
+    "usp_section_UCGrUT"
   ]
 }
