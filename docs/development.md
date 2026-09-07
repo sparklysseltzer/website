@@ -180,3 +180,31 @@ Never put passwords or tokens on a command line that will be committed or docume
 - Do not commit secrets, `.env` files, Shopify auth data, or generated preview artifacts.
 - CI runs `npm run check` (Theme Check, asset budgets, and typography checks) on pushes to `main` and pull requests. JavaScript syntax, JSON parsing, and whitespace checks remain separate local handoff gates.
 - Lighthouse CI should be added only after a dedicated development store and repository secrets are approved. Shopify's action uploads theme code and needs `read_products` and `write_themes`; see [Shopify Lighthouse CI](https://shopify.dev/docs/storefronts/themes/tools/lighthouse-ci).
+
+
+## Shared editorial theme — 2026-09-07
+
+Colleagues edit the permanent unpublished **website/main** theme, ID `199388037507`, on `sparklys-hard-seltzer.myshopify.com`. Do not use the temporary development theme (`199384498563`) for shared editorial work. Local preview continues targeting the separate development theme.
+
+Use `npm run deploy:plan` to download a backup and prepare a code manifest without uploading. After explicit deployment authorization, use `npm run deploy:team`. The wrapper pins the shared theme ID, checks its role is unpublished before and after upload, clears inherited Shopify flag overrides, and never passes publish or allow-live flags. Backups and staged files live outside Git under `~/Library/Application Support/Sparklys/theme-backups/<timestamp>/`.
+
+The deployment uploads only assets, Liquid layouts/sections/snippets/blocks and `config/settings_schema.json`, plus additive locale keys. It excludes **all templates**, `config/settings_data.json`, and section-group JSON. `--nodelete` preserves remote-only files. Shopify is authoritative for editor content, template composition, app embeds and saved design settings; local copies are development fixtures, not deployment sources. Products, collections, pages, metafields and metaobjects are store data and are not uploaded by this command.
+
+The existing shared theme has German-default locale filenames. Preserve that setup during code deployment; locale/default-language migration is a separate reviewed task. Locale handling adds missing local keys to the matching remote language file while retaining every existing remote value and filename. Existing wording changes are deliberately not shipped automatically. A second pull detects changes before the locale upload; Shopify does not provide an atomic compare-and-swap here, so avoid concurrent translation edits during deployment. Theme Editor template/content work remains safe from this command because its files are never uploaded.
+
+New local templates and migrations to saved settings must be handled separately: pull current remote files into a temporary folder, review the exact difference with the editor, merge only the intended addition, and upload only those approved files during a short editing pause. Never copy the whole local settings/templates folder over Shopify. Adding schema options is code work, but renaming/removing section types, block types, or setting IDs can invalidate existing content even when JSON is excluded; preserve those identifiers and review migrations explicitly.
+
+Before changing code around colleagues' layouts, pull their current JSON into a temporary folder and reconcile it into local development intentionally. Do not aim the automatic localhost watcher at the shared theme. Do not use an unfiltered `theme push` or a blanket `keep-local` reconciliation on the shared theme.
+
+The theme name `website/main` resembles a GitHub-connected theme. Verify the Shopify GitHub integration before pushing Git branches: this wrapper cannot protect content from an independent GitHub deployment. Keep editorial JSON changes synchronized on any connected branch, or use a separate deployment branch/workflow. This CLI deployment does not push Git or publish the theme.
+
+
+### Initial baseline and subsequent GitHub releases
+
+The merchant explicitly authorized the first 2026-09-07 upload to include all local content, templates, locale setup and saved settings. This is a one-time baseline exception, not permission for future content replacement. GitHub integration deploys the connected branch into the existing unpublished theme; it does not publish it.
+
+After the baseline, install the repository push guard with `git config core.hooksPath .githooks` (required on each developer checkout). The pre-push hook blocks non-fast-forward pushes and differences to `config/settings_data.json`, all templates, section-group JSON and locales on the shared main branch. It compares against the server's current commit, so fetch/merge is required when colleagues have saved changes. Normal releases must keep protected files identical to that latest remote commit. Intentional new templates, translations and settings migrations require separate explicit review; do not bypass the hook for routine deployment. Local hooks can be bypassed and are not a substitute for GitHub branch protection; branch protection has not been configured by this change.
+
+Shopify Theme Editor and code-editor saves are automatically committed by the GitHub integration. Store-level products, pages, collections, files, metafields and metaobjects are not versioned as theme JSON. Keep the development watcher isolated. Code changes must preserve setting/section/block IDs so retained content remains renderable.
+
+For future releases: fetch origin; merge editor commits; review code against current shared content; restore shared editorial files to the latest origin/main versions in a separate release worktree if local development fixtures differ; run checks; push normally. Never force-push. The content-preserving CLI wrapper is available for explicitly approved code-only theme updates, but GitHub is the normal versioned delivery route.

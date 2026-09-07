@@ -13,7 +13,9 @@
     "dev:status": "node scripts/dev-preview.mjs status",
     "dev:logs": "node scripts/dev-preview.mjs logs",
     "dev:foreground": "shopify theme dev --store sparklys-hard-seltzer.myshopify.com --theme-editor-sync --reconciliation-strategy=abort",
-    "check:cart": "node --test tests/cart-coupons.test.mjs"
+    "check:cart": "node --test tests/cart-coupons.test.mjs",
+    "deploy:plan": "node scripts/deploy-team-theme.mjs",
+    "deploy:team": "node scripts/deploy-team-theme.mjs --execute"
   },
   "engines": {
     "node": ">=22"
