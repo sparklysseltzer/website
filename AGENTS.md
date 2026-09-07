@@ -72,3 +72,15 @@ git diff --check
 ```
 
 Once an approved development theme is available, verify every affected journey at a representative phone and desktop viewport, with keyboard navigation and JavaScript disabled where core behavior is involved.
+
+
+## Hard rule: shared theme content ownership
+
+- The shared theme is **website/main**, ID `199388037507`, connected to GitHub `sparklysseltzer/website` branch `main`. It must remain unpublished unless the user explicitly authorizes publishing.
+- The user approved a **one-time initial baseline upload on 2026-09-07**, including local templates, content, locale setup and saved settings. Once that upload completes, this exception is exhausted. Do not reuse it for later deployments.
+- **After the baseline, never overwrite Shopify/editor-owned content with local development files.** Shopify's latest saved content is authoritative: `config/settings_data.json`, all `templates/**`, section-group `sections/*.json`, and existing locale values. Local development fixtures are not release content.
+- Fetch and merge the latest GitHub/editor commits before every deployment. Preserve protected files from the current connected branch; never force-push. New templates, locale changes or saved-setting migrations need explicit, specific user approval and a reviewed merge with current remote content.
+- Install the local guard with `git config core.hooksPath .githooks` in every developer checkout. Never bypass it for routine work. It is a local safeguard, not server-enforced branch protection.
+- Keep localhost development on its separate temporary development theme. Do not point its watcher at the shared editorial theme.
+- Preserve section, block and setting IDs when modifying schema/code; excluding content JSON does not make destructive schema changes safe.
+- Follow `docs/development.md` for the guarded GitHub release and code-only CLI workflows. A request to push/upload the draft does **not** authorize publishing or updating the live theme.
