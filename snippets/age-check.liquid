@@ -1,0 +1,103 @@
+{%- assign age_fields = 'number,numberDigit,birth,expiry,optional,optionalDigit,tail,birthYear' | split: ',' -%}
+{%- assign minimum_age = settings.age_check_minimum_age | default: '18' -%}
+<age-check data-color-world="general" data-cart-url="{{ routes.cart_url }}">
+  <dialog class="age-check" aria-labelledby="AgeCheckTitle" data-private data-hj-suppress data-clarity-mask="true">
+    <header class="age-check__header">
+      <h2 id="AgeCheckTitle">{{ 'age_check.title' | t }}</h2>
+      <button type="button" class="cart-remove" data-age-close aria-label="{{ 'age_check.close' | t }}"><span class="cart-icon cart-icon--close" aria-hidden="true"></span></button>
+    </header>
+    <p class="age-check__status" data-age-status role="status" tabindex="-1"></p>
+    <form data-age-form autocomplete="off" novalidate hidden>
+      <p data-age-intro>{{ 'age_check.intro' | t: age: minimum_age }}</p>
+      <div class="age-check__document-select">
+      <label for="AgeDocument">{{ 'age_check.document' | t }}</label>
+      <sparklys-select>
+      <select id="AgeDocument" name="profile" class="form-control">
+        <option value="ch-id">{{ 'age_check.ch_id' | t }}</option>
+        <option value="ch-passport">{{ 'age_check.ch_passport' | t }}</option>
+        <option value="li-id">{{ 'age_check.li_id' | t }}</option>
+        <option value="li-passport">{{ 'age_check.li_passport' | t }}</option>
+      <option value="international-passport">{{ 'age_check.international_passport' | t }}</option>
+      </select>
+      </sparklys-select>
+      </div>
+      <div class="age-check__version" data-age-version hidden>
+        <label for="AgeVersion">{{ 'age_check.version' | t }}</label>
+        <select id="AgeVersion" name="version" class="field__input">
+          <option value="current">{{ 'age_check.version_current' | t }}</option>
+          <option value="previous">{{ 'age_check.version_previous' | t }}</option>
+        </select>
+      </div>
+      <div class="age-document-viewport">
+        <button type="button" class="age-document__help-toggle" data-age-help-toggle aria-expanded="false" aria-controls="AgeDocumentHelp">
+          <span class="age-document__help-icon" aria-hidden="true"></span><span data-age-help-label>{{ 'age_check.help' | t }}</span>
+        </button>
+        <div class="age-document__stage" data-age-stage>
+        <div data-age-entry>
+      <div class="age-document" data-age-document>
+        <div class="age-document__swiss-art" aria-hidden="true">
+        <img class="age-document__swiss-background" src="{{ 'age-swiss-id.webp' | asset_url }}" width="1200" height="750" alt="" aria-hidden="true">
+        </div>
+        <div class="age-document__art">
+          <div class="age-document__heading"><strong data-age-country></strong><span>{{ 'age_check.example' | t }}</span></div>
+          <div class="age-document__details">
+            <div class="age-document__portrait" aria-hidden="true"><span></span></div>
+            <div class="age-document__print" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <span class="age-document__mark" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="age-document__zone">
+          <p class="age-document__caption" data-age-side></p>
+          <div class="age-document__mrz" data-age-guide></div>
+        </div>
+      </div>
+      <div class="age-check__guidance">
+        {%- for field in age_fields -%}
+          <span id="AgeHelp-{{ field }}" class="visually-hidden" data-age-help="{{ field }}"></span>
+          <p id="AgeError-{{ field }}" class="age-check__error" data-age-error="{{ field }}" aria-live="polite"></p>
+        {%- endfor -%}
+      </div>
+        <div class="age-document__year" data-age-year hidden>
+          <p class="age-check__help" data-age-year-location></p>
+        </div>
+        </div>
+        <div id="AgeDocumentHelp" class="age-document__help-panel" data-age-help-panel hidden inert>
+          <div data-age-swiss-help>
+            <div class="age-document__help-art"><img src="{{ 'age-swiss-id-help.webp' | asset_url }}" width="1200" height="750" alt="{{ 'age_check.help_image_alt' | t }}"></div>
+            <ol class="age-document__help-legend visually-hidden">
+              <li>{{ 'age_check.fields.number' | t }}</li>
+              <li>{{ 'age_check.fields.numberDigit' | t }}</li>
+              <li>{{ 'age_check.fields.birth' | t }}</li>
+              <li>{{ 'age_check.fields.expiry' | t }}</li>
+              <li>{{ 'age_check.finalDigit' | t }}</li>
+            </ol>
+            <p>{{ 'age_check.help_swiss_instructions' | t }}</p>
+            <p>{{ 'age_check.help_swiss_contact_html' | t }}</p>
+          </div>
+          <div data-age-other-help hidden>
+          <p class="age-check__help" data-age-location></p>
+          <p class="age-document__help-title">{{ 'age_check.other_document' | t }}</p>
+          <p>{{ 'age_check.other_detail' | t }}</p>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div data-age-field-pool hidden>
+        {%- for field in age_fields -%}
+          <div class="age-check__field" data-age-field="{{ field }}">
+            {%- assign label_key = field | prepend: 'age_check.fields.' -%}
+            <label for="Age-{{ field }}">{{ label_key | t }}</label>
+            <input id="Age-{{ field }}" name="{{ field }}" class="field__input" type="text" autocomplete="off" spellcheck="false" autocapitalize="characters" aria-describedby="AgeHelp-{{ field }} AgeError-{{ field }}" required {% if field == 'numberDigit' or field == 'birth' or field == 'expiry' or field == 'birthYear' %}inputmode="numeric"{% endif %}>
+          </div>
+        {%- endfor -%}
+      </div>
+      <p class="age-check__privacy"><span class="age-check__info-icon" aria-hidden="true"></span><span>{{ 'age_check.privacy' | t }}</span></p>
+      <button class="button" type="submit"><span class="button__label">{{ 'age_check.check' | t }}</span></button>
+    </form>
+    <div data-age-success hidden>
+      <p>{{ 'age_check.success_detail' | t }}</p>
+      <button class="button" type="button" data-age-continue hidden><span class="button__label">{{ 'age_check.retry' | t }}</span></button>
+    </div>
+    <script type="application/json" data-age-translations>{"passportTitle":{{ 'age_check.passportTitle' | t | json }},"optionalLabel":{{ 'age_check.optionalLabel' | t | json }},"passportOptionalLabel":{{ 'age_check.passportOptionalLabel' | t | json }},"passportOptionalHelp":{{ 'age_check.passportOptionalHelp' | t | json }},"optionalDigitHelp":{{ 'age_check.optionalDigitHelp' | t | json }},"help":{{ 'age_check.help' | t | json }},"helpBack":{{ 'age_check.help_back' | t | json }},"nameExample":{{ 'age_check.name_example' | t | json }},"finalDigit":{{ 'age_check.finalDigit' | t | json }},"finalDigitHelp":{{ 'age_check.finalDigitHelp' | t | json }},"tailLabel":{{ 'age_check.fields.tail' | t | json }},"version_current":{{ 'age_check.version_current' | t | json }},"version_previous":{{ 'age_check.version_previous' | t | json }},"id_current":{{ 'age_check.id_current' | t | json }},"id_previous":{{ 'age_check.id_previous' | t | json }},"id_side":{{ 'age_check.id_side' | t | json }},"passport_side":{{ 'age_check.passport_side' | t | json }},"year_front":{{ 'age_check.year_front' | t | json }},"year_photo":{{ 'age_check.year_photo' | t | json }},"line_one":{{ 'age_check.line_one' | t | json }},"line_two":{{ 'age_check.line_two' | t | json }},"names_omitted":{{ 'age_check.names_omitted' | t | json }},"country_ch":{{ 'age_check.country_ch' | t | json }},"country_li":{{ 'age_check.country_li' | t | json }},"title":{{ 'age_check.title' | t | json }},"close":{{ 'age_check.close' | t | json }},"intro":{{ 'age_check.intro' | t: age: '__AGE__' | json }},"document":{{ 'age_check.document' | t | json }},"ch_id":{{ 'age_check.ch_id' | t | json }},"ch_passport":{{ 'age_check.ch_passport' | t | json }},"li_id":{{ 'age_check.li_id' | t | json }},"li_passport":{{ 'age_check.li_passport' | t | json }},"example":{{ 'age_check.example' | t | json }},"guide_help":{{ 'age_check.guide_help' | t | json }},"fillers_only":{{ 'age_check.fillers_only' | t | json }},"privacy":{{ 'age_check.privacy' | t | json }},"check":{{ 'age_check.check' | t | json }},"success_detail":{{ 'age_check.success_detail' | t | json }},"continue":{{ 'age_check.continue' | t | json }},"other_document":{{ 'age_check.other_document' | t | json }},"other_detail":{{ 'age_check.other_detail' | t | json }},"back":{{ 'age_check.back' | t | json }},"unavailable":{{ 'age_check.unavailable' | t | json }},"loading":{{ 'age_check.loading' | t | json }},"success":{{ 'age_check.success' | t | json }},"error":{{ 'age_check.error' | t | json }},"unknown":{{ 'age_check.unknown' | t | json }},"changed":{{ 'age_check.changed' | t | json }},"idLocation":{{ 'age_check.idLocation' | t | json }},"passportLocation":{{ 'age_check.passportLocation' | t | json }},"numberHelpId":{{ 'age_check.numberHelpId' | t | json }},"numberHelpPassport":{{ 'age_check.numberHelpPassport' | t | json }},"digitHelp":{{ 'age_check.digitHelp' | t | json }},"birthHelpId":{{ 'age_check.birthHelpId' | t | json }},"birthHelpPassport":{{ 'age_check.birthHelpPassport' | t | json }},"expiryHelpId":{{ 'age_check.expiryHelpId' | t | json }},"expiryHelpPassport":{{ 'age_check.expiryHelpPassport' | t | json }},"optionalHelp":{{ 'age_check.optionalHelp' | t | json }},"tailHelpId":{{ 'age_check.tailHelpId' | t | json }},"tailHelpPassport":{{ 'age_check.tailHelpPassport' | t | json }},"yearHelp":{{ 'age_check.yearHelp' | t | json }},"errors":{"passportOptional":{{ 'age_check.errors.passportOptional' | t | json }},"unsupported":{{ 'age_check.errors.unsupported' | t | json }},"number":{{ 'age_check.errors.number' | t | json }},"checksum":{{ 'age_check.errors.checksum' | t | json }},"dateFormat":{{ 'age_check.errors.dateFormat' | t | json }},"century":{{ 'age_check.errors.century' | t | json }},"year":{{ 'age_check.errors.year' | t | json }},"optional":{{ 'age_check.errors.optional' | t | json }},"tail":{{ 'age_check.errors.tail' | t | json }},"underage":{{ 'age_check.errors.underage' | t: age: '__AGE__' | json }}}}</script>
+  </dialog>
+</age-check>

@@ -1,0 +1,24 @@
+{% comment %}The product boolean is independent of brand worlds. Blank classifications block the enabled gate.{% endcomment %}
+{%- liquid
+  assign minimum_age = settings.age_check_minimum_age | default: '18' | plus: 0
+  unless minimum_age == 16
+    assign minimum_age = 18
+  endunless
+  assign age_required = 0
+  assign age_unknown = false
+  for item in cart.items
+    assign alcohol = item.product.metafields.custom.contains_alcohol.value
+    if alcohol == true
+      assign age_required = minimum_age
+    elsif alcohol != false
+      assign age_unknown = true
+    endif
+  endfor
+-%}
+{%- if mode == 'checkout' -%}
+  <button class="button cart-checkout" type="submit" name="checkout" {% if settings.age_check_enabled %}{% if age_required > 0 or age_unknown %}disabled data-age-checkout{% endif %}{% endif %}><span class="button__label">{{ 'cart.general.checkout' | t }}</span></button>
+  {% if settings.age_check_enabled %}{% if age_required > 0 or age_unknown %}<p class="age-check-unavailable">{{ 'age_check.unavailable' | t }}</p>{% endif %}{% endif %}
+{%- else -%}
+<span hidden data-age-policy data-enabled="{{ settings.age_check_enabled }}" data-age="{{ age_required }}" data-unknown="{{ age_unknown }}" data-context="{{ customer.id | default: 'guest' }}" data-version="{{ settings.age_policy_version | default: '1' | escape }}"></span>
+
+{%- endif -%}
