@@ -210,3 +210,18 @@ Shopify Theme Editor and code-editor saves are automatically committed by the Gi
 For future releases: fetch origin; merge editor commits; review code against current shared content; restore shared editorial files to the latest origin/main versions in a separate release worktree if local development fixtures differ; run checks; push normally. Never force-push. The content-preserving CLI wrapper is available for explicitly approved code-only theme updates, but GitHub is the normal versioned delivery route.
 
 Baseline delivery completed on 2026-09-07: GitHub main received commit `1d501ba`; because automatic theme synchronization was not yet visible, the explicitly authorized full baseline was also uploaded directly to theme `199388037507`. Shopify returned role `unpublished`. Saved settings and cart shipping code were pulled back and verified against local files. The one-time content-overwrite exception is exhausted. Future releases follow the protected-content rule above.
+
+
+### Preview returns an invalid-token error / HTTP 401
+
+On 2026-09-07 the long-running preview process remained alive but storefront requests began returning HTTP 401 with an expired/revoked/invalid access-token message. `npm run dev:restart` restored HTTP 200 without interactive login. This indicates a stale runtime authentication state; the exact token invalidation cause was not established. Process supervision alone does not recover an alive process serving authentication errors.
+
+Check `npm run dev:status` and logs first. For this symptom, restart the approved development preview with `npm run dev:restart`, allow preflight/synchronization to finish, then verify homepage, cart and section requests. The startup JSON-content comparison still applies; do not bypass genuine content conflicts. If authentication still fails, use Shopify's interactive authentication flow before restarting. Never paste access tokens into code, logs or repository configuration. This recovery targets only the temporary development theme, not the shared editorial or live theme.
+
+“Fix ananotes” is the user’s shorthand for fetching and processing new/unresolved storefront annotations. Inspect their page/element context, implement actionable fixes, validate, document, and mark verified work resolved using the current annotation timestamp. Leave test-only/unclear notes pending with an explanation and preserve originals. Existing deployment and editorial-content protections still apply.
+
+### Account switch lost the local development-theme association — 2026-09-09
+
+The preview stopped after authentication expired. The account `sandrohagen@me.com` could not access the store; signing in with the authorized `hallo@sparklys.ch` account restored access. Theme listing confirmed development theme `199384498563` still existed despite the earlier missing-theme error. The CLI had lost its implicit development-theme association.
+
+The supervised worker now explicitly targets `199384498563` for both preflight and preview, verifies its current role is `development` before syncing, and retains the full JSON comparison. `--nodelete` preserves remote-only development assets, including Shopify’s undeletable gift-card template. It never targets the shared editorial or live theme. Missing access or a changed theme role stops startup with a diagnostic.

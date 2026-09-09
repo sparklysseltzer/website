@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { mkdtemp, readFile, readdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
@@ -9,6 +9,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const cli = join(root, 'node_modules/@shopify/cli/bin/run.js');
 const directories = ['config', 'locales', 'sections', 'templates', 'blocks'];
 const store = 'sparklys-hard-seltzer.myshopify.com';
+const developmentTheme = '199384498563';
 let child;
 let stopping = false;
 for (const signal of ['SIGTERM', 'SIGINT']) process.on(signal, () => {
@@ -43,8 +44,12 @@ function parse(source) {
 let temporary;
 try {
   console.log(`\n[${new Date().toISOString()}] Checking development-theme JSON before startup.`);
+  const listing = spawnSync(process.execPath, [cli, 'theme', 'list', '--store', store, '--json'], { cwd: root, encoding: 'utf8' });
+  if (listing.status !== 0) throw new Error('Cannot verify development theme access. Check Shopify authentication.');
+  const target = JSON.parse(listing.stdout).find((theme) => String(theme.id) === developmentTheme);
+  if (target?.role !== 'development') throw new Error('Preview target is missing or is no longer a development theme. Refusing to sync.');
   temporary = await mkdtemp(join(tmpdir(), 'sparklys-preview-'));
-  const pulled = await run(['theme', 'pull', '--store', store, '--development', '--path', temporary,
+  const pulled = await run(['theme', 'pull', '--store', store, '--theme', developmentTheme, '--path', temporary,
     '--nodelete', '--no-color', ...directories.flatMap((directory) => ['--only', `${directory}/*.json`])]);
   if (pulled !== 0 || stopping) throw new Error('Preflight download failed or was interrupted. Check Shopify authentication and network access.');
   const localFiles = (await Promise.all(directories.map((directory) => jsonFiles(root, directory)))).flat();
@@ -62,8 +67,8 @@ try {
   if (!stopping) {
     console.log('JSON contents match. Allowing checksum/format normalization for this startup.');
     // keep-local is safe only after comparing every JSON document, not as a blanket default.
-    process.exitCode = await run(['theme', 'dev', '--store', store, '--host', '127.0.0.1', '--port', '9292',
-      '--theme-editor-sync', '--reconciliation-strategy=keep-local', '--no-color']);
+    process.exitCode = await run(['theme', 'dev', '--store', store, '--theme', developmentTheme, '--host', '127.0.0.1', '--port', '9292',
+      '--nodelete', '--theme-editor-sync', '--reconciliation-strategy=keep-local', '--no-color']);
   }
 } catch (error) {
   console.error(error.message);
