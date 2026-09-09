@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Sparklys — Design system studio</title>
+<link rel="stylesheet" href="/assets/base.css"><link rel="stylesheet" href="/assets/forms.css"><link rel="stylesheet" href="/demos/design-system/demo.css">
+<script src="/assets/theme.js" defer></script><script src="/assets/forms.js" defer></script><script src="/demos/design-system/demo.js" defer></script>
+</head>
+<body>
+<header class="studio-header"><a href="#" class="studio-wordmark">SPARKLYS<span> / DESIGN STUDIO</span></a><span class="studio-tag">WORKING BASELINE · 01</span></header>
+<main>
+<div class="studio-intro"><div><p class="studio-eyebrow">Design system / Interactive study</p><h1>A good form.<br>A little more Sparklys.</h1></div><p>Rounded fields. Clear choices. Quiet motion.<br>Try every state, then tune the details below.</p></div>
+<aside class="studio-tuner" aria-label="Preview settings">
+<label>Field height <select id="TuneHeight"><option value="44">44 px</option><option value="48" selected>48 px</option><option value="52">52 px</option><option value="56">56 px</option></select></label>
+<label>Outline <select id="TuneBorder"><option value="2">2 px</option><option value="3" selected>3 px</option></select></label>
+<label>Inner spacing <select id="TunePadding"><option value="16">16 px</option><option value="20" selected>20 px</option><option value="24">24 px</option></select></label>
+<label>Choice size <select id="TuneChoice"><option value="24">24 px</option><option value="28">28 px</option><option value="30" selected>30 px</option></select></label>
+<button type="button" id="ResetTokens">Reset tuning</button><button type="button" id="CopyTokens">Copy tokens</button><span id="TuneStatus" role="status"></span>
+</aside>
+<div class="studio-grid" id="FormPreview">
+<section class="studio-panel"><div class="studio-section-heading"><span>01 / TEXT FIELDS</span><span>Try typing</span></div>
+<form id="ExampleForm" novalidate>
+<div class="form-field"><label class="form-field__label" for="FullName">Full name</label><input class="form-control" id="FullName" name="fullName" autocomplete="name" placeholder="Your name"></div>
+<div class="form-field"><label class="form-field__label" for="Email">Email address <span aria-hidden="true">*</span></label><input class="form-control" id="Email" type="email" name="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="EmailHint EmailError"><p class="form-field__hint" id="EmailHint">A required field with working validation.</p><p class="form-field__error" id="EmailError" hidden>Enter a valid email address.</p></div>
+<div class="form-field"><label class="form-field__label" for="Message">Your message</label><textarea class="form-control" id="Message" name="message" rows="4" placeholder="Leave a little note…"></textarea></div>
+<div class="studio-actions"><button class="button" type="submit"><span class="button__label">Try validation</span></button><button class="studio-text-button" type="reset">Clear fields</button></div><p id="FormStatus" role="status" class="form-field__hint"></p>
+</form></section>
+<section class="studio-panel"><div class="studio-section-heading"><span>02 / DROPDOWNS</span><span>Open & choose</span></div>
+<div class="form-field"><label class="form-field__label" for="PackSize">Packaging size</label><sparklys-select><select class="form-control" id="PackSize" name="packSize"><option value="12">12-pack</option><option value="24" selected>24-pack</option><option value="48">48-pack</option><option value="96" disabled>96-pack — unavailable</option></select></sparklys-select><p class="form-field__hint">Arrow keys to explore. Enter to select. Escape to close.</p></div>
+<div class="form-field"><label class="form-field__label" for="Topic">Choose a topic</label><sparklys-select><select class="form-control" id="Topic" name="topic"><option value="" disabled selected>Select a topic</option><option>General question</option><option>Product information</option><option>A longer option that can wrap on a small screen</option></select></sparklys-select></div>
+<div class="form-field"><label class="form-field__label" for="NativeSelect">Native fallback</label><select class="form-control" id="NativeSelect"><option>24-pack</option><option>12-pack</option></select><p class="form-field__hint">The same baseline, with your device’s native menu.</p></div>
+<div class="form-field"><label class="form-field__label" for="DisabledSelect">Disabled dropdown</label><sparklys-select><select class="form-control" id="DisabledSelect" disabled><option>Not available</option></select></sparklys-select></div>
+</section>
+<section class="studio-panel"><div class="studio-section-heading"><span>03 / RADIO BUTTONS</span><span>One choice</span></div>
+<fieldset class="form-field"><legend>How often?</legend>
+<label class="form-choice"><input type="radio" name="frequency" value="once" checked><span class="form-choice__indicator" aria-hidden="true"></span><span>Just once</span></label>
+<label class="form-choice"><input type="radio" name="frequency" value="monthly"><span class="form-choice__indicator" aria-hidden="true"></span><span>Every month</span></label>
+<label class="form-choice"><input type="radio" name="frequency" value="unavailable" disabled><span class="form-choice__indicator" aria-hidden="true"></span><span>Unavailable option</span></label>
+</fieldset>
+<fieldset class="form-field"><legend>Inside a selection card</legend>
+<label class="form-choice form-choice--card"><input type="radio" name="cardChoice" value="one" checked><span class="form-choice__indicator" aria-hidden="true"></span><span class="form-choice__copy"><strong>One-time selection</strong><small>A short supporting description.</small></span></label>
+<label class="form-choice form-choice--card"><input type="radio" name="cardChoice" value="two"><span class="form-choice__indicator" aria-hidden="true"></span><span class="form-choice__copy"><strong>Another selection</strong><small>A longer description, so we can check wrapping and alignment on mobile.</small></span></label>
+</fieldset></section>
+<section class="studio-panel"><div class="studio-section-heading"><span>04 / CHECKBOXES</span><span>Mix & match</span></div>
+<fieldset class="form-field"><legend>Pick what you like</legend>
+<label class="form-choice"><input type="checkbox" name="updates" checked><span class="form-choice__indicator" aria-hidden="true"></span><span>Product updates</span></label>
+<label class="form-choice"><input type="checkbox" name="stories"><span class="form-choice__indicator" aria-hidden="true"></span><span>Stories from Sparklys</span></label>
+<label class="form-choice"><input type="checkbox" id="MixedChoice"><span class="form-choice__indicator" aria-hidden="true"></span><span>Mixed selection</span></label>
+<label class="form-choice"><input type="checkbox" disabled checked><span class="form-choice__indicator" aria-hidden="true"></span><span>Selected, disabled</span></label>
+<label class="form-choice"><input type="checkbox" disabled><span class="form-choice__indicator" aria-hidden="true"></span><span>Unselected, disabled</span></label>
+</fieldset>
+<div class="studio-note">These are real native radio buttons and checkboxes. Try Tab, arrow keys, and Space.</div>
+</section>
+<section class="studio-panel studio-wide"><div class="studio-section-heading"><span>05 / THE STATE SHEET</span><span>Compare side by side</span></div><div class="studio-states">
+<div class="form-field"><label class="form-field__label" for="Empty">Empty</label><input class="form-control" id="Empty" placeholder="Placeholder text"></div>
+<div class="form-field"><label class="form-field__label" for="Filled">Filled</label><input class="form-control" id="Filled" value="Bob Ross"></div>
+<div class="form-field"><label class="form-field__label" for="Invalid">Error</label><input class="form-control" id="Invalid" value="Not an email" aria-invalid="true" aria-describedby="StaticError"><p class="form-field__error" id="StaticError">Please check this value.</p></div>
+<div class="form-field"><label class="form-field__label" for="Readonly">Read-only</label><input class="form-control" id="Readonly" value="You can copy this" readonly></div>
+<div class="form-field"><label class="form-field__label" for="Disabled">Disabled</label><input class="form-control" id="Disabled" value="Not editable" disabled></div>
+<div class="form-field"><label class="form-field__label" for="Focus">Keyboard focus</label><input class="form-control" id="Focus" placeholder="Tab here to see the ring"></div>
+</div></section>
+</div>
+<footer class="studio-footer">The Sparklys design system playground. No submissions, subscriptions, or customer data are sent anywhere.<br>The reusable CSS and select behavior live separately from this local studio.</footer>
+</main></body></html>
