@@ -13,11 +13,15 @@ Read [Product](product.md), [Architecture](architecture.md), and [Development](d
 | [Product](product.md) | Product goals, audience, markets, and non-goals |
 | [Architecture](architecture.md) | Theme boundaries, brand-context resolution, schema conventions, and shared rendering rules |
 | [Section reference](sections/README.md) | The only complete section inventory; individual section contracts and exceptions |
+| [Tone and voice](tone-and-voice.md) | Brand personality, contextual humor, supplied reference copy, and storefront writing rules |
 | [Design system](design-system.md) | Typography roles, visual tokens, normalization, and approved composition exceptions |
 | [Frontend assets](frontend-assets.md) | CSS/JS ownership, fonts, image delivery, exports, and budgets |
 | [Development](development.md) | Setup, local checks, preview synchronization, Ananotes annotations, Figma workflow, and delivery safety |
 | [Quality](quality.md) | Accessibility, performance, SEO, and verification criteria |
 | [Commerce](commerce.md) | Integration requirements for products, cart, subscriptions, and apps—not capability claims |
+| [Local MRZ age-check plan](age-verification-plan.md) | Browser-only age-check scope, document fields, checkout limitations, privacy and implementation decisions |
+| [International MRZ coverage plan](age-verification-international-plan.md) | Proposed passport/foreign-ID coverage, selector strategy and rollout gates |
+| [Future age-verification providers](age-verification-provider-reference.md) | Deferred API options, dated public pricing and integration considerations |
 | [Cart coupon plan](cart-coupons-plan.md) | MVP plan for known-code entry, applied-code visibility and discount breakdowns |
 | [Cart rebuild reference](cart-reference.md) | Live-site cart observations, state coverage, and pending rebuild decisions |
 | [Merchant content](merchant-content.md) | Product-world metafields, Merchant and FAQ definitions, provisioning history |
@@ -38,3 +42,7 @@ Keep each fact in its owning guide and link to it elsewhere. Section docs descri
 - When platform behavior matters, verify the current official page before implementing. Record new durable conclusions here, but link to the source rather than vendoring the whole page.
 
 Documentation structure and repository descriptions were reconciled on 2026-09-06. This is not a fresh verification of every external platform link or remote store setting.
+
+- [Form control baseline](forms.md) — reusable form tokens, accessibility contract and local tuning playground.
+
+- [Design system studio](design-system-studio.md) — permanent local component playground, startup and designer workflow.

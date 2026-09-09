@@ -8,7 +8,7 @@
     "theme_support_url": "https://github.com/sparklysseltzer/website/issues"
   },
   {
-    "name": "Colors \u2014 Shared",
+    "name": "Colors — Shared",
     "settings": [
       {
         "type": "paragraph",
@@ -44,7 +44,7 @@
         "type": "color",
         "id": "color_success_text",
         "label": "Success text",
-        "default": "#0a4d2e"
+        "default": "#287a50"
       },
       {
         "type": "color",
@@ -63,15 +63,27 @@
         "id": "color_error_surface",
         "label": "Error surface",
         "default": "#ffe3e3"
+      },
+      {
+        "type": "color",
+        "id": "color_warning_surface",
+        "label": "Warning surface",
+        "default": "#fff3cd"
+      },
+      {
+        "type": "color",
+        "id": "color_warning_text",
+        "label": "Warning text",
+        "default": "#664d03"
       }
     ]
   },
   {
-    "name": "Colors \u2014 General Sparklys",
+    "name": "Colors — General Sparklys",
     "settings": [
       {
         "type": "paragraph",
-        "content": "General Sparklys palette. Sections explicitly belonging to this world use these colors even on another world\u2019s page."
+        "content": "General Sparklys palette. Sections explicitly belonging to this world use these colors even on another world’s page."
       },
       {
         "type": "header",
@@ -154,11 +166,11 @@
     ]
   },
   {
-    "name": "Colors \u2014 Soda",
+    "name": "Colors — Soda",
     "settings": [
       {
         "type": "paragraph",
-        "content": "Soda palette. Sections explicitly belonging to this world use these colors even on another world\u2019s page."
+        "content": "Soda palette. Sections explicitly belonging to this world use these colors even on another world’s page."
       },
       {
         "type": "header",
@@ -241,11 +253,11 @@
     ]
   },
   {
-    "name": "Colors \u2014 Hard Seltzer",
+    "name": "Colors — Hard Seltzer",
     "settings": [
       {
         "type": "paragraph",
-        "content": "Hard Seltzer palette. Sections explicitly belonging to this world use these colors even on another world\u2019s page."
+        "content": "Hard Seltzer palette. Sections explicitly belonging to this world use these colors even on another world’s page."
       },
       {
         "type": "header",
@@ -371,27 +383,86 @@
     ]
   },
   {
-    "name": "Cart shipping",
+    "name": "Cart",
     "settings": [
+      {
+        "type": "header",
+        "content": "Shipping"
+      },
       {
         "type": "number",
         "id": "free_shipping_threshold",
         "label": "Free shipping threshold (CHF)",
         "default": 50,
-        "info": "Match the minimum order value in Shopify shipping settings. Uses the cart total after discounts for Switzerland and Liechtenstein in CHF. Set to 0 to hide progress and shipping estimates."
+        "info": "Match the minimum order value in Shopify shipping settings. Uses the cart total after discounts for Switzerland and Liechtenstein in CHF. Set to 0 to hide progress and shipping calculations."
       },
       {
         "type": "number",
         "id": "flat_shipping_rate",
         "label": "Flat shipping rate (CHF)",
         "default": 9,
-        "info": "Estimated shipping below the free-shipping threshold. Keep aligned with Shopify rates for Switzerland and Liechtenstein."
+        "info": "Flat shipping below the free-shipping threshold. Keep aligned with Shopify rates for Switzerland and Liechtenstein."
       },
       {
         "type": "product_list",
         "id": "free_shipping_products",
-        "label": "Products qualifying for free shipping",
-        "info": "A cart containing any selected product qualifies. Leave empty to use the Sparklys Soda trial pack. Keep this selection aligned with Shopify shipping rules."
+        "label": "Products with free shipping when bought alone",
+        "info": "Free shipping applies only when every cart item is a selected product. Mixed carts use the normal order-value threshold. Leave empty to use the Sparklys Soda trial pack. Keep aligned with Shopify shipping rules."
+      },
+      {
+        "type": "header",
+        "content": "Recommendations"
+      },
+      {
+        "type": "product_list",
+        "id": "cart_recommendation_products",
+        "label": "Cart recommendations",
+        "limit": 50,
+        "info": "Shown in the cart drawer in your chosen order. All available selected products not already in the cart appear. Leave empty to hide recommendations."
+      },
+      {
+        "type": "metaobject_list",
+        "id": "cart_variant_recommendations",
+        "label": "Specific variant recommendations",
+        "metaobject_type": "cart_variant_recommendation",
+        "limit": 50,
+        "info": "Create entries using the native variant picker under Content → Metaobjects → Cart variant recommendation. Selected variants appear after the product recommendations, with direct add to cart."
+      }
+    ]
+  },
+  {
+    "name": "Age check",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "age_check_enabled",
+        "label": "Enable local age check",
+        "default": false,
+        "info": "Requires explicit Contains alcohol product metafields. Uses the minimum age selected below. This local check cannot enforce Shopify checkout or authenticate an ID."
+      },
+      {
+        "type": "select",
+        "id": "age_check_minimum_age",
+        "label": "Minimum age",
+        "options": [
+          {
+            "value": "16",
+            "label": "16 years"
+          },
+          {
+            "value": "18",
+            "label": "18 years"
+          }
+        ],
+        "default": "18",
+        "info": "Minimum age for products marked Contains alcohol. Raising this value requires a new check if the remembered result only met the previous minimum."
+      },
+      {
+        "type": "text",
+        "id": "age_policy_version",
+        "label": "Policy version",
+        "default": "1",
+        "info": "Change this value to invalidate remembered local checks. Results last up to 12 hours in the current tab."
       }
     ]
   }

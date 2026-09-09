@@ -28,3 +28,9 @@ Option-based selection, URL state, variant-specific media/price/availability syn
 ## Typography roles
 
 Section-size product title; body description and prices; UI controls.
+
+Desktop sticky product information uses the measured full header height plus 16px clearance instead of a fixed 32px top offset. Header ResizeObserver updates the shared --sticky-header-height variable for responsive/font/layout changes; reserving the full header keeps content clear when the world switcher returns on upward scroll. Without JavaScript, the offset falls back to 8.5rem plus clearance. Mobile remains nonsticky.
+
+Notifications (2026-09-08): Product-add success uses the shared toast system after the drawer opens. Cart errors are reported by the shared controller once. The local product feedback element is visually hidden and does not duplicate live announcements; native product submission is unchanged. See [Notifications](../design-system.md#notifications).
+
+Shared control refinement (2026-09-09): buttons use the global 3px control outline; cart quantity capsules share it. Normal field/select values explicitly use the regular body face and weight 400, including newsletter and product controls. Labels, button emphasis, field geometry and document artwork typography remain governed by their existing contracts.

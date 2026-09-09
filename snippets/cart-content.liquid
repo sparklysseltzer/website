@@ -1,18 +1,30 @@
 {% comment %}Shared server-rendered cart contents. surface is page or drawer.{% endcomment %}
 <div data-cart-content data-cart-count-value="{{ cart.item_count }}">
-  {% render 'cart-shipping', surface: surface %}
+  {% render 'cart-age-policy' %}
+  <div class="cart-scroll-header" data-cart-scroll-header>
+    {% render 'cart-shipping', surface: surface %}
+    <p class="cart-status visually-hidden" data-cart-status></p>
+  </div>
   {%- if cart.empty? -%}
+    {% if surface == 'drawer' %}<div class="cart-scroll" data-cart-scroll>{% endif %}
     <div class="cart-empty">
       <img class="cart-empty__art" src="{{ 'cart-empty-bob-ross.png' | asset_url }}" width="592" height="790" alt="{{ 'cart.general.empty_image_alt' | t }}" loading="lazy">
       <p class="cart-empty__quote" lang="en">{{ 'cart.general.empty_quote' | t }}</p>
       <p class="cart-empty__copy">{{ 'cart.general.empty_bob_ross' | t }}</p>
       <a class="button" href="{{ routes.all_products_collection_url }}"><span class="button__label">{{ 'cart.general.empty_action' | t }}</span></a>
     </div>
+    {% if surface == 'drawer' %}
+      {% render 'cart-recommendations', products: recommendation_products %}
+      </div>
+      {% render 'cart-recommendations', products: recommendation_products, forms_only: true %}
+    {% endif %}
   {%- else -%}
     <form action="{{ routes.cart_url }}" method="post" class="cart-form" data-cart-form>
+      <div class="cart-scroll" data-cart-scroll>
       <ul class="cart-lines" role="list">
         {%- for item in cart.items -%}
-          <li class="cart-line" data-cart-line="{{ item.key | escape }}">
+          {%- capture motion_identity -%}{{ item.variant_id }}:{{ item.selling_plan_allocation.selling_plan.id }}:{{ item.properties | json }}{%- endcapture -%}
+          <li class="cart-line" data-cart-line="{{ item.key | escape }}" data-cart-motion-key="{{ motion_identity | sha256 }}">
             <a class="cart-line__image" href="{{ item.url }}" aria-label="{{ item.product.title | escape }}">
               {%- if item.image -%}
                 {{ item.image | image_url: width: 320 | image_tag: widths: '80, 120, 160, 240, 320', sizes: '(min-width: 750px) 104px, 80px', loading: 'lazy' }}
@@ -36,13 +48,13 @@
               {%- if item.unit_price_measurement -%}
                 <p class="cart-line__meta">{% render 'cart-money', amount: item.unit_price %} / {% if item.unit_price_measurement.reference_value != 1 %}{{ item.unit_price_measurement.reference_value }}{% endif %}{{ item.unit_price_measurement.reference_unit }}</p>
               {%- endif -%}
-              {%- for discount in item.line_level_discount_allocations -%}<p class="cart-discount">{{ discount.discount_application.title | escape }}{% if discount.discount_application.type == 'automatic' %} · {{ 'cart.coupons.automatic' | t }}{% endif %} (−{% render 'cart-money', amount: discount.amount %})</p>{%- endfor -%}
+              {%- for discount in item.line_level_discount_allocations -%}<p class="cart-discount cart-discount--badge"><span class="cart-icon cart-icon--tag" aria-hidden="true"></span> <span class="cart-discount__copy"><span class="cart-discount__title">{{ discount.discount_application.title | escape }}</span>{% if discount.discount_application.type == 'automatic' %} · {{ 'cart.coupons.automatic' | t }}{% endif %} (−{% render 'cart-money', amount: discount.amount %})</span></p>{%- endfor -%}
             </div>
             <div class="cart-line__purchase">
               <div class="cart-quantity">
-                <button type="button" data-cart-step="-1" aria-label="{{ 'cart.label.decrease' | t: product: item.product.title | escape_once }}">−</button>
+                <button type="button" data-cart-step="-1" {% if item.quantity <= item.variant.quantity_rule.min %}disabled{% endif %} aria-label="{{ 'cart.label.decrease' | t: product: item.product.title | escape_once }}">−</button>
                 <label class="visually-hidden" for="CartQuantity-{{ surface }}-{{ forloop.index }}">{{ 'cart.label.quantity_for' | t: product: item.product.title }}</label>
-                <input id="CartQuantity-{{ surface }}-{{ forloop.index }}" name="updates[]" type="number" min="0" step="{{ item.variant.quantity_rule.increment | default: 1 }}" {% if item.variant.quantity_rule.max %}max="{{ item.variant.quantity_rule.max }}"{% endif %} data-minimum="{{ item.variant.quantity_rule.min | default: 1 }}" data-current="{{ item.quantity }}" value="{{ item.quantity }}" inputmode="numeric">
+                <input id="CartQuantity-{{ surface }}-{{ forloop.index }}" name="updates[]" type="number" min="{{ item.variant.quantity_rule.min | default: 1 }}" step="{{ item.variant.quantity_rule.increment | default: 1 }}" {% if item.variant.quantity_rule.max %}max="{{ item.variant.quantity_rule.max }}"{% endif %} data-minimum="{{ item.variant.quantity_rule.min | default: 1 }}" data-current="{{ item.quantity }}" value="{{ item.quantity }}" inputmode="numeric">
                 <button type="button" data-cart-step="1" aria-label="{{ 'cart.label.increase' | t: product: item.product.title | escape_once }}">+</button>
               </div>
             <div class="cart-line__price">
@@ -51,11 +63,12 @@
               <span>{% render 'cart-money', amount: item.final_line_price %}</span>
             </div>
             </div>
-            <a class="cart-remove" data-cart-remove href="{{ item.url_to_remove }}" aria-label="{{ 'cart.label.remove_for' | t: product: item.product.title | escape_once }}">×</a>
+            <a class="cart-remove" data-cart-remove href="{{ item.url_to_remove }}" aria-label="{{ 'cart.label.remove_for' | t: product: item.product.title | escape_once }}"><span class="cart-icon cart-icon--trash" aria-hidden="true"></span></a>
           </li>
         {%- endfor -%}
       </ul>
       <button class="button button--secondary cart-update" type="submit" name="update" data-cart-focus="update"><span class="button__label">{{ 'cart.general.update' | t }}</span></button>
+      {% if surface == 'drawer' %}{% render 'cart-recommendations', products: recommendation_products %}{% endif %}
       <div class="cart-summary">
         {% render 'cart-coupons', surface: surface %}
         <div class="cart-summary__columns">
@@ -63,14 +76,19 @@
             <div class="cart-note"><label class="visually-hidden" for="CartNote">{{ 'cart.general.note' | t }}</label><textarea id="CartNote" class="field__input" name="note" placeholder="{{ 'cart.general.note' | t }}" rows="4" data-cart-note>{{ cart.note | escape }}</textarea></div>
           {% endif %}
           <div class="cart-totals">
-            <p><span>{{ 'cart.general.subtotal' | t }}</span><span>{% render 'cart-money', amount: cart.items_subtotal_price %}</span></p>
-            {% for discount in cart.cart_level_discount_applications %}<p class="cart-discount"><span>{{ 'cart.coupons.order' | t }} <span aria-hidden="true">🏷️</span>: {{ discount.title | escape }}{% if discount.type == 'automatic' %} · {{ 'cart.coupons.automatic' | t }}{% endif %}</span><span>−{% render 'cart-money', amount: discount.total_allocated_amount %}</span></p>{% endfor %}
-            {% if cart.total_discount > 0 or surface == 'page' %}<p><span>{{ 'cart.general.savings' | t }} <span aria-hidden="true">🤑</span></span><span>{% if cart.total_discount > 0 %}−{% endif %}{% render 'cart-money', amount: cart.total_discount %}</span></p>{% endif %}
-            {% render 'cart-shipping', mode: 'totals', surface: surface %}
+            <p class="cart-totals__supporting"><span>{{ 'cart.general.subtotal' | t }}</span><span>{% render 'cart-money', amount: cart.items_subtotal_price %}</span></p>
+            {% for discount in cart.cart_level_discount_applications %}<p class="cart-discount"><span><span class="cart-icon cart-icon--tag" aria-hidden="true"></span> {{ 'cart.coupons.order' | t }}: <span class="cart-discount__title">{{ discount.title | escape }}</span>{% if discount.type == 'automatic' %} · {{ 'cart.coupons.automatic' | t }}{% endif %}</span><span>−{% render 'cart-money', amount: discount.total_allocated_amount %}</span></p>{% endfor %}
+            {% if cart.total_discount > 0 or surface == 'page' %}<p class="cart-savings"><span><span aria-hidden="true">🤑</span> {{ 'cart.general.savings' | t }}</span><span>{% if cart.total_discount > 0 %}−{% endif %}{% render 'cart-money', amount: cart.total_discount %}</span></p>{% endif %}
+            {% render 'cart-shipping', mode: 'totals', part: 'shipping', surface: surface %}
           </div>
         </div>
-        <button class="button cart-checkout" type="submit" name="checkout"><span class="button__label">{{ 'cart.general.checkout' | t }}</span></button>
+      </div>
+      </div>
+      <div class="cart-checkout-footer" data-cart-checkout-footer>
+        <div class="cart-totals">{% render 'cart-shipping', mode: 'totals', part: 'total', surface: surface %}</div>
+        {% render 'cart-age-policy', mode: 'checkout' %}
       </div>
     </form>
+    {% if surface == 'drawer' %}{% render 'cart-recommendations', products: recommendation_products, forms_only: true %}{% endif %}
   {%- endif -%}
 </div>

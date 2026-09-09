@@ -20,7 +20,9 @@ Required conventions:
 - color is not the only status signal;
 - primary controls have at least 44 by 44 CSS pixel targets;
 - motion respects `prefers-reduced-motion`;
-- drawers and dialogs manage focus, Escape, and focus restoration.
+- interactive state changes follow the [smooth-transition contract](design-system.md#interactive-state-transitions), including entry, exit, updates, interruption, and preserved focus/scroll position;
+- drawers and dialogs manage focus, Escape, and focus restoration;
+- transient feedback uses the [shared notification contract](design-system.md#notifications), with modal-safe layering, pausable dismissal, and retained field error descriptions.
 
 Current remediation is tracked in [Status](status.md#known-incomplete-capabilities) and the owning section references. In particular, validate cart table semantics, sale-price labels, and enlarged-text reflow before production readiness.
 

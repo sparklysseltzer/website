@@ -13,6 +13,24 @@ This file is temporary storage for ideas and follow-up work that arise while ano
 
 Structured-data retrofit work is maintained in the separate [Structured-data task list](structured-data-tasks.md). Every unchecked item there follows the same pending-approval rule as this inbox.
 
+### TASK-012 — Extend the design system studio
+
+- Preserve the existing local form studio as the foundation for a broader designer reference and tuning suite.
+- Add collections for typography, colors, spacing and radii; buttons and icons; cards; and shared motion examples with replay and reduced-motion comparisons.
+- Reuse actual theme tokens and components, show relevant states at phone and desktop sizes, and support reviewing proposed token adjustments with the designer.
+- Keep the studio separate from the storefront, excluded from Shopify uploads and indexing. Startup and isolation details: [Design system studio](design-system-studio.md).
+- Status: Deferred for future work at Sandro's request; no expansion is being implemented now.
+- Added: 2026-09-09.
+
+### TASK-010 — Add breakpoint visibility controls to every section
+
+- Add consistent Theme Editor options to every section: **Hide on mobile** and **Hide on desktop**. Both default to off, preserving existing visibility and saved content.
+- Use shared breakpoint definitions and CSS visibility behavior across the section library; define tablet behavior explicitly with no gaps or overlapping ranges.
+- Hidden sections must not leave empty spacing or keyboard-focusable content. Ensure hidden sections remain discoverable and editable in the Theme Editor, and verify behavior without JavaScript.
+- Cover existing and future sections, document any necessary exceptions for essential storefront functionality, and update the shared section contract and owning documentation during implementation.
+- Status: Pending implementation approval; recording this task does not authorize implementation.
+- Added: 2026-09-07.
+
 ### TASK-009 — Validate demand before building back-in-stock notifications
 
 - Add a lightweight out-of-stock interest “trapdoor” before committing to a complete notification feature. Its only initial purpose is to measure whether visitors want to buy the unavailable product.
@@ -62,6 +80,14 @@ None.
 
 ## Completed
 
+### TASK-011 — Keep existing cart rows stable during quantity updates
+
+- Fixed the discounted Maracuja row replaying an entrance animation when its quantity changes. Visual matching used Shopify line keys, which can change with discount allocations.
+- Added a presentation-only identity from variant, selling plan and line properties; current Shopify keys remain authoritative for mutations. Repeated configurations receive separate visual slots. Quantity-input focus survives discount key changes.
+- Verified both cart surfaces with simulated section responses on desktop/phone: discounted and undiscounted quantity updates animate prices without row entrances; new lines enter and removed lines exit. Reduced motion suppresses these animations.
+- Status: Completed locally; not published.
+- Approved and completed: 2026-09-09.
+
 ### TASK-008 — Eliminate the newsletter button sweep edge bleed
 
 - Removed the separate border-color animation from the shared Bubble Sweep instead of continuing to tune competing timelines.
@@ -108,3 +134,7 @@ None.
 - Status: Completed.
 - Added: 2026-08-16.
 - Approved and completed: 2026-08-16.
+
+## Local age check — 2026-09-08
+
+MVP code implemented and enabled in local development fixtures; the 16 published products are classified. Shared-theme activation defaults off pending document-guide rollout review. Product metafield `custom.contains_alcohol` created. See [implementation](age-verification-plan.md) and [specific extensions](age-verification-extensions.md).

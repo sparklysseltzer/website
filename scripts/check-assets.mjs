@@ -2,8 +2,13 @@ import { readFile } from 'node:fs/promises';
 import { brotliCompressSync, constants, gzipSync } from 'node:zlib';
 
 const assets = [
+  { path: 'assets/forms.css', gzipLimit: 3 * 1024 },
+  { path: 'assets/forms.js', gzipLimit: 3 * 1024 },
   { path: 'assets/base.css', gzipLimit: 30 * 1024 },
   { path: 'assets/theme.js', gzipLimit: 15 * 1024 },
+  { path: 'assets/age-validation.js', gzipLimit: 3 * 1024 },
+  { path: 'assets/age-check.js', gzipLimit: 6.5 * 1024 },
+  { path: 'assets/notifications.js', gzipLimit: 4 * 1024 },
 ];
 
 const formatKiB = (bytes) => `${(bytes / 1024).toFixed(2)} KiB`;

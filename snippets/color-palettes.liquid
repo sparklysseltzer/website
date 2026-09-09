@@ -1,9 +1,11 @@
 {% comment %}World palettes and semantic roles. Keep selectors aligned with documented section contexts.{% endcomment %}
 :root {
+  --color-warning-surface: {{ settings.color_warning_surface | default: '#fff3cd' }};
+  --color-warning-text: {{ settings.color_warning_text | default: '#664d03' }};
   --color-accent: {{ settings.color_accent | default: '#e34f2f' }};
   --color-surface-hover: {{ settings.color_surface_hover | default: '#dddddd' }};
   --color-inverse-hover: {{ settings.color_inverse_hover | default: '#4d4d4d' }};
-  --color-success-text: {{ settings.color_success_text | default: '#0a4d2e' }};
+  --color-success-text: {{ settings.color_success_text | default: '#287a50' }};
   --color-success-surface: {{ settings.color_success_surface | default: '#d9f8e5' }};
   --color-error-text: {{ settings.color_error_text | default: '#7a1d1d' }};
   --color-error-surface: {{ settings.color_error_surface | default: '#ffe3e3' }};

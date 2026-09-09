@@ -77,3 +77,13 @@ Last reconciled with the repository on 2026-09-06. Store provisioning dates are 
 7. Add visual, journey, accessibility, and Lighthouse checks against a stable preview target.
 
 Cart shipping progress is implemented for CH/LI in CHF using the confirmed CHF 50 default and trial-pack exception, with editable shared settings. See [Main cart](sections/main-cart.md#free-shipping-progress--2026-09-06) for synchronization requirements and checkout verification limits.
+
+Cart drawer curated recommendations (2026-09-08): merchant product-list selection, server-filtered available products absent from cart, all eligible cards, desktop floating/mobile inline layout, native add forms with AJAX enhancement, and in-card variant selection are implemented; required selling plans retain product-page selection. The picker is intentionally empty until curated. See [Cart drawer](sections/cart-drawer.md).
+
+Cart recommendations now render all eligible selections, offer in-card variant chips and direct add, and support native variant-reference entries for fixed variants. Shared Small button tokens and the drawer product-title style apply to the cards. See the latest [Cart drawer contract](sections/cart-drawer.md).
+
+## Local age check — 2026-09-08
+
+MVP code implemented and enabled in local development fixtures; the 16 published products are classified. Shared-theme activation defaults off pending document-guide rollout review. Product metafield `custom.contains_alcohol` created. See [implementation](age-verification-plan.md) and [specific extensions](age-verification-extensions.md).
+
+International passport update (2026-09-09): the local age check now offers another-country passports using the standard TD3 lower-line fields, alongside CH/LI ID and passport choices. See [support contract](age-verification-international-plan.md#implemented-standard-passport-support--2026-09-09). This does not add foreign ID-card support, identity authentication, residence checks or additional Shopify markets.

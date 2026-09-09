@@ -70,3 +70,17 @@ test('comma-separated input cannot create ambiguous multi-code feedback', async 
   assert.equal(cart.requests.length, 0);
   assert.equal(cart.feedback.message, 'single');
 });
+
+
+test('stock adjustments warn while unknown validation and server failures remain errors', () => {
+  const { cart } = fixture([], result([]));
+  for (const description of [
+    'Aufgrund der Verfügbarkeit wurden nur 8 Artikel zu deinem Warenkorb hinzugefügt.',
+    'Only 8 items were added to your cart due to availability.',
+    'The maximum quantity of this item is already in your cart.',
+  ]) {
+    assert.equal(cart.responseError({ status: 422 }, { description }).cartType, 'warning');
+    assert.equal(cart.responseError({ status: 500 }, { description }).cartType, 'error');
+  }
+  assert.equal(cart.responseError({ status: 422 }, { description: 'Invalid variant' }).cartType, 'error');
+});

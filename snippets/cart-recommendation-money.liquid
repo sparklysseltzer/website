@@ -1,0 +1,6 @@
+{%- if cart.currency.iso_code == 'CHF' -%}
+  {%- assign cents = amount | modulo: 100 -%}
+  {{- cart.currency.iso_code }} {% if cents == 0 %}{{ amount | divided_by: 100 }}{% else %}{{ amount | money_without_currency }}{% endif -%}
+{%- else -%}
+  {% render 'cart-money', amount: amount %}
+{%- endif -%}

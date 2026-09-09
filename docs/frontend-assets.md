@@ -37,6 +37,7 @@ Shopify documents section asset compilation and CSS subsetting in [JavaScript an
 | Location | Owns | Loading behavior |
 | --- | --- | --- |
 | `assets/theme.js` | Small behavior required across most pages, such as global header enhancement | Loaded once with `defer` |
+| `assets/notifications.js` | Shared notification layer, lifetime, modal placement and accessible dismissal; separate service boundary used by multiple sections | Loaded once with `defer` before `theme.js`; 4 KiB gzip review budget |
 | A section or snippet `{% javascript %}` block | Small, portable behavior owned by that component | Shopify compiles and defers the code; it is registered once per file |
 | A separate JavaScript asset | A large or page-specific feature | Reference with `defer` or `type="module"` only from its owning context |
 | A dynamically imported module | Heavy optional behavior that is not needed for initial rendering | Import on first interaction or immediately before the feature is needed |
@@ -91,3 +92,17 @@ For release performance verification on a Shopify-hosted preview or production t
 5. Use browser coverage as diagnostic evidence, not as an automatic instruction to split shared assets.
 
 `shopify theme dev` is useful for functionality and layout, but local proxy behavior is not proof of the final CDN cache or compression headers. Verify delivery against a Shopify-hosted URL before launch.
+
+## Local age-check assets
+
+`age-validation.js` supplies pure TD1/TD3 validation; `age-check.js` owns the secondary native dialog and fresh cart-policy handoff. Both are deferred before `theme.js`; they use no remote runtime assets. Gzip budgets are checked by `check-assets.mjs`.
+
+Swiss ID help: assets/age-swiss-id-help.webp is the unchanged merchant-supplied idschweizcallouts.webp (1200 × 750), used only in the Swiss card help view. The five visual callouts have a translated HTML field legend. Existing local Untitled UI alert-circle and x-close icons supply the help/back toggle.
+
+ID help icon refinement: icon-help-circle.svg and icon-arrow-left.svg are unchanged Untitled UI Line exports from the official untitleduico/icons repository, covered by docs/untitled-ui-icons-license.txt. The normal Swiss artwork retains its source file; CSS excludes its embedded pale right/bottom edge with 101% width and a 1200:420 crop.
+
+Background checkout review (2026-09-09): age-check.js now owns the checkout-button pending state and pre-dialog policy branching, including repeated-submit and stale-cart guards. It remains relevant to the globally available cart drawer, so moving it to a page-only bundle would omit that journey. The reviewed gzip threshold increases from 6 to 6.5 KiB (measured 6.25 KiB); no dependency or additional request is introduced.
+
+Form baseline (2026-09-09): `forms.css` and `forms.js` are opt-in local component assets, currently loaded only by the disposable `demos/design-system/` page. No global storefront payload is added. `icon-check.svg` and `icon-form-chevron-down.svg` are unchanged Figma exports from existing Untitled UI components; see [forms](forms.md).
+
+Form baseline adoption (2026-09-09): the layout now loads `forms.css` and deferred `forms.js` globally for cart coupon inputs and the age-check document dropdown. Both have explicit 3 KiB gzip review budgets in `check-assets.mjs`. Other controls remain opt-in; the studio stays excluded from theme uploads.

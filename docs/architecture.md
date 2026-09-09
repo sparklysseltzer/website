@@ -135,7 +135,9 @@ Shared interaction primitives include:
 - Bubble Sweep for primary, secondary, and footer newsletter buttons;
 - purpose-specific header controls, cards, logos, and linked media.
 
-Do not use `transition: all`, scroll locking, delayed one-shot reveals, or motion that changes document layout.
+Interactive state changes follow the [smooth-transition contract](design-system.md#interactive-state-transitions) by default. Preserve continuity through updates, insertion, removal, and interruption, using shared motion tokens and reduced-motion fallbacks.
+
+Do not use `transition: all`, scroll locking, or delayed one-shot scroll reveals. Decorative scroll motion must not change document layout. User-triggered content changes may ease necessary local height or position changes according to the interaction contract.
 
 ## JavaScript contract
 

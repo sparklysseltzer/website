@@ -83,7 +83,7 @@ The cart drawer should support two future conversion patterns:
 
 Before building either, define recommendation source, eligibility, inventory handling, merchandising control, analytics, dismiss behavior, repetition limits, and fallbacks. An app, Shopify product recommendations, manually selected products, or custom logic might own the offers.
 
-Free-shipping progress must be calculated from the same effective threshold used by Shopify for the current market/currency and must account for qualifying subtotal semantics and discounts. The theme uses an explicit merchant-maintained Cart shipping setting matching the confirmed checkout rule. Shopify does not synchronize it automatically; keep the threshold, flat rate and qualifying product selection aligned with shipping settings. Cart and drawer also show estimated shipping and a total including shipping: CHF 9 below CHF 50, free from CHF 50 or with a qualifying trial pack. These estimates use the discounted cart total for CH/LI in CHF; final shipping, taxes and shipping discounts are confirmed at checkout.
+Free-shipping progress must be calculated from the same effective threshold used by Shopify for the current market/currency and must account for qualifying subtotal semantics and discounts. The theme uses an explicit merchant-maintained Cart → Shipping setting matching the confirmed checkout rule. Shopify does not synchronize it automatically; keep the threshold, flat rate and qualifying product selection aligned with shipping settings. Cart and drawer also show estimated shipping and a total including shipping: CHF 9 below CHF 50, free from CHF 50 or when every cart item qualifies for the trial-pack exception. These estimates use the discounted cart total for CH/LI in CHF; final shipping, taxes and shipping discounts are confirmed at checkout.
 
 ## Markets, currencies, and languages
 
@@ -138,3 +138,15 @@ Before finalizing commerce architecture, inventory the exact installed providers
 For each provider, record placement, data source, required scripts/API, consent category, checkout behavior, failure mode, and test plan.
 
 Cart shipping copy now uses Shipping and Total for the confirmed fixed rule, without estimate or checkout-confirmation wording. Cart currency display uses the Shopify presentment ISO code once; see the current main-cart rendering contract.
+
+The product exception applies only to carts containing exclusively configured qualifying products (default: Soda trial pack). Mixed carts follow the normal CHF 50 discounted-total threshold; there is no weight surcharge or maximum-weight rule in the theme. Shopify checkout rates require separate matching configuration.
+
+### Local MRZ planning decision — 2026-09-08
+
+The merchant requests browser-only guided MRZ entry with no provider, app or custom server. See the [local MRZ age-check plan](age-verification-plan.md). This narrows the implementation proposal to a local plausibility/age check; it does not supersede the distinction between client-side checks and trusted verification. Minimum-age policy and supported documents remain to be confirmed. Planning only; no commerce capability has been implemented.
+
+## Local age-check MVP
+
+The previously planned MRZ flow is now implemented locally with a confirmed 16-year threshold and expired-document acceptance. Product eligibility uses the created `custom.contains_alcohol` boolean. The [implementation contract](age-verification-plan.md) supersedes earlier planning-only notes and records rollout limits and extensions.
+
+International passport update (2026-09-09): the local age check now offers another-country passports using the standard TD3 lower-line fields, alongside CH/LI ID and passport choices. See [support contract](age-verification-international-plan.md#implemented-standard-passport-support--2026-09-09). This does not add foreign ID-card support, identity authentication, residence checks or additional Shopify markets.

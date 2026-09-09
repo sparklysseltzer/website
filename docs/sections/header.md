@@ -43,3 +43,17 @@ Shared neutral UI colors now resolve through **Theme settings → Colors**, foll
 ## Brand-world palettes
 
 Colors now follow the [brand-world palette contract](../design-system.md#theme-color-settings). Explicit Soda/Seltzer sections and cards select their own palette on mixed pages; the header/footer inherit page context, and both cart surfaces always use General. Shared accent/status roles and explicit artwork/section overrides remain unchanged. Notice copy resolves through its world’s Notice text setting.
+
+Ananotes requested a larger Hard Seltzer wordmark: desktop width is now 240px (previously 205px) with a 72px maximum height. Mobile sizing and context selection are unchanged.
+
+The header scroll controller publishes its measured full height as --sticky-header-height via ResizeObserver. Product sticky content reserves this height plus clearance, including the world switcher when revealed.
+
+Home shortcut (2026-09-08): the black product-world bar starts with a localized Home icon link before Hard Seltzer. It uses `routes.root_url`, and aria-current only on the homepage. Untitled UI Line home-03 is bundled as `assets/icon-home.svg` from https://github.com/untitleduico/icons/blob/main/icons/home-03.svg under the retained icon license. The 16px glyph has a 28px circular Inverse hover surface fading with Fast/shared easing on hover or keyboard focus. This secondary desktop shortcut preserves the compact bar height with a 44px-wide target; coarse-pointer devices expand the switcher height to 44px. Existing mobile switcher visibility remains unchanged, with the main logo continuing to link home. Native links work without JavaScript; reduced motion disables the surface fade.
+
+Home icon refinement (2026-09-08): merchant requested a filled appearance. The licensed home-03 geometry is adapted locally to a filled body with an even-odd doorway cutout, retaining its original roof stroke; this is a theme adaptation, not a claimed official Solid export. The visible icon box sits 6px to the right of the main navigation’s left content edge for optical alignment with the rounded Shop button; exact edge alignment looked too far left. Its 44px-wide hit area and circular hover surface extend into the gutter; the brands container permits these effects and focus outlines to remain unclipped.
+
+Home icon selection (2026-09-08): the current icon is the unmodified Untitled UI Line home-02 from https://github.com/untitleduico/icons/blob/main/icons/home-02.svg. Its single roof contour and doorway replace the more detailed home-03 and the temporary filled adaptation. The approved 6px optical inset and circular hover behavior remain unchanged.
+
+Tab animation clipping (2026-09-08): the brands row clips to the black bar vertically with `clip-path: inset(0 -1rem)`, allowing 16px of horizontal gutter for the home target and tab joins. Do not remove the vertical clipping when changing home spacing: inactive tab joins translate below the bar during entry/exit and would otherwise leak into the white header. This supersedes the earlier unrestricted-overflow note.
+
+Cart-count badges use the global accent surface with a 2px inverse-text (white) ring to remain distinct when the cart action is hovered.

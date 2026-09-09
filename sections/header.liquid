@@ -29,6 +29,9 @@
   <div class="site-header__switcher" aria-label="{{ 'sections.header.brand_navigation' | t }}">
     <div class="site-header__switcher-inner">
       <div class="site-header__brands">
+        <a class="site-header__home" href="{{ routes.root_url }}" aria-label="{{ 'sections.header.home' | t }}" {% if request.page_type == 'index' %}aria-current="page"{% endif %}>
+          <span aria-hidden="true"></span>
+        </a>
         {%- if seltzer_collection != blank -%}
           <a
             class="site-header__brand-tab{% if header_context == 'seltzer' %} site-header__brand-tab--active{% endif %}"

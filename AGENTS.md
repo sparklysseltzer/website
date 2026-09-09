@@ -28,7 +28,13 @@ Keep `docs/sections/README.md` as the single authoritative list of available sec
 
 For new or replaced UI icons, use Untitled UI Icons first. Follow the sourcing, Figma fallback, style and accessibility contract in `docs/design-system.md#iconography`.
 
+Follow `docs/design-system.md#focus-styles` for input modality: subtle pointer field focus, clearly visible keyboard focus, and a native no-JavaScript fallback. Reuse the shared helper and tokens; do not remove focus accessibility with component-specific overrides.
+
+Interactive state changes must transition smoothly by default. Proactively apply and verify the shared motion contract in `docs/design-system.md#interactive-state-transitions` when adding or changing UI interactions; do not wait for annotation feedback. Respect reduced motion and preserve responsive input, focus, and authoritative commerce state. Include semantic state changes (especially error-to-success and success-to-error) and Ajax section replacements: preserve component continuity, crossfade changed feedback, ease necessary height changes, and verify intermediate frames as well as settled states. Unchanged refreshes must not replay motion.
+
 Use Ananotes for storefront annotations. Read `docs/development.md#ananotes-browser-annotations` for the MCP bridge; the fork retains `onui_*` protocol identifiers for compatibility.
+
+Temporary action notifications must use the shared toast service and `docs/design-system.md#notifications`. Keep persistent commerce state and actionable field validation associated with their content; preserve native form fallbacks, modal layering, and accessible announcements.
 
 ## Product and language
 
@@ -84,3 +90,11 @@ Once an approved development theme is available, verify every affected journey a
 - Keep localhost development on its separate temporary development theme. Do not point its watcher at the shared editorial theme.
 - Preserve section, block and setting IDs when modifying schema/code; excluding content JSON does not make destructive schema changes safe.
 - Follow `docs/development.md` for the guarded GitHub release and code-only CLI workflows. A request to push/upload the draft does **not** authorize publishing or updating the live theme.
+
+## Ananotes shorthand
+
+“Fix ananotes” means read new/unresolved annotations for this storefront from the Ananotes MCP bridge, inspect the referenced elements, implement actionable feedback, verify it, update relevant docs, and mark completed annotations resolved. Do not redo resolved notes, invent changes for test-only notes, or delete annotation records. This shorthand authorizes local fixes, not publishing or overwriting shared editorial content.
+
+## Newake optical alignment in UI
+
+Whenever Newake is paired with icons, other text, buttons, badges or adjacent UI elements, proactively check the visible glyph alignment in the rendered interface; flex/grid box centering alone is insufficient. Use the shared `--font-optical-offset-newake` role where optical correction is needed, following `docs/design-system.md#newake-optical-alignment-beside-icons`. The merchant approved the .06em downward adjustment in the cart drawer. Reuse the shared treatment rather than inventing component-specific offsets. Verify each composition at phone and desktop sizes; do not apply the offset blindly to every heading or change font files/metrics/shared line heights to solve a local alignment issue.

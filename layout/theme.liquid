@@ -88,7 +88,12 @@
     </style>
 
     {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'forms.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'forms.js' | asset_url }}" defer="defer"></script>
     <script>document.documentElement.classList.remove('no-js');</script>
+    <script src="{{ 'notifications.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'age-validation.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'age-check.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
 
     {{ content_for_header }}
@@ -107,5 +112,7 @@
 
     {% sections 'footer-group' %}
     {% section 'cart-drawer' %}
+    {% render 'age-check' %}
+    <aside class="notifications" data-notifications popover="manual" aria-label="{{ 'accessibility.notifications' | t }}" data-dismiss-label="{{ 'accessibility.dismiss_notification' | t }}"></aside>
   </body>
 </html>

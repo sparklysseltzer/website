@@ -20,12 +20,12 @@
   data-failed="{{ 'cart.coupons.failed' | t | escape }}">
   <label class="visually-hidden" for="CartCoupon-{{ surface }}">{{ 'cart.coupons.label' | t }}</label>
   <div class="cart-coupons__entry">
-    <input class="field__input" id="CartCoupon-{{ surface }}" data-cart-coupon-input type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="CartCouponStatus-{{ surface }}" placeholder="{{ 'cart.coupons.placeholder' | t }}">
+    <input class="form-control" id="CartCoupon-{{ surface }}" data-cart-coupon-input type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="CartCouponStatus-{{ surface }}" placeholder="{{ 'cart.coupons.placeholder' | t }}">
     <button type="button" class="button button--secondary" data-cart-coupon-apply><span class="button__label">{{ 'cart.coupons.apply' | t }}</span></button>
   </div>
   <ul class="cart-coupons__codes" data-cart-coupon-codes aria-label="{{ 'cart.coupons.codes' | t }}">
-    {% for code in codes %}<li data-applied-code="{{ code | escape }}"><span aria-hidden="true">🏷️</span><span>{{ code | escape }}</span></li>{% endfor %}
+    {% for code in codes %}<li class="cart-coupons__code--applied" data-applied-code="{{ code | escape }}"><span class="cart-icon cart-icon--tag" aria-hidden="true"></span><span class="cart-coupons__code">{{ code | upcase | escape }}</span></li>{% endfor %}
   </ul>
-  <p class="cart-coupons__status" id="CartCouponStatus-{{ surface }}" data-cart-coupon-status role="status" aria-live="polite" aria-atomic="true"></p>
+  <p class="cart-coupons__status visually-hidden" id="CartCouponStatus-{{ surface }}" data-cart-coupon-status></p>
   <noscript><p class="cart-coupons__fallback">{{ 'cart.coupons.no_js' | t }}</p></noscript>
 </div>

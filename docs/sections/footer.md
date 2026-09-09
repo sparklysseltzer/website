@@ -40,3 +40,9 @@ Shared neutral UI colors now resolve through **Theme settings → Colors**, foll
 ## Brand-world palettes
 
 Colors now follow the [brand-world palette contract](../design-system.md#theme-color-settings). Explicit Soda/Seltzer sections and cards select their own palette on mixed pages; the header/footer inherit page context, and both cart surfaces always use General. Shared accent/status roles and explicit artwork/section overrides remain unchanged. Notice copy resolves through its world’s Notice text setting.
+
+Focus treatment (2026-09-08): newsletter keyboard focus retains the contrasting shell ring; pointer focus suppresses that ring and retains the input caret. The input itself avoids a duplicate ring. Uses the [shared modality contract](../design-system.md#focus-styles), with native focus-visible fallback.
+
+Notifications (2026-09-08): Enhanced newsletter success and server-error feedback use the shared toast system. Server feedback remains available as a hidden field description, including aria-invalid on errors; native no-JavaScript responses stay inline. After an enhanced response, focus returns to the invalid input or submit control rather than moving into the notification. Existing network-failure native-submit fallback remains unchanged. See [Notifications](../design-system.md#notifications).
+
+Shared control refinement (2026-09-09): buttons use the global 3px control outline; cart quantity capsules share it. Normal field/select values explicitly use the regular body face and weight 400, including newsletter and product controls. Labels, button emphasis, field geometry and document artwork typography remain governed by their existing contracts.

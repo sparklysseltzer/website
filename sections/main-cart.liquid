@@ -1,6 +1,14 @@
+{% comment %}Always expose shared cart controls to the editor, including empty-cart previews. No separate section values.{% endcomment %}
+{% if request.design_mode %}
+  <template data-cart-editor-settings
+    data-variant-recommendations="{{ settings.cart_variant_recommendations | map: 'system' | map: 'id' | join: ',' }}"
+    data-threshold="{{ settings.free_shipping_threshold }}"
+    data-rate="{{ settings.flat_shipping_rate }}"
+    data-qualifying-products="{{ settings.free_shipping_products | map: 'id' | join: ',' }}"
+    data-recommendations="{{ settings.cart_recommendation_products | map: 'id' | join: ',' }}"></template>
+{% endif %}
 <section class="section page-width cart-page" data-cart-surface="page" data-section-id="{{ section.id }}">
   <h1 class="page-title">{{ 'cart.general.title' | t }}</h1>
-  <p class="cart-status" data-cart-status role="status" aria-live="polite"></p>
   {% render 'cart-content', surface: 'page' %}
 </section>
 {% schema %}
