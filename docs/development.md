@@ -118,6 +118,37 @@ The manager is `scripts/dev-preview.mjs`; the supervised worker is `scripts/dev-
 
 The Mac must be awake, logged in, online and authenticated with Shopify. A local preview cannot serve requests while the laptop sleeps or is shut down. `launchd` provides process supervision, not immunity to network, authentication, Shopify or rendering errors. See [Apple's launchd guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html).
 
+### Copy shared draft content into local development
+
+Run from this checkout, with dependencies installed and Shopify CLI authenticated:
+
+```sh
+npm run sync:dev-content
+```
+
+This downloads saved content from the unpublished `website/main` theme (`199388037507`) and applies it locally. It verifies the source name/role and that preview theme `199384498563` still has the development role. It never pushes, publishes, or modifies the shared draft or live theme. An already running approved dev watcher automatically uploads the resulting local edits to its development theme. Avoid simultaneous Theme Editor edits during the sync.
+
+The allowlist covers `config/settings_data.json`, JSON templates, section-group JSON, and storefront locale JSON. Source settings and existing translations win; new local translation keys and local-only templates remain available. Local default-language filenames are preserved. Code, assets, settings schema, schema translations, products, metafields and metaobjects are excluded. Missing section implementations, invalid JSON, incomplete downloads and ambiguous default locales stop the operation before applying content. Generated JSON headers alone do not cause updates.
+
+Preview the file list without changing the checkout:
+
+```sh
+npm run sync:dev-content -- --dry-run
+```
+
+Each run retains its downloaded source snapshot outside Git in `~/Library/Application Support/Sparklys/theme-backups/content-sync/<timestamp>-<suffix>/`. An applied run also stores original changed files under `before/` and a checksummed `manifest.json` before writing any content. The command prints this directory. Restore an applied run using its exact directory:
+
+```sh
+npm run sync:dev-content -- --restore "/absolute/path/to/backup-directory" --dry-run
+npm run sync:dev-content -- --restore "/absolute/path/to/backup-directory"
+```
+
+Restore refuses to overwrite later edits and also supports recovery after a partially applied run. It restores original bytes and removes files created by that run; the dev watcher observes these local edits too. With the watcher's `--nodelete` option, restoring a newly added template locally does not delete its remote development copy. Review that difference separately. Backups are retained until manually removed; never commit them or authentication state.
+
+When the watcher is stopped, this command changes local files only. The next supervised startup can correctly flag differences against the development theme: use the reviewed reconciliation workflow below rather than bypassing its preflight. A lock at `.shopify/content-sync.lock` prevents concurrent command runs; remove a stale lock only after confirming no sync process remains. This command does not commit imported editorial content or authorize deploying it back to the shared theme.
+
+Implementation: `scripts/sync-dev-content.mjs`, using the pinned CLI's [theme pull](https://shopify.dev/docs/api/shopify-cli/theme/theme-pull) with an explicit source ID, isolated download path, `--only` allowlist and `--nodelete`. `npm run check:content-sync` exercises target guards, locale merging, content isolation, backup/restore, concurrent-edit protection and incomplete downloads; it also runs within `npm run check`.
+
 ### Why the preview went down on 2026-09-06
 
 No process was listening on port 9292, and no Shopify development process remained. The earlier foreground command had no supervisor; the exact event that ended it was not recorded. Restarting then aborted because Shopify CLI 4.6.1 detected JSON checksum conflicts. The locale differences were the newly implemented cart UI. For `config/settings_data.json`, even a fresh pull was byte-identical to the local file, but the CLI still reported a checksum conflict on the next startup. Blanket restart attempts with `--reconciliation-strategy=abort` therefore could not restore service.

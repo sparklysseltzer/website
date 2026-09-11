@@ -4,7 +4,7 @@
   "private": true,
   "description": "Custom Shopify Online Store 2.0 theme for Sparklys Switzerland",
   "scripts": {
-    "check": "shopify theme check --fail-level error && npm run check:assets && npm run check:typography && npm run check:cart && npm run check:age",
+    "check": "shopify theme check --fail-level error && npm run check:assets && npm run check:typography && npm run check:cart && npm run check:age && npm run check:content-sync",
     "check:typography": "node scripts/check-typography.mjs",
     "check:assets": "node scripts/check-assets.mjs",
     "dev": "node scripts/dev-preview.mjs start",
@@ -17,7 +17,9 @@
     "check:cart": "node --test tests/cart-coupons.test.mjs",
     "deploy:plan": "node scripts/deploy-team-theme.mjs",
     "deploy:team": "node scripts/deploy-team-theme.mjs --execute",
-    "studio": "node demos/design-system/server.mjs"
+    "studio": "node demos/design-system/server.mjs",
+    "sync:dev-content": "node scripts/sync-dev-content.mjs",
+    "check:content-sync": "node --test tests/sync-dev-content.test.mjs"
   },
   "engines": {
     "node": ">=22"
