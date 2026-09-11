@@ -39,11 +39,265 @@
         "direction": "normal",
         "pause_on_interaction": true
       }
+    },
+    "soda_three_reasons_Nd9H6t": {
+      "type": "soda-three-reasons",
+      "blocks": {
+        "reason_6CUAtb": {
+          "type": "reason",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "reason_Y3RzxW": {
+          "type": "reason",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "reason_zqJxyx": {
+          "type": "reason",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "reason_6CUAtb",
+        "reason_Y3RzxW",
+        "reason_zqJxyx"
+      ],
+      "name": "Soda 3 Reasons",
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "link_label": "",
+        "link": "",
+        "footnote": ""
+      }
+    },
+    "soda_ingredients_i7EVcB": {
+      "type": "soda-ingredients",
+      "blocks": {
+        "ingredient_BiJFj6": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_pqzPKR": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_hGmQJe": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_JxHUAJ": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_8m6QCT": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_iNLQqm": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_BiJFj6",
+        "ingredient_pqzPKR",
+        "ingredient_hGmQJe",
+        "ingredient_JxHUAJ",
+        "ingredient_8m6QCT",
+        "ingredient_iNLQqm"
+      ],
+      "name": "Soda Ingredients",
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "link_label": "",
+        "link": "",
+        "footnote": ""
+      }
+    },
+    "versus_WWy8di": {
+      "type": "versus",
+      "blocks": {
+        "item_LyJay8": {
+          "type": "item",
+          "settings": {
+            "featured": true,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_Dmn9RW": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_LXwUn7": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_WLqEDG": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_trFnJQ": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_LyJay8",
+        "item_Dmn9RW",
+        "item_LXwUn7",
+        "item_WLqEDG",
+        "item_trFnJQ"
+      ],
+      "name": "Versus — Soda",
+      "settings": {
+        "variant": "soda",
+        "heading": "",
+        "comparison_basis": "",
+        "disclaimer": "",
+        "footnote": ""
+      }
+    },
+    "faq_CrdgLL": {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": {
+        "selected_faqs": [],
+        "faq_category": "soda",
+        "heading": "",
+        "show_footer": true,
+        "footer_text": "",
+        "footer_link_label": "",
+        "footer_link": "#"
+      }
+    },
+    "poster_iDKNad": {
+      "type": "poster",
+      "blocks": {
+        "item_4CXfNW": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        },
+        "item_GFRPka": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        },
+        "item_Rgcpxk": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        }
+      },
+      "block_order": [
+        "item_4CXfNW",
+        "item_GFRPka",
+        "item_Rgcpxk"
+      ],
+      "name": "Poster",
+      "settings": {
+        "layout_mode": "image_only",
+        "image": "shopify://shop_images/Sparklys-Soda-Beach-Girl-with-Towel.jpg",
+        "image_alt": "Sparklys cans on a cart",
+        "content_position": "right",
+        "show_heading": true,
+        "heading": "Add your poster heading",
+        "heading_level": "h2",
+        "show_subtext": true,
+        "subtext": "<p>Add supporting copy for this poster.</p>",
+        "show_button": true,
+        "button_label": "Learn more",
+        "button_link": "#",
+        "button_style": "automatic",
+        "poster_text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_strength": 55,
+        "minimum_height": 630,
+        "minimum_height_mobile": 540
+      }
     }
   },
   "order": [
     "main",
     "usp_section_3XLkKN",
-    "logo_marquee_LzD9RM"
+    "logo_marquee_LzD9RM",
+    "soda_three_reasons_Nd9H6t",
+    "soda_ingredients_i7EVcB",
+    "versus_WWy8di",
+    "faq_CrdgLL",
+    "poster_iDKNad"
   ]
 }
