@@ -4,16 +4,16 @@
 
   case request.page_type
     when 'page'
-      assign explicit_brand_context = page.metafields.custom.product_world.value
+      assign explicit_brand_context = page.metafields.custom.brand_variant.value
     when 'product'
-      assign explicit_brand_context = product.metafields.custom.product_world.value
+      assign explicit_brand_context = product.metafields.custom.brand_variant.value
     when 'collection'
-      assign explicit_brand_context = collection.metafields.custom.product_world.value
+      assign explicit_brand_context = collection.metafields.custom.brand_variant.value
   endcase
 
   if explicit_brand_context == 'soda'
     assign resolved_brand_context = 'soda'
-  elsif explicit_brand_context == 'seltzer'
+  elsif explicit_brand_context == 'hardseltzer' or explicit_brand_context == 'seltzer'
     assign resolved_brand_context = 'seltzer'
   elsif template.suffix == 'soda'
     assign resolved_brand_context = 'soda'

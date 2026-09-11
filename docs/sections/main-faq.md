@@ -6,7 +6,7 @@ Template: `templates/page.faq.json`
 
 ## Purpose
 
-FAQ directory is the dedicated full FAQ page surface. Assign the `page.faq` template to the Shopify FAQ Page. The Page title becomes the only `h1`, uses the shared FAQ SVG decoration, and automatically follows the Page's `custom.product_world` heading typography.
+FAQ directory is the dedicated full FAQ page surface. Assign the `page.faq` template to the Shopify FAQ Page. The Page title becomes the only `h1`, uses the shared FAQ SVG decoration, and automatically follows the Page's `custom.brand_variant` heading typography.
 
 ## Data and behavior
 

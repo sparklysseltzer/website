@@ -76,14 +76,14 @@ The server resolves one of three presentation contexts: `default`, `soda`, or `s
 
 Resolution order:
 
-1. The current Page, Product, or Collection's `custom.product_world` metafield wins when its value is `soda` or `seltzer`.
+1. The current Page, Product, or Collection's `custom.brand_variant` metafield wins when its value is `soda`, `hardseltzer`, or `seltzer`; `hardseltzer` normalizes to internal `seltzer`.
 2. An explicit alternate template suffix such as `.soda` or `.seltzer` is the compatibility fallback.
 3. The canonical `soda` or `hard-seltzer` collection resolves its own context when it has no explicit metafield value.
 4. A product belonging to exactly one canonical brand collection inherits that context when it has no explicit metafield value or branded template.
 5. A product in both canonical brand collections remains `default` unless its metafield or alternate template resolves the ambiguity.
 6. Shared or unclassified surfaces remain `default`.
 
-`custom.product_world` is a merchant-owned single-line text definition provisioned for Pages, Products, and Collections. Shopify restricts each field to `soda` or `seltzer`; leaving it blank preserves the fallback behavior. This classification controls presentation and navigation only. JSON templates still own section composition, so classifying a resource does not automatically add product-world sections to its template.
+`custom.brand_variant` reuses the existing merchant-owned single-line text definitions on Products and Pages, with brand values `soda` and `hardseltzer`. Collections currently use canonical-handle fallback; an optional override can use the same key if needed. Leaving the field blank preserves fallback behavior. This classification controls presentation and navigation only. JSON templates still own section composition, so classifying a resource does not automatically add product-world sections to its template.
 
 Browser session state is never the authority. A direct product URL must render the correct complete shell on the server.
 
