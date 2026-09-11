@@ -1,17 +1,15 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin language editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "accessibility": {
-    "skip_to_content": "Skip to content"
+    "skip_to_content": "Skip to content",
+    "notifications": "Notifications",
+    "dismiss_notification": "Dismiss notification"
   },
   "general": {
+    "404": {
+      "title": "This page has lost its sparkle.",
+      "subtext": "The page you requested was moved or does not exist.",
+      "back_home": "Back to the homepage"
+    },
     "meta": {
       "tags": "Tagged {{ tags }}",
       "page": "Page {{ page }}"
@@ -29,11 +27,6 @@
       "previous": "Previous",
       "next": "Next",
       "page": "Page {{ current }} of {{ total }}"
-    },
-    "404": {
-      "title": "This page has lost its sparkle.",
-      "subtext": "The page you requested was moved or does not exist.",
-      "back_home": "Back to the homepage"
     }
   },
   "sections": {
@@ -70,7 +63,8 @@
       "shop": "Shop",
       "learn": "Learn",
       "subscribe": "Subscribe",
-      "store_finder": "Store finder"
+      "store_finder": "Store finder",
+      "home": "Home"
     },
     "footer": {
       "newsletter_heading": "Newsletter",
@@ -374,7 +368,9 @@
         "item_2": "Calorie-reduced*",
         "item_3": "Natural flavors",
         "item_4": "Gluten-free",
-        "item_5": "Vegan"
+        "item_5": "Vegan",
+        "item_6": "1.8 g sugar per can",
+        "footnote": "*30% fewer calories than conventional alcoholic mixed drinks with 5% ABV."
       }
     }
   },
@@ -385,6 +381,39 @@
       "add_to_cart": "Add to cart",
       "added_to_cart": "Added to cart.",
       "sold_out": "Sold out"
+    },
+    "pdp": {
+      "shipping_threshold": "Free shipping on orders from {{ amount }}.",
+      "shipping_rate": "Standard shipping {{ amount }}.",
+      "shipping_product": "Orders containing only eligible trial packs ship free.",
+      "shipping_information": "Shipping information",
+      "soda_badge": "Your body’s favorite soda",
+      "seltzer_badge": "Contains alcohol: 5% alc. vol.",
+      "savings_title": "Up to 15% off subscription orders.",
+      "savings_text": "Save with recurring deliveries of your favourite drink. Your selected delivery frequency determines the discount.",
+      "benefits_heading": "Why a subscription is a great idea!",
+      "gallery": "Product gallery",
+      "previous_image": "Previous image",
+      "next_image": "Next image",
+      "pause_animation": "Pause badge animation",
+      "show_more": "Show more",
+      "show_less": "Show less",
+      "flavour": "Choose your flavour:",
+      "packaging": "Packaging size",
+      "update_options": "Update options",
+      "purchase_type": "Choose your purchase:",
+      "one_time": "One-time purchase",
+      "subscribe": "Subscribe & save",
+      "up_to": "Up to 15%",
+      "delivery": "Delivery frequency",
+      "save_percent": "Save {{ percent }}%",
+      "checkout_charge": "Due at checkout: {{ amount }}",
+      "remaining_balance": "Remaining balance: {{ amount }}",
+      "benefit_shipping_title": "Delivered to your door.",
+      "benefit_shipping_text": "Your favourite drinks delivered regularly. Shipping follows the rates shown for your order.",
+      "benefit_flexibility_title": "Manage your subscription.",
+      "benefit_flexibility_text": "Skip a delivery, pause or cancel your subscription through your customer account.",
+      "marketing_image": "{{ product }} — product detail"
     }
   },
   "collections": {
@@ -429,7 +458,8 @@
       "shipping_progress": "Progress toward free shipping",
       "shipping_free": "Free",
       "tax_included_short": "Tax included.",
-      "shipping": "Shipping"
+      "shipping": "Shipping",
+      "shipping_tax_included_short": "Incl. shipping & tax"
     },
     "label": {
       "product": "Product",
@@ -459,6 +489,102 @@
       "no_js": "You can enter or manage discount codes at checkout.",
       "single": "Enter one discount code at a time.",
       "order": "Order discount"
+    },
+    "recommendations": {
+      "heading": "You can ignore this stuff, in theory. Just wanted to show you.",
+      "add": "Add to cart",
+      "choose": "Choose options",
+      "compact_pack": "{{ count }}-pack"
     }
+  },
+  "age_check": {
+    "help_swiss_contact_html": "Having trouble? Email <a href=\"mailto:hallo@sparklys.ch\">hallo@sparklys.ch</a> with a copy of your Swiss ID card. We’ll help you as soon as possible.",
+    "help_swiss_instructions": "Turn your Swiss ID card over and find the characters highlighted in the example. Enter them in the matching fields.",
+    "help": "Help",
+    "help_back": "Back",
+    "help_image_alt": "Swiss ID example with five numbered highlights. The matching fields are listed below.",
+    "title": "A quick age check",
+    "close": "Close age check",
+    "intro": "Protecting young people matters to us. We only sell alcohol online to people aged {{ age }} or over. Your cart contains alcohol. Please confirm your age using your identity card or passport.",
+    "document": "Choose your ID",
+    "ch_id": "Switzerland — ID card",
+    "ch_passport": "Switzerland — passport",
+    "li_id": "Liechtenstein — ID card",
+    "li_passport": "Liechtenstein — passport",
+    "example": "Example · not a document",
+    "guide_help": "Type directly into the document. Select a field for help on which characters to copy. Include every < inside the highlighted groups.",
+    "fillers_only": "The remaining characters in line 1 are all <",
+    "finalDigit": "Final digit",
+    "finalDigitHelp": "Copy only the very last digit of the second code line. The < signs are filled in automatically.",
+    "privacy": "Your identity document information is not sent to us or stored on our servers. If you are logged in, we remember your age check.",
+    "check": "Verify & checkout",
+    "success_detail": "Your age check is complete. Taking you to checkout…",
+    "continue": "Continue to checkout",
+    "other_document": "Different document or need help?",
+    "other_detail": "We support Swiss and Liechtenstein ID cards and passports from any country with the illustrated standard layout. Other ID cards, visas, different code layouts and incomplete birth or expiry dates are not supported yet. If your document does not fit, you can return to the cart and remove alcoholic items to continue without the check.",
+    "back": "Back to cart",
+    "unavailable": "The age check requires JavaScript. You can still edit your cart. Remove alcoholic items to continue without the check.",
+    "loading": "Checking your cart…",
+    "success": "Age check complete",
+    "error": "The cart could not be checked. Please return to the cart and try again.",
+    "unknown": "An item is missing its alcohol classification. Please return to the cart; checkout cannot continue until the product is classified.",
+    "changed": "Your cart or customer session changed. Please check your age again.",
+    "idLocation": "Turn your ID card over. Find the three lines with letters, numbers and < signs at the bottom. You do not need to enter the line with your name.",
+    "passportLocation": "Open your passport’s photo page. It must have two code lines of 44 characters each; the upper line starts with P. Copy the lower line into the fields from left to right. XXX represents your nationality code; M/F/< represents the sex marker. You do not need to enter these or your name. After the expiry date, copy all 14 characters, then enter the last two check characters separately.",
+    "numberHelpId": "First code line: document number after the five-character country/type prefix. Enter the number without trailing < signs.",
+    "numberHelpPassport": "Lower code line: the first nine characters, including <. We add any omitted trailing < signs.",
+    "digitHelp": "Copy the single check digit immediately after the nine-character document-number area (including any < padding).",
+    "birthHelpId": "Second code line: the first seven digits (YYMMDD plus check digit).",
+    "birthHelpPassport": "Lower code line: positions 14–20, after the three-letter nationality code (YYMMDD plus check digit).",
+    "expiryHelpId": "Second code line: seven digits directly after the sex marker (YYMMDD plus check digit).",
+    "expiryHelpPassport": "Lower code line: positions 22–28, directly after the sex marker (YYMMDD plus check digit).",
+    "optionalHelp": "First code line: all 15 characters after the document-number check digit. Copy < signs too, or confirm below if all 15 are <.",
+    "tailHelpId": "Second code line: the final 12 characters, after the three-letter nationality code. Include < signs and the final digit.",
+    "tailHelpPassport": "Only the very last digit of the lower code line.",
+    "yearHelp": "Copy the four-digit year from the printed date of birth on your document. This distinguishes birth centuries.",
+    "fields": {
+      "number": "Document number",
+      "numberDigit": "Check digit",
+      "birth": "Birth date + digit",
+      "expiry": "Expiry date + digit",
+      "optional": "Rest of line 1",
+      "tail": "End of line 2",
+      "birthYear": "Full birth year",
+      "optionalDigit": "Optional-data check digit"
+    },
+    "errors": {
+      "unsupported": "This code layout or incomplete date is not supported yet. Choose another supported document or open Help.",
+      "number": "Check the document number: exactly 8 letters/digits for a Swiss ID; otherwise up to 9 characters. For passports, include any < signs.",
+      "checksum": "These characters do not match the printed check digit. Please check the highlighted field.",
+      "dateFormat": "Enter seven digits: year, month, day and check digit. The date must exist.",
+      "year": "Enter the four-digit birth year from your document. It must match the code and form a valid past date.",
+      "century": "The code only gives a two-digit birth year. Please enter your full birth year so we can determine whether you meet the minimum age.",
+      "optional": "Copy all 15 characters, including < signs.",
+      "tail": "Copy the complete final block, including < signs and check digits.",
+      "underage": "The date entered does not meet the minimum age of {{ age }} for alcoholic products.",
+      "passportOptional": "Copy all 14 characters, including < signs."
+    },
+    "version": "Which identity card do you have?",
+    "version_current": "Current card · from 2024",
+    "version_previous": "Previous card · before 2024",
+    "id_current": "Current identity card · back",
+    "id_previous": "Previous identity card · back",
+    "id_side": "Back · enter the highlighted code fields",
+    "passport_side": "Lower code line · wrapped for entry",
+    "year_front": "One detail from the front: your full birth year.",
+    "year_photo": "From the printed date of birth on this page: your full birth year.",
+    "line_one": "Line 1",
+    "line_two": "Line 2",
+    "name_example": "SURNAME<<GIVENNAME",
+    "names_omitted": "Name line · no entry needed",
+    "country_ch": "SWITZERLAND",
+    "country_li": "FÜRSTENTUM LIECHTENSTEIN",
+    "retry": "Try again",
+    "international_passport": "Another country — passport",
+    "passportTitle": "PASSPORT",
+    "optionalLabel": "Rest of line 1",
+    "passportOptionalLabel": "Optional characters",
+    "passportOptionalHelp": "Lower code line: all 14 characters after the expiry date and its check digit (positions 29–42). Include every <.",
+    "optionalDigitHelp": "The second-last character of the lower code line: a digit or <."
   }
 }
