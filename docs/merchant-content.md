@@ -4,17 +4,17 @@ Merchant content is shared storefront data, not content owned by one theme secti
 
 ## Product-world classification
 
-Pages, Products, and Collections each have the same merchant-owned metafield definition:
+Products and Pages reuse the existing merchant-owned Brand Variant field:
 
-| Admin name | Namespace and key | Shopify type | Allowed values |
+| Admin name | Namespace and key | Shopify type | Brand values |
 | --- | --- | --- | --- |
-| Product world | `custom.product_world` | `single_line_text_field` | `soda`, `seltzer` |
+| Brand Variant | `custom.brand_variant` | `single_line_text_field` | `soda`, `hardseltzer` |
 
-Use the field on a resource when it belongs explicitly to one product world. Leave it blank for shared/general content or when the established template and canonical-collection fallbacks are sufficient. The metafield is authoritative over those fallbacks, which makes it suitable for supporting pages and resolves products or collections whose URL, template, or membership is ambiguous.
+Use the field on branded products and supporting pages. Leave shared/general content blank. The resolver normalizes `hardseltzer` to internal `seltzer` (also accepting `seltzer`) and gives recognized values precedence over template and collection fallbacks. Collections currently use the canonical `soda` and `hard-seltzer` handles; the resolver also supports the same Brand Variant key if a collection override becomes necessary, without requiring duplicate classification data today.
 
-The field changes the server-rendered header, footer, navigation, and heading typography. It does not change the resource's JSON template or add sections. Choose the appropriate template separately when Soda and Hard Seltzer need different page composition.
+The field changes the server-rendered header, footer, navigation, and heading typography. It does not change the resource's JSON template or add sections. Choose the appropriate template separately when Soda and Hard Seltzer need different page composition. Alcohol eligibility remains exclusively `custom.contains_alcohol`.
 
-The three definitions were provisioned on `sparklys-hard-seltzer.myshopify.com` on 2026-09-01. Values remain merchant-managed store data and are not stored in this repository.
+The obsolete Product world definitions were audited on 2026-09-10: zero populated Products, Collections or Pages. They were removed using definition-only deletion. Brand Variant already exists on Products and Pages; do not recreate Product world. The four Soda products retain `soda`; Maracuja retains `hardseltzer`, and missing `hardseltzer` values were added to Holunder and the Hard Seltzer Variety Pack. The existing Soda business-subscription Page retains `soda`. Canonical collections need no additional field. Values remain merchant-managed Shopify data, outside this repository.
 
 ## Definitions
 
@@ -82,3 +82,25 @@ After the definitions exist:
 4. In the later integration, upload files through Shopify Files and use `metaobjectUpsert` with stable handles to create or update records.
 
 Official references: [Metafield definitions](https://shopify.dev/docs/apps/build/metafields/definitions), [Liquid metafields](https://shopify.dev/docs/api/liquid/objects/metafield), [About metaobjects](https://shopify.dev/docs/apps/build/metaobjects), [metaobject theme settings](https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings), and [dynamic sources](https://shopify.dev/docs/storefronts/themes/architecture/settings/dynamic-sources).
+
+## Product detail shared content — implemented 2026-09-11
+
+Content ownership is deliberately small:
+
+| Edit location | Content | Consumers |
+| --- | --- | --- |
+| Product | Existing background/gradient, media, `gallery_image_1…3`; new `custom.usp_image` | Product gallery/marketing and that product’s Automatic USP section |
+| Canonical brand collection | `custom.usp_set` and ordered `custom.flavour_products` | Every product in the brand and Automatic USP sections |
+| Content → Metaobjects → USP item / USP set | Reusable approved facts and shared footnote | The collection reference selects the set once |
+| Content → Metaobjects → Subscription benefits | Entry `standard`, seven heading/copy fields | Purchase summary and expanded subscription explanation |
+| Existing theme shipping settings / shared payment renderer | Shipping values and payment marks | PDP, cart shipping values and footer payment marks |
+
+Created active, translatable, storefront-readable definitions `usp_item` (caption, optional icon), `usp_set` (name, ordered item references, optional rich-text footnote), and `subscription_benefits` (heading plus savings/shipping/flexibility title and text). Metaobject web-page publishing stays off; these are embedded content, not new indexable pages.
+
+Created five Soda entries (`soda-1…5`) and six Hard Seltzer entries (`seltzer-1…6`). The Hard Seltzer display order is 1, 2, 6, 3, 4, 5, with sugar after calories. Original SVG icons are the default for these stable handles; an uploaded Icon replaces the artwork. Soda and Hard Seltzer USP-set entries are assigned to their canonical collections. Flavour lists are Yuzu / Blueberry / Variety and Maracuja / Holunder / Variety. Trial packs and unrelated merchandise are intentionally absent from these cross-link lists; collection membership is unchanged.
+
+Unchanged English seed captions and subscription copy use the existing theme EN/DE translations automatically. Once a merchant customizes a source entry, maintain its translations through Shopify; actual translated values take precedence. Optional set footnotes likewise override the approved localized defaults and need their own translations. Renaming an entry handle changes its default-artwork lookup; keep seeded handles stable or upload an explicit icon.
+
+The Product USP image definition is ready. Leave a placed section’s Image blank to use each product’s image, then the existing brand fallback; an explicit section image is a template-wide override. No second Soda template is required. Existing product gallery fields were reused without changing their definitions or values. Maracuja/Holunder have exact Figma marketing fallbacks where those fields remain empty.
+
+Subscription savings copy says **up to 15%**, while the selected allocation provides the actual price/discount. Shipping copy follows existing theme rules; the subscription-free-shipping promise awaits confirmation and matching checkout configuration. No shipping rules were changed.

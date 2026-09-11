@@ -25,7 +25,7 @@ All sections follow the [design system](../design-system.md), [asset-delivery ru
 | [Poster](poster.md) | Brand storytelling | Full-image editorial poster with overlaid content |
 | [Subscription](subscription.md) | Brand storytelling | Soda/Hard Seltzer subscription poster with benefits, subscribe action and sign-in link |
 | [Split Image-Text](split-image-text.md) | Brand storytelling | Side-by-side editorial image and content panel |
-| [USP](usp-section.md) | Brand storytelling | Context-aware Soda or Hard Seltzer image, copy, and five USP items |
+| [USP](usp-section.md) | Brand storytelling | Context-aware Soda or Hard Seltzer image, copy, and five Soda / six Hard Seltzer USP items |
 | [Hard Seltzer Ingredients](hard-seltzer-ingredients.md) | Trust & information | Three-part Hard Seltzer ingredient story with replaceable illustrations |
 | [Hard Seltzer Awards](hard-seltzer-awards.md) | Trust & information | Hard Seltzer award presentation with an optional shop action |
 | [Soda Ingredients](soda-ingredients.md) | Trust & information | Six-item Soda ingredient overview and legal footnote |

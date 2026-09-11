@@ -1,0 +1,87 @@
+                    {%- if usp_variant == 'soda' -%}
+                      {%- case usp_index -%}
+                        {%- when 1 -%}
+                          <img src="{{ 'usp-soda-immune.svg' | asset_url }}" width="69" height="69" alt="">
+                        {%- when 2 -%}
+                          <img src="{{ 'usp-soda-fiber.svg' | asset_url }}" width="69" height="69" alt="">
+                        {%- when 3 -%}
+                          <img src="{{ 'usp-soda-low-calorie.svg' | asset_url }}" width="69" height="69" alt="">
+                        {%- when 4 -%}
+                          <img
+                            class="usp-section__icon-layer usp-section__icon-layer--full"
+                            src="{{ 'usp-soda-fruit-base.svg' | asset_url }}"
+                            width="69"
+                            height="69"
+                            alt=""
+                          >
+                          <img
+                            class="usp-section__icon-layer usp-section__icon-layer--soda-fruit"
+                            src="{{ 'usp-soda-fruit-mark.svg' | asset_url }}"
+                            width="37"
+                            height="42"
+                            alt=""
+                          >
+                        {%- when 5 -%}
+                          <img
+                            class="usp-section__icon-layer usp-section__icon-layer--full"
+                            src="{{ 'usp-soda-swiss-base.svg' | asset_url }}"
+                            width="69"
+                            height="69"
+                            alt=""
+                          >
+                          <img
+                            class="usp-section__icon-layer usp-section__icon-layer--soda-swiss"
+                            src="{{ 'usp-soda-swiss-mark.svg' | asset_url }}"
+                            width="30"
+                            height="30"
+                            alt=""
+                          >
+                      {%- endcase -%}
+                    {%- else -%}
+                      {%- case usp_index -%}
+                        {%- when 1 -%}
+                          <img
+                            class="usp-section__icon-layer usp-section__icon-layer--full"
+                            src="{{ 'usp-seltzer-alcohol-base.svg' | asset_url }}"
+                            width="68"
+                            height="68"
+                            alt=""
+                          >
+                          <img
+                            class="usp-section__icon-layer usp-section__icon-layer--seltzer-alcohol-main"
+                            src="{{ 'usp-seltzer-alcohol-main.svg' | asset_url }}"
+                            width="23"
+                            height="29"
+                            alt=""
+                          >
+                          <img
+                            class="usp-section__icon-layer usp-section__icon-layer--seltzer-alcohol-detail-1"
+                            src="{{ 'usp-seltzer-alcohol-detail-1.svg' | asset_url }}"
+                            width="17"
+                            height="15"
+                            alt=""
+                          >
+                          <img
+                            class="usp-section__icon-layer usp-section__icon-layer--seltzer-alcohol-detail-2"
+                            src="{{ 'usp-seltzer-alcohol-detail-2.svg' | asset_url }}"
+                            width="15"
+                            height="5"
+                            alt=""
+                          >
+                          <img
+                            class="usp-section__icon-layer usp-section__icon-layer--seltzer-alcohol-detail-3"
+                            src="{{ 'usp-seltzer-alcohol-detail-3.svg' | asset_url }}"
+                            width="15"
+                            height="5"
+                            alt=""
+                          >
+                        {%- when 2 -%}
+                          <img src="{{ 'usp-seltzer-calories.svg' | asset_url }}" width="68" height="68" alt="">
+                        {%- when 3 -%}
+                          <img src="{{ 'usp-seltzer-natural.svg' | asset_url }}" width="68" height="68" alt="">
+                        {%- when 4 -%}
+                          <img src="{{ 'usp-seltzer-gluten-free.svg' | asset_url }}" width="68" height="68" alt="">
+                        {%- when 5 -%}
+                          <img src="{{ 'usp-seltzer-vegan.svg' | asset_url }}" width="68" height="68" alt="">
+                      {%- endcase -%}
+                    {%- endif -%}

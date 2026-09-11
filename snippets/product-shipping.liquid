@@ -1,0 +1,37 @@
+{%- liquid
+  assign supported_destination = false
+  if localization.country.iso_code == 'CH' or localization.country.iso_code == 'LI'
+    if cart.currency.iso_code == 'CHF'
+      assign supported_destination = true
+    endif
+  endif
+  assign threshold = settings.free_shipping_threshold | default: 50 | times: 100 | round
+  assign rate = settings.flat_shipping_rate | default: 9 | times: 100 | round | at_least: 0
+  assign qualifies = false
+  if settings.free_shipping_products != blank
+    for qualifying_product in settings.free_shipping_products
+      if qualifying_product.id == product.id
+        assign qualifies = true
+      endif
+    endfor
+  elsif product.handle == 'sparklys-soda-probierpaket'
+    assign qualifies = true
+  endif
+  capture threshold_money
+    render 'cart-money', amount: threshold
+  endcapture
+  capture rate_money
+    render 'cart-money', amount: rate
+  endcapture
+-%}
+<div class="pdp-shipping">
+  <img src="{{ 'icon-pdp-truck.svg' | asset_url }}" alt="" width="24" height="24">
+  <div>
+    {% if supported_destination and threshold > 0 %}
+      <p>{{ 'products.pdp.shipping_threshold' | t: amount: threshold_money }}</p>
+      <p>{{ 'products.pdp.shipping_rate' | t: amount: rate_money }}</p>
+      {% if qualifies %}<p>{{ 'products.pdp.shipping_product' | t }}</p>{% endif %}
+    {% else %}<p>{{ 'cart.general.shipping_notice' | t }}</p>{% endif %}
+    {% if shop.shipping_policy.url != blank %}<a href="{{ shop.shipping_policy.url }}">{{ 'products.pdp.shipping_information' | t }}</a>{% endif %}
+  </div>
+</div>

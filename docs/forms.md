@@ -78,3 +78,5 @@ This is a UI primitive library and local prototype, with no entity content requi
 Verification: theme checks and existing tests pass; headless Chromium verified 390px/desktop layout, native select fallback with scripts blocked, keyboard choice skipping disabled options, required-email feedback, token tuning/reset, and reduced-motion popup behavior. Demo server remains local-only on port 9293 for review.
 
 Field values, dropdown triggers and options use the shared regular field-family/weight roles; uppercase labels retain their emphasis. Button and quantity outlines share the 3px control outline token.
+
+PDP adoption (2026-09-11): packaging and delivery frequency use `sparklys-select` with native select fallbacks; purchase choices use shared radio cards; quantity uses the shared outlined capsule. The actual Add submitter owns Ajax loading/focus, even with a separately associated native variant-update button.

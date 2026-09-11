@@ -106,3 +106,13 @@ Background checkout review (2026-09-09): age-check.js now owns the checkout-butt
 Form baseline (2026-09-09): `forms.css` and `forms.js` are opt-in local component assets, currently loaded only by the disposable `demos/design-system/` page. No global storefront payload is added. `icon-check.svg` and `icon-form-chevron-down.svg` are unchanged Figma exports from existing Untitled UI components; see [forms](forms.md).
 
 Form baseline adoption (2026-09-09): the layout now loads `forms.css` and deferred `forms.js` globally for cart coupon inputs and the age-check document dropdown. Both have explicit 3 KiB gzip review budgets in `check-assets.mjs`. Other controls remain opt-in; the studio stays excluded from theme uploads.
+
+## Product detail assets — 2026-09-11
+
+`product-detail.css/js` load only from the product section. The shared USP stylesheet loads with PDP and USP; all new media are local theme SVGs or responsive Shopify images.
+
+Exact Figma artwork from file `wU2QCDnknQPBZd4hacOOjq`: Soda fruit and savings/truck layers from `5904:21392` / `5904:21391`; green flexibility group `6150:6544`; Hard Seltzer fruit groups `6619:23111`, `6619:23133`, `6619:23166`; 5% badge center `6622:10071` and text ring `6622:10092`; sugar icon from `6622:10093`. Exported ancestor-frame background rectangles and their empty clipping references were removed without redrawing artwork geometry. Existing Soda badge layers and Hard Seltzer wave headings are reused. Badge assets remain SVG-only.
+
+The Figma bag/truck UI exports are the frame’s Untitled UI icons. `icon-pause-circle.svg` is the Line `pause-circle` from https://github.com/untitleduico/icons/blob/main/icons/pause-circle.svg, under the retained [Untitled UI license](untitled-ui-icons-license.txt). Its source viewBox, stroke and geometry are preserved.
+
+Maracuja marketing fallbacks are Figma nodes `6619:23596`, `6619:23616`, `6619:23621`; Holunder fallbacks are `6622:27803`, `6622:27823`, `6622:27829`. Native-resolution PNG exports were re-encoded to WebP at quality 90 without changing image content. Existing Shopify `gallery_image_1…3` fields override them individually. These six files are lazy-loaded supporting artwork, never gallery replacements or badge rasterizations.

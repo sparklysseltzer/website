@@ -1,0 +1,41 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="59.8264" height="59.1283" viewBox="0 0 59.8264 59.1283" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon-product-variant-blueberry-sparklys-soda">
+<ellipse id="Ellipse 322" opacity="0.26" cx="30.4502" cy="49.2839" rx="17.875" ry="1.95702" fill="#218CDC"/>
+<g id="Group 48096057">
+<g id="Subtract" filter="url(#filter0_ii_0_330)">
+<path d="M25.8744 10.0381C32.3658 8.59401 38.3324 10.0826 43.1333 13.4417C46.9328 16.1002 50.1649 19.8941 51.2089 24.5867C52.7619 31.5678 50.2675 38.5375 44.9243 43.263C42.1377 45.7275 38.4176 47.6168 34.4316 48.5036C29.9985 49.4898 25.3155 49.4929 21.284 48.1469C14.7401 45.9621 9.6518 40.7296 8.18961 34.1569C6.97785 28.7099 9.08058 22.9433 12.5184 18.5061C15.7844 14.2905 20.2089 11.2985 25.8744 10.0381Z" fill="url(#paint0_linear_0_330)"/>
+</g>
+<g id="Ellipse 321" opacity="0.6" filter="url(#filter1_f_0_330)">
+<ellipse cx="39.2109" cy="23.8638" rx="9.52872" ry="7.6142" transform="rotate(50.0928 39.2109 23.8638)" fill="#C4D9FF"/>
+</g>
+<path id="Vector 106" opacity="0.7" d="M19.8829 24.2302L18.6611 24.5514C18.3647 24.6293 18.0556 24.6462 17.7526 24.6011C16.7213 24.4475 15.9284 23.6091 15.8327 22.5708L15.8029 22.2473C15.7907 22.1148 15.7884 21.9816 15.796 21.8488L15.8002 21.7755C15.8549 20.8192 16.2826 19.9225 16.9913 19.278L18.3057 18.0829L19.3142 16.8832C20.1228 15.9215 21.2092 15.2336 22.4244 14.9142L24.0526 14.4862L26.9344 14.0164C27.5822 13.9108 28.2403 14.132 28.6928 14.6075C29.2381 15.1803 29.3915 16.022 29.0835 16.7505L28.948 17.071C28.8942 17.1982 28.8301 17.3207 28.7563 17.4373L28.1538 18.3888C27.7526 19.0224 27.2377 19.5764 26.635 20.0229L23.9094 22.0419L21.5536 23.5098C21.036 23.8323 20.4728 24.0752 19.8829 24.2302Z" fill="#0A64C8"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_ii_0_330" x="7.84414" y="1.67618" width="43.8205" height="51.011" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="-7.81159"/>
+<feGaussianBlur stdDeviation="3.99991"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.203922 0 0 0 0 0.286275 0 0 0 0 0.729412 0 0 0 0.5 0"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_0_330"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="3.48228"/>
+<feGaussianBlur stdDeviation="3.52934"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.477708 0 0 0 0 0.657081 0 0 0 0 1 0 0 0 0.3 0"/>
+<feBlend mode="normal" in2="effect1_innerShadow_0_330" result="effect2_innerShadow_0_330"/>
+</filter>
+<filter id="filter1_f_0_330" x="25.1808" y="9.49633" width="28.0602" height="28.735" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="2.78761" result="effect1_foregroundBlur_0_330"/>
+</filter>
+<linearGradient id="paint0_linear_0_330" x1="37.1993" y1="10.4494" x2="22.6271" y2="48.6789" gradientUnits="userSpaceOnUse">
+<stop stop-color="#75C3FF"/>
+<stop offset="1" stop-color="#0872F4"/>
+</linearGradient>
+</defs>
+</svg>

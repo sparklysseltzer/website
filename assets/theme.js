@@ -735,7 +735,7 @@ class ProductForm extends HTMLElement {
       event.preventDefault();
       if (cart.busy) return;
       this.status.textContent = cart.dataset.updating;
-      const success = await cart.add(this.form, this.form.querySelector('[type="submit"]'));
+      const success = await cart.add(this.form, event.submitter || this.form.querySelector('[type="submit"]:not([form])'));
       this.status.textContent = success ? this.dataset.successMessage : cart.dataset.error;
       if (success) window.SparklysNotifications?.show(this.dataset.successMessage, { type: 'success', key: 'cart-feedback' });
     }, { signal: this.abort.signal });

@@ -22,11 +22,11 @@ This file tracks deferred Schema.org and JSON-LD work discovered during the 2026
 
 ### Product detail pages
 
-- [ ] Add Product JSON-LD to all product templates through one shared renderer.
-- [ ] Include truthful Shopify-backed name, canonical URL, description, images, brand, SKU/GTIN identifiers when present, and variant/offer availability.
-- [ ] Use active-market prices and `cart.currency.iso_code`; account for variants, compare-at prices, and availability without contradicting the visible product experience.
+- [x] Add Product JSON-LD to all product templates through one shared renderer (`main-product`, Shopify `structured_data`, 2026-09-11).
+- [x] Include truthful Shopify-backed name, canonical URL, description, images, brand, SKU/GTIN identifiers when present, and variant/offer availability through Shopify’s native Product/ProductGroup output.
+- [x] Use active-market prices/currency and truthful variant availability. Verified CHF 28.80/57.60 offers against the actual Holunder variant data and visible selectable one-time prices.
 - [ ] Link the Product brand or seller/publisher to the canonical store entity rather than defining a competing organization.
-- [ ] Revalidate the rendered result after the product variant UI is completed.
+- [x] Revalidate the rendered result after the product variant UI is completed: parsed one ProductGroup with two real variant Offers; no duplicate product entity or invented reviews.
 
 ### Articles and news
 

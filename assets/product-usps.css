@@ -1,0 +1,96 @@
+  .usp-section__item {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.5rem, 0.75vw, 0.75rem);
+    align-items: center;
+  }
+
+  .usp-section__icon {
+    position: relative;
+    width: clamp(3.25rem, 4.31vw, 4.3125rem);
+    height: clamp(3.25rem, 4.31vw, 4.3125rem);
+    flex: none;
+  }
+
+  .usp-section__icon > img:not(.usp-section__icon-layer),
+  .usp-section__icon > picture,
+  .usp-section__icon > picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .usp-section__icon-layer {
+    position: absolute;
+    display: block;
+  }
+
+  .usp-section__icon-layer--full {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .usp-section__icon-layer--soda-fruit {
+    top: 22.84%;
+    left: 17.48%;
+    width: 53.54%;
+    height: 60.08%;
+  }
+
+  .usp-section__icon-layer--soda-swiss {
+    top: 28.46%;
+    left: 28.79%;
+    width: 43.47%;
+    height: 43.47%;
+  }
+
+  .usp-section__icon-layer--seltzer-alcohol-main {
+    top: 29.71%;
+    left: 20.28%;
+    width: 33.78%;
+    height: 42%;
+  }
+
+  .usp-section__icon-layer--seltzer-alcohol-detail-1 {
+    top: 29.57%;
+    left: 52.75%;
+    width: 24.81%;
+    height: 22.21%;
+  }
+
+  .usp-section__icon-layer--seltzer-alcohol-detail-2 {
+    top: 63.95%;
+    left: 56.29%;
+    width: 21.69%;
+    height: 7.06%;
+  }
+
+  .usp-section__icon-layer--seltzer-alcohol-detail-3 {
+    top: 54.27%;
+    left: 56.29%;
+    width: 21.04%;
+    height: 7.06%;
+  }
+
+  .usp-section__label {
+    width: 100%;
+    margin: 0;
+    font-family: 'Maison Neue Bold', var(--font-body);
+    font-size: var(--font-size-label);
+    font-weight: 700;
+    line-height: var(--line-height-ui);
+    text-align: center;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+  }
+
+
+.usp-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(4.5rem, 1fr)); gap: .75rem; }
+.usp-items .usp-section__icon { width: 4.25rem; height: 4.25rem; }
+.usp-items .usp-section__icon--seltzer { filter: invert(1); }
+.usp-items .usp-section__icon--seltzer-sugar { filter: none; }
+.usp-section--seltzer .usp-section__icon--seltzer-sugar { filter: invert(1); }
+.usp-section__footnote { font-size: var(--font-size-small); }
+@media (max-width: 35rem) { .usp-items { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 1.25rem; } }

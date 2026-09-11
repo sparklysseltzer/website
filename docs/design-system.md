@@ -278,3 +278,9 @@ Normal input, textarea and native/enhanced dropdown values and options use `--fi
 Toast close states (2026-09-09): close icons inherit the toast status color. Hover and keyboard focus use a 12% status-color mix into that toast’s surface, keeping error, warning, success and info feedback coherent. The shared Fast transition, focus ring and reduced-motion treatment remain in place.
 
 Warning toasts use the unmodified Untitled UI Line `alert-triangle.svg` from the official icon repository, under the retained Untitled UI license. Errors retain `alert-circle`. Stock-limit adjustments use warning semantics and the existing five-second timer with hover/focus pause.
+
+### Product detail composition — 2026-09-11
+
+The PDP reuses Display/Section/Compact/Body/Small roles and shared form, choice, quantity and button primitives. Known Hard Seltzer flavour headings are existing SVG artwork with an accessible HTML title; this is an artwork exception, not another text-size role. Standalone Newake titles retain their shared rhythm; adjacent UI uses Maison Neue and needs no Newake optical correction.
+
+Product frequency fields and benefit disclosures animate measured heights and opacity, resume from the current painted state on reversal, and retain native controls when JavaScript is absent. Price labels crossfade only when their text changes; authoritative values and form submission update immediately. Badge rotation has a pause toggle, visibility suspension and reduced-motion stop.

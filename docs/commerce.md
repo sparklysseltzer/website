@@ -24,7 +24,7 @@ Remaining production work includes real-store inventory/discount/checkout verifi
 
 ## Subscriptions
 
-The [Subscription section](sections/subscription.md) is an implemented promotional poster, not selling-plan commerce support. Keep its existence separate from the integration requirements below.
+The [Subscription section](sections/subscription.md) remains a promotional poster. The [Main product](sections/main-product.md) now implements current-plan selection, allocation pricing, variant/quantity synchronization and native/Ajax submission. The cart preserves plan identity and shows its name and real price. Completed checkout/payment and customer-portal actions remain unverified.
 
 Subscriptions are supported by Shopify but not automatically supported by a custom theme. Shopify requires coordinated behavior across product and cart surfaces. See [Add subscriptions to your theme](https://shopify.dev/docs/storefronts/themes/pricing-payments/subscriptions/add-subscriptions-to-your-theme).
 
@@ -150,3 +150,5 @@ The merchant requests browser-only guided MRZ entry with no provider, app or cus
 The previously planned MRZ flow is now implemented locally with a confirmed 16-year threshold and expired-document acceptance. Product eligibility uses the created `custom.contains_alcohol` boolean. The [implementation contract](age-verification-plan.md) supersedes earlier planning-only notes and records rollout limits and extensions.
 
 International passport update (2026-09-09): the local age check now offers another-country passports using the standard TD3 lower-line fields, alongside CH/LI ID and passport choices. See [support contract](age-verification-international-plan.md#implemented-standard-passport-support--2026-09-09). This does not add foreign ID-card support, identity authentication, residence checks or additional Shopify markets.
+
+PDP verification (2026-09-11): weekly/fortnightly 15% and monthly 10% prices were checked against real allocations, including a 24-pack monthly subscription at CHF 52.92 through Ajax and JavaScript-disabled native add-to-cart. No order was placed. General benefit copy says up to 15%; shipping rules are unchanged. The current small packaging catalog is supported; >250-variant and prepaid/deferred-plan journeys need further implementation and verification.

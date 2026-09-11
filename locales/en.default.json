@@ -1,10 +1,15 @@
 {
   "accessibility": {
+    "skip_to_content": "Skip to content",
     "notifications": "Notifications",
-    "dismiss_notification": "Dismiss notification",
-    "skip_to_content": "Skip to content"
+    "dismiss_notification": "Dismiss notification"
   },
   "general": {
+    "404": {
+      "title": "This page has lost its sparkle.",
+      "subtext": "The page you requested was moved or does not exist.",
+      "back_home": "Back to the homepage"
+    },
     "meta": {
       "tags": "Tagged {{ tags }}",
       "page": "Page {{ page }}"
@@ -22,11 +27,6 @@
       "previous": "Previous",
       "next": "Next",
       "page": "Page {{ current }} of {{ total }}"
-    },
-    "404": {
-      "title": "This page has lost its sparkle.",
-      "subtext": "The page you requested was moved or does not exist.",
-      "back_home": "Back to the homepage"
     }
   },
   "sections": {
@@ -49,7 +49,6 @@
       }
     },
     "header": {
-      "home": "Home",
       "open_menu": "Open menu",
       "navigation": "Main navigation",
       "utility_navigation": "Utility navigation",
@@ -64,7 +63,8 @@
       "shop": "Shop",
       "learn": "Learn",
       "subscribe": "Subscribe",
-      "store_finder": "Store finder"
+      "store_finder": "Store finder",
+      "home": "Home"
     },
     "footer": {
       "newsletter_heading": "Newsletter",
@@ -368,7 +368,9 @@
         "item_2": "Calorie-reduced*",
         "item_3": "Natural flavors",
         "item_4": "Gluten-free",
-        "item_5": "Vegan"
+        "item_5": "Vegan",
+        "item_6": "1.8 g sugar per can",
+        "footnote": "*30% fewer calories than conventional alcoholic mixed drinks with 5% ABV."
       }
     }
   },
@@ -379,6 +381,39 @@
       "add_to_cart": "Add to cart",
       "added_to_cart": "Added to cart.",
       "sold_out": "Sold out"
+    },
+    "pdp": {
+      "shipping_threshold": "Free shipping on orders from {{ amount }}.",
+      "shipping_rate": "Standard shipping {{ amount }}.",
+      "shipping_product": "Orders containing only eligible trial packs ship free.",
+      "shipping_information": "Shipping information",
+      "soda_badge": "Your body’s favorite soda",
+      "seltzer_badge": "Contains alcohol: 5% alc. vol.",
+      "savings_title": "Up to 15% off subscription orders.",
+      "savings_text": "Save with recurring deliveries of your favourite drink. Your selected delivery frequency determines the discount.",
+      "benefits_heading": "Why a subscription is a great idea!",
+      "gallery": "Product gallery",
+      "previous_image": "Previous image",
+      "next_image": "Next image",
+      "pause_animation": "Pause badge animation",
+      "show_more": "Show more",
+      "show_less": "Show less",
+      "flavour": "Choose your flavour:",
+      "packaging": "Packaging size",
+      "update_options": "Update options",
+      "purchase_type": "Choose your purchase:",
+      "one_time": "One-time purchase",
+      "subscribe": "Subscribe & save",
+      "up_to": "Up to 15%",
+      "delivery": "Delivery frequency",
+      "save_percent": "Save {{ percent }}%",
+      "checkout_charge": "Due at checkout: {{ amount }}",
+      "remaining_balance": "Remaining balance: {{ amount }}",
+      "benefit_shipping_title": "Delivered to your door.",
+      "benefit_shipping_text": "Your favourite drinks delivered regularly. Shipping follows the rates shown for your order.",
+      "benefit_flexibility_title": "Manage your subscription.",
+      "benefit_flexibility_text": "Skip a delivery, pause or cancel your subscription through your customer account.",
+      "marketing_image": "{{ product }} — product detail"
     }
   },
   "collections": {
@@ -422,7 +457,7 @@
       "shipping_qualified": "Your order qualifies for free shipping!",
       "shipping_progress": "Progress toward free shipping",
       "shipping_free": "Free",
-      "tax_included_short": "incl. tax",
+      "tax_included_short": "Tax included.",
       "shipping": "Shipping",
       "shipping_tax_included_short": "Incl. shipping & tax"
     },

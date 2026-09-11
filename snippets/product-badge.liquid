@@ -1,0 +1,21 @@
+{%- if brand == 'soda' -%}
+  <div class="pdp-badge pdp-badge--soda" role="img" aria-label="{{ 'products.pdp.soda_badge' | t }}">
+    <img class="pdp-badge__disc" src="{{ 'versus-soda-badge-circle.svg' | asset_url }}" alt="" width="200" height="200">
+    <img class="pdp-badge__ring" src="{{ 'versus-soda-badge-type.svg' | asset_url }}" alt="" width="200" height="200">
+    <img class="pdp-badge__symbol" src="{{ 'versus-soda-badge-symbol.svg' | asset_url }}" alt="" width="100" height="100">
+  </div>
+{%- elsif brand == 'seltzer' and product.metafields.custom.contains_alcohol.value == true -%}
+  {%- comment -%}Only the audited 5% products receive the fixed-strength artwork.{%- endcomment -%}
+  {%- if product.handle == 'sparklys-hard-seltzer-maracuja' or product.handle == 'sparklys-hard-seltzer-holunder' or product.handle == 'sparklys-hard-seltzer-variety' -%}
+    <div class="pdp-badge pdp-badge--seltzer" role="img" aria-label="{{ 'products.pdp.seltzer_badge' | t }}">
+      <img class="pdp-badge__disc" src="{{ 'pdp-seltzer-badge-disc.svg' | asset_url }}" alt="" width="160" height="160">
+      <img class="pdp-badge__ring" src="{{ 'pdp-seltzer-badge-ring.svg' | asset_url }}" alt="" width="160" height="160">
+      <div class="pdp-badge__alcohol">
+        <img class="pdp-badge__five" src="{{ 'pdp-seltzer-badge-five.svg' | asset_url }}" alt="" width="35" height="44">
+        <img class="pdp-badge__percent" src="{{ 'pdp-seltzer-badge-percent.svg' | asset_url }}" alt="" width="26" height="23">
+        <img class="pdp-badge__alc" src="{{ 'pdp-seltzer-badge-alc.svg' | asset_url }}" alt="" width="22" height="7">
+        <img class="pdp-badge__vol" src="{{ 'pdp-seltzer-badge-vol.svg' | asset_url }}" alt="" width="22" height="7">
+      </div>
+    </div>
+  {%- endif -%}
+{%- endif -%}

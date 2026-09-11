@@ -1,10 +1,15 @@
 {
   "accessibility": {
+    "skip_to_content": "Zum Inhalt springen",
     "notifications": "Mitteilungen",
-    "dismiss_notification": "Mitteilung schliessen",
-    "skip_to_content": "Zum Inhalt springen"
+    "dismiss_notification": "Mitteilung schliessen"
   },
   "general": {
+    "404": {
+      "title": "Diese Seite prickelt nicht mehr.",
+      "subtext": "Die gesuchte Seite wurde verschoben oder existiert nicht.",
+      "back_home": "Zur Startseite"
+    },
     "meta": {
       "tags": "Markiert mit {{ tags }}",
       "page": "Seite {{ page }}"
@@ -22,11 +27,6 @@
       "previous": "Zurück",
       "next": "Weiter",
       "page": "Seite {{ current }} von {{ total }}"
-    },
-    "404": {
-      "title": "Diese Seite prickelt nicht mehr.",
-      "subtext": "Die gesuchte Seite wurde verschoben oder existiert nicht.",
-      "back_home": "Zur Startseite"
     }
   },
   "sections": {
@@ -49,7 +49,6 @@
       }
     },
     "header": {
-      "home": "Startseite",
       "open_menu": "Menü öffnen",
       "navigation": "Hauptnavigation",
       "utility_navigation": "Zusätzliche Navigation",
@@ -64,7 +63,8 @@
       "shop": "Shop",
       "learn": "Learn",
       "subscribe": "Subscribe",
-      "store_finder": "Store finder"
+      "store_finder": "Store finder",
+      "home": "Startseite"
     },
     "footer": {
       "newsletter_heading": "Newsletter",
@@ -362,13 +362,15 @@
         "item_5": "Swiss made"
       },
       "seltzer": {
-        "heading": "Original\nZeitgeist",
+        "heading": "Hallo Welt",
         "text": "Ein Drink, der leicht bleibt – auch wenn’s laut wird. Kaum Zucker, klarer Geschmack und 5% Alkohol, die genau richtig sind. Sparklys Hard Seltzer macht jede Runde erfrischender.",
         "item_1": "Perfect alc. vol.",
         "item_2": "Kalorien-reduziert*",
         "item_3": "Natural flavors",
         "item_4": "Gluten-frei",
-        "item_5": "Vegan"
+        "item_5": "Vegan",
+        "item_6": "1.8 g Zucker pro Dose",
+        "footnote": "*30% weniger Kalorien als herkömmliche alkoholische Mischgetränke mit 5% Vol."
       }
     }
   },
@@ -379,6 +381,39 @@
       "add_to_cart": "In den Warenkorb",
       "added_to_cart": "Zum Warenkorb hinzugefügt.",
       "sold_out": "Ausverkauft"
+    },
+    "pdp": {
+      "shipping_threshold": "Gratis Versand ab einem Warenkorbwert von {{ amount }}.",
+      "shipping_rate": "Standardversand {{ amount }}.",
+      "shipping_product": "Bestellungen mit ausschliesslich berechtigten Probierpaketen sind versandkostenfrei.",
+      "shipping_information": "Versandinformationen",
+      "soda_badge": "Your body’s favorite soda",
+      "seltzer_badge": "Alkoholhaltig: 5% alc. vol.",
+      "savings_title": "Bis zu 15% Rabatt auf Abonnementbestellungen.",
+      "savings_text": "Spare bei regelmässigen Lieferungen deines Lieblingsdrinks. Dein gewählter Lieferrhythmus bestimmt den Rabatt.",
+      "benefits_heading": "Warum ein Abo eine super Idee ist!",
+      "gallery": "Produktgalerie",
+      "previous_image": "Vorheriges Bild",
+      "next_image": "Nächstes Bild",
+      "pause_animation": "Badge-Animation pausieren",
+      "show_more": "Mehr anzeigen",
+      "show_less": "Weniger anzeigen",
+      "flavour": "Wähle deinen Geschmack:",
+      "packaging": "Packungsgrösse",
+      "update_options": "Auswahl aktualisieren",
+      "purchase_type": "Wähle deine Bestellung:",
+      "one_time": "Einmaliger Kauf",
+      "subscribe": "Abonnieren & sparen",
+      "up_to": "Bis zu 15%",
+      "delivery": "Lieferrhythmus",
+      "save_percent": "Spare {{ percent }}%",
+      "checkout_charge": "Bei Bestellung fällig: {{ amount }}",
+      "remaining_balance": "Restbetrag: {{ amount }}",
+      "benefit_shipping_title": "Direkt zu dir nach Hause.",
+      "benefit_shipping_text": "Deine Lieblingsdrinks kommen regelmässig zu dir. Es gelten die für deine Bestellung angezeigten Versandkosten.",
+      "benefit_flexibility_title": "Verwalte dein Abonnement.",
+      "benefit_flexibility_text": "Überspringe eine Lieferung, pausiere oder kündige dein Abo über dein Kundenkonto.",
+      "marketing_image": "{{ product }} — Produktdetail"
     }
   },
   "collections": {
@@ -422,7 +457,7 @@
       "shipping_qualified": "Deine Bestellung ist versandkostenfrei!",
       "shipping_progress": "Fortschritt zum kostenlosen Versand",
       "shipping_free": "Kostenlos",
-      "tax_included_short": "inkl. MwSt.",
+      "tax_included_short": "Inklusive Steuern.",
       "shipping": "Versand",
       "shipping_tax_included_short": "inkl. Versand & MwSt."
     },

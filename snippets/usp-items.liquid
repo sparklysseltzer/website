@@ -1,0 +1,65 @@
+{%- comment -%}Collection-linked facts; existing section blocks remain explicit local overrides.{%- endcomment -%}
+{%- if usp_set.items.value != blank -%}
+  {%- for item in usp_set.items.value -%}
+    {%- liquid
+      assign identity = item.system.handle | split: '-'
+      assign icon_brand = identity | first
+      assign usp_index = identity | last | plus: 0
+      assign is_default = false
+      if icon_brand == 'soda' or icon_brand == 'seltzer'
+        if usp_index > 0 and usp_index < 7
+          assign is_default = true
+        endif
+      endif
+      assign caption = item.caption.value
+      assign seed_caption = blank
+      case item.system.handle
+        when 'soda-1'
+          assign seed_caption = 'Immune system support*'
+        when 'soda-2'
+          assign seed_caption = 'High plant fiber'
+        when 'soda-3'
+          assign seed_caption = 'Low in calories & sugar'
+        when 'soda-4'
+          assign seed_caption = 'With real fruit'
+        when 'soda-5'
+          assign seed_caption = 'Swiss made'
+        when 'seltzer-1'
+          assign seed_caption = 'Perfect alc. vol.'
+        when 'seltzer-2'
+          assign seed_caption = 'Reduced calories*'
+        when 'seltzer-3'
+          assign seed_caption = 'Natural flavors'
+        when 'seltzer-4'
+          assign seed_caption = 'Gluten-free'
+        when 'seltzer-5'
+          assign seed_caption = 'Vegan'
+        when 'seltzer-6'
+          assign seed_caption = '1.8 g sugar per can'
+      endcase
+      if is_default and caption == seed_caption
+        assign label_key = 'sections.usp.' | append: icon_brand | append: '.item_' | append: usp_index
+        assign caption = label_key | t
+      endif
+    -%}
+    <div class="usp-section__item" role="listitem" data-scroll-motion-reveal>
+      <div class="usp-section__icon{% if item.icon.value == blank and is_default %} usp-section__icon--{{ icon_brand }}{% if usp_index == 6 %}-sugar{% endif %}{% endif %}" aria-hidden="true">
+        {% if item.icon.value %}{{ item.icon.value | image_url: width: 160 | image_tag: widths: '80, 160', sizes: '69px', loading: 'lazy', alt: '' }}{% elsif is_default %}{% if usp_index == 6 %}<img src="{{ 'usp-seltzer-sugar.svg' | asset_url }}" width="69" height="69" alt="">{% else %}{% render 'usp-icon', usp_variant: icon_brand, usp_index: usp_index %}{% endif %}{% endif %}
+      </div>
+      <p class="usp-section__label">{{ caption | escape_once | newline_to_br }}</p>
+    </div>
+  {%- endfor -%}
+{%- else -%}
+  {%- assign order = '1,2,3,4,5' | split: ',' -%}
+  {%- if usp_variant == 'seltzer' -%}{%- assign order = '1,2,6,3,4,5' | split: ',' -%}{%- endif -%}
+  {%- for item in order -%}
+    {%- assign usp_index = item | plus: 0 -%}
+    {%- capture label_key -%}sections.usp.{{ usp_variant }}.item_{{ usp_index }}{%- endcapture -%}
+    <div class="usp-section__item" role="listitem" data-scroll-motion-reveal>
+      <div class="usp-section__icon usp-section__icon--{{ usp_variant }}{% if usp_index == 6 %}-sugar{% endif %}" aria-hidden="true">
+        {% if usp_index == 6 %}<img src="{{ 'usp-seltzer-sugar.svg' | asset_url }}" width="69" height="69" alt="" loading="lazy">{% else %}{% render 'usp-icon', usp_variant: usp_variant, usp_index: usp_index %}{% endif %}
+      </div>
+      <p class="usp-section__label">{{ label_key | t }}</p>
+    </div>
+  {%- endfor -%}
+{%- endif -%}

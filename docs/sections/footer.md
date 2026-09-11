@@ -13,7 +13,7 @@ The persistent footer mirrors the server-resolved `default`, `soda`, and `seltze
 - separate General, Soda, and Hard Seltzer nested Shopify Navigation menus;
 - shared Legal Nav.
 
-Pages, Products, and Collections can explicitly select their context through the `custom.product_world` metafield. The canonical `soda` and `hard-seltzer` collection handles remain classification fallbacks and are not Theme Editor settings. Top-level footer menu items create cards and their children create card links. The footer year is rendered from Shopify's server time.
+Pages and Products explicitly select their context through the existing `custom.brand_variant` metafield (`soda` / `hardseltzer`). The resolver supports the same key for optional future Collection overrides. The canonical `soda` and `hard-seltzer` collection handles remain classification fallbacks and are not Theme Editor settings. Top-level footer menu items create cards and their children create card links. The footer year is rendered from Shopify's server time.
 
 ## Rendering contract
 
@@ -46,3 +46,5 @@ Focus treatment (2026-09-08): newsletter keyboard focus retains the contrasting 
 Notifications (2026-09-08): Enhanced newsletter success and server-error feedback use the shared toast system. Server feedback remains available as a hidden field description, including aria-invalid on errors; native no-JavaScript responses stay inline. After an enhanced response, focus returns to the invalid input or submit control rather than moving into the notification. Existing network-failure native-submit fallback remains unchanged. See [Notifications](../design-system.md#notifications).
 
 Shared control refinement (2026-09-09): buttons use the global 3px control outline; cart quantity capsules share it. Normal field/select values explicitly use the regular body face and weight 400, including newsletter and product controls. Labels, button emphasis, field geometry and document artwork typography remain governed by their existing contracts.
+
+Payment marks (2026-09-11): `snippets/payment-icons.liquid` now owns the existing eight SVG marks for both footer and PDP. Change this renderer once to update both. The set remains editorial artwork rather than a verified dynamic gateway inventory.
