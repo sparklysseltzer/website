@@ -9,7 +9,7 @@
  */
 {
   "current": {
-    "color_accent": "#e34f2f",
+    "color_accent": "#FEC329",
     "color_general_background": "#ffffff",
     "color_general_surface": "#ffffff",
     "color_general_surface_muted": "#eeeeee",
@@ -46,16 +46,6 @@
     "grain_intensity": 30,
     "border_radius_small": 16,
     "border_radius_large": 32,
-    "free_shipping_products": [],
-    "cart_recommendation_products": [
-      "sparklys-friends-t-shirt",
-      "holunder-on-the-loose-tote-bag",
-      "hoodie-nutrition-facts",
-      "professional-can-opener-2000",
-      "sparklys-hard-seltzer-variety"
-    ],
-    "age_check_enabled": true,
-    "age_policy_version": "1",
     "logo_width": 150,
     "sections": {
       "cart-drawer": {
