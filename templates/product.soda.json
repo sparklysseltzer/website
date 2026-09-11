@@ -14,7 +14,36 @@
       "settings": {
         "show_vendor": false
       }
+    },
+    "usp_section_3XLkKN": {
+      "type": "usp-section",
+      "name": "USP — Soda",
+      "settings": {
+        "variant": "soda",
+        "heading": "",
+        "text": "",
+        "heading_font": "automatic",
+        "color_mode": "automatic",
+        "background": "#69bdf7",
+        "text_color": "#000000"
+      }
+    },
+    "logo_marquee_LzD9RM": {
+      "type": "logo-marquee",
+      "name": "Merchant Marquee",
+      "settings": {
+        "merchant_collection": "soda-handler",
+        "heading": "Jetzt erhältlich in deiner Nähe",
+        "background_style": "gray",
+        "duration": 32,
+        "direction": "normal",
+        "pause_on_interaction": true
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "usp_section_3XLkKN",
+    "logo_marquee_LzD9RM"
+  ]
 }
