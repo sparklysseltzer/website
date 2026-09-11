@@ -1,0 +1,7 @@
+{%- if usp_set.footnote != blank -%}
+  <div class="{{ class | escape }}">{{ usp_set.footnote | metafield_tag }}</div>
+{%- elsif usp_variant == 'soda' -%}
+  <p class="{{ class | escape }}">{{ 'sections.soda_ingredients.footnote' | t }}</p>
+{%- elsif usp_variant == 'seltzer' -%}
+  <p class="{{ class | escape }}">{{ 'sections.usp.seltzer.footnote' | t }}</p>
+{%- endif -%}

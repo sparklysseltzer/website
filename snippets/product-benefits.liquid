@@ -1,0 +1,41 @@
+{%- assign benefits = shop.metaobjects.subscription_benefits['standard'] -%}
+{%- assign heading = benefits.heading.value -%}
+{%- if heading == blank or heading == 'Why a subscription is a great idea!' -%}{%- assign heading = 'products.pdp.benefits_heading' | t -%}{%- endif -%}
+{%- assign savings_title = benefits.savings_title.value -%}
+{%- if savings_title == blank or savings_title == 'Up to 15% off subscription orders.' -%}{%- assign savings_title = 'products.pdp.savings_title' | t -%}{%- endif -%}
+{%- assign savings_text = benefits.savings_text.value -%}
+{%- if savings_text == blank or savings_text == 'Save with recurring deliveries of your favourite drink. Your selected delivery frequency determines the discount.' -%}{%- assign savings_text = 'products.pdp.savings_text' | t -%}{%- endif -%}
+{%- assign shipping_title = benefits.shipping_title.value -%}
+{%- if shipping_title == blank or shipping_title == 'Delivered to your door.' -%}{%- assign shipping_title = 'products.pdp.benefit_shipping_title' | t -%}{%- endif -%}
+{%- assign shipping_text = benefits.shipping_text.value -%}
+{%- if shipping_text == blank or shipping_text == 'Your favourite drinks delivered regularly. Shipping follows the rates shown for your order.' -%}{%- assign shipping_text = 'products.pdp.benefit_shipping_text' | t -%}{%- endif -%}
+{%- assign flexibility_title = benefits.flexibility_title.value -%}
+{%- if flexibility_title == blank or flexibility_title == 'Manage your subscription.' -%}{%- assign flexibility_title = 'products.pdp.benefit_flexibility_title' | t -%}{%- endif -%}
+{%- assign flexibility_text = benefits.flexibility_text.value -%}
+{%- if flexibility_text == blank or flexibility_text == 'Skip a delivery, pause or cancel your subscription through your customer account.' -%}{%- assign flexibility_text = 'products.pdp.benefit_flexibility_text' | t -%}{%- endif -%}
+
+{%- if mode == 'summary' -%}
+  <ul class="pdp-benefits-summary">
+    <li>{{ savings_title }}</li>
+    {% if shipping_title != blank %}<li>{{ shipping_title | escape }}</li>{% endif %}
+    {% if flexibility_title != blank %}<li>{{ flexibility_title | escape }}</li>{% endif %}
+  </ul>
+{%- else -%}
+  <pdp-disclosure class="pdp-benefits">
+    <details open>
+      <summary>{{ heading | escape }}<img src="{{ 'icon-form-chevron-down.svg' | asset_url }}" width="24" height="24" alt=""></summary>
+      <div class="pdp-disclosure__content">
+        <div class="pdp-benefit">
+          <div class="pdp-benefit__art pdp-benefit__art--savings" aria-hidden="true"><img src="{{ 'pdp-benefit-boxes.svg' | asset_url }}" width="59" height="91" alt=""><img src="{{ 'pdp-benefit-arrow.svg' | asset_url }}" width="29" height="42" alt=""></div>
+          <div><strong>{{ savings_title | escape }}</strong><p>{{ savings_text | escape }}</p></div>
+        </div>
+        {% if shipping_title != blank %}
+          <div class="pdp-benefit"><img class="pdp-benefit__art" src="{{ 'pdp-benefit-truck.svg' | asset_url }}" width="100" height="88" alt=""><div><strong>{{ shipping_title | escape }}</strong><p>{{ shipping_text | escape }}</p></div></div>
+        {% endif %}
+        {% if flexibility_title != blank %}
+          <div class="pdp-benefit"><img class="pdp-benefit__art" src="{{ 'pdp-benefit-flexibility.svg' | asset_url }}" width="100" height="88" alt=""><div><strong>{{ flexibility_title | escape }}</strong><p>{{ flexibility_text | escape }}</p></div></div>
+        {% endif %}
+      </div>
+    </details>
+  </pdp-disclosure>
+{%- endif -%}

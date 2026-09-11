@@ -1,0 +1,30 @@
+{% comment %}All eligible curated products and native variant-reference entries.{% endcomment %}
+{%- assign cart_product_ids = cart.items | map: 'product_id' -%}
+{%- assign cart_variant_ids = cart.items | map: 'variant_id' -%}
+{%- assign recommendation_index = 0 -%}
+{%- capture cards -%}
+  {%- for product in products -%}
+    {%- if product.available == false or cart_product_ids contains product.id -%}{%- continue -%}{%- endif -%}
+    {%- assign recommendation_id = 'product-' | append: product.id -%}
+    {% render 'cart-recommendation-card', product: product, recommendation_id: recommendation_id, recommendation_index: recommendation_index, forms_only: forms_only %}
+    {%- assign recommendation_index = recommendation_index | plus: 1 -%}
+  {%- endfor -%}
+  {%- assign seen_variants = ',' -%}
+  {%- for entry in settings.cart_variant_recommendations -%}
+    {%- assign variant = entry.variant.value -%}
+    {%- assign variant_key = variant.id | prepend: ',' | append: ',' -%}
+    {%- if variant == blank or variant.available == false or cart_variant_ids contains variant.id or seen_variants contains variant_key -%}{%- continue -%}{%- endif -%}
+    {%- assign seen_variants = seen_variants | append: variant.id | append: ',' -%}
+    {%- assign recommendation_id = 'variant-' | append: variant.id -%}
+    {% render 'cart-recommendation-card', product: variant.product, fixed_variant: variant, recommendation_id: recommendation_id, recommendation_index: recommendation_index, forms_only: forms_only %}
+    {%- assign recommendation_index = recommendation_index | plus: 1 -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- assign cards = cards | strip -%}
+{%- if forms_only -%}{{ cards }}
+{%- elsif cards != blank -%}
+  <aside class="cart-recommendations" aria-label="{{ 'cart.recommendations.heading' | t | escape }}">
+    <p class="cart-recommendations__heading" data-recommendation-heading style="--recommendation-index: -1">{{ 'cart.recommendations.heading' | t }}</p>
+    <ul role="list">{{ cards }}</ul>
+  </aside>
+{%- endif -%}

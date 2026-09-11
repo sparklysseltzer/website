@@ -9,9 +9,16 @@
  */
 {
   "accessibility": {
-    "skip_to_content": "Zum Inhalt springen"
+    "skip_to_content": "Zum Inhalt springen",
+    "notifications": "Mitteilungen",
+    "dismiss_notification": "Mitteilung schliessen"
   },
   "general": {
+    "404": {
+      "title": "Diese Seite prickelt nicht mehr.",
+      "subtext": "Die gesuchte Seite wurde verschoben oder existiert nicht.",
+      "back_home": "Zur Startseite"
+    },
     "meta": {
       "tags": "Markiert mit {{ tags }}",
       "page": "Seite {{ page }}"
@@ -29,11 +36,6 @@
       "previous": "Zurück",
       "next": "Weiter",
       "page": "Seite {{ current }} von {{ total }}"
-    },
-    "404": {
-      "title": "Diese Seite prickelt nicht mehr.",
-      "subtext": "Die gesuchte Seite wurde verschoben oder existiert nicht.",
-      "back_home": "Zur Startseite"
     }
   },
   "sections": {
@@ -70,7 +72,8 @@
       "shop": "Shop",
       "learn": "Learn",
       "subscribe": "Subscribe",
-      "store_finder": "Store finder"
+      "store_finder": "Store finder",
+      "home": "Startseite"
     },
     "footer": {
       "newsletter_heading": "Newsletter",
@@ -374,7 +377,9 @@
         "item_2": "Kalorien-reduziert*",
         "item_3": "Natural flavors",
         "item_4": "Gluten-frei",
-        "item_5": "Vegan"
+        "item_5": "Vegan",
+        "item_6": "1.8 g Zucker pro Dose",
+        "footnote": "*30% weniger Kalorien als herkömmliche alkoholische Mischgetränke mit 5% Vol."
       }
     }
   },
@@ -385,6 +390,39 @@
       "add_to_cart": "In den Warenkorb",
       "added_to_cart": "Zum Warenkorb hinzugefügt.",
       "sold_out": "Ausverkauft"
+    },
+    "pdp": {
+      "shipping_threshold": "Gratis Versand ab einem Warenkorbwert von {{ amount }}.",
+      "shipping_rate": "Standardversand {{ amount }}.",
+      "shipping_product": "Bestellungen mit ausschliesslich berechtigten Probierpaketen sind versandkostenfrei.",
+      "shipping_information": "Versandinformationen",
+      "soda_badge": "Your body’s favorite soda",
+      "seltzer_badge": "Alkoholhaltig: 5% alc. vol.",
+      "savings_title": "Bis zu 15% Rabatt auf Abonnementbestellungen.",
+      "savings_text": "Spare bei regelmässigen Lieferungen deines Lieblingsdrinks. Dein gewählter Lieferrhythmus bestimmt den Rabatt.",
+      "benefits_heading": "Warum ein Abo eine super Idee ist!",
+      "gallery": "Produktgalerie",
+      "previous_image": "Vorheriges Bild",
+      "next_image": "Nächstes Bild",
+      "pause_animation": "Badge-Animation pausieren",
+      "show_more": "Mehr anzeigen",
+      "show_less": "Weniger anzeigen",
+      "flavour": "Wähle deinen Geschmack:",
+      "packaging": "Packungsgrösse",
+      "update_options": "Auswahl aktualisieren",
+      "purchase_type": "Wähle deine Bestellung:",
+      "one_time": "Einmaliger Kauf",
+      "subscribe": "Abonnieren & sparen",
+      "up_to": "Bis zu 15%",
+      "delivery": "Lieferrhythmus",
+      "save_percent": "Spare {{ percent }}%",
+      "checkout_charge": "Bei Bestellung fällig: {{ amount }}",
+      "remaining_balance": "Restbetrag: {{ amount }}",
+      "benefit_shipping_title": "Direkt zu dir nach Hause.",
+      "benefit_shipping_text": "Deine Lieblingsdrinks kommen regelmässig zu dir. Es gelten die für deine Bestellung angezeigten Versandkosten.",
+      "benefit_flexibility_title": "Verwalte dein Abonnement.",
+      "benefit_flexibility_text": "Überspringe eine Lieferung, pausiere oder kündige dein Abo über dein Kundenkonto.",
+      "marketing_image": "{{ product }} — Produktdetail"
     }
   },
   "collections": {
@@ -429,7 +467,8 @@
       "shipping_progress": "Fortschritt zum kostenlosen Versand",
       "shipping_free": "Kostenlos",
       "tax_included_short": "Inklusive Steuern.",
-      "shipping": "Versand"
+      "shipping": "Versand",
+      "shipping_tax_included_short": "inkl. Versand & MwSt."
     },
     "label": {
       "product": "Produkt",
@@ -459,6 +498,102 @@
       "no_js": "Du kannst Rabattcodes beim Checkout eingeben oder verwalten.",
       "single": "Bitte gib jeweils einen Rabattcode ein.",
       "order": "Bestellrabatt"
+    },
+    "recommendations": {
+      "heading": "Die Sachen kannst du ignorieren, theoretisch. Wolltens nur mal zeigen.",
+      "add": "Einpacken",
+      "choose": "Optionen wählen",
+      "compact_pack": "{{ count }}er"
     }
+  },
+  "age_check": {
+    "help_swiss_contact_html": "Klappt etwas nicht? Schreib uns an <a href=\"mailto:hallo@sparklys.ch\">hallo@sparklys.ch</a> und schick uns eine Kopie deiner Schweizer Identitätskarte. Wir kümmern uns umgehend darum.",
+    "help_swiss_instructions": "Dreh deine Schweizer Identitätskarte um und suche die Zeichen, die im Beispiel markiert sind. Trage sie in die passenden Felder ein.",
+    "help": "Hilfe",
+    "help_back": "Zurück",
+    "help_image_alt": "Schweizer Identitätskarte mit fünf nummerierten Markierungen. Die zugehörigen Felder sind unten aufgelistet.",
+    "title": "Kurz dein Alter prüfen",
+    "close": "Altersprüfung schliessen",
+    "intro": "Der Jugendschutz ist uns wichtig! Deshalb verkaufen wir Alkohol online erst ab {{ age }} Jahren. Dein Warenkorb enthält Alkohol. Bitte bestätige dein Alter mit deiner Identitätskarte oder deinem Pass.",
+    "document": "Wähle deinen Ausweis",
+    "ch_id": "Schweiz — Identitätskarte",
+    "ch_passport": "Schweiz — Reisepass",
+    "li_id": "Liechtenstein — Identitätskarte",
+    "li_passport": "Liechtenstein — Reisepass",
+    "example": "Beispiel · kein Dokument",
+    "guide_help": "Tippe direkt ins Dokument. Wähle ein Feld für Hinweise, welche Zeichen du übertragen musst. Übernimm auch jedes < in den markierten Gruppen.",
+    "fillers_only": "Die übrigen Zeichen in Zeile 1 sind alle <",
+    "finalDigit": "Letzte Ziffer",
+    "finalDigitHelp": "Übernimm nur die allerletzte Ziffer der zweiten Codezeile. Die < Zeichen ergänzen wir automatisch.",
+    "privacy": "Deine Informationen zum Ausweisdokument werden nicht an uns übermittelt und nicht auf unseren Servern gespeichert. Wenn du eingeloggt bist, merken wir uns deine Altersprüfung.",
+    "check": "Prüfen & zur Kasse",
+    "success_detail": "Deine Altersprüfung ist abgeschlossen. Du wirst zur Kasse weitergeleitet…",
+    "continue": "Weiter zur Kasse",
+    "other_document": "Anderes Dokument oder brauchst du Hilfe?",
+    "other_detail": "Wir unterstützen Schweizer und Liechtensteiner ID-Karten sowie Reisepässe aller Länder mit dem gezeigten Standardformat. Andere ID-Karten, Visa, abweichende Codes und unvollständige Geburts- oder Ablaufdaten werden noch nicht unterstützt. Falls dein Dokument nicht passt, kannst du im Warenkorb alkoholische Produkte entfernen und ohne Prüfung fortfahren.",
+    "back": "Zurück zum Warenkorb",
+    "unavailable": "Die Altersprüfung benötigt JavaScript. Du kannst deinen Warenkorb weiterhin bearbeiten. Entferne alkoholische Artikel, um ohne Prüfung fortzufahren.",
+    "loading": "Dein Warenkorb wird geprüft…",
+    "success": "Altersprüfung abgeschlossen",
+    "error": "Dein Warenkorb konnte nicht geprüft werden. Geh bitte zurück zum Warenkorb und versuche es erneut.",
+    "unknown": "Bei einem Artikel fehlt die Alkohol-Kennzeichnung. Geh bitte zurück zum Warenkorb. Erst nach der Kennzeichnung des Produkts kannst du fortfahren.",
+    "changed": "Dein Warenkorb oder deine Anmeldung hat sich geändert. Bitte prüfe dein Alter erneut.",
+    "idLocation": "Dreh deine Identitätskarte um. Unten findest du drei Zeilen mit Buchstaben, Zahlen und < Zeichen. Die Zeile mit deinem Namen musst du nicht eingeben.",
+    "passportLocation": "Öffne die Fotoseite deines Reisepasses. Er muss zwei Codezeilen mit je 44 Zeichen haben; die obere beginnt mit P. Übertrage die untere Zeile von links nach rechts in die Felder. XXX steht für deinen Nationalitätscode; M/F/< für das Geschlechtszeichen. Diese Zeichen und deinen Namen musst du nicht eingeben. Übertrage nach dem Ablaufdatum alle 14 Zeichen, dann die letzten beiden Prüfzeichen einzeln.",
+    "numberHelpId": "Erste Codezeile: Dokumentnummer nach den ersten fünf Zeichen. Gib die Nummer ohne nachfolgende < Zeichen ein.",
+    "numberHelpPassport": "Untere Codezeile: die ersten neun Zeichen, einschliesslich <. Fehlende < am Ende ergänzen wir.",
+    "digitHelp": "Die einzelne Prüfziffer direkt nach dem neunstelligen Nummernbereich (inklusive allfälliger < Füllzeichen).",
+    "birthHelpId": "Zweite Codezeile: die ersten sieben Ziffern (JJMMTT und Prüfziffer).",
+    "birthHelpPassport": "Untere Codezeile: Zeichen 14–20, nach dem dreistelligen Ländercode (JJMMTT und Prüfziffer).",
+    "expiryHelpId": "Zweite Codezeile: sieben Ziffern direkt nach dem Geschlechtszeichen (JJMMTT und Prüfziffer).",
+    "expiryHelpPassport": "Untere Codezeile: Zeichen 22–28, direkt nach dem Geschlechtszeichen (JJMMTT und Prüfziffer).",
+    "optionalHelp": "Erste Codezeile: alle 15 Zeichen nach der Prüfziffer der Dokumentnummer. Übertrage auch < Zeichen oder bestätige unten, wenn alle 15 Zeichen < sind.",
+    "tailHelpId": "Zweite Codezeile: die letzten 12 Zeichen, nach dem dreistelligen Ländercode. Inklusive < Zeichen und letzter Ziffer.",
+    "tailHelpPassport": "Nur die letzte Ziffer der unteren Codezeile.",
+    "yearHelp": "Übertrage das vierstellige Jahr aus dem ausgeschriebenen Geburtsdatum auf deinem Dokument. So können wir das Jahrhundert unterscheiden.",
+    "fields": {
+      "number": "Dokumentnummer",
+      "numberDigit": "Prüfziffer",
+      "birth": "Geburt + Prüfziffer",
+      "expiry": "Ablauf + Prüfziffer",
+      "optional": "Rest von Zeile 1",
+      "tail": "Ende von Zeile 2",
+      "birthYear": "Ganzes Geburtsjahr",
+      "optionalDigit": "Prüfziffer optionaler Zeichen"
+    },
+    "errors": {
+      "unsupported": "Dieses Codeformat oder unvollständige Datum wird noch nicht unterstützt. Wähle ein anderes unterstütztes Dokument oder öffne die Hilfe.",
+      "number": "Prüfe die Dokumentnummer: Schweizer ID genau 8 Buchstaben/Ziffern; sonst bis zu 9 Zeichen. Bei Reisepässen auch < übernehmen.",
+      "checksum": "Diese Zeichen passen nicht zur gedruckten Prüfziffer. Prüfe bitte das markierte Feld.",
+      "dateFormat": "Gib sieben Ziffern ein: Jahr, Monat, Tag und Prüfziffer. Das Datum muss existieren.",
+      "year": "Gib das vierstellige Geburtsjahr deines Dokuments ein. Es muss zum Code passen und ein gültiges vergangenes Datum ergeben.",
+      "century": "Der Code enthält nur die letzten zwei Ziffern deines Geburtsjahres. Bitte ergänze dein vollständiges Geburtsjahr, damit wir das Mindestalter prüfen können.",
+      "optional": "Übertrage alle 15 Zeichen, inklusive < Zeichen.",
+      "tail": "Übertrage den ganzen letzten Block, inklusive < Zeichen und Prüfziffern.",
+      "underage": "Das eingegebene Geburtsdatum erfüllt das Mindestalter von {{ age }} Jahren für alkoholische Produkte nicht.",
+      "passportOptional": "Übertrage alle 14 Zeichen, einschliesslich <."
+    },
+    "version": "Welche Identitätskarte hast du?",
+    "version_current": "Aktuelle Karte · ab 2024",
+    "version_previous": "Frühere Karte · vor 2024",
+    "id_current": "Aktuelle Identitätskarte · Rückseite",
+    "id_previous": "Frühere Identitätskarte · Rückseite",
+    "id_side": "Rückseite · fülle die markierten Codefelder aus",
+    "passport_side": "Untere Codezeile · für die Eingabe umgebrochen",
+    "year_front": "Noch eine Angabe von der Vorderseite: dein vollständiges Geburtsjahr.",
+    "year_photo": "Aus dem aufgedruckten Geburtsdatum auf dieser Seite: dein vollständiges Geburtsjahr.",
+    "line_one": "Zeile 1",
+    "line_two": "Zeile 2",
+    "name_example": "NACHNAME<<VORNAME",
+    "names_omitted": "Namenszeile · keine Eingabe nötig",
+    "country_ch": "SCHWEIZ · SUISSE · SVIZZERA",
+    "country_li": "FÜRSTENTUM LIECHTENSTEIN",
+    "retry": "Erneut versuchen",
+    "international_passport": "Anderes Land — Reisepass",
+    "passportTitle": "REISEPASS",
+    "optionalLabel": "Rest von Zeile 1",
+    "passportOptionalLabel": "Optionale Zeichen",
+    "passportOptionalHelp": "Untere Codezeile: alle 14 Zeichen nach Ablaufdatum und Prüfziffer (Positionen 29–42). Auch alle < eingeben.",
+    "optionalDigitHelp": "Vorletztes Zeichen der unteren Codezeile: eine Ziffer oder <."
   }
 }

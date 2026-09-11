@@ -1,89 +1,138 @@
-<section class="section page-width">
-  <div class="product">
-    <div class="stack">
-      {%- for media in product.media -%}
-        <div class="product__media">
-          {%- if media.media_type == 'image' -%}
-            {{
-              media
-              | image_url: width: 1800
-              | image_tag:
-                widths: '480, 750, 1100, 1500, 1800',
-                sizes: '(min-width: 768px) 60vw, 100vw',
-                loading: 'lazy',
-                alt: media.alt
-            }}
-          {%- else -%}
-            {{ media | media_tag }}
-          {%- endif -%}
-        </div>
-      {%- endfor -%}
-    </div>
-
-    <div class="product__info stack">
-      {%- if section.settings.show_vendor -%}
-        <div>{{ product.vendor }}</div>
-      {%- endif -%}
-      <h1 class="product__title">{{ product.title }}</h1>
-      <div class="price">
-        {{ product.selected_or_first_available_variant.price | money }}
-        {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
-          <s>{{ product.selected_or_first_available_variant.compare_at_price | money }}</s>
-        {%- endif -%}
+{{ 'product-detail.css' | asset_url | stylesheet_tag }}
+{{ 'product-usps.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product-detail.js' | asset_url }}" defer="defer"></script>
+{%- liquid
+  capture brand
+    render 'brand-context', soda_collection: collections['soda'], seltzer_collection: collections['hard-seltzer']
+  endcapture
+  assign brand = brand | strip
+  assign brand_collection = blank
+  if brand == 'soda'
+    assign brand_collection = collections['soda']
+  elsif brand == 'seltzer'
+    assign brand_collection = collections['hard-seltzer']
+  endif
+  assign selected = product.selected_or_first_available_variant
+  assign initial_allocation = selected.selected_selling_plan_allocation
+  if product.requires_selling_plan and initial_allocation == blank
+    assign initial_allocation = selected.selling_plan_allocations | first
+  endif
+  assign display_price = initial_allocation.price | default: selected.price
+  assign usp_set = brand_collection.metafields.custom.usp_set.value
+  assign flavours = brand_collection.metafields.custom.flavour_products.value | default: brand_collection.products
+  assign title = product.title | remove_first: 'Sparklys Soda ' | remove_first: 'Sparklys Hard Seltzer '
+  assign gradient = product.metafields.custom.gallery_gradient.value | strip
+  assign gradient_prefix = gradient | slice: 0, 16
+  assign gradient_valid = false
+  if gradient_prefix == 'linear-gradient('
+    unless gradient contains ';' or gradient contains 'url' or gradient contains '{' or gradient contains '}' or gradient contains '<'
+      assign gradient_valid = true
+    endunless
+  endif
+  assign form_id = 'ProductBuy-' | append: section.id
+-%}
+<section class="pdp-section" data-color-world="{{ brand }}" {% if product.metafields.custom.soda_background_color.value != blank %}style="--pdp-background: {{ product.metafields.custom.soda_background_color.value }};"{% endif %}>
+  <product-detail class="pdp" data-section="{{ section.id }}" data-url="{{ product.url }}" data-currency="{{ cart.currency.iso_code }}" data-locale="{{ request.locale.iso_code }}" data-add-label="{{ 'products.product.add_to_cart' | t }}" data-sold-label="{{ 'products.product.sold_out' | t }}" data-savings-label="{{ 'products.pdp.save_percent' | t: percent: '[percent]' }}" data-charge-label="{{ 'products.pdp.checkout_charge' | t: amount: '[amount]' }}" data-balance-label="{{ 'products.pdp.remaining_balance' | t: amount: '[amount]' }}">
+    <header class="pdp-identity">
+      {% if section.settings.show_vendor %}<p>{{ product.vendor | escape }}</p>{% endif %}
+      {% if brand == 'soda' %}<img class="pdp-identity__logo" src="{{ 'sparklys-soda-logo.svg' | asset_url }}" width="100" height="48" alt="Sparklys Soda">{% elsif brand == 'seltzer' %}<img class="pdp-identity__logo" src="{{ 'subscription-seltzer-logo.svg' | asset_url }}" width="160" height="48" alt="Sparklys Hard Seltzer">{% endif %}
+      <h1 class="pdp-title"><span class="visually-hidden">{% if brand == 'soda' %}Sparklys Soda {% elsif brand == 'seltzer' %}Sparklys Hard Seltzer {% endif %}</span>{% if product.handle == 'sparklys-hard-seltzer-maracuja' or product.handle == 'sparklys-hard-seltzer-holunder' %}<span class="visually-hidden">{{ title | escape }}</span>{% assign title_art = product.handle | remove_first: 'sparklys-hard-seltzer-' | prepend: 'product-overview-' | append: '-wave-logo.svg' %}<img class="pdp-title__art" src="{{ title_art | asset_url }}" width="320" height="124" alt="">{% else %}{{ title | escape }}{% endif %}</h1>
+    </header>
+    <div class="pdp-gallery" {% if gradient_valid %}style="--pdp-gallery-background: {{ gradient | escape }};"{% endif %}>
+      <div class="pdp-gallery__track" tabindex="0" role="region" aria-label="{{ 'products.pdp.gallery' | t }}">
+        {% for media in product.media %}
+          {% assign media_alt = media.alt | default: product.title %}
+          <div class="pdp-gallery__slide" id="ProductMedia-{{ section.id }}-{{ media.id }}" data-media-id="{{ media.id }}" role="group" aria-label="{{ forloop.index }} / {{ product.media.size }}">
+            {% if media.media_type == 'image' %}
+              {% if forloop.first %}{{ media | image_url: width: 1600 | image_tag: widths: '400, 620, 900, 1240, 1600', sizes: '(min-width: 900px) 48vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: media_alt }}{% else %}{{ media | image_url: width: 1600 | image_tag: widths: '400, 620, 900, 1240, 1600', sizes: '(min-width: 900px) 48vw, 100vw', loading: 'lazy', alt: media_alt }}{% endif %}
+            {% else %}{{ media | media_tag: image_size: '1000x', controls: true, preload: 'none' }}{% endif %}
+          </div>
+        {% endfor %}
       </div>
-
-      {%- if product.description != blank -%}
-        <div class="rte">{{ product.description }}</div>
-      {%- endif -%}
-
-      <product-form data-success-message="{{ 'products.product.added_to_cart' | t }}">
-        {%- form 'product', product, class: 'stack' -%}
-          {%- unless product.has_only_default_variant -%}
-            <label class="field" for="Variant-{{ section.id }}">
-              <span>{{ 'products.product.variant' | t }}</span>
-              <select class="select" id="Variant-{{ section.id }}" name="id">
-                {%- for variant in product.variants -%}
-                  <option value="{{ variant.id }}"{% if variant == product.selected_or_first_available_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>
-                    {{ variant.title }} &ndash; {{ variant.price | money }}
-                  </option>
-                {%- endfor -%}
-              </select>
-            </label>
-          {%- else -%}
-            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-          {%- endunless -%}
-
-          <label class="field" for="Quantity-{{ section.id }}">
-            <span>{{ 'products.product.quantity' | t }}</span>
-            <input class="field__input" id="Quantity-{{ section.id }}" name="quantity" type="number" value="1" min="1" inputmode="numeric">
-          </label>
-
-          <button class="button" type="submit"{% unless product.selected_or_first_available_variant.available %} disabled{% endunless %}>
-            <span class="button__label">
-              {%- if product.selected_or_first_available_variant.available -%}
-                {{ 'products.product.add_to_cart' | t }}
-              {%- else -%}
-                {{ 'products.product.sold_out' | t }}
-              {%- endif -%}
-            </span>
-          </button>
-          <p data-product-status role="status" aria-live="polite"></p>
-        {%- endform -%}
-      </product-form>
+      {% render 'product-badge', brand: brand, product: product %}
+      {% if product.media.size > 1 %}
+        <div class="pdp-gallery__navigation" data-enhanced-only hidden><button type="button" data-gallery-step="-1" aria-label="{{ 'products.pdp.previous_image' | t }}"><img src="{{ 'icon-arrow-left.svg' | asset_url }}" width="24" height="24" alt=""></button><span data-gallery-counter aria-live="polite">1 / {{ product.media.size }}</span><button type="button" data-gallery-step="1" aria-label="{{ 'products.pdp.next_image' | t }}"><img src="{{ 'icon-arrow-left.svg' | asset_url }}" width="24" height="24" alt="" style="transform: rotate(180deg);"></button></div>
+      {% endif %}
+      {% if brand != 'default' %}<button class="pdp-badge-toggle" type="button" data-badge-toggle data-enhanced-only hidden aria-pressed="false"><img src="{{ 'icon-pause-circle.svg' | asset_url }}" width="24" height="24" alt=""><span class="visually-hidden">{{ 'products.pdp.pause_animation' | t }}</span></button>{% endif %}
     </div>
-  </div>
+    <div class="pdp-purchase">
+      {% if product.description != blank %}<pdp-description class="pdp-description"><div class="rte" id="ProductDescription-{{ section.id }}">{{ product.description }}</div><button class="pdp-text-button" type="button" hidden aria-expanded="false" aria-controls="ProductDescription-{{ section.id }}" data-more="{{ 'products.pdp.show_more' | t }}" data-less="{{ 'products.pdp.show_less' | t }}">{{ 'products.pdp.show_more' | t }}</button></pdp-description>{% endif %}
+      {% if brand_collection != blank and flavours.size > 1 %}
+        <nav class="pdp-flavours" aria-label="{{ 'products.pdp.flavour' | t }}"><p>{{ 'products.pdp.flavour' | t }}</p><div>
+          {% for flavour in flavours %}
+            <a href="{{ flavour.url }}" aria-label="{{ flavour.title | escape }}" title="{{ flavour.title | escape }}" {% if flavour.id == product.id %}aria-current="page"{% endif %}>
+              {% case flavour.handle %}
+                {% when 'sparklys-soda-yuzu-ginger' %}<img src="{{ 'pdp-flavour-yuzu.svg' | asset_url }}" width="60" height="60" alt="">
+                {% when 'sparklys-soda-blueberry-pomelo' %}<img src="{{ 'pdp-flavour-blueberry.svg' | asset_url }}" width="60" height="60" alt="">
+                {% when 'sparklys-hard-seltzer-maracuja' %}<img src="{{ 'pdp-flavour-maracuja.svg' | asset_url }}" width="60" height="60" alt="">
+                {% when 'sparklys-hard-seltzer-holunder' %}<img src="{{ 'pdp-flavour-holunder.svg' | asset_url }}" width="60" height="60" alt="">
+                {% when 'sparklys-hard-seltzer-variety' %}<img src="{{ 'pdp-flavour-seltzer-variety.svg' | asset_url }}" width="60" height="60" alt="">
+                {% when 'sparklys-soda-variety-pack' %}<span class="pdp-flavour-mix"><img src="{{ 'pdp-flavour-yuzu.svg' | asset_url }}" width="40" height="40" alt=""><img src="{{ 'pdp-flavour-blueberry.svg' | asset_url }}" width="40" height="40" alt=""></span>
+                {% else %}{% assign flavour_image = flavour.metafields.custom.teaser_image.value | default: flavour.featured_image %}{% if flavour_image %}{{ flavour_image | image_url: width: 160 | image_tag: widths: '80, 160', sizes: '64px', alt: '', loading: 'lazy' }}{% else %}{{ flavour.title | escape }}{% endif %}
+              {% endcase %}
+            </a>
+          {% endfor %}
+        </div></nav>
+      {% endif %}
+      <form id="ProductVariantForm-{{ section.id }}" action="{{ product.url }}" method="get" class="pdp-variant-form"></form>
+      <product-form data-success-message="{{ 'products.product.added_to_cart' | t }}">
+        {% form 'product', product, id: form_id, class: 'pdp-buy-form' %}
+          <input type="hidden" name="id" value="{{ selected.id }}">
+          <fieldset class="pdp-purchase-options" data-purchase-options {% if product.selling_plan_groups.size == 0 %}hidden{% endif %}>
+            <legend>{{ 'products.pdp.purchase_type' | t }}</legend>
+            <div data-purchase-radios data-enhanced-only hidden>
+              <label class="form-choice form-choice--card" data-once-card {% if product.requires_selling_plan %}hidden{% endif %}><input type="radio" name="purchase_type" value="once" {% if initial_allocation == blank %}checked{% endif %}><span class="form-choice__indicator" aria-hidden="true"></span><span><strong>{{ 'products.pdp.one_time' | t }}</strong><span class="pdp-option-price" data-once-price>{% render 'cart-money', amount: selected.price %}</span></span></label>
+              <div class="pdp-subscription-card" data-subscription-card>
+                <label class="form-choice"><input type="radio" name="purchase_type" value="subscription" {% if initial_allocation != blank %}checked{% endif %}><span class="form-choice__indicator" aria-hidden="true"></span><span><strong>{{ 'products.pdp.subscribe' | t }}</strong><span class="pdp-option-price" data-subscription-price></span></span><span class="pdp-savings">{{ 'products.pdp.up_to' | t }}</span></label>
+                {% render 'product-benefits', mode: 'summary' %}
+              </div>
+            </div>
+            <div class="pdp-plan-field" data-plan-field>
+              <label for="ProductPlan-{{ section.id }}">{{ 'products.pdp.delivery' | t }}</label>
+              <sparklys-select><select class="form-control" id="ProductPlan-{{ section.id }}" name="selling_plan" data-plan-select>{% unless product.requires_selling_plan %}<option value="">{{ 'products.pdp.one_time' | t }}</option>{% endunless %}{% for allocation in selected.selling_plan_allocations %}<option value="{{ allocation.selling_plan.id }}" {% if allocation.selling_plan.id == initial_allocation.selling_plan.id %}selected{% endif %}>{{ allocation.selling_plan.name | escape }} — {% render 'cart-money', amount: allocation.price %}</option>{% endfor %}</select></sparklys-select>
+              <p class="pdp-plan-terms" data-plan-terms aria-live="polite"></p>
+            </div>
+          </fieldset>
+          <div class="pdp-price" aria-live="polite"><strong data-price>{% render 'cart-money', amount: display_price %}</strong><s data-compare {% unless selected.compare_at_price > display_price %}hidden{% endunless %}>{% render 'cart-money', amount: selected.compare_at_price %}</s><span data-savings></span></div>
+          <div class="pdp-buy-row">
+            <div class="cart-quantity pdp-quantity"><button type="button" data-quantity-step="-1" data-enhanced-only hidden aria-label="{{ 'cart.label.decrease' | t: product: product.title | escape_once }}">−</button><label class="visually-hidden" for="ProductQuantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label><input id="ProductQuantity-{{ section.id }}" name="quantity" type="number" value="{{ selected.quantity_rule.min | default: 1 }}" min="{{ selected.quantity_rule.min | default: 1 }}" step="{{ selected.quantity_rule.increment | default: 1 }}" {% if selected.quantity_rule.max %}max="{{ selected.quantity_rule.max }}"{% endif %} inputmode="numeric"><button type="button" data-quantity-step="1" data-enhanced-only hidden aria-label="{{ 'cart.label.increase' | t: product: product.title | escape_once }}">+</button></div>
+            <div class="pdp-packaging">
+        <label class="visually-hidden" for="ProductVariant-{{ section.id }}">{{ 'products.pdp.packaging' | t }}</label>
+        <sparklys-select><select class="form-control" id="ProductVariant-{{ section.id }}" name="variant" form="ProductVariantForm-{{ section.id }}" data-variant-select>{% for variant in product.variants %}<option value="{{ variant.id }}" {% if variant.id == selected.id %}selected{% endif %}>{{ variant.title | escape }}{% unless variant.available %} — {{ 'products.product.sold_out' | t }}{% endunless %}</option>{% endfor %}</select></sparklys-select>
+        <button class="button button--small" type="submit" form="ProductVariantForm-{{ section.id }}" data-native-only><span class="button__label">{{ 'products.pdp.update_options' | t }}</span></button>
+            </div>
+          </div>
+            <button class="button pdp-add" type="submit" {% unless selected.available %}disabled{% endunless %}><span class="button__label"><img src="{{ 'icon-pdp-bag.svg' | asset_url }}" width="24" height="24" alt=""><span data-add-text>{% if selected.available %}{{ 'products.product.add_to_cart' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</span><span data-add-total data-enhanced-only hidden> · {% render 'cart-money', amount: display_price %}</span></span></button>
+          <p data-product-status class="visually-hidden"></p>
+        {% endform %}
+      </product-form>
+      {% render 'product-shipping', product: product %}
+      {% render 'payment-icons' %}
+      {% for block in section.blocks %}{% render block %}{% endfor %}
+    </div>
+    <div class="pdp-support">
+      <div class="pdp-marketing">
+        {% for i in (1..3) %}
+          {% assign key = 'gallery_image_' | append: i %}
+          {% assign marketing_image = product.metafields.custom[key].value %}
+          {% if marketing_image != blank %}
+            {{ marketing_image | image_url: width: 1240 | image_tag: widths: '400, 620, 900, 1240', sizes: '(min-width: 900px) 45vw, 100vw', loading: 'lazy', alt: marketing_image.alt }}
+          {% elsif product.handle == 'sparklys-hard-seltzer-maracuja' or product.handle == 'sparklys-hard-seltzer-holunder' %}
+            {% assign artwork_flavour = product.handle | remove_first: 'sparklys-hard-seltzer-' %}
+            {% assign marketing_asset = 'pdp-' | append: artwork_flavour | append: '-marketing-' | append: i | append: '.webp' %}
+            <img src="{{ marketing_asset | asset_url }}" width="{% if i == 1 %}620{% else %}300{% endif %}" height="300" loading="lazy" alt="{{ 'products.pdp.marketing_image' | t: product: product.title | escape }}">
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% if brand_collection != blank %}<div class="pdp-usps"><div class="usp-items" role="list">{% render 'usp-items', usp_variant: brand, usp_set: usp_set %}</div></div>{% endif %}
+      {% if product.selling_plan_groups.size > 0 %}{% render 'product-benefits' %}{% endif %}
+      {% render 'usp-footnote', usp_set: usp_set, usp_variant: brand, class: 'pdp-footnote' %}
+    </div>
+    {%- capture product_data -%}{"requiresPlan":{{ product.requires_selling_plan | json }},"variants":[{% for variant in product.variants %}{"id":{{ variant.id | json }},"available":{{ variant.available | json }},"price":{{ variant.price | json }},"compare":{{ variant.compare_at_price | default: 0 | json }},"media":{{ variant.featured_media.id | json }},"min":{{ variant.quantity_rule.min | default: 1 | json }},"step":{{ variant.quantity_rule.increment | default: 1 | json }},"max":{{ variant.quantity_rule.max | json }},"allocations":[{% for allocation in variant.selling_plan_allocations %}{"id":{{ allocation.selling_plan.id | json }},"name":{{ allocation.selling_plan.name | json }},"price":{{ allocation.price | json }},"compare":{{ allocation.compare_at_price | json }},"checkoutCharge":{{ allocation.checkout_charge_amount | json }},"remaining":{{ allocation.remaining_balance_charge_amount | json }},"adjustments":[{% for adjustment in allocation.price_adjustments %}{"price":{{ adjustment.price | json }},"position":{{ adjustment.position | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]}{% unless forloop.last %},{% endunless %}{% endfor %}]}{% unless forloop.last %},{% endunless %}{% endfor %}]}{%- endcapture -%}
+    <script type="application/json" data-product-data>{{ product_data | replace: '<', '\u003c' }}</script>
+  </product-detail>
 </section>
-
+<script type="application/ld+json">{{ product | structured_data }}</script>
 {% schema %}
-{
-  "name": "Product",
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "label": "Show vendor",
-      "default": false
-    }
-  ]
-}
+{"name":"Product","settings":[{"type":"checkbox","id":"show_vendor","label":"Show vendor","default":false}],"blocks":[{"type":"@app"}]}
 {% endschema %}

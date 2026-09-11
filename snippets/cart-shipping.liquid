@@ -6,16 +6,25 @@
     assign supported_destination = true
   endif
   assign qualified_product = false
+  if cart.item_count > 0
+    assign qualified_product = true
+  endif
   for item in cart.items
+    assign item_qualifies = false
     if settings.free_shipping_products != blank
       for product in settings.free_shipping_products
         if item.product.id == product.id
-          assign qualified_product = true
+          assign item_qualifies = true
+          break
         endif
       endfor
     elsif item.product.handle == 'sparklys-soda-probierpaket'
-      assign qualified_product = true
+      assign item_qualifies = true
     endif
+    unless item_qualifies
+      assign qualified_product = false
+      break
+    endunless
   endfor
   assign remaining = threshold | minus: cart.total_price | at_least: 0
   assign progress = 0
@@ -36,11 +45,10 @@
       endif
       assign shipping_total = cart.total_price | plus: shipping_amount
     -%}
-    <p data-cart-shipping-cost><span>{{ 'cart.general.shipping' | t }} <span aria-hidden="true">🚚</span></span><span>{% if shipping_amount == 0 %}{{ 'cart.general.shipping_free' | t }}{% else %}{% render 'cart-money', amount: shipping_amount %}{% endif %}</span></p>
-    <p class="cart-totals__total" data-cart-total><strong>{{ 'cart.label.total' | t }}</strong><strong>{% render 'cart-money', amount: shipping_total %}</strong></p>
-    {% if cart.taxes_included %}<p class="cart-tax">{{ 'cart.general.tax_included_short' | t }}</p>{% endif %}
-  {%- else -%}
-    <p class="cart-totals__total"><strong>{{ 'cart.label.total' | t }}</strong><strong>{% render 'cart-money', amount: cart.total_price %}</strong></p>
+    {% unless part == 'total' %}<p class="cart-totals__supporting{% if shipping_amount == 0 %} cart-shipping-cost--free{% endif %}" data-cart-shipping-cost><span><span aria-hidden="true">🚚</span> {{ 'cart.general.shipping' | t }}</span><span>{% if shipping_amount == 0 %}{{ 'cart.general.shipping_free' | t }}{% else %}{% render 'cart-money', amount: shipping_amount %}{% endif %}</span></p>{% endunless %}
+    {% unless part == 'shipping' %}<p class="cart-totals__total" data-cart-total><span class="cart-totals__label"><strong>{{ 'cart.label.total' | t }}</strong>{% if cart.taxes_included %} <span class="cart-totals__tax">{{ 'cart.general.shipping_tax_included_short' | t }}</span>{% endif %}</span><strong>{% render 'cart-money', amount: shipping_total %}</strong></p>{% endunless %}
+  {%- elsif part != 'shipping' -%}
+    <p class="cart-totals__total"><span class="cart-totals__label"><strong>{{ 'cart.label.total' | t }}</strong>{% if cart.taxes_included %} <span class="cart-totals__tax">{{ 'cart.general.tax_included_short' | t }}</span>{% endif %}</span><strong>{% render 'cart-money', amount: cart.total_price %}</strong></p>
     <p class="cart-tax">{% if cart.taxes_included %}{{ 'cart.general.taxes_included' | t }}{% else %}{{ 'cart.general.taxes_and_shipping' | t }}{% endif %}</p>
   {%- endif -%}
 {%- elsif supported_destination and cart.currency.iso_code == 'CHF' and threshold > 0 -%}
@@ -50,7 +58,8 @@
       {% if remaining == 0 and cart.item_count > 0 %}
         {{ 'cart.general.shipping_qualified' | t }} <span aria-hidden="true">🥳</span>
       {%- else -%}
-        {%- capture amount -%}{% render 'cart-money', amount: remaining %}{%- endcapture -%}
+        {%- assign remaining_whole = remaining | divided_by: 100.0 | ceil -%}
+        {%- capture amount -%}{{ cart.currency.iso_code }} {{ remaining_whole }}{%- endcapture -%}
         {{ 'cart.general.shipping_remaining' | t: amount: amount }} <span aria-hidden="true">✌️</span>
       {%- endif -%}
     </p>
