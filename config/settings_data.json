@@ -9,25 +9,7 @@
  */
 {
   "current": {
-    "color_accent": "#e34f2f",
-    "grain_intensity": 30,
-    "border_radius_small": 16,
-    "border_radius_large": 32,
-    "logo_width": 150,
-    "sections": {
-      "cart-drawer": {
-        "type": "cart-drawer",
-        "settings": {}
-      }
-    },
-    "content_for_index": [],
-    "blocks": {
-      "855628211100114053": {
-        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
-        "disabled": false,
-        "settings": {}
-      }
-    },
+    "color_accent": "#FEC329",
     "color_general_background": "#ffffff",
     "color_general_surface": "#ffffff",
     "color_general_surface_muted": "#eeeeee",
@@ -60,7 +42,25 @@
     "color_seltzer_text_secondary": "#4d4d4d",
     "color_seltzer_text_muted": "#4d4d4d",
     "color_seltzer_notice_text": "#9e9e9d",
-    "color_seltzer_notice_surface": "#eeeeee"
+    "color_seltzer_notice_surface": "#eeeeee",
+    "grain_intensity": 30,
+    "border_radius_small": 16,
+    "border_radius_large": 32,
+    "logo_width": 150,
+    "sections": {
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {}
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
+      }
+    }
   },
   "presets": {}
 }
