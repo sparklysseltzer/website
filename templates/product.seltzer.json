@@ -14,7 +14,206 @@
       "settings": {
         "show_vendor": false
       }
+    },
+    "hard_seltzer_ingredients_7JdEWz": {
+      "type": "hard-seltzer-ingredients",
+      "blocks": {
+        "ingredient_FakqRg": {
+          "type": "ingredient",
+          "settings": {
+            "text": ""
+          }
+        },
+        "ingredient_LLtwR3": {
+          "type": "ingredient",
+          "settings": {
+            "text": ""
+          }
+        },
+        "ingredient_pnkdY6": {
+          "type": "ingredient",
+          "settings": {
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_FakqRg",
+        "ingredient_LLtwR3",
+        "ingredient_pnkdY6"
+      ],
+      "name": "Hard Seltzer Ingredients",
+      "settings": {
+        "heading": "",
+        "intro": ""
+      }
+    },
+    "usp_section_jQCQc6": {
+      "type": "usp-section",
+      "name": "USP — Hard Seltzer",
+      "settings": {
+        "variant": "seltzer",
+        "heading": "",
+        "text": "",
+        "heading_font": "automatic",
+        "color_mode": "automatic",
+        "background": "#69bdf7",
+        "text_color": "#000000"
+      }
+    },
+    "logo_marquee_8ptFCa": {
+      "type": "logo-marquee",
+      "name": "Merchant Marquee",
+      "settings": {
+        "merchant_collection": "seltzer-handler",
+        "heading": "",
+        "background_style": "gray",
+        "duration": 32,
+        "direction": "normal",
+        "pause_on_interaction": true
+      }
+    },
+    "hard_seltzer_awards_FWkFac": {
+      "type": "hard-seltzer-awards",
+      "blocks": {
+        "award_bez6dD": {
+          "type": "award",
+          "settings": {
+            "alt": ""
+          }
+        },
+        "award_a73iwp": {
+          "type": "award",
+          "settings": {
+            "alt": ""
+          }
+        },
+        "award_RLW4PP": {
+          "type": "award",
+          "settings": {
+            "alt": ""
+          }
+        }
+      },
+      "block_order": [
+        "award_bez6dD",
+        "award_a73iwp",
+        "award_RLW4PP"
+      ],
+      "name": "Hard Seltzer Awards",
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "versus_aXMpcL": {
+      "type": "versus",
+      "blocks": {
+        "item_jPfLwb": {
+          "type": "item",
+          "settings": {
+            "featured": true,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_eainEq": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_8PtDWx": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_DJPMKk": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_VWUAiU": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_jPfLwb",
+        "item_eainEq",
+        "item_8PtDWx",
+        "item_DJPMKk",
+        "item_VWUAiU"
+      ],
+      "name": "Versus — Hard Seltzer",
+      "settings": {
+        "variant": "seltzer",
+        "heading": "",
+        "comparison_basis": "",
+        "disclaimer": "",
+        "footnote": ""
+      }
+    },
+    "faq_wJNLKe": {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": {
+        "selected_faqs": [],
+        "faq_category": "hard-seltzer",
+        "heading": "",
+        "show_footer": true,
+        "footer_text": "",
+        "footer_link_label": "",
+        "footer_link": "#"
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "hard_seltzer_ingredients_7JdEWz",
+    "usp_section_jQCQc6",
+    "logo_marquee_8ptFCa",
+    "hard_seltzer_awards_FWkFac",
+    "versus_aXMpcL",
+    "faq_wJNLKe"
+  ]
 }
