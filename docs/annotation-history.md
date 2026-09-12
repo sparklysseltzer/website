@@ -130,3 +130,7 @@ Fixed the remaining help-card downward movement by removing the unequal panel to
 - `1788957014550-x2n7lvpee`: combined the youth-protection rationale, configured online minimum age and ID/passport instruction in English/German. Focused wording on the merchant’s sales policy rather than a general statutory consumption-age claim. Verified both 18/16 interpolation and phone layout.
 - `1788957791606-cr2pwobie`: close glyph and hover/focus surface now derive from each toast’s status palette; verified red error and yellow warning hover colors in the browser.
 - Theme checks, JavaScript syntax and whitespace checks pass. Existing generated JSON comment headers require comment-aware parsing, which passes. Isolated browser closed.
+
+## 2026-09-11 — PDP and age-check feedback
+
+Implemented notes 76–98 plus the Soda variety artwork note: compact subscription layout, inline price comparison, nested frequency selector, Figma tick/copy/artwork proportions, sticky purchase column, robust description cutoff, transparent payment marks, shipping formatting/link cleanup, header cart icon, removal of duplicate logos and pause control, hover/focus gallery arrows, and generic warning-to-success age fields without digit placeholders. Note 75 is partially addressed: shop-policy copy updated, broad age-16 legal clause omitted pending wording review. No shared-theme deployment or publishing.

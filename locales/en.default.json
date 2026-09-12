@@ -404,7 +404,7 @@
       "purchase_type": "Choose your purchase:",
       "one_time": "One-time purchase",
       "subscribe": "Subscribe & save",
-      "up_to": "Up to 15%",
+      "up_to": "Save up to 15%",
       "delivery": "Delivery frequency",
       "save_percent": "Save {{ percent }}%",
       "checkout_charge": "Due at checkout: {{ amount }}",
@@ -413,7 +413,10 @@
       "benefit_shipping_text": "Your favourite drinks delivered regularly. Shipping follows the rates shown for your order.",
       "benefit_flexibility_title": "Manage your subscription.",
       "benefit_flexibility_text": "Skip a delivery, pause or cancel your subscription through your customer account.",
-      "marketing_image": "{{ product }} — product detail"
+      "marketing_image": "{{ product }} — product detail",
+      "summary_savings": "Up to 15% off every subscription order.",
+      "summary_shipping": "Free shipping within Switzerland.",
+      "summary_flexibility": "Swap, skip or cancel at any time."
     }
   },
   "collections": {

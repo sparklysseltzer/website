@@ -22,6 +22,7 @@
       this.slides = [...this.querySelectorAll('.pdp-gallery__slide')];
       this.querySelectorAll('[data-enhanced-only]').forEach(node => node.hidden = false);
       this.querySelectorAll('[data-native-only]').forEach(node => node.hidden = true);
+      this.querySelector('[data-once-card]').hidden = this.data.requiresPlan;
       this.querySelector('.pdp-variant-form').addEventListener('submit', event => event.preventDefault(), events);
       this.variantSelect.addEventListener('change', () => this.syncVariant(true), events);
       this.planSelect.addEventListener('change', () => {
@@ -71,8 +72,17 @@
         this.syncPrice(false);
       }, events);
       this.syncVariant(false);
+      const details = this.querySelector('.pdp-details');
+      this.fitSticky = () => {
+        const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sticky-header-height')) || 0;
+        details.style.setProperty('--pdp-sticky-top', `${Math.min(header + 24, innerHeight - details.getBoundingClientRect().height - 24)}px`);
+      };
+      this.detailsObserver = new ResizeObserver(this.fitSticky); this.detailsObserver.observe(details);
+      window.addEventListener('resize', this.fitSticky, events);
+      // The decorative badge makes one short turn; no persistent motion needs a separate control.
+      this.badgeTimer = setTimeout(() => { this.badgePaused = true; this.syncBadge(); }, 4800);
     }
-    disconnectedCallback() { this.abort?.abort(); this.abort = null; this.observer?.disconnect(); this.planAnimation?.cancel(); cancelAnimationFrame(this.scrollFrame); }
+    disconnectedCallback() { this.abort?.abort(); this.abort = null; this.observer?.disconnect(); this.detailsObserver?.disconnect(); clearTimeout(this.badgeTimer); this.planAnimation?.cancel(); cancelAnimationFrame(this.scrollFrame); }
     syncBadge() { this.toggleAttribute('data-badge-running', Boolean(this.inView && !this.badgePaused && !document.hidden)); }
     money(amount) { return new Intl.NumberFormat(this.dataset.locale, { style: 'currency', currency: this.dataset.currency, currencyDisplay: 'code' }).format(amount / 100); }
     syncVariant(updateUrl) {
@@ -106,6 +116,10 @@
       const compare = plan ? this.variant.price : this.variant.compare;
       const firstPlan = plan || this.variant.allocations[0];
       crossfade(this.querySelector('[data-subscription-price]'), firstPlan ? this.money(firstPlan.price) : '');
+      const subscriptionCompare = this.querySelector('[data-subscription-compare]');
+      subscriptionCompare.hidden = !firstPlan || this.variant.price <= firstPlan.price;
+      crossfade(subscriptionCompare, this.money(this.variant.price));
+      this.querySelector('[data-standalone-price]').hidden = this.variant.allocations.length > 0;
       crossfade(this.querySelector('[data-price]'), this.money(price));
       const compareNode = this.querySelector('[data-compare]');
       compareNode.hidden = !(compare > price); crossfade(compareNode, this.money(compare));
@@ -177,8 +191,14 @@
   class PdpDescription extends HTMLElement {
     connectedCallback() {
       this.button = this.querySelector('button'); this.content = this.querySelector('.rte');
-      if (this.content.scrollHeight <= 110) return;
-      this.button.hidden = false; this.setAttribute('data-collapsed', '');
+      this.refresh = () => {
+        const limit = parseFloat(getComputedStyle(document.documentElement).fontSize) * 6;
+        const overflowing = this.content.scrollHeight > limit + 1;
+        this.button.hidden = !overflowing;
+        if (this.button.getAttribute('aria-expanded') !== 'true') this.toggleAttribute('data-collapsed', overflowing);
+      };
+      this.resizeObserver = new ResizeObserver(this.refresh); this.resizeObserver.observe(this);
+      this.refresh(); document.fonts.ready.then(() => { if (this.isConnected) this.refresh(); });
       this.click = () => {
         const start = this.content.getBoundingClientRect().height;
         this.animation?.cancel();
@@ -189,7 +209,7 @@
       };
       this.button.addEventListener('click', this.click);
     }
-    disconnectedCallback() { this.button?.removeEventListener('click', this.click); this.animation?.cancel(); }
+    disconnectedCallback() { this.button?.removeEventListener('click', this.click); this.resizeObserver?.disconnect(); this.animation?.cancel(); }
   }
   for (const [name, element] of [['product-detail', ProductDetail], ['pdp-disclosure', PdpDisclosure], ['pdp-description', PdpDescription]]) if (!customElements.get(name)) customElements.define(name, element);
 })();

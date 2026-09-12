@@ -1,24 +1,24 @@
 {%- assign benefits = shop.metaobjects.subscription_benefits['standard'] -%}
 {%- assign heading = benefits.heading.value -%}
-{%- if heading == blank or heading == 'Why a subscription is a great idea!' -%}{%- assign heading = 'products.pdp.benefits_heading' | t -%}{%- endif -%}
+{%- if heading == blank -%}{%- assign heading = 'products.pdp.benefits_heading' | t -%}{%- endif -%}
 {%- assign savings_title = benefits.savings_title.value -%}
-{%- if savings_title == blank or savings_title == 'Up to 15% off subscription orders.' -%}{%- assign savings_title = 'products.pdp.savings_title' | t -%}{%- endif -%}
+{%- if savings_title == blank -%}{%- assign savings_title = 'products.pdp.savings_title' | t -%}{%- endif -%}
 {%- assign savings_text = benefits.savings_text.value -%}
-{%- if savings_text == blank or savings_text == 'Save with recurring deliveries of your favourite drink. Your selected delivery frequency determines the discount.' -%}{%- assign savings_text = 'products.pdp.savings_text' | t -%}{%- endif -%}
+{%- if savings_text == blank -%}{%- assign savings_text = 'products.pdp.savings_text' | t -%}{%- endif -%}
 {%- assign shipping_title = benefits.shipping_title.value -%}
-{%- if shipping_title == blank or shipping_title == 'Delivered to your door.' -%}{%- assign shipping_title = 'products.pdp.benefit_shipping_title' | t -%}{%- endif -%}
+{%- if shipping_title == blank -%}{%- assign shipping_title = 'products.pdp.benefit_shipping_title' | t -%}{%- endif -%}
 {%- assign shipping_text = benefits.shipping_text.value -%}
-{%- if shipping_text == blank or shipping_text == 'Your favourite drinks delivered regularly. Shipping follows the rates shown for your order.' -%}{%- assign shipping_text = 'products.pdp.benefit_shipping_text' | t -%}{%- endif -%}
+{%- if shipping_text == blank -%}{%- assign shipping_text = 'products.pdp.benefit_shipping_text' | t -%}{%- endif -%}
 {%- assign flexibility_title = benefits.flexibility_title.value -%}
-{%- if flexibility_title == blank or flexibility_title == 'Manage your subscription.' -%}{%- assign flexibility_title = 'products.pdp.benefit_flexibility_title' | t -%}{%- endif -%}
+{%- if flexibility_title == blank -%}{%- assign flexibility_title = 'products.pdp.benefit_flexibility_title' | t -%}{%- endif -%}
 {%- assign flexibility_text = benefits.flexibility_text.value -%}
-{%- if flexibility_text == blank or flexibility_text == 'Skip a delivery, pause or cancel your subscription through your customer account.' -%}{%- assign flexibility_text = 'products.pdp.benefit_flexibility_text' | t -%}{%- endif -%}
+{%- if flexibility_text == blank -%}{%- assign flexibility_text = 'products.pdp.benefit_flexibility_text' | t -%}{%- endif -%}
 
 {%- if mode == 'summary' -%}
   <ul class="pdp-benefits-summary">
-    <li>{{ savings_title }}</li>
-    {% if shipping_title != blank %}<li>{{ shipping_title | escape }}</li>{% endif %}
-    {% if flexibility_title != blank %}<li>{{ flexibility_title | escape }}</li>{% endif %}
+    <li>{{ 'products.pdp.summary_savings' | t }}</li>
+    <li>{{ 'products.pdp.summary_shipping' | t }}</li>
+    <li>{{ 'products.pdp.summary_flexibility' | t }}</li>
   </ul>
 {%- else -%}
   <pdp-disclosure class="pdp-benefits">

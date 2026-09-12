@@ -26,6 +26,12 @@
       },
       {
         "type": "color",
+        "id": "color_accent_secondary",
+        "label": "Second accent / cart count / original prices",
+        "default": "#FF6600"
+      },
+      {
+        "type": "color",
         "id": "color_surface_hover",
         "label": "Muted surface hover",
         "default": "#dddddd"

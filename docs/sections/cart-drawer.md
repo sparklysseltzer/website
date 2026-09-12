@@ -339,3 +339,11 @@ Quantity button surfaces (2026-09-09): the plus/minus background fills its full 
 Youth-protection copy (2026-09-09): the localized age-check introduction explains the merchant’s online alcohol sales policy, interpolating the configured minimum age in server and refreshed text. It asks for ID/passport confirmation without making a general statutory consumption-age claim.
 
 Stock adjustment feedback (2026-09-09): known Shopify EN/DE partial-availability and maximum-quantity 422 descriptions are warnings, with the shared triangle icon and five-second timed dismissal (paused during hover/focus or hidden tabs). Unknown 422 descriptions and server/network failures remain persistent errors. Ajax exposes no stable inventory reason code, so additional locale/message variants require explicit mapping. Cart reconciliation still runs once; no automatic mutation retry or success message is introduced.
+
+Crossed-out original prices use the shared second accent (`--color-accent-secondary`, default `#FF6600`), including subscription comparisons where rendered. Price calculations and discount eligibility are unchanged.
+
+## Breakpoint visibility
+
+Essential-function exception: this section stays available at every breakpoint and does not expose hide controls. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.
+
+Age-field annotations (2026-09-11): generic per-field warning guidance uses yellow surfaces and the shared triangle icon; local validation turns corrected fields green and clears their message during input. Dependent check digits are revalidated when related fields change. Accessible labels remain descriptive; only the full validator can authorize continuation. Number-check and final-check inputs have no placeholder. The intro leads with alcohol in the cart and uses the configured shop minimum age; no general claim about legal consumption age is included.

@@ -61,7 +61,7 @@
 .pdp-plan-field { margin-top: .75rem; }
 .pdp-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem; }
 .pdp-price > strong { font-size: var(--font-size-compact); }
-.pdp-price s { color: var(--color-text-muted); }
+.pdp-price s { color: var(--color-accent-secondary); }
 .pdp-price [data-savings] { color: var(--color-success-text); font-size: var(--font-size-small); }
 .pdp-plan-terms:empty { display: none; }
 .pdp-plan-terms { margin: 0; font-size: var(--font-size-small); }
@@ -127,3 +127,40 @@
 .pdp-gallery__track:focus-visible { outline-offset: calc(-1 * (var(--focus-ring-width) + var(--focus-ring-offset))); }
 
 .pdp-section[data-color-world="seltzer"] .pdp-gallery { background: var(--pdp-gallery-background, var(--color-surface)); }
+
+/* Reviewed PDP refinements: shared purchase column and compact choices. */
+.pdp { grid-template-rows: auto 1fr; }
+.pdp-details { grid-column: 2; grid-row: 1 / span 2; position: sticky; top: var(--pdp-sticky-top, 1.5rem); display: grid; gap: 1.25rem; min-width: 0; }
+.pdp-details .pdp-identity, .pdp-details .pdp-purchase { grid-column: auto; grid-row: auto; }
+.pdp-gallery { grid-row: 1; }
+.pdp-support { grid-row: 2; }
+.pdp-subscription-card, .pdp-purchase-options .form-choice--card { padding: .5rem .625rem; }
+.pdp-benefits-summary { margin-top: .5rem; gap: .25rem; }
+.pdp-benefits-summary li { align-items: center; gap: .375rem; }
+.pdp-benefits-summary li::before { width: .875rem; height: .875rem; mask-image: url('pdp-benefit-check.svg'); }
+.pdp-option-price { display: flex; flex-wrap: wrap; gap: .375rem; }
+.pdp-option-price s { color: var(--color-accent-secondary); }
+.pdp-cart-icon { width: 1.5rem; height: 1.5rem; margin-right: .25rem; background: currentColor; mask: url('icon-cart.svg') center / contain no-repeat; }
+.pdp-purchase .site-footer__payments { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: .375rem; }
+.pdp-purchase .site-footer__payments img { width: 100%; height: auto; }
+.pdp-flavours a { padding: 0; }
+.pdp-flavours img { width: 80%; height: 80%; }
+.pdp-flavours [data-flavour="sparklys-soda-yuzu-ginger"] > img { width: 65%; height: 66%; }
+.pdp-flavours [data-flavour="sparklys-hard-seltzer-maracuja"] > img { width: 70%; height: 51%; }
+.pdp-flavours [data-flavour="sparklys-hard-seltzer-variety"] > img { width: 97%; height: 64%; }
+.pdp-flavour-mix { position: relative; display: block; width: 91%; height: 75%; }
+.pdp-flavour-mix img { position: absolute; width: 75.85%; height: 90.59%; top: 0; left: 0; }
+.pdp-flavour-mix img + img { width: 66.22%; height: 80.53%; top: 19.47%; left: 33.78%; margin: 0; }
+.pdp-badge--seltzer .pdp-badge__ring { inset: 0; width: 100%; height: 100%; }
+.pdp-badge__ring { animation-duration: 4.8s; animation-iteration-count: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .pdp-gallery__navigation button { opacity: 0; transition: opacity var(--motion-duration-fast) var(--motion-ease), background var(--motion-duration-fast) var(--motion-ease); }
+  .pdp-gallery:hover .pdp-gallery__navigation button, .pdp-gallery:focus-within .pdp-gallery__navigation button { opacity: 1; }
+}
+@media (max-width: 56rem) {
+  .pdp-details { display: contents; }
+  .pdp-identity { order: 0; }
+  .pdp-gallery { order: 1; grid-row: auto; }
+  .pdp-purchase { order: 2; }
+  .pdp-support { order: 3; grid-row: auto; }
+}

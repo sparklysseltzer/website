@@ -404,7 +404,7 @@
       "purchase_type": "Wähle deine Bestellung:",
       "one_time": "Einmaliger Kauf",
       "subscribe": "Abonnieren & sparen",
-      "up_to": "Bis zu 15%",
+      "up_to": "Spare bis zu 15%",
       "delivery": "Lieferrhythmus",
       "save_percent": "Spare {{ percent }}%",
       "checkout_charge": "Bei Bestellung fällig: {{ amount }}",
@@ -413,7 +413,10 @@
       "benefit_shipping_text": "Deine Lieblingsdrinks kommen regelmässig zu dir. Es gelten die für deine Bestellung angezeigten Versandkosten.",
       "benefit_flexibility_title": "Verwalte dein Abonnement.",
       "benefit_flexibility_text": "Überspringe eine Lieferung, pausiere oder kündige dein Abo über dein Kundenkonto.",
-      "marketing_image": "{{ product }} — Produktdetail"
+      "marketing_image": "{{ product }} — Produktdetail",
+      "summary_savings": "Bis zu 15% Rabatt auf jede Abonnementbestellung.",
+      "summary_shipping": "Kostenloser Versand innerhalb der Schweiz.",
+      "summary_flexibility": "Jederzeit tauschen, überspringen oder kündigen."
     }
   },
   "collections": {

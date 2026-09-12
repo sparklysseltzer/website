@@ -10,12 +10,12 @@ The central `brand-context` resolver supplies Soda, Hard Seltzer or neutral pres
 
 - Desktop uses a 75rem, approximately 620/520 two-column composition. Phone order is identity, gallery, purchase information, then supporting marketing/USPs/benefits. Controls are not duplicated.
 - All Shopify product media appear in a horizontal scroll-snap gallery with arrow controls, keyboard Left/Right navigation, counter and touch scrolling. Initial entry shows the first image; explicit variant URLs and subsequent variant changes select assigned media. Images use Shopify responsive CDN output. Native videos pause when their slide leaves view.
-- Existing `custom.gallery_gradient` supplies a validated linear-gradient background. `custom.soda_background_color` supplies the section canvas. Existing product photographs retain their own background and colors.
+- Existing `custom.gallery_gradient` supplies a validated linear-gradient background. `custom.soda_background_color` supplies the whole page canvas through the layout’s shared `--color-page-background`, including the PDP and space before the footer. An empty value falls back to white in every brand context. Existing product photographs retain their own background and colors.
 - Existing `custom.gallery_image_1`, `_2`, `_3` produce a wide marketing image and two square images below the gallery. Missing references produce no empty placeholders. Soda references are populated. Maracuja and Holunder use the exact three Figma compositions as bundled WebP fallbacks while their existing fields are blank; Shopify-selected images always win. Other products have no inferred marketing fallback.
 - Soda uses shared Display typography and Erode; ordinary titles use the Section role. Maracuja/Holunder reuse the exact existing SVG flavour lockups as artwork, with the complete title accessible in the h1. Newake standalone headings do not receive a blind optical offset.
 - The canonical brand collection's `custom.flavour_products` ordered product list supplies cross-links. Collection products remain a fallback. Packaging controls select variants of the current product. Known flavours reuse exact SVG fruit artwork; new products fall back to their teaser/featured image.
 - `custom.usp_set` on the brand collection supplies the shared USP items and footnote. Soda has five, Hard Seltzer six. See [USP](usp-section.md).
-- `subscription_benefits` entry `standard` supplies one reusable explanation to the purchase summary and illustrated disclosure. Defaults say **up to 15%**; actual savings follow the selected selling plan. See [Merchant content](../merchant-content.md).
+- `subscription_benefits` entry `standard` supplies the illustrated disclosure; the compact purchase summary uses theme locale UI. Defaults say **up to 15%**; actual savings follow the selected selling plan. See [Merchant content](../merchant-content.md).
 - Shipping reads the existing threshold, flat rate and qualifying-product theme settings, the CH/LI + CHF gate, and Shopify's shipping-policy URL. No unconfirmed subscription-free-shipping exception is introduced. `payment-icons` is shared with the footer.
 
 ## Purchase behavior
@@ -32,7 +32,7 @@ App blocks are supported deliberately through `@app` blocks. Accelerated checkou
 
 Shared duration/easing tokens govern gallery movement, price changes, description expansion, frequency-field expansion and the benefits disclosure. Reversed expansions start at their currently painted height/opacity. Hidden closing controls become inert until the transition completes; unchanged prices and selections do not replay motion. All controls retain shared keyboard focus and native form fallbacks.
 
-SVG badge text rotates over a stationary disc/symbol. It pauses offscreen, in hidden tabs, through an accessible 44px pause toggle, and for reduced motion. The 5% artwork is restricted to the three audited Hard Seltzer products with alcohol explicitly true; future strengths require approved artwork/data. Decorative assets have empty alt text; the badge exposes one translated description.
+SVG badge text rotates over a stationary disc/symbol. It pauses offscreen, in hidden tabs, and for reduced motion; it makes one 4.8-second turn and stops automatically, so there is no separate pause button. The 5% artwork is restricted to the three audited Hard Seltzer products with alcohol explicitly true; future strengths require approved artwork/data. Decorative assets have empty alt text; the badge exposes one translated description.
 
 ## Structured data
 
@@ -43,3 +43,21 @@ One server-rendered Shopify `product | structured_data` entity supplies real Pro
 The current catalog uses a small packaging variant list and standard recurring plans. Liquid's product-variant limit applies; catalogs exceeding 250 variants need an option-based section-fetch implementation. Prepaid/deferred plans, external-video pause integration, the subscription customer portal and completed checkout/payment flows require their own end-to-end verification before claiming full support. The current implementation does not change Shopify shipping or subscription rules.
 
 Local preview checks cover phone/desktop layouts, real plan/pack changes and subscription add-to-cart. See the implementation verification notes in [PDP plan](../product-detail-plan.md).
+
+Crossed-out original prices use the shared second accent (`--color-accent-secondary`, default `#FF6600`), including subscription comparisons where rendered. Price calculations and discount eligibility are unchanged.
+
+## Breakpoint visibility
+
+Essential-function exception: this section stays available at every breakpoint and does not expose hide controls. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.
+
+## Ananotes refinements — 2026-09-11
+
+Desktop identity and purchase controls share a sticky column. A ResizeObserver updates its offset so tall purchase content can scroll far enough to expose the add button; mobile retains identity, gallery, purchase and supporting content order. Description truncation measures after fonts load and on resize in every brand world.
+
+Subscription frequency sits inside the compact subscription panel before its centered Figma tick list. Original/current prices appear together in that panel; the redundant price row is hidden only for enhanced plan products. Native fallback and products without plans retain their price row, plan select and product form. The summary uses localized approved Figma copy (up to 15%, Swiss free shipping, swap/skip/cancel), independently of long-form merchant benefit descriptions; this does not change Shopify shipping rules.
+
+Flavour artwork uses its individual Figma proportions; Soda variety uses the exact two exported composite layers. The Seltzer text ring fills its badge bounds. Fine-pointer gallery arrows fade in on hover or focus; touch arrows remain visible. Duplicate brand logos are removed, and the add button reuses the header cart glyph. Shared payment assets have transparent ancestor canvases and fill the PDP row. Shipping omits trailing zero decimals only for whole amounts and has no extra policy link; fractional rates remain exact.
+
+Verified on Yuzu, Blueberry and Maracuja: desktop/phone overflow, sticky offset, corrected artwork, description cutoff, subscription form payload, and native plan selection with product scripts blocked. Shopify checkout/payment was not submitted.
+
+Merchant translation correction (2026-09-12): populated subscription fields and shared USP captions render directly from localized Shopify metaobjects. Blank subscription fields retain theme locale fallbacks. Never replace populated starter text with theme translations; see [language ownership](../merchant-content.md#language-ownership).

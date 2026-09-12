@@ -23,6 +23,8 @@ Sorting, filtering, active-filter state, merchandising badges, quick add, and ri
 
 Hero-size page title; body description; compact product-card names.
 
+Crossed-out original prices use the shared second accent (`--color-accent-secondary`, default `#FF6600`), including subscription comparisons where rendered. Price calculations and discount eligibility are unchanged.
+
 ## Breakpoint visibility
 
 Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.

@@ -33,11 +33,67 @@
 -%}
 <section class="pdp-section" data-color-world="{{ brand }}" {% if product.metafields.custom.soda_background_color.value != blank %}style="--pdp-background: {{ product.metafields.custom.soda_background_color.value }};"{% endif %}>
   <product-detail class="pdp" data-section="{{ section.id }}" data-url="{{ product.url }}" data-currency="{{ cart.currency.iso_code }}" data-locale="{{ request.locale.iso_code }}" data-add-label="{{ 'products.product.add_to_cart' | t }}" data-sold-label="{{ 'products.product.sold_out' | t }}" data-savings-label="{{ 'products.pdp.save_percent' | t: percent: '[percent]' }}" data-charge-label="{{ 'products.pdp.checkout_charge' | t: amount: '[amount]' }}" data-balance-label="{{ 'products.pdp.remaining_balance' | t: amount: '[amount]' }}">
+    <div class="pdp-details">
     <header class="pdp-identity">
       {% if section.settings.show_vendor %}<p>{{ product.vendor | escape }}</p>{% endif %}
-      {% if brand == 'soda' %}<img class="pdp-identity__logo" src="{{ 'sparklys-soda-logo.svg' | asset_url }}" width="100" height="48" alt="Sparklys Soda">{% elsif brand == 'seltzer' %}<img class="pdp-identity__logo" src="{{ 'subscription-seltzer-logo.svg' | asset_url }}" width="160" height="48" alt="Sparklys Hard Seltzer">{% endif %}
       <h1 class="pdp-title"><span class="visually-hidden">{% if brand == 'soda' %}Sparklys Soda {% elsif brand == 'seltzer' %}Sparklys Hard Seltzer {% endif %}</span>{% if product.handle == 'sparklys-hard-seltzer-maracuja' or product.handle == 'sparklys-hard-seltzer-holunder' %}<span class="visually-hidden">{{ title | escape }}</span>{% assign title_art = product.handle | remove_first: 'sparklys-hard-seltzer-' | prepend: 'product-overview-' | append: '-wave-logo.svg' %}<img class="pdp-title__art" src="{{ title_art | asset_url }}" width="320" height="124" alt="">{% else %}{{ title | escape }}{% endif %}</h1>
     </header>
+    <div class="pdp-purchase">
+      {% if product.description != blank %}<pdp-description class="pdp-description"><div class="rte" id="ProductDescription-{{ section.id }}">{{ product.description }}</div><button class="pdp-text-button" type="button" hidden aria-expanded="false" aria-controls="ProductDescription-{{ section.id }}" data-more="{{ 'products.pdp.show_more' | t }}" data-less="{{ 'products.pdp.show_less' | t }}">{{ 'products.pdp.show_more' | t }}</button></pdp-description>{% endif %}
+      {% if brand_collection != blank and flavours.size > 1 %}
+        <nav class="pdp-flavours" aria-label="{{ 'products.pdp.flavour' | t }}"><p>{{ 'products.pdp.flavour' | t }}</p><div>
+          {% for flavour in flavours %}
+            <a data-flavour="{{ flavour.handle }}" href="{{ flavour.url }}" aria-label="{{ flavour.title | escape }}" title="{{ flavour.title | escape }}" {% if flavour.id == product.id %}aria-current="page"{% endif %}>
+              {% case flavour.handle %}
+                {% when 'sparklys-soda-yuzu-ginger' %}<img src="{{ 'pdp-flavour-yuzu.svg' | asset_url }}" width="60" height="60" alt="">
+                {% when 'sparklys-soda-blueberry-pomelo' %}<img src="{{ 'pdp-flavour-blueberry.svg' | asset_url }}" width="60" height="60" alt="">
+                {% when 'sparklys-hard-seltzer-maracuja' %}<img src="{{ 'pdp-flavour-maracuja.svg' | asset_url }}" width="60" height="60" alt="">
+                {% when 'sparklys-hard-seltzer-holunder' %}<img src="{{ 'pdp-flavour-holunder.svg' | asset_url }}" width="60" height="60" alt="">
+                {% when 'sparklys-hard-seltzer-variety' %}<img src="{{ 'pdp-flavour-seltzer-variety.svg' | asset_url }}" width="60" height="60" alt="">
+                {% when 'sparklys-soda-variety-pack' %}<span class="pdp-flavour-mix"><img src="{{ 'pdp-flavour-mix-yuzu.svg' | asset_url }}" width="40" height="40" alt=""><img src="{{ 'pdp-flavour-mix-blueberry.svg' | asset_url }}" width="40" height="40" alt=""></span>
+                {% else %}{% assign flavour_image = flavour.metafields.custom.teaser_image.value | default: flavour.featured_image %}{% if flavour_image %}{{ flavour_image | image_url: width: 160 | image_tag: widths: '80, 160', sizes: '64px', alt: '', loading: 'lazy' }}{% else %}{{ flavour.title | escape }}{% endif %}
+              {% endcase %}
+            </a>
+          {% endfor %}
+        </div></nav>
+      {% endif %}
+      <form id="ProductVariantForm-{{ section.id }}" action="{{ product.url }}" method="get" class="pdp-variant-form"></form>
+      <product-form data-success-message="{{ 'products.product.added_to_cart' | t }}">
+        {% form 'product', product, id: form_id, class: 'pdp-buy-form' %}
+          <input type="hidden" name="id" value="{{ selected.id }}">
+          <fieldset class="pdp-purchase-options" data-purchase-options {% if product.selling_plan_groups.size == 0 %}hidden{% endif %}>
+            <legend>{{ 'products.pdp.purchase_type' | t }}</legend>
+            <div data-purchase-radios>
+              <label class="form-choice form-choice--card" data-enhanced-only data-once-card hidden><input type="radio" name="purchase_type" value="once" {% if initial_allocation == blank %}checked{% endif %}><span class="form-choice__indicator" aria-hidden="true"></span><span><strong>{{ 'products.pdp.one_time' | t }}</strong><span class="pdp-option-price" data-once-price>{% render 'cart-money', amount: selected.price %}</span></span></label>
+              <div class="pdp-subscription-card" data-subscription-card>
+                <label class="form-choice" data-enhanced-only hidden><input type="radio" name="purchase_type" value="subscription" {% if initial_allocation != blank %}checked{% endif %}><span class="form-choice__indicator" aria-hidden="true"></span><span><strong>{{ 'products.pdp.subscribe' | t }}</strong><span class="pdp-option-price"><s data-subscription-compare></s><span data-subscription-price></span></span></span><span class="pdp-savings">{{ 'products.pdp.up_to' | t }}</span></label>
+            <div class="pdp-plan-field" data-plan-field>
+              <label for="ProductPlan-{{ section.id }}">{{ 'products.pdp.delivery' | t }}</label>
+              <sparklys-select><select class="form-control" id="ProductPlan-{{ section.id }}" name="selling_plan" data-plan-select>{% unless product.requires_selling_plan %}<option value="">{{ 'products.pdp.one_time' | t }}</option>{% endunless %}{% for allocation in selected.selling_plan_allocations %}<option value="{{ allocation.selling_plan.id }}" {% if allocation.selling_plan.id == initial_allocation.selling_plan.id %}selected{% endif %}>{{ allocation.selling_plan.name | escape }} — {% render 'cart-money', amount: allocation.price %}</option>{% endfor %}</select></sparklys-select>
+              <p class="pdp-plan-terms" data-plan-terms aria-live="polite"></p>
+            </div>
+                {% render 'product-benefits', mode: 'summary' %}
+              </div>
+            </div>
+          </fieldset>
+          <div class="pdp-price" data-standalone-price aria-live="polite"><strong data-price>{% render 'cart-money', amount: display_price %}</strong><s data-compare {% unless selected.compare_at_price > display_price %}hidden{% endunless %}>{% render 'cart-money', amount: selected.compare_at_price %}</s><span data-savings></span></div>
+          <div class="pdp-buy-row">
+            <div class="cart-quantity pdp-quantity"><button type="button" data-quantity-step="-1" data-enhanced-only hidden aria-label="{{ 'cart.label.decrease' | t: product: product.title | escape_once }}">−</button><label class="visually-hidden" for="ProductQuantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label><input id="ProductQuantity-{{ section.id }}" name="quantity" type="number" value="{{ selected.quantity_rule.min | default: 1 }}" min="{{ selected.quantity_rule.min | default: 1 }}" step="{{ selected.quantity_rule.increment | default: 1 }}" {% if selected.quantity_rule.max %}max="{{ selected.quantity_rule.max }}"{% endif %} inputmode="numeric"><button type="button" data-quantity-step="1" data-enhanced-only hidden aria-label="{{ 'cart.label.increase' | t: product: product.title | escape_once }}">+</button></div>
+            <div class="pdp-packaging">
+        <label class="visually-hidden" for="ProductVariant-{{ section.id }}">{{ 'products.pdp.packaging' | t }}</label>
+        <sparklys-select><select class="form-control" id="ProductVariant-{{ section.id }}" name="variant" form="ProductVariantForm-{{ section.id }}" data-variant-select>{% for variant in product.variants %}<option value="{{ variant.id }}" {% if variant.id == selected.id %}selected{% endif %}>{{ variant.title | escape }}{% unless variant.available %} — {{ 'products.product.sold_out' | t }}{% endunless %}</option>{% endfor %}</select></sparklys-select>
+        <button class="button button--small" type="submit" form="ProductVariantForm-{{ section.id }}" data-native-only><span class="button__label">{{ 'products.pdp.update_options' | t }}</span></button>
+            </div>
+          </div>
+            <button class="button pdp-add" type="submit" {% unless selected.available %}disabled{% endunless %}><span class="button__label"><span class="pdp-cart-icon" aria-hidden="true"></span><span data-add-text>{% if selected.available %}{{ 'products.product.add_to_cart' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</span><span data-add-total data-enhanced-only hidden> · {% render 'cart-money', amount: display_price %}</span></span></button>
+          <p data-product-status class="visually-hidden"></p>
+        {% endform %}
+      </product-form>
+      {% render 'product-shipping', product: product %}
+      {% render 'payment-icons' %}
+      {% for block in section.blocks %}{% render block %}{% endfor %}
+    </div>
+    </div>
     <div class="pdp-gallery" {% if gradient_valid %}style="--pdp-gallery-background: {{ gradient | escape }};"{% endif %}>
       <div class="pdp-gallery__track" tabindex="0" role="region" aria-label="{{ 'products.pdp.gallery' | t }}">
         {% for media in product.media %}
@@ -53,62 +109,6 @@
       {% if product.media.size > 1 %}
         <div class="pdp-gallery__navigation" data-enhanced-only hidden><button type="button" data-gallery-step="-1" aria-label="{{ 'products.pdp.previous_image' | t }}"><img src="{{ 'icon-arrow-left.svg' | asset_url }}" width="24" height="24" alt=""></button><span data-gallery-counter aria-live="polite">1 / {{ product.media.size }}</span><button type="button" data-gallery-step="1" aria-label="{{ 'products.pdp.next_image' | t }}"><img src="{{ 'icon-arrow-left.svg' | asset_url }}" width="24" height="24" alt="" style="transform: rotate(180deg);"></button></div>
       {% endif %}
-      {% if brand != 'default' %}<button class="pdp-badge-toggle" type="button" data-badge-toggle data-enhanced-only hidden aria-pressed="false"><img src="{{ 'icon-pause-circle.svg' | asset_url }}" width="24" height="24" alt=""><span class="visually-hidden">{{ 'products.pdp.pause_animation' | t }}</span></button>{% endif %}
-    </div>
-    <div class="pdp-purchase">
-      {% if product.description != blank %}<pdp-description class="pdp-description"><div class="rte" id="ProductDescription-{{ section.id }}">{{ product.description }}</div><button class="pdp-text-button" type="button" hidden aria-expanded="false" aria-controls="ProductDescription-{{ section.id }}" data-more="{{ 'products.pdp.show_more' | t }}" data-less="{{ 'products.pdp.show_less' | t }}">{{ 'products.pdp.show_more' | t }}</button></pdp-description>{% endif %}
-      {% if brand_collection != blank and flavours.size > 1 %}
-        <nav class="pdp-flavours" aria-label="{{ 'products.pdp.flavour' | t }}"><p>{{ 'products.pdp.flavour' | t }}</p><div>
-          {% for flavour in flavours %}
-            <a href="{{ flavour.url }}" aria-label="{{ flavour.title | escape }}" title="{{ flavour.title | escape }}" {% if flavour.id == product.id %}aria-current="page"{% endif %}>
-              {% case flavour.handle %}
-                {% when 'sparklys-soda-yuzu-ginger' %}<img src="{{ 'pdp-flavour-yuzu.svg' | asset_url }}" width="60" height="60" alt="">
-                {% when 'sparklys-soda-blueberry-pomelo' %}<img src="{{ 'pdp-flavour-blueberry.svg' | asset_url }}" width="60" height="60" alt="">
-                {% when 'sparklys-hard-seltzer-maracuja' %}<img src="{{ 'pdp-flavour-maracuja.svg' | asset_url }}" width="60" height="60" alt="">
-                {% when 'sparklys-hard-seltzer-holunder' %}<img src="{{ 'pdp-flavour-holunder.svg' | asset_url }}" width="60" height="60" alt="">
-                {% when 'sparklys-hard-seltzer-variety' %}<img src="{{ 'pdp-flavour-seltzer-variety.svg' | asset_url }}" width="60" height="60" alt="">
-                {% when 'sparklys-soda-variety-pack' %}<span class="pdp-flavour-mix"><img src="{{ 'pdp-flavour-yuzu.svg' | asset_url }}" width="40" height="40" alt=""><img src="{{ 'pdp-flavour-blueberry.svg' | asset_url }}" width="40" height="40" alt=""></span>
-                {% else %}{% assign flavour_image = flavour.metafields.custom.teaser_image.value | default: flavour.featured_image %}{% if flavour_image %}{{ flavour_image | image_url: width: 160 | image_tag: widths: '80, 160', sizes: '64px', alt: '', loading: 'lazy' }}{% else %}{{ flavour.title | escape }}{% endif %}
-              {% endcase %}
-            </a>
-          {% endfor %}
-        </div></nav>
-      {% endif %}
-      <form id="ProductVariantForm-{{ section.id }}" action="{{ product.url }}" method="get" class="pdp-variant-form"></form>
-      <product-form data-success-message="{{ 'products.product.added_to_cart' | t }}">
-        {% form 'product', product, id: form_id, class: 'pdp-buy-form' %}
-          <input type="hidden" name="id" value="{{ selected.id }}">
-          <fieldset class="pdp-purchase-options" data-purchase-options {% if product.selling_plan_groups.size == 0 %}hidden{% endif %}>
-            <legend>{{ 'products.pdp.purchase_type' | t }}</legend>
-            <div data-purchase-radios data-enhanced-only hidden>
-              <label class="form-choice form-choice--card" data-once-card {% if product.requires_selling_plan %}hidden{% endif %}><input type="radio" name="purchase_type" value="once" {% if initial_allocation == blank %}checked{% endif %}><span class="form-choice__indicator" aria-hidden="true"></span><span><strong>{{ 'products.pdp.one_time' | t }}</strong><span class="pdp-option-price" data-once-price>{% render 'cart-money', amount: selected.price %}</span></span></label>
-              <div class="pdp-subscription-card" data-subscription-card>
-                <label class="form-choice"><input type="radio" name="purchase_type" value="subscription" {% if initial_allocation != blank %}checked{% endif %}><span class="form-choice__indicator" aria-hidden="true"></span><span><strong>{{ 'products.pdp.subscribe' | t }}</strong><span class="pdp-option-price" data-subscription-price></span></span><span class="pdp-savings">{{ 'products.pdp.up_to' | t }}</span></label>
-                {% render 'product-benefits', mode: 'summary' %}
-              </div>
-            </div>
-            <div class="pdp-plan-field" data-plan-field>
-              <label for="ProductPlan-{{ section.id }}">{{ 'products.pdp.delivery' | t }}</label>
-              <sparklys-select><select class="form-control" id="ProductPlan-{{ section.id }}" name="selling_plan" data-plan-select>{% unless product.requires_selling_plan %}<option value="">{{ 'products.pdp.one_time' | t }}</option>{% endunless %}{% for allocation in selected.selling_plan_allocations %}<option value="{{ allocation.selling_plan.id }}" {% if allocation.selling_plan.id == initial_allocation.selling_plan.id %}selected{% endif %}>{{ allocation.selling_plan.name | escape }} — {% render 'cart-money', amount: allocation.price %}</option>{% endfor %}</select></sparklys-select>
-              <p class="pdp-plan-terms" data-plan-terms aria-live="polite"></p>
-            </div>
-          </fieldset>
-          <div class="pdp-price" aria-live="polite"><strong data-price>{% render 'cart-money', amount: display_price %}</strong><s data-compare {% unless selected.compare_at_price > display_price %}hidden{% endunless %}>{% render 'cart-money', amount: selected.compare_at_price %}</s><span data-savings></span></div>
-          <div class="pdp-buy-row">
-            <div class="cart-quantity pdp-quantity"><button type="button" data-quantity-step="-1" data-enhanced-only hidden aria-label="{{ 'cart.label.decrease' | t: product: product.title | escape_once }}">−</button><label class="visually-hidden" for="ProductQuantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label><input id="ProductQuantity-{{ section.id }}" name="quantity" type="number" value="{{ selected.quantity_rule.min | default: 1 }}" min="{{ selected.quantity_rule.min | default: 1 }}" step="{{ selected.quantity_rule.increment | default: 1 }}" {% if selected.quantity_rule.max %}max="{{ selected.quantity_rule.max }}"{% endif %} inputmode="numeric"><button type="button" data-quantity-step="1" data-enhanced-only hidden aria-label="{{ 'cart.label.increase' | t: product: product.title | escape_once }}">+</button></div>
-            <div class="pdp-packaging">
-        <label class="visually-hidden" for="ProductVariant-{{ section.id }}">{{ 'products.pdp.packaging' | t }}</label>
-        <sparklys-select><select class="form-control" id="ProductVariant-{{ section.id }}" name="variant" form="ProductVariantForm-{{ section.id }}" data-variant-select>{% for variant in product.variants %}<option value="{{ variant.id }}" {% if variant.id == selected.id %}selected{% endif %}>{{ variant.title | escape }}{% unless variant.available %} — {{ 'products.product.sold_out' | t }}{% endunless %}</option>{% endfor %}</select></sparklys-select>
-        <button class="button button--small" type="submit" form="ProductVariantForm-{{ section.id }}" data-native-only><span class="button__label">{{ 'products.pdp.update_options' | t }}</span></button>
-            </div>
-          </div>
-            <button class="button pdp-add" type="submit" {% unless selected.available %}disabled{% endunless %}><span class="button__label"><img src="{{ 'icon-pdp-bag.svg' | asset_url }}" width="24" height="24" alt=""><span data-add-text>{% if selected.available %}{{ 'products.product.add_to_cart' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</span><span data-add-total data-enhanced-only hidden> · {% render 'cart-money', amount: display_price %}</span></span></button>
-          <p data-product-status class="visually-hidden"></p>
-        {% endform %}
-      </product-form>
-      {% render 'product-shipping', product: product %}
-      {% render 'payment-icons' %}
-      {% for block in section.blocks %}{% render block %}{% endfor %}
     </div>
     <div class="pdp-support">
       <div class="pdp-marketing">
