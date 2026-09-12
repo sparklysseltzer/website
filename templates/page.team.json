@@ -1,0 +1,64 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "intro": {
+      "type": "page-intro",
+      "settings": {
+        "heading_font": "erode",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
+      }
+    },
+    "two_column_eRhbaA": {
+      "type": "two-column",
+      "blocks": {
+        "content": {
+          "type": "_editorial-main",
+          "static": true,
+          "settings": {},
+          "blocks": {}
+        },
+        "sidebar": {
+          "type": "_editorial-sidebar",
+          "static": true,
+          "settings": {},
+          "blocks": {}
+        }
+      },
+      "name": "2 column",
+      "settings": {
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
+      }
+    },
+    "faq_C7wfCz": {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": {
+        "heading_font": "erode",
+        "selected_faqs": [],
+        "faq_category": "",
+        "heading": "",
+        "show_footer": true,
+        "footer_text": "",
+        "footer_link_label": "",
+        "footer_link": "#",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
+      }
+    }
+  },
+  "order": [
+    "intro",
+    "two_column_eRhbaA",
+    "faq_C7wfCz"
+  ]
+}

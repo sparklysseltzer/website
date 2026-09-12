@@ -12,6 +12,7 @@
     "hero": {
       "type": "hero",
       "settings": {
+        "heading_font": "erode",
         "eyebrow": "Sparklys Switzerland",
         "heading": "Prickelnd anders.",
         "text": "<p>Natürlicher Seltzer aus der Schweiz.</p>",
@@ -19,17 +20,9 @@
         "button_link": "",
         "background": "#e6d783",
         "foreground": "#172019",
-        "overlay": 20
-      }
-    },
-    "intro": {
-      "type": "rich-text",
-      "settings": {
-        "eyebrow": "Weniger ist mehr",
-        "heading": "Echter Geschmack. Klare Zutaten.",
-        "text": "<p>Hier entsteht die neue digitale Heimat von Sparklys.</p>",
-        "button_label": "",
-        "button_link": ""
+        "overlay": 20,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "products": {
@@ -111,18 +104,9 @@
         "all_products_label": "All products",
         "all_products_link": "shopify://collections/all",
         "soda_link": "shopify://collections/soda",
-        "hard_seltzer_link": "shopify://collections/hard-seltzer"
-      }
-    },
-    "rich_text_8KfU6y": {
-      "type": "rich-text",
-      "name": "Rich text",
-      "settings": {
-        "eyebrow": "Weniger ist mehr",
-        "heading": "Echter Geschmack. Klare Zutaten.",
-        "text": "<p>Hier entsteht die neue digitale Heimat von Sparklys.</p>",
-        "button_label": "",
-        "button_link": ""
+        "hard_seltzer_link": "shopify://collections/hard-seltzer",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "offer_cards": {
@@ -192,18 +176,23 @@
         "show_heading": true,
         "heading": "Unser Angebot",
         "show_intro": true,
-        "intro": "<p>Mit unseren zwei Produkten Sparklys Soda und Sparklys Hard Seltzer decken wir eine breite Palette an Einsatzmöglichkeiten ab. Ob in Kantinen mit Sparklys Soda, an Events mit Sparklys Hard Seltzer oder im Detailhandel im Regal: Sparklys passt in unterschiedlichste Verkaufssituationen.</p>"
+        "intro": "<p>Mit unseren zwei Produkten Sparklys Soda und Sparklys Hard Seltzer decken wir eine breite Palette an Einsatzmöglichkeiten ab. Ob in Kantinen mit Sparklys Soda, an Events mit Sparklys Hard Seltzer oder im Detailhandel im Regal: Sparklys passt in unterschiedlichste Verkaufssituationen.</p>",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "logo_marquee": {
       "type": "logo-marquee",
       "settings": {
+        "heading_font": "newake",
         "merchant_collection": "online-shops",
         "heading": "Jetzt erhältlich in deiner Nähe",
         "background_style": "transparent",
         "duration": 32,
         "direction": "normal",
-        "pause_on_interaction": true
+        "pause_on_interaction": true,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "usp_section_4Uicmb": {
@@ -216,7 +205,9 @@
         "heading_font": "automatic",
         "color_mode": "automatic",
         "background": "#69bdf7",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "split_image_text_PpH6Yp": {
@@ -251,20 +242,26 @@
         "image_side": "left",
         "image_width": 50,
         "minimum_height": 630,
-        "image": "shopify://shop_images/ads-slider-sparklys-cupfinal.jpg",
+        "top_image_height": 520,
+        "text_columns": "one",
         "image_alt": "Sparklys team portrait",
         "show_heading": true,
-        "heading": "ADD YOUR SPLIT TRALLALLA HERE WTF",
+        "heading": "Headline",
         "heading_level": "h2",
         "show_subtext": true,
         "subtext": "<p>Add supporting copy for this section.</p>",
         "show_list": true,
+        "heading_font": "newake",
+        "second_heading": "",
+        "second_text": "",
         "show_button": true,
         "button_label": "Learn more",
         "button_link": "",
         "button_style": "automatic",
         "panel_color": "#e0e0e0",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "poster_PND9wT": {
@@ -304,6 +301,7 @@
         "heading_level": "h2",
         "show_subtext": true,
         "subtext": "<p>Add supporting copy for this poster.</p>",
+        "heading_font": "erode",
         "show_button": true,
         "button_label": "Learn more",
         "button_link": "#",
@@ -312,7 +310,9 @@
         "overlay_color": "#000000",
         "overlay_strength": 80,
         "minimum_height": 630,
-        "minimum_height_mobile": 540
+        "minimum_height_mobile": 540,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "poster_YYRazM": {
@@ -328,6 +328,7 @@
         "heading_level": "h2",
         "show_subtext": true,
         "subtext": "<p>Add supporting copy for this poster.</p>",
+        "heading_font": "erode",
         "show_button": true,
         "button_label": "Learn more",
         "button_link": "#",
@@ -336,13 +337,16 @@
         "overlay_color": "#000000",
         "overlay_strength": 55,
         "minimum_height": 800,
-        "minimum_height_mobile": 540
+        "minimum_height_mobile": 540,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "faq_MHKD6W": {
       "type": "faq",
       "name": "FAQ",
       "settings": {
+        "heading_font": "erode",
         "selected_faqs": [
           "wo-kann-ich-sparklys-hard-seltzer-kaufen",
           "wie-viele-kalorien-befinden-sich-in-einer-dose-sparklys-hard-seltzer",
@@ -357,7 +361,9 @@
         "show_footer": true,
         "footer_text": "",
         "footer_link_label": "",
-        "footer_link": "#"
+        "footer_link": "#",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "hard_seltzer_ingredients_wicMyT": {
@@ -389,8 +395,11 @@
       ],
       "name": "Hard Seltzer Ingredients",
       "settings": {
+        "heading_font": "erode",
         "heading": "",
-        "intro": ""
+        "intro": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "soda_three_reasons_HfBDUy": {
@@ -425,11 +434,14 @@
       ],
       "name": "Soda 3 Reasons",
       "settings": {
+        "heading_font": "erode",
         "heading": "",
         "intro": "",
         "link_label": "",
         "link": "",
-        "footnote": ""
+        "footnote": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "soda_ingredients_Q8Qkne": {
@@ -488,11 +500,14 @@
       ],
       "name": "Soda Ingredients",
       "settings": {
+        "heading_font": "erode",
         "heading": "",
         "intro": "",
         "link_label": "",
         "link": "",
-        "footnote": ""
+        "footnote": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "versus_gX4bjY": {
@@ -577,7 +592,9 @@
         "heading": "",
         "comparison_basis": "",
         "disclaimer": "",
-        "footnote": ""
+        "footnote": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "versus_jX3Efm": {
@@ -662,7 +679,9 @@
         "heading": "",
         "comparison_basis": "",
         "disclaimer": "",
-        "footnote": ""
+        "footnote": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "hard_seltzer_awards_BVVJyN": {
@@ -694,10 +713,13 @@
       ],
       "name": "Hard Seltzer Awards",
       "settings": {
+        "heading_font": "erode",
         "heading": "",
         "intro": "",
         "button_label": "",
-        "button_link": ""
+        "button_link": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "subscription_9QeTg7": {
@@ -748,7 +770,9 @@
         "account_label": "",
         "account_link": "",
         "minimum_height": 630,
-        "minimum_height_mobile": 680
+        "minimum_height_mobile": 680,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "subscription_MCaDqq": {
@@ -799,7 +823,9 @@
         "account_label": "",
         "account_link": "",
         "minimum_height": 630,
-        "minimum_height_mobile": 680
+        "minimum_height_mobile": 680,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     },
     "usp_section_UCGrUT": {
@@ -812,15 +838,30 @@
         "heading_font": "automatic",
         "color_mode": "automatic",
         "background": "#69bdf7",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
+      }
+    },
+    "usp_section_a8waXt": {
+      "type": "usp-section",
+      "name": "USP — Hard Seltzer",
+      "settings": {
+        "variant": "seltzer",
+        "heading": "",
+        "text": "",
+        "heading_font": "soda",
+        "color_mode": "automatic",
+        "background": "#69bdf7",
+        "text_color": "#000000",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
       }
     }
   },
   "order": [
     "hero",
-    "intro",
     "products",
-    "rich_text_8KfU6y",
     "offer_cards",
     "logo_marquee",
     "usp_section_4Uicmb",
@@ -836,6 +877,7 @@
     "hard_seltzer_awards_BVVJyN",
     "subscription_9QeTg7",
     "subscription_MCaDqq",
-    "usp_section_UCGrUT"
+    "usp_section_UCGrUT",
+    "usp_section_a8waXt"
   ]
 }
