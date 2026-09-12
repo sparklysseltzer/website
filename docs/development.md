@@ -193,6 +193,16 @@ Always target the store's permanent `.myshopify.com` domain, not its public cust
 
 Browser-based visual verification remains appropriate and follows the headless/cleanup contract. This rule governs store-data maintenance, not the choice of tool for checking rendered storefront layout.
 
+### Admin API connection
+
+`scripts/shopify-admin.mjs` provides the direct Admin GraphQL client for this store. The dedicated app **Sparklys Store Content API** (ID `422634225665`, organization `24835914`) and version `content-api-1` are configured, and credentials have been retrieved into the ignored local app directory. Installation was approved and completed on 2026-09-12. The direct API connection was verified against the store, including the corrected USP image upload and metaobject update. Granted scopes are `write_files`, `write_metaobjects` and their implied read scopes. A theme login is not this connection. `shopify app execute` supports queries, but its mutation support is restricted to development stores; use the direct API for authorized changes on the Sparklys store.
+
+Use a dedicated app owned by the same Shopify organization as `sparklys-hard-seltzer.myshopify.com`. Start with `write_files` and `write_metaobjects` for the approved USP image update; add other scopes only when needed and authorized. Link its configuration under the ignored `.shopify/admin-app` directory. Retrieve credentials with `shopify app env pull --path .shopify/admin-app`, redirecting output to a private ignored file because the CLI may print environment changes. Restrict the directory to mode 700 and credential/output files to 600. Never print, commit, paste into chat, or put credentials on command lines. Do not use `app env show` or verbose authentication logging.
+
+The client accepts CLI-generated `SHOPIFY_API_KEY` / `SHOPIFY_API_SECRET` or explicit `SHOPIFY_CLIENT_ID` / `SHOPIFY_CLIENT_SECRET` environment variables. It exchanges them using Shopify's [client credentials grant](https://shopify.dev/docs/apps/build/authentication-authorization/client-credentials-grant), retains expiring access tokens only in memory, and pins requests to the store and API version `2026-07`. Redirects are rejected and failed writes are not retried automatically.
+
+Run `node scripts/shopify-admin.mjs` for a read-only connection check showing the store, app and granted scopes. Task scripts import `createAdminClient()` and submit GraphQL with variables; inspect mutation `userErrors` and read back the affected records before claiming completion. This client provides access, not blanket permission for mutations. Existing approval and editorial-content ownership rules still apply. Run `node --test tests/shopify-admin.test.mjs` after changing the connection client.
+
 ## Remote safety levels
 
 | Action | Default authorization |

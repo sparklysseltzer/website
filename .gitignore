@@ -2,3 +2,5 @@
 node_modules/
 .shopify/
 *.log
+.env
+.env.*
