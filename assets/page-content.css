@@ -1,0 +1,50 @@
+/* Page-owned copy, shared by plain pages and the editorial intro. */
+.page-intro {
+  position: relative;
+  isolation: isolate;
+  padding: 3rem var(--page-gutter);
+  text-align: center;
+  overflow: clip;
+}
+.page-intro--editorial {
+  padding-block: 4rem 3rem;
+  background: linear-gradient(var(--color-surface), transparent);
+}
+.page-intro__content { position: relative; max-width: 50rem; margin-inline: auto; }
+.page-intro__label { margin: 0 0 .375rem; color: var(--color-text-secondary); font-size: var(--font-size-body); }
+.page-intro__heading { margin: 0; font-size: var(--font-size-display); text-wrap: balance; }
+.page-intro__text { margin: 1.25rem 0 0; font-size: var(--font-size-body); line-height: var(--line-height-body-compact); overflow-wrap: anywhere; }
+.page-intro__art {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  width: min(77.3125rem, 94%);
+  height: auto;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.text-page { padding-bottom: 4rem; }
+.text-page__body,
+.shopify-policy__body { font-size: var(--font-size-body); line-height: var(--line-height-body); overflow-wrap: anywhere; }
+.text-page__body { width: min(50rem, calc(100% - 2 * var(--page-gutter))); margin-inline: auto; }
+.text-page__body :is(h2, h3, h4, h5, h6),
+.shopify-policy__body :is(h2, h3, h4, h5, h6) { margin-block: 2rem 1rem; }
+.text-page__body :is(img, video, iframe),
+.shopify-policy__body :is(img, video, iframe) { max-width: 100%; }
+.text-page__body table,
+.shopify-policy__body table { display: block; max-width: 100%; overflow-x: auto; }
+/* Native /policies URLs are Shopify-owned content, not regular Page templates. */
+.shopify-policy__container { width: 100%; max-width: 54rem; margin-inline: auto; padding: 3rem var(--page-gutter) 4rem; }
+.shopify-policy__title { margin-bottom: 3rem; text-align: center; }
+.shopify-policy__title h1 { margin: 0; font-size: var(--font-size-display); text-wrap: balance; }
+@media (min-width: 48rem) {
+  .page-intro { padding-block: 5rem; }
+  .page-intro--editorial { padding-top: 6rem; }
+  .page-intro__art { top: 1.25rem; }
+  .text-page { padding-bottom: 5rem; }
+  .shopify-policy__container { padding-block: 5rem; }
+  .shopify-policy__title { margin-bottom: 5rem; }
+}
+.page-intro__heading,
+.shopify-policy__title h1 { hyphens: auto; }

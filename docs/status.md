@@ -89,3 +89,9 @@ MVP code implemented and enabled in local development fixtures; the 16 published
 International passport update (2026-09-09): the local age check now offers another-country passports using the standard TD3 lower-line fields, alongside CH/LI ID and passport choices. See [support contract](age-verification-international-plan.md#implemented-standard-passport-support--2026-09-09). This does not add foreign ID-card support, identity authentication, residence checks or additional Shopify markets.
 
 Product detail first section (2026-09-11): shared Soda/Seltzer/neutral section now includes the media slider, SVG badges, exact marketing fallbacks, flavour links, packaging/quantity, current selling plans, real pricing, shared USP/benefit content, shipping/payment reuse and server-rendered product structured data. Existing product and collection fields remain authoritative. See [Main product](sections/main-product.md).
+
+Section visibility (2026-09-11): 25 non-essential sections expose mobile/desktop hide controls with a shared 768px boundary and selectable editor placeholders. Header, Main product, Main cart and Cart drawer remain essential-function exceptions. Both-off defaults preserve saved layouts; see the [shared section contract](sections/README.md#breakpoint-visibility).
+
+### Page introduction layouts — 2026-09-12
+
+Implemented locally/development: default title/optional intro/body layout, reusable Page intro, an additive `page.editorial` starter, shared native policy reading styles and WebPage structured data. Both Page metafield definitions are created and pinned. Merchant copy and assignment of editorial templates remain editorial work; the approved follow-up replaces Main page with Page intro in the development About and Retail templates only, preserving all other content. No live page assignments were changed. See the section reference for the contracts.

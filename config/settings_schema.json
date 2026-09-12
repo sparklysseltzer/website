@@ -98,7 +98,8 @@
       {
         "type": "color",
         "id": "color_general_background",
-        "label": "Page background",
+        "label": "Section background",
+        "info": "Base background for sections in this palette. The page background follows the page type and product background field.",
         "default": "#ffffff"
       },
       {
@@ -185,7 +186,8 @@
       {
         "type": "color",
         "id": "color_soda_background",
-        "label": "Page background",
+        "label": "Section background",
+        "info": "Base background for sections in this palette. The page background follows the page type and product background field.",
         "default": "#f7f3eb"
       },
       {
@@ -272,7 +274,8 @@
       {
         "type": "color",
         "id": "color_seltzer_background",
-        "label": "Page background",
+        "label": "Section background",
+        "info": "Base background for sections in this palette. The page background follows the page type and product background field.",
         "default": "#ffffff"
       },
       {

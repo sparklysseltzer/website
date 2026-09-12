@@ -2,7 +2,7 @@
 
 This directory documents every Liquid section in `sections/`. Keep implementation details here; keep cross-cutting rules in [Architecture](../architecture.md), commerce requirements in [Commerce](../commerce.md), and capability state in [Status](../status.md).
 
-Last reconciled with the repository: 2026-09-06. The tables below cover all 29 Liquid sections; variants and presets do not count as separate sections.
+Last reconciled with the repository: 2026-09-06. The tables below cover all 30 Liquid sections; variants and presets do not count as separate sections.
 
 ## Shared contracts
 
@@ -20,6 +20,7 @@ All sections follow the [design system](../design-system.md), [asset-delivery ru
 
 | Section | Add-section category | Role |
 | --- | --- | --- |
+| [Page intro](page-intro.md) | Brand storytelling | Page-owned label, H1 and introduction with decorative Arc |
 | [Hero](hero.md) | Brand storytelling | Full-width heading, optional image, copy, and action |
 | [Rich text](rich-text.md) | Brand storytelling | Narrow editorial copy and optional action |
 | [Poster](poster.md) | Brand storytelling | Full-image editorial poster with overlaid content |

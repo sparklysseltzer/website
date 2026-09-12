@@ -1,0 +1,17 @@
+{% render 'section-visibility', section: section %}
+{% render 'page-intro', editorial: true %}
+
+{% schema %}
+{
+  "name": "Page intro",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    {"type": "paragraph", "content": "Uses the page title as the small label, Intro heading as the main heading, and Intro text as the introduction. Edit these fields on the page. If Intro heading is empty, the page title becomes the heading without a label. Use this instead of the Page section, not alongside it."},
+    {"type": "header", "content": "Visibility"},
+    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
+    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+  ],
+  "presets": [{ "name": "Page intro", "category": "Brand storytelling" }]
+}
+{% endschema %}

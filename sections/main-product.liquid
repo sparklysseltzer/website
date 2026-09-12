@@ -31,7 +31,7 @@
   endif
   assign form_id = 'ProductBuy-' | append: section.id
 -%}
-<section class="pdp-section" data-color-world="{{ brand }}" {% if product.metafields.custom.soda_background_color.value != blank %}style="--pdp-background: {{ product.metafields.custom.soda_background_color.value }};"{% endif %}>
+<section class="pdp-section" data-color-world="{{ brand }}">
   <product-detail class="pdp" data-section="{{ section.id }}" data-url="{{ product.url }}" data-currency="{{ cart.currency.iso_code }}" data-locale="{{ request.locale.iso_code }}" data-add-label="{{ 'products.product.add_to_cart' | t }}" data-sold-label="{{ 'products.product.sold_out' | t }}" data-savings-label="{{ 'products.pdp.save_percent' | t: percent: '[percent]' }}" data-charge-label="{{ 'products.pdp.checkout_charge' | t: amount: '[amount]' }}" data-balance-label="{{ 'products.pdp.remaining_balance' | t: amount: '[amount]' }}">
     <div class="pdp-details">
     <header class="pdp-identity">

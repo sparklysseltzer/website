@@ -66,7 +66,7 @@ The existing Product Overview flavor lockups are an intentional exception: their
 - `--color-editorial-heading` and `--color-editorial-muted` provide black and the shared brown supporting-copy color (`#786e5b`).
 - Intentional variant colors stay scoped: Versus uses cream cards/brown facts for Soda and white cards/gray facts for Hard Seltzer. Green identifies the highlighted Sparklys facts, not all Sparklys text.
 - `--page-width` is the shared 120rem/1920px outer-frame limit. `--page-gutter` is 1rem below 768px and 2rem from 768px.
-- `.section` and its compatibility alias `.section--tight` share `clamp(2rem, 5vw, 4rem)` vertical padding (32–64px per side at the usual root). Do not introduce a looser default section gap.
+- `.section` and its compatibility alias `.section--tight` share `--section-padding-block: clamp(2rem, 5vw, 4rem)` vertical padding (32–64px per side at the usual root). Do not introduce a looser default section gap.
 - `--radius-small` and `--radius-large` map the global radius settings. Defaults are 1rem/16px for compact panels and 1.875rem/30px for editorial panels, generic cards, and collection/product media. Pills, circles, controls, and special header geometry retain purpose-specific radii.
 - Shared interface colors are editable in **Theme settings → Colors — Shared / General Sparklys / Soda / Hard Seltzer** and emitted once by `layout/theme.liquid`. Section-specific color overrides and product artwork retain their own colors.
 - `--page-grain-opacity` maps the global grain setting. Its schema default is 30%; saved merchant settings can differ. One document-attached `.page-grain` layer repeats `noise-3.webp` at Retina density and scrolls with the content. Judge grain in standalone preview, not the potentially scaled/overlaid Theme Editor canvas; see [Preview workflow](development.md#preview-workflow).
@@ -176,7 +176,7 @@ Completion meters use the existing global `--color-accent` for their fill and `-
 
 Theme settings groups colors by ownership:
 
-- **Colors — Shared**: accent, hover surfaces and success/error text/background pairs.
+- **Colors — Shared**: primary and second accents, hover surfaces and success/error text/background pairs.
 - **Colors — General Sparklys**: neutral shared-page palette, including the cart.
 - **Colors — Soda**: beige/cream surfaces and warm supporting/notice text.
 - **Colors — Hard Seltzer**: white/gray surfaces and neutral supporting/notice text.
@@ -184,6 +184,8 @@ Theme settings groups colors by ownership:
 Each world exposes Backgrounds, Text colors and Notice colors. The world roles are page background, surface, muted surface, supporting surface, dark surface, primary text, inverse text, secondary text, muted text, notice text and notice surface. Keep foreground/background pairs legible when editing. The shared accent continues to drive shipping progress and focus. General and Hard Seltzer notice text defaults to `#9e9e9d` (RGB 158, 158, 157). Soda preserves the merchant's saved `#D1CAB6` notice color; fresh installs retain its warm default. General and Hard Seltzer default to neutral white/gray backgrounds; Soda retains the beige page and cream supporting surface.
 
 `snippets/color-palettes.liquid`, included in the layout's style block, emits saved palette values and binds them to semantic `--color-*` roles. Existing `brand-context` resolution sets `data-color-world` on the document: `default` maps to General, with Soda/Seltzer following the real page/product/collection context. No session or client-side world inference is needed. The theme-color metadata follows the same page background.
+
+The second accent (`color_accent_secondary` / `--color-accent-secondary`) defaults to `#FF6600` across all worlds. Its current scope is the header cart-count circle and crossed-out original prices in product cards, the PDP (including subscription comparisons), and both cart surfaces. Original prices use full opacity so the token stays consistent. Primary accent continues to own focus, shipping progress, savings badges and other existing uses. Saved editor settings are not migrated by adding this default.
 
 Explicit Soda sections (Ingredients, 3 Reasons, Soda Versus, Subscription, USP and product-overview cards) select Soda even on General pages. Explicit Hard Seltzer counterparts select Hard Seltzer. Unclassified sections inherit the page. `.cart-page` and `.cart-drawer` explicitly bind General in every world. Header and footer inherit page context. New world-specific sections must declare `data-color-world="soda"` or `"seltzer"`, or be added to the central selector map; shared sections should inherit.
 
@@ -284,3 +286,25 @@ Warning toasts use the unmodified Untitled UI Line `alert-triangle.svg` from the
 The PDP reuses Display/Section/Compact/Body/Small roles and shared form, choice, quantity and button primitives. Known Hard Seltzer flavour headings are existing SVG artwork with an accessible HTML title; this is an artwork exception, not another text-size role. Standalone Newake titles retain their shared rhythm; adjacent UI uses Maison Neue and needs no Newake optical correction.
 
 Product frequency fields and benefit disclosures animate measured heights and opacity, resume from the current painted state on reversal, and retain native controls when JavaScript is absent. Price labels crossfade only when their text changes; authoritative values and form submission update immediately. Badge rotation has a pause toggle, visibility suspension and reduced-motion stop.
+
+## Responsive section visibility
+
+Section visibility uses the shared [768px visibility contract](sections/README.md#breakpoint-visibility). Hiding removes the complete Shopify wrapper from layout and focus navigation. Breakpoint changes are immediate to avoid ghost content and delayed input availability; internal reveal and interaction motion remain governed by the existing framework. Theme Editor placeholders use shared body, small-text and muted-surface roles.
+
+## Page introductions
+
+Plain page and native policy H1s, plus editorial Page intro H1s, select the shared Display role. Intro paragraphs use Body with compact leading; long-form page/policy copy uses Body with reading leading. All inherit the established page brand heading family, weight and line height. Decorative Arc artwork uses the exact Figma SVG; no artwork text is substituted for the accessible H1. See [Page intro](sections/page-intro.md).
+
+### Content-to-footer spacing
+
+`#MainContent` adds bottom padding using the shared `--section-padding-block` role (32–64px), so every page has a consistent buffer before the footer even when its final section has no outer spacing. This belongs to the page content and uses its background. Existing section padding remains internal to each composition; footer padding remains internal to the footer. No responsive visibility, motion, semantics or commerce behavior changes.
+
+## Page background ownership — 2026-09-12
+
+The document background is separate from brand section palettes. `layout/theme.liquid` resolves one `--color-page-background` and the matching `theme-color` metadata server-side:
+
+- Default, including ordinary pages, policies, cart, search and Soda collections: `#F2F0E9`.
+- Homepage and Hard Seltzer collection context: `#FFFFFF`.
+- Every product page: existing `custom.soda_background_color`, falling back to `#FFFFFF` regardless of product world.
+
+The root canvas and PDP section consume this same role. Transparent content and the main-content bottom buffer reveal it, so product colors extend beyond the top section. Existing palette background setting IDs/values remain intact, now labeled **Section background** to clarify their scope. Explicit section/card backgrounds, gallery gradients and intentional surfaces retain their own colors. This supersedes previous statements that brand palette background settings control the page canvas. No new metafield or saved-setting migration is needed.

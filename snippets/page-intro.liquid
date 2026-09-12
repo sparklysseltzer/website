@@ -1,0 +1,33 @@
+{%- comment -%}Shared page header. Editorial mode reads the optional custom H1; plain mode always uses the page title.{%- endcomment -%}
+{%- liquid
+  assign heading = page.title
+  assign eyebrow = blank
+  if editorial and page.metafields.custom.intro_heading.value != blank
+    assign heading = page.metafields.custom.intro_heading.value
+    assign eyebrow = page.title
+  endif
+  assign intro = page.metafields.custom.intro_text.value
+-%}
+<header class="page-intro{% if editorial %} page-intro--editorial{% else %} page-intro--plain{% endif %}">
+  {%- if editorial -%}
+    <img class="page-intro__art" src="{{ 'page-intro-arc.svg' | asset_url }}" width="1200" height="279" alt="" aria-hidden="true">
+  {%- endif -%}
+  <div class="page-intro__content">
+    {%- if eyebrow != blank -%}<p class="page-intro__label">{{ eyebrow | escape }}</p>{%- endif -%}
+    <h1 class="page-intro__heading">{{ heading | escape | newline_to_br }}</h1>
+    {%- if intro != blank -%}<p class="page-intro__text">{{ intro | escape | newline_to_br }}</p>{%- endif -%}
+  </div>
+</header>
+{%- unless section.settings.hide_on_mobile and section.settings.hide_on_desktop -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": {{ canonical_url | append: '#webpage' | json | replace: '<', '\u003c' }},
+      "url": {{ canonical_url | json | replace: '<', '\u003c' }},
+      "name": {{ heading | json | replace: '<', '\u003c' }},
+      "inLanguage": {{ request.locale.iso_code | json | replace: '<', '\u003c' }}{% if intro != blank %},
+      "description": {{ intro | json | replace: '<', '\u003c' }}{% endif %}
+    }
+  </script>
+{%- endunless -%}

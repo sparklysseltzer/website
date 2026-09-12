@@ -1,4 +1,4 @@
-.pdp-section { background: var(--pdp-background, var(--color-background)); padding: 2.5rem var(--page-gutter) 4rem; }
+.pdp-section { background: var(--color-page-background); padding: 2.5rem var(--page-gutter) 4rem; }
 .pdp { display: grid; max-width: 75rem; margin: auto; grid-template-columns: minmax(0, 1.19fr) minmax(0, 1fr); grid-template-rows: auto auto 1fr; gap: 1.25rem 3.75rem; align-items: start; }
 .pdp > * { min-width: 0; }
 .pdp-identity { grid-column: 2; grid-row: 1; }
