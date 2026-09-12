@@ -61,3 +61,7 @@ Colors now follow the [brand-world palette contract](../design-system.md#theme-c
 `snippets/usp-items.liquid`, `usp-icon.liquid`, `usp-footnote.liquid` and `assets/product-usps.css` own shared rendering. Stable seeded handles select the original vector icon layers when an icon override is blank. Unchanged English seed captions use theme EN/DE translations; edited or Shopify-translated entry captions win. Empty footnotes use the approved localized Soda folate / Hard Seltzer calorie statements. A populated footnote wins and must be translated in Shopify.
 
 For different artwork on products sharing one template, keep the section image blank and fill each product’s `custom.usp_image`. No duplicated template or section placement is needed. Explicit section images remain intentional template-wide overrides. The new image definition exists; product-specific images remain merchant content.
+
+## Breakpoint visibility
+
+Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.

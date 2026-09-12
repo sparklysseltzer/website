@@ -1,3 +1,4 @@
+{% render 'section-visibility', section: section %}
 <section class="section page-width rich-text stack">
   <p class="hero__eyebrow">404</p>
   <h1 class="page-title">{{ 'general.404.title' | t }}</h1>
@@ -8,6 +9,10 @@
 {% schema %}
 {
   "name": "404",
-  "settings": []
+  "settings": [
+    {"type": "header", "content": "Visibility"},
+    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
+    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+  ]
 }
 {% endschema %}

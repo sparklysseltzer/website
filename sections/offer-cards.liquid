@@ -1,3 +1,4 @@
+{% render 'section-visibility', section: section %}
 {%- liquid
   assign use_global_content = false
   assign offer_heading = section.settings.heading
@@ -427,7 +428,10 @@
       "label": "Introduction",
       "default": "<p>Mit unseren zwei Produkten Sparklys Soda und Sparklys Hard Seltzer decken wir eine breite Palette an Einsatzmöglichkeiten ab. Ob in Kantinen mit Sparklys Soda, an Events mit Sparklys Hard Seltzer oder im Detailhandel im Regal: Sparklys passt in unterschiedlichste Verkaufssituationen.</p>",
       "visible_if": "{{ section.settings.content_source == 'local' }}"
-    }
+    },
+    {"type": "header", "content": "Visibility"},
+    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
+    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
   ],
   "blocks": [
     {

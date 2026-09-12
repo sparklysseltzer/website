@@ -9,3 +9,7 @@ The section renders every storefront collection except `frontpage`. Each card us
 ## Typography roles
 
 Hero-size page title; card-size collection headings; body counts.
+
+## Breakpoint visibility
+
+Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.

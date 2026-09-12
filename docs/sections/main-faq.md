@@ -40,3 +40,7 @@ The current full-page layout intentionally shares the reusable FAQ visual langua
 ## Typography roles
 
 Section heading in the decorated FAQ composition; compact questions; body answers with reading line height; UI search and filter controls.
+
+## Breakpoint visibility
+
+Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.

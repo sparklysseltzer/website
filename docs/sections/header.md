@@ -57,3 +57,7 @@ Home icon selection (2026-09-08): the current icon is the unmodified Untitled UI
 Tab animation clipping (2026-09-08): the brands row clips to the black bar vertically with `clip-path: inset(0 -1rem)`, allowing 16px of horizontal gutter for the home target and tab joins. Do not remove the vertical clipping when changing home spacing: inactive tab joins translate below the bar during entry/exit and would otherwise leak into the white header. This supersedes the earlier unrestricted-overflow note.
 
 Cart-count badges use the global accent surface with a 2px inverse-text (white) ring to remain distinct when the cart action is hovered.
+
+## Breakpoint visibility
+
+Essential-function exception: this section stays available at every breakpoint and does not expose hide controls. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.

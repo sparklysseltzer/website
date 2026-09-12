@@ -35,3 +35,7 @@ The reusable selected list is capped at 20 entries to keep the section editorial
 ## Typography roles
 
 Section heading; compact questions; body answers with reading line height; body closing copy.
+
+## Breakpoint visibility
+
+Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.

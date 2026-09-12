@@ -55,3 +55,15 @@ All sections follow the [design system](../design-system.md), [asset-delivery ru
 ## Maintenance rule
 
 When a section's schema, rendering contract, fallback assets, motion, data source, or known limitation changes, update its file in the same change. Do not put detailed section behavior back into `architecture.md` or duplicate capability claims across several root documents.
+
+## Breakpoint visibility
+
+Every non-essential section exposes **Visibility → Hide on mobile / Hide on desktop**, both defaulting to false. Mobile is `width < 768px`; desktop includes tablets at `width >= 768px`, with no fractional-width gap. Both enabled hides the section everywhere. Existing saved JSON is unchanged.
+
+`snippets/section-visibility.liquid` owns both media queries and targets Shopify's outer section wrapper. Storefront hiding uses CSS `display: none`, leaving no layout gap, focusable descendants or accessibility-tree content, including without JavaScript. Viewport changes apply immediately rather than animating responsive layout disappearance. Normal section motion remains unchanged. CSS hiding is presentation only: it does not prevent Liquid rendering, asset downloads, app activity or provide access control.
+
+In the Theme Editor, a hidden section's children are replaced visually by an English administrative placeholder at the affected width. Its wrapper and sidebar entry remain selectable; switch off the relevant setting to edit the full content. This deliberately identifies a configured hidden section rather than presenting it as storefront content. No editor JavaScript is needed, including after section reloads.
+
+Essential-function exceptions: Header, Main product, Main cart and Cart drawer do not expose these settings, preserving navigation, purchase forms and the shared modal/age-check host. All other current sections, including the footer and resource content sections, use the same contract. Future sections must adopt the controls and renderer unless an essential-function exception is documented here.
+
+FAQ sections suppress their JSON-LD when both hide settings are enabled; with one enabled, their content remains accessible at the other viewport. No new structured-data entity is introduced by visibility controls. Hidden duplicate editorial copies should not carry independent conflicting content.

@@ -1,3 +1,4 @@
+{% render 'section-visibility', section: section %}
 {{ 'component-faq.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
@@ -103,10 +104,10 @@
   </faq-section-motion>
 {%- endif -%}
 
-{% render 'faq-structured-data',
+{% unless section.settings.hide_on_mobile and section.settings.hide_on_desktop %}{% render 'faq-structured-data',
   faq_items: category_faq_items,
   additional_faq_items: selected_faq_items
-%}
+%}{% endunless %}
 
 {% schema %}
 {
@@ -166,7 +167,10 @@
       "id": "footer_link",
       "label": "Link",
       "visible_if": "{{ section.settings.show_footer }}"
-    }
+    },
+    {"type": "header", "content": "Visibility"},
+    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
+    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
   ],
   "presets": [
     {

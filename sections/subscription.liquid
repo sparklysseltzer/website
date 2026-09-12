@@ -1,3 +1,4 @@
+{% render 'section-visibility', section: section %}
 {%- liquid
   capture page_context
     render 'brand-context', soda_collection: collections['soda'], seltzer_collection: collections['hard-seltzer']
@@ -225,7 +226,10 @@
     { "type": "url", "id": "account_link", "label": "Sign-in link", "info": "Defaults to Shopify account login. Select your subscription portal if it uses a different URL.", "visible_if": "{{ section.settings.show_account }}" },
     { "type": "header", "content": "Size" },
     { "type": "range", "id": "minimum_height", "label": "Desktop minimum height", "min": 420, "max": 900, "step": 10, "unit": "px", "default": 630 },
-    { "type": "range", "id": "minimum_height_mobile", "label": "Mobile minimum height", "min": 420, "max": 900, "step": 10, "unit": "px", "default": 680 }
+    { "type": "range", "id": "minimum_height_mobile", "label": "Mobile minimum height", "min": 420, "max": 900, "step": 10, "unit": "px", "default": 680 },
+    {"type": "header", "content": "Visibility"},
+    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
+    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
   ],
   "blocks": [{ "type": "benefit", "name": "Benefit", "settings": [
     { "type": "select", "id": "default_content", "label": "Default benefit", "default": "none", "options": [{ "value": "none", "label": "Custom text only" }, { "value": "discount", "label": "Subscription discount" }, { "value": "shipping", "label": "Shipping" }, { "value": "flexibility", "label": "Flexibility" }] },

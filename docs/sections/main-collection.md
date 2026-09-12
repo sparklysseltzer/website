@@ -22,3 +22,7 @@ Sorting, filtering, active-filter state, merchandising badges, quick add, and ri
 ## Typography roles
 
 Hero-size page title; body description; compact product-card names.
+
+## Breakpoint visibility
+
+Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.

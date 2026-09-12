@@ -24,3 +24,7 @@ There is no heading-level, alignment, width, color, or spacing control. Add thos
 ## Typography roles
 
 Section heading; body reading copy; small eyebrow; UI actions.
+
+## Breakpoint visibility
+
+Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.

@@ -19,3 +19,7 @@ Tag filtering, featured articles, author display, reading time, search, and rich
 ## Typography roles
 
 Hero-size page title; card-size article headings; body excerpts.
+
+## Breakpoint visibility
+
+Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.

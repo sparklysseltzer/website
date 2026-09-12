@@ -9,3 +9,7 @@ The section renders localized 404 eyebrow, title, explanation, and a primary lin
 ## Typography roles
 
 Hero-size title; body explanation; small eyebrow; UI action.
+
+## Breakpoint visibility
+
+Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.

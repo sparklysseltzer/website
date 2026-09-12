@@ -9,3 +9,7 @@ The section renders the Shopify Page title as the only `h1` and outputs `page.co
 ## Typography roles
 
 Hero-size page title; body reading copy; shared semantic heading roles inside rich text.
+
+## Breakpoint visibility
+
+Existing Hide on mobile / Hide on desktop settings and IDs are preserved. See the shared visibility contract in README. Keep one visible H1 at both breakpoints. Both-hidden configurations suppress this section's WebPage JSON-LD.

@@ -1,3 +1,4 @@
+{% render 'section-visibility', section: section %}
 {%- liquid
   assign current_year = 'now' | date: '%Y'
   assign footer_menu = section.settings.menu
@@ -244,7 +245,10 @@
       "type": "link_list",
       "id": "legal_menu",
       "label": "Legal navigation"
-    }
+    },
+    {"type": "header", "content": "Visibility"},
+    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
+    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
   ]
 }
 {% endschema %}

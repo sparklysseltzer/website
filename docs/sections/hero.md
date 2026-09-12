@@ -26,3 +26,7 @@ Image alternative text comes from the selected Shopify image. The overlay is dec
 ## Typography roles
 
 Hero heading; body copy; small eyebrow; UI actions.
+
+## Breakpoint visibility
+
+Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.

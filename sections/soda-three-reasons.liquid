@@ -1,3 +1,4 @@
+{% render 'section-visibility', section: section %}
 {%- liquid
   assign heading = section.settings.heading
   if heading == blank
@@ -110,7 +111,10 @@
     { "type": "textarea", "id": "intro", "label": "Introduction" },
     { "type": "text", "id": "link_label", "label": "Link label" },
     { "type": "url", "id": "link", "label": "Link" },
-    { "type": "textarea", "id": "footnote", "label": "Footnote" }
+    { "type": "textarea", "id": "footnote", "label": "Footnote" },
+    {"type": "header", "content": "Visibility"},
+    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
+    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
   ],
   "blocks": [
     {

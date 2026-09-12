@@ -54,3 +54,7 @@ Colors now follow the [brand-world palette contract](../design-system.md#theme-c
 ## Ananotes correction — single-line Seltzer heading
 
 The Hard Seltzer heading uses its natural content width and no wrapping, so “Subscription” extends beyond the narrower body-copy column on desktop. On phones its inline margins reclaim 14px of the existing panel padding on each side, keeping the 44px shared display role inside the panel at 320px. No font size or line-height exception is introduced. The Soda heading is unchanged. Longer merchant-supplied Seltzer headings must be checked against the available panel width because this heading intentionally stays on one line.
+
+## Breakpoint visibility
+
+Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.

@@ -23,3 +23,7 @@ The section inherits the basic shared product card and grid. It does not provide
 ## Typography roles
 
 Section heading; compact product-card names; body prices; UI actions.
+
+## Breakpoint visibility
+
+Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.

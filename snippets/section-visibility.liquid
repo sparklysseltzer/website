@@ -1,0 +1,25 @@
+{% comment %}Shared viewport contract: phones below 768px; tablets and desktop at 768px and above.{% endcomment %}
+{%- if section.settings.hide_on_mobile or section.settings.hide_on_desktop -%}
+  {%- capture hidden_section_rules -%}
+    {%- if request.design_mode -%}
+      #shopify-section-{{ section.id }} { display: block !important; padding: 1rem; margin: 0; }
+      #shopify-section-{{ section.id }} > * { display: none !important; }
+      #shopify-section-{{ section.id }}::before {
+        content: "Hidden on this screen size — select this section to change Visibility";
+        display: block; padding: 1rem; border: 1px dashed currentColor;
+        font-family: var(--font-body); font-size: var(--font-size-small); line-height: var(--line-height-body);
+        color: var(--color-text); background: var(--color-surface-muted);
+      }
+    {%- else -%}
+      #shopify-section-{{ section.id }} { display: none !important; }
+    {%- endif -%}
+  {%- endcapture -%}
+  {% style %}
+    {%- if section.settings.hide_on_mobile %}
+      @media (width < 768px) { {{ hidden_section_rules }} }
+    {% endif -%}
+    {%- if section.settings.hide_on_desktop %}
+      @media (width >= 768px) { {{ hidden_section_rules }} }
+    {% endif -%}
+  {% endstyle %}
+{%- endif -%}

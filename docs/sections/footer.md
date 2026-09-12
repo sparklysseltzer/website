@@ -48,3 +48,7 @@ Notifications (2026-09-08): Enhanced newsletter success and server-error feedbac
 Shared control refinement (2026-09-09): buttons use the global 3px control outline; cart quantity capsules share it. Normal field/select values explicitly use the regular body face and weight 400, including newsletter and product controls. Labels, button emphasis, field geometry and document artwork typography remain governed by their existing contracts.
 
 Payment marks (2026-09-11): `snippets/payment-icons.liquid` now owns the existing eight SVG marks for both footer and PDP. Change this renderer once to update both. The set remains editorial artwork rather than a verified dynamic gateway inventory.
+
+## Breakpoint visibility
+
+Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.
