@@ -116,7 +116,7 @@ Schema.org supplies the entity vocabulary and property meanings. JSON-LD is the 
 
 ## Localization
 
-English is the source language and default locale in `locales/en.default.json`; German is the required translation in `locales/de.json`. Reusable customer-facing UI belongs in locale JSON and is rendered with the `t` filter. Merchant-entered resource and section content is translated through Shopify. French and Italian remain future candidates and must not be claimed as enabled.
+English is the source language and default locale in `locales/en.default.json`; German is the required translation in `locales/de.json`. Reusable customer-facing UI belongs in locale JSON and is rendered with the `t` filter. Merchant-entered resource and section content is translated through Shopify using its actual primary content language (currently German), independently of the English theme source locale. See [language ownership](merchant-content.md#language-ownership). French and Italian remain future candidates and must not be claimed as enabled.
 
 ## Layout and visual tokens
 
@@ -168,3 +168,7 @@ Use custom elements to scope behavior, native browser APIs instead of broad depe
 The architecture anticipates, but does not yet claim, support for app blocks, selling plans, localization controls, product recommendations, predictive search, structured product data, analytics/consent integration, and further cart integrations. Each capability requires an end-to-end contract across every affected surface before it is marked supported.
 
 Shared UI colors are merchant-editable through Shared, General Sparklys, Soda and Hard Seltzer color groups. The existing brand-context resolver selects the document palette, explicit world sections select their own palette, and carts use General. The layout emits the [semantic color roles](design-system.md#theme-color-settings), with artwork and section-override exceptions.
+
+### Page canvas
+
+Page background is resolved centrally in `layout/theme.liquid`, independently of brand heading/menu context and section palette surfaces. The default is `#F2F0E9`; homepage and Hard Seltzer collections use white. Products use existing `custom.soda_background_color` or white when empty. Root canvas, PDP background and browser theme-color agree. See the design-system page-background contract.

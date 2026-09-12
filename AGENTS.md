@@ -39,7 +39,7 @@ Temporary action notifications must use the shared toast service and `docs/desig
 ## Product and language
 
 - This repository is the custom native Shopify Online Store 2.0 theme for Sparklys Switzerland.
-- English is the source language and default theme locale. German is a required storefront translation. French and Italian are likely additions for the Swiss market. Put reusable customer-facing UI in locale files rather than hardcoding it in Liquid.
+- English is the source language and default theme locale. This does not set Shopify’s primary content language: merchant-owned product, collection, page, section and metaobject source values follow the store’s actual primary language (currently German), with English registered through Shopify translations. Keep technical definition names and field labels English. Never replace populated merchant text by matching starter strings in Liquid; see `docs/merchant-content.md#language-ownership`. German is a required storefront translation. French and Italian are likely additions for the Swiss market. Put reusable customer-facing UI in locale files rather than hardcoding it in Liquid.
 - Always author code, identifiers, comments, tests, commits, technical documentation, Shopify definition names and field labels, Theme Editor schema names/labels/help text, and other administrative interfaces in English. Author reusable storefront UI in English in `locales/en.default.json`, then translate it in `locales/de.json` and later locale files. Never use German as the source for technical, administrative, or reusable theme content.
 - Do not reintroduce Webflow/Udesly, Hydrogen, a commercial theme, or another frontend framework without an explicit architecture decision.
 - Do not invent product claims, ingredients, legal copy, subscription terms, shipping rules, discounts, or market behavior.
@@ -56,6 +56,14 @@ Temporary action notifications must use the shared toast service and `docs/desig
 - Preserve semantic HTML, keyboard navigation, visible focus, reduced-motion support, descriptive labels, and 44 by 44 pixel primary touch targets.
 - Do not claim support for a commerce feature until all required surfaces are implemented. Subscriptions, discounts, selling plans, app blocks, localization controls, and structured data each require deliberate end-to-end work.
 - Treat structured data as part of every entity-like content feature, not as optional follow-up SEO work. Whenever implementing or materially changing products, offers, FAQs, articles/news, events, organizations, recipes, reviews, or another typed content model, implement and validate the applicable Schema.org vocabulary as server-rendered JSON-LD in the same change. The JSON-LD must describe only content that visitors can access on that page, use real Shopify data, avoid duplicate entities, and never invent required values. If no applicable Schema.org type or honest mapping exists, document that decision explicitly instead of emitting misleading markup.
+
+## Hard rule: Shopify store-data tool choice
+
+- Use the Shopify Admin GraphQL API or a supported Shopify CLI command whenever updating store data: metaobjects, definitions, metafields, products, collections, menus, translations, and other administrative records or settings. Prefer repeatable API-backed scripts for bulk changes.
+- Check available authenticated API/CLI capabilities and required permissions first. Theme CLI authentication does not imply Admin API access. Do not choose computer use merely because the Admin browser is already signed in or more convenient.
+- Computer use (including browser automation) is a fallback only when the required operation cannot be completed through the available API/CLI route. **Before using that fallback, tell the user which operation requires it, why API/CLI cannot perform it, and what browser action you will take.** Never silently switch to computer use for store-data maintenance.
+- This advance notice is not a new approval requirement for work already authorized. Existing store-write, publishing, live-theme, credential and editorial-content protections still apply. Visual storefront verification remains a separate browser task and follows the browser-cleanup rules.
+- See `docs/development.md#store-data-maintenance-tool-choice` for the workflow.
 
 ## Remote safety
 

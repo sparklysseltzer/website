@@ -72,7 +72,7 @@ A later `store_location` definition should reference one `merchant` entry and ow
 
 ## Provisioning boundary
 
-This repository is a theme and cannot version merchant-owned definitions as theme files. Merchant-owned definitions are created through the Shopify Admin GraphQL API or deliberately configured in Shopify Admin; creating them is a store-level change and requires separate approval. Do not put Admin API credentials in this repository. The `merchant` and `merchant_collection` definitions were provisioned on `sparklys-hard-seltzer.myshopify.com` on 2026-08-23; their entries remain merchant-managed store data. FAQ provisioning status is recorded above and in [Implementation status](status.md).
+This repository is a theme and cannot version merchant-owned definitions as theme files. Merchant-owned definitions are created through the Shopify Admin GraphQL API or a supported CLI operation; creating them is a store-level change and requires separate approval. Computer use is permitted only when the API/CLI route is not possible, and the user must be told the reason and intended browser action first. Follow the hard [store-data tool-choice rule](development.md#store-data-maintenance-tool-choice). Do not put Admin API credentials in this repository. The `merchant` and `merchant_collection` definitions were provisioned on `sparklys-hard-seltzer.myshopify.com` on 2026-08-23; their entries remain merchant-managed store data. FAQ provisioning status is recorded above and in [Implementation status](status.md).
 
 After the definitions exist:
 
@@ -92,15 +92,43 @@ Content ownership is deliberately small:
 | Product | Existing background/gradient, media, `gallery_image_1…3`; new `custom.usp_image` | Product gallery/marketing and that product’s Automatic USP section |
 | Canonical brand collection | `custom.usp_set` and ordered `custom.flavour_products` | Every product in the brand and Automatic USP sections |
 | Content → Metaobjects → USP item / USP set | Reusable approved facts and shared footnote | The collection reference selects the set once |
-| Content → Metaobjects → Subscription benefits | Entry `standard`, seven heading/copy fields | Purchase summary and expanded subscription explanation |
+| Content → Metaobjects → Subscription benefits | Entry `standard`, seven heading/copy fields | Expanded subscription explanation; the compact purchase summary remains theme UI |
 | Existing theme shipping settings / shared payment renderer | Shipping values and payment marks | PDP, cart shipping values and footer payment marks |
 
 Created active, translatable, storefront-readable definitions `usp_item` (caption, optional icon), `usp_set` (name, ordered item references, optional rich-text footnote), and `subscription_benefits` (heading plus savings/shipping/flexibility title and text). Metaobject web-page publishing stays off; these are embedded content, not new indexable pages.
 
 Created five Soda entries (`soda-1…5`) and six Hard Seltzer entries (`seltzer-1…6`). The Hard Seltzer display order is 1, 2, 6, 3, 4, 5, with sugar after calories. Original SVG icons are the default for these stable handles; an uploaded Icon replaces the artwork. Soda and Hard Seltzer USP-set entries are assigned to their canonical collections. Flavour lists are Yuzu / Blueberry / Variety and Maracuja / Holunder / Variety. Trial packs and unrelated merchandise are intentionally absent from these cross-link lists; collection membership is unchanged.
 
-Unchanged English seed captions and subscription copy use the existing theme EN/DE translations automatically. Once a merchant customizes a source entry, maintain its translations through Shopify; actual translated values take precedence. Optional set footnotes likewise override the approved localized defaults and need their own translations. Renaming an entry handle changes its default-artwork lookup; keep seeded handles stable or upload an explicit icon.
+Populated captions and subscription fields render directly from Shopify in the active language. No starter-text matching or translation substitution is permitted. Empty subscription fields retain localized theme fallbacks; an absent USP set retains the approved default list. Optional set footnotes likewise override the approved localized defaults and need their own translations. Renaming an entry handle changes its default-artwork lookup; keep seeded handles stable or upload an explicit icon.
 
 The Product USP image definition is ready. Leave a placed section’s Image blank to use each product’s image, then the existing brand fallback; an explicit section image is a template-wide override. No second Soda template is required. Existing product gallery fields were reused without changing their definitions or values. Maracuja/Holunder have exact Figma marketing fallbacks where those fields remain empty.
 
 Subscription savings copy says **up to 15%**, while the selected allocation provides the actual price/discount. Shipping copy follows existing theme rules; the subscription-free-shipping promise awaits confirmation and matching checkout configuration. No shipping rules were changed.
+
+## Language ownership
+
+The theme source locale (`locales/en.default.json`) and Shopify’s primary merchant-content language are separate settings. The store currently uses **German** as its primary content language. An English string saved in a raw metaobject field is therefore still German source content in Translate & Adapt; Shopify does not detect or relocate it.
+
+- Keep code, documentation, schema labels, definition names and field labels English.
+- Write merchant-owned public resource/section/metaobject source values in the store’s actual primary language. Register English and later languages in Shopify translations, never in duplicate fields or duplicate objects.
+- Read populated content directly through localized Liquid objects. Never identify starter copy by text equality and substitute theme locale strings; that hides missing translations and overrides merchant intent.
+- Use theme locale fallbacks only for genuinely absent content. Short generic UI and the PDP compact subscription summary remain theme translations; long benefits and shared USP captions belong to their metaobjects.
+- Before provisioning/importing content, verify Settings → Languages, export or record affected values, preserve existing translations, references, handles and status, then save the primary-language source before secondary translations. Source edits can mark translations outdated; review them afterwards.
+- Verify German and English storefront output and Translate & Adapt together. A correct storefront alone does not prove the content records are translated.
+- Preserve intentionally English brand/design wording in German content (for example “Swiss made”). Do not translate names, handles, internal set labels or approved brand slogans merely because they look English.
+
+The 2026-09-12 audit found starter-text substitution only in `product-benefits.liquid` and `usp-items.liquid`; both have been removed. The subscription benefits and eleven USP captions are the affected records. Existing FAQ, offer and merchant renderers use their stored content directly. Shopify taxonomy-owned entries are outside this theme-content migration.
+
+References: [Translate & Adapt](https://help.shopify.com/en/manual/international/translate-adapt-app), [Translatable metaobjects](https://shopify.dev/docs/apps/build/metaobjects/use-metaobject-capabilities).
+
+Migration result (2026-09-12): corrected all seven `subscription_benefits/standard` source fields to their existing German theme copy and saved the original English copy as English translations. Registered English translations for all eleven `usp_item` captions; corrected the four differing German captions (Soda calories/sugar, Seltzer calories, gluten and sugar), preserving the intentionally English design captions. References, handles, icons and statuses were preserved. Reviewed the existing FAQ/category and offer lists: their public source copy is already German, while brand/internal names remain intentionally unchanged. This audit does not claim that every legacy resource has complete English translations.
+
+German remains the only published language. English is explicitly held until go-live by the merchant; French and Italian are also unpublished. No language, theme or country was published or enabled during this cleanup.
+
+## Page introductions — 2026-09-12
+
+Pages own two optional, pinned multi-line text metafields: **Intro heading** (`custom.intro_heading`) and **Intro text** (`custom.intro_text`). Definitions are provisioned in Shopify; theme installation alone does not create them. Existing Brand Variant was preserved. No page values were populated or existing translations changed.
+
+Default text pages use page title → H1, Intro text → introduction, and page body → reading content. Editorial pages use page title → small label, Intro heading → H1, and the same Intro text; blank custom headings fall back to the page title without a repeated label. Select/duplicate the `page.editorial` starter and arrange sections below Page intro. Following explicit approval, the development About and Retail templates now use Page intro in place of Main page; their other content and settings are preserved. Default and FAQ templates, page assignments and shared/live theme content are unchanged. Maintain copy on the Page, and translate through Translate & Adapt; do not duplicate it in section settings. Native policies remain in Settings → Policies. See [Page intro](sections/page-intro.md) and [Main page](sections/main-page.md).
+
+Provisioning used the documented browser fallback after checking the available connection: only theme CLI authentication was available, with no authenticated Admin API connector/token. The user was notified before the fallback. A reusable Admin GraphQL connection is still needed to avoid repeating this fallback for future store-data work. No credentials were created or stored.

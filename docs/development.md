@@ -2,7 +2,7 @@
 
 ## Language policy
 
-English is the source language and default theme locale. Always author code, identifiers, comments, tests, commits, technical documentation, Shopify definition names and field labels, Theme Editor schema names/labels/help text, and every other technical or administrative interface in English. Reusable storefront UI starts in `locales/en.default.json` and is translated into `locales/de.json`; never author German as the source. Merchant content follows the same source-first translation model when Shopify translation support is configured.
+English is the source language and default theme locale. Always author code, identifiers, comments, tests, commits, technical documentation, Shopify definition names and field labels, Theme Editor schema names/labels/help text, and every other technical or administrative interface in English. Reusable storefront UI starts in `locales/en.default.json` and is translated into `locales/de.json`; never author German as the source. Merchant content follows the store’s actual primary language, currently German, independently of the English theme source locale. Store German resource/metaobject values and register English through Translate & Adapt; see [Merchant content language ownership](merchant-content.md#language-ownership).
 
 ## Toolchain
 
@@ -180,6 +180,18 @@ npx shopify theme info
 ```
 
 Always target the store's permanent `.myshopify.com` domain, not its public custom domain or a guessed Shopify hostname. If normal browser authentication succeeds but the CLI reports that the account is not authorized for the provided store, verify the hostname first. For this project, the permanent domain is `sparklys-hard-seltzer.myshopify.com`.
+
+## Store-data maintenance tool choice
+
+**Hard rule, approved 2026-09-12:** maintain Shopify store data through the Admin GraphQL API or a supported Shopify CLI command. This includes metaobjects and their definitions, metafields, products, collections, menus, translations, and other administrative records/settings. Use API-backed scripts for repeatable or bulk operations; use theme CLI commands for their supported theme operations, not as an assumed general-purpose data API.
+
+1. Check the available authenticated API/CLI route and required scopes before choosing a tool. A working theme CLI login or signed-in Admin browser does not establish general Admin GraphQL access.
+2. Read current authoritative records. For bulk changes, prepare a concrete change preview and backup before applying the authorized update; preserve unrelated fields, existing translations, references and identities. Verify saved results through the API/CLI where possible.
+3. Use computer use/browser automation only when the operation is not possible through the available API/CLI route, such as an unsupported operation or unavailable required access. Convenience alone is not a reason.
+4. **Tell the user before the first fallback browser action:** identify the operation, the concrete API/CLI limitation, and the browser action you intend to perform. Do not silently fall back. Example: “The available API connection lacks translation-write access, so I’ll use Shopify Admin to save the approved English translations.”
+5. Advance notice does not require renewed permission for already-authorized work. Obtain approval only where the existing remote-safety rules require it; this tool-choice rule grants no new authority to publish, overwrite editorial content, or configure credentials.
+
+Browser-based visual verification remains appropriate and follows the headless/cleanup contract. This rule governs store-data maintenance, not the choice of tool for checking rendered storefront layout.
 
 ## Remote safety levels
 

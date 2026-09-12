@@ -22,14 +22,6 @@ Structured-data retrofit work is maintained in the separate [Structured-data tas
 - Status: Deferred for future work at Sandro's request; no expansion is being implemented now.
 - Added: 2026-09-09.
 
-### TASK-010 — Add breakpoint visibility controls to every section
-
-- Add consistent Theme Editor options to every section: **Hide on mobile** and **Hide on desktop**. Both default to off, preserving existing visibility and saved content.
-- Use shared breakpoint definitions and CSS visibility behavior across the section library; define tablet behavior explicitly with no gaps or overlapping ranges.
-- Hidden sections must not leave empty spacing or keyboard-focusable content. Ensure hidden sections remain discoverable and editable in the Theme Editor, and verify behavior without JavaScript.
-- Cover existing and future sections, document any necessary exceptions for essential storefront functionality, and update the shared section contract and owning documentation during implementation.
-- Status: Pending implementation approval; recording this task does not authorize implementation.
-- Added: 2026-09-07.
 
 ### TASK-009 — Validate demand before building back-in-stock notifications
 
@@ -79,6 +71,15 @@ Structured-data retrofit work is maintained in the separate [Structured-data tas
 None.
 
 ## Completed
+
+### TASK-010 — Add breakpoint visibility controls to every section
+
+- Add consistent Theme Editor options to every section: **Hide on mobile** and **Hide on desktop**. Both default to off, preserving existing visibility and saved content.
+- Use shared breakpoint definitions and CSS visibility behavior across the section library; define tablet behavior explicitly with no gaps or overlapping ranges.
+- Hidden sections must not leave empty spacing or keyboard-focusable content. Ensure hidden sections remain discoverable and editable in the Theme Editor, and verify behavior without JavaScript.
+- Cover existing and future sections, document any necessary exceptions for essential storefront functionality, and update the shared section contract and owning documentation during implementation.
+- Status: Completed locally on 2026-09-11. Shared CSS visibility covers 25 sections; Header, Main product, Main cart and Cart drawer are documented essential-function exceptions. Editor placeholders preserve selection.
+- Added: 2026-09-07.
 
 ### TASK-011 — Keep existing cart rows stable during quantity updates
 
@@ -138,3 +139,7 @@ None.
 ## Local age check — 2026-09-08
 
 MVP code implemented and enabled in local development fixtures; the 16 published products are classified. Shared-theme activation defaults off pending document-guide rollout review. Product metafield `custom.contains_alcohol` created. See [implementation](age-verification-plan.md) and [specific extensions](age-verification-extensions.md).
+
+## Next: authenticated Shopify Admin API connection
+
+Approved for the next step on 2026-09-12, after finishing page introductions: establish a reusable Admin GraphQL connection for store-data maintenance (including metafields, metaobjects and translations), with appropriate scopes and secure credential storage outside the repository. Do not assume theme CLI authentication grants Admin API access. Follow the store-data tool-choice rule in `docs/development.md`; do not create credentials as part of the page-layout implementation.
