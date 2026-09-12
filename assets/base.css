@@ -2047,7 +2047,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 .age-check__field input { font-family: Courier, "Courier New", monospace; width: 100%; min-width: 0; min-height: 2.75rem; padding: .625rem .5rem; border: 1px solid var(--color-notice-text); border-radius: var(--radius-compact); background: var(--color-surface); font-size: var(--font-size-ui); letter-spacing: .04em; scroll-margin-block: 3rem; }
 .age-check__field input::placeholder { color: var(--color-notice-text); }
 .age-check__field input[readonly] { background: var(--color-surface-muted); }
-.age-check__field input[aria-invalid="true"] { border-color: var(--color-error-text); }
+.age-check__field input[aria-invalid="true"] { border-color: var(--color-warning-text); --focus-field-border-color: var(--color-warning-text); }
 .age-document__year { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.25rem; border-top: 1px solid var(--color-notice-text); }
 .age-document__year .age-check__field { width: 10rem; flex-shrink: 0; }
 .age-check__guidance:has(.age-check__error:not(:empty)) { display: block; }
@@ -2197,8 +2197,8 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 
 /* Both panels share the normal canvas inset; the compact control floats above them. */
 .age-check__guidance { max-width: 37.5rem; margin-inline: auto; }
-.age-check__guidance .age-check__error:not(:empty) { display: flex; align-items: center; gap: .5rem; padding: .75rem; border-radius: var(--radius-compact); background: var(--color-error-surface); color: var(--color-error-text); }
-.age-check__guidance .age-check__error:not(:empty)::before { content: ''; flex: 0 0 1.25rem; height: 1.25rem; background: currentColor; mask: url('icon-alert-circle.svg') center / contain no-repeat; }
+.age-check__guidance .age-check__error:not(:empty) { display: flex; align-items: center; gap: .5rem; padding: .75rem; border-radius: var(--radius-compact); background: var(--color-warning-surface); color: var(--color-warning-text); }
+.age-check__guidance .age-check__error:not(:empty)::before { content: ''; flex: 0 0 1.25rem; height: 1.25rem; background: currentColor; mask: url('icon-alert-triangle.svg') center / contain no-repeat; }
 @media (max-width: 599px) { .age-document__help-panel, .age-check__guidance { max-width: 21.25rem; } }
 
 .cart-coupons { position: relative; }
@@ -2206,3 +2206,9 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 
 /* Field values use the regular body face; document artwork keeps its scoped Courier family. */
 input, select, textarea { font-family: var(--field-font-family); font-weight: var(--field-font-weight); }
+
+.age-check__field input { transition: background-color var(--motion-duration-fast) var(--motion-ease), border-color var(--motion-duration-fast) var(--motion-ease); }
+.age-check__field input[data-validation="warning"] { background: var(--color-warning-surface); color: var(--color-warning-text); }
+.age-check__field input[data-validation="valid"] { background: var(--color-success-surface); color: var(--color-success-text); border-color: var(--color-success-text); }
+
+@media (prefers-reduced-motion: reduce) { .age-check__field input { transition: none; } }

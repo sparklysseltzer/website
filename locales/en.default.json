@@ -505,7 +505,7 @@
     "help_image_alt": "Swiss ID example with five numbered highlights. The matching fields are listed below.",
     "title": "A quick age check",
     "close": "Close age check",
-    "intro": "Protecting young people matters to us. We only sell alcohol online to people aged {{ age }} or over. Your cart contains alcohol. Please confirm your age using your identity card or passport.",
+    "intro": "Your cart contains alcohol, and protecting young people matters to us! We therefore sell alcohol online only to people aged {{ age }} or older. Please confirm your age with your identity card or passport.",
     "document": "Choose your ID",
     "ch_id": "Switzerland — ID card",
     "ch_passport": "Switzerland — passport",
@@ -562,7 +562,8 @@
       "optional": "Copy all 15 characters, including < signs.",
       "tail": "Copy the complete final block, including < signs and check digits.",
       "underage": "The date entered does not meet the minimum age of {{ age }} for alcoholic products.",
-      "passportOptional": "Copy all 14 characters, including < signs."
+      "passportOptional": "Copy all 14 characters, including < signs.",
+      "incomplete": "Please complete this field exactly as shown on your document."
     },
     "version": "Which identity card do you have?",
     "version_current": "Current card · from 2024",

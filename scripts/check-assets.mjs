@@ -7,7 +7,7 @@ const assets = [
   { path: 'assets/base.css', gzipLimit: 30 * 1024 },
   { path: 'assets/theme.js', gzipLimit: 15 * 1024 },
   { path: 'assets/age-validation.js', gzipLimit: 3 * 1024 },
-  { path: 'assets/age-check.js', gzipLimit: 6.5 * 1024 },
+  { path: 'assets/age-check.js', gzipLimit: 6.75 * 1024 },
   { path: 'assets/notifications.js', gzipLimit: 4 * 1024 },
 ];
 

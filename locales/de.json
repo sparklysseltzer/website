@@ -505,7 +505,7 @@
     "help_image_alt": "Schweizer Identitätskarte mit fünf nummerierten Markierungen. Die zugehörigen Felder sind unten aufgelistet.",
     "title": "Kurz dein Alter prüfen",
     "close": "Altersprüfung schliessen",
-    "intro": "Der Jugendschutz ist uns wichtig! Deshalb verkaufen wir Alkohol online erst ab {{ age }} Jahren. Dein Warenkorb enthält Alkohol. Bitte bestätige dein Alter mit deiner Identitätskarte oder deinem Pass.",
+    "intro": "Dein Warenkorb enthält Alkohol und der Schutz unserer Jugend ist uns wichtig! Deshalb verkaufen wir Alkohol online erst ab {{ age }} Jahren. Bitte bestätige dein Alter mit deiner Identitätskarte oder deinem Pass.",
     "document": "Wähle deinen Ausweis",
     "ch_id": "Schweiz — Identitätskarte",
     "ch_passport": "Schweiz — Reisepass",
@@ -562,7 +562,8 @@
       "optional": "Übertrage alle 15 Zeichen, inklusive < Zeichen.",
       "tail": "Übertrage den ganzen letzten Block, inklusive < Zeichen und Prüfziffern.",
       "underage": "Das eingegebene Geburtsdatum erfüllt das Mindestalter von {{ age }} Jahren für alkoholische Produkte nicht.",
-      "passportOptional": "Übertrage alle 14 Zeichen, einschliesslich <."
+      "passportOptional": "Übertrage alle 14 Zeichen, einschliesslich <.",
+      "incomplete": "Bitte fülle dieses Feld genau wie auf deinem Dokument aus."
     },
     "version": "Welche Identitätskarte hast du?",
     "version_current": "Aktuelle Karte · ab 2024",

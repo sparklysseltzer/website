@@ -133,3 +133,18 @@ test('raising minimum age from 16 to 18 rejects a 17-year-old and the old rememb
   assert.equal(reusable(record, { age:18, context:'guest', version:'1' }, 500), false);
   assert.equal(reusable({ ...record, threshold:18 }, { age:18, context:'guest', version:'1' }, 500), true);
 });
+
+test('field feedback revalidates dependent check digits and calendar dates', () => {
+  const input = fixture('ch-id', '900101', '1990');
+  assert.equal(validation.fieldStates(input, 18, now).tail, true);
+  input.number = 'S1A00E78';
+  assert.equal(validation.fieldStates(input, 18, now).numberDigit, false);
+  assert.equal(validation.fieldStates(input, 18, now).tail, false);
+  input.birth = '900231' + digit('900231');
+  assert.equal(validation.fieldStates(input, 18, now).birth, false);
+});
+test('field feedback cannot turn an underage result into successful verification', () => {
+  const input = fixture();
+  assert.equal(validation.fieldStates(input, 18, now).birth, false);
+  assert.equal(validate(input, 18, now).error, 'underage');
+});
