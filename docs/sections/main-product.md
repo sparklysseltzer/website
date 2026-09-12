@@ -32,7 +32,7 @@ App blocks are supported deliberately through `@app` blocks. Accelerated checkou
 
 Shared duration/easing tokens govern gallery movement, price changes, description expansion, frequency-field expansion and the benefits disclosure. Reversed expansions start at their currently painted height/opacity. Hidden closing controls become inert until the transition completes; unchanged prices and selections do not replay motion. All controls retain shared keyboard focus and native form fallbacks.
 
-SVG badge text rotates over a stationary disc/symbol. It pauses offscreen, in hidden tabs, and for reduced motion; it makes one 4.8-second turn and stops automatically, so there is no separate pause button. The 5% artwork is restricted to the three audited Hard Seltzer products with alcohol explicitly true; future strengths require approved artwork/data. Decorative assets have empty alt text; the badge exposes one translated description.
+SVG badge text rotates over a stationary disc/symbol. It pauses offscreen, in hidden tabs, and for reduced motion; it loops every 40 seconds, with a keyboard-accessible pause toggle. The Soda text ring occupies 92% of the badge instead of 84%. The 5% artwork is restricted to the three audited Hard Seltzer products with alcohol explicitly true; future strengths require approved artwork/data. Decorative assets have empty alt text; the badge exposes one translated description.
 
 ## Structured data
 
@@ -65,3 +65,15 @@ Merchant translation correction (2026-09-12): populated subscription fields and 
 ## Heading font selection
 
 **Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).
+
+## Ananotes refinements — 2026-09-12
+
+Flavour prompts are omitted; purchase-group and delivery labels remain screen-reader-only. Choice prices have no extra top gap, and compact benefits use a 2px row gap. The plan dropdown omits the duplicated price; German plan names normalize the known Shopify wording to `Lieferung … (15% Rabatt)`, preserving unknown names and real plan data. The same Liquid formatter supplies native options and enhanced option data. Expanding the delivery control measures its rendered border box, not scroll overflow from the visually hidden native select; the native select also has no inherited minimum height/padding. Reversals retain the currently painted starting frame.
+
+The add-to-cart glyph uses the standard 20px inline size. No shopping-cart-plus component was returned by the connected Figma library search, so the existing library cart is retained. Shared payment artwork has a merchant-approved 5px corner treatment (an artwork exception to the general card radii).
+
+Verification: desktop subscription expansion sampled across 25 animation frames grew monotonically from 0 to 50px, with no overshoot. Phone layout has no horizontal overflow; keyboard radio and frequency selection preserves the selected selling-plan ID. Badge pause and reduced motion work. With JavaScript disabled the 48px native plan select remains visible, with the same formatted labels, and the pause control stays hidden. Subscription add-to-cart succeeded in an isolated test session.
+
+Subscription details (Ananotes, 2026-09-12): the delivery selector, plan terms and compact tick list share one collapsible group. Enhanced one-time purchase hides the whole group; subscription reveals it together. Height uses the rendered group size, with content fading in after expansion starts and fading out before collapse completes. Reversals start from the painted height/opacity, closing content is inert, and settled overflow is restored so the dropdown can open freely. Reduced motion settles immediately. Without JavaScript, the native selector and benefits remain visible.
+
+Verified at 1440px and 390px: collapsed benefits are absent, opening grows monotonically with a staged fade, interrupted closure/reopening preserves the exact painted height, keyboard frequency selection retains the selling-plan ID, and the open menu is not clipped. Reduced motion hides the group immediately; no-JavaScript rendering keeps both the native selector and tick list visible.

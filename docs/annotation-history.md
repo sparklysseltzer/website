@@ -134,3 +134,7 @@ Fixed the remaining help-card downward movement by removing the unequal panel to
 ## 2026-09-11 — PDP and age-check feedback
 
 Implemented notes 76–98 plus the Soda variety artwork note: compact subscription layout, inline price comparison, nested frequency selector, Figma tick/copy/artwork proportions, sticky purchase column, robust description cutoff, transparent payment marks, shipping formatting/link cleanup, header cart icon, removal of duplicate logos and pause control, hover/focus gallery arrows, and generic warning-to-success age fields without digit placeholders. Note 75 is partially addressed: shop-policy copy updated, broad age-16 legal clause omitted pending wording review. No shared-theme deployment or publishing.
+
+## 2026-09-12 — PDP and shared action refinements
+
+Resolved Ananotes 100–113 after local implementation and phone/desktop checks: delivery labels, badge sizing/continuous slow rotation with pause, hidden redundant prompts, compact purchase spacing, stable frequency expansion, faster bottom-up button sweep, payment artwork corners, smaller cart glyph, white active brand tab, and orange cart-removal hover. Keyboard, reduced motion, native no-JavaScript plan options and subscription add-to-cart were checked. Note 75 remains acknowledged with its previously documented age-wording review; its approved shop-policy sentence is already implemented. No shared-theme deployment or publishing.

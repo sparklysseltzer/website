@@ -61,3 +61,5 @@ Cart-count badges use the shared second accent (`--color-accent-secondary`, defa
 ## Breakpoint visibility
 
 Essential-function exception: this section stays available at every breakpoint and does not expose hide controls. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.
+
+The active brand tab and its concave joins use pure white, independently of merchant surface palettes (Ananotes 112). Inactive treatments remain brand-aware.

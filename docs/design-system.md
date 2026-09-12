@@ -212,7 +212,7 @@ Cart allocation micro-badges use the existing Badge typography role. Coupon remo
 
 Cart annotation follow-up (2026-09-07): subtotal and shipping supporting rows now use the General Primary text role, superseding the earlier Notice-text treatment. Savings retains Success text and struck-through original prices retain Notice text. Tag icons inside item allocation micro-badges scale to 1.2em (12px with the 10px Badge role); other tag icons retain the shared 1rem size.
 
-Shared button Bubble Sweep now uses a full-button overlay revealed by `clip-path: circle(0% at 0% 50%)` to `circle(150% at 0% 50%)`, replacing the fixed 336px circle. The final radius covers the complete button diagonal for wide, narrow and tall layouts. Existing entry/exit timing, colors, permanent border, blend labels, hover/focus and reduced-motion behavior remain shared.
+Shared button Bubble Sweep now uses a full-button overlay revealed by `clip-path: circle(0% at 50% 100%)` to `circle(120% at 50% 100%)`, replacing the fixed 336px circle. The final radius covers the complete button diagonal for wide, narrow and tall layouts. Entry/exit timing is 320ms/360ms. Colors, permanent border, blend labels, hover/focus and reduced-motion behavior remain shared.
 
 
 ## Newake optical alignment beside icons
@@ -327,5 +327,8 @@ Product overview teaser, Offer cards, USP (both variants), Subscription (both va
 
 Other editorial sections retain Erode-default heading selection, including rich-text headings. The exclusions are deliberate composition contracts, not an invitation to add broad competing `!important` rules.
 
+### Reviewed interaction refinements (2026-09-12)
+
+Pill buttons retain the difference-blend circle sweep, centered at the bottom edge and expanding upward: 320ms entry, 360ms exit. Hover and keyboard focus share the treatment; reduced motion retains the existing immediate-state fallback. Cart line removal uses the secondary accent on hover/focus, plus one short 320ms icon nudge for fine-pointer hover; no motion under reduced motion. Payment-brand artwork uses a 5px corner radius, explicitly approved as an artwork exception rather than a card-radius token.
 
 Footer navigation card titles are a fixed Newake composition. `.site-footer__card-heading` uses the shared Newake heading-choice mapping in every brand context, independently of editorial section font selection.

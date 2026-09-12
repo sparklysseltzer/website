@@ -50,7 +50,7 @@
 .pdp-purchase-options strong { font-family: var(--font-body-strong); }
 .pdp-purchase-options .form-choice { width: 100%; margin: 0; }
 .pdp-purchase-options .form-choice > span:nth-last-child(2) { min-width: 0; }
-.pdp-option-price { display: block; margin-top: .25rem; font-size: var(--font-size-small); }
+.pdp-option-price { display: block; margin-top: 0; font-size: var(--font-size-small); }
 .pdp-subscription-card { padding: .75rem; background: var(--color-surface); border: var(--control-outline-width) solid color-mix(in srgb, var(--color-foreground) 20%, transparent); border-radius: var(--radius-small); transition: border-color var(--motion-duration-fast); }
 .pdp-subscription-card:has(input:checked) { border-color: var(--color-foreground); }
 .pdp-purchase-options .form-choice--card { padding: .75rem; border-radius: var(--radius-small); }
@@ -107,7 +107,7 @@
 @media (max-width: 30rem) { .pdp-benefit { padding-inline: 1rem; gap: .75rem; } .pdp-benefit__art { flex-basis: 4.5rem; width: 4.5rem; height: 4.5rem; } .pdp-savings { white-space: normal; max-width: 5rem; } }
 @media (prefers-reduced-motion: reduce) { .pdp *, .pdp *::before { animation: none !important; transition: none !important; scroll-behavior: auto !important; } .pdp-badge-toggle { display: none !important; } }
 
-.pdp-badge--soda .pdp-badge__ring { inset: 8%; width: 84%; height: 84%; }
+.pdp-badge--soda .pdp-badge__ring { inset: 4%; width: 92%; height: 92%; }
 .pdp-purchase-options .form-choice--card { background: var(--color-surface); }
 
 .pdp-flavour-mix { display: flex; width: 100%; align-items: center; }
@@ -135,12 +135,12 @@
 .pdp-gallery { grid-row: 1; }
 .pdp-support { grid-row: 2; }
 .pdp-subscription-card, .pdp-purchase-options .form-choice--card { padding: .5rem .625rem; }
-.pdp-benefits-summary { margin-top: .5rem; gap: .25rem; }
+.pdp-benefits-summary { margin-top: .375rem; gap: .125rem; }
 .pdp-benefits-summary li { align-items: center; gap: .375rem; }
 .pdp-benefits-summary li::before { width: .875rem; height: .875rem; mask-image: url('pdp-benefit-check.svg'); }
 .pdp-option-price { display: flex; flex-wrap: wrap; gap: .375rem; }
 .pdp-option-price s { color: var(--color-accent-secondary); }
-.pdp-cart-icon { width: 1.5rem; height: 1.5rem; margin-right: .25rem; background: currentColor; mask: url('icon-cart.svg') center / contain no-repeat; }
+.pdp-cart-icon { width: 1.25rem; height: 1.25rem; margin-right: .25rem; background: currentColor; mask: url('icon-cart.svg') center / contain no-repeat; }
 .pdp-purchase .site-footer__payments { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: .375rem; }
 .pdp-purchase .site-footer__payments img { width: 100%; height: auto; }
 .pdp-flavours a { padding: 0; }
@@ -152,7 +152,7 @@
 .pdp-flavour-mix img { position: absolute; width: 75.85%; height: 90.59%; top: 0; left: 0; }
 .pdp-flavour-mix img + img { width: 66.22%; height: 80.53%; top: 19.47%; left: 33.78%; margin: 0; }
 .pdp-badge--seltzer .pdp-badge__ring { inset: 0; width: 100%; height: 100%; }
-.pdp-badge__ring { animation-duration: 4.8s; animation-iteration-count: 1; }
+.pdp-badge__ring { animation-duration: 40s; animation-iteration-count: infinite; }
 @media (hover: hover) and (pointer: fine) {
   .pdp-gallery__navigation button { opacity: 0; transition: opacity var(--motion-duration-fast) var(--motion-ease), background var(--motion-duration-fast) var(--motion-ease); }
   .pdp-gallery:hover .pdp-gallery__navigation button, .pdp-gallery:focus-within .pdp-gallery__navigation button { opacity: 1; }
@@ -164,3 +164,7 @@
   .pdp-purchase { order: 2; }
   .pdp-support { order: 3; grid-row: auto; }
 }
+
+/* Dropdown and benefits expand as one subscription detail group. */
+.pdp-subscription-details { display: flow-root; margin-top: .75rem; }
+.pdp-subscription-details .pdp-plan-field { margin-top: 0; }

@@ -351,3 +351,5 @@ Age-field annotations (2026-09-11): generic per-field warning guidance uses yell
 ## Heading font selection
 
 **Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).
+
+Ananotes 113: line-removal links use the shared secondary accent on hover/keyboard focus, with a single short fine-pointer icon nudge. Reduced motion disables the nudge; target size, accessible labels and native removal links remain intact.

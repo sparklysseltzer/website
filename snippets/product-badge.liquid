@@ -1,4 +1,5 @@
 {%- if brand == 'soda' -%}
+  {%- assign has_badge = true -%}
   <div class="pdp-badge pdp-badge--soda" role="img" aria-label="{{ 'products.pdp.soda_badge' | t }}">
     <img class="pdp-badge__disc" src="{{ 'versus-soda-badge-circle.svg' | asset_url }}" alt="" width="200" height="200">
     <img class="pdp-badge__ring" src="{{ 'versus-soda-badge-type.svg' | asset_url }}" alt="" width="200" height="200">
@@ -7,6 +8,7 @@
 {%- elsif brand == 'seltzer' and product.metafields.custom.contains_alcohol.value == true -%}
   {%- comment -%}Only the audited 5% products receive the fixed-strength artwork.{%- endcomment -%}
   {%- if product.handle == 'sparklys-hard-seltzer-maracuja' or product.handle == 'sparklys-hard-seltzer-holunder' or product.handle == 'sparklys-hard-seltzer-variety' -%}
+    {%- assign has_badge = true -%}
     <div class="pdp-badge pdp-badge--seltzer" role="img" aria-label="{{ 'products.pdp.seltzer_badge' | t }}">
       <img class="pdp-badge__disc" src="{{ 'pdp-seltzer-badge-disc.svg' | asset_url }}" alt="" width="160" height="160">
       <img class="pdp-badge__ring" src="{{ 'pdp-seltzer-badge-ring.svg' | asset_url }}" alt="" width="160" height="160">
@@ -18,4 +20,8 @@
       </div>
     </div>
   {%- endif -%}
+{%- endif -%}
+
+{%- if has_badge -%}
+  <button class="pdp-badge-toggle" type="button" data-badge-toggle data-enhanced-only hidden aria-pressed="false" aria-label="{{ 'products.pdp.pause_animation' | t }}"><img src="{{ 'icon-pause-circle.svg' | asset_url }}" width="24" height="24" alt=""></button>
 {%- endif -%}

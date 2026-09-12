@@ -271,8 +271,8 @@ input[type='submit'] {
   --button-color: var(--color-text-inverse);
   --button-sweep-background: var(--color-surface);
   --button-sweep-ease: cubic-bezier(0.65, 0, 0.35, 1);
-  --button-sweep-enter-duration: 800ms;
-  --button-sweep-exit-duration: 880ms;
+  --button-sweep-enter-duration: 320ms;
+  --button-sweep-exit-duration: 360ms;
 
   position: relative;
   isolation: isolate;
@@ -300,7 +300,7 @@ input[type='submit'] {
   background: var(--button-sweep-background);
   content: '';
   pointer-events: none;
-  clip-path: circle(0% at 0% 50%);
+  clip-path: circle(0% at 50% 100%);
   transition: clip-path var(--button-sweep-exit-duration) var(--button-sweep-ease);
 }
 
@@ -313,14 +313,14 @@ input[type='submit'] {
 
 @media (hover: hover) {
   .button:not(:disabled, [aria-disabled='true']):hover::before {
-    clip-path: circle(150% at 0% 50%);
+    clip-path: circle(120% at 50% 100%);
     transition-duration: var(--button-sweep-enter-duration);
   }
 
 }
 
 .button:not(:disabled, [aria-disabled='true']):focus-visible::before {
-  clip-path: circle(150% at 0% 50%);
+  clip-path: circle(120% at 50% 100%);
   transition-duration: var(--button-sweep-enter-duration);
 }
 
@@ -510,6 +510,7 @@ input[type='submit'] {
 }
 
 .site-header__brand-tab--active {
+  --color-surface: #ffffff;
   --brand-tab-curve: 0.875rem;
 
   position: relative;
@@ -1556,6 +1557,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 }
 
 .site-footer__payments img {
+  border-radius: 5px;
   width: 2.4375rem;
   height: 1.5625rem;
 }
@@ -2276,3 +2278,13 @@ body:has(.site-header[data-header-context='soda']) .heading-font-legacy {
   --font-heading-letter-spacing: var(--letter-spacing-heading-erode);
   --line-height-heading: var(--line-height-heading-erode);
 }
+
+/* A small action response, without replaying when cart sections refresh. */
+.cart-line .cart-remove { transition: color var(--motion-duration-fast) var(--motion-ease); }
+.cart-line .cart-remove:focus-visible { color: var(--color-accent-secondary); }
+@media (hover: hover) and (pointer: fine) {
+  .cart-line .cart-remove:hover { color: var(--color-accent-secondary); }
+  .cart-line .cart-remove:hover .cart-icon { animation: cart-remove-nudge 320ms var(--motion-ease); }
+}
+@keyframes cart-remove-nudge { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-9deg); } 65% { transform: rotate(7deg); } }
+@media (prefers-reduced-motion: reduce) { .cart-line .cart-remove { transition: none; } .cart-line .cart-remove:hover .cart-icon { animation: none; } }
