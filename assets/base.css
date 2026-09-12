@@ -1382,6 +1382,13 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   padding: 0;
   margin: 0;
   list-style: none;
+.site-footer__information { display: grid; gap: 1.25rem; min-width: 0; }
+.site-footer__card-heading--brand { display: flex; align-items: center; min-height: 2.75rem; }
+.site-footer__card-logo { height: 2.75rem; max-width: 100%; object-fit: contain; object-position: left center; }
+.site-footer__card-logo--seltzer { width: 9.171875rem; }
+.site-footer__card-logo--soda { width: 5.6875rem; filter: invert(1); }
+.site-footer__card--brand .site-footer__menu > li:has(a[href*="/products/"]) + li:not(:has(a[href*="/products/"])) { margin-top: .6875rem; }
+
 }
 
 .site-footer__menu {
@@ -1563,6 +1570,12 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
     --page-gutter: 2rem;
   }
 
+.site-footer__languages > div { display: flex; gap: .1875rem; }
+.site-footer__language { display: grid; place-items: center; min-width: 2.75rem; min-height: 2.75rem; padding: 0; border: 2px solid transparent; border-radius: 999px; color: inherit; background: transparent; cursor: pointer; transition: border-color var(--motion-duration-fast) var(--motion-ease), opacity var(--motion-duration-fast) var(--motion-ease); }
+.site-footer__language[aria-pressed="true"] { border-color: currentColor; }
+@media (hover: hover) { .site-footer__language:hover { opacity: .75; } }
+@media (prefers-reduced-motion: reduce) { .site-footer__language { transition: none; } }
+
   .product-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap-inline: 1.5rem;
@@ -1624,12 +1637,16 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+  .site-footer--default .site-footer__newsletter { width: 31%; flex: 0 1 26.5625rem; min-width: 0; }
+
 
   .site-footer__navigation--general > .site-footer__card {
     align-self: stretch;
   }
 
   .site-footer__meta,
+  .site-footer__navigation--general .site-footer__information { align-content: start; }
+
   .site-footer__meta-end,
   .site-footer__commerce {
     flex-direction: row;

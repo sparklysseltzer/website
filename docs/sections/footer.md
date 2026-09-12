@@ -19,7 +19,7 @@ Pages and Products explicitly select their context through the existing `custom.
 
 Each context selects its matching Arc, Soda, or Hard Seltzer identity and navigation. Footer card headings intentionally use Newake in every context. A native Shopify customer form tagged `newsletter` supplies the newsletter path expected by the existing Shopify–Klaviyo integration. General and Hard Seltzer social links use `@sparklysseltzer`; Soda uses `@sparklyssoda`; LinkedIn is shared.
 
-Payment marks, Store Finder, and language chips currently render as non-interactive visual previews. Legal links and social destinations are active.
+Payment marks and Store Finder remain non-interactive artwork. German and English language chips submit Shopify’s native localization form. Legal links and social destinations are active.
 
 ## Progressive enhancement and accessibility
 
@@ -27,7 +27,7 @@ Payment marks, Store Finder, and language chips currently render as non-interact
 
 ## Known gaps
 
-Verify Shopify-to-Klaviyo list routing and opt-in behavior operationally. Replace placeholder footer-menu destinations. Connect payment rendering, Store Finder, and localization controls only after their authoritative Shopify behavior is defined.
+Verify Shopify-to-Klaviyo list routing and opt-in behavior operationally. Replace placeholder footer-menu destinations. Connect Store Finder and verify payment gateway coverage separately.
 
 ## Typography roles
 
@@ -52,3 +52,31 @@ Payment marks (2026-09-11): `snippets/payment-icons.liquid` now owns the existin
 ## Breakpoint visibility
 
 Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.
+
+Payment asset cleanup (2026-09-11): removed exported ancestor-frame backgrounds from the eight shared SVGs while preserving logo/card geometry. PDP and footer still consume the same assets.
+
+## Language selection — 2026-09-12
+
+The footer renders German (existing Swiss flag SVG) and English (existing UK flag SVG), filtered through `localization.available_languages`. The controls select languages only: no country/currency input or country assumptions. Unpublished/unavailable languages are omitted, never linked to an invented route. Shopify’s native localization form handles the current-page return and works without JavaScript. Labels use language endonyms; decorative flags have empty alt text; active state uses `aria-pressed`, and buttons retain keyboard focus and at least 44px targets. Hover feedback uses shared fast motion with reduced-motion support. No schema or template content changes.
+
+Additional Swiss languages and an expanded menu/overlay are future work; do not add countries to this control. Publishing a store language affects the store globally and is separate from theme code deployment.
+
+Current store availability: German is published; English is not. Merchant explicitly deferred English publication until go-live (2026-09-12). The UK control appears automatically when English is published/available for the current market. The local `/en/` preview can render English content for review despite that publication setting.
+
+General footer completed against Figma `10986:21454` (2026-09-12): default context shows the Arc newsletter logo, separate branded Hard Seltzer/Soda shop cards, and a stacked information column. Branded contexts retain their existing complete menu layout.
+
+Flag assets retain their exported artwork but omit ancestor canvases and the baked-in Swiss active outline; CSS now owns active selection for either language. Local phone/desktop checks confirm no overflow and 55×44px controls; keyboard focus is visible with scripts blocked. German/English PDP content renders correctly in local previews. Shopify CLI’s local `/localization` POST currently returns HTTP 401 even after an authenticated restart, so local form round-trip verification is blocked by the preview proxy; GET previews remain HTTP 200. The native form submission passed on the hosted development theme (ID `199384498563`) with scripts blocked, returning HTTP 200 in German and preserving the development theme. Recheck the full DE↔EN round trip when English publication is approved.
+
+## General footer composition
+
+On non-product-world pages, the first group of the existing `seltzer_menu` and `soda_menu` supplies each branded card’s child links. The `menu` setting retains its first Shop group for fallback; subsequent groups (currently Learn and Get to know) populate the stacked information column in their saved order. The menu labels can be translated or renamed without changing rendering; selection uses group order, never English title matching. Schema help documents this structure. No menu records, saved settings, section IDs or template JSON were changed.
+
+If either brand menu is missing, the existing general menu renders completely instead of dropping its Shop links. `snippets/footer-brand-card.liquid` is a rendering primitive for a single menu group and existing logo asset. Logos are accessible h2 content; ordinary information headings retain shared Newake roles without optical offsets because they are standalone text. Brand and general destinations, including existing placeholders, remain merchant-owned.
+
+Desktop uses two tall branded cards and stacked information cards in three equal navigation columns beside the newsletter. The newsletter can shrink at smaller desktop widths. Mobile stacks newsletter, Hard Seltzer, Soda, then information cards in semantic DOM order. Existing responsive layout, link motion, focus, reduced-motion and native newsletter/language forms remain shared. No new Schema.org entity applies to navigation; no duplicate Organization data is emitted.
+
+Verified at 390px, 1024px and 1440px: correct four-card hierarchy, aligned logos, no horizontal overflow, and desktop card heights matching the stacked column. Also checked Soda/Seltzer context isolation and native keyboard navigation with scripts blocked. Remaining footer gaps are the existing Store Finder artwork, placeholder menu destinations and operational newsletter integration; this change completes the General composition.
+
+## Content-to-footer spacing
+
+The layout’s `#MainContent` supplies an outer bottom buffer using the same `--section-padding-block` token as ordinary sections (32–64px). This works across all templates and brand contexts without changing footer internals or saved settings. See the design-system spacing contract.

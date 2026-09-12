@@ -1,0 +1,17 @@
+{%- comment -%}The first group in each configured brand footer menu is its shop navigation.{%- endcomment -%}
+<section class="site-footer__card site-footer__card--brand" aria-labelledby="{{ heading_id }}">
+  <h2 id="{{ heading_id }}" class="site-footer__card-heading site-footer__card-heading--brand">
+    {% if brand == 'soda' %}
+      <img class="site-footer__card-logo site-footer__card-logo--soda" src="{{ 'sparklys-soda-logo.svg' | asset_url }}" width="406" height="195" alt="{{ 'sections.header.soda' | t }}" loading="lazy">
+    {% else %}
+      <img class="site-footer__card-logo site-footer__card-logo--seltzer" src="{{ 'footer-logo-seltzer.svg' | asset_url }}" width="205" height="56" alt="{{ 'sections.header.hard_seltzer' | t }}" loading="lazy">
+    {% endif %}
+  </h2>
+  {% if menu_link.links != blank %}
+    <ul class="site-footer__menu">
+      {% for link in menu_link.links %}
+        <li><a class="text-link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}><span class="text-link__label">{{ link.title | escape }}</span></a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
