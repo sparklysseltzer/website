@@ -95,3 +95,11 @@ Section visibility (2026-09-11): 25 non-essential sections expose mobile/desktop
 ### Page introduction layouts — 2026-09-12
 
 Implemented locally/development: default title/optional intro/body layout, reusable Page intro, an additive `page.editorial` starter, shared native policy reading styles and WebPage structured data. Both Page metafield definitions are created and pinned. Merchant copy and assignment of editorial templates remain editorial work; the approved follow-up replaces Main page with Page intro in the development About and Retail templates only, preserving all other content. No live page assignments were changed. See the section reference for the contracts.
+
+## Editorial composition update — 2026-09-12
+
+Implemented nested 2 column composition, configurable Sidebar Box and Link Box, plain selected FAQ accordion, Text and image, Top/one-or-two-column Split Image-Text, and per-section/native-block heading font selection with Erode defaults. See the authoritative [section index](sections/README.md) for contracts. Store templates and metaobject content are not migrated by adding these section capabilities.
+
+## Editor contract correction — 2026-09-12
+
+The eight established merchandising compositions retain their pre-rollout typography. New editorial sections/blocks have grouped, conditional editor controls and an enforced schema-review gate. Fifteen schemas are reviewed; older unchanged schemas are explicitly tracked as unaudited and must enter the review registry when changed. This is not a claim that the whole legacy editor has been audited.

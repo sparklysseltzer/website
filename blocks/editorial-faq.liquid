@@ -1,0 +1,62 @@
+{% if block.settings.heading != blank or block.settings.selected_faqs != blank or block.settings.faq_category != blank or request.design_mode %}
+{% assign faq_scope = section.id | append: '-' | append: block.id %}
+<div {{ block.shopify_attributes }} data-heading-font="{{ block.settings.heading_font }}">{% render 'faq-list-content', options: block.settings, scope: faq_scope %}</div>
+{% endif %}
+{% schema %}
+{
+  "name": "FAQ accordion",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Optional. Leave blank to show only the accordion."
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+    },
+    {
+      "type": "header",
+      "content": "FAQs"
+    },
+    {
+      "type": "metaobject",
+      "id": "faq_category",
+      "label": "FAQ Category",
+      "metaobject_type": "faq_category",
+      "info": "Optional. Individual selections are appended and duplicates removed."
+    },
+    {
+      "type": "metaobject_list",
+      "id": "selected_faqs",
+      "label": "FAQs",
+      "metaobject_type": "faq",
+      "limit": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ accordion"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

@@ -1,3 +1,4 @@
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {{ 'product-detail.css' | asset_url | stylesheet_tag }}
 {{ 'product-usps.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'product-detail.js' | asset_url }}" defer="defer"></script>
@@ -134,5 +135,22 @@
 </section>
 <script type="application/ld+json">{{ product | structured_data }}</script>
 {% schema %}
-{"name":"Product","settings":[{"type":"checkbox","id":"show_vendor","label":"Show vendor","default":false}],"blocks":[{"type":"@app"}]}
+{"name":"Product","settings":[
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+    },{"type":"checkbox","id":"show_vendor","label":"Show vendor","default":false}],"blocks":[{"type":"@app"}]}
 {% endschema %}

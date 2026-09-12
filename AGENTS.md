@@ -106,3 +106,11 @@ Once an approved development theme is available, verify every affected journey a
 ## Newake optical alignment in UI
 
 Whenever Newake is paired with icons, other text, buttons, badges or adjacent UI elements, proactively check the visible glyph alignment in the rendered interface; flex/grid box centering alone is insufficient. Use the shared `--font-optical-offset-newake` role where optical correction is needed, following `docs/design-system.md#newake-optical-alignment-beside-icons`. The merchant approved the .06em downward adjustment in the cart drawer. Reuse the shared treatment rather than inventing component-specific offsets. Verify each composition at phone and desktop sizes; do not apply the offset blindly to every heading or change font files/metrics/shared line heights to solve a local alignment issue.
+
+## Required Theme Editor schema review
+
+Before implementing a new or changed section/block schema, read `docs/architecture.md#theme-editor-configuration-design` and the owning section document. List each layout/mode/toggle and the fields it enables. Group longer schemas in composition order and keep merchant labels concise, English and free of implementation wording. Apply conditional visibility to each dependent field, not merely its header. Preserve existing setting IDs; document platform limitations and compatibility-only controls explicitly.
+
+`npm run check:editor` is mandatory and included in `npm run check`. New schemas and changes to a legacy schema must have an entry in `tests/editor-schema-contracts.json`: reviewed grouping, a dependency rationale for every checkbox/select, and visible/hidden mode cases. The legacy fingerprint file is a frozen inventory of pre-existing unaudited schemas; do not expand it or refresh hashes to bypass review. Do not regenerate contract fingerprints/assertions merely to silence a failure. Update them only after reviewing the actual labels, defaults, options, rendering conditions and each relevant mode, and update the owning documentation in the same change.
+
+Before handoff, run the gate and inspect the affected rendered modes at mobile/desktop sizes. Report what was actually verified. Passing Theme Check alone does not constitute a Theme Editor usability review; automated contracts do not certify editorial wording or visual quality.

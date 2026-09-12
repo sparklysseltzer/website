@@ -1397,6 +1397,7 @@ class FaqAccordion extends HTMLElement {
     this.items = [...this.querySelectorAll(':scope > details')];
     this.motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
     this.animations = new Map();
+    this.targets = new Map();
     this.handleClick = this.handleClick.bind(this);
     this.handleMotionPreference = this.handleMotionPreference.bind(this);
 
@@ -1409,6 +1410,7 @@ class FaqAccordion extends HTMLElement {
     this.motionPreference?.removeEventListener('change', this.handleMotionPreference);
     this.animations?.forEach((animation) => animation.cancel());
     this.animations?.clear();
+    this.targets?.clear();
   }
 
   handleClick(event) {
@@ -1419,7 +1421,7 @@ class FaqAccordion extends HTMLElement {
     if (!this.items.includes(item)) return;
 
     event.preventDefault();
-    const shouldOpen = !item.open;
+    const shouldOpen = !(this.targets.get(item) ?? item.open);
 
     if (shouldOpen) {
       this.items.forEach((otherItem) => {
@@ -1433,29 +1435,40 @@ class FaqAccordion extends HTMLElement {
   handleMotionPreference() {
     this.animations.forEach((animation, item) => {
       animation.cancel();
+      item.toggleAttribute('open', this.targets.get(item) ?? item.open);
       this.resetAnswer(item);
     });
     this.animations.clear();
+    this.targets.clear();
   }
 
   setItemOpen(item, shouldOpen) {
     const answer = item.querySelector('.faq-item__answer');
+    const previousAnimation = this.animations.get(item);
     if (!answer || this.motionPreference.matches) {
+      previousAnimation?.cancel();
+      this.animations.delete(item);
+      this.targets.delete(item);
       item.toggleAttribute('open', shouldOpen);
       return;
     }
 
-    this.animations.get(item)?.cancel();
+    // Capture the rendered frame before cancelling so a quick reversal remains continuous.
+    const style = getComputedStyle(answer);
+    const startHeight = item.open ? answer.getBoundingClientRect().height : 0;
+    const startOpacity = item.open ? style.opacity : '0';
+    const startTransform = item.open ? style.transform : 'translate3d(0, -0.5rem, 0)';
+    previousAnimation?.cancel();
+    this.targets.set(item, shouldOpen);
     if (shouldOpen) item.setAttribute('open', '');
 
-    const startHeight = shouldOpen ? 0 : answer.getBoundingClientRect().height;
     const endHeight = shouldOpen ? answer.scrollHeight : 0;
     const animation = answer.animate(
       [
         {
           height: `${startHeight}px`,
-          opacity: shouldOpen ? 0 : 1,
-          transform: shouldOpen ? 'translate3d(0, -0.5rem, 0)' : 'translate3d(0, 0, 0)',
+          opacity: startOpacity,
+          transform: startTransform,
         },
         {
           height: `${endHeight}px`,
@@ -1474,6 +1487,7 @@ class FaqAccordion extends HTMLElement {
       if (!shouldOpen) item.removeAttribute('open');
       this.resetAnswer(item);
       this.animations.delete(item);
+      this.targets.delete(item);
     };
     animation.oncancel = () => this.resetAnswer(item);
   }

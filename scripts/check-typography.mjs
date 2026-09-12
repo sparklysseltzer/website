@@ -9,7 +9,7 @@ const exceptions = new Map([
 ]);
 const base = readFileSync('assets/base.css', 'utf8');
 const roles = new Set([...base.matchAll(/--font-size-([\w-]+):/g)].map(m => m[1]));
-const files = ['assets', 'sections', 'snippets', 'layout'].flatMap(dir =>
+const files = ['assets', 'sections', 'snippets', 'layout', 'blocks'].flatMap(dir =>
   readdirSync(dir).filter(name => /\.(css|liquid)$/.test(name)).map(name => `${dir}/${name}`));
 const errors = [];
 for (const file of files) {

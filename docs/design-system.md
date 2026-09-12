@@ -8,7 +8,7 @@ For customer-facing wording, follow [Tone and voice](tone-and-voice.md). Visual 
 
 ### Shared fluid roles
 
-Maison Neue Demi (registered at weight 400) is the standard body/UI face. Maison Neue Bold supplies explicitly emphasized UI such as FAQ questions. General/Hard Seltzer display headings use Newake; Soda display headings use Erode Bold. Small Soda editorial card titles also use Erode, while footer card headings deliberately use Newake in every world. Semantic heading level alone does not select a visual size or override an explicit section role.
+Maison Neue Demi (registered at weight 400) is the standard body/UI face. Maison Neue Bold supplies explicitly emphasized UI such as FAQ questions. Erode Bold is the default for headings in every world. Each heading-bearing section exposes Erode/Newake selection, including rich-text headings; saved explicit choices are preserved. Semantic heading level alone does not select a visual size or override an explicit section role.
 
 All ordinary typography uses `--font-size-*` roles defined in `assets/base.css`. Sections select a role, never an independent clamp, pixel/rem size, or mobile font-size override. The shared interpolation interval is 390–1440 CSS px at the normal 16px root. Bounds are in rem and preferred values combine rem with vw. Keep `html` at 100%; scaling the root would also scale layout dimensions. Equivalent roles must compute identically at the same viewport, independent of section width or product world.
 
@@ -308,3 +308,24 @@ The document background is separate from brand section palettes. `layout/theme.l
 - Every product page: existing `custom.soda_background_color`, falling back to `#FFFFFF` regardless of product world.
 
 The root canvas and PDP section consume this same role. Transparent content and the main-content bottom buffer reveal it, so product colors extend beyond the top section. Existing palette background setting IDs/values remain intact, now labeled **Section background** to clarify their scope. Explicit section/card backgrounds, gallery gradients and intentional surfaces retain their own colors. This supersedes previous statements that brand palette background settings control the page canvas. No new metafield or saved-setting migration is needed.
+
+## Editorial heading font selection
+
+Erode is the default for new heading-bearing sections and theme blocks, independently of brand world. Newake remains selectable. `heading-font.liquid` scopes the choice to the Shopify section wrapper; native blocks use `data-heading-font`. Shared rules in `base.css` apply the nearest choice only to H1–H6, including rich-text headings. Legacy saved selector values remain supported. Family, weight, tracking and rhythm switch together; size roles do not change. Maison Neue remains the paragraph, field, button and ordinary UI face, with Maison Neue Bold for deliberate emphasis such as FAQ questions.
+
+The narrowly targeted shared heading declarations override legacy component font declarations centrally; do not add competing heading-family overrides. Brand colors, background and logo selection remain independent. SVG flavour titles/logos are artwork and are not re-typeset by this control. The approved Soda 3 Reasons composed numeral lockup and small Erode card rhythm remain documented composition exceptions. Newake optical adjustment remains limited to inspected adjacent-UI compositions, and resolves to zero for Erode.
+
+The local Design Studio loads Erode and uses this same default. Merchant images in the new editorial blocks use Shopify focal points and shared radii; Sidebar Box has Compact/Tall configurations, while Link Box remains a separate navigation primitive. Reuse the same FAQ disclosure controller for embedded and standalone lists; no independent accordion timing is introduced.
+
+FAQ disclosures capture their currently rendered frame when reversed, and track the requested state while closing. Native `open` remains set during a closing animation so the content can animate; it is removed on completion. Reduced motion settles immediately to the requested state. Reusing the component also reuses this interruption contract.
+
+Legacy token names `--font-heading-default` (Newake) and `--font-heading-soda` (Erode) remain family aliases for compatibility; neither now decides the default based on brand world. The `--heading-choice-*` roles are the authoritative heading selection contract.
+
+## Merchandising typography exclusions
+
+Product overview teaser, Offer cards, USP (both variants), Subscription (both variants), Versus (both variants), Soda 3 Reasons, Soda Ingredients, Hard Seltzer Ingredients and Hard Seltzer Awards retain their typography from before the broad heading-font rollout. Their Shopify wrapper uses `heading-font-legacy`, which excludes descendants from editorial font overrides and restores the original brand-aware inherited heading tokens. Their explicit composition styles remain authoritative, including Maison Neue comparison-card headings and Erode/Newake brand differences. Original USP/Subscription font selectors remain available with their original Automatic defaults; the newer global selector is not added to these sections.
+
+Other editorial sections retain Erode-default heading selection, including rich-text headings. The exclusions are deliberate composition contracts, not an invitation to add broad competing `!important` rules.
+
+
+Footer navigation card titles are a fixed Newake composition. `.site-footer__card-heading` uses the shared Newake heading-choice mapping in every brand context, independently of editorial section font selection.

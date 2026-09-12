@@ -1,0 +1,71 @@
+<div class="editorial-image editorial-image--{{ block.settings.image_height_mode }}" style="--editorial-image-height: {{ block.settings.image_height }}px; --editorial-image-height-mobile: {{ block.settings.mobile_image_height }}px;">{% render 'editorial-image', options: block.settings %}</div>
+{% schema %}
+{
+  "name": "Image",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Set the crop focal point in Shopify’s image editor."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alternative text",
+      "info": "Leave blank to use the selected image’s alternative text."
+    },
+    {
+      "type": "header",
+      "content": "Size"
+    },
+    {
+      "type": "select",
+      "id": "image_height_mode",
+      "label": "Image height",
+      "default": "square",
+      "options": [
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "Desktop image height",
+      "min": 200,
+      "max": 800,
+      "step": 10,
+      "default": 520,
+      "unit": "px",
+      "visible_if": "{{ block.settings.image_height_mode == 'custom' }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_height",
+      "label": "Mobile image height",
+      "min": 180,
+      "max": 600,
+      "step": 10,
+      "default": 360,
+      "unit": "px",
+      "visible_if": "{{ block.settings.image_height_mode == 'custom' }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image"
+    }
+  ]
+}
+{% endschema %}

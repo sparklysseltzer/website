@@ -2234,3 +2234,45 @@ input, select, textarea { font-family: var(--field-font-family); font-weight: va
 .age-check__field input[data-validation="valid"] { background: var(--color-success-surface); color: var(--color-success-text); border-color: var(--color-success-text); }
 
 @media (prefers-reduced-motion: reduce) { .age-check__field input { transition: none; } }
+
+/* Explicit editorial font choices override legacy section font declarations only on headings. */
+:root, [data-heading-font='erode'], [data-heading-font='soda'] {
+  --heading-choice-family: var(--font-heading-soda);
+  --heading-choice-weight: 700;
+  --heading-choice-leading: var(--line-height-heading-erode);
+  --heading-choice-tracking: var(--letter-spacing-heading-erode);
+  --heading-choice-optical-offset: 0em;
+}
+[data-heading-font='newake'], [data-heading-font='seltzer'], .site-footer__card-heading {
+  --heading-choice-family: var(--font-heading-default);
+  --heading-choice-weight: 400;
+  --heading-choice-leading: var(--line-height-heading-newake);
+  --heading-choice-tracking: var(--letter-spacing-heading-newake);
+  --heading-choice-optical-offset: var(--font-optical-offset-newake);
+}
+:is(h1, h2, h3, h4, h5, h6):not(:where(.heading-font-legacy *)) {
+  font-family: var(--heading-choice-family) !important;
+  font-weight: var(--heading-choice-weight) !important;
+  line-height: var(--heading-choice-leading) !important;
+  letter-spacing: var(--heading-choice-tracking) !important;
+}
+.cart-drawer__header h2 { transform: translateY(var(--heading-choice-optical-offset)); }
+
+
+
+
+
+/* Established merchandising compositions retain their original brand-aware typography. */
+.heading-font-legacy {
+  --font-heading: var(--font-heading-default);
+  --font-heading-weight: 400;
+  --font-heading-letter-spacing: var(--letter-spacing-heading-newake);
+  --line-height-heading: var(--line-height-heading-newake);
+}
+.brand-context--soda .heading-font-legacy,
+body:has(.site-header[data-header-context='soda']) .heading-font-legacy {
+  --font-heading: var(--font-heading-soda);
+  --font-heading-weight: 700;
+  --font-heading-letter-spacing: var(--letter-spacing-heading-erode);
+  --line-height-heading: var(--line-height-heading-erode);
+}

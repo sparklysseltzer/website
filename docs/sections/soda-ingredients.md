@@ -43,3 +43,7 @@ Colors now follow the [brand-world palette contract](../design-system.md#theme-c
 ## Breakpoint visibility
 
 Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.
+
+## Preserved typography
+
+This section opts out of the general editorial heading-font feature through `heading-font-legacy`. Original type families, weights, tracking, line heights and composition-specific optical treatment remain authoritative. No new heading-font selector is added.

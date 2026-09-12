@@ -268,3 +268,11 @@ Check `npm run dev:status` and logs first. For this symptom, restart the approve
 The preview stopped after authentication expired. The account `sandrohagen@me.com` could not access the store; signing in with the authorized `hallo@sparklys.ch` account restored access. Theme listing confirmed development theme `199384498563` still existed despite the earlier missing-theme error. The CLI had lost its implicit development-theme association.
 
 The supervised worker now explicitly targets `199384498563` for both preflight and preview, verifies its current role is `development` before syncing, and retains the full JSON comparison. `--nodelete` preserves remote-only development assets, including Shopify’s undeletable gift-card template. It never targets the shared editorial or live theme. Missing access or a changed theme role stops startup with a diagnostic.
+
+## Editorial section verification
+
+Use a temporary, development-only JSON template to exercise native nested blocks; remove it after QA and never deploy it as merchant content. FAQ `metaobject_list` settings serialize entry handles (not GIDs or numeric IDs) for their declared definition type. The editor remains the normal authoring surface. Validate nested Poster tick items, independent FAQ groups/IDs, font inheritance into rich text, mobile image order and top-image text columns. Resource setup probes and temporary fixture pages must be removed at handoff.
+
+## Theme Editor schema gate
+
+`npm run check:editor` is part of `npm run check`, including the existing GitHub Actions workflow. It checks the reviewed grouping/visibility contracts, conditional references, controller inventory, mode expectations and schema fingerprints. Negative regression tests demonstrate that missing conditions and unreviewed controls/new schemas fail. See [configuration design](architecture.md#enforced-schema-review) and `AGENTS.md` for the required review process. The legacy inventory is intentionally marked unaudited; it is not a blanket certification of older editor interfaces.

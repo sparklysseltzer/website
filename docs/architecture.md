@@ -28,6 +28,7 @@ Sparklys is a buildless Shopify Online Store 2.0 theme. Shopify renders Liquid o
 | --- | --- |
 | `layout/theme.liquid` | Global HTML shell, metadata, assets, header/footer groups, and `content_for_layout`. |
 | `templates/*.json` | Resource-to-section composition and merchant-editable page layouts. |
+| `blocks/*.liquid` | Native reusable theme blocks; private Content/Sidebar groups constrain nested composition. |
 | `sections/*.liquid` | Reusable storefront features with local schemas and settings. |
 | `sections/*-group.json` | Persistent header and footer composition. |
 | `snippets/*.liquid` | Small rendering primitives such as icons, prices, cards, and metadata. |
@@ -69,6 +70,14 @@ Theme Editor labels, option names, headers, help text, and other merchant-facing
 Prefer Shopify's native image controls over duplicate section settings. Merchant-selected cover images must render through `image_url` and `image_tag`, which automatically applies the focal point saved in Shopify as `object-position`; do not add image-anchor or offset controls for the same crop. Transparent product artwork may retain explicit scale/translation controls when positioning the complete object—not cropping it—is part of the approved composition.
 
 When a section has approved bundled Figma artwork, that asset is the automatic blank-state fallback. Expose only the Shopify image picker: a merchant-selected image replaces the bundled asset, while a blank picker renders the fallback. Do not expose fallback selectors, “None” switches, or Figma implementation terminology in the Theme Editor. Keep the fallback filename, intrinsic dimensions, alternative-text contract, and any source-controlled crop in the section implementation and its section document.
+
+### Enforced schema review
+
+`npm run check:editor` runs with the normal quality gate. `tests/editor-schema-contracts.json` records reviewed field groups, visibility conditions, every mode/toggle's dependency rationale, and expected visible/hidden fields for relevant states. Schema fingerprints make changes to labels, defaults, options or other contract details require explicit review too. New schemas cannot be added without registration. The frozen `editor-schema-legacy.json` preserves older schemas as **unaudited**, not as proof of compliance; touching their schema requires moving them into the reviewed registry.
+
+Do not update a fingerprint to make a test green without auditing the schema and renderer. For each change: map controls before implementation, group fields, apply supported conditions, document exceptions, run the state cases, then inspect the affected rendered modes. This enforces concrete structure and review coverage; a human/agent still needs to assess whether labels are useful and configurations make sense. Zero mistakes cannot be guaranteed by instructions or tests alone.
+
+Image pickers support `visible_if`; metaobject/metaobject-list pickers remain additive where they cannot be hidden. A section with multiple genuine compositions can expose a **design** selector that changes the composition, while its blank image picker automatically uses that design's bundled artwork. Do not add a second, contradictory layout/fallback-image selector.
 
 ## Product-world context
 

@@ -39,3 +39,7 @@ Colors now follow the [brand-world palette contract](../design-system.md#theme-c
 ## Breakpoint visibility
 
 Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.
+
+## Typography scope
+
+Hard Seltzer Awards retains its original Newake display heading, uppercase treatment, regular weight and shared heading rhythm. It opts out of the general editorial heading-font feature through `heading-font-legacy`; the added font selector is removed. Body copy remains Maison Neue. Existing content, award blocks, visibility settings and motion are unchanged.

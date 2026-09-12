@@ -1,0 +1,252 @@
+{{ 'component-poster.css' | asset_url | stylesheet_tag }}
+<div data-heading-font="{{ block.settings.heading_font | default: 'erode' }}">
+{% capture list_content %}{% content_for 'blocks' %}{% endcapture %}
+{% render 'poster-content', options: block.settings, embedded: true, list_content: list_content %}
+</div>
+{% schema %}
+{
+  "name": "Poster",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout_mode",
+      "label": "Poster layout",
+      "options": [
+        {
+          "value": "with_content",
+          "label": "Poster with Content"
+        },
+        {
+          "value": "image_only",
+          "label": "Image only Poster"
+        }
+      ],
+      "default": "with_content"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image",
+      "info": "Optional. When blank, the desktop image is used on all screen sizes. Set each image's focal point in Shopify's image editor."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alternative text",
+      "info": "Leave blank to use the selected image's alt text."
+    },
+    {
+      "type": "header",
+      "content": "Content",
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right",
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true,
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Add your poster heading",
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_heading }}"
+    },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "Heading level",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h2",
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_heading }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subtext",
+      "label": "Show subtext",
+      "default": true,
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Add supporting copy for this poster.</p>",
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_subtext }}"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue.",
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "header",
+      "content": "Button",
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": true,
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Learn more",
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_button }}"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_button }}"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        {
+          "value": "automatic",
+          "label": "Automatic"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        }
+      ],
+      "default": "automatic",
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_button }}"
+    },
+    {
+      "type": "header",
+      "content": "Appearance",
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "color",
+      "id": "poster_text_color",
+      "label": "Poster text color",
+      "default": "#ffffff",
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "range",
+      "id": "overlay_strength",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Poster overlay strength",
+      "default": 55,
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.overlay_strength != 0 }}"
+    },
+    {
+      "type": "header",
+      "content": "Size"
+    },
+    {
+      "type": "range",
+      "id": "minimum_height",
+      "min": 420,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop minimum height",
+      "default": 630
+    },
+    {
+      "type": "range",
+      "id": "minimum_height_mobile",
+      "min": 360,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile minimum height",
+      "default": 540
+    }
+  ],
+  "presets": [
+    {
+      "name": "Poster"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_poster-tick"
+    }
+  ]
+}
+{% endschema %}

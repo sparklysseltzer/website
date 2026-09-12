@@ -1,3 +1,4 @@
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 {%- liquid
   assign section_image = section.settings.image
@@ -11,6 +12,13 @@
   endif
 
   assign heading_tag = section.settings.heading_level
+  assign image_sizes = '(min-width: 48rem) 50vw, calc(100vw - 2rem)'
+  if section.settings.image_side == 'top'
+    assign fallback_image = 'editorial-soda-banner.webp'
+    assign fallback_width = 1600
+    assign fallback_height = 948
+    assign image_sizes = '(min-width: 1200px) 1200px, calc(100vw - 2rem)'
+  endif
 
   assign button_class = 'button'
   assign button_link = section.settings.button_link | default: '#'
@@ -24,6 +32,7 @@
     class="split-image-text-section section page-width"
     data-scroll-motion-section
     style="
+      --split-top-image-height: {{ section.settings.top_image_height }}px;
       --split-image-text-min-height: {{ section.settings.minimum_height }}px;
       --split-image-text-media-width: {{ section.settings.image_width }}%;
       --split-image-text-panel-color: {{ section.settings.panel_color }};
@@ -32,7 +41,7 @@
     "
   >
     <div
-      class="split-image-text split-image-text--image-{{ section.settings.image_side }}"
+      class="split-image-text split-image-text--image-{{ section.settings.image_side }} split-image-text--columns-{{ section.settings.text_columns }}"
       data-scroll-motion-surface
     >
       <div class="split-image-text__media">
@@ -43,7 +52,7 @@
               | image_url: width: 1600
               | image_tag:
                 widths: '480, 750, 1100, 1500, 1600',
-                sizes: '(min-width: 120rem) 60rem, (min-width: 48rem) 50vw, calc(100vw - 2rem)',
+                sizes: image_sizes,
                 loading: 'lazy',
                 alt: image_alt
             }}
@@ -102,6 +111,12 @@
             </div>
           {%- endif -%}
         </div>
+        {%- if section.settings.image_side == 'top' and section.settings.text_columns == 'two' -%}
+          <div class="split-image-text__content-inner">
+            {% if section.settings.second_heading != blank %}<{{ heading_tag }} class="split-image-text__heading" data-scroll-motion-reveal>{{ section.settings.second_heading }}</{{ heading_tag }}>{% endif %}
+            {% if section.settings.second_text != blank %}<div class="split-image-text__subtext rte" data-scroll-motion-reveal>{{ section.settings.second_text }}</div>{% endif %}
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </section>
@@ -277,6 +292,15 @@
       transform: none;
     }
   }
+  .split-image-text--image-top { grid-template-columns: minmax(0, 1fr); min-height: 0; max-width: 75rem; }
+  .split-image-text--image-top .split-image-text__media { min-height: var(--split-top-image-height); }
+  .split-image-text--image-top .split-image-text__content { min-height: 0; align-items: start; }
+  .split-image-text--image-top .split-image-text__content-inner { max-width: none; }
+  .split-image-text--image-top.split-image-text--columns-two .split-image-text__content { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+  @media (max-width: 47.999rem) {
+    .split-image-text--image-top .split-image-text__media { min-height: min(var(--split-top-image-height), 70vw); }
+    .split-image-text--image-top.split-image-text--columns-two .split-image-text__content { grid-template-columns: minmax(0, 1fr); }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -293,8 +317,18 @@
       "id": "image_side",
       "label": "Image side",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "right", "label": "Right" }
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "top",
+          "label": "Top"
+        }
       ],
       "default": "left"
     },
@@ -306,7 +340,8 @@
       "step": 5,
       "unit": "%",
       "label": "Image width",
-      "default": 50
+      "default": 50,
+      "visible_if": "{{ section.settings.image_side != 'top' }}"
     },
     {
       "type": "range",
@@ -316,7 +351,36 @@
       "step": 10,
       "unit": "px",
       "label": "Minimum height",
-      "default": 630
+      "default": 630,
+      "visible_if": "{{ section.settings.image_side != 'top' }}"
+    },
+    {
+      "type": "range",
+      "id": "top_image_height",
+      "label": "Top image height",
+      "min": 240,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 520,
+      "visible_if": "{{ section.settings.image_side == 'top' }}"
+    },
+    {
+      "type": "select",
+      "id": "text_columns",
+      "label": "Text columns",
+      "default": "one",
+      "options": [
+        {
+          "value": "one",
+          "label": "One"
+        },
+        {
+          "value": "two",
+          "label": "Two"
+        }
+      ],
+      "visible_if": "{{ section.settings.image_side == 'top' }}"
     },
     {
       "type": "header",
@@ -356,11 +420,17 @@
       "id": "heading_level",
       "label": "Heading level",
       "options": [
-        { "value": "h2", "label": "H2" },
-        { "value": "h3", "label": "H3" }
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
       ],
       "default": "h2",
-      "visible_if": "{{ section.settings.show_heading }}"
+      "visible_if": "{{ section.settings.show_heading or section.settings.text_columns == 'two' and section.settings.image_side == 'top' }}"
     },
     {
       "type": "checkbox",
@@ -380,6 +450,44 @@
       "id": "show_list",
       "label": "Show tick list",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+    },
+    {
+      "type": "header",
+      "content": "Second text column",
+      "visible_if": "{{ section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "second_heading",
+      "label": "Second column heading",
+      "visible_if": "{{ section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
+    },
+    {
+      "type": "richtext",
+      "id": "second_text",
+      "label": "Second column text",
+      "visible_if": "{{ section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
+    },
+    {
+      "type": "header",
+      "content": "Button"
     },
     {
       "type": "checkbox",
@@ -405,9 +513,18 @@
       "id": "button_style",
       "label": "Button style",
       "options": [
-        { "value": "automatic", "label": "Automatic" },
-        { "value": "dark", "label": "Dark" },
-        { "value": "light", "label": "Light" }
+        {
+          "value": "automatic",
+          "label": "Automatic"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        }
       ],
       "default": "automatic",
       "visible_if": "{{ section.settings.show_button }}"
@@ -420,7 +537,7 @@
       "type": "color",
       "id": "panel_color",
       "label": "Panel color",
-      "default": "#e0e0e0"
+      "default": "#ffffff"
     },
     {
       "type": "color",
@@ -428,9 +545,24 @@
       "label": "Text color",
       "default": "#000000"
     },
-    {"type": "header", "content": "Visibility"},
-    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
-    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    }
   ],
   "blocks": [
     {
@@ -456,9 +588,15 @@
         "button_link": "#"
       },
       "blocks": [
-        { "type": "item" },
-        { "type": "item" },
-        { "type": "item" }
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
       ]
     }
   ]

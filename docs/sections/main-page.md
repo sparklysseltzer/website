@@ -19,3 +19,7 @@ Shopify's `/policies/...` endpoints are not Page resources and do not use `page.
 ## Breakpoint visibility
 
 Existing Hide on mobile / Hide on desktop settings and IDs are preserved. See the shared visibility contract in README. Keep one visible H1 at both breakpoints. Both-hidden configurations suppress this section's WebPage JSON-LD.
+
+## Heading font selection
+
+**Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).

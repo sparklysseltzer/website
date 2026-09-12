@@ -1,0 +1,27 @@
+<aside class="editorial-column editorial-column--sidebar">{% content_for 'blocks' %}</aside>
+{% schema %}
+{
+  "name": "Sidebar",
+  "blocks": [
+    {
+      "type": "sidebar-box"
+    },
+    {
+      "type": "link-box"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sidebar",
+      "blocks": [
+        {
+          "type": "sidebar-box"
+        },
+        {
+          "type": "link-box"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

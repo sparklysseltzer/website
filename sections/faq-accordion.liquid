@@ -1,0 +1,80 @@
+{% if section.settings.heading != blank or section.settings.selected_faqs != blank or section.settings.faq_category != blank or request.design_mode %}
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{% render 'section-visibility', section: section %}
+{{ 'editorial-content.css' | asset_url | stylesheet_tag }}
+<div class="section page-width"><div class="editorial-faq-shell">{% render 'faq-list-content', options: section.settings, scope: section.id %}</div></div>
+{% endif %}
+{% schema %}
+{
+  "name": "FAQ accordion",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Optional. Leave blank to show only the accordion."
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+    },
+    {
+      "type": "header",
+      "content": "FAQs"
+    },
+    {
+      "type": "metaobject",
+      "id": "faq_category",
+      "label": "FAQ Category",
+      "metaobject_type": "faq_category",
+      "info": "Optional. Individual selections are appended and duplicates removed."
+    },
+    {
+      "type": "metaobject_list",
+      "id": "selected_faqs",
+      "label": "FAQs",
+      "metaobject_type": "faq",
+      "limit": 20
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ accordion",
+      "category": "Trust & information"
+    }
+  ]
+}
+{% endschema %}

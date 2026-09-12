@@ -61,3 +61,7 @@ Flavour artwork uses its individual Figma proportions; Soda variety uses the exa
 Verified on Yuzu, Blueberry and Maracuja: desktop/phone overflow, sticky offset, corrected artwork, description cutoff, subscription form payload, and native plan selection with product scripts blocked. Shopify checkout/payment was not submitted.
 
 Merchant translation correction (2026-09-12): populated subscription fields and shared USP captions render directly from localized Shopify metaobjects. Blank subscription fields retain theme locale fallbacks. Never replace populated starter text with theme translations; see [language ownership](../merchant-content.md#language-ownership).
+
+## Heading font selection
+
+**Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).

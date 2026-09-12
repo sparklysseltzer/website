@@ -1,0 +1,495 @@
+{{ 'editorial-content.css' | asset_url | stylesheet_tag }}
+{% render 'sidebar-box', options: block.settings %}
+{% schema %}
+{
+  "name": "Sidebar Box",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Design"
+    },
+    {
+      "type": "select",
+      "id": "artwork",
+      "label": "Box design",
+      "default": "soda",
+      "options": [
+        {
+          "value": "soda",
+          "label": "Soda Promotion"
+        },
+        {
+          "value": "seltzer",
+          "label": "Hard Seltzer Promotion"
+        },
+        {
+          "value": "reminder",
+          "label": "Maracuja Buy-Reminder"
+        },
+        {
+          "value": "subscription",
+          "label": "Subscription Teaser"
+        }
+      ],
+      "info": "Sets the starting design. Overrides below stay editable and take priority when you change designs."
+    },
+    {
+      "type": "select",
+      "id": "override_layout",
+      "label": "Layout",
+      "default": "preset",
+      "options": [
+        {
+          "value": "preset",
+          "label": "Use preset"
+        },
+        {
+          "value": "compact",
+          "label": "Compact"
+        },
+        {
+          "value": "tall",
+          "label": "Tall"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "override_position",
+      "label": "Content position",
+      "default": "preset",
+      "options": [
+        {
+          "value": "preset",
+          "label": "Use preset"
+        },
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ]
+    },
+    {
+      "type": "number",
+      "id": "override_height",
+      "label": "Minimum height",
+      "info": "Leave empty to use the preset. Custom values are limited to 120\u20131000 px."
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "override_image",
+      "label": "Image",
+      "info": "Leave empty to use the preset image. Promotion images should include their logo."
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Leave empty to use the preset heading. Turn off Show heading to remove it."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "override_font",
+      "label": "Heading font",
+      "default": "preset",
+      "options": [
+        {
+          "value": "preset",
+          "label": "Use preset"
+        },
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "override_text_color",
+      "label": "Text color",
+      "info": "Clear to use the preset color."
+    },
+    {
+      "type": "color",
+      "id": "override_overlay_color",
+      "label": "Overlay color",
+      "info": "Clear to use the preset color. Add overlay strength to make it visible."
+    },
+    {
+      "type": "number",
+      "id": "override_overlay_strength",
+      "label": "Overlay strength",
+      "info": "Leave empty to use the preset. Enter 0\u2013100 (%); 0 removes the additional overlay."
+    },
+    {
+      "type": "header",
+      "content": "Action"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Action label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Destination"
+    },
+    {
+      "type": "select",
+      "id": "override_button_style",
+      "label": "Button style",
+      "default": "preset",
+      "options": [
+        {
+          "value": "preset",
+          "label": "Use preset"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Saved design values",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "default": "compact",
+      "options": [
+        {
+          "value": "compact",
+          "label": "Compact"
+        },
+        {
+          "value": "tall",
+          "label": "Tall"
+        }
+      ],
+      "visible_if": "{{ block.settings.artwork == blank }}",
+      "info": "Use Box design to choose the composition."
+    },
+    {
+      "type": "image_picker",
+      "id": "soda_image",
+      "label": "Image",
+      "info": "Use a 2:1 image with the logo included. The entire image is shown.",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "color",
+      "id": "soda_text_color",
+      "label": "Text color",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "range",
+      "id": "soda_overlay_strength",
+      "label": "Overlay strength",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 0,
+      "unit": "%",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "color",
+      "id": "soda_overlay_color",
+      "label": "Overlay color",
+      "default": "#83afd4",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "seltzer_image",
+      "label": "Image",
+      "info": "Use a 2:1 image with the logo included. The entire image is shown.",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "color",
+      "id": "seltzer_text_color",
+      "label": "Text color",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "range",
+      "id": "seltzer_overlay_strength",
+      "label": "Overlay strength",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 0,
+      "unit": "%",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "color",
+      "id": "seltzer_overlay_color",
+      "label": "Overlay color",
+      "default": "#f2e3c3",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "reminder_image",
+      "label": "Image",
+      "info": "Set the crop focal point in Shopify\u2019s image editor.",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "select",
+      "id": "reminder_heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue.",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "select",
+      "id": "reminder_content_position",
+      "label": "Content position",
+      "default": "top",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "color",
+      "id": "reminder_text_color",
+      "label": "Text color",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "range",
+      "id": "reminder_overlay_strength",
+      "label": "Overlay strength",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 0,
+      "unit": "%",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "color",
+      "id": "reminder_overlay_color",
+      "label": "Overlay color",
+      "default": "#dad6d1",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "range",
+      "id": "reminder_minimum_height",
+      "label": "Minimum height",
+      "min": 360,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 460,
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "select",
+      "id": "reminder_button_style",
+      "label": "Button style",
+      "default": "dark",
+      "options": [
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        }
+      ],
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "subscription_image",
+      "label": "Image",
+      "info": "Set the crop focal point in Shopify\u2019s image editor.",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "select",
+      "id": "subscription_heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue.",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "select",
+      "id": "subscription_content_position",
+      "label": "Content position",
+      "default": "bottom",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "color",
+      "id": "subscription_text_color",
+      "label": "Text color",
+      "default": "#ffffff",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "range",
+      "id": "subscription_overlay_strength",
+      "label": "Overlay strength",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 0,
+      "unit": "%",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "color",
+      "id": "subscription_overlay_color",
+      "label": "Overlay color",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "range",
+      "id": "subscription_minimum_height",
+      "label": "Minimum height",
+      "min": 360,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 520,
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    },
+    {
+      "type": "select",
+      "id": "subscription_button_style",
+      "label": "Button style",
+      "default": "light",
+      "options": [
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        }
+      ],
+      "visible_if": "{{ block.settings.artwork == blank }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Soda Promotion",
+      "settings": {
+        "artwork": "soda"
+      }
+    },
+    {
+      "name": "Hard Seltzer Promotion",
+      "settings": {
+        "artwork": "seltzer"
+      }
+    },
+    {
+      "name": "Maracuja Buy-Reminder",
+      "settings": {
+        "artwork": "reminder"
+      }
+    },
+    {
+      "name": "Subscription Teaser",
+      "settings": {
+        "artwork": "subscription"
+      }
+    }
+  ]
+}
+{% endschema %}

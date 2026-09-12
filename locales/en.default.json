@@ -373,6 +373,11 @@
         "item_6": "1.8 g sugar per can",
         "footnote": "*30% fewer calories than conventional alcoholic mixed drinks with 5% ABV."
       }
+    },
+    "editorial": {
+      "shop_now": "Shop now",
+      "reminder_heading": "Just a reminder to buy our seltzers.",
+      "subscription_heading": "Sparklys subscription"
     }
   },
   "products": {

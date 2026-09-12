@@ -1,3 +1,4 @@
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 <section class="section page-width stack" style="--stack-space: 2rem">
   <div class="cluster" style="justify-content: space-between">
@@ -27,6 +28,23 @@
 {
   "name": "Featured collection",
   "settings": [
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+    },
     {
       "type": "inline_richtext",
       "id": "heading",

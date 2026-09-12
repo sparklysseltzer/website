@@ -1,3 +1,4 @@
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 {% render 'page-intro', editorial: true %}
 
@@ -7,6 +8,23 @@
   "limit": 1,
   "enabled_on": { "templates": ["page"] },
   "settings": [
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+    },
     {"type": "paragraph", "content": "Uses the page title as the small label, Intro heading as the main heading, and Intro text as the introduction. Edit these fields on the page. If Intro heading is empty, the page title becomes the heading without a label. Use this instead of the Page section, not alongside it."},
     {"type": "header", "content": "Visibility"},
     {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},

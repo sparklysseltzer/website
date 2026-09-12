@@ -80,3 +80,9 @@ Verified at 390px, 1024px and 1440px: correct four-card hierarchy, aligned logos
 ## Content-to-footer spacing
 
 The layout’s `#MainContent` supplies an outer bottom buffer using the same `--section-padding-block` token as ordinary sections (32–64px). This works across all templates and brand contexts without changing footer internals or saved settings. See the design-system spacing contract.
+
+## Heading font selection
+
+**Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).
+
+Footer card titles always use Newake with its original regular weight, tracking and shared line height, regardless of brand world or the section’s Heading font setting. The card-heading selector joins the shared Newake token mapping. Other editorial headings can still use the section setting; Maison Neue body text and SVG brand logos are unchanged.

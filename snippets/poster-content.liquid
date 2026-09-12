@@ -1,0 +1,142 @@
+{%- liquid
+  assign poster_image = options.image
+  assign mobile_image = options.mobile_image
+  assign fallback_image = 'poster-subscription.webp'
+  assign fallback_width = 1632
+  assign fallback_height = 686
+  assign layout_mode = options.layout_mode | default: 'with_content'
+
+  assign image_alt = options.image_alt
+  if image_alt == blank and poster_image != blank
+    assign image_alt = poster_image.alt
+  endif
+
+  assign heading_tag = options.heading_level
+  assign desktop_focal_point = poster_image.presentation.focal_point | default: '50% 50%'
+  assign mobile_focal_point = mobile_image.presentation.focal_point | default: desktop_focal_point
+  assign image_style = 'object-position: var(--poster-current-focal-point);'
+  assign overlay_opacity = options.overlay_strength | divided_by: 100.0
+  assign overlay_mid_opacity = options.overlay_strength | times: 0.78 | divided_by: 100.0
+  assign overlay_center_opacity = options.overlay_strength | times: 0.72 | divided_by: 100.0
+  assign overlay_color = options.overlay_color | color_modify: 'alpha', overlay_opacity
+  assign overlay_mid_color = options.overlay_color | color_modify: 'alpha', overlay_mid_opacity
+  assign overlay_center_color = options.overlay_color | color_modify: 'alpha', overlay_center_opacity
+  assign button_class = 'button'
+  assign button_link = options.button_link | default: '#'
+  if options.button_style == 'light' or options.button_style == 'automatic'
+    assign button_class = button_class | append: ' button--secondary'
+  endif
+-%}
+
+<poster-motion>
+  <section
+    class="poster-section{% unless embedded %} section page-width{% endunless %}"
+    style="
+      --poster-min-height-desktop: {{ options.minimum_height }}px;
+      --poster-min-height-mobile: {{ options.minimum_height_mobile }}px;
+      --poster-poster-color: {{ options.poster_text_color }};
+      --poster-overlay-color: {{ overlay_color }};
+      --poster-overlay-mid-color: {{ overlay_mid_color }};
+      --poster-overlay-center-color: {{ overlay_center_color }};
+      --poster-desktop-focal-point: {{ desktop_focal_point }};
+      --poster-mobile-focal-point: {{ mobile_focal_point }};
+      --poster-check-icon: url('{{ 'check-circle.svg' | asset_url }}');
+    "
+  >
+    <div
+      class="poster poster--poster{% if layout_mode == 'image_only' %} poster--image-only{% else %} poster--content-{{ options.content_position }}{% endif %}"
+      data-poster-surface
+    >
+      <div class="poster__media" data-poster-media>
+        <div class="poster__media-inner">
+          {%- if poster_image != blank -%}
+            <picture>
+              {%- if mobile_image != blank -%}
+                <source
+                  media="(max-width: 47.999rem)"
+                  srcset="
+                    {{ mobile_image | image_url: width: 480 }} 480w,
+                    {{ mobile_image | image_url: width: 750 }} 750w,
+                    {{ mobile_image | image_url: width: 1100 }} 1100w
+                  "
+                  sizes="calc(100vw - 2rem)"
+                  width="{{ mobile_image.width }}"
+                  height="{{ mobile_image.height }}"
+                >
+              {%- endif -%}
+              {{
+                poster_image
+                | image_url: width: 2400
+                | image_tag:
+                  widths: '480, 750, 1100, 1500, 2000, 2400',
+                  sizes: '(min-width: 120rem) 120rem, calc(100vw - 2rem)',
+                  loading: 'lazy',
+                  alt: image_alt,
+                  style: image_style
+              }}
+            </picture>
+          {%- elsif fallback_image != blank -%}
+            <img
+              src="{{ fallback_image | asset_url }}"
+              alt="{{ image_alt | escape }}"
+              width="{{ fallback_width }}"
+              height="{{ fallback_height }}"
+              loading="lazy"
+            >
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag }}
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- unless layout_mode == 'image_only' -%}
+        <div class="poster__overlay" aria-hidden="true"></div>
+
+        <div class="poster__content">
+          <div class="poster__content-inner">
+            {%- if options.show_heading and options.heading != blank -%}
+              <{{ heading_tag }} class="poster__heading" data-poster-reveal>
+                {{ options.heading }}
+              </{{ heading_tag }}>
+            {%- endif -%}
+
+            {%- if options.show_subtext and options.subtext != blank -%}
+              <div class="poster__subtext rte" data-poster-reveal>{{ options.subtext }}</div>
+            {%- endif -%}
+
+            {%- if items.size > 0 or list_content != blank -%}
+              <ul class="poster__list" data-poster-reveal>
+                {{ list_content }}
+                {%- for block in items -%}
+                  {%- if block.settings.text != blank -%}
+                    <li class="poster__list-item" {{ block.shopify_attributes }}>
+                      <span class="poster__check" aria-hidden="true"></span>
+                      <span>{{ block.settings.text }}</span>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+            {%- if options.show_button and options.button_label != blank -%}
+              <div class="poster__action" data-poster-reveal>
+                <a class="{{ button_class }}" href="{{ button_link }}">
+                  <span class="button__label poster__button-label">
+                    <span>{{ options.button_label }}</span>
+                    <img
+                      class="poster__button-icon"
+                      src="{{ 'arrow-right.svg' | asset_url }}"
+                      alt=""
+                      width="16"
+                      height="16"
+                    >
+                  </span>
+                </a>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endunless -%}
+    </div>
+  </section>
+</poster-motion>

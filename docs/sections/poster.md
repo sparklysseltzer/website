@@ -39,3 +39,17 @@ Shared neutral UI colors now resolve through **Theme settings → Colors**, foll
 ## Breakpoint visibility
 
 Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.
+
+## Heading font selection
+
+**Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).
+
+## Embedded reuse
+
+`poster-content.liquid` now owns the common markup, with `component-poster.css` loaded by either owner. The standalone section passes its existing section blocks; the native Poster block inside 2 column passes nested Tick item markup. Existing setting IDs, asset fallback, accessibility and `poster-motion` behavior are preserved. Embedded mode removes the outer section gutter/spacing and uses the width of its Content column.
+
+Embedded content remains at most 36rem wide, with left/center/right placement preserved inside the narrower poster. It fills the available width on small screens.
+
+## Editor dependency contract
+
+Standalone and embedded versions group Layout, Image, Content, Button, Appearance, Size and (standalone) Visibility. Font selection belongs to Content, not above Layout. Image-only hides all content/action/appearance inputs; image selection and minimum heights remain relevant. Heading, subtext and button toggles independently gate their fields. Native child tick entries remain listed in Shopify even in image-only mode, but the renderer omits them.

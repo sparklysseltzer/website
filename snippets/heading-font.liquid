@@ -1,0 +1,23 @@
+{%- liquid
+  assign chosen_font = 'erode'
+  if choice == 'newake' or choice == 'seltzer' or choice == 'default'
+    assign chosen_font = 'newake'
+  endif
+-%}
+<style>
+  #shopify-section-{{ section_id }} {
+    {% if chosen_font == 'newake' %}
+      --heading-choice-family: var(--font-heading-default);
+      --heading-choice-weight: 400;
+      --heading-choice-leading: var(--line-height-heading-newake);
+      --heading-choice-tracking: var(--letter-spacing-heading-newake);
+      --heading-choice-optical-offset: var(--font-optical-offset-newake);
+    {% else %}
+      --heading-choice-family: var(--font-heading-soda);
+      --heading-choice-weight: 700;
+      --heading-choice-leading: var(--line-height-heading-erode);
+      --heading-choice-tracking: var(--letter-spacing-heading-erode);
+      --heading-choice-optical-offset: 0em;
+    {% endif %}
+  }
+</style>

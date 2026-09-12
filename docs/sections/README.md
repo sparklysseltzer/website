@@ -2,7 +2,7 @@
 
 This directory documents every Liquid section in `sections/`. Keep implementation details here; keep cross-cutting rules in [Architecture](../architecture.md), commerce requirements in [Commerce](../commerce.md), and capability state in [Status](../status.md).
 
-Last reconciled with the repository: 2026-09-06. The tables below cover all 30 Liquid sections; variants and presets do not count as separate sections.
+Last reconciled with the repository: 2026-09-12. The tables below cover all 33 Liquid sections; variants and presets do not count as separate sections.
 
 ## Shared contracts
 
@@ -23,6 +23,9 @@ All sections follow the [design system](../design-system.md), [asset-delivery ru
 | [Page intro](page-intro.md) | Brand storytelling | Page-owned label, H1 and introduction with decorative Arc |
 | [Hero](hero.md) | Brand storytelling | Full-width heading, optional image, copy, and action |
 | [Rich text](rich-text.md) | Brand storytelling | Narrow editorial copy and optional action |
+| [2 column](two-column.md) | Brand storytelling | Nested editorial content and repeatable sidebar/link boxes |
+| [Text and image](text-image.md) | Brand storytelling | Open image/copy composition with matching mobile reading order |
+| [FAQ accordion](faq-accordion.md) | Trust & information | Plain selected FAQ accordion, also available inside 2 column |
 | [Poster](poster.md) | Brand storytelling | Full-image editorial poster with overlaid content |
 | [Subscription](subscription.md) | Brand storytelling | Soda/Hard Seltzer subscription poster with benefits, subscribe action and sign-in link |
 | [Split Image-Text](split-image-text.md) | Brand storytelling | Side-by-side editorial image and content panel |

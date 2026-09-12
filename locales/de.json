@@ -373,6 +373,11 @@
         "item_6": "1.8 g Zucker pro Dose",
         "footnote": "*30% weniger Kalorien als herkömmliche alkoholische Mischgetränke mit 5% Vol."
       }
+    },
+    "editorial": {
+      "shop_now": "Jetzt shoppen",
+      "reminder_heading": "Just a reminder to buy our seltzers.",
+      "subscription_heading": "Sparklys im Abo"
     }
   },
   "products": {

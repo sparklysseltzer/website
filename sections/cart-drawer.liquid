@@ -1,3 +1,4 @@
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% comment %}Always expose shared cart controls to the editor, including empty-cart previews. No separate section values.{% endcomment %}
 {% if request.design_mode %}
   <template data-cart-editor-settings
@@ -20,5 +21,22 @@
   </dialog>
 </cart-drawer>
 {% schema %}
-{"name":"Cart drawer","settings":[]}
+{"name":"Cart drawer","settings":[
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+    }]}
 {% endschema %}

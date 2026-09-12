@@ -1,0 +1,20 @@
+<span class="poster__check" aria-hidden="true"></span><span>{{ block.settings.text | escape }}</span>
+{% schema %}
+{
+  "name": "Tick item",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tick item"
+    }
+  ],
+  "tag": "li",
+  "class": "poster__list-item"
+}
+{% endschema %}

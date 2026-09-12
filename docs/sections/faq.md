@@ -39,3 +39,11 @@ Section heading; compact questions; body answers with reading line height; body 
 ## Breakpoint visibility
 
 Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.
+
+## Heading font selection
+
+**Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).
+
+## Interrupted disclosure motion
+
+The shared controller tracks the intended open state separately from the native `open` attribute during closing. Reversing a toggle captures the currently rendered answer height, opacity and transform before cancellation, then continues from that frame. Switching to reduced motion settles each item to its requested state and clears the animation. No alternate timings are introduced by embedded use.

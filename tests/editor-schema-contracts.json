@@ -1,0 +1,1463 @@
+{
+  "sections/text-image.liquid": {
+    "fields": {
+      "image_side": {
+        "group": "Layout",
+        "visible_if": null
+      },
+      "image": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "image_alt": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "image_height_mode": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "image_height": {
+        "group": "Image",
+        "visible_if": "{{ section.settings.image_height_mode == 'custom' }}"
+      },
+      "mobile_image_height": {
+        "group": "Image",
+        "visible_if": "{{ section.settings.image_height_mode == 'custom' }}"
+      },
+      "show_heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.show_heading }}"
+      },
+      "heading_level": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.show_heading }}"
+      },
+      "text": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.show_heading or section.settings.text != blank }}"
+      },
+      "show_button": {
+        "group": "Button",
+        "visible_if": null
+      },
+      "button_label": {
+        "group": "Button",
+        "visible_if": "{{ section.settings.show_button }}"
+      },
+      "button_link": {
+        "group": "Button",
+        "visible_if": "{{ section.settings.show_button }}"
+      },
+      "button_style": {
+        "group": "Button",
+        "visible_if": "{{ section.settings.show_button }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "image_side": "Changes visual/DOM image position; Top-only controls are tested where supported.",
+      "image_height_mode": "Custom reveals desktop and mobile heights.",
+      "show_heading": "Controls heading content and semantic level. Font remains relevant for rich-text headings.",
+      "heading_level": "Changes the semantic heading tag; no further dependent settings.",
+      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
+      "show_button": "Controls the action fields and rendered action.",
+      "button_style": "Changes button appearance; no dependent controls.",
+      "hide_on_mobile": "Responsive visibility; no additional input fields.",
+      "hide_on_desktop": "Responsive visibility; no additional input fields."
+    },
+    "scenarios": [
+      {
+        "name": "Square image",
+        "settings": {
+          "image_height_mode": "square"
+        },
+        "hidden": [
+          "image_height",
+          "mobile_image_height"
+        ]
+      },
+      {
+        "name": "Custom image height",
+        "settings": {
+          "image_height_mode": "custom"
+        },
+        "visible": [
+          "image_height",
+          "mobile_image_height"
+        ]
+      },
+      {
+        "name": "Heading disabled with rich text",
+        "settings": {
+          "show_heading": false,
+          "text": "<h3>Rich heading</h3>"
+        },
+        "hidden": [
+          "heading",
+          "heading_level"
+        ],
+        "visible": [
+          "text",
+          "heading_font"
+        ]
+      },
+      {
+        "name": "Button disabled",
+        "settings": {
+          "show_button": false
+        },
+        "hidden": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      },
+      {
+        "name": "Button enabled",
+        "settings": {
+          "show_button": true
+        },
+        "visible": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      }
+    ],
+    "schemaHash": "11d7ad11809194b3d158f048198b1bce0d9582e038a9b89e7d9a7af6c520322d"
+  },
+  "sections/two-column.liquid": {
+    "fields": {
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "hide_on_mobile": "Responsive visibility; no additional input fields.",
+      "hide_on_desktop": "Responsive visibility; no additional input fields."
+    },
+    "scenarios": [],
+    "schemaHash": "620aeec9dadd7e1a7378d72b9157554ab02df55136056df6a80de29ea5d48cee"
+  },
+  "sections/faq-accordion.liquid": {
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "faq_category": {
+        "group": "FAQs",
+        "visible_if": null
+      },
+      "selected_faqs": {
+        "group": "FAQs",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
+      "hide_on_mobile": "Responsive visibility; no additional input fields.",
+      "hide_on_desktop": "Responsive visibility; no additional input fields."
+    },
+    "scenarios": [],
+    "schemaHash": "849d5845725cfad14726395b6ea313a17ad6dda5147ec11093aa531f9d925690"
+  },
+  "sections/split-image-text.liquid": {
+    "fields": {
+      "image_side": {
+        "group": "Layout",
+        "visible_if": null
+      },
+      "image_width": {
+        "group": "Layout",
+        "visible_if": "{{ section.settings.image_side != 'top' }}"
+      },
+      "minimum_height": {
+        "group": "Layout",
+        "visible_if": "{{ section.settings.image_side != 'top' }}"
+      },
+      "top_image_height": {
+        "group": "Layout",
+        "visible_if": "{{ section.settings.image_side == 'top' }}"
+      },
+      "text_columns": {
+        "group": "Layout",
+        "visible_if": "{{ section.settings.image_side == 'top' }}"
+      },
+      "image": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "image_alt": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "show_heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.show_heading }}"
+      },
+      "heading_level": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.show_heading or section.settings.text_columns == 'two' and section.settings.image_side == 'top' }}"
+      },
+      "show_subtext": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "subtext": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.show_subtext }}"
+      },
+      "show_list": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "second_heading": {
+        "group": "Second text column",
+        "visible_if": "{{ section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
+      },
+      "second_text": {
+        "group": "Second text column",
+        "visible_if": "{{ section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
+      },
+      "show_button": {
+        "group": "Button",
+        "visible_if": null
+      },
+      "button_label": {
+        "group": "Button",
+        "visible_if": "{{ section.settings.show_button }}"
+      },
+      "button_link": {
+        "group": "Button",
+        "visible_if": "{{ section.settings.show_button }}"
+      },
+      "button_style": {
+        "group": "Button",
+        "visible_if": "{{ section.settings.show_button }}"
+      },
+      "panel_color": {
+        "group": "Appearance",
+        "visible_if": null
+      },
+      "text_color": {
+        "group": "Appearance",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "image_side": "Changes visual/DOM image position; Top-only controls are tested where supported.",
+      "text_columns": "Top/two reveals the second text column.",
+      "show_heading": "Controls heading content and semantic level. Font remains relevant for rich-text headings.",
+      "heading_level": "Changes the semantic heading tag; no further dependent settings.",
+      "show_subtext": "Controls supporting rich text.",
+      "show_list": "Controls existing tick blocks; Shopify does not conditionally hide block entries.",
+      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
+      "show_button": "Controls the action fields and rendered action.",
+      "button_style": "Changes button appearance; no dependent controls.",
+      "hide_on_mobile": "Responsive visibility; no additional input fields.",
+      "hide_on_desktop": "Responsive visibility; no additional input fields."
+    },
+    "scenarios": [
+      {
+        "name": "Button disabled",
+        "settings": {
+          "show_button": false
+        },
+        "hidden": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      },
+      {
+        "name": "Button enabled",
+        "settings": {
+          "show_button": true
+        },
+        "visible": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      },
+      {
+        "name": "Image on side",
+        "settings": {
+          "image_side": "left",
+          "text_columns": "two"
+        },
+        "hidden": [
+          "text_columns",
+          "top_image_height",
+          "second_heading",
+          "second_text"
+        ],
+        "visible": [
+          "image_width",
+          "minimum_height"
+        ]
+      },
+      {
+        "name": "Top single column",
+        "settings": {
+          "image_side": "top",
+          "text_columns": "one"
+        },
+        "hidden": [
+          "image_width",
+          "minimum_height",
+          "second_heading",
+          "second_text"
+        ],
+        "visible": [
+          "text_columns",
+          "top_image_height"
+        ]
+      },
+      {
+        "name": "Top two columns, primary heading disabled",
+        "settings": {
+          "image_side": "top",
+          "text_columns": "two",
+          "show_heading": false
+        },
+        "visible": [
+          "second_heading",
+          "second_text",
+          "heading_level"
+        ]
+      }
+    ],
+    "schemaHash": "634d686be62e8e5bc89cdccb3dcc062a5a540923467f6d3f9a42a5feb9d56db3"
+  },
+  "sections/poster.liquid": {
+    "fields": {
+      "layout_mode": {
+        "group": "Layout",
+        "visible_if": null
+      },
+      "image": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "mobile_image": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "image_alt": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "content_position": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
+      },
+      "show_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_heading }}"
+      },
+      "heading_level": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_heading }}"
+      },
+      "show_subtext": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
+      },
+      "subtext": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_subtext }}"
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
+      },
+      "show_button": {
+        "group": "Button",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
+      },
+      "button_label": {
+        "group": "Button",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_button }}"
+      },
+      "button_link": {
+        "group": "Button",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_button }}"
+      },
+      "button_style": {
+        "group": "Button",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_button }}"
+      },
+      "poster_text_color": {
+        "group": "Appearance",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
+      },
+      "overlay_strength": {
+        "group": "Appearance",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
+      },
+      "overlay_color": {
+        "group": "Appearance",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.overlay_strength != 0 }}"
+      },
+      "minimum_height": {
+        "group": "Size",
+        "visible_if": null
+      },
+      "minimum_height_mobile": {
+        "group": "Size",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "layout_mode": "Image-only hides content and appearance controls. Size and media remain relevant.",
+      "content_position": "Positions visible content; no extra fields.",
+      "show_heading": "Controls heading content and semantic level. Font remains relevant for rich-text headings.",
+      "heading_level": "Changes the semantic heading tag; no further dependent settings.",
+      "show_subtext": "Controls supporting rich text.",
+      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
+      "show_button": "Controls the action fields and rendered action.",
+      "button_style": "Changes button appearance; no dependent controls.",
+      "hide_on_mobile": "Responsive visibility; no additional input fields.",
+      "hide_on_desktop": "Responsive visibility; no additional input fields."
+    },
+    "scenarios": [
+      {
+        "name": "Button disabled",
+        "settings": {
+          "show_button": false
+        },
+        "hidden": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      },
+      {
+        "name": "Button enabled",
+        "settings": {
+          "show_button": true
+        },
+        "visible": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      },
+      {
+        "name": "Image only",
+        "settings": {
+          "layout_mode": "image_only"
+        },
+        "hidden": [
+          "content_position",
+          "show_heading",
+          "heading",
+          "heading_level",
+          "show_subtext",
+          "subtext",
+          "heading_font",
+          "show_button",
+          "button_label",
+          "button_link",
+          "button_style",
+          "poster_text_color",
+          "overlay_color",
+          "overlay_strength"
+        ],
+        "visible": [
+          "image",
+          "mobile_image",
+          "minimum_height",
+          "minimum_height_mobile"
+        ]
+      },
+      {
+        "name": "No overlay",
+        "settings": {
+          "overlay_strength": 0
+        },
+        "hidden": [
+          "overlay_color"
+        ]
+      }
+    ],
+    "schemaHash": "c42d5eebc31ded4d214abc103a315eb6d3f64b96d74dea8b3b73b15272fd63bd"
+  },
+  "blocks/editorial-faq.liquid": {
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "faq_category": {
+        "group": "FAQs",
+        "visible_if": null
+      },
+      "selected_faqs": {
+        "group": "FAQs",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected."
+    },
+    "scenarios": [],
+    "schemaHash": "c54127e97c87467d4251e5b5de79c664a40bf2ba81aab4e4efd6f501f7eb2890"
+  },
+  "blocks/sidebar-box.liquid": {
+    "fields": {
+      "artwork": {
+        "group": "Design",
+        "visible_if": null
+      },
+      "override_layout": {
+        "group": "Design",
+        "visible_if": null
+      },
+      "override_position": {
+        "group": "Design",
+        "visible_if": null
+      },
+      "override_height": {
+        "group": "Design",
+        "visible_if": null
+      },
+      "override_image": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "show_heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "override_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "override_text_color": {
+        "group": "Appearance",
+        "visible_if": null
+      },
+      "override_overlay_color": {
+        "group": "Appearance",
+        "visible_if": null
+      },
+      "override_overlay_strength": {
+        "group": "Appearance",
+        "visible_if": null
+      },
+      "show_button": {
+        "group": "Action",
+        "visible_if": null
+      },
+      "button_label": {
+        "group": "Action",
+        "visible_if": null
+      },
+      "button_link": {
+        "group": "Action",
+        "visible_if": null
+      },
+      "override_button_style": {
+        "group": "Action",
+        "visible_if": null
+      },
+      "layout": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "soda_image": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "soda_text_color": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "soda_overlay_strength": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "soda_overlay_color": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "seltzer_image": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "seltzer_text_color": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "seltzer_overlay_strength": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "seltzer_overlay_color": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "reminder_image": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "reminder_heading_font": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "reminder_content_position": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "reminder_text_color": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "reminder_overlay_strength": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "reminder_overlay_color": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "reminder_minimum_height": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "reminder_button_style": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "subscription_image": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "subscription_heading_font": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "subscription_content_position": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "subscription_text_color": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "subscription_overlay_strength": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "subscription_overlay_color": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "subscription_minimum_height": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      },
+      "subscription_button_style": {
+        "group": "Saved design values",
+        "visible_if": "{{ block.settings.artwork == blank }}"
+      }
+    },
+    "controls": {
+      "artwork": "Preset or override changes rendering; all customization controls remain visible by merchant request.",
+      "override_layout": "Preset or override changes rendering; all customization controls remain visible by merchant request.",
+      "override_position": "Preset or override changes rendering; all customization controls remain visible by merchant request.",
+      "show_heading": "Preset or override changes rendering; all customization controls remain visible by merchant request.",
+      "override_font": "Preset or override changes rendering; all customization controls remain visible by merchant request.",
+      "show_button": "Preset or override changes rendering; all customization controls remain visible by merchant request.",
+      "override_button_style": "Preset or override changes rendering; all customization controls remain visible by merchant request.",
+      "layout": "Compatibility value retained for existing saved blocks; superseded by the visible override.",
+      "reminder_heading_font": "Compatibility value retained for existing saved blocks; superseded by the visible override.",
+      "reminder_content_position": "Compatibility value retained for existing saved blocks; superseded by the visible override.",
+      "reminder_button_style": "Compatibility value retained for existing saved blocks; superseded by the visible override.",
+      "subscription_heading_font": "Compatibility value retained for existing saved blocks; superseded by the visible override.",
+      "subscription_content_position": "Compatibility value retained for existing saved blocks; superseded by the visible override.",
+      "subscription_button_style": "Compatibility value retained for existing saved blocks; superseded by the visible override."
+    },
+    "scenarios": [
+      {
+        "name": "soda with all controls available",
+        "settings": {
+          "artwork": "soda",
+          "show_button": false,
+          "show_heading": false,
+          "override_overlay_strength": 0
+        },
+        "visible": [
+          "artwork",
+          "override_layout",
+          "override_position",
+          "override_height",
+          "override_image",
+          "heading",
+          "show_heading",
+          "override_font",
+          "override_text_color",
+          "override_overlay_color",
+          "override_overlay_strength",
+          "show_button",
+          "button_label",
+          "button_link",
+          "override_button_style"
+        ],
+        "hidden": [
+          "layout",
+          "soda_image",
+          "soda_text_color",
+          "soda_overlay_strength",
+          "soda_overlay_color",
+          "seltzer_image",
+          "seltzer_text_color",
+          "seltzer_overlay_strength",
+          "seltzer_overlay_color",
+          "reminder_image",
+          "reminder_heading_font",
+          "reminder_content_position",
+          "reminder_text_color",
+          "reminder_overlay_strength",
+          "reminder_overlay_color",
+          "reminder_minimum_height",
+          "reminder_button_style",
+          "subscription_image",
+          "subscription_heading_font",
+          "subscription_content_position",
+          "subscription_text_color",
+          "subscription_overlay_strength",
+          "subscription_overlay_color",
+          "subscription_minimum_height",
+          "subscription_button_style"
+        ]
+      },
+      {
+        "name": "seltzer with all controls available",
+        "settings": {
+          "artwork": "seltzer",
+          "show_button": false,
+          "show_heading": false,
+          "override_overlay_strength": 0
+        },
+        "visible": [
+          "artwork",
+          "override_layout",
+          "override_position",
+          "override_height",
+          "override_image",
+          "heading",
+          "show_heading",
+          "override_font",
+          "override_text_color",
+          "override_overlay_color",
+          "override_overlay_strength",
+          "show_button",
+          "button_label",
+          "button_link",
+          "override_button_style"
+        ],
+        "hidden": [
+          "layout",
+          "soda_image",
+          "soda_text_color",
+          "soda_overlay_strength",
+          "soda_overlay_color",
+          "seltzer_image",
+          "seltzer_text_color",
+          "seltzer_overlay_strength",
+          "seltzer_overlay_color",
+          "reminder_image",
+          "reminder_heading_font",
+          "reminder_content_position",
+          "reminder_text_color",
+          "reminder_overlay_strength",
+          "reminder_overlay_color",
+          "reminder_minimum_height",
+          "reminder_button_style",
+          "subscription_image",
+          "subscription_heading_font",
+          "subscription_content_position",
+          "subscription_text_color",
+          "subscription_overlay_strength",
+          "subscription_overlay_color",
+          "subscription_minimum_height",
+          "subscription_button_style"
+        ]
+      },
+      {
+        "name": "reminder with all controls available",
+        "settings": {
+          "artwork": "reminder",
+          "show_button": false,
+          "show_heading": false,
+          "override_overlay_strength": 0
+        },
+        "visible": [
+          "artwork",
+          "override_layout",
+          "override_position",
+          "override_height",
+          "override_image",
+          "heading",
+          "show_heading",
+          "override_font",
+          "override_text_color",
+          "override_overlay_color",
+          "override_overlay_strength",
+          "show_button",
+          "button_label",
+          "button_link",
+          "override_button_style"
+        ],
+        "hidden": [
+          "layout",
+          "soda_image",
+          "soda_text_color",
+          "soda_overlay_strength",
+          "soda_overlay_color",
+          "seltzer_image",
+          "seltzer_text_color",
+          "seltzer_overlay_strength",
+          "seltzer_overlay_color",
+          "reminder_image",
+          "reminder_heading_font",
+          "reminder_content_position",
+          "reminder_text_color",
+          "reminder_overlay_strength",
+          "reminder_overlay_color",
+          "reminder_minimum_height",
+          "reminder_button_style",
+          "subscription_image",
+          "subscription_heading_font",
+          "subscription_content_position",
+          "subscription_text_color",
+          "subscription_overlay_strength",
+          "subscription_overlay_color",
+          "subscription_minimum_height",
+          "subscription_button_style"
+        ]
+      },
+      {
+        "name": "subscription with all controls available",
+        "settings": {
+          "artwork": "subscription",
+          "show_button": false,
+          "show_heading": false,
+          "override_overlay_strength": 0
+        },
+        "visible": [
+          "artwork",
+          "override_layout",
+          "override_position",
+          "override_height",
+          "override_image",
+          "heading",
+          "show_heading",
+          "override_font",
+          "override_text_color",
+          "override_overlay_color",
+          "override_overlay_strength",
+          "show_button",
+          "button_label",
+          "button_link",
+          "override_button_style"
+        ],
+        "hidden": [
+          "layout",
+          "soda_image",
+          "soda_text_color",
+          "soda_overlay_strength",
+          "soda_overlay_color",
+          "seltzer_image",
+          "seltzer_text_color",
+          "seltzer_overlay_strength",
+          "seltzer_overlay_color",
+          "reminder_image",
+          "reminder_heading_font",
+          "reminder_content_position",
+          "reminder_text_color",
+          "reminder_overlay_strength",
+          "reminder_overlay_color",
+          "reminder_minimum_height",
+          "reminder_button_style",
+          "subscription_image",
+          "subscription_heading_font",
+          "subscription_content_position",
+          "subscription_text_color",
+          "subscription_overlay_strength",
+          "subscription_overlay_color",
+          "subscription_minimum_height",
+          "subscription_button_style"
+        ]
+      }
+    ],
+    "schemaHash": "ff911a794b33c8f27d91a8c2b3790d3147a38dcf02f3d96263f149fbcf62352e"
+  },
+  "blocks/link-box.liquid": {
+    "fields": {
+      "title": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "link": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "background": {
+        "group": "Appearance",
+        "visible_if": null
+      },
+      "text_color": {
+        "group": "Appearance",
+        "visible_if": null
+      }
+    },
+    "controls": {},
+    "scenarios": [],
+    "schemaHash": "f8c4dfc794b3502b66e3c19d29b863cbd46d8e3b5ecc9df5b6a8fcd0d72acb35"
+  },
+  "blocks/editorial-text.liquid": {
+    "fields": {
+      "show_heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.show_heading }}"
+      },
+      "heading_level": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.show_heading }}"
+      },
+      "text": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.show_heading or block.settings.text != blank }}"
+      }
+    },
+    "controls": {
+      "show_heading": "Controls heading content and semantic level. Font remains relevant for rich-text headings.",
+      "heading_level": "Changes the semantic heading tag; no further dependent settings.",
+      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected."
+    },
+    "scenarios": [
+      {
+        "name": "Heading disabled with rich text",
+        "settings": {
+          "show_heading": false,
+          "text": "<h3>Rich heading</h3>"
+        },
+        "hidden": [
+          "heading",
+          "heading_level"
+        ],
+        "visible": [
+          "text",
+          "heading_font"
+        ]
+      }
+    ],
+    "schemaHash": "57b9929df474e072df3180e9f63dcceb2549e33eced31cbd51b7f49c7dec926f"
+  },
+  "blocks/editorial-text-image.liquid": {
+    "fields": {
+      "image_side": {
+        "group": "Layout",
+        "visible_if": null
+      },
+      "image": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "image_alt": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "image_height_mode": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "image_height": {
+        "group": "Image",
+        "visible_if": "{{ block.settings.image_height_mode == 'custom' }}"
+      },
+      "mobile_image_height": {
+        "group": "Image",
+        "visible_if": "{{ block.settings.image_height_mode == 'custom' }}"
+      },
+      "show_heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.show_heading }}"
+      },
+      "heading_level": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.show_heading }}"
+      },
+      "text": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.show_heading or block.settings.text != blank }}"
+      },
+      "show_button": {
+        "group": "Button",
+        "visible_if": null
+      },
+      "button_label": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.show_button }}"
+      },
+      "button_link": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.show_button }}"
+      },
+      "button_style": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.show_button }}"
+      }
+    },
+    "controls": {
+      "image_side": "Changes visual/DOM image position; Top-only controls are tested where supported.",
+      "image_height_mode": "Custom reveals desktop and mobile heights.",
+      "show_heading": "Controls heading content and semantic level. Font remains relevant for rich-text headings.",
+      "heading_level": "Changes the semantic heading tag; no further dependent settings.",
+      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
+      "show_button": "Controls the action fields and rendered action.",
+      "button_style": "Changes button appearance; no dependent controls."
+    },
+    "scenarios": [
+      {
+        "name": "Square image",
+        "settings": {
+          "image_height_mode": "square"
+        },
+        "hidden": [
+          "image_height",
+          "mobile_image_height"
+        ]
+      },
+      {
+        "name": "Custom image height",
+        "settings": {
+          "image_height_mode": "custom"
+        },
+        "visible": [
+          "image_height",
+          "mobile_image_height"
+        ]
+      },
+      {
+        "name": "Heading disabled with rich text",
+        "settings": {
+          "show_heading": false,
+          "text": "<h3>Rich heading</h3>"
+        },
+        "hidden": [
+          "heading",
+          "heading_level"
+        ],
+        "visible": [
+          "text",
+          "heading_font"
+        ]
+      },
+      {
+        "name": "Button disabled",
+        "settings": {
+          "show_button": false
+        },
+        "hidden": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      },
+      {
+        "name": "Button enabled",
+        "settings": {
+          "show_button": true
+        },
+        "visible": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      }
+    ],
+    "schemaHash": "b7c5fc3386c3b7294443e85cccffffc5d7c6d756e041512dcd2897e92e1225cf"
+  },
+  "blocks/_editorial-sidebar.liquid": {
+    "fields": {},
+    "controls": {},
+    "scenarios": [],
+    "schemaHash": "4fbaaec3c64738771d33f47281c2fda8103081f30dc1ffbfd8b2dbcdc111742f"
+  },
+  "blocks/_poster-tick.liquid": {
+    "fields": {
+      "text": {
+        "group": null,
+        "visible_if": null
+      }
+    },
+    "controls": {},
+    "scenarios": [],
+    "schemaHash": "47359eb8c9245816cf986c161ff23349c6922480241c891409b4e681a0c99280"
+  },
+  "blocks/editorial-image.liquid": {
+    "fields": {
+      "image": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "image_alt": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "image_height_mode": {
+        "group": "Size",
+        "visible_if": null
+      },
+      "image_height": {
+        "group": "Size",
+        "visible_if": "{{ block.settings.image_height_mode == 'custom' }}"
+      },
+      "mobile_image_height": {
+        "group": "Size",
+        "visible_if": "{{ block.settings.image_height_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "image_height_mode": "Custom reveals desktop and mobile heights."
+    },
+    "scenarios": [
+      {
+        "name": "Square image",
+        "settings": {
+          "image_height_mode": "square"
+        },
+        "hidden": [
+          "image_height",
+          "mobile_image_height"
+        ]
+      },
+      {
+        "name": "Custom image height",
+        "settings": {
+          "image_height_mode": "custom"
+        },
+        "visible": [
+          "image_height",
+          "mobile_image_height"
+        ]
+      }
+    ],
+    "schemaHash": "be8f8d411207e53418a5c3b9be3fc1531f1cd60cb90892fc43b7a9d2e292c8bf"
+  },
+  "blocks/_editorial-main.liquid": {
+    "fields": {},
+    "controls": {},
+    "scenarios": [],
+    "schemaHash": "0720684cfeed302053839461838bb4e6883284b2d64440c64419de50df4054fd"
+  },
+  "blocks/editorial-poster.liquid": {
+    "fields": {
+      "layout_mode": {
+        "group": "Layout",
+        "visible_if": null
+      },
+      "image": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "mobile_image": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "image_alt": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "content_position": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+      },
+      "show_heading": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_heading }}"
+      },
+      "heading_level": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_heading }}"
+      },
+      "show_subtext": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+      },
+      "subtext": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_subtext }}"
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+      },
+      "show_button": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+      },
+      "button_label": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_button }}"
+      },
+      "button_link": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_button }}"
+      },
+      "button_style": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_button }}"
+      },
+      "poster_text_color": {
+        "group": "Appearance",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+      },
+      "overlay_strength": {
+        "group": "Appearance",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+      },
+      "overlay_color": {
+        "group": "Appearance",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.overlay_strength != 0 }}"
+      },
+      "minimum_height": {
+        "group": "Size",
+        "visible_if": null
+      },
+      "minimum_height_mobile": {
+        "group": "Size",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "layout_mode": "Image-only hides content and appearance controls. Size and media remain relevant.",
+      "content_position": "Positions visible content; no extra fields.",
+      "show_heading": "Controls heading content and semantic level. Font remains relevant for rich-text headings.",
+      "heading_level": "Changes the semantic heading tag; no further dependent settings.",
+      "show_subtext": "Controls supporting rich text.",
+      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
+      "show_button": "Controls the action fields and rendered action.",
+      "button_style": "Changes button appearance; no dependent controls."
+    },
+    "scenarios": [
+      {
+        "name": "Button disabled",
+        "settings": {
+          "show_button": false
+        },
+        "hidden": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      },
+      {
+        "name": "Button enabled",
+        "settings": {
+          "show_button": true
+        },
+        "visible": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      },
+      {
+        "name": "Image only",
+        "settings": {
+          "layout_mode": "image_only"
+        },
+        "hidden": [
+          "content_position",
+          "show_heading",
+          "heading",
+          "heading_level",
+          "show_subtext",
+          "subtext",
+          "heading_font",
+          "show_button",
+          "button_label",
+          "button_link",
+          "button_style",
+          "poster_text_color",
+          "overlay_color",
+          "overlay_strength"
+        ],
+        "visible": [
+          "image",
+          "mobile_image",
+          "minimum_height",
+          "minimum_height_mobile"
+        ]
+      },
+      {
+        "name": "No overlay",
+        "settings": {
+          "overlay_strength": 0
+        },
+        "hidden": [
+          "overlay_color"
+        ]
+      }
+    ],
+    "schemaHash": "93adee834edc0c40860a896d7fcebffedbde4059b5501cb47c1d98c8f445933a"
+  },
+  "sections/hard-seltzer-awards.liquid": {
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "intro": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "button_label": {
+        "group": "Action",
+        "visible_if": null
+      },
+      "button_link": {
+        "group": "Action",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "hide_on_mobile": "Independent breakpoint visibility; no dependent content fields.",
+      "hide_on_desktop": "Independent breakpoint visibility; no dependent content fields."
+    },
+    "scenarios": [
+      {
+        "name": "Default content and visibility controls",
+        "settings": {},
+        "visible": [
+          "heading",
+          "intro",
+          "button_label",
+          "button_link",
+          "hide_on_mobile",
+          "hide_on_desktop"
+        ]
+      },
+      {
+        "name": "Hidden at both breakpoints remains editable",
+        "settings": {
+          "hide_on_mobile": true,
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "heading",
+          "intro",
+          "button_label",
+          "button_link",
+          "hide_on_mobile",
+          "hide_on_desktop"
+        ]
+      }
+    ],
+    "schemaHash": "617191268ec9723bca5266927cb685bf146b90878325fa81b8b49517891648cf"
+  }
+}

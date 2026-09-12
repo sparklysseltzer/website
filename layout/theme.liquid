@@ -40,11 +40,7 @@
     {% render 'meta-tags' %}
 
     {{ 'maison-neue-demi.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
-    {%- if page_brand_context == 'soda' -%}
-      {{ 'erode-bold.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
-    {%- else -%}
-      {{ 'newake-regular.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
-    {%- endif -%}
+    {{ 'erode-bold.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
 
     <style>
       @font-face {
@@ -88,9 +84,9 @@
         --font-body: 'Maison Neue Demi', Arial, Helvetica, sans-serif;
         --font-heading-default: 'Newake', 'Maison Neue Demi', Arial, Helvetica, sans-serif;
         --font-heading-soda: 'Erode', 'Maison Neue Demi', Arial, Helvetica, sans-serif;
-        --font-heading: var(--font-heading-default);
-        --font-heading-weight: 400;
-        --font-heading-letter-spacing: normal;
+        --font-heading: var(--font-heading-soda);
+        --font-heading-weight: 700;
+        --font-heading-letter-spacing: var(--letter-spacing-heading-erode);
       }
       {% render 'color-palettes' %}
     </style>

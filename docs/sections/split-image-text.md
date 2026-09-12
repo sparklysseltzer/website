@@ -8,7 +8,7 @@ Split Image-Text owns the approved side-by-side editorial composition with a med
 
 ## Merchant controls
 
-- left/right image placement, image width, and minimum height;
+- left/right/top image placement; image width and side-by-side minimum height appear only for Left/Right;
 - optional Shopify image and image alternative text;
 - optional heading (`h2` or `h3`), rich text, tick-list blocks, and linked action;
 - automatic/dark/light button treatment;
@@ -39,3 +39,15 @@ Shared neutral UI colors now resolve through **Theme settings → Colors**, foll
 ## Breakpoint visibility
 
 Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.
+
+## Heading font selection
+
+**Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).
+
+## Top image and two-column text
+
+Top matches Figma `10989:45021`/`10989:45022`: a full-width banner over an enclosed content panel, maximum 1200px. Its independent image-height control replaces image width; phones cap the banner height to 70vw. New placements default to a white panel; existing saved colors remain authoritative. Top mode can show one or two text columns. The original heading/rich text/list/action form the first column; Second heading and Second text form the second. Both use the selected semantic heading level and font. Columns stack on phones. A blank Top image uses `editorial-soda-banner.webp` (1600×948); Left/Right retain the existing team portrait. Shared scroll motion and reduced-motion behavior remain unchanged.
+
+## Editor dependency contract
+
+Layout groups image side, relevant height/width and text-column controls. Image comes next, followed by Content, the conditional Second text column group, Button, Appearance and Visibility. Side layouts hide Top height/text-column fields; Top hides side width/minimum height. Two text columns exposes both secondary fields and keeps Heading level available even when the first heading is disabled. All dependent fields carry their own conditions; conditional headers alone do not hide fields.

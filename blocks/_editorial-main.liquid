@@ -1,0 +1,33 @@
+<div class="editorial-column editorial-column--main">{% content_for 'blocks' %}</div>
+{% schema %}
+{
+  "name": "Content",
+  "blocks": [
+    {
+      "type": "editorial-text"
+    },
+    {
+      "type": "editorial-image"
+    },
+    {
+      "type": "editorial-text-image"
+    },
+    {
+      "type": "editorial-poster"
+    },
+    {
+      "type": "editorial-faq"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Content",
+      "blocks": [
+        {
+          "type": "editorial-text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

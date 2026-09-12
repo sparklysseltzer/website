@@ -347,3 +347,7 @@ Crossed-out original prices use the shared second accent (`--color-accent-second
 Essential-function exception: this section stays available at every breakpoint and does not expose hide controls. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.
 
 Age-field annotations (2026-09-11): generic per-field warning guidance uses yellow surfaces and the shared triangle icon; local validation turns corrected fields green and clears their message during input. Dependent check digits are revalidated when related fields change. Accessible labels remain descriptive; only the full validator can authorize continuation. Number-check and final-check inputs have no placeholder. The intro leads with alcohol in the cart and uses the configured shop minimum age; no general claim about legal consumption age is included.
+
+## Heading font selection
+
+**Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).

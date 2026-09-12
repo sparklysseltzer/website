@@ -1,0 +1,65 @@
+{% render 'section-visibility', section: section %}
+{{ 'editorial-content.css' | asset_url | stylesheet_tag }}
+<div class="section page-width"><div class="editorial-layout">
+{% content_for 'block', type: '_editorial-main', id: 'content' %}
+{% content_for 'block', type: '_editorial-sidebar', id: 'sidebar' %}
+</div></div>
+{% schema %}
+{
+  "name": "2 column",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_editorial-main"
+    },
+    {
+      "type": "_editorial-sidebar"
+    }
+  ],
+  "presets": [
+    {
+      "name": "2 column",
+      "category": "Brand storytelling",
+      "blocks": [
+        {
+          "type": "_editorial-main",
+          "id": "content",
+          "static": true,
+          "blocks": [
+            {
+              "type": "editorial-text"
+            }
+          ]
+        },
+        {
+          "type": "_editorial-sidebar",
+          "id": "sidebar",
+          "static": true,
+          "blocks": [
+            {
+              "type": "sidebar-box"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

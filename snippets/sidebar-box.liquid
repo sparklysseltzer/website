@@ -1,0 +1,117 @@
+{% liquid
+  assign box_layout = 'compact'
+  assign box_heading_font = 'erode'
+  assign box_content_position = 'bottom'
+  assign box_minimum_height = 0
+  assign box_button_style = 'light'
+  if options.artwork == 'reminder' or options.artwork == 'subscription'
+    assign box_layout = 'tall'
+  endif
+  assign fallback_image = 'sidebar-soda.webp'
+  assign logo_alt = 'sections.header.soda' | t
+  case options.artwork
+    when 'seltzer'
+      assign fallback_image = 'sidebar-seltzer.webp'
+      assign logo_alt = 'sections.header.hard_seltzer' | t
+    when 'reminder'
+      assign fallback_image = 'sidebar-reminder.webp'
+    when 'subscription'
+      assign fallback_image = 'sidebar-subscription.webp'
+  endcase
+  case options.artwork
+    when 'soda'
+      assign box_image = options.soda_image
+      assign box_text_color = options.soda_text_color
+      assign box_overlay_strength = options.soda_overlay_strength
+      assign box_overlay_color = options.soda_overlay_color
+    when 'seltzer'
+      assign box_image = options.seltzer_image
+      assign box_text_color = options.seltzer_text_color
+      assign box_overlay_strength = options.seltzer_overlay_strength
+      assign box_overlay_color = options.seltzer_overlay_color
+    when 'reminder'
+      assign box_image = options.reminder_image
+      assign box_heading_font = options.reminder_heading_font
+      assign box_content_position = options.reminder_content_position
+      assign box_text_color = options.reminder_text_color
+      assign box_overlay_strength = options.reminder_overlay_strength
+      assign box_overlay_color = options.reminder_overlay_color
+      assign box_minimum_height = options.reminder_minimum_height
+      assign box_button_style = options.reminder_button_style
+    when 'subscription'
+      assign box_image = options.subscription_image
+      assign box_heading_font = options.subscription_heading_font
+      assign box_content_position = options.subscription_content_position
+      assign box_text_color = options.subscription_text_color
+      assign box_overlay_strength = options.subscription_overlay_strength
+      assign box_overlay_color = options.subscription_overlay_color
+      assign box_minimum_height = options.subscription_minimum_height
+      assign box_button_style = options.subscription_button_style
+  endcase
+  if options.override_layout != blank and options.override_layout != 'preset'
+    assign box_layout = options.override_layout
+  endif
+  if options.override_position != blank and options.override_position != 'preset'
+    assign box_content_position = options.override_position
+  endif
+  if options.override_font != blank and options.override_font != 'preset'
+    assign box_heading_font = options.override_font
+  endif
+  if options.override_button_style != blank and options.override_button_style != 'preset'
+    assign box_button_style = options.override_button_style
+  endif
+  if options.override_height != blank
+    assign box_minimum_height = options.override_height | at_least: 120 | at_most: 1000
+  elsif box_layout == 'tall' and box_minimum_height == 0
+    assign box_minimum_height = 460
+  elsif box_layout == 'compact'
+    assign box_minimum_height = 0
+  endif
+  if options.override_image != blank
+    assign box_image = options.override_image
+  endif
+  if options.override_text_color != blank
+    assign box_text_color = options.override_text_color
+  endif
+  if options.override_overlay_color != blank
+    assign box_overlay_color = options.override_overlay_color
+  endif
+  if options.override_overlay_strength != blank
+    assign box_overlay_strength = options.override_overlay_strength | at_least: 0 | at_most: 100
+  endif
+  assign heading = options.heading
+  if heading == blank and options.artwork == 'reminder'
+    assign heading = 'sections.editorial.reminder_heading' | t
+  elsif heading == blank and options.artwork == 'subscription'
+    assign heading = 'sections.editorial.subscription_heading' | t
+  endif
+  assign label = options.button_label
+  if label == blank
+    assign label = 'sections.editorial.shop_now' | t
+  endif
+  assign link = options.button_link
+  assign tag = 'div'
+  if box_layout == 'compact' and link != blank
+    assign tag = 'a'
+  endif
+  assign opacity = box_overlay_strength | divided_by: 100.0
+  assign overlay = box_overlay_color | color_modify: 'alpha', opacity
+%}
+<{{ tag }} {% if tag == 'a' %}href="{{ link }}" aria-label="{{ label | escape }}"{% endif %}
+  class="sidebar-box sidebar-box--{{ box_layout }} sidebar-box--{{ options.artwork }} sidebar-box--{{ box_content_position }} sidebar-box--button-{{ box_button_style }}"
+  data-heading-font="{{ box_heading_font }}"
+  style="--sidebar-box-height: {{ box_minimum_height }}px; --sidebar-box-text: {{ box_text_color }}; --sidebar-box-overlay: {{ overlay }};">
+  <div class="sidebar-box__media">
+    {% if box_image != blank %}{{ box_image | image_url: width: 900 | image_tag: widths: '360, 600, 900', sizes: '(min-width: 900px) 360px, calc(100vw - 2rem)', loading: 'lazy', alt: box_image.alt }}
+    {% else %}<img src="{{ fallback_image | asset_url }}" class="sidebar-box__fallback" width="720" height="{% if options.artwork == 'reminder' %}914{% elsif options.artwork == 'subscription' %}1038{% else %}360{% endif %}" alt="{% if box_layout == 'compact' %}{{ logo_alt | escape }}{% endif %}" loading="lazy">{% endif %}
+  </div>
+  <div class="sidebar-box__overlay" aria-hidden="true"></div>
+  <div class="sidebar-box__content">
+    {% if options.show_heading != false and heading != blank %}<h3 class="sidebar-box__heading">{{ heading }}</h3>{% endif %}
+    {% if box_layout == 'compact' %}
+      {% if options.show_button != false %}<span class="sidebar-box__action"><span>{{ label | escape }}</span><span class="sidebar-box__arrow" aria-hidden="true"><span class="editorial-chevron"></span></span></span>{% endif %}
+    {% else %}
+      {% if options.show_button != false and link != blank %}<a class="button{% if box_button_style == 'light' %} button--secondary{% endif %}" href="{{ link }}"><span class="button__label">{{ label | escape }}</span></a>{% endif %}
+    {% endif %}
+  </div>
+ </{{ tag }}>

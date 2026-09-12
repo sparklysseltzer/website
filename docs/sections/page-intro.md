@@ -33,3 +33,7 @@ The shared renderer emits one server-rendered `WebPage` with canonical URL/ID, v
 Theme Check, typography/assets checks and existing behavior suites pass. Development Shopify rendering verifies default and editorial blank-field fallback, a single H1, valid WebPage JSON-LD and the native policy CSS. Headless phone/desktop checks cover wrapping and overflow. Longer populated text is checked using temporary browser-only fixture content; no sample copy or page assignment is saved in Shopify.
 
 Final checks also verified the `?view=editorial` development template at 390px, keyboard skip-to-main with storefront scripts blocked, and the intro's bounded layout at 320px with a 200% root font. Native policy title wrapping uses language-aware hyphenation. Strict `jq` rejects four pre-existing Shopify-generated comment headers; all 24 JSON documents parse after removing those headers in memory, without editing authoritative files.
+
+## Heading font selection
+
+**Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).
