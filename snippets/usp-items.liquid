@@ -14,7 +14,7 @@
       assign caption = item.caption.value
     -%}
     <div class="usp-section__item" role="listitem" data-scroll-motion-reveal>
-      <div class="usp-section__icon{% if item.icon.value == blank and is_default %} usp-section__icon--{{ icon_brand }}{% if usp_index == 6 %}-sugar{% endif %}{% endif %}" aria-hidden="true">
+      <div class="usp-section__icon{% if icon_brand == 'seltzer' and usp_index == 1 %} usp-section__icon--alcohol{% endif %}{% if item.icon.value == blank and is_default %} usp-section__icon--{{ icon_brand }}{% if usp_index == 6 %}-sugar{% endif %}{% endif %}" aria-hidden="true">
         {% if item.icon.value %}{{ item.icon.value | image_url: width: 160 | image_tag: widths: '80, 160', sizes: '69px', loading: 'lazy', alt: '' }}{% elsif is_default %}{% if usp_index == 6 %}<img src="{{ 'usp-seltzer-sugar.svg' | asset_url }}" width="69" height="69" alt="">{% else %}{% render 'usp-icon', usp_variant: icon_brand, usp_index: usp_index %}{% endif %}{% endif %}
       </div>
       <p class="usp-section__label">{{ caption | escape_once | newline_to_br }}</p>
@@ -27,7 +27,7 @@
     {%- assign usp_index = item | plus: 0 -%}
     {%- capture label_key -%}sections.usp.{{ usp_variant }}.item_{{ usp_index }}{%- endcapture -%}
     <div class="usp-section__item" role="listitem" data-scroll-motion-reveal>
-      <div class="usp-section__icon usp-section__icon--{{ usp_variant }}{% if usp_index == 6 %}-sugar{% endif %}" aria-hidden="true">
+      <div class="usp-section__icon{% if usp_variant == 'seltzer' and usp_index == 1 %} usp-section__icon--alcohol{% endif %} usp-section__icon--{{ usp_variant }}{% if usp_index == 6 %}-sugar{% endif %}" aria-hidden="true">
         {% if usp_index == 6 %}<img src="{{ 'usp-seltzer-sugar.svg' | asset_url }}" width="69" height="69" alt="" loading="lazy">{% else %}{% render 'usp-icon', usp_variant: usp_variant, usp_index: usp_index %}{% endif %}
       </div>
       <p class="usp-section__label">{{ label_key | t }}</p>

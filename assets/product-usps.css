@@ -46,34 +46,6 @@
     height: 43.47%;
   }
 
-  .usp-section__icon-layer--seltzer-alcohol-main {
-    top: 29.71%;
-    left: 20.28%;
-    width: 33.78%;
-    height: 42%;
-  }
-
-  .usp-section__icon-layer--seltzer-alcohol-detail-1 {
-    top: 29.57%;
-    left: 52.75%;
-    width: 24.81%;
-    height: 22.21%;
-  }
-
-  .usp-section__icon-layer--seltzer-alcohol-detail-2 {
-    top: 63.95%;
-    left: 56.29%;
-    width: 21.69%;
-    height: 7.06%;
-  }
-
-  .usp-section__icon-layer--seltzer-alcohol-detail-3 {
-    top: 54.27%;
-    left: 56.29%;
-    width: 21.04%;
-    height: 7.06%;
-  }
-
   .usp-section__label {
     width: 100%;
     margin: 0;
@@ -94,3 +66,7 @@
 .usp-section--seltzer .usp-section__icon--seltzer-sugar { filter: invert(1); }
 .usp-section__footnote { font-size: var(--font-size-small); }
 @media (max-width: 35rem) { .usp-items { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 1.25rem; } }
+
+/* The complete alcohol export is black artwork; invert only on the dark USP panel. */
+.usp-items .usp-section__icon--alcohol { filter: none; }
+.usp-section--seltzer .usp-section__icon--alcohol { filter: invert(1); }

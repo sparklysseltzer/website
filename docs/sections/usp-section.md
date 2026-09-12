@@ -69,3 +69,9 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 ## Preserved typography
 
 This section opts out of the general editorial heading-font feature through its Shopify wrapper class `heading-font-legacy`. Its original type families, weights, tracking and line heights remain authoritative. Existing variant-based type selection and pre-existing font controls (where present) are preserved; no new global font selector is added.
+
+## Alcohol icon composite export — 2026-09-12
+
+The alcohol icon now uses the complete Figma group `6619:23955` from file `wU2QCDnknQPBZd4hacOOjq`, exported as `assets/usp-seltzer-alcohol.svg`. Do not reconstruct the lettering from individually stretched SVG fragments. The export includes the circle stroke bounds in a 70×70 viewBox. It is black artwork on transparency: shared rendering keeps it black on PDPs and inverts the `seltzer-1` icon on dark Hard Seltzer USP panels. Keep replacement artwork for this stable item black on transparency.
+
+The existing `usp_item` entry `seltzer-1` (ID `683031036291`, caption “Perfect alc. vol.”) references the Hard Seltzer USP set. Its Icon field now selects the complete 4× PNG export `usp-seltzer-alcohol-composite.png` (278×278, MediaImage ID `73588198637955`), uploaded and assigned through the dedicated Admin API connection on 2026-09-12. No metaobject definition or caption was changed. The entry image takes precedence over the matching local SVG fallback. Desktop and phone rendering of the composite fallback was visually checked; theme checks pass.
