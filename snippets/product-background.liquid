@@ -1,0 +1,26 @@
+{%- liquid
+  assign background_image = background_product.metafields.custom.gallery_background_image.value
+  assign gradient = background_product.metafields.custom.gallery_gradient.value | strip | downcase
+  assign linear_prefix = gradient | slice: 0, 16
+  assign radial_prefix = gradient | slice: 0, 16
+  assign remaining = gradient
+  assign allowed = 'abcdefghijklmnopqrstuvwxyz0123456789#(),.%+- ' | split: ''
+  for character in allowed
+    assign remaining = remaining | remove: character
+  endfor
+  assign gradient_valid = false
+  if remaining == blank and gradient != blank
+    if linear_prefix == 'linear-gradient(' or radial_prefix == 'radial-gradient('
+      unless gradient contains 'url' or gradient contains 'var('
+        assign gradient_valid = true
+      endunless
+    endif
+  endif
+-%}
+{%- if background_image.media_type == 'image' -%}
+  <span class="product-background" aria-hidden="true">
+    {{ background_image | image_url: width: 1600 | image_tag: widths: '320, 480, 720, 960, 1200, 1600', sizes: '(min-width: 768px) 50vw, 100vw', loading: 'lazy', alt: '' }}
+  </span>
+{%- elsif gradient_valid -%}
+  <span class="product-background" style="background-image: {{ gradient | escape }};" aria-hidden="true"></span>
+{%- endif -%}

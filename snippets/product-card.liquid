@@ -1,6 +1,7 @@
 <article class="product-card">
   <a class="product-card__link" href="{{ card_product.url }}">
     <div class="product-card__media">
+      {% render 'product-background', background_product: card_product %}
       {%- if card_product.featured_image != blank -%}
         {{
           card_product.featured_image

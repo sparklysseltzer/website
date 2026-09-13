@@ -25,3 +25,7 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 ## Heading font selection
 
 **Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).
+
+## Product backgrounds
+
+Shared product cards use `product-background.liquid`: optional product `custom.gallery_background_image` overrides layered `custom.gallery_gradient`. Backgrounds remain behind product photography; opaque product photos naturally conceal them. Empty or rejected fields retain the existing neutral card surface. Decorative Shopify images use responsive delivery and their native focal point; they introduce no structured-data changes.

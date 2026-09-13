@@ -22,14 +22,6 @@
   assign usp_set = brand_collection.metafields.custom.usp_set.value
   assign flavours = brand_collection.metafields.custom.flavour_products.value | default: brand_collection.products
   assign title = product.title | remove_first: 'Sparklys Soda ' | remove_first: 'Sparklys Hard Seltzer '
-  assign gradient = product.metafields.custom.gallery_gradient.value | strip
-  assign gradient_prefix = gradient | slice: 0, 16
-  assign gradient_valid = false
-  if gradient_prefix == 'linear-gradient('
-    unless gradient contains ';' or gradient contains 'url' or gradient contains '{' or gradient contains '}' or gradient contains '<'
-      assign gradient_valid = true
-    endunless
-  endif
   assign form_id = 'ProductBuy-' | append: section.id
 -%}
 <section class="pdp-section" data-color-world="{{ brand }}">
@@ -99,7 +91,8 @@
       {% for block in section.blocks %}{% render block %}{% endfor %}
     </div>
     </div>
-    <div class="pdp-gallery" {% if gradient_valid %}style="--pdp-gallery-background: {{ gradient | escape }};"{% endif %}>
+    <div class="pdp-gallery">
+      {% render 'product-background', background_product: product %}
       <div class="pdp-gallery__track" tabindex="0" role="region" aria-label="{{ 'products.pdp.gallery' | t }}">
         {% for media in product.media %}
           {% assign media_alt = media.alt | default: product.title %}
