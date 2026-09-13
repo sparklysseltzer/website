@@ -2,7 +2,7 @@
 
 Custom native Shopify Online Store 2.0 theme for Sparklys Switzerland.
 
-This repository is a buildless Liquid theme. It deliberately starts small so the visual system can be implemented from approved designs without inheriting a large generic theme.
+This repository is a buildless Liquid theme. It implements the approved visual system with reusable sections and native Shopify commerce.
 
 Start with the [documentation index](docs/README.md) for product context, architecture, current capability status, development rules, and the curated official Shopify reference stack.
 
@@ -21,7 +21,7 @@ npm install
 npm run check
 ```
 
-`npm run check` runs Shopify Theme Check, global asset-budget checks, and typography regression checks. It is read-only and does not connect to a Shopify store. See [Development](docs/development.md#read-only-local-validation) for the complete handoff checks.
+`npm run check` runs Shopify Theme Check, editor-schema contracts, asset budgets, typography checks, and cart, age-validation and content-sync regression tests. It is read-only and does not connect to a Shopify store. See [Development](docs/development.md#read-only-local-validation) for the complete handoff checks.
 
 ## Store preview
 

@@ -1,22 +1,22 @@
 # Local MRZ age check
 
-Status: MVP implemented locally, 2026-09-08. Not published. Final document artwork and store rollout remain pending.
+Status: local check implemented, with subsequent document-guide and international passport updates. Store rollout and trust limitations require launch review; see the current [document contract](age-verification-documents.md).
 
 ## Confirmed policy
 
-Alcoholic products require age 16. Expired documents are accepted: their dates and check digits must still be structurally valid. This is a local plausibility check, not proof of document authenticity or ownership. Browser time and remembered results are user-controlled; direct checkout URLs and external sales channels can bypass theme code.
+The configured minimum age defaults to **18**; Theme settings → Age check offers 16 or 18. This is the merchant purchasing policy, not a statement of statutory drinking age. Expired documents are accepted: their dates and check digits must still be structurally valid. This is a local plausibility check, not proof of document authenticity or ownership. Browser time and remembered results are user-controlled; direct checkout URLs and external sales channels can bypass theme code.
 
 ## Product configuration
 
 Shopify product metafield **Contains alcohol**, `custom.contains_alcohol`, type boolean, is the sole classification source. The definition was created and pinned on 2026-09-08 with Storefront API access and admin filtering. Set true for alcohol and bundles containing alcohol; explicitly false for Soda, merchandise and other unrestricted goods. Variants inherit the product value. An unset field blocks the enabled cart checkout with a configuration message. Never infer eligibility from names, tags, product type or brand worlds at runtime.
 
-The 16 currently published products were classified: three Hard Seltzer products true; four Soda products and nine merchandise products false. Additional draft/archived Hard Seltzer products were marked true. The draft gift card is still unclassified and must be classified before publishing. Audit new products and bundles before sale. Theme settings → Age check contains the enable switch (default off) and policy version. The isolated local development fixture enables it; protected shared settings are not uploaded. Increment the version when rules change. Do not overwrite shared theme settings or publish to activate this feature.
+At the 2026-09-08 provisioning audit, 16 published products were classified: three Hard Seltzer products true; four Soda products and nine merchandise products false. Additional draft/archived Hard Seltzer products were marked true. The draft gift card was unclassified at that audit and must be classified before publishing. Audit new products and bundles before sale. Theme settings → Age check contains the enable switch (default off), minimum age (default 18), and policy version. The isolated local development fixture enables it; protected shared settings are not uploaded. Increment the version when rules change. Do not overwrite shared theme settings or publish to activate this feature.
 
 ## Journey and implementation
 
 Both cart surfaces render `cart-age-policy.liquid`. `age-check.js` intercepts their checkout submits and fetches the current server-rendered cart policy. Restricted carts open a native secondary dialog; the existing cart drawer remains visible and inert. Cancel/Escape clears inputs and returns focus. Validation success clears inputs, announces completion, and automatically continues to checkout. The continuation refreshes policy again before posting checkout plus the current draft note. It never posts MRZ fields or stale quantity fields.
 
-The four document choices are Swiss ID, Liechtenstein ID, Swiss passport and Liechtenstein passport. The first two use standard ICAO TD1, passports TD3. Interactive local schematics contain the actual labeled fields and describe where the MRZ is located (ID back; passport personal-data page). They are baseline guides, not issuer artwork or a claim of coverage for every historic edition. Unexpected layouts and extended document numbers are not supported.
+Document choices cover Swiss and Liechtenstein IDs/passports plus other-country standard TD3 passports. IDs use ICAO TD1, passports TD3. See the [international coverage contract](age-verification-international-plan.md#implemented-standard-passport-support--2026-09-09). Interactive local schematics contain the actual labeled fields and describe where the MRZ is located (ID back; passport personal-data page). They are baseline guides, not issuer artwork or a claim of coverage for every historic edition. Unexpected layouts and extended document numbers are not supported.
 
 `age-validation.js` is a pure validator with ICAO 7/3/1 check digits, document/birth/expiry/composite checks, optional-field handling, real dates, conditional four-digit birth year only when century ambiguity changes eligibility, and calendar age in Europe/Zurich. Leap-day birthdays advance on March 1 in non-leap years. The official Swiss 2023 specimen and ICAO passport example are fixtures; other profile cases are synthetic format tests.
 
@@ -34,7 +34,7 @@ Native dialog supplies the focus boundary. Close/back controls remain available,
 
 Run `npm run check:age` and the full theme checks. Browser coverage must include both cart surfaces, mobile/desktop, keyboard cancel/reopen, invalid fields, success, remembered reuse, stale policy, failed refresh, storage denial and JavaScript disabled. Use specimen/synthetic input only. Never submit an actual order while testing.
 
-Before enabling on a shared theme: finish classification audit, verify the four document guides against intended editions with final design, and review unsupported-document assistance. No Schema.org entity applies to this private checkout interaction; no JSON-LD is emitted.
+Before enabling on a shared theme: finish classification audit, verify all supported document guides against intended editions with final design, and review unsupported-document assistance. No Schema.org entity applies to this private checkout interaction; no JSON-LD is emitted.
 
 See [document research](age-verification-documents.md) and [extension backlog](age-verification-extensions.md).
 

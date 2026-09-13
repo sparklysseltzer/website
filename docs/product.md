@@ -54,7 +54,7 @@ The black top bar is the product-world switcher. The white bar below it changes 
 
 Typography follows product-world identity, with shared body/UI roles across worlds. The [design system](design-system.md) owns font selection, sizing, rhythm, and explicit editorial exceptions.
 
-Product detail pages belong to the same product world as their products. A Soda product receives the Soda header, active Soda tab, Soda navigation, Erode Bold headings, and Soda footer. A Hard Seltzer product receives the corresponding Hard Seltzer header, tab, navigation, Newake headings, and footer. Product-world styling is not limited to collection landing pages.
+Product detail pages belong to the same product world as their products. A Soda product receives the Soda header, active Soda tab, Soda navigation, Erode Bold headings, and Soda footer. A Hard Seltzer product receives the corresponding Hard Seltzer header, tab, navigation and footer. Heading typography follows the section control and the preserved merchandising exceptions in the design system. Product-world styling is not limited to collection landing pages.
 
 The footer follows the same three contexts. General pages present the Arc plus separate Soda and Hard Seltzer navigation cards. Soda pages present the Soda logo and Soda shop card. Hard Seltzer pages present the Hard Seltzer logo and Hard Seltzer shop card. Shared newsletter, learning, company, legal, social, payment, store-finder, and language surfaces keep a consistent visual system across all three variants. Footer card headings are an intentional typography exception: they use Newake at weight 400 in every context, including Soda pages.
 
@@ -79,7 +79,7 @@ The current visual implementation has established the core brand language and re
 
 ## Desired commerce experience
 
-These capabilities are part of the product vision. They are not implemented yet, and the choice between custom theme work and a Shopify app remains open for each one.
+These capabilities describe the product vision. Several now have theme implementations; consult [Status](status.md) for current coverage and remaining integration work.
 
 ### Subscriptions
 

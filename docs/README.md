@@ -15,6 +15,8 @@ Read [Product](product.md), [Architecture](architecture.md), and [Development](d
 | [Section reference](sections/README.md) | The only complete section inventory; individual section contracts and exceptions |
 | [Tone and voice](tone-and-voice.md) | Brand personality, contextual humor, supplied reference copy, and storefront writing rules |
 | [Design system](design-system.md) | Typography roles, visual tokens, normalization, and approved composition exceptions |
+| [Form controls](forms.md) | Shared form tokens and accessibility contract |
+| [Design system studio](design-system-studio.md) | Permanent local component playground and designer workflow |
 | [Frontend assets](frontend-assets.md) | CSS/JS ownership, fonts, image delivery, exports, and budgets |
 | [Development](development.md) | Setup, local checks, preview synchronization, Ananotes annotations, Figma workflow, and delivery safety |
 | [Quality](quality.md) | Accessibility, performance, SEO, and verification criteria |
@@ -41,8 +43,8 @@ Keep each fact in its owning guide and link to it elsewhere. Section docs descri
 - The [Shopify Liquid reference](https://shopify.dev/docs/api/liquid) defines available tags, filters, and objects.
 - When platform behavior matters, verify the current official page before implementing. Record new durable conclusions here, but link to the source rather than vendoring the whole page.
 
-Documentation structure and repository descriptions were reconciled on 2026-09-06. This is not a fresh verification of every external platform link or remote store setting.
+Documentation structure and current capability descriptions were reconciled on 2026-09-13. This is not a fresh verification of every external platform link or remote store setting.
 
-- [Form control baseline](forms.md) — reusable form tokens, accessibility contract and local tuning playground.
+## Decision records and current contracts
 
-- [Design system studio](design-system-studio.md) — permanent local component playground, startup and designer workflow.
+Completed implementation plans remain as dated decision records, not instructions to rebuild existing features: [PDP discovery](product-detail-plan.md), [coupon plan](cart-coupons-plan.md) and [cart reference](cart-reference.md). Current behavior belongs in the owning section contract and Status. Age-check document research, international coverage and future provider options remain separate because they describe different support boundaries and deferred choices. Retain annotation/task history and the icon license; they are not unused documentation.

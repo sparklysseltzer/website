@@ -1,5 +1,7 @@
 # Cart rebuild reference
 
+Historical planning/reference record. The cart implementation has since shipped in development; use the [current cart contract](sections/main-cart.md) and [Status](status.md) for current behavior and remaining work. The original observations below are retained for decision context.
+
 Inspected on 2026-09-06. Source: [current cart page](https://sparklys.ch/cart) and its global cart drawer. This is a discovery record, not an implemented theme contract or approval to copy every legacy behavior. The user requested inspection before implementation and confirmed there are currently no subscription products.
 
 ## Reference and evidence

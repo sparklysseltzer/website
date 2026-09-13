@@ -1,105 +1,45 @@
 # Implementation status
 
-This file is a capability map, not a promise of production readiness.
-
-Last reconciled with the repository on 2026-09-06. Store provisioning dates are historical records; this cleanup did not re-audit remote configuration.
+This is the current capability map, not a promise of production readiness. Reconciled with local code and owning contracts on 2026-09-13. Remote provisioning dates elsewhere are historical records; this audit did not revalidate every store setting or provider integration.
 
 ## Implemented in the current theme
 
-- Shopify theme directory structure and global `theme.liquid` layout.
-- English source/default and German translated storefront UI locale files.
-- Global grain and radius controls, a bundled favicon, a fixed shared layout-frame token, and a code-owned global palette/brand identity. Generic Brand/Colors fieldsets are not exposed.
-- Persistent header and footer section groups.
-- Figma-based responsive header shell with configurable default, Soda, and Hard Seltzer navigation contexts.
-- Desktop brand switcher with active concave joins, textured hover/focus treatment, stable animated hit areas, and scroll-intent restoration of the black bar.
-- Shopify-managed `Corporate Nav` black-bar navigation with resource-backed Blog and Contact links, automatic disclosure popovers and chevrons for nested items, and keyboard-accessible native details behavior.
-- Separate Shopify-managed General, Soda, and Hard Seltzer primary-navigation menus, each initialized with Shop, Learn, and Subscribe placeholders and connected to its matching header context.
-- Resource-backed Store Finder header action linked to the Shopify Händler page with an accessible animated pill treatment.
-- Three context-aware footer shells with Shopify-managed navigation, active social links, and a native newsletter form prepared for the existing Klaviyo sync. Payment, store-finder, and language controls remain static previews; provider synchronization needs operational verification.
-- Shared Shopify-managed Legal Nav with resource-backed AGB, Datenschutz, Impressum, and Versandinformationen policy links across every footer context.
-- Context-specific Arc, Soda, and Hard Seltzer header identities, plus a server-rendered localized footer year.
-- Default grid-only, Soda brand, and Hard Seltzer brand collection templates.
-- Context-aware typography and explicit editorial exceptions follow the [design system](design-system.md). Maison Neue Bold is in use for emphasized UI, including FAQ questions.
-- Product detail pages inherit the appropriate brand shell through the central [product-world resolver](architecture.md#product-world-context).
-- Existing `custom.brand_variant` on Products and Pages provides explicit Soda or Hard Seltzer classification, normalizing `hardseltzer` to internal `seltzer`. Canonical collections retain handle fallbacks; obsolete Product world definitions have been removed.
-- Documented Liquid sections cover the persistent shell, resource templates, and reusable editorial modules. JSON templates own current composition; development content still needs launch review. The `page.faq` template provides a server-rendered FAQ directory with progressive client-side search and category filtering. See the authoritative [Section reference](sections/README.md) for available sections and their contracts.
-- Shared fluid typography roles normalize body copy, headings, labels and actions across sections, with documented artwork exceptions and an automated regression check.
-- A polished four-card Product Overview composition with responsive no-overlap scaling, a shared product floor, product-specific glows and tinted progressive SVG shadows, 90% Soda and 105% Hard Seltzer can scales, wave-logo SVG titles for Maracuja and Holunder, and horizontally scrollable phone layouts.
-- JSON templates for home, product, collection, collection list, cart, search, page, blog, article, and 404.
-- Responsive product cards and basic product media.
-- Server-rendered product and cart forms.
-- Progressively enhanced Ajax add-to-cart with status messaging.
-- Canonical, description, Open Graph, and Twitter metadata.
-- Mobile-first layout primitives, focus styles, skip link, and reduced-motion handling.
-- Theme Check configuration and CI.
-- Documented frontend asset ownership and Shopify CDN delivery rules, with enforced raw/gzip/Brotli reporting for global CSS and JavaScript.
-- Local development and safety documentation.
+- Buildless Shopify Online Store 2.0 theme with Liquid, native CSS, vanilla JavaScript, resource templates and configurable sections. The [section reference](sections/README.md) is the sole complete section inventory.
+- Shared General, Soda and Hard Seltzer header/footer contexts, using `custom.brand_variant`, canonical collection fallbacks and merchant-owned menus. General footer cards, newsletter submission, social/legal navigation and shared payment artwork are implemented. Payment artwork is not a verified gateway inventory.
+- English source theme UI and German translations. The footer's native language selector uses published/available Shopify languages; English publication remains deferred until go-live. It does not switch countries or currencies.
+- Shared typography, palette, radius, form, focus, notification and motion contracts. Editorial heading choices default to Erode; specified merchandising sections and footer card headings retain their established typography. The local Design Studio is preserved outside the storefront.
+- Shared PDP media slider, flavour cross-links, packaging and quantity selection, variant URL/media/price/availability state, selling-plan selection, subscription benefits, badges, shipping/payment reuse and product structured data. Current catalog variants are supported; option-by-option and very large variant catalogs remain separate work.
+- Product-owned layered gradient and optional background-image rendering for galleries and basic cards. Soda Variety Pack uses the exact Figma background export with the original blurred shapes. Page canvas colors remain separate: default beige, homepage/all collections white, products use their existing background field with white fallback.
+- Native/Ajax cart and drawer with synchronized quantities, removal, notes, public properties, selling-plan display, discount allocations and coupon apply/remove feedback. Shared notifications distinguish stock warnings from errors. See [cart drawer](sections/cart-drawer.md) and [cart page](sections/main-cart.md) for verification limits.
+- Configurable CH/LI shipping progress in CHF, including the documented trial-pack exception, and curated cart recommendations with variant selection. Commerce values come from current theme/Shopify data; defaults are not universal shipping promises.
+- Browser-local MRZ age plausibility check, controlled by explicit alcohol metafields. Minimum age defaults to 18 and is configurable to 16. CH/LI IDs/passports and other-country standard TD3 passports are supported within the documented format limits. This does not authenticate identity, prove residency or enforce Shopify checkout server-side.
+- Page-owned intro fields, reusable editorial introductions and default page/policy body rendering. Nested editorial composition includes Accordeon items with Text, Image, Text and image, Poster and optional FAQ entries. Existing internal IDs are preserved.
+- Merchant/FAQ/offer and product-world content models, native FAQ directory filtering, and shared FAQ structured data. Product and page structured data follow their owning contracts; other typed-content gaps remain tracked separately.
+- Guarded local development preview and shared-theme release workflows, protected editor-owned content, direct Shopify Admin API client, schema contracts, asset budgets, typography checks and commerce regression tests.
 
 ## Known incomplete capabilities
 
-| Area | Status | Required work |
-| --- | --- | --- |
-| Approved brand design | Homepage and global shell substantially implemented | Header, three footer shells, and the principal homepage editorial modules use supplied Figma references and brand assets. Continue representative responsive/editor QA and complete dedicated Soda, Hard Seltzer, product, and commerce surfaces. |
-| Merchant content | Definitions, rendering contract, and development selection implemented | The synchronized homepage selects `online-shops`. Verify approved entries, images, destinations and translations before launch; store content is not versioned with the theme. Future storefinder locations should reference the same Merchant records. |
-| Shared offer content | Implemented on development store | The `offer_card` and `offer_teaser` definitions and active canonical entries exist. Offer cards placements default to Local and can opt into the synchronized global record; verify editing and translation workflows before production deployment. |
-| FAQ content | German legacy content imported; review and translations pending | Eleven entries and four categories were imported; the development `/pages/faq` renders the directory. Search/category transitions, three-character search threshold, typing delay and reduced-motion behavior were verified locally. Review inherited claims, links and translations before launch. Structured nutrition tables remain outside the FAQ model pending a dedicated data decision. |
-| Real store preview | Development theme connected | Normal Shopify authentication and `theme dev` are working against `sparklys-hard-seltzer.myshopify.com`; representative storefront and editor QA remain. |
-| Product variants | Current catalog implemented | Packaging/size selection, URL state, media/price/availability and quantity rules are connected. Option-by-option and >250-variant catalogs remain separate work. |
-| Discounts | Incomplete | Accessible regular/sale labels, line/cart discount allocations, checkout consistency. |
-| Subscriptions | PDP and current-plan cart selection implemented; checkout/portal audit pending | Soda/Hard Seltzer promotional presets reuse Poster motion, responsive media and editable benefits/actions. PDP selector uses actual allocations, supports one-time purchase, native/Ajax additions and cart plan display. Completed payment, provider account portal and unusual plan types still require verification. |
-| Age verification / MRZ | Discovery required | Legal/privacy review, provider-vs-custom decision, server-side trust boundary, data minimization, fallback journey. |
-| Coupon entry and visibility | Cart/drawer MVP implemented; real-code verification pending | Known-code apply/remove, code applicability, product/order allocations and accessible feedback. Valid merchant test codes are needed to verify successful live discounts/checkout retention. PDP hints and coupon discovery remain out of scope. |
-| Cart drawer | Implemented; Shopify preview QA pending | Native modal, synchronized Liquid sections/count, quantity/remove, error recovery and native cart fallback. See [Cart drawer](sections/cart-drawer.md). |
-| Last-minute sale / “others took this” | Definition required | Clarify product behavior, merchandising source, eligibility, inventory, analytics, and app-vs-custom ownership. |
-| Free-shipping upsell | Discovery required | Authoritative threshold by market/currency, qualifying subtotal, recommendations, progress UI, checkout consistency. |
-| App blocks/embeds | Product host implemented | Main product accepts app blocks. Audit installed app blocks/embeds and their end-to-end behavior before claiming provider compatibility. |
-| Navigation | Basic | The general/Soda/Hard Seltzer context contract is documented; collection and product routing, Page/Product/Collection classification metafields, and all four Shopify-managed menus are connected. Assign product-world values to supporting resources as their content is created, replace placeholder destinations, then add main-navigation dropdown panels, robust mobile disclosures, and long-content testing. |
-| Footer | Menu-driven shell with newsletter submission and social links | Replace footer-card placeholder destinations, then connect Shopify-supported payment methods, store finder, and accessible localization controls after their behavior is defined. Instagram, TikTok, and Facebook follow the Soda or Hard Seltzer footer context, while LinkedIn uses the shared company profile. Legal policy destinations are connected through the shared Legal Nav. Verify Shopify-to-Klaviyo list routing and opt-in behavior in the provider account before launch. |
-| Cart | Rebuilt; Shopify preview QA pending | Images, quantities, notes, public properties, discount allocations and native checkout. Current subscription additions and quantity retention are verified; attributes, completed checkout and provider management flows remain. See [Main cart](sections/main-cart.md). |
-| Markets/localization | Partial | Initial scope is Switzerland and Liechtenstein. URLs and Ajax are locale-aware; language/market selectors and real Markets QA remain. |
-| Languages | Partial | German and English theme UI strings exist. Merchant content, published-language configuration, and likely French/Italian locale files remain. |
-| SEO | Partial | FAQ sections and the FAQ directory emit server-rendered, deduplicated `FAQPage` JSON-LD matching their visible content. Product/ProductGroup and real variant Offer markup are now implemented in main product. Company/site identity, Article, and later applicable model work is tracked in the [structured-data task list](structured-data-tasks.md). |
-| Search | Basic | Predictive search and refined mixed-result UI remain. |
-| Customer accounts | Platform-dependent | Decide new customer accounts behavior and required storefront entry points. |
-| Analytics/consent | Not implemented | Provider inventory, event contract, consent mode, duplication tests. |
-| Automated browser tests | Not implemented | A connected development theme and real store data are available; define stable selectors and add repeatable journey, accessibility, and visual-regression coverage. |
-| Enlarged text | Follow-up required | Standard viewport typography was checked; the global shell still showed a small horizontal overflow at 390px with a 32px root. Complete full-site zoom/reflow QA before claiming accessibility readiness. |
-| Lighthouse CI | Not configured | Requires dedicated store and approved GitHub secrets. |
+| Area | Remaining work |
+| --- | --- |
+| Launch content | Review merchant text, claims, imagery, menus, placeholder destinations, template assignments and translations against the current shared draft. Local development fixtures are not release content. |
+| Full journey QA | Complete repeatable phone/desktop, keyboard, no-JavaScript, reduced-motion and Theme Editor coverage. Individual verification records do not certify every section/configuration combination. |
+| Subscriptions | Audit completed checkout, provider account management, unusual selling plans and payment behavior. Custom build-a-box subscriptions remain future work. |
+| Discounts and shipping | Reconfirm real campaign-code combinations, checkout retention and actual configured rates/eligibility before launch. PDP coupon discovery/hints remain outside current scope. |
+| Age verification | Review classification, document support, privacy, unsupported-document assistance and rollout. Trusted identity verification requires a separate server/provider design. |
+| Markets and languages | Verify CH/LI Markets and language publication/translation completeness. French/Italian and other markets are not implemented or implied. |
+| Navigation and footer | Replace placeholders, verify long/mobile navigation, store-finder destination, newsletter/Klaviyo routing and actual payment-provider availability. |
+| SEO | Complete the [structured-data backlog](structured-data-tasks.md); verify metadata, canonical URLs, accessible H1s and launch indexing behavior. |
+| Collections and search | Sorting/filtering, predictive search and richer mixed-result UI remain follow-ups. |
+| Customer accounts and apps | Audit Shopify account entry/portal behavior and installed app blocks/embeds end to end. |
+| Analytics and consent | Define provider inventory, event ownership, consent requirements and duplicate-event checks. |
+| Accessibility and performance | Complete enlarged-text/zoom reflow, full-site accessibility and stable browser regression coverage. Lighthouse CI is not configured. |
+| Design Studio | Retained as a local reference; its expansion is deferred in the [task inbox](tasks.md). |
 
 ## Recommended next sequence
 
-1. Finish representative phone, desktop, keyboard, reduced-motion, and Theme Editor QA for the implemented homepage and shell.
-2. Verify the selected Merchant content and shared offer editing/translation workflow against launch requirements.
-3. Confirm Shopify Markets and published-language configuration for Switzerland/Liechtenstein, including German and English content ownership.
-4. Inventory installed storefront apps, subscription provider, discount setup, shipping thresholds, and age-verification options.
-5. Complete Soda, Hard Seltzer, and one representative product journey to production quality.
-6. Close product/cart accessibility and commerce gaps exposed by real data.
-7. Add visual, journey, accessibility, and Lighthouse checks against a stable preview target.
+1. Review shared-draft editorial content, page-template assignments and merchant configuration for launch.
+2. Complete representative product/cart/subscription/age-check journeys and responsive accessibility QA.
+3. Verify checkout, discounts, shipping, account/provider integrations and CH/LI language/market settings.
+4. Close the approved SEO and consent gaps, then add repeatable browser/performance coverage.
 
-Cart shipping progress is implemented for CH/LI in CHF using the confirmed CHF 50 default and trial-pack exception, with editable shared settings. See [Main cart](sections/main-cart.md#free-shipping-progress--2026-09-06) for synchronization requirements and checkout verification limits.
-
-Cart drawer curated recommendations (2026-09-08): merchant product-list selection, server-filtered available products absent from cart, all eligible cards, desktop floating/mobile inline layout, native add forms with AJAX enhancement, and in-card variant selection are implemented; required selling plans retain product-page selection. The picker is intentionally empty until curated. See [Cart drawer](sections/cart-drawer.md).
-
-Cart recommendations now render all eligible selections, offer in-card variant chips and direct add, and support native variant-reference entries for fixed variants. Shared Small button tokens and the drawer product-title style apply to the cards. See the latest [Cart drawer contract](sections/cart-drawer.md).
-
-## Local age check — 2026-09-08
-
-MVP code implemented and enabled in local development fixtures; the 16 published products are classified. Shared-theme activation defaults off pending document-guide rollout review. Product metafield `custom.contains_alcohol` created. See [implementation](age-verification-plan.md) and [specific extensions](age-verification-extensions.md).
-
-International passport update (2026-09-09): the local age check now offers another-country passports using the standard TD3 lower-line fields, alongside CH/LI ID and passport choices. See [support contract](age-verification-international-plan.md#implemented-standard-passport-support--2026-09-09). This does not add foreign ID-card support, identity authentication, residence checks or additional Shopify markets.
-
-Product detail first section (2026-09-11): shared Soda/Seltzer/neutral section now includes the media slider, SVG badges, exact marketing fallbacks, flavour links, packaging/quantity, current selling plans, real pricing, shared USP/benefit content, shipping/payment reuse and server-rendered product structured data. Existing product and collection fields remain authoritative. See [Main product](sections/main-product.md).
-
-Section visibility (2026-09-11): 25 non-essential sections expose mobile/desktop hide controls with a shared 768px boundary and selectable editor placeholders. Header, Main product, Main cart and Cart drawer remain essential-function exceptions. Both-off defaults preserve saved layouts; see the [shared section contract](sections/README.md#breakpoint-visibility).
-
-### Page introduction layouts — 2026-09-12
-
-Implemented locally/development: default title/optional intro/body layout, reusable Page intro, an additive `page.editorial` starter, shared native policy reading styles and WebPage structured data. Both Page metafield definitions are created and pinned. Merchant copy and assignment of editorial templates remain editorial work; the approved follow-up replaces Main page with Page intro in the development About and Retail templates only, preserving all other content. No live page assignments were changed. See the section reference for the contracts.
-
-## Editorial composition update — 2026-09-12
-
-Implemented nested 2 column composition, configurable Sidebar Box and Link Box, plain selected FAQ accordion, Text and image, Top/one-or-two-column Split Image-Text, and per-section/native-block heading font selection with Erode defaults. See the authoritative [section index](sections/README.md) for contracts. Store templates and metaobject content are not migrated by adding these section capabilities.
-
-## Editor contract correction — 2026-09-12
-
-The eight established merchandising compositions retain their pre-rollout typography. New editorial sections/blocks have grouped, conditional editor controls and an enforced schema-review gate. Fifteen schemas are reviewed; older unchanged schemas are explicitly tracked as unaudited and must enter the review registry when changed. This is not a claim that the whole legacy editor has been audited.
+The shared `website/main` theme remains unpublished unless explicitly authorized. Store data, app permissions and theme publication have separate scopes; a code commit is not a deployment or publishing action.

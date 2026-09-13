@@ -98,9 +98,9 @@ Browser session state is never the authority. A direct product URL must render t
 
 | Context | `h1`/`h2` family | Header/footer identity |
 | --- | --- | --- |
-| General | Newake | Sparklys Arc |
-| Soda | Erode Bold, `-0.03em` tracking | Sparklys Soda |
-| Hard Seltzer | Newake | Sparklys Hard Seltzer |
+| General | Section-selected; Erode default | Sparklys Arc |
+| Soda | Section-selected; Erode default | Sparklys Soda |
+| Hard Seltzer | Section-selected; preserved merchandising compositions retain Newake | Sparklys Hard Seltzer |
 
 The [design system](design-system.md) owns exact font roles and intentional exceptions, including small Erode editorial titles and Newake footer card headings.
 

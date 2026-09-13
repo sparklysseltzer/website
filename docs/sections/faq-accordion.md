@@ -26,6 +26,6 @@ Only actual selected FAQ metaobjects emit FAQPage JSON-LD through the shared ren
 
 ## Verification
 
-Theme, schema, typography and commerce regression checks pass. Local preview has been restored. Check custom-only, FAQ-only and mixed lists at phone/desktop sizes once preview access is restored, including keyboard, no-JavaScript and interrupted transitions.
+Theme, schema, typography and commerce regression checks pass. Local preview has been restored. Check custom-only, FAQ-only and mixed lists at phone/desktop sizes during the remaining full journey QA, including keyboard, no-JavaScript and interrupted transitions.
 
 Text and image / Poster reuse checked in the Shopify-rendered accordion at 1440px and 390px: both blocks render inside the opened item, neither viewport overflows horizontally, and Text and image stacks to one column on phone. Keyboard activation was exercised. The temporary development fixture was restored and the isolated browser closed.

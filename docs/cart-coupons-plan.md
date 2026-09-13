@@ -1,5 +1,7 @@
 # Cart coupon experience — implementation plan
 
+Historical planning/reference record. The cart implementation has since shipped in development; use the [current cart contract](sections/cart-drawer.md) and [Status](status.md) for current behavior and remaining work. The original observations below are retained for decision context.
+
 Status: MVP implemented; successful live-code/checkout verification remains pending merchant-provided test codes. Requested by Sandro on 2026-09-06. Applies to the full cart and drawer. The confirmed MVP shows already-applied codes and lets customers enter known campaign/newsletter codes. Product-page hints, coupon discovery and personalized offers are outside scope.
 
 ## Decision
