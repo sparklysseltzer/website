@@ -171,11 +171,11 @@
         "visible_if": null
       },
       "faq_category": {
-        "group": "FAQs",
+        "group": "Optional FAQs",
         "visible_if": null
       },
       "selected_faqs": {
-        "group": "FAQs",
+        "group": "Optional FAQs",
         "visible_if": null
       },
       "hide_on_mobile": {
@@ -193,7 +193,7 @@
       "hide_on_desktop": "Responsive visibility; no additional input fields."
     },
     "scenarios": [],
-    "schemaHash": "849d5845725cfad14726395b6ea313a17ad6dda5147ec11093aa531f9d925690"
+    "schemaHash": "a15631aa93af71c9b1bac1578616622ea250a11545cf2d31e5ec4204234d08a5"
   },
   "sections/split-image-text.liquid": {
     "fields": {
@@ -557,11 +557,11 @@
         "visible_if": null
       },
       "faq_category": {
-        "group": "FAQs",
+        "group": "Optional FAQs",
         "visible_if": null
       },
       "selected_faqs": {
-        "group": "FAQs",
+        "group": "Optional FAQs",
         "visible_if": null
       }
     },
@@ -569,7 +569,7 @@
       "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected."
     },
     "scenarios": [],
-    "schemaHash": "c54127e97c87467d4251e5b5de79c664a40bf2ba81aab4e4efd6f501f7eb2890"
+    "schemaHash": "e75d28a4fc9df9cbde44b505caaed577c5a39fd96dfe4dff6398ee88265698bd"
   },
   "blocks/sidebar-box.liquid": {
     "fields": {
@@ -1459,5 +1459,24 @@
       }
     ],
     "schemaHash": "db67b4c7e50c0d6c6e5f5dd0a8850ad46a0164e9f70244c95d790bc06c9f9538"
+  },
+  "blocks/accordion-item.liquid": {
+    "controls": {},
+    "scenarios": [
+      {
+        "name": "Custom item title always editable",
+        "settings": {},
+        "visible": [
+          "title"
+        ]
+      }
+    ],
+    "fields": {
+      "title": {
+        "group": null,
+        "visible_if": null
+      }
+    },
+    "schemaHash": "cf50a9d0dc56ee1db82c29b7aecb59a0954bd379767e689da487370d7bbd41b9"
   }
 }

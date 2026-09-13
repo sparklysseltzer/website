@@ -1,12 +1,13 @@
-{% if section.settings.heading != blank or section.settings.selected_faqs != blank or section.settings.faq_category != blank or request.design_mode %}
+{% capture accordion_content %}{% content_for 'blocks' %}{% endcapture %}
+{% if accordion_content != blank or section.settings.heading != blank or section.settings.selected_faqs != blank or section.settings.faq_category != blank or request.design_mode %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 {{ 'editorial-content.css' | asset_url | stylesheet_tag }}
-<div class="section page-width"><div class="editorial-faq-shell">{% render 'faq-list-content', options: section.settings, scope: section.id %}</div></div>
+<div class="section page-width"><div class="editorial-faq-shell">{% render 'faq-list-content', options: section.settings, scope: section.id, accordion_content: accordion_content %}</div></div>
 {% endif %}
 {% schema %}
 {
-  "name": "FAQ accordion",
+  "name": "Accordeon",
   "settings": [
     {
       "type": "header",
@@ -37,21 +38,22 @@
     },
     {
       "type": "header",
-      "content": "FAQs"
+      "content": "Optional FAQs"
     },
     {
       "type": "metaobject",
       "id": "faq_category",
-      "label": "FAQ Category",
+      "label": "FAQ category",
       "metaobject_type": "faq_category",
-      "info": "Optional. Individual selections are appended and duplicates removed."
+      "info": "Optional. FAQ entries follow your custom items. Individual selections are appended and duplicates removed."
     },
     {
       "type": "metaobject_list",
       "id": "selected_faqs",
       "label": "FAQs",
       "metaobject_type": "faq",
-      "limit": 20
+      "limit": 20,
+      "info": "Optional. Add existing FAQs alongside your custom items."
     },
     {
       "type": "header",
@@ -72,8 +74,18 @@
   ],
   "presets": [
     {
-      "name": "FAQ accordion",
-      "category": "Trust & information"
+      "name": "Accordeon",
+      "category": "Trust & information",
+      "blocks": [
+        {
+          "type": "accordion-item"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion-item"
     }
   ]
 }

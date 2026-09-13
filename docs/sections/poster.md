@@ -4,7 +4,7 @@ Source: `sections/poster.liquid`
 
 ## Purpose
 
-Poster owns the approved full-image editorial composition, either with overlaid content or as an image-only surface. It is available as a reusable section preset. The side-by-side composition is a separate [Split Image-Text](split-image-text.md) section so each Theme Editor contract stays focused.
+Poster owns the approved full-image editorial composition, either with overlaid content or as an image-only surface. It is available as a reusable section preset. The side-by-side composition is a separate [Image and text panel](split-image-text.md) section so each Theme Editor contract stays focused.
 
 ## Merchant controls
 
@@ -46,10 +46,14 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 
 ## Embedded reuse
 
-`poster-content.liquid` now owns the common markup, with `component-poster.css` loaded by either owner. The standalone section passes its existing section blocks; the native Poster block inside 2 column passes nested Tick item markup. Existing setting IDs, asset fallback, accessibility and `poster-motion` behavior are preserved. Embedded mode removes the outer section gutter/spacing and uses the width of its Content column.
+`poster-content.liquid` now owns the common markup, with `component-poster.css` loaded by either owner. The standalone section passes its existing section blocks; the native Poster block inside Two-column layout passes nested Tick item markup. Existing setting IDs, asset fallback, accessibility and `poster-motion` behavior are preserved. Embedded mode removes the outer section gutter/spacing and uses the width of its Content column.
 
 Embedded content remains at most 36rem wide, with left/center/right placement preserved inside the narrower poster. It fills the available width on small screens.
 
 ## Editor dependency contract
 
 Standalone and embedded versions group Layout, Image, Content, Button, Appearance, Size and (standalone) Visibility. Font selection belongs to Content, not above Layout. Image-only hides all content/action/appearance inputs; image selection and minimum heights remain relevant. Heading, subtext and button toggles independently gate their fields. Native child tick entries remain listed in Shopify even in image-only mode, but the renderer omits them.
+
+## Accordion reuse
+
+The existing native block is also available inside Accordeon items, retaining its settings, conditional fields, image handling and responsive behavior. Accordion placements use the same compact embedded spacing as Two-column layout. No duplicate content model or structured data is introduced.

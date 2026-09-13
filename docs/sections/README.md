@@ -23,21 +23,21 @@ All sections follow the [design system](../design-system.md), [asset-delivery ru
 | [Page intro](page-intro.md) | Brand storytelling | Page-owned label, H1 and introduction with decorative Arc |
 | [Hero](hero.md) | Brand storytelling | Full-width heading, optional image, copy, and action |
 | [Rich text](rich-text.md) | Brand storytelling | Narrow editorial copy and optional action |
-| [2 column](two-column.md) | Brand storytelling | Nested editorial content and repeatable sidebar/link boxes |
+| [Two-column layout](two-column.md) | Brand storytelling | Nested editorial content and repeatable sidebar/link boxes |
 | [Text and image](text-image.md) | Brand storytelling | Open image/copy composition with matching mobile reading order |
-| [FAQ accordion](faq-accordion.md) | Trust & information | Plain selected FAQ accordion, also available inside 2 column |
+| [Accordeon](faq-accordion.md) | Trust & information | Custom text/image accordion with optional FAQs, also available inside Two-column layout |
 | [Poster](poster.md) | Brand storytelling | Full-image editorial poster with overlaid content |
 | [Subscription](subscription.md) | Brand storytelling | Soda/Hard Seltzer subscription poster with benefits, subscribe action and sign-in link |
-| [Split Image-Text](split-image-text.md) | Brand storytelling | Side-by-side editorial image and content panel |
-| [USP](usp-section.md) | Brand storytelling | Context-aware Soda or Hard Seltzer image, copy, and five Soda / six Hard Seltzer USP items |
-| [Hard Seltzer Ingredients](hard-seltzer-ingredients.md) | Trust & information | Three-part Hard Seltzer ingredient story with replaceable illustrations |
-| [Hard Seltzer Awards](hard-seltzer-awards.md) | Trust & information | Hard Seltzer award presentation with an optional shop action |
-| [Soda Ingredients](soda-ingredients.md) | Trust & information | Six-item Soda ingredient overview and legal footnote |
-| [Soda 3 Reasons](soda-three-reasons.md) | Trust & information | Three illustrated Soda benefit statements and legal footnote |
-| [Versus](versus.md) | Trust & information | Soda or Hard Seltzer comparison cards in a responsive horizontal flow |
-| [FAQ](faq.md) | Trust & information | Additive selected and category-driven FAQ accordion with a closing contact link |
+| [Image and text panel](split-image-text.md) | Brand storytelling | Side-by-side editorial image and content panel |
+| [Product benefits](usp-section.md) | Brand storytelling | Context-aware Soda or Hard Seltzer image, copy, and five Soda / six Hard Seltzer USP items |
+| [Hard Seltzer ingredients](hard-seltzer-ingredients.md) | Trust & information | Three-part Hard Seltzer ingredient story with replaceable illustrations |
+| [Hard Seltzer awards](hard-seltzer-awards.md) | Trust & information | Hard Seltzer award presentation with an optional shop action |
+| [Soda ingredients](soda-ingredients.md) | Trust & information | Six-item Soda ingredient overview and legal footnote |
+| [Soda — Three reasons](soda-three-reasons.md) | Trust & information | Three illustrated Soda benefit statements and legal footnote |
+| [Product comparison](versus.md) | Trust & information | Soda or Hard Seltzer comparison cards in a responsive horizontal flow |
+| [FAQ with categories](faq.md) | Trust & information | Additive selected and category-driven FAQ accordion with a closing contact link |
 | [Featured collection](featured-collection.md) | Products & offers | Configured collection preview using the shared product card |
-| [Product overview teaser](product-overview-teaser.md) | Products & offers | Four-card Soda and Hard Seltzer editorial product navigation |
+| [Product overview](product-overview-teaser.md) | Products & offers | Four-card Soda and Hard Seltzer editorial product navigation |
 | [Offer cards](offer-cards.md) | Products & offers | Local or globally synchronized audience/use-case cards |
 | [Merchant marquee](logo-marquee.md) | Trust & partners | Metaobject-driven merchant-logo loop |
 
@@ -45,16 +45,16 @@ All sections follow the [design system](../design-system.md), [asset-delivery ru
 
 | Section | Template |
 | --- | --- |
-| [Main product](main-product.md) | `product*.json` |
-| [Main collection](main-collection.md) | `collection*.json` |
-| [Main cart](main-cart.md) | `cart.json` |
-| [Main search](main-search.md) | `search.json` |
-| [Main blog](main-blog.md) | `blog.json` |
-| [Main article](main-article.md) | `article.json` |
-| [Main page](main-page.md) | `page.json` |
+| [Product](main-product.md) | `product*.json` |
+| [Collection](main-collection.md) | `collection*.json` |
+| [Cart](main-cart.md) | `cart.json` |
+| [Search](main-search.md) | `search.json` |
+| [Blog](main-blog.md) | `blog.json` |
+| [Article](main-article.md) | `article.json` |
+| [Page](main-page.md) | `page.json` |
 | [FAQ directory](main-faq.md) | `page.faq.json` |
-| [Main collection list](main-list-collections.md) | `list-collections.json` |
-| [Main 404](main-404.md) | `404.json` |
+| [Collection list](main-list-collections.md) | `list-collections.json` |
+| [404](main-404.md) | `404.json` |
 
 ## Maintenance rule
 

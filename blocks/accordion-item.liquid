@@ -1,0 +1,22 @@
+{% if block.settings.title != blank or request.design_mode %}
+<details class="faq-item" id="Accordion-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+  <summary class="faq-item__summary">
+    <span class="faq-item__question">{% if block.settings.title != blank %}{{ block.settings.title | escape }}{% else %}Accordion item{% endif %}</span>
+    <span class="faq-item__icon" aria-hidden="true"><img src="{{ 'icon-faq-chevron.svg' | asset_url }}" width="14" height="8" alt=""></span>
+  </summary>
+  <div class="faq-item__answer">
+    <div class="faq-item__answer-inner accordion-item-content">{% content_for 'blocks' %}</div>
+  </div>
+</details>
+{% endif %}
+{% schema %}
+{
+  "name": "Accordion item",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Accordion item" }
+  ],
+  "blocks": [{ "type": "editorial-text" }, { "type": "editorial-image" }, { "type": "editorial-text-image" }, { "type": "editorial-poster" }],
+  "presets": [{ "name": "Accordion item", "blocks": [{ "type": "editorial-text", "settings": { "show_heading": false } }] }]
+}
+{% endschema %}
