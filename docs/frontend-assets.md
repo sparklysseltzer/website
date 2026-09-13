@@ -57,7 +57,7 @@ Rules:
 For design exports, exclude the separate grain layer: the theme adds grain at runtime. Preserve required transparency and complete effect bounds (including shadows) and verify the exported asset before replacing it. Photographic texture already present in the source photo is distinct from the removable grain overlay. Blank image pickers use the approved bundled asset automatically; never expose the implementation source in merchant labels. See [Theme Editor conventions](architecture.md#theme-editor-configuration-design) for fallback and native focal-point rules.
 
 - Serve theme fonts as local WOFF2 assets through `asset_url`.
-- Preload only fonts required for above-the-fold rendering. Maison Neue Demi is global; Erode Bold is preloaded as the default heading face in every context. Newake loads on demand when an editor explicitly selects it; that choice does not add a second global heading preload. Maison Neue Bold must remain non-preloaded until an above-the-fold use justifies it.
+- Preload only fonts required for above-the-fold rendering. Maison Neue Demi is global; Erode Bold is preloaded as the default heading face in every context. Newake loads on demand for explicit selections and preserved merchandising/footer compositions; that choice does not add a second global heading preload. Maison Neue Bold must remain non-preloaded until an above-the-fold use justifies it.
 - Keep decorative theme textures local. `bg-noise-pattern2x.png` is a 2x source and is rendered at 100 by 100 CSS pixels where the header hover state uses it; active tabs deliberately remain untextured.
 - Render merchant images through `image_url` and `image_tag` with bounded widths, realistic `sizes`, and intrinsic dimensions.
 - Do not preload below-the-fold assets. Every preload competes with critical CSS, fonts, and the likely LCP image.
@@ -120,3 +120,7 @@ Maracuja marketing fallbacks are Figma nodes `6619:23596`, `6619:23616`, `6619:2
 Ananotes review (2026-09-11): exact Soda variety layers from Figma `6092:3703` and `6092:3709`, and compact benefit tick from `I6622:10268;5904:19788`, are bundled as SVGs. Payment SVG ancestor backgrounds were removed, preserving branded marks. Reviewed age-check gzip budget increases from 6.50 to 6.75 KiB for immediate field-feedback coordination (measured 6.71 KiB); pure validation remains within its 3 KiB budget. No new global runtime dependency.
 
 Editorial photo fallbacks are source-exported WebP assets, not baked screenshots of UI. `editorial-content.css` is loaded only by its owning sections; `component-poster.css` is shared by the standalone and embedded Poster owners. Heading selection is part of `base.css`, avoiding another global stylesheet request.
+
+## Unused asset audit — 2026-09-13
+
+Removed eight unreferenced SVGs: the unused PDP bag icon, the two superseded Soda leaf fragments and the five superseded alcohol-icon fragments. Their complete replacement artwork remains. Dynamic filename families for product marketing images, subscription backgrounds and product-world artwork were checked and retained. Do not infer that an asset is unused solely because its full filename does not appear in a literal search. No section, block, template or merchant-selected file was removed.
