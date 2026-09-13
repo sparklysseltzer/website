@@ -303,8 +303,8 @@ Plain page and native policy H1s, plus editorial Page intro H1s, select the shar
 
 The document background is separate from brand section palettes. `layout/theme.liquid` resolves one `--color-page-background` and the matching `theme-color` metadata server-side:
 
-- Default, including ordinary pages, policies, cart, search and Soda collections: `#F2F0E9`.
-- Homepage and Hard Seltzer collection context: `#FFFFFF`.
+- Default, including ordinary pages, policies, cart and search: `#F2F0E9`.
+- Homepage and all collection pages (including Soda, Hard Seltzer and unclassified collections): `#FFFFFF`.
 - Every product page: existing `custom.soda_background_color`, falling back to `#FFFFFF` regardless of product world.
 
 The root canvas and PDP section consume this same role. Transparent content and the main-content bottom buffer reveal it, so product colors extend beyond the top section. Existing palette background setting IDs/values remain intact, now labeled **Section background** to clarify their scope. Explicit section/card backgrounds, gallery gradients and intentional surfaces retain their own colors. This supersedes previous statements that brand palette background settings control the page canvas. No new metafield or saved-setting migration is needed.

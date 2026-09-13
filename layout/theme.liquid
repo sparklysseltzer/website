@@ -11,7 +11,7 @@
     assign page_background = product.metafields.custom.soda_background_color.value | default: '#FFFFFF'
   elsif request.page_type == 'index'
     assign page_background = '#FFFFFF'
-  elsif request.page_type == 'collection' and page_brand_context == 'seltzer'
+  elsif request.page_type == 'collection'
     assign page_background = '#FFFFFF'
   endif
 -%}
