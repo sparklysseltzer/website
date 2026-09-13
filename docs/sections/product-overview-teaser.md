@@ -36,7 +36,7 @@ The current content bottom padding is 40px. Soda title line-height is `0.75`. Ha
 
 The three top navigation pills use equal top/right/bottom padding around their arrow circles. Desktop renders four cards in one row. Below 1200px the grid becomes two columns; phones expose independent horizontal scrollers without page-level overflow.
 
-`product-overview-motion` reuses the Offer Cards scroll-scrub/parallax engine. Links, headings, badges, logos, and complete static cards remain available without JavaScript and in reduced-motion mode.
+`product-overview-motion` reuses the Offer cards scroll-scrub/parallax engine. Links, headings, badges, logos, and complete static cards remain available without JavaScript and in reduced-motion mode.
 
 ## Maintenance notes
 

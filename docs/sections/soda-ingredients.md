@@ -1,4 +1,4 @@
-# Soda Ingredients
+# Soda ingredients
 
 Source: `sections/soda-ingredients.liquid`
 
@@ -6,7 +6,7 @@ The smaller multiline ingredient titles use the shared `--line-height-heading-sm
 
 ## Purpose and placement
 
-Soda Ingredients is the six-item Soda ingredient overview from the approved composition. It remains separate from Hard Seltzer Ingredients because its photographic grid, quantity, copy, and legal-note contract are different.
+Soda ingredients is the six-item Soda ingredient overview from the approved composition. It remains separate from Hard Seltzer ingredients because its photographic grid, quantity, copy, and legal-note contract are different.
 
 ## Merchant controls and defaults
 
@@ -47,3 +47,5 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 ## Preserved typography
 
 This section opts out of the general editorial heading-font feature through `heading-font-legacy`. Original type families, weights, tracking, line heights and composition-specific optical treatment remain authoritative. No new heading-font selector is added.
+
+Editor naming (2026-09-12): **Soda ingredients**. Display names only; internal IDs, saved settings and rendering are unchanged.

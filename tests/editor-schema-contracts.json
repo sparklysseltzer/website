@@ -158,7 +158,7 @@
       "hide_on_desktop": "Responsive visibility; no additional input fields."
     },
     "scenarios": [],
-    "schemaHash": "620aeec9dadd7e1a7378d72b9157554ab02df55136056df6a80de29ea5d48cee"
+    "schemaHash": "e53fcc0d669c1db8d164b8d1014a5d00178028c039186804f088e7d942b2081c"
   },
   "sections/faq-accordion.liquid": {
     "fields": {
@@ -378,7 +378,7 @@
         ]
       }
     ],
-    "schemaHash": "634d686be62e8e5bc89cdccb3dcc062a5a540923467f6d3f9a42a5feb9d56db3"
+    "schemaHash": "5ae2f17efd1c115d8fc61c7f3418dc819d493ea3a5f9e6ca3293166451a30ab8"
   },
   "sections/poster.liquid": {
     "fields": {
@@ -964,7 +964,7 @@
         ]
       }
     ],
-    "schemaHash": "ff911a794b33c8f27d91a8c2b3790d3147a38dcf02f3d96263f149fbcf62352e"
+    "schemaHash": "d76db942b8cdbd12e4830763783e5519ffa99c13ac0c553319e09dbe4b506810"
   },
   "blocks/link-box.liquid": {
     "fields": {
@@ -987,7 +987,7 @@
     },
     "controls": {},
     "scenarios": [],
-    "schemaHash": "f8c4dfc794b3502b66e3c19d29b863cbd46d8e3b5ecc9df5b6a8fcd0d72acb35"
+    "schemaHash": "a13ea7590d34c368c3fb8ba5917e17260174f2b2daf5f84c97ad4c619c1c08e7"
   },
   "blocks/editorial-text.liquid": {
     "fields": {
@@ -1458,6 +1458,6 @@
         ]
       }
     ],
-    "schemaHash": "617191268ec9723bca5266927cb685bf146b90878325fa81b8b49517891648cf"
+    "schemaHash": "db67b4c7e50c0d6c6e5f5dd0a8850ad46a0164e9f70244c95d790bc06c9f9538"
   }
 }

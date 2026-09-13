@@ -62,3 +62,5 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 ## Preserved typography
 
 This section opts out of the general editorial heading-font feature through its Shopify wrapper class `heading-font-legacy`. Its original type families, weights, tracking and line heights remain authoritative. Existing variant-based type selection and pre-existing font controls (where present) are preserved; no new global font selector is added.
+
+Editor naming (2026-09-12): **Subscription**; presets: **Subscription — Soda**, **Subscription — Hard Seltzer**. Display names only; internal IDs, saved settings and rendering are unchanged.

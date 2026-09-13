@@ -1,10 +1,10 @@
-# Versus
+# Product comparison
 
 Source: `sections/versus.liquid`
 
 ## Purpose and variants
 
-Versus combines the structurally identical Soda and Hard Seltzer comparison designs into one section with a `Product world` switch. The Add section picker exposes **Versus — Soda** and **Versus — Hard Seltzer** presets so generated previews start with the correct typography, background, products, facts, and legal notes.
+Versus combines the structurally identical Soda and Hard Seltzer comparison designs into one section with a `Product world` switch. The Add section picker exposes **Product comparison — Soda** and **Product comparison — Hard Seltzer** presets so generated previews start with the correct typography, background, products, facts, and legal notes.
 
 ## Merchant controls and defaults
 
@@ -51,3 +51,5 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 ## Preserved typography
 
 This section opts out of the general editorial heading-font feature through its Shopify wrapper class `heading-font-legacy`. Its original type families, weights, tracking and line heights remain authoritative. Existing variant-based type selection and pre-existing font controls (where present) are preserved; no new global font selector is added.
+
+Editor naming (2026-09-12): **Product comparison**; presets: **Product comparison — Soda**, **Product comparison — Hard Seltzer**. Display names only; internal IDs, saved settings and rendering are unchanged.

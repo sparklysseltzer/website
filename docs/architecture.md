@@ -181,3 +181,7 @@ Shared UI colors are merchant-editable through Shared, General Sparklys, Soda an
 ### Page canvas
 
 Page background is resolved centrally in `layout/theme.liquid`, independently of brand heading/menu context and section palette surfaces. The default is `#F2F0E9`; homepage and Hard Seltzer collections use white. Products use existing `custom.soda_background_color` or white when empty. Root canvas, PDP background and browser theme-color agree. See the design-system page-background contract.
+
+### Section and block naming
+
+Use sentence case for Theme Editor section, block and preset names, preserving brand names and acronyms. Use an em dash for product-world presets (`Section — Soda` / `Section — Hard Seltzer`), and descriptive composition names. The section index is the authoritative inventory. Display-name-only maintenance must compare parsed schemas with names omitted to prove settings, conditions, defaults, IDs and preset content are unchanged before refreshing fingerprints. This narrow naming review does not certify legacy controls as audited; any configuration change still requires the full schema review above.

@@ -1,10 +1,10 @@
-# Hard Seltzer Ingredients
+# Hard Seltzer ingredients
 
 Source: `sections/hard-seltzer-ingredients.liquid`
 
 ## Purpose and placement
 
-Hard Seltzer Ingredients reproduces the approved three-part ingredient story as a focused Hard Seltzer editorial section. It is available under **Trust & information** and is not combined with Soda Ingredients because the two compositions and content models are materially different.
+Hard Seltzer ingredients reproduces the approved three-part ingredient story as a focused Hard Seltzer editorial section. It is available under **Trust & information** and is not combined with Soda ingredients because the two compositions and content models are materially different.
 
 ## Merchant controls and defaults
 
@@ -49,3 +49,5 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 ## Preserved typography
 
 This section opts out of the general editorial heading-font feature through `heading-font-legacy`. Original type families, weights, tracking, line heights and composition-specific optical treatment remain authoritative. No new heading-font selector is added.
+
+Editor naming (2026-09-12): **Hard Seltzer ingredients**. Display names only; internal IDs, saved settings and rendering are unchanged.

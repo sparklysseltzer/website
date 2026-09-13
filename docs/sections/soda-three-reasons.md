@@ -1,4 +1,4 @@
-# Soda 3 Reasons
+# Soda — Three reasons
 
 Source: `sections/soda-three-reasons.liquid`
 
@@ -6,7 +6,7 @@ Typography follows the [design system](../design-system.md), with one explicitly
 
 ## Purpose and placement
 
-Soda 3 Reasons presents three approved illustrated Soda benefit statements with supporting copy and a legal footnote. It is available under **Trust & information**.
+Soda — Three reasons presents three approved illustrated Soda benefit statements with supporting copy and a legal footnote. It is available under **Trust & information**.
 
 ## Merchant controls and defaults
 
@@ -47,3 +47,5 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 ## Preserved typography
 
 This section opts out of the general editorial heading-font feature through `heading-font-legacy`. Original type families, weights, tracking, line heights and composition-specific optical treatment remain authoritative. No new heading-font selector is added.
+
+Editor naming (2026-09-12): **Soda — Three reasons**. Display names only; internal IDs, saved settings and rendering are unchanged.

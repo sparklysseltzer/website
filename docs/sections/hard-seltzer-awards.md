@@ -1,10 +1,10 @@
-# Hard Seltzer Awards
+# Hard Seltzer awards
 
 Source: `sections/hard-seltzer-awards.liquid`
 
 ## Purpose and placement
 
-Hard Seltzer Awards presents the approved award statement, three medal graphics, and a shop action. It is available under **Trust & information**.
+Hard Seltzer awards presents the approved award statement, three medal graphics, and a shop action. It is available under **Trust & information**.
 
 ## Merchant controls and defaults
 
@@ -42,4 +42,6 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 
 ## Typography scope
 
-Hard Seltzer Awards retains its original Newake display heading, uppercase treatment, regular weight and shared heading rhythm. It opts out of the general editorial heading-font feature through `heading-font-legacy`; the added font selector is removed. Body copy remains Maison Neue. Existing content, award blocks, visibility settings and motion are unchanged.
+Hard Seltzer awards retains its original Newake display heading, uppercase treatment, regular weight and shared heading rhythm. It opts out of the general editorial heading-font feature through `heading-font-legacy`; the added font selector is removed. Body copy remains Maison Neue. Existing content, award blocks, visibility settings and motion are unchanged.
+
+Editor naming (2026-09-12): **Hard Seltzer awards**. Display names only; internal IDs, saved settings and rendering are unchanged.

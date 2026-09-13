@@ -1,10 +1,10 @@
-# Split Image-Text
+# Image and text panel
 
 Source: `sections/split-image-text.liquid`
 
 ## Purpose
 
-Split Image-Text owns the approved side-by-side editorial composition with a media panel and a solid-color content panel. It is available as a reusable section preset. Full-background image compositions belong to the separate [Poster](poster.md) section.
+Image and text panel owns the approved side-by-side editorial composition with a media panel and a solid-color content panel. It is available as a reusable section preset. Full-background image compositions belong to the separate [Poster](poster.md) section.
 
 ## Merchant controls
 
@@ -51,3 +51,5 @@ Top matches Figma `10989:45021`/`10989:45022`: a full-width banner over an enclo
 ## Editor dependency contract
 
 Layout groups image side, relevant height/width and text-column controls. Image comes next, followed by Content, the conditional Second text column group, Button, Appearance and Visibility. Side layouts hide Top height/text-column fields; Top hides side width/minimum height. Two text columns exposes both secondary fields and keeps Heading level available even when the first heading is disabled. All dependent fields carry their own conditions; conditional headers alone do not hide fields.
+
+Editor naming (2026-09-12): **Image and text panel**. Display names only; internal IDs, saved settings and rendering are unchanged.

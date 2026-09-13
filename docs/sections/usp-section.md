@@ -1,4 +1,4 @@
-# USP
+# Product benefits
 
 Source: `sections/usp-section.liquid`
 
@@ -28,7 +28,7 @@ The resource's recognized `custom.brand_variant` value is the authoritative Auto
 
 Blank section-level content uses localized Figma defaults. When no custom USP blocks exist, the section renders the canonical brand collection’s `custom.usp_set` ordered items, falling back to five Soda / six Hard Seltzer defaults. Adding any custom blocks replaces that default set for the current section instance.
 
-The Add section picker exposes separate `USP — Soda` and `USP — Hard Seltzer` presets so Shopify's generated visual previews render the correct product-world design. Both presets set an explicit starting variant; merchants can switch a placed instance back to Automatic when it should follow the resource context.
+The Add section picker exposes separate `Product benefits — Soda` and `Product benefits — Hard Seltzer` presets so Shopify's generated visual previews render the correct product-world design. Both presets set an explicit starting variant; merchants can switch a placed instance back to Automatic when it should follow the resource context.
 
 ## Rendering contract
 
@@ -75,3 +75,5 @@ This section opts out of the general editorial heading-font feature through its 
 The alcohol icon now uses the complete Figma group `6619:23955` from file `wU2QCDnknQPBZd4hacOOjq`, exported as `assets/usp-seltzer-alcohol.svg`. Do not reconstruct the lettering from individually stretched SVG fragments. The export includes the circle stroke bounds in a 70×70 viewBox. It is black artwork on transparency: shared rendering keeps it black on PDPs and inverts the `seltzer-1` icon on dark Hard Seltzer USP panels. Keep replacement artwork for this stable item black on transparency.
 
 The existing `usp_item` entry `seltzer-1` (ID `683031036291`, caption “Perfect alc. vol.”) references the Hard Seltzer USP set. Its Icon field now selects the complete 4× PNG export `usp-seltzer-alcohol-composite.png` (278×278, MediaImage ID `73588198637955`), uploaded and assigned through the dedicated Admin API connection on 2026-09-12. No metaobject definition or caption was changed. The entry image takes precedence over the matching local SVG fallback. Desktop and phone rendering of the composite fallback was visually checked; theme checks pass.
+
+Editor naming (2026-09-12): **Product benefits**; presets: **Product benefits — Soda**, **Product benefits — Hard Seltzer**. Display names only; internal IDs, saved settings and rendering are unchanged.

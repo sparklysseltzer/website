@@ -1,4 +1,4 @@
-# FAQ
+# FAQ with categories
 
 Source: `sections/faq.liquid`
 
@@ -47,3 +47,5 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 ## Interrupted disclosure motion
 
 The shared controller tracks the intended open state separately from the native `open` attribute during closing. Reversing a toggle captures the currently rendered answer height, opacity and transform before cancellation, then continues from that frame. Switching to reduced motion settles each item to its requested state and clears the animation. No alternate timings are introduced by embedded use.
+
+Editor naming (2026-09-12): **FAQ with categories**. Display names only; internal IDs, saved settings and rendering are unchanged.
