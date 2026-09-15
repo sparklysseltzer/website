@@ -10,6 +10,28 @@
 <header class="studio-header"><a href="#" class="studio-wordmark">SPARKLYS<span> / DESIGN STUDIO</span></a><span class="studio-tag">WORKING BASELINE · 01</span></header>
 <main>
 <div class="studio-intro"><div><p class="studio-eyebrow">Design system / Interactive study</p><h1>A good form.<br>A little more Sparklys.</h1></div><p>Rounded fields. Clear choices. Quiet motion.<br>Try every state, then tune the details below.</p></div>
+
+<section id="ButtonMotion" class="studio-panel studio-motion" aria-labelledby="MotionHeading">
+  <div class="studio-section-heading"><span>BUTTON MOTION LAB</span><span>Hover, Tab or replay</span></div>
+  <h2 id="MotionHeading">Find the right flow.</h2>
+  <p>Wide oval is the storefront baseline. Wave and the previous circle are comparison studies. Changes here stay in this preview.</p>
+  <form id="MotionTuner" class="studio-tuner">
+    <label>Shape<select name="shape"><option value="oval">Wide oval</option><option value="wave">Soft wave</option><option value="circle">Previous circle</option></select></label>
+    <label>Enter <output id="EnterValue">480 ms</output><input name="enter" type="range" min="200" max="1000" step="20" value="480"></label>
+    <label>Exit <output id="ExitValue">360 ms</output><input name="exit" type="range" min="200" max="1000" step="20" value="360"></label>
+    <label>Width <output id="WidthValue">180%</output><input name="width" type="range" min="160" max="280" step="10" value="180"></label>
+    <label>Easing<select name="easing"><option value="cubic-bezier(0.22, 0.61, 0.36, 1)">Gentle ease out</option><option value="cubic-bezier(0.4, 0, 0.2, 1)">Smooth ease in/out</option><option value="cubic-bezier(0.65, 0, 0.35, 1)">Previous easing</option><option value="linear">Linear</option></select></label>
+    <label><input name="reduced" type="checkbox">Simulate reduced motion</label>
+    <button type="button" id="ReplayMotion">Replay enter / exit</button><button type="reset">Reset motion</button><button type="button" id="CopyMotion">Copy settings</button>
+  </form>
+  <div id="MotionPreview" data-shape="oval">
+    <div class="studio-actions"><button type="button" class="button"><span class="button__label">Shop now</span></button><button type="button" class="button button--secondary"><span class="button__label">Discover Sparklys</span></button><button type="button" class="button button--small"><span class="button__label">Small button</span></button><button type="button" class="button" disabled><span class="button__label">Unavailable</span></button></div>
+    <button type="button" class="button motion-wide"><span class="button__label">Add to cart · CHF 29.40</span></button>
+    <button type="button" class="button motion-multiline"><span class="button__label">A longer label to check<br>two lines of text</span></button>
+  </div>
+  <p id="MotionStatus" role="status">Try leaving midway through the hover, then returning.</p>
+</section>
+
 <aside class="studio-tuner" aria-label="Preview settings">
 <label>Field height <select id="TuneHeight"><option value="44">44 px</option><option value="48" selected>48 px</option><option value="52">52 px</option><option value="56">56 px</option></select></label>
 <label>Outline <select id="TuneBorder"><option value="2">2 px</option><option value="3" selected>3 px</option></select></label>

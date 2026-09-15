@@ -29,3 +29,17 @@ h1 { font-family: var(--font-heading-default); font-weight: 400; font-size: var(
 .studio-states { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.5rem; align-items: start; }
 .studio-footer { color: #666; font-size: var(--font-size-small); padding-top: 2rem; }
 @media(max-width:750px) { .studio-header { padding: 1rem; } .studio-tag { display:none; } main { padding: 2rem 1rem; } .studio-intro { display:block; } .studio-grid, .studio-states { grid-template-columns: minmax(0,1fr); } .studio-panel { padding: 1.25rem; } .studio-section-heading > span:last-child { display:none; } }
+
+.studio-motion { margin-bottom: 2rem; }
+.studio-motion h2 { margin: 0; font-size: var(--font-size-card); }
+.studio-motion p { margin: 0; font-size: var(--font-size-body); }
+.studio-motion input[type='range'] { width: 10rem; min-height: 44px; }
+#MotionPreview { display: grid; gap: 1.5rem; }
+#MotionPreview .button { --button-sweep-enter-duration: var(--study-enter, 480ms); --button-sweep-exit-duration: var(--study-exit, 360ms); --button-sweep-width: var(--study-width, 180%); --button-sweep-ease: var(--study-ease, cubic-bezier(0.22, 0.61, 0.36, 1)); }
+#MotionPreview[data-shape='wave'] .button::before { border-radius: 0; clip-path: polygon(0 20%, 5% 14%, 10% 9%, 15% 5%, 20% 2%, 25% 0, 30% 0, 35% 2%, 40% 5%, 45% 9%, 50% 14%, 55% 20%, 60% 25%, 65% 29%, 70% 32%, 75% 33%, 80% 32%, 85% 29%, 90% 25%, 95% 20%, 100% 14%, 100% 100%, 0 100%); }
+#MotionPreview[data-shape='circle'] .button::before { inset: 0; width: auto; height: auto; transform: none; border-radius: inherit; clip-path: circle(0% at 50% 100%); transition-property: clip-path; }
+#MotionPreview[data-playing] .button:not(:disabled)::before { transform: translate(-50%, -66.667%); transition-duration: var(--button-sweep-enter-duration); }
+#MotionPreview[data-shape='circle'] .button:not(:disabled):is(:hover,:focus-visible)::before, #MotionPreview[data-shape='circle'][data-playing] .button:not(:disabled)::before { transform: none; clip-path: circle(120% at 50% 100%); }
+#MotionPreview[data-reduced] .button::before { transition: none; }
+.motion-wide { width: 100%; }
+.motion-multiline { justify-self: start; }

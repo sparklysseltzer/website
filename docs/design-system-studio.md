@@ -2,7 +2,7 @@
 
 The permanent, local design reference lives in `demos/design-system/`. It uses the actual theme assets and shared tokens so designers can review real controls instead of a separate mockup.
 
-Expansion status: deferred on 2026-09-09 while other storefront work takes priority. The existing forms collection remains available; future collections are tracked as [TASK-012](tasks.md#task-012--extend-the-design-system-studio).
+The forms collection and Button Motion Lab are available. The motion lab was added on 2026-09-14; broader expansion remains deferred and is tracked as [TASK-012](tasks.md#task-012--extend-the-design-system-studio).
 
 ## Open it
 
@@ -12,7 +12,9 @@ From the repository root, run `npm run studio`, then open http://127.0.0.1:9293.
 
 Forms are the first working collection: fields, dropdowns, radio buttons, checkboxes, validation and disabled states. The controls at the top change preview tokens; Copy tokens exports the proposed values for review. Changes currently last only for the page session. Approved values should be applied to the shared source and reviewed before storefront adoption.
 
-Keep new collections in this studio. Future additions can cover typography/colors/spacing/radii, buttons and icons, cards, and motion examples with replay and reduced-motion comparisons. Show real shared components wherever possible, include phone and desktop layouts, and identify prototypes clearly. This is the extension roadmap; those additional collections are not implemented yet.
+The Button Motion Lab at `/#ButtonMotion` uses actual shared buttons, including secondary, small, disabled, full-width and multiline examples. Tune shape (oval, experimental wave, previous circle), entry/exit duration, width and easing; replay both directions or simulate reduced motion. Copy settings exports the proposal, without modifying source files or Shopify. Width applies to oval/wave; wave and circle are studio-only prototypes. System reduced motion also applies. Small buttons on coarse pointers retain their accessible fade fallback.
+
+Keep new collections in this studio. Future additions can cover typography/colors/spacing/radii, icons, cards, and additional motion examples. Show real shared components wherever possible, include phone and desktop layouts, and identify prototypes clearly. This is the extension roadmap; those additional collections beyond forms and button motion are not implemented yet.
 
 ## Isolation
 

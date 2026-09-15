@@ -270,9 +270,12 @@ input[type='submit'] {
   --button-border-color: var(--color-foreground);
   --button-color: var(--color-text-inverse);
   --button-sweep-background: var(--color-surface);
-  --button-sweep-ease: cubic-bezier(0.65, 0, 0.35, 1);
-  --button-sweep-enter-duration: 320ms;
+  --button-sweep-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --button-sweep-enter-duration: 480ms;
   --button-sweep-exit-duration: 360ms;
+  --button-sweep-width: 180%;
+  --button-sweep-height: 300%;
+  --button-sweep-radius: 50%;
 
   position: relative;
   isolation: isolate;
@@ -295,14 +298,31 @@ input[type='submit'] {
 .button::before {
   position: absolute;
   z-index: 0;
-  inset: 0;
-  border-radius: inherit;
+  left: 50%;
+  top: 100%;
+  width: var(--button-sweep-width);
+  height: var(--button-sweep-height);
+  border-radius: var(--button-sweep-radius);
   background: var(--button-sweep-background);
   content: '';
   pointer-events: none;
-  clip-path: circle(0% at 50% 100%);
-  transition: clip-path var(--button-sweep-exit-duration) var(--button-sweep-ease);
+  transform: translate(-50%, 0);
+  transition: transform var(--button-sweep-exit-duration) var(--button-sweep-ease);
 }
+
+/* Keep the outline above the sweep, including its intermediate frames. */
+.button:not(.button--small)::after {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--control-outline-width));
+  border: var(--control-outline-width) solid var(--button-border-color);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+}
+.button.button--inverse { --button-border-color: var(--color-text-inverse); }
+.button.button--embedded { --button-border-color: var(--button-embedded-border-color, var(--color-surface)); }
+.button.button--embedded::after { box-shadow: inset 0 0 0 var(--control-outline-width) var(--button-embedded-inner-border-color, var(--color-foreground)); }
 
 .button__label {
   position: relative;
@@ -313,14 +333,14 @@ input[type='submit'] {
 
 @media (hover: hover) {
   .button:not(:disabled, [aria-disabled='true']):hover::before {
-    clip-path: circle(120% at 50% 100%);
+    transform: translate(-50%, -66.667%);
     transition-duration: var(--button-sweep-enter-duration);
   }
 
 }
 
 .button:not(:disabled, [aria-disabled='true']):focus-visible::before {
-  clip-path: circle(120% at 50% 100%);
+  transform: translate(-50%, -66.667%);
   transition-duration: var(--button-sweep-enter-duration);
 }
 
@@ -1306,7 +1326,6 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 
 .site-footer__newsletter-button {
   --button-background: var(--color-foreground);
-  --button-border-color: var(--color-surface);
   --button-color: var(--color-text-inverse);
   --button-sweep-background: var(--color-surface);
 
@@ -1957,8 +1976,12 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   .cart-recommendations__heading { color: var(--color-text-inverse); }
 }
 
-.button--small { min-height: var(--button-height-small); padding: var(--button-padding-small); font-size: var(--font-size-small); overflow: visible; }
+.button--small { min-height: var(--button-height-small); padding: var(--button-padding-small); font-size: var(--font-size-small); }
 @media (pointer: coarse) {
+  .button--small { overflow: visible; }
+  /* Keep the expanded touch target without letting the sweep escape the pill. */
+  .button.button--small::before { inset: 0; width: auto; height: auto; border-radius: inherit; transform: none; opacity: 0; transition-property: opacity; }
+  .button.button--small:not(:disabled, [aria-disabled='true']):is(:hover, :focus-visible)::before { opacity: 1; }
   .button--small::after { content: ''; position: absolute; inset: -.375rem 0; min-width: 2.75rem; border-radius: inherit; }
 }
 .cart-recommendation__variants { display: flex; flex-wrap: wrap; gap: .25rem; padding: 0; border: 0; margin: 0; min-width: 0; }
