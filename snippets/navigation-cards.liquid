@@ -1,0 +1,12 @@
+<div class="navigation-content" id="{{ content_id }}">
+  <div class="navigation-content__heading">
+    <p class="navigation-content__title">{% if category.type == 'collection_link' %}<a href="{{ category.url }}"{% if category.current %} aria-current="page"{% endif %}><span>{{ category.title | escape }}</span><img src="{{ 'icon-form-chevron-down.svg' | asset_url }}" width="20" height="20" alt=""></a>{% else %}{{ category.title | escape }}{% endif %}</p>
+    <div class="navigation-controls" hidden>
+      <button type="button" data-scroll="-1" aria-label="{{ 'sections.header.navigation_previous' | t }}"><img src="{{ 'icon-form-chevron-down.svg' | asset_url }}" width="20" height="20" alt=""></button>
+      <button type="button" data-scroll="1" aria-label="{{ 'sections.header.navigation_next' | t }}"><img src="{{ 'icon-form-chevron-down.svg' | asset_url }}" width="20" height="20" alt=""></button>
+    </div>
+  </div>
+  <div class="navigation-cards" tabindex="0" role="region" aria-label="{{ category.title | escape }}">
+    {% for item in category.links %}{% render 'navigation-card', item: item, section: section %}{% endfor %}
+  </div>
+</div>

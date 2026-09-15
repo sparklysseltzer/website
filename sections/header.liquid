@@ -25,6 +25,9 @@
   endif
 -%}
 
+{{ 'catalog-card.css' | asset_url | stylesheet_tag }}
+{{ 'header-navigation.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'header-navigation.js' | asset_url }}" defer="defer"></script>
 <header class="site-header" data-header-context="{{ header_context }}">
   <div class="site-header__switcher" aria-label="{{ 'sections.header.brand_navigation' | t }}">
     <div class="site-header__switcher-inner">
@@ -113,59 +116,28 @@
 
   <div class="site-header__main">
     <div class="site-header__inner">
-      <details class="mobile-menu">
-        <summary aria-label="{{ 'sections.header.open_menu' | t }}">
-          <span class="mobile-menu__icon" aria-hidden="true"></span>
-        </summary>
-        <nav class="mobile-menu__panel" aria-label="{{ 'sections.header.navigation' | t }}">
-          <ul class="site-header__menu">
-            {%- if active_menu.links != blank -%}
-              {%- for link in active_menu.links -%}
-                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-              {%- endfor -%}
-            {%- else -%}
-              <li><span>{{ 'sections.header.shop' | t }}</span></li>
-              <li><span>{{ 'sections.header.learn' | t }}</span></li>
-              <li><span>{{ 'sections.header.subscribe' | t }}</span></li>
-            {%- endif -%}
-          </ul>
-        </nav>
-      </details>
-
-      <nav class="site-header__nav" aria-label="{{ 'sections.header.navigation' | t }}">
-        <div class="site-header__nav-group">
-          {%- if active_menu.links != blank -%}
-            {%- for link in active_menu.links -%}
-              <a
-                class="site-header__nav-item{% if forloop.first %} site-header__nav-item--active{% endif %}{% if link.links != blank %} site-header__nav-item--dropdown{% endif %}"
-                href="{{ link.url }}"
-                {% if link.current %}aria-current="page"{% endif %}
-              >
-                {{ link.title }}
-                {%- if link.links != blank -%}
-                  <img
-                    src="{{ 'icon-chevron-down.svg' | asset_url }}"
-                    width="9"
-                    height="6"
-                    alt=""
-                    {% if forloop.first %}class="site-header__nav-chevron--inverse"{% endif %}
-                  >
-                {%- endif -%}
+      <header-navigation class="navigation-mobile" data-presentation="mobile">
+        <details data-mobile-disclosure>
+          <summary class="navigation-mobile-opener" aria-label="{{ 'sections.header.open_menu' | t }}"><span class="mobile-menu__icon" aria-hidden="true"></span></summary>
+          <div class="navigation-mobile-content" data-mobile-content>
+            <div class="navigation-mobile-bar">
+              <button type="button" data-mobile-close hidden aria-label="{{ 'sections.header.navigation_close' | t }}"><img src="{{ 'icon-x-close.svg' | asset_url }}" width="24" height="24" alt=""></button>
+              <a href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+                {% if header_context == 'soda' %}<img src="{{ 'sparklys-soda-logo.svg' | asset_url }}" width="120" height="58" alt="">
+                {% elsif header_context == 'seltzer' %}<img class="navigation-mobile-logo--seltzer" src="{{ 'footer-logo-seltzer.svg' | asset_url }}" width="120" height="40" alt="">
+                {% else %}<img src="{{ 'sparklys-arc-logo.svg' | asset_url }}" width="120" height="40" alt="">{% endif %}
               </a>
-            {%- endfor -%}
-          {%- else -%}
-            <span class="site-header__nav-item site-header__nav-item--active site-header__nav-item--dropdown">
-              {{ 'sections.header.shop' | t }}
-              <img src="{{ 'icon-chevron-down-white.svg' | asset_url }}" width="9" height="6" alt="">
-            </span>
-            <span class="site-header__nav-item site-header__nav-item--dropdown">
-              {{ 'sections.header.learn' | t }}
-              <img src="{{ 'icon-chevron-down.svg' | asset_url }}" width="9" height="6" alt="">
-            </span>
-            <span class="site-header__nav-item">{{ 'sections.header.subscribe' | t }}</span>
-          {%- endif -%}
-        </div>
-      </nav>
+              <a data-cart-open href="{{ routes.cart_url }}" aria-label="{{ 'sections.header.cart' | t }}"><img src="{{ 'icon-cart.svg' | asset_url }}" width="24" height="24" alt=""></a>
+            </div>
+            {% render 'header-navigation', menu: active_menu, section: section, presentation: 'mobile' %}
+            {% if store_finder_page != blank %}<a class="navigation-mobile-utility" href="{{ store_finder_page.url }}">{{ 'sections.header.store_finder' | t }}</a>{% endif %}
+            {% if corporate_menu.links != blank %}<nav class="navigation-mobile-utility" aria-label="{{ 'sections.header.utility_navigation' | t }}">{% for link in corporate_menu.links %}<details><summary>{{ link.title | escape }}</summary>{% render 'navigation-destination', destination: link %}{% for child in link.links %}<a href="{{ child.url }}">{{ child.title | escape }}</a>{% for grandchild in child.links %}<a href="{{ grandchild.url }}">{{ grandchild.title | escape }}</a>{% endfor %}{% endfor %}</details>{% endfor %}</nav>{% endif %}
+          </div>
+        </details>
+      </header-navigation>
+      <header-navigation class="site-header__nav" data-presentation="desktop">
+        {% render 'header-navigation', menu: active_menu, section: section, presentation: 'desktop' %}
+      </header-navigation>
 
       <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
         {%- if header_context == 'soda' -%}
@@ -246,10 +218,15 @@
   "class": "shopify-section-header",
   "settings": [
     {
+      "type": "header",
+      "content": "General"
+    },
+    {
       "type": "link_list",
       "id": "menu",
       "label": "Default navigation",
-      "default": "main-menu"
+      "default": "main-menu",
+      "info": "Set navigation images on linked pages or collections. Products use their teaser image, then featured image."
     },
     {
       "type": "header",
@@ -272,7 +249,8 @@
     {
       "type": "link_list",
       "id": "soda_menu",
-      "label": "Navigation"
+      "label": "Navigation",
+      "info": "Set navigation images on linked pages or collections. Products use their teaser image, then featured image."
     },
     {
       "type": "header",
@@ -281,7 +259,8 @@
     {
       "type": "link_list",
       "id": "seltzer_menu",
-      "label": "Navigation"
+      "label": "Navigation",
+      "info": "Set navigation images on linked pages or collections. Products use their teaser image, then featured image."
     }
   ]
 }

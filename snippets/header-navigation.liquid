@@ -1,0 +1,41 @@
+<nav aria-label="{{ 'sections.header.navigation' | t }}" class="navigation-tree">
+  <ul class="navigation-roots">
+    {% for link in menu.links %}
+      {% assign root_id = section.id | append: '-' | append: presentation | append: '-' | append: forloop.index %}
+      <li class="navigation-root">
+        {% if link.links != blank %}
+          <details data-nav-root>
+            <summary class="site-header__nav-item navigation-trigger" id="{{ root_id }}-trigger" aria-controls="{{ root_id }}-panel"{% if link.child_active or link.active %} data-current{% endif %}>
+              <span>{{ link.title | escape }}</span><img src="{{ 'icon-form-chevron-down.svg' | asset_url }}" width="16" height="16" alt="">
+            </summary>
+            <div class="navigation-panel" id="{{ root_id }}-panel" aria-labelledby="{{ root_id }}-trigger">
+              {% assign has_categories = false %}
+              {% for category in link.links %}{% if category.links != blank %}{% assign has_categories = true %}{% endif %}{% endfor %}
+              {% if has_categories %}
+                <div class="navigation-categories" style="--navigation-rows: {{ link.links.size }}">
+                  {% for category in link.links %}
+                    {% assign category_id = root_id | append: '-category-' | append: forloop.index %}
+                    {% if category.links != blank %}
+                      <details data-nav-category style="--navigation-row: {{ forloop.index }}">
+                        <summary aria-controls="{{ category_id }}"><span>{{ category.title | escape }}</span><img src="{{ 'icon-form-chevron-down.svg' | asset_url }}" width="20" height="20" alt=""></summary>
+                        {% render 'navigation-cards', category: category, content_id: category_id, section: section %}
+                      </details>
+                    {% else %}
+                      <a style="--navigation-row: {{ forloop.index }}" class="navigation-category-link" href="{{ category.url }}"{% if category.current %} aria-current="page"{% endif %}>{{ category.title | escape }}</a>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% else %}
+                {% assign category_id = root_id | append: '-links' %}
+                {% render 'navigation-cards', category: link, content_id: category_id, section: section %}
+              {% endif %}
+            </div>
+          </details>
+        {% else %}
+          <a class="site-header__nav-item navigation-trigger" href="{{ link.url }}"{% if link.current %} aria-current="page" data-current{% endif %}><span>{{ link.title | escape }}</span></a>
+        {% endif %}
+      </li>
+    {% endfor %}
+    <li class="navigation-pill" aria-hidden="true" hidden></li>
+  </ul>
+</nav>

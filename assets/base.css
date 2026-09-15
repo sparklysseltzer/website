@@ -762,8 +762,20 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   position: relative;
   padding-block: 0.625rem;
   background: color-mix(in srgb, var(--color-surface) 92%, transparent);
-  box-shadow: 0 0.625rem 1.875rem rgb(0 0 0 / 10%);
   backdrop-filter: blur(2rem);
+  isolation: isolate;
+}
+
+/* Paint the shadow below the bar, never upward over the white brand tabs.
+   Clip only this decorative layer so navigation panels remain unrestricted. */
+.site-header__main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  box-shadow: 0 0.625rem 1.875rem rgb(0 0 0 / 10%);
+  clip-path: inset(0 -100vmax -100vmax);
 }
 
 .site-header__inner {

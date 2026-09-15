@@ -1478,5 +1478,260 @@
       }
     },
     "schemaHash": "cf50a9d0dc56ee1db82c29b7aecb59a0954bd379767e689da487370d7bbd41b9"
+  },
+  "sections/main-collection.liquid": {
+    "fields": {
+      "header_in_hero": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "show_header": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.header_in_hero == false }}"
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "products_per_page": {
+        "group": "Products",
+        "visible_if": null
+      },
+      "show_filters": {
+        "group": "Products",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "heading_font": "Selects heading typography without changing body text.",
+      "show_header": "Use only without a separate Collection hero; controls the collection title and description.",
+      "show_filters": "Enables collection navigation on collections/all only; the resource context selects applicability.",
+      "hide_on_mobile": "Hides the section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the section from 768px; no dependent fields.",
+      "header_in_hero": "Delegates the collection H1 to the separate hero. All-products always supplies its own H1."
+    },
+    "scenarios": [
+      {
+        "name": "Standalone catalog title",
+        "settings": {
+          "header_in_hero": false
+        },
+        "visible": [
+          "show_header",
+          "heading_font",
+          "heading"
+        ]
+      },
+      {
+        "name": "Separate hero supplies H1",
+        "settings": {
+          "header_in_hero": true
+        },
+        "hidden": [
+          "show_header"
+        ],
+        "visible": [
+          "heading",
+          "heading_font"
+        ]
+      }
+    ],
+    "schemaHash": "261c31853b279fca712ec98bf61e4f1e57c854462b39fd54ee778649b0e73212"
+  },
+  "sections/collection-hero.liquid": {
+    "fields": {
+      "variant": {
+        "group": "Design",
+        "visible_if": null
+      },
+      "animate": {
+        "group": "Design",
+        "visible_if": null
+      },
+      "eyebrow": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "text": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "background_image": {
+        "group": "Artwork",
+        "visible_if": null
+      },
+      "first_image": {
+        "group": "Artwork",
+        "visible_if": null
+      },
+      "second_image": {
+        "group": "Artwork",
+        "visible_if": null
+      },
+      "show_button": {
+        "group": "Action",
+        "visible_if": null
+      },
+      "button_label": {
+        "group": "Action",
+        "visible_if": "{{ section.settings.show_button }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "variant": "Selects automatic or explicit world design. Image pickers remain additive overrides for every design.",
+      "animate": "Enables decorative motion; reduced-motion preferences always win.",
+      "heading_font": "Selects heading typography without changing body text.",
+      "show_button": "Shows the in-page shop action and its label control.",
+      "hide_on_mobile": "Hides the section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the section from 768px; no dependent fields."
+    },
+    "scenarios": [
+      {
+        "name": "Shop action enabled",
+        "settings": {
+          "show_button": true
+        },
+        "visible": [
+          "button_label"
+        ]
+      },
+      {
+        "name": "Shop action disabled",
+        "settings": {
+          "show_button": false
+        },
+        "hidden": [
+          "button_label"
+        ]
+      },
+      {
+        "name": "automatic art overrides",
+        "settings": {
+          "variant": "automatic"
+        },
+        "visible": [
+          "background_image",
+          "first_image",
+          "second_image",
+          "heading",
+          "text",
+          "heading_font",
+          "animate"
+        ]
+      },
+      {
+        "name": "soda art overrides",
+        "settings": {
+          "variant": "soda"
+        },
+        "visible": [
+          "background_image",
+          "first_image",
+          "second_image",
+          "heading",
+          "text",
+          "heading_font",
+          "animate"
+        ]
+      },
+      {
+        "name": "seltzer art overrides",
+        "settings": {
+          "variant": "seltzer"
+        },
+        "visible": [
+          "background_image",
+          "first_image",
+          "second_image",
+          "heading",
+          "text",
+          "heading_font",
+          "animate"
+        ]
+      },
+      {
+        "name": "default art overrides",
+        "settings": {
+          "variant": "default"
+        },
+        "visible": [
+          "background_image",
+          "first_image",
+          "second_image",
+          "heading",
+          "text",
+          "heading_font",
+          "animate"
+        ]
+      }
+    ],
+    "schemaHash": "d8665b40628af9577d145def22b8ec9f3db87a8307eaf7f319078e3b77717dc0"
+  },
+  "sections/header.liquid": {
+    "fields": {
+      "menu": {
+        "group": "General",
+        "visible_if": null
+      },
+      "corporate_menu": {
+        "group": "Utility navigation",
+        "visible_if": null
+      },
+      "store_finder_page": {
+        "group": "Utility navigation",
+        "visible_if": null
+      },
+      "soda_menu": {
+        "group": "Soda",
+        "visible_if": null
+      },
+      "seltzer_menu": {
+        "group": "Hard Seltzer",
+        "visible_if": null
+      }
+    },
+    "controls": {},
+    "scenarios": [
+      {
+        "name": "All menu pickers are additive; no mode controls",
+        "settings": {},
+        "visible": [
+          "menu",
+          "corporate_menu",
+          "store_finder_page",
+          "soda_menu",
+          "seltzer_menu"
+        ]
+      }
+    ],
+    "schemaHash": "5352ccfb306a7125da120ddc5ed5f2c44cf735015e33670d7ce29a47e94d352a"
   }
 }

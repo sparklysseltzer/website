@@ -1,0 +1,21 @@
+{%- liquid
+  assign resource = item.object
+  assign nav_image = resource.metafields.custom.navigation_image.value
+  case item.type
+    when 'product_link'
+      assign nav_image = resource.metafields.custom.teaser_image.value | default: resource.featured_image
+    when 'collection_link', 'article_link'
+      assign nav_image = nav_image | default: resource.image
+  endcase
+  assign image_position = 'object-position: ' | append: nav_image.presentation.focal_point | append: ';'
+-%}
+{% if item.type == 'product_link' and resource != blank %}
+  {% render 'product-card', card_product: resource, card_layout: 'navigation', navigation_title: item.title, navigation_url: item.url, navigation_current: item.current, navigation_image: nav_image %}
+{% else %}
+  <article class="catalog-card navigation-card{% if nav_image == blank %} navigation-card--text{% endif %}">
+    <a class="catalog-card__link" href="{{ item.url }}"{% if item.current %} aria-current="page"{% endif %}>
+      {% if nav_image != blank %}<div class="catalog-card__media">{{ nav_image | image_url: width: 720 | image_tag: widths: '240, 360, 480, 720', sizes: '(min-width: 1024px) 280px, 75vw', loading: 'lazy', alt: '', style: image_position }}</div>{% endif %}
+      <div class="catalog-card__content"><span class="catalog-card__title">{{ item.title | escape }}</span></div>
+    </a>
+  </article>
+{% endif %}

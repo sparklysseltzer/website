@@ -1,0 +1,5 @@
+{%- comment -%}Suppress placeholder parent actions without inventing a destination.{%- endcomment -%}
+{%- assign first_character = destination.url | slice: 0 -%}
+{%- if destination.url != blank and first_character != '#' -%}
+  <a class="{{ link_class }}" href="{{ destination.url }}"{% if destination.current %} aria-current="page"{% endif %}>{% if link_class == 'navigation-category-destination' %}{{ destination.title | escape }}{% else %}{{ 'sections.header.navigation_visit' | t: title: destination.title | escape }}{% endif %}</a>
+{%- endif -%}
