@@ -167,6 +167,8 @@ Current custom elements/controllers are:
 | `usp-section-motion` | Reversible USP panel/content reveals, item staggering, and media parallax |
 | `faq-section-motion` | Reversible FAQ heading, controls, item, and closing-link reveals |
 | `faq-accordion` | One-open-at-a-time enhancement for native FAQ details elements |
+| `collection-catalog` | Shared catalog filtering with native links, page fetching, fragment history and reversible feedback |
+| `collection-hero-motion` | Independent can/color ambience, cloud parallax, offscreen and visitor pause controls |
 | `faq-directory` | Client-side FAQ text search, category filtering, count feedback, and URL state |
 | `editorial-section-motion` | Shared reversible reveals for ingredients, reasons, awards, and comparisons |
 
@@ -180,7 +182,7 @@ Shared UI colors are merchant-editable through Shared, General Sparklys, Soda an
 
 ### Page canvas
 
-Page background is resolved centrally in `layout/theme.liquid`, independently of brand heading/menu context and section palette surfaces. The default is `#F2F0E9`; homepage and Hard Seltzer collections use white. Products use existing `custom.soda_background_color` or white when empty. Root canvas, PDP background and browser theme-color agree. See the design-system page-background contract.
+Page background is resolved centrally in `layout/theme.liquid`, independently of brand heading/menu context and section palette surfaces. The default is `#F2F0E9`; homepage and all collections use white. Products use existing `custom.soda_background_color` or white when empty. Root canvas, PDP background and browser theme-color agree. See the design-system page-background contract.
 
 ### Section and block naming
 

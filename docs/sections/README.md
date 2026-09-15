@@ -2,7 +2,7 @@
 
 This directory documents every Liquid section in `sections/`. Keep implementation details here; keep cross-cutting rules in [Architecture](../architecture.md), commerce requirements in [Commerce](../commerce.md), and capability state in [Status](../status.md).
 
-Last reconciled with the repository: 2026-09-12. The tables below cover all 33 Liquid sections; variants and presets do not count as separate sections.
+Last reconciled with the repository: 2026-09-15. The tables below cover all 34 Liquid sections; variants and presets do not count as separate sections.
 
 ## Shared contracts
 
@@ -46,6 +46,7 @@ All sections follow the [design system](../design-system.md), [asset-delivery ru
 | Section | Template |
 | --- | --- |
 | [Product](main-product.md) | `product*.json` |
+| [Collection hero](collection-hero.md) | `collection*.json` |
 | [Collection](main-collection.md) | `collection*.json` |
 | [Cart](main-cart.md) | `cart.json` |
 | [Search](main-search.md) | `search.json` |

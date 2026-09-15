@@ -27,13 +27,13 @@ This is the current capability map, not a promise of production readiness. Recon
 | Discounts and shipping | Reconfirm real campaign-code combinations, checkout retention and actual configured rates/eligibility before launch. PDP coupon discovery/hints remain outside current scope. |
 | Age verification | Review classification, document support, privacy, unsupported-document assistance and rollout. Trusted identity verification requires a separate server/provider design. |
 | Markets and languages | Verify CH/LI Markets and language publication/translation completeness. French/Italian and other markets are not implemented or implied. |
-| Navigation and footer | Replace placeholders, verify long/mobile navigation, store-finder destination, newsletter/Klaviyo routing and actual payment-provider availability. |
+| Navigation and footer | Local mega-menu/mobile sheet implemented and fixture-tested; configure real nested menus and Navigation images separately, verify published-language navigation, store-finder destination, newsletter/Klaviyo routing and actual payment-provider availability. |
 | SEO | Complete the [structured-data backlog](structured-data-tasks.md); verify metadata, canonical URLs, accessible H1s and launch indexing behavior. |
-| Collections and search | Sorting/filtering, predictive search and richer mixed-result UI remain follow-ups. |
+| Collections and search | All-products collection filters and shared cards are implemented locally. Native facet/sort controls, predictive search and richer mixed-result UI remain follow-ups. |
 | Customer accounts and apps | Audit Shopify account entry/portal behavior and installed app blocks/embeds end to end. |
 | Analytics and consent | Define provider inventory, event ownership, consent requirements and duplicate-event checks. |
 | Accessibility and performance | Complete enlarged-text/zoom reflow, full-site accessibility and stable browser regression coverage. Lighthouse CI is not configured. |
-| Design Studio | Retained as a local reference; its expansion is deferred in the [task inbox](tasks.md). |
+| Design Studio | Local forms reference and adjustable Button Motion Lab; broader expansion is deferred in the [task inbox](tasks.md). |
 
 ## Recommended next sequence
 
@@ -43,3 +43,7 @@ This is the current capability map, not a promise of production readiness. Recon
 4. Close the approved SEO and consent gaps, then add repeatable browser/performance coverage.
 
 The shared `website/main` theme remains unpublished unless explicitly authorized. Store data, app permissions and theme publication have separate scopes; a code commit is not a deployment or publishing action.
+
+### Collection implementation — 2026-09-15
+
+Local all-products filtering and shared collection cards are implemented, with branded/neutral Collection hero, bounded cloud parallax, paused/offscreen ambient color/can motion, existing USP data plus an optional featured benefit, server-rendered CollectionPage/ItemList, and reusable editorial demo compositions. Shared editorial templates and collection suffix assignments are not deployed/changed. Current hidden variety/trial products remain hidden; Clothing and Accessories retain separate filters. See the owning section docs for tested limits and launch copy/data work.

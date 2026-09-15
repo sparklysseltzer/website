@@ -138,3 +138,57 @@ Implemented notes 76–98 plus the Soda variety artwork note: compact subscripti
 ## 2026-09-12 — PDP and shared action refinements
 
 Resolved Ananotes 100–113 after local implementation and phone/desktop checks: delivery labels, badge sizing/continuous slow rotation with pause, hidden redundant prompts, compact purchase spacing, stable frequency expansion, faster bottom-up button sweep, payment artwork corners, smaller cart glyph, white active brand tab, and orange cart-removal hover. Keyboard, reduced motion, native no-JavaScript plan options and subscription add-to-cart were checked. Note 75 remains acknowledged with its previously documented age-wording review; its approved shop-policy sentence is already implemented. No shared-theme deployment or publishing.
+
+## 2026-09-15 — Product overview and collection feedback
+
+- 115: canonical PDP link fallbacks, updated Maracuja/Holunder cutouts and complete transparent script logos from Figma, and alcohol badge behind growing can artwork. Explicit merchant links remain authoritative.
+- 117: paired Variety Pack artwork shares the card lift/scale transition while retaining individual can rotations; keyboard focus and reduced motion verified.
+- `1789447352099-q7p2bn932`: removed the collection hero pause button and its unused handlers/styles; visibility suspension, reduced motion and editor animation setting remain.
+- 116 remains acknowledged: local Offer card page resolution and four editorial template starters are prepared. Hidden-page discovery/creation and template assignment are not performed: Admin API lacks page scopes and store-data changes remain a separate authorized step. See Offer cards documentation for the concrete destination map. Earlier note 75 remains unchanged pending wording review.
+
+Verification: local desktop and 390px phone rendering, all four PDP URLs and artwork loading, intermediate and settled paired-can transforms, preserved rotations, keyboard focus and static reduced-motion state. `npm run check`, JavaScript syntax checks and `git diff --check` passed. Raw jq rejects existing Shopify comment headers; all 34 JSON files parse after removing those headers. No store content or shared draft deployment changed. Isolated browser session closed.
+
+## 2026-09-15 — Ananotes 119–126
+
+- 119: input-only navigation highlight, hidden initially, 480ms travel without wobble/overshoot; semantic active states retained.
+- 120–122: removed hero footnotes, reduced sky scale and removed sky parallax, added staggered copy entrances to both product-world heroes. Sky uses feathered mirrored source panels because the Figma wide composite includes baked-in cans; separate can motion remains.
+- 123–124: visually hidden count/loading live region (fetch errors still visible), smaller complete product images with contained proportions and shared media floor; navigation cards excluded.
+- 125–126: shared regular-button outline paints above sweep; inverse border for light Poster actions and foreground border for footer newsletter action. Small-button hit targets preserved.
+
+Verified headlessly at 1440px and 390px: navigation starts/returns hidden, 480ms two-keyframe travel, hero intro stagger (0–200ms), both hero footnotes absent, reduced-motion hero suspension, product containment/no viewport overflow, white Poster hover outline and black newsletter hover outline. Theme checks, JavaScript syntax checks and diff whitespace checks passed; JSON parsed after removing Shopify-generated comment headers (raw jq retains known header errors). Browser closed. Notes 75 and 116 remain acknowledged for their previously documented separate work. No deployment or store-data changes.
+
+## 2026-09-15 — Embedded newsletter action
+
+Resolved `1789472107286-i4ilkm05c`: restores the newsletter's white inset outline through reusable `button--embedded`, superseding note 126's foreground border. The border uses the input surface token and remains above the hover sweep. Desktop rest/hover and 390px keyboard-focus checks passed, with no horizontal overflow; no newsletter signup submitted. Full checks, theme.js syntax, header-aware JSON parsing and diff checks passed. Isolated browser closed. Earlier notes 75 and 116 remain acknowledged.
+
+## 2026-09-15 — Ananotes 128–130
+
+- 128: embedded newsletter action now combines its white outer edge with a foreground inner ring, so both idle and white-hover states have the appropriate outline.
+- 129: navigation pill uses translation and absolute width/height instead of scaling; corrected layer ordering, retained target through link gaps, delayed/faded exit and painted-state interruption preserve continuous travel and round endcaps.
+- 130: both collection heroes follow fine-pointer movement throughout the viewport, including over the header; leaving the hero no longer resets motion. Browser exit/blur, touch, reduced motion and offscreen guards remain.
+
+Verified desktop intermediate/settled navigation bounds and rounded rendering, newsletter hover appearance, pointer target updates above both heroes, phone keyboard focus, reduced-motion suspension and no horizontal overflow. Full theme checks, JS syntax checks and diff checks passed; JSON validated after stripping Shopify comment headers (raw jq still rejects generated headers). No newsletter submitted. Test browser closed. Notes 75/116 remain acknowledged; no deployment or store-data changes.
+
+## 2026-09-15 — Product Overview shared floor
+
+Resolved `1789473290267-4nhpslh9z`: applied the requested Seltzer shadow top 93.1% / left 3%, then lowered the whole artwork composition proportionally by 1.5% to compensate for the new cutouts' transparent bottom margin. Visible alpha-bound can bases now align within 0.01px at 1440px desktop and 390px phone. Verified 1379px hover retains the combined shadow/can composition, without page overflow. Full checks, theme.js syntax, header-aware JSON parsing and diff checks passed. Browser closed. No content settings or deployment changed; notes 75/116 remain acknowledged.
+
+## 2026-09-15 — Navigation refinements (132–138)
+
+Removed the root navigation's white backing, kept clean rounded highlight bounds, replaced enlarged tight-crop carets with padded library artwork, omitted duplicate parent destinations already present as cards, extended rails to viewport edges, hid redundant scroll controls, added a lighter traveling category hover/focus highlight, and uppercased panel headings. Verified desktop/phone, native fallback, keyboard, reduced motion and intermediate category travel. No theme deployment; separately authorized menu copies were backed up and verified through Admin GraphQL.
+
+## 2026-09-15 — Navigation composition (139–142)
+
+Removed supplemental category/root destination actions; widened the desktop category track to at least 18rem with unwrapped labels; centered the logo/flavour composition and reused the 0.75 flavour-lockup rhythm with deliberate Soda title line breaks. Verified real menus at desktop 1440/1024px and phone 390px, plus native disclosure links with JavaScript blocked. Resource image ownership was changed separately at merchant request: Header image blocks removed and pinned navigation-image definitions provisioned through Admin GraphQL. Full checks pass; generated Shopify JSON comments remain the only raw-jq limitation.
+
+## 2026-09-15 — Navigation refinements 143–148
+
+Resolved 143–148: smaller padded root carets; ™ in automatic collection hero eyebrows; content-width Variety Pack title alignment; optional Probier-paket soft-hyphen wrapping; contained accessory/clothing product media; current-root ancestry highlighting with hover/focus return. Also removed duplicate pill painting and snapped settled bounds to device pixels. Verified desktop screenshots, 390px current state and label layout (Variety lockup center error under .01px), restored Learn pill after pointer exit, and no-JavaScript current-root styling. Full checks and JS syntax pass; existing Shopify JSON comment headers require stripping before parsing. Test browser closed.
+
+Older 116 remains acknowledged: existing hidden target pages were found via read-only Admin API; local Companies fallback now prefers Firmen. Store template assignments/publication remain separate. Older 75 remains acknowledged for its outstanding legal-copy review; no legal text was changed.
+
+## 2026-09-15 — Soda hero and navigation product typography
+
+- Resolved 149 (`1789499778046-gy42khbzc`): Soda/Erode collection hero matches Figma 8734:14210 leading, 62/75, through a documented composition exception. Shared Display sizing and other heading fonts remain unchanged.
+- Resolved `1789502158203-h6sldj0s6`: accessory/clothing navigation product titles use Compact (20px desktop, 18px phone). Branded drink lockups and collection titles are unchanged.
+- Verified rendered desktop 1440px and phone 390px, including headline leading and navigation cards. Repository checks, syntax and diff checks passed; generated Shopify comment headers were stripped for JSON validation (34 valid files). Headless browser closed. Existing notes 75 and 116 remain acknowledged.

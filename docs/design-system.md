@@ -44,7 +44,7 @@ Approved artwork exceptions include the Soda 3 Reasons numeral lockup, Product O
 | `--letter-spacing-heading-erode` | `-0.03em` | Erode heading tracking |
 | `--line-height-heading` | Resolves to the chosen font | All standard section and page headings |
 | `--line-height-display-number` | `0.7` | Single oversized decorative numeral in a composed heading |
-| `--line-height-flavor-lockup` | `0.75` | Previously approved Product Overview Soda flavor lettering |
+| `--line-height-flavor-lockup` | `0.75` | Approved Soda flavour compositions in Product Overview and product navigation cards |
 
 The two font families have different optical metrics. Use one rhythm per font across sections, not a new line height per frame or viewport. Page context resolves the normal heading token; explicit font choices resolve the matching token in the central selector groups. Body-font labels and comparison product names are smaller UI text, not display headings, and retain their readable body rhythm.
 
@@ -212,7 +212,7 @@ Cart allocation micro-badges use the existing Badge typography role. Coupon remo
 
 Cart annotation follow-up (2026-09-07): subtotal and shipping supporting rows now use the General Primary text role, superseding the earlier Notice-text treatment. Savings retains Success text and struck-through original prices retain Notice text. Tag icons inside item allocation micro-badges scale to 1.2em (12px with the 10px Badge role); other tag icons retain the shared 1rem size.
 
-Shared button Bubble Sweep now uses a full-button overlay revealed by `clip-path: circle(0% at 50% 100%)` to `circle(120% at 50% 100%)`, replacing the fixed 336px circle. The final radius covers the complete button diagonal for wide, narrow and tall layouts. Entry/exit timing is 320ms/360ms. Colors, permanent border, blend labels, hover/focus and reduced-motion behavior remain shared.
+Shared button Bubble Sweep uses a translated oval (180% width, 300% height) clipped by the button, replacing the animated circular clip path. Only its transform animates, with 480ms entry, 360ms exit and `cubic-bezier(0.22, 0.61, 0.36, 1)` easing. CSS transitions reverse from the current position when interrupted. The final position covers wide, narrow and multiline buttons. Colors, permanent border, blend labels, hover/focus and reduced-motion behavior remain shared. On coarse pointers, Small buttons use an opacity fade so their unclipped 44px expanded touch target remains available. The local Design Studio provides timing, width, easing, replay and reduced-motion controls plus experimental wave and previous-circle comparisons; these experiments do not change storefront defaults.
 
 
 ## Newake optical alignment beside icons
@@ -329,6 +329,42 @@ Other editorial sections retain Erode-default heading selection, including rich-
 
 ### Reviewed interaction refinements (2026-09-12)
 
-Pill buttons retain the difference-blend circle sweep, centered at the bottom edge and expanding upward: 320ms entry, 360ms exit. Hover and keyboard focus share the treatment; reduced motion retains the existing immediate-state fallback. Cart line removal uses the secondary accent on hover/focus, plus one short 320ms icon nudge for fine-pointer hover; no motion under reduced motion. Payment-brand artwork uses a 5px corner radius, explicitly approved as an artwork exception rather than a card-radius token.
+Pill buttons retain difference-blend labels; the current oval sweep and timing are defined above (updated 2026-09-14). Hover and keyboard focus share the treatment; reduced motion retains the existing immediate-state fallback. Cart line removal uses the secondary accent on hover/focus, plus one short 320ms icon nudge for fine-pointer hover; no motion under reduced motion. Payment-brand artwork uses a 5px corner radius, explicitly approved as an artwork exception rather than a card-radius token.
 
 Footer navigation card titles are a fixed Newake composition. `.site-footer__card-heading` uses the shared Newake heading-choice mapping in every brand context, independently of editorial section font selection.
+
+## Shared collection cards — 2026-09-15
+
+All-products and dedicated collections must share `catalog-product-card` and `catalog-products` through the existing `product-card` entry point until a deliberate, documented split is approved. Brand identity changes artwork and heading family within that shared contract. Catalog card headings preserve the merchandising font family independently of the surrounding editorial heading choice. Use the Card role and shared font-specific leading; never introduce local type scaling to fit labels. See [Collection](sections/main-collection.md).
+
+Collection hero ambience animates transforms of separate artwork layers, never blur radii or layout. Pause off-screen/in hidden tabs, respect reduced motion and retain a complete static composition. See [Collection hero](sections/collection-hero.md).
+
+Main navigation uses the shared card renderer/styles with a navigation presentation (uppercase Card title role, full-bleed cover imagery and light bottom overlay, no offers). Shell motion uses Slow; the navigation pill uses its documented 480ms travel; category/accordion and panel-height changes use Base. Navigation-only choreography uses a 40ms card stagger capped at 160ms with no pill deformation; these are not new global defaults. The pill travels behind stationary difference-blended labels on a white backing, with keyboard focus separate from selection. Reduced motion removes the choreography. The [Header contract](sections/header.md#main-navigation--local-implementation-2026-09-15) owns lifecycle and verification.
+
+The `/collections` directory follows the white collection-page background rule alongside individual collection pages. Its collection entries reuse the Poster composition and motion rather than introducing a second poster style.
+
+## Button outline continuity
+
+Regular buttons paint their existing border above the hover sweep using a noninteractive overlay; its width/color share the normal control tokens. `button--inverse` provides an inverse-text border on dark artwork, including light Poster actions. `button--embedded` is for actions integrated into an input shell: its permanent border uses `--button-embedded-border-color`, falling back to the shared surface color. The newsletter uses this white border at rest, throughout hover and on exit, so the button stays inset within the white input. Small buttons keep their existing expanded-hit-area pseudo-element. Verify outline contrast before, during and after hover/focus; the sweep must not obscure it.
+
+Embedded action refinement (Ananotes 128): the white shell-colored outer border is paired with a permanent foreground inner ring (`--button-embedded-inner-border-color`). At rest that inner ring merges with the black fill; during the white sweep it provides the missing contrast. Both rings use the shared control outline width and paint above the sweep.
+
+Navigation pill composition exception (Ananotes 129): interpolate the absolutely positioned pill's width/height alongside translation rather than scaling a fixed rectangle, preserving circular endcaps. This decorative box does not participate in layout. Keep it above the white navigation backing and below the blended labels. A 140ms exit grace period bridges short pointer gaps, followed by a Fast fade; reentry continues from the current painted bounds. Reduced motion settles immediately.
+
+Navigation category highlights reuse the root navigation travel duration (480ms) and shared easing, with a lighter hover surface than the selected category. Pointer hover is decorative and never changes expanded content. Root labels blend with the actual header surface, not a separate white rectangle. Carets retain the library's padded 24-unit viewBox so intrinsic tight crops cannot enlarge or distort the glyph.
+
+## Shared can floor shadows
+
+Use `snippets/can-shadow.liquid` and `assets/can-artwork.css` for every grounded Soda/Hard Seltzer can composition. This extracts the approved Product Overview treatment: directional shadow with progressively blurred layers, flavour-aware colour and the existing 0.6 brightness. It is not a card box-shadow or an all-around image drop-shadow.
+
+`can-artwork.css` is the single tuning point for strength, brightness, flavour colours, brand-relative position and width. The two existing SVG masks (`shadow-soda.svg`, `shadow-seltzer.svg`) own each brand's progressive blur geometry; flavour variants share those masks and receive colour in CSS. Do not add per-section shadow copies, filters or fixed pixel offsets. Pass the brand and artwork/product identity to the snippet; keep its aria-hidden, pointer-transparent output beneath the image in a wrapper matching the contained image's aspect ratio. Animate the complete image/shadow wrapper so the can remains in contact with its shadow. Reduced motion keeps the group static.
+
+Product Overview, grounded shared collection cards and drink-product navigation cards use this primitive. Their layout/placement remains owned by each composition; Product Overview no longer needs the former Seltzer transparent-margin correction after the tightly trimmed asset replacement. The Seltzer mask anchors its ellipse centre through the shared contact token, with the merchant-approved top position at 98.7% of the artwork height. Floating hero cans and the tilted paired-can collection artwork have no ground plane and intentionally omit floor shadows. Complete promotional photos/PDP gallery photography retain their own lighting. An opaque upload or a shadow baked into an image cannot be removed or calibrated by this primitive; use a transparent, closely bounded can image for independently adjustable lighting. Navigation still prefers the merchant teaser image, then the first gallery image.
+
+Product navigation Soda logos and flavour titles are an artwork composition: reuse `--line-height-flavor-lockup` (0.75) beside the logo, with the regular shared Card font-size. The centered group fits its visible title width rather than reserving an empty flexible text column. This named composition exception does not change editorial heading rhythm or introduce a new font-size role.
+
+Uploaded navigation artwork can opt into `can-artwork[data-auto-fit]`: the shared helper measures visible alpha bounds once on load, then sizes the complete image and its floor wrapper together. This avoids per-product pixel offsets for padded merchant uploads. Opaque images and failed/unavailable alpha inspection retain their own lighting with no synthetic floor. CSS sizing remains responsive; reduced-motion treatment still applies to the whole group.
+
+Navigation review 143–148: root carets use the shared padded Untitled UI asset at 16px; the resting desktop pill returns to the current Shopify menu ancestor after transient hover/focus. The pill has one painted surface and device-pixel-aligned settled bounds, retaining smooth interrupted motion. Product name wrapping and full-image containment follow the Header contract.
+
+**Approved composition exception — Soda collection hero (Ananotes 149):** Figma `8734:14210` uses Erode Bold at 75px with 62px leading. The hero retains the shared Display size and applies `--soda-hero-heading-leading: calc(62 / 75)` only for its Soda/Erode composition. General Erode remains 0.9 and explicit Newake uses its normal rhythm.
