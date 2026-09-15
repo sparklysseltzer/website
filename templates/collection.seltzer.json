@@ -1,55 +1,120 @@
 {
   "sections": {
     "hero": {
-      "type": "hero",
+      "type": "collection-hero",
       "settings": {
-        "eyebrow": "Sparklys",
-        "heading": "Sparklys Hard Seltzer",
-        "text": "",
-        "button_label": "",
-        "button_link": "",
-        "background": "#f7f3eb",
-        "foreground": "#172019",
-        "overlay": 20
+        "variant": "seltzer"
       }
     },
-    "intro": {
-      "type": "rich-text",
-      "settings": {
-        "eyebrow": "Sparklys Hard Seltzer",
-        "heading": "Über Sparklys Hard Seltzer",
-        "text": "",
-        "button_label": "",
-        "button_link": ""
-      }
-    },
-    "usp": {
-      "type": "usp-section",
-      "settings": {
-        "variant": "automatic",
-        "heading": "",
-        "text": "",
-        "heading_font": "automatic",
-        "color_mode": "automatic"
-      }
-    },
-    "products": {
+    "main": {
       "type": "main-collection",
       "settings": {
         "show_header": false,
-        "products_per_page": 16
+        "heading": "Choose your flavour",
+        "heading_font": "newake",
+        "products_per_page": 24,
+        "show_filters": true,
+        "header_in_hero": true
       }
     },
-    "details": {
-      "type": "rich-text",
+    "merchants": {
+      "type": "logo-marquee",
       "settings": {
-        "eyebrow": "",
-        "heading": "Mehr über Sparklys Hard Seltzer",
-        "text": "",
-        "button_label": "",
-        "button_link": ""
+        "merchant_collection": "seltzer-handler"
+      }
+    },
+    "reasons": {
+      "type": "hard-seltzer-ingredients",
+      "settings": {}
+    },
+    "comparison": {
+      "type": "versus",
+      "settings": {
+        "variant": "seltzer"
+      }
+    },
+    "subscription": {
+      "type": "subscription",
+      "settings": {
+        "variant": "seltzer"
+      }
+    },
+    "benefits": {
+      "type": "usp-section",
+      "settings": {
+        "variant": "seltzer"
+      }
+    },
+    "awards": {
+      "type": "hard-seltzer-awards",
+      "settings": {}
+    },
+    "details": {
+      "type": "two-column",
+      "settings": {},
+      "blocks": {
+        "content": {
+          "type": "_editorial-main",
+          "static": true,
+          "settings": {},
+          "blocks": {
+            "intro": {
+              "type": "editorial-text",
+              "settings": {
+                "heading": "Discover Sparklys Hard Seltzer",
+                "text": "<p>Explore our drinks, compare flavours and find your favourites. Each product page has more information about the available packs and ingredients.</p><p>This is preview copy for the collection’s editorial introduction. Replace it with your approved collection story before launch.</p>",
+                "heading_font": "erode"
+              }
+            }
+          },
+          "block_order": [
+            "intro"
+          ]
+        },
+        "sidebar": {
+          "type": "_editorial-sidebar",
+          "static": true,
+          "settings": {},
+          "blocks": {
+            "soda": {
+              "type": "link-box",
+              "settings": {
+                "title": "Explore Soda",
+                "link": "shopify://collections/soda"
+              }
+            },
+            "seltzer": {
+              "type": "link-box",
+              "settings": {
+                "title": "Explore Hard Seltzer",
+                "link": "shopify://collections/hard-seltzer"
+              }
+            }
+          },
+          "block_order": [
+            "soda",
+            "seltzer"
+          ]
+        }
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "faq_category": "hard-seltzer"
       }
     }
   },
-  "order": ["hero", "intro", "usp", "products", "details"]
+  "order": [
+    "hero",
+    "main",
+    "merchants",
+    "reasons",
+    "comparison",
+    "awards",
+    "subscription",
+    "faq",
+    "benefits",
+    "details"
+  ]
 }

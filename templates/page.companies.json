@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "intro": {
+      "type": "page-intro",
+      "settings": {}
+    }
+  },
+  "order": ["intro"]
+}

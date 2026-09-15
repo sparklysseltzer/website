@@ -24,9 +24,247 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false
       }
+    },
+    "product_overview_teaser_fk8jcV": {
+      "type": "product-overview-teaser",
+      "blocks": {
+        "product_GGP6xQ": {
+          "type": "product",
+          "settings": {
+            "title": "Yuzu & Ginger",
+            "link": "",
+            "brand": "soda",
+            "show_alcohol_badge": false,
+            "background": "#ff9d00",
+            "background_end": "#ffeda3",
+            "accent": "#000000",
+            "image_glow": "#ffbf3c",
+            "image_width": 82,
+            "image_offset_x": 0,
+            "image_offset_y": 0
+          }
+        },
+        "product_ickRbL": {
+          "type": "product",
+          "settings": {
+            "title": "Blueberry & Pomelo",
+            "link": "",
+            "brand": "soda",
+            "show_alcohol_badge": false,
+            "background": "#00519a",
+            "background_end": "#65d3f4",
+            "accent": "#000000",
+            "image_glow": "#2885c2",
+            "image_width": 82,
+            "image_offset_x": 0,
+            "image_offset_y": 0
+          }
+        },
+        "product_CxQUgB": {
+          "type": "product",
+          "settings": {
+            "title": "Maracuja",
+            "link": "",
+            "brand": "hard_seltzer",
+            "show_alcohol_badge": true,
+            "background": "#ff9d00",
+            "background_end": "#ffeda3",
+            "accent": "#ef9a00",
+            "image_glow": "#ffbf3c",
+            "image_width": 40,
+            "image_offset_x": 0,
+            "image_offset_y": 0
+          }
+        },
+        "product_erzbCf": {
+          "type": "product",
+          "settings": {
+            "title": "Holunder",
+            "link": "",
+            "brand": "hard_seltzer",
+            "show_alcohol_badge": true,
+            "background": "#009e52",
+            "background_end": "#88f688",
+            "accent": "#1eb445",
+            "image_glow": "#36c16a",
+            "image_width": 40,
+            "image_offset_x": 0,
+            "image_offset_y": 0
+          }
+        }
+      },
+      "block_order": [
+        "product_GGP6xQ",
+        "product_ickRbL",
+        "product_CxQUgB",
+        "product_erzbCf"
+      ],
+      "name": "Product overview",
+      "settings": {
+        "heading": "Our drinks",
+        "all_products_label": "All products",
+        "all_products_link": "",
+        "soda_link": "",
+        "hard_seltzer_link": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
+      }
+    },
+    "subscription_kJjHrt": {
+      "type": "subscription",
+      "blocks": {
+        "benefit_T4UdnY": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "discount",
+            "text": ""
+          }
+        },
+        "benefit_BTYKB4": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "shipping",
+            "text": ""
+          }
+        },
+        "benefit_ntWf68": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "flexibility",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "benefit_T4UdnY",
+        "benefit_BTYKB4",
+        "benefit_ntWf68"
+      ],
+      "name": "Subscription — Soda",
+      "settings": {
+        "variant": "soda",
+        "image_alt": "",
+        "show_logo": false,
+        "show_heading": true,
+        "heading": "Sparklys Abonnieren",
+        "heading_font": "seltzer",
+        "show_intro": true,
+        "intro": "",
+        "show_button": true,
+        "button_label": "",
+        "button_link": "#",
+        "show_account": true,
+        "account_prompt": "",
+        "account_label": "",
+        "account_link": "",
+        "minimum_height": 630,
+        "minimum_height_mobile": 680,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
+      }
+    },
+    "offer_cards_RwxyQ4": {
+      "type": "offer-cards",
+      "blocks": {
+        "card_UkcDmW": {
+          "type": "card",
+          "settings": {
+            "title": "Retail",
+            "link": "",
+            "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "tag_1": "Detailhandel",
+            "tag_2": "Fachhandel",
+            "tag_3": "Shops",
+            "tag_4": "Delivery",
+            "tag_5": "Automaten"
+          }
+        },
+        "card_9DBT4y": {
+          "type": "card",
+          "settings": {
+            "title": "Gastro",
+            "link": "",
+            "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "tag_1": "Kantinen",
+            "tag_2": "Degustationen",
+            "tag_3": "Take-Aways",
+            "tag_4": "Bars",
+            "tag_5": "Cafés"
+          }
+        },
+        "card_t6cmcE": {
+          "type": "card",
+          "settings": {
+            "title": "Events",
+            "link": "",
+            "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "tag_1": "Day-Dances",
+            "tag_2": "Festivals",
+            "tag_3": "Veranstaltungen",
+            "tag_4": "Partys",
+            "tag_5": "Clubs"
+          }
+        },
+        "card_qtAxwr": {
+          "type": "card",
+          "settings": {
+            "title": "Firmen",
+            "link": "",
+            "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "tag_1": "Firmen-Abo",
+            "tag_2": "Kühlschränke",
+            "tag_3": "Snack-Automaten",
+            "tag_4": "Firmen-Events",
+            "tag_5": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_UkcDmW",
+        "card_9DBT4y",
+        "card_t6cmcE",
+        "card_qtAxwr"
+      ],
+      "name": "Offer cards",
+      "settings": {
+        "content_source": "local",
+        "show_heading": true,
+        "heading": "Unser Angebot",
+        "show_intro": true,
+        "intro": "<p>Mit unseren zwei Produkten Sparklys Soda und Sparklys Hard Seltzer decken wir eine breite Palette an Einsatzmöglichkeiten ab. Ob in Kantinen mit Sparklys Soda, an Events mit Sparklys Hard Seltzer oder im Detailhandel im Regal: Sparklys passt in unterschiedlichste Verkaufssituationen.</p>",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
+      }
+    },
+    "text_image_Y6Nkd6": {
+      "type": "text-image",
+      "name": "Text and image",
+      "settings": {
+        "image_side": "left",
+        "image": "shopify://shop_images/Sparklys-Team-Foto-Sparlys-Soda-Sparklys-Hard-Seltzer.jpg",
+        "image_alt": "Sparklys Team Foto",
+        "image_height_mode": "square",
+        "image_height": 520,
+        "mobile_image_height": 360,
+        "show_heading": true,
+        "heading": "Erfahre mehr über Sparklys und unsere Geschichte",
+        "heading_level": "h2",
+        "text": "<p>Wie alles begann und wer hinter Sparklys Soda und Sparklys Hard Seltzer steckt kannst du hier erfahren.</p>",
+        "heading_font": "erode",
+        "show_button": true,
+        "button_label": "Sparklys kennenlernen",
+        "button_link": "shopify://pages/ueber-uns",
+        "button_style": "dark",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
+      }
     }
   },
   "order": [
-    "hero"
+    "hero",
+    "product_overview_teaser_fk8jcV",
+    "subscription_kJjHrt",
+    "offer_cards_RwxyQ4",
+    "text_image_Y6Nkd6"
   ]
 }
