@@ -41,3 +41,9 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 This section opts out of the general editorial heading-font feature through its Shopify wrapper class `heading-font-legacy`. Its original type families, weights, tracking and line heights remain authoritative. Existing variant-based type selection and pre-existing font controls (where present) are preserved; no new global font selector is added.
 
 Editor naming (2026-09-12): **Offer cards**. Display names only; internal IDs, saved settings and rendering are unchanged.
+
+## Destination defaults (2026-09-15)
+
+Explicit card links remain authoritative. Otherwise the canonical artwork slot resolves the Shopify page handle `retail`, `gastro`, `events`, or `companies` through `pages`, retaining localized URLs. If a page is unavailable, the card remains an article rather than linking to a nonexistent page. Local `page.<handle>.json` templates use Page intro and are ready for merchant composition.
+
+Ananotes 116 store inspection (2026-09-15): Admin API content access is now available. Retail (`retail`), Gastronomie (`gastro`), Events (`events`) and Firmen (`firmen`) already exist as hidden pages with template suffix `page`. Reuse them; do not create a duplicate Companies page. The Companies artwork slot prefers the existing `firmen` resource, then legacy `companies`. Local templates remain ready as `retail`, `gastro`, `events`, `companies`. Assigning those suffixes is a separate store-data step; it has not been performed by the local-only Ananotes pass. Hidden pages remain unavailable to ordinary storefront links until their publication is separately authorized. Existing explicit card links, page handles, content, visibility and saved templates are preserved.

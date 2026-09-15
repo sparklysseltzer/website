@@ -87,6 +87,15 @@
               assign fallback_image = 'offer-companies.jpg'
           endcase
         endif
+
+        if card_link == blank
+          assign default_page_handle = fallback_image | remove: 'offer-' | remove: '.jpg'
+          if default_page_handle == 'companies'
+            assign card_link = pages['firmen'].url | default: pages['companies'].url
+          else
+            assign card_link = pages[default_page_handle].url
+          endif
+        endif
       -%}
 
       {%- if card_link != blank -%}
