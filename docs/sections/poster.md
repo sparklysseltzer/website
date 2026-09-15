@@ -57,3 +57,9 @@ Standalone and embedded versions group Layout, Image, Content, Button, Appearanc
 ## Accordion reuse
 
 The existing native block is also available inside Accordeon items, retaining its settings, conditional fields, image handling and responsive behavior. Accordion placements use the same compact embedded spacing as Two-column layout. No duplicate content model or structured data is introduced.
+
+## Collection directory reuse
+
+`poster-content` accepts an optional `collection_resource` for the Collection list. That mode obtains the title, description, image and URL directly from Shopify, selects the existing left-content layout and light action, and disables the subscription fallback image. Standalone and editorial block callers continue to use their existing `options` contracts unchanged. See [Collection list](main-list-collections.md).
+
+Ananotes 125: light Poster actions use the shared button--inverse border treatment so the outline remains white against artwork during the black hover sweep. Existing options, IDs and content ownership are unchanged.

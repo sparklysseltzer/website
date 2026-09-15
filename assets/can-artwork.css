@@ -1,0 +1,57 @@
+/* One source for the approved progressive floor shadows; placement is relative to image bounds. */
+:root {
+  --can-shadow-strength: 1;
+  --can-shadow-brightness: .6;
+  --can-shadow-color-warm: #241200;
+  --can-shadow-color-blueberry: #00162f;
+  --can-shadow-color-holunder: #001a08;
+  --can-shadow-soda-top: 97.94%;
+  --can-shadow-soda-left: 16.75%;
+  --can-shadow-soda-width: 102%;
+  --can-shadow-seltzer-top: 98.7%;
+  --can-shadow-seltzer-contact: -48.577%;
+  --can-shadow-seltzer-left: 3%;
+  --can-shadow-seltzer-width: 145%;
+}
+.can-shadow {
+  position: absolute;
+  display: block;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--can-shadow-color-warm);
+  opacity: var(--can-shadow-strength);
+  filter: brightness(var(--can-shadow-brightness));
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+.can-shadow--blueberry { background: var(--can-shadow-color-blueberry); }
+.can-shadow--holunder { background: var(--can-shadow-color-holunder); }
+.can-shadow--soda {
+  top: var(--can-shadow-soda-top);
+  left: var(--can-shadow-soda-left);
+  width: var(--can-shadow-soda-width);
+  aspect-ratio: 206.022 / 11.1433;
+  mask-image: url('shadow-soda.svg');
+}
+.can-shadow--hardseltzer {
+  top: var(--can-shadow-seltzer-top);
+  left: var(--can-shadow-seltzer-left);
+  width: var(--can-shadow-seltzer-width);
+  aspect-ratio: 223 / 34;
+  mask-image: url('shadow-seltzer.svg');
+  translate: 0 var(--can-shadow-seltzer-contact);
+}
+.can-artwork { position: relative; }
+.can-artwork > img { position: relative; z-index: 1; display: block; width: 100%; height: 100%; object-fit: contain; }
+
+/* Uploaded artwork is progressively normalized; photographs/no-JS keep native lighting. */
+can-artwork { display: block; }
+can-artwork[data-auto-fit]:not([data-fitted]) > .can-shadow { display: none; }
+can-artwork[data-fitted] > img {
+  position: absolute;
+  width: var(--can-image-width);
+  height: var(--can-image-height);
+  left: var(--can-image-left);
+  top: var(--can-image-top);
+}
+can-artwork[data-fitted] > img { max-width: none; max-height: none; }

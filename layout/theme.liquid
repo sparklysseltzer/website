@@ -11,7 +11,7 @@
     assign page_background = product.metafields.custom.soda_background_color.value | default: '#FFFFFF'
   elsif request.page_type == 'index'
     assign page_background = '#FFFFFF'
-  elsif request.page_type == 'collection'
+  elsif request.page_type == 'collection' or request.page_type == 'list-collections'
     assign page_background = '#FFFFFF'
   endif
 -%}
@@ -92,6 +92,8 @@
     </style>
 
     {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'can-artwork.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'can-artwork.js' | asset_url }}" defer="defer"></script>
     {%- if request.page_type == 'page' or request.page_type == 'policy' -%}
       {{ 'page-content.css' | asset_url | stylesheet_tag }}
     {%- endif -%}

@@ -1,8 +1,8 @@
 {% render 'section-visibility', section: section %}
 {%- liquid
-  assign all_products_link = section.settings.all_products_link
-  assign soda_link = section.settings.soda_link
-  assign hard_seltzer_link = section.settings.hard_seltzer_link
+  assign all_products_link = section.settings.all_products_link | default: routes.all_products_collection_url
+  assign soda_link = section.settings.soda_link | default: collections.soda.url
+  assign hard_seltzer_link = section.settings.hard_seltzer_link | default: collections['hard-seltzer'].url
 -%}
 
 <product-overview-motion>
@@ -66,17 +66,9 @@
           assign fallback_width = 600
           assign fallback_height = 1072
           assign card_image_aspect = 1
-          assign card_shadow_asset = 'shadow-soda.svg'
-          assign card_shadow_width = 206
-          assign card_shadow_height = 11
           assign card_flavor_logo = blank
           assign soda_title_break_before_ampersand = false
 
-          if block.settings.brand == 'hard_seltzer'
-            assign card_shadow_asset = 'shadow-seltzer.svg'
-            assign card_shadow_width = 223
-            assign card_shadow_height = 34
-          endif
 
           if card_image != blank
             assign card_image_aspect = card_image.aspect_ratio
@@ -87,18 +79,16 @@
               assign fallback_image = 'product-overview-soda-yuzu.webp'
             when 'soda_blueberry'
               assign fallback_image = 'product-overview-soda-blueberry.webp'
-              assign card_shadow_asset = 'shadow-soda-blueberry.svg'
               assign soda_title_break_before_ampersand = true
             when 'seltzer_maracuja'
               assign fallback_image = 'product-overview-seltzer-maracuja.webp'
-              assign fallback_width = 296
-              assign fallback_height = 755
+              assign fallback_width = 385
+              assign fallback_height = 1000
               assign card_flavor_logo = 'product-overview-maracuja-wave-logo.svg'
             when 'seltzer_holunder'
               assign fallback_image = 'product-overview-seltzer-holunder.webp'
-              assign fallback_width = 297
-              assign fallback_height = 757
-              assign card_shadow_asset = 'shadow-seltzer-holunder.svg'
+              assign fallback_width = 385
+              assign fallback_height = 1000
               assign card_flavor_logo = 'product-overview-holunder-wave-logo.svg'
           endcase
 
@@ -108,19 +98,30 @@
                 assign fallback_image = 'product-overview-soda-yuzu.webp'
               when 2
                 assign fallback_image = 'product-overview-soda-blueberry.webp'
-                assign card_shadow_asset = 'shadow-soda-blueberry.svg'
                 assign soda_title_break_before_ampersand = true
               when 3
                 assign fallback_image = 'product-overview-seltzer-maracuja.webp'
-                assign fallback_width = 296
-                assign fallback_height = 755
+                assign fallback_width = 385
+                assign fallback_height = 1000
                 assign card_flavor_logo = 'product-overview-maracuja-wave-logo.svg'
               when 4
                 assign fallback_image = 'product-overview-seltzer-holunder.webp'
-                assign fallback_width = 297
-                assign fallback_height = 757
-                assign card_shadow_asset = 'shadow-seltzer-holunder.svg'
+                assign fallback_width = 385
+                assign fallback_height = 1000
                 assign card_flavor_logo = 'product-overview-holunder-wave-logo.svg'
+            endcase
+          endif
+
+          if card_url == blank
+            case fallback_image
+              when 'product-overview-soda-yuzu.webp'
+                assign card_url = all_products['sparklys-soda-yuzu-ginger'].url
+              when 'product-overview-soda-blueberry.webp'
+                assign card_url = all_products['sparklys-soda-blueberry-pomelo'].url
+              when 'product-overview-seltzer-maracuja.webp'
+                assign card_url = all_products['sparklys-hard-seltzer-maracuja'].url
+              when 'product-overview-seltzer-holunder.webp'
+                assign card_url = all_products['sparklys-hard-seltzer-holunder'].url
             endcase
           endif
 
@@ -165,14 +166,7 @@
         {%- endif -%}
           <div class="product-overview-card__media" data-card-motion-media>
             <div class="product-overview-card__artwork">
-              <img
-                class="product-overview-card__floor-shadow"
-                src="{{ card_shadow_asset | asset_url }}"
-                alt=""
-                width="{{ card_shadow_width }}"
-                height="{{ card_shadow_height }}"
-                aria-hidden="true"
-              >
+              {% render 'can-shadow', world: block.settings.brand, identity: fallback_image %}
 
               {%- if card_image != blank -%}
                 {{
@@ -372,7 +366,7 @@
 
   .product-overview-card::before {
     position: absolute;
-    z-index: -3;
+    z-index: -4;
     top: 7.61%;
     left: 19.83%;
     width: 59.5%;
@@ -430,33 +424,7 @@
     --product-card-size-scale: 1.05;
   }
 
-  .product-overview-card__floor-shadow {
-    position: absolute;
-    z-index: 0;
-    display: block;
-    max-width: none;
-    height: auto;
-    object-fit: fill;
-    mix-blend-mode: normal;
-    filter: brightness(0.6);
-    pointer-events: none;
-  }
-
-  .product-overview-card--soda .product-overview-card__floor-shadow {
-    top: 97.94%;
-    left: 16.75%;
-    width: 102%;
-    aspect-ratio: 206.022 / 11.1433;
-  }
-
-  .product-overview-card--hard_seltzer .product-overview-card__floor-shadow {
-    top: 94.5%;
-    left: -0.54%;
-    width: 145%;
-    aspect-ratio: 223 / 34;
-  }
-
-  .product-overview-card__artwork > img:not(.product-overview-card__floor-shadow),
+  .product-overview-card__artwork > img,
   .product-overview-card__artwork svg {
     position: relative;
     z-index: 1;
@@ -466,7 +434,7 @@
     mix-blend-mode: multiply;
   }
 
-  .product-overview-card--hard_seltzer .product-overview-card__artwork > img:not(.product-overview-card__floor-shadow) {
+  .product-overview-card--hard_seltzer .product-overview-card__artwork > img {
     mix-blend-mode: normal;
   }
 
@@ -476,7 +444,7 @@
 
   .product-overview-card__badge {
     position: absolute;
-    z-index: 2;
+    z-index: -3;
     top: 0.75rem;
     right: 0.75rem;
     padding: 0.625rem 0.75rem;

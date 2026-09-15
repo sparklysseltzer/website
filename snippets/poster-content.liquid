@@ -11,6 +11,17 @@
     assign image_alt = poster_image.alt
   endif
 
+  assign poster_heading = options.heading
+  assign poster_subtext = options.subtext
+  assign show_heading = options.show_heading
+  assign show_subtext = options.show_subtext
+  assign show_button = options.show_button
+  assign button_label = options.button_label
+  assign content_position = options.content_position
+  assign minimum_height = options.minimum_height
+  assign minimum_height_mobile = options.minimum_height_mobile
+  assign poster_text_color = options.poster_text_color
+
   assign heading_tag = options.heading_level
   assign desktop_focal_point = poster_image.presentation.focal_point | default: '50% 50%'
   assign mobile_focal_point = mobile_image.presentation.focal_point | default: desktop_focal_point
@@ -24,7 +35,30 @@
   assign button_class = 'button'
   assign button_link = options.button_link | default: '#'
   if options.button_style == 'light' or options.button_style == 'automatic'
-    assign button_class = button_class | append: ' button--secondary'
+    assign button_class = button_class | append: ' button--secondary button--inverse'
+  endif
+  if collection_resource != blank
+    assign poster_image = collection_resource.image | default: collection_resource.featured_image
+    assign fallback_image = blank
+    assign image_alt = ''
+    assign desktop_focal_point = poster_image.presentation.focal_point | default: '50% 50%'
+    assign mobile_focal_point = desktop_focal_point
+    assign poster_heading = collection_resource.title | escape
+    assign poster_subtext = collection_resource.description
+    assign show_heading = true
+    assign show_subtext = true
+    assign show_button = true
+    assign heading_tag = 'h2'
+    assign content_position = 'left'
+    assign minimum_height = 545
+    assign minimum_height_mobile = 480
+    assign poster_text_color = 'var(--color-text-inverse)'
+    assign overlay_color = 'rgba(0, 0, 0, 0.75)'
+    assign overlay_mid_color = 'rgba(0, 0, 0, 0.6)'
+    assign overlay_center_color = 'rgba(0, 0, 0, 0.6)'
+    assign button_class = 'button button--secondary button--inverse'
+    assign button_link = collection_resource.url
+    assign button_label = 'collections.general.view_collection' | t
   endif
 -%}
 
@@ -32,9 +66,9 @@
   <section
     class="poster-section{% unless embedded %} section page-width{% endunless %}"
     style="
-      --poster-min-height-desktop: {{ options.minimum_height }}px;
-      --poster-min-height-mobile: {{ options.minimum_height_mobile }}px;
-      --poster-poster-color: {{ options.poster_text_color }};
+      --poster-min-height-desktop: {{ minimum_height }}px;
+      --poster-min-height-mobile: {{ minimum_height_mobile }}px;
+      --poster-poster-color: {{ poster_text_color }};
       --poster-overlay-color: {{ overlay_color }};
       --poster-overlay-mid-color: {{ overlay_mid_color }};
       --poster-overlay-center-color: {{ overlay_center_color }};
@@ -44,7 +78,7 @@
     "
   >
     <div
-      class="poster poster--poster{% if layout_mode == 'image_only' %} poster--image-only{% else %} poster--content-{{ options.content_position }}{% endif %}"
+      class="poster poster--poster{% if layout_mode == 'image_only' %} poster--image-only{% else %} poster--content-{{ content_position }}{% endif %}"
       data-poster-surface
     >
       <div class="poster__media" data-poster-media>
@@ -83,7 +117,7 @@
               height="{{ fallback_height }}"
               loading="lazy"
             >
-          {%- else -%}
+          {%- elsif collection_resource == blank -%}
             {{ 'image' | placeholder_svg_tag }}
           {%- endif -%}
         </div>
@@ -94,14 +128,14 @@
 
         <div class="poster__content">
           <div class="poster__content-inner">
-            {%- if options.show_heading and options.heading != blank -%}
+            {%- if show_heading and poster_heading != blank -%}
               <{{ heading_tag }} class="poster__heading" data-poster-reveal>
-                {{ options.heading }}
+                {{ poster_heading }}
               </{{ heading_tag }}>
             {%- endif -%}
 
-            {%- if options.show_subtext and options.subtext != blank -%}
-              <div class="poster__subtext rte" data-poster-reveal>{{ options.subtext }}</div>
+            {%- if show_subtext and poster_subtext != blank -%}
+              <div class="poster__subtext rte" data-poster-reveal>{{ poster_subtext }}</div>
             {%- endif -%}
 
             {%- if items.size > 0 or list_content != blank -%}
@@ -118,11 +152,11 @@
               </ul>
             {%- endif -%}
 
-            {%- if options.show_button and options.button_label != blank -%}
+            {%- if show_button and button_label != blank -%}
               <div class="poster__action" data-poster-reveal>
                 <a class="{{ button_class }}" href="{{ button_link }}">
                   <span class="button__label poster__button-label">
-                    <span>{{ options.button_label }}</span>
+                    <span>{{ button_label }}</span>
                     <img
                       class="poster__button-icon"
                       src="{{ 'arrow-right.svg' | asset_url }}"

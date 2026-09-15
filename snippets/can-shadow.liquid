@@ -1,0 +1,14 @@
+{% comment %}Shared directional floor shadow. The parent must match the contained artwork bounds.{% endcomment %}
+{%- liquid
+  assign shadow_world = world
+  if world == 'hard_seltzer'
+    assign shadow_world = 'hardseltzer'
+  endif
+  assign shadow_tone = 'warm'
+  if identity contains 'blueberry'
+    assign shadow_tone = 'blueberry'
+  elsif identity contains 'holunder'
+    assign shadow_tone = 'holunder'
+  endif
+-%}
+<span class="can-shadow can-shadow--{{ shadow_world | escape }} can-shadow--{{ shadow_tone }}" aria-hidden="true"></span>

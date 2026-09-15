@@ -1,3 +1,6 @@
+{% if card_layout == 'catalog' or card_layout == 'navigation' %}
+  {% render 'catalog-product-card', card_product: card_product, card_layout: card_layout, navigation_title: navigation_title, navigation_url: navigation_url, navigation_current: navigation_current, navigation_image: navigation_image %}
+{% else %}
 <article class="product-card">
   <a class="product-card__link" href="{{ card_product.url }}">
     <div class="product-card__media">
@@ -23,3 +26,5 @@
     </div>
   </a>
 </article>
+
+{% endif %}

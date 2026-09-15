@@ -1,0 +1,27 @@
+{%- liquid
+  assign groups = 'all' | split: ','
+  if grouped
+    assign groups = 'soda,hardseltzer,general' | split: ','
+  endif
+  assign position = 0
+-%}
+{%- for group in groups -%}
+  {%- for card_product in catalog_products -%}
+    {%- liquid
+      assign product_group = card_product.metafields.custom.brand_variant.value
+      unless product_group == 'soda' or product_group == 'hardseltzer'
+        assign product_group = 'general'
+      endunless
+    -%}
+    {%- unless card_product.metafields.custom.hide_in_collection.value == true -%}
+      {%- if group == 'all' or group == product_group -%}
+        {%- if structured -%}
+          {%- if position > 0 -%},{%- endif -%}{%- assign position = position | plus: 1 -%}
+          {"@type":"ListItem","position":{{ position }},"url":{{ request.origin | append: card_product.url | json }},"name":{{ card_product.title | json }}}
+        {%- else -%}
+          {% render 'product-card', card_product: card_product, card_layout: 'catalog' %}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endunless -%}
+  {%- endfor -%}
+{%- endfor -%}

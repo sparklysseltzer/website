@@ -429,7 +429,25 @@
     "general": {
       "title": "Collections",
       "products": "Products",
-      "no_matches": "No products found."
+      "no_matches": "No products found.",
+      "view_collection": "Shop collection"
+    },
+    "catalog": {
+      "title": "Sparklys Shop",
+      "filters": "Filter products by collection",
+      "all": "All products",
+      "loading": "Loading products…",
+      "error": "Products could not be loaded. Please try again, or open a collection link in a new tab.",
+      "count": "[count] products"
+    },
+    "hero": {
+      "soda_heading": "Your Body’s Favorite Soda",
+      "soda_text": "Like your favourite soda, only smarter. Sparkling refreshment with plant fibre. Low in sugar and calories. No added sugar, no sweeteners.",
+      "seltzer_heading": "Original Zeitgeist",
+      "seltzer_text": "Alcoholic sparkling drink (5% ABV), reduced in calories, gluten-free and refreshingly crisp.",
+      "shop": "Shop now",
+      "pause": "Pause animation",
+      "resume": "Resume animation"
     }
   },
   "blogs": {

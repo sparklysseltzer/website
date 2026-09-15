@@ -1,0 +1,50 @@
+.catalog-card { position: relative; min-width: 0; border-radius: var(--radius-large); background: var(--color-surface-muted); overflow: hidden; }
+.catalog-card[hidden] { display: none; }
+.catalog-card--soda { background: linear-gradient(160deg, #83c7f3, #e3f7ff); }
+.catalog-card--hardseltzer { background: linear-gradient(160deg, #ffc244, #fffce6); }
+.catalog-card__link { position: relative; display: flex; height: 100%; flex-direction: column; color: var(--color-foreground); text-decoration: none; padding: 2rem 1.25rem; }
+.catalog-card__media { position: relative; height: auto; aspect-ratio: 1 / 1.08; margin-bottom: 1.75rem; }
+.catalog-card__media > img { width: 100%; height: 100%; object-fit: contain; transition: transform var(--motion-duration-slow) var(--motion-ease); }
+.catalog-card__media--pair > img { position: absolute; width: 70%; height: 85%; top: 0; left: -2%; transform: rotate(-14deg); }
+.catalog-card__media--pair > img + img { left: 35%; top: 20%; transform: rotate(16deg); }
+.catalog-card__content { position: relative; display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: auto; min-height: 5rem; }
+.catalog-card__logo { width: 35%; max-width: 10rem; height: auto; object-fit: contain; }
+.catalog-card__title { margin: 0; font-size: var(--font-size-card); font-family: var(--font-heading-default); font-weight: 400; line-height: var(--line-height-heading-newake); }
+.catalog-card--soda .catalog-card__title { font-family: var(--font-heading-soda); font-weight: 700; line-height: var(--line-height-heading-small-erode); letter-spacing: var(--letter-spacing-heading-erode); }
+.catalog-card__title img { width: 100%; max-width: 12rem; height: auto; max-height: 4rem; object-fit: contain; }
+.catalog-card--general .catalog-card__content { flex-direction: column; text-align: center; gap: .5rem; }
+.catalog-card__meta { margin: 0; font-size: var(--font-size-body); }
+.catalog-card__meta s { color: var(--color-accent-secondary); }
+.catalog-card__link:focus-visible { outline-offset: -5px; }
+.catalog-card__media { flex-shrink: 0; }
+.catalog-card__media:not(.catalog-card__media--pair) > img { position: absolute; inset: 0; }
+.catalog-card--hardseltzer .catalog-card__logo { filter: invert(1); }
+.catalog-card__link { isolation: isolate; }
+.catalog-card[data-product-handle='sparklys-hard-seltzer-holunder'] { background: linear-gradient(160deg, #92c866, #efffe7); }
+@media(hover:hover) { .catalog-card__link:hover .catalog-card__media:not(.catalog-card__media--pair) > img { transform: translateY(-.5rem) scale(1.025); } }
+@media(prefers-reduced-motion:reduce) { .catalog-card img { transition: none; } }
+
+/* Paired artwork moves as one composition, preserving the cans' individual rotations. */
+.catalog-card__media--pair { transition: transform var(--motion-duration-slow) var(--motion-ease); }
+@media (hover: hover) {
+  .catalog-card__link:hover .catalog-card__media--pair { transform: translateY(-.5rem) scale(1.025); }
+}
+.catalog-card__link:focus-visible .catalog-card__media--pair { transform: translateY(-.5rem) scale(1.025); }
+@media (prefers-reduced-motion: reduce) {
+  .catalog-card__media--pair { transition: none; }
+  .catalog-card__link:hover .catalog-card__media--pair, .catalog-card__link:focus-visible .catalog-card__media--pair { transform: none; }
+}
+
+/* Shared collection floor; leave breathing room around all complete product images. */
+.catalog-card:not(.navigation-card) .catalog-card__media:not(.catalog-card__media--pair) > img { inset: auto 8% 0; width: 84%; height: 88%; object-fit: contain; object-position: center bottom; }
+.catalog-card:not(.navigation-card) .catalog-card__media--pair > img { width: 59%; height: 76%; left: 5%; top: 3%; }
+.catalog-card:not(.navigation-card) .catalog-card__media--pair > img + img { left: 37%; top: 19%; }
+.catalog-card:not(.navigation-card) .catalog-card__media { margin-top: 1rem; }
+
+/* Size the entire can/shadow group to the contained image, keeping contact during hover. */
+.catalog-card__media--can { container-type: size; }
+.catalog-card__media--can .can-artwork { position: absolute; bottom: 0; left: 50%; width: min(84%, calc(88cqh * var(--can-aspect))); aspect-ratio: var(--can-aspect); translate: -50% 0; transition: transform var(--motion-duration-slow) var(--motion-ease); }
+.navigation-card .catalog-card__media--can .can-artwork { width: min(100%, calc(100cqh * var(--can-aspect))); }
+@media (hover: hover) { .catalog-card__link:hover .can-artwork { transform: translateY(-.5rem) scale(1.025); } }
+.catalog-card__link:focus-visible .can-artwork { transform: translateY(-.5rem) scale(1.025); }
+@media (prefers-reduced-motion: reduce) { .catalog-card .can-artwork { transition: none; } .catalog-card__link:is(:hover, :focus-visible) .can-artwork { transform: none; } }
