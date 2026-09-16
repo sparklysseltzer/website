@@ -1,36 +1,97 @@
-<section class="section page-width stack" style="--stack-space: 3rem">
-  {%- if section.settings.show_header -%}
-    <header class="stack">
-      <h1 class="page-title">{{ collection.title }}</h1>
-      {%- if collection.description != blank -%}
-        <div class="rte">{{ collection.description }}</div>
-      {%- endif -%}
-    </header>
-  {%- else -%}
-    <h1 class="visually-hidden">{{ collection.title }}</h1>
-  {%- endif -%}
-
-  {%- paginate collection.products by section.settings.products_per_page -%}
-    <div class="product-grid">
-      {%- for product in collection.products -%}
-        {% render 'product-card', card_product: product %}
-      {%- else -%}
-        <p>{{ 'collections.general.no_matches' | t }}</p>
-      {%- endfor -%}
+{{ 'collection.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'collection.js' | asset_url }}" defer="defer"></script>
+{% render 'section-visibility', section: section %}
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{%- assign is_all = false -%}
+{%- if collection.handle == 'all' -%}{%- assign is_all = true -%}{%- endif -%}
+<collection-catalog id="CollectionProducts" class="section page-width collection-catalog" data-section-id="{{ section.id }}" data-loading="{{ 'collections.catalog.loading' | t | escape }}" data-error="{{ 'collections.catalog.error' | t | escape }}" data-count="{{ 'collections.catalog.count' | t | escape }}">
+  {% if is_all %}<h1 class="collection-catalog__title">{{ 'collections.catalog.title' | t }}</h1>
+  {% elsif section.settings.show_header and section.settings.header_in_hero != true %}<header><h1 class="collection-catalog__title">{{ collection.title | escape }}</h1><div class="rte">{{ collection.description }}</div></header>{% elsif section.settings.header_in_hero != true %}<h1 class="visually-hidden">{{ collection.title | escape }}</h1>{% endif %}
+  {% if is_all and section.settings.show_filters %}
+    <nav class="collection-filters" aria-label="{{ 'collections.catalog.filters' | t }}">
+      <a class="collection-filter" href="{{ collection.url }}" data-filter="all" aria-current="true">{{ 'collections.catalog.all' | t }}</a>
+      {% assign filter_groups = 'soda,hard-seltzer,other' | split: ',' %}
+      {% for filter_group in filter_groups %}{% for filter_collection in collections %}
+        {% assign include_filter = false %}{% if filter_group == filter_collection.handle %}{% assign include_filter = true %}{% elsif filter_group == 'other' %}{% unless filter_collection.handle == 'soda' or filter_collection.handle == 'hard-seltzer' %}{% assign include_filter = true %}{% endunless %}{% endif %}{% if include_filter %}
+        {% unless filter_collection.metafields.custom.hide_in_filter_navigation.value == true or filter_collection.handle == 'all' %}
+          {% if filter_collection.all_products_count > 0 %}
+            <a class="collection-filter" href="{{ filter_collection.url }}" data-filter="{{ filter_collection.handle | escape }}">
+              {% if filter_collection.handle == 'soda' %}<img src="{{ 'sparklys-soda-logo.svg' | asset_url }}" width="133" height="63" alt="{{ filter_collection.title | escape }}">
+              {% elsif filter_collection.handle == 'hard-seltzer' %}<img src="{{ 'footer-logo-seltzer.svg' | asset_url }}" width="188" height="51" alt="{{ filter_collection.title | escape }}">
+              {% else %}{{ filter_collection.title | escape }}{% endif %}
+            </a>
+          {% endif %}
+        {% endunless %}
+      {% endif %}{% endfor %}{% endfor %}
+    </nav>
+  {% endif %}
+  {% if section.settings.heading != blank %}<h2 class="collection-catalog__heading">{{ section.settings.heading | escape }}</h2>{% endif %}
+  <p class="collection-catalog__status visually-hidden" role="status" aria-live="polite" data-catalog-status></p>
+  {% paginate collection.products by section.settings.products_per_page %}
+    <div class="catalog-grid" data-catalog-grid>
+      {% render 'catalog-products', catalog_products: collection.products, grouped: is_all %}
     </div>
-    {% render 'pagination', paginate: paginate %}
-  {%- endpaginate -%}
-</section>
-
+    {% assign visible_products = 0 %}{% for product in collection.products %}{% unless product.metafields.custom.hide_in_collection.value == true %}{% assign visible_products = visible_products | plus: 1 %}{% endunless %}{% endfor %}
+    <p data-catalog-empty{% if visible_products > 0 %} hidden{% endif %}>{{ 'collections.general.no_matches' | t }}</p>
+    <div data-catalog-pagination>{% render 'pagination', paginate: paginate %}{% if paginate.next %}<a data-catalog-next href="{{ paginate.next.url }}" hidden>{{ 'general.pagination.next' | t }}</a>{% endif %}</div>
+    {% unless section.settings.hide_on_mobile and section.settings.hide_on_desktop %}
+      <script type="application/ld+json">{
+        "@context":"https://schema.org","@type":"CollectionPage","@id":{{ canonical_url | append: '#collection' | json }},"url":{{ canonical_url | json }},"name":{{ collection.title | json }},
+        "mainEntity":{"@type":"ItemList","itemListElement":[
+          {% render 'catalog-products', catalog_products: collection.products, grouped: is_all, structured: true %}
+        ]}
+      }</script>
+    {% endunless %}
+  {% endpaginate %}
+</collection-catalog>
 {% schema %}
 {
   "name": "Collection",
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "header_in_hero",
+      "label": "Title provided by Collection hero",
+      "default": false,
+      "info": "Enable when a Collection hero appears above this list. The all-products page always supplies its own title."
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+    },
+    {
       "type": "checkbox",
       "id": "show_header",
       "label": "Show title and description",
-      "default": false
+      "default": false,
+      "visible_if": "{{ section.settings.header_in_hero == false }}"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Product heading",
+      "info": "Optional heading above the product list."
+    },
+    {
+      "type": "header",
+      "content": "Products"
     },
     {
       "type": "range",
@@ -40,6 +101,31 @@
       "step": 4,
       "label": "Products per page",
       "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show collection filters",
+      "default": true,
+      "info": "Available on the all-products page. Hide individual filters in each collection\u2019s custom data."
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
     }
   ]
 }

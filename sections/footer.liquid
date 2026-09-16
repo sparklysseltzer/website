@@ -1,3 +1,5 @@
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{% render 'section-visibility', section: section %}
 {%- liquid
   assign current_year = 'now' | date: '%Y'
   assign footer_menu = section.settings.menu
@@ -102,7 +104,7 @@
                   aria-describedby="{{ newsletter_status_id }}"
                 {% endif %}
               >
-              <button class="button site-footer__newsletter-button" type="submit">
+              <button class="button button--embedded site-footer__newsletter-button" type="submit">
                 <span class="button__label">{{ 'sections.footer.subscribe' | t }}</span>
               </button>
             </div>
@@ -134,6 +136,28 @@
         class="site-footer__navigation{% if footer_context == 'default' %} site-footer__navigation--general{% endif %}"
         aria-label="{{ 'sections.footer.navigation' | t }}"
       >
+        {%- assign seltzer_shop = section.settings.seltzer_menu.links | first -%}
+        {%- assign soda_shop = section.settings.soda_menu.links | first -%}
+        {%- if footer_context == 'default' and seltzer_shop != blank and soda_shop != blank -%}
+          {% assign card_id = 'FooterSeltzer-' | append: section.id %}
+          {% render 'footer-brand-card', menu_link: seltzer_shop, brand: 'seltzer', heading_id: card_id %}
+          {% assign card_id = 'FooterSoda-' | append: section.id %}
+          {% render 'footer-brand-card', menu_link: soda_shop, brand: 'soda', heading_id: card_id %}
+          <div class="site-footer__information">
+            {%- for link in footer_menu.links offset: 1 -%}
+              <section class="site-footer__card" aria-labelledby="footer-information-{{ section.id }}-{{ forloop.index }}">
+                <h2 id="footer-information-{{ section.id }}-{{ forloop.index }}" class="site-footer__card-heading">{{ link.title | escape }}</h2>
+                {% if link.links != blank %}
+                  <ul class="site-footer__menu">
+                    {% for child_link in link.links %}
+                      <li><a class="text-link" href="{{ child_link.url }}"{% if child_link.current %} aria-current="page"{% endif %}><span class="text-link__label">{{ child_link.title | escape }}</span></a></li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </section>
+            {%- endfor -%}
+          </div>
+        {%- else -%}
         {%- for link in footer_menu.links -%}
           <section class="site-footer__card" aria-labelledby="footer-navigation-heading-{{ forloop.index }}">
             <h2 id="footer-navigation-heading-{{ forloop.index }}" class="site-footer__card-heading">
@@ -152,6 +176,7 @@
             {%- endif -%}
           </section>
         {%- endfor -%}
+        {%- endif -%}
       </nav>
     </div>
 
@@ -208,10 +233,22 @@
 
     <div class="site-footer__commerce">
       {% render 'payment-icons' %}
-      <div class="site-footer__controls" aria-label="{{ 'sections.footer.controls_preview' | t }}">
+      <div class="site-footer__controls">
         <img src="{{ 'footer-store-finder.svg' | asset_url }}" width="138" height="46" alt="">
-        <img src="{{ 'footer-language-ch.svg' | asset_url }}" width="51" height="40" alt="{{ 'sections.footer.switzerland' | t }}">
-        <img src="{{ 'footer-language-en.svg' | asset_url }}" width="51" height="40" alt="{{ 'sections.footer.english' | t }}">
+        {% assign language_form_id = 'FooterLanguage-' | append: section.id %}
+        {% form 'localization', id: language_form_id, class: 'site-footer__languages' %}
+          <div role="group" aria-label="{{ 'sections.footer.language_selection' | t }}">
+            {% for language in localization.available_languages %}
+              {% if language.iso_code == 'de' or language.iso_code == 'en' %}
+                {% assign language_flag = 'footer-language-en.svg' %}
+                {% if language.iso_code == 'de' %}{% assign language_flag = 'footer-language-ch.svg' %}{% endif %}
+                <button type="submit" name="language_code" value="{{ language.iso_code }}" class="site-footer__language" lang="{{ language.iso_code }}" aria-label="{{ language.endonym_name | escape }}" aria-pressed="{% if language.iso_code == localization.language.iso_code %}true{% else %}false{% endif %}" title="{{ language.endonym_name | escape }}">
+                  <img src="{{ language_flag | asset_url }}" width="51" height="40" alt="">
+                </button>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endform %}
       </div>
     </div>
   </div>
@@ -222,29 +259,52 @@
   "name": "Footer",
   "settings": [
     {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+    },
+    {
       "type": "header",
       "content": "Navigation"
     },
     {
       "type": "link_list",
       "id": "menu",
-      "label": "General footer navigation"
+      "label": "General footer navigation",
+      "info": "Keep Shop as the first group. Remaining groups appear in the general footer’s information column."
     },
     {
       "type": "link_list",
       "id": "soda_menu",
-      "label": "Soda footer navigation"
+      "label": "Soda footer navigation",
+      "info": "The first group supplies the Soda shop card in the general footer. All groups appear in the Soda footer."
     },
     {
       "type": "link_list",
       "id": "seltzer_menu",
-      "label": "Hard Seltzer footer navigation"
+      "label": "Hard Seltzer footer navigation",
+      "info": "The first group supplies the Hard Seltzer shop card in the general footer. All groups appear in the Hard Seltzer footer."
     },
     {
       "type": "link_list",
       "id": "legal_menu",
       "label": "Legal navigation"
-    }
+    },
+    {"type": "header", "content": "Visibility"},
+    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
+    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
   ]
 }
 {% endschema %}

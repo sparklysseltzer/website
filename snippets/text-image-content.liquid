@@ -1,0 +1,6 @@
+{% capture media %}<div class="editorial-image editorial-image--{{ options.image_height_mode }}" style="--editorial-image-height: {{ options.image_height }}px; --editorial-image-height-mobile: {{ options.mobile_image_height }}px;">{% render 'editorial-image', options: options %}</div>{% endcapture %}
+<div class="editorial-text-image" data-heading-font="{{ options.heading_font | default: 'erode' }}">
+  {% if options.image_side != 'right' %}{{ media }}{% endif %}
+  <div class="editorial-text">{% render 'editorial-copy', options: options %}</div>
+  {% if options.image_side == 'right' %}{{ media }}{% endif %}
+</div>

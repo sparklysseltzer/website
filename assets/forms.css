@@ -68,7 +68,7 @@ sparklys-select[data-open] .form-select__trigger { z-index: 11; border-color: tr
 .form-select__option[aria-selected='true']::before { opacity: 1; }
 .form-select__option[data-active] { background: var(--form-control-hover); }
 .form-select__option[aria-disabled='true'] { opacity: .4; cursor: not-allowed; }
-.form-select__native { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; opacity: 0; pointer-events: none; }
+.form-select__native { position: absolute; inset: 0 auto auto 0; min-height: 0; padding: 0; border: 0; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; opacity: 0; pointer-events: none; }
 .form-choice input:focus-visible + .form-choice__indicator { outline: var(--focus-ring-width) solid var(--focus-ring-color); outline-offset: var(--focus-ring-offset); }
 html[data-focus-modality='pointer'] .form-choice input:focus-visible + .form-choice__indicator { outline: none; }
 @media (prefers-reduced-motion: reduce) { .form-control, .form-choice__indicator, .form-choice__indicator::after, .form-choice--card, .form-select__trigger::after, .form-select__option { transition: none; } }

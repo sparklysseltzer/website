@@ -1,0 +1,4 @@
+{% assign heading_tag = options.heading_level | default: 'h2' %}
+{% if options.show_heading != false and options.heading != blank %}<{{ heading_tag }} class="editorial-heading">{{ options.heading }}</{{ heading_tag }}>{% endif %}
+{% if options.text != blank %}<div class="rte editorial-copy">{{ options.text }}</div>{% endif %}
+{% if options.show_button != false and options.button_link != blank and options.button_label != blank %}<a class="button{% if options.button_style == 'light' %} button--secondary{% endif %}" href="{{ options.button_link }}"><span class="button__label">{{ options.button_label | escape }}</span></a>{% endif %}

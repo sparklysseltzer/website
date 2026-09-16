@@ -1,0 +1,26 @@
+{{ 'component-faq.css' | asset_url | stylesheet_tag }}
+{% liquid
+  assign category_items = options.faq_category.faqs.value
+  assign selected_items = options.selected_faqs
+  assign rendered_handles = '|'
+%}
+<div class="editorial-faq">
+  {% if options.heading != blank %}<h2 class="editorial-heading">{{ options.heading }}</h2>{% endif %}
+  <faq-accordion class="faq-list">
+    {{ accordion_content }}
+    {% for faq_item in category_items %}
+      {% assign token = faq_item.system.handle | prepend: '|' | append: '|' %}
+      {% unless rendered_handles contains token %}{% render 'faq-item', faq_item: faq_item, section_id: scope %}{% endunless %}
+      {% assign rendered_handles = rendered_handles | append: token %}
+    {% endfor %}
+    {% for faq_item in selected_items %}
+      {% assign token = faq_item.system.handle | prepend: '|' | append: '|' %}
+      {% unless rendered_handles contains token %}{% render 'faq-item', faq_item: faq_item, section_id: scope %}{% endunless %}
+      {% assign rendered_handles = rendered_handles | append: token %}
+    {% endfor %}
+  </faq-accordion>
+  {% if accordion_content == blank and category_items == blank and selected_items == blank and request.design_mode %}<p class="editorial-editor-note">Add accordion items with text or images, or select optional FAQs.</p>{% endif %}
+</div>
+{% unless section.settings.hide_on_mobile and section.settings.hide_on_desktop %}
+  {% render 'faq-structured-data', faq_items: category_items, additional_faq_items: selected_items %}
+{% endunless %}

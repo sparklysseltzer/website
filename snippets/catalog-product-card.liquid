@@ -1,0 +1,81 @@
+{%- liquid
+  assign world = card_product.metafields.custom.brand_variant.value
+  assign image = card_product.metafields.custom.teaser_image.value | default: card_product.featured_image
+  assign cutout = blank
+  assign flavor_logo = blank
+  assign art_width = 600
+  assign art_height = 1072
+  assign title = card_product.title | remove: 'Sparklys Hard Seltzer ' | remove: 'Sparklys Soda '
+  case card_product.handle
+    when 'sparklys-soda-yuzu-ginger'
+      assign cutout = 'product-overview-soda-yuzu.webp'
+    when 'sparklys-soda-blueberry-pomelo'
+      assign cutout = 'product-overview-soda-blueberry.webp'
+    when 'sparklys-hard-seltzer-maracuja'
+      assign cutout = 'product-overview-seltzer-maracuja.webp'
+      assign art_width = 385
+      assign art_height = 1000
+      assign flavor_logo = 'product-overview-maracuja-wave-logo.svg'
+    when 'sparklys-hard-seltzer-holunder'
+      assign cutout = 'product-overview-seltzer-holunder.webp'
+      assign art_width = 385
+      assign art_height = 1000
+      assign flavor_logo = 'product-overview-holunder-wave-logo.svg'
+  endcase
+  assign is_variety = false
+  if card_product.handle == 'sparklys-soda-variety-pack' or card_product.handle == 'sparklys-hard-seltzer-variety'
+    assign is_variety = true
+  endif
+  assign image_position = blank
+  if card_layout == 'navigation'
+    assign image = card_product.metafields.custom.teaser_image.value | default: card_product.featured_image
+    assign image_position = 'object-position: ' | append: image.presentation.focal_point | append: ';'
+    assign cutout = blank
+    assign is_variety = false
+  endif
+  assign can_aspect = art_width | times: 1.0 | divided_by: art_height
+  if cutout == blank
+    assign can_aspect = image.aspect_ratio | default: 1
+  endif
+  assign has_floor_shadow = false
+  if world == 'soda' or world == 'hardseltzer'
+    unless is_variety
+      if cutout != blank or image != blank
+        assign has_floor_shadow = true
+      endif
+    endunless
+  endif
+
+-%}
+<article class="catalog-card{% if card_layout == 'navigation' %} navigation-card navigation-card--product{% endif %} heading-font-legacy catalog-card--{{ world | default: 'general' | escape }}" data-world="{{ world | default: 'general' | escape }}" data-product-id="{{ card_product.id }}" data-product-handle="{{ card_product.handle | escape }}" data-collections="{% for group in card_product.collections %}{{ group.handle | escape }} {% endfor %}">
+  <a class="catalog-card__link" href="{{ navigation_url | default: card_product.url }}"{% if navigation_current %} aria-current="page"{% endif %}>
+    {% render 'product-background', background_product: card_product %}
+    <div class="catalog-card__media{% if is_variety %} catalog-card__media--pair{% endif %}{% if has_floor_shadow %} catalog-card__media--can{% endif %}">
+      {% if has_floor_shadow %}
+        <can-artwork{% if card_layout == 'navigation' %} data-auto-fit{% endif %} class="can-artwork" style="--can-aspect: {{ can_aspect }};">
+          {% render 'can-shadow', world: world, identity: card_product.handle %}
+      {% endif %}
+      {% if cutout != blank %}
+        <img src="{{ cutout | asset_url }}" width="{{ art_width }}" height="{{ art_height }}" loading="lazy" alt="">
+      {% elsif is_variety %}
+        {% if world == 'soda' %}{% assign first_can = 'product-overview-soda-yuzu.webp' %}{% assign second_can = 'product-overview-soda-blueberry.webp' %}{% else %}{% assign art_width = 385 %}{% assign art_height = 1000 %}{% assign first_can = 'product-overview-seltzer-maracuja.webp' %}{% assign second_can = 'product-overview-seltzer-holunder.webp' %}{% endif %}
+        <img src="{{ first_can | asset_url }}" width="{{ art_width }}" height="{{ art_height }}" loading="lazy" alt=""><img src="{{ second_can | asset_url }}" width="{{ art_width }}" height="{{ art_height }}" loading="lazy" alt="">
+      {% elsif image != blank %}
+        {{ image | image_url: width: 1000 | image_tag: widths: '320, 480, 720, 1000', sizes: '(min-width: 990px) 33vw, (min-width: 600px) 50vw, 100vw', loading: 'lazy', alt: '', style: image_position }}
+      {% endif %}
+      {% if has_floor_shadow %}</can-artwork>{% endif %}
+    </div>
+    <div class="catalog-card__content">
+      {% if world == 'soda' or world == 'hardseltzer' %}
+        {% if world == 'soda' %}{% assign brand_logo = 'sparklys-soda-logo.svg' %}{% else %}{% assign brand_logo = 'footer-logo-seltzer.svg' %}{% endif %}
+        <img class="catalog-card__logo" src="{{ brand_logo | asset_url }}" width="160" height="75" alt="" loading="lazy">
+        <h2 class="catalog-card__title">{% if flavor_logo != blank %}<span class="visually-hidden">{{ card_product.title | escape }}</span><img src="{{ flavor_logo | asset_url }}" width="180" height="60" alt="" loading="lazy">{% else %}<span class="visually-hidden">Sparklys </span>{% if card_layout == 'navigation' and world == 'soda' %}{% assign flavour_parts = title | split: ' & ' %}{% if title == 'Variety Pack' %}<span class="catalog-card__title-line">Variety</span> <span class="catalog-card__title-line">Pack</span>{% elsif title == 'Probierpaket' %}Probier&shy;paket{% elsif flavour_parts.size == 2 %}{% if card_product.handle contains 'blueberry' %}<span class="catalog-card__title-line">{{ flavour_parts.first | escape }}</span> <span class="catalog-card__title-line">&amp; {{ flavour_parts.last | escape }}</span>{% else %}<span class="catalog-card__title-line">{{ flavour_parts.first | escape }} &amp;</span> <span class="catalog-card__title-line">{{ flavour_parts.last | escape }}</span>{% endif %}{% else %}{{ title | escape }}{% endif %}{% else %}{{ title | escape }}{% endif %}{% endif %}</h2>
+      {% elsif card_layout == 'navigation' %}
+        <span class="catalog-card__title">{{ navigation_title | default: card_product.title | escape }}</span>
+      {% else %}
+        <p class="catalog-card__meta">{{ card_product.metafields.custom.teaser_category_name.value | default: card_product.type | escape }}{% if card_product.type != blank %} · {% endif %}{{ card_product.price | money }}{% if card_product.compare_at_price > card_product.price %} <s>{{ card_product.compare_at_price | money }}</s>{% endif %}</p>
+        <h2 class="catalog-card__title">{{ card_product.title | escape }}</h2>
+      {% endif %}
+    </div>
+  </a>
+</article>

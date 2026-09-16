@@ -22,6 +22,7 @@
         {%- if faq_json_has_entries -%},{%- endif -%}
         {
           "@type": "Question",
+          "@id": {{ canonical_url | append: '#faq-question-' | append: faq_handle | json }},
           "name": {{ faq_question | json }},
           "acceptedAnswer": {
             "@type": "Answer",
@@ -46,6 +47,7 @@
         {%- if faq_json_has_entries -%},{%- endif -%}
         {
           "@type": "Question",
+          "@id": {{ canonical_url | append: '#faq-question-' | append: faq_handle | json }},
           "name": {{ faq_question | json }},
           "acceptedAnswer": {
             "@type": "Answer",
@@ -64,6 +66,7 @@
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
+      "@id": {{ canonical_url | append: '#faq' | json }},
       "mainEntity": [{{ faq_json_entities }}]
     }
   </script>

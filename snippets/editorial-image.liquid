@@ -1,0 +1,6 @@
+{% assign image_alt = options.image_alt | default: options.image.alt %}
+{% if options.image != blank %}
+  {{ options.image | image_url: width: 1600 | image_tag: widths: '360, 600, 800, 1200, 1600', sizes: '(min-width: 1200px) 800px, 100vw', loading: 'lazy', alt: image_alt }}
+{% else %}
+  <img src="{{ 'editorial-soda-banner.webp' | asset_url }}" width="1600" height="948" loading="lazy" alt="{{ image_alt | escape }}">
+{% endif %}

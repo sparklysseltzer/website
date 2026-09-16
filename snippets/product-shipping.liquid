@@ -18,10 +18,10 @@
     assign qualifies = true
   endif
   capture threshold_money
-    render 'cart-money', amount: threshold
+    render 'cart-money', amount: threshold, trim_zeros: true
   endcapture
   capture rate_money
-    render 'cart-money', amount: rate
+    render 'cart-money', amount: rate, trim_zeros: true
   endcapture
 -%}
 <div class="pdp-shipping">
@@ -32,6 +32,5 @@
       <p>{{ 'products.pdp.shipping_rate' | t: amount: rate_money }}</p>
       {% if qualifies %}<p>{{ 'products.pdp.shipping_product' | t }}</p>{% endif %}
     {% else %}<p>{{ 'cart.general.shipping_notice' | t }}</p>{% endif %}
-    {% if shop.shipping_policy.url != blank %}<a href="{{ shop.shipping_policy.url }}">{{ 'products.pdp.shipping_information' | t }}</a>{% endif %}
   </div>
 </div>

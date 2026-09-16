@@ -73,7 +73,11 @@
       "learn": "Learn",
       "subscribe": "Subscribe",
       "store_finder": "Store finder",
-      "home": "Home"
+      "home": "Home",
+      "navigation_visit": "Explore {{ title }}",
+      "navigation_previous": "Previous cards",
+      "navigation_next": "Next cards",
+      "navigation_close": "Close navigation"
     },
     "footer": {
       "newsletter_heading": "Newsletter",
@@ -121,7 +125,8 @@
       "payment_methods": "Payment methods",
       "controls_preview": "Store finder and language selection – non-functional preview",
       "switzerland": "Switzerland",
-      "english": "English"
+      "english": "English",
+      "language_selection": "Language"
     },
     "featured_collection": {
       "view_all": "View all"
@@ -381,6 +386,11 @@
         "item_6": "1.8 g sugar per can",
         "footnote": "*30% fewer calories than conventional alcoholic mixed drinks with 5% ABV."
       }
+    },
+    "editorial": {
+      "shop_now": "Shop now",
+      "reminder_heading": "Just a reminder to buy our seltzers.",
+      "subscription_heading": "Sparklys subscription"
     }
   },
   "products": {
@@ -422,19 +432,54 @@
       "benefit_shipping_text": "Your favourite drinks delivered regularly. Shipping follows the rates shown for your order.",
       "benefit_flexibility_title": "Manage your subscription.",
       "benefit_flexibility_text": "Skip a delivery, pause or cancel your subscription through your customer account.",
-      "marketing_image": "{{ product }} — product detail"
+      "marketing_image": "{{ product }} — product detail",
+      "summary_savings": "Up to 15% off every subscription order.",
+      "summary_shipping": "Free shipping within Switzerland.",
+      "summary_flexibility": "Swap, skip or cancel at any time."
     }
   },
   "collections": {
     "general": {
       "title": "Collections",
       "products": "Products",
-      "no_matches": "No products found."
+      "no_matches": "No products found.",
+      "view_collection": "Shop collection"
+    },
+    "catalog": {
+      "title": "Sparklys Shop",
+      "filters": "Filter products by collection",
+      "all": "All products",
+      "loading": "Loading products…",
+      "error": "Products could not be loaded. Please try again, or open a collection link in a new tab.",
+      "count": "[count] products"
+    },
+    "hero": {
+      "soda_heading": "Your Body’s Favorite Soda",
+      "soda_text": "Like your favourite soda, only smarter. Sparkling refreshment with plant fibre. Low in sugar and calories. No added sugar, no sweeteners.",
+      "seltzer_heading": "Original Zeitgeist",
+      "seltzer_text": "Alcoholic sparkling drink (5% ABV), reduced in calories, gluten-free and refreshingly crisp.",
+      "shop": "Shop now",
+      "pause": "Pause animation",
+      "resume": "Resume animation"
     }
   },
   "blogs": {
     "article": {
       "back_to_blog": "Back to {{ title }}"
+    },
+    "general": {
+      "label": "Sparklys Journal",
+      "posts": "Blog posts",
+      "view": "View blog",
+      "empty": "No posts yet.",
+      "more": "More stories"
+    },
+    "share": {
+      "title": "Share",
+      "email": "Email",
+      "copy": "Copy link",
+      "copied": "Link copied.",
+      "link": "Article link"
     }
   },
   "cart": {
@@ -571,7 +616,8 @@
       "optional": "Copy all 15 characters, including < signs.",
       "tail": "Copy the complete final block, including < signs and check digits.",
       "underage": "The date entered does not meet the minimum age of {{ age }} for alcoholic products.",
-      "passportOptional": "Copy all 14 characters, including < signs."
+      "passportOptional": "Copy all 14 characters, including < signs.",
+      "incomplete": "Please complete this field exactly as shown on your document."
     },
     "version": "Which identity card do you have?",
     "version_current": "Current card · from 2024",

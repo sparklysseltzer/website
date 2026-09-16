@@ -73,7 +73,11 @@
       "learn": "Learn",
       "subscribe": "Subscribe",
       "store_finder": "Store finder",
-      "home": "Startseite"
+      "home": "Startseite",
+      "navigation_visit": "{{ title }} entdecken",
+      "navigation_previous": "Vorherige Karten",
+      "navigation_next": "Weitere Karten",
+      "navigation_close": "Navigation schliessen"
     },
     "footer": {
       "newsletter_heading": "Newsletter",
@@ -121,7 +125,8 @@
       "payment_methods": "Zahlungsmethoden",
       "controls_preview": "Store Finder und Sprachauswahl – Vorschau ohne Funktion",
       "switzerland": "Schweiz",
-      "english": "Englisch"
+      "english": "Englisch",
+      "language_selection": "Sprache"
     },
     "featured_collection": {
       "view_all": "Alle ansehen"
@@ -381,6 +386,11 @@
         "item_6": "1.8 g Zucker pro Dose",
         "footnote": "*30% weniger Kalorien als herkömmliche alkoholische Mischgetränke mit 5% Vol."
       }
+    },
+    "editorial": {
+      "shop_now": "Jetzt shoppen",
+      "reminder_heading": "Just a reminder to buy our seltzers.",
+      "subscription_heading": "Sparklys im Abo"
     }
   },
   "products": {
@@ -422,19 +432,54 @@
       "benefit_shipping_text": "Deine Lieblingsdrinks kommen regelmässig zu dir. Es gelten die für deine Bestellung angezeigten Versandkosten.",
       "benefit_flexibility_title": "Verwalte dein Abonnement.",
       "benefit_flexibility_text": "Überspringe eine Lieferung, pausiere oder kündige dein Abo über dein Kundenkonto.",
-      "marketing_image": "{{ product }} — Produktdetail"
+      "marketing_image": "{{ product }} — Produktdetail",
+      "summary_savings": "Bis zu 15% Rabatt auf jede Abonnementbestellung.",
+      "summary_shipping": "Kostenloser Versand innerhalb der Schweiz.",
+      "summary_flexibility": "Jederzeit tauschen, überspringen oder kündigen."
     }
   },
   "collections": {
     "general": {
       "title": "Kollektionen",
       "products": "Produkte",
-      "no_matches": "Keine Produkte gefunden."
+      "no_matches": "Keine Produkte gefunden.",
+      "view_collection": "Kollektion entdecken"
+    },
+    "catalog": {
+      "title": "Sparklys Shop",
+      "filters": "Produkte nach Kollektion filtern",
+      "all": "Alle Produkte",
+      "loading": "Produkte werden geladen…",
+      "error": "Die Produkte konnten nicht geladen werden. Bitte versuche es erneut oder öffne einen Kollektionslink in einem neuen Tab.",
+      "count": "[count] Produkte"
+    },
+    "hero": {
+      "soda_heading": "Your Body’s Favorite Soda",
+      "soda_text": "Wie deine Lieblingslimo, nur smarter. Prickelnd frisch mit pflanzlichen Ballaststoffen. Zuckerarm und kalorienarm. Kein zugesetzter Zucker, keine Süssstoffe.",
+      "seltzer_heading": "Original Zeitgeist",
+      "seltzer_text": "Alkoholisches Sprudelgetränk (5% Vol.), kalorienreduziert, glutenfrei und extrem erfrischend.",
+      "shop": "Jetzt kaufen",
+      "pause": "Animation pausieren",
+      "resume": "Animation fortsetzen"
     }
   },
   "blogs": {
     "article": {
       "back_to_blog": "Zurück zu {{ title }}"
+    },
+    "general": {
+      "label": "Sparklys Journal",
+      "posts": "Blogbeiträge",
+      "view": "Blog anzeigen",
+      "empty": "Noch keine Beiträge.",
+      "more": "Weitere Beiträge"
+    },
+    "share": {
+      "title": "Teilen",
+      "email": "E-Mail",
+      "copy": "Link kopieren",
+      "copied": "Link kopiert.",
+      "link": "Link zum Beitrag"
     }
   },
   "cart": {
@@ -571,7 +616,8 @@
       "optional": "Übertrage alle 15 Zeichen, inklusive < Zeichen.",
       "tail": "Übertrage den ganzen letzten Block, inklusive < Zeichen und Prüfziffern.",
       "underage": "Das eingegebene Geburtsdatum erfüllt das Mindestalter von {{ age }} Jahren für alkoholische Produkte nicht.",
-      "passportOptional": "Übertrage alle 14 Zeichen, einschliesslich <."
+      "passportOptional": "Übertrage alle 14 Zeichen, einschliesslich <.",
+      "incomplete": "Bitte fülle dieses Feld genau wie auf deinem Dokument aus."
     },
     "version": "Welche Identitätskarte hast du?",
     "version_current": "Aktuelle Karte · ab 2024",

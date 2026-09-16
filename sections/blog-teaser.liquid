@@ -1,0 +1,109 @@
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{% render 'section-visibility', section: section %}
+{{ 'blog.css' | asset_url | stylesheet_tag }}
+{% assign news = blogs['news'] %}
+{% if news.articles_count > 0 or request.design_mode %}
+<editorial-section-motion><section class="blog-teaser" data-scroll-motion-section><div class="section page-width">
+  <div class="blog-heading-row" data-poster-reveal>
+    <h2>{{ section.settings.heading | default: '' | escape }}{% if section.settings.heading == blank %}{{ 'blogs.general.posts' | t }}{% endif %}</h2>
+    {% if section.settings.show_button and news != blank %}<a class="button button--secondary" href="{{ news.url }}"><span class="button__label">{% if section.settings.button_label != blank %}{{ section.settings.button_label | escape }}{% else %}{{ 'blogs.general.view' | t }}{% endif %}<img src="{{ 'arrow-right.svg' | asset_url }}" width="24" height="24" alt=""></span></a>{% endif %}
+  </div>
+  <div class="blog-grid">{% for post in news.articles limit: section.settings.post_limit %}{% render 'article-card', card_article: post, show_date: section.settings.show_date, show_excerpt: section.settings.show_excerpt %}{% else %}<p>{{ 'blogs.general.empty' | t }}</p>{% endfor %}</div>
+</div></section></editorial-section-motion>
+{% render 'article-list-schema', posts: news.articles, count: section.settings.post_limit, offset: 0, section: section %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Blog teaser",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Leave empty to use the translated Blog posts heading."
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Headings only. Body text stays Maison Neue."
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "label": "Number of posts",
+      "min": 3,
+      "max": 9,
+      "step": 3,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show excerpt",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show date",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Action"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show blog link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "info": "Leave empty to use the translated View blog label.",
+      "visible_if": "{{ section.settings.show_button }}"
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog teaser"
+    }
+  ]
+}
+{% endschema %}

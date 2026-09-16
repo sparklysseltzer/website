@@ -1,33 +1,65 @@
-<section class="section page-width stack">
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{% render 'section-visibility', section: section %}
+{{ 'component-poster.css' | asset_url | stylesheet_tag }}
+<section class="section page-width collection-directory">
   <h1 class="page-title">{{ 'collections.general.title' | t }}</h1>
-  <div class="content-grid">
-    {%- for collection in collections -%}
-      {%- unless collection.handle == 'frontpage' -%}
-        <article class="content-card stack">
-          {%- if collection.featured_image != blank -%}
-            <a href="{{ collection.url }}">
-              {{
-                collection.featured_image
-                | image_url: width: 900
-                | image_tag:
-                  widths: '360, 540, 720, 900',
-                  sizes: '(min-width: 768px) 33vw, 100vw',
-                  loading: 'lazy',
-                  alt: collection.featured_image.alt
-              }}
-            </a>
-          {%- endif -%}
-          <h2><a class="text-link" href="{{ collection.url }}"><span class="text-link__label">{{ collection.title }}</span></a></h2>
-          <p>{{ collection.all_products_count }} {{ 'collections.general.products' | t }}</p>
-        </article>
-      {%- endunless -%}
-    {%- endfor -%}
-  </div>
+  {% paginate collections by 50 %}
+    <div class="collection-directory__posters">
+      {% for collection in collections %}
+        {% render 'poster-content', collection_resource: collection, embedded: true %}
+      {% endfor %}
+    </div>
+    {% if paginate.pages > 1 %}
+      {% render 'pagination', paginate: paginate %}
+    {% endif %}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "@id": {{ canonical_url | append: '#collections' | json }},
+        "url": {{ canonical_url | json }},
+        "name": {{ 'collections.general.title' | t | json }},
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": [
+            {% for collection in collections %}
+              {"@type":"ListItem","position":{{ paginate.current_offset | plus: forloop.index }},"name":{{ collection.title | json }},"url":{{ request.origin | append: collection.url | json }}}{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+          ]
+        }
+      }
+    </script>
+  {% endpaginate %}
 </section>
+<style>
+  .collection-directory > .page-title { text-align: center; margin-bottom: var(--section-padding-block); }
+  .collection-directory__posters { display: grid; gap: 2rem; }
+</style>
 
 {% schema %}
 {
   "name": "Collection list",
-  "settings": []
+  "settings": [
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+    },
+    {"type": "header", "content": "Visibility"},
+    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
+    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+  ]
 }
 {% endschema %}

@@ -87,10 +87,34 @@
     if (ageAt(year) < requiredAge) return fail('birth', 'underage');
     return { ok: true, threshold: requiredAge };
   }
+  // Per-field feedback never authorizes checkout; validate() remains authoritative.
+  function fieldStates(input, requiredAge, now = new Date()) {
+    const profile = profiles[input.profile];
+    if (!profile) return {};
+    const f = Object.fromEntries(['number', 'numberDigit', 'birth', 'expiry', 'optional', 'optionalDigit', 'tail', 'birthYear'].map(key => [key, normalize(input[key])]));
+    const td1 = profile.format === 'TD1';
+    const numberPattern = input.profile === 'ch-id' ? /^[A-Z0-9]{8}$/ : td1 ? /^[A-Z0-9]{1,9}$/ : /^(?=.*[A-Z0-9])[A-Z0-9<]{1,9}$/;
+    const states = { number: numberPattern.test(f.number) && !(profile.country === 'CHE' && /[OI]/.test(f.number)) };
+    states.numberDigit = states.number && /^\d$/.test(f.numberDigit) && digit(f.number.padEnd(9, '<')) === f.numberDigit;
+    const [currentYear, month, day] = today(now);
+    for (const key of ['birth', 'expiry']) {
+      const yy = Number(f[key].slice(0, 2)), mm = Number(f[key].slice(2, 4)), dd = Number(f[key].slice(4, 6));
+      states[key] = /^\d{7}$/.test(f[key]) && digit(f[key].slice(0, 6)) === f[key][6] && [1800, 1900, 2000, 2100].some(century => validDate(century + yy, mm, dd) && (key !== 'birth' || (century + yy) * 10000 + mm * 100 + dd <= currentYear * 10000 + month * 100 + day));
+    }
+    states.optional = (td1 ? /^[A-Z0-9<]{15}$/ : /^[A-Z0-9<]{14}$/).test(f.optional);
+    states.optionalDigit = !td1 && states.optional && (/^[0-9<]$/.test(f.optionalDigit)) && (digit(f.optional) === f.optionalDigit || f.optional === '<'.repeat(14) && f.optionalDigit === '<');
+    const ready = states.numberDigit && states.birth && states.expiry && states.optional && (td1 || states.optionalDigit);
+    const result = validate(input, requiredAge, now);
+    states.tail = Boolean(ready && (td1 ? /^[A-Z0-9<]{11}\d$/ : /^\d$/).test(f.tail) && (result.ok || ['birthYear'].includes(result.field) || result.error === 'underage'));
+    states.birthYear = /^\d{4}$/.test(f.birthYear) && f.birthYear.slice(-2) === f.birth.slice(0, 2) && validDate(Number(f.birthYear), Number(f.birth.slice(2, 4)), Number(f.birth.slice(4, 6))) && Number(f.birthYear) <= currentYear;
+    if (result.error === 'underage') states.birth = false;
+    if (result.field === 'birthYear') states.birthYear = false;
+    return states;
+  }
   function reusable(record, policy, now = Date.now()) {
     return Boolean(record && policy && !policy.unknown && Number.isInteger(record.threshold) && record.threshold >= policy.age && record.context === policy.context && record.version === policy.version && Number.isFinite(record.created) && record.created <= now && record.expires > now && record.expires <= record.created + 12 * 60 * 60 * 1000);
   }
-  const api = { profiles, normalize, digit, validate, reusable };
+  const api = { profiles, normalize, digit, validate, fieldStates, reusable };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else window.SparklysAgeValidation = api;
 })();

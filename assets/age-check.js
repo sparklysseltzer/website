@@ -49,6 +49,7 @@
           }
         }
         if (input.name === 'birth') this.hideBirthYear();
+        if (input.matches('[data-age-field] input')) { this.touchedFields.add(input.name); this.refreshFieldFeedback(); }
       }, options);
       this.querySelectorAll('[data-age-close]').forEach((button) => button.addEventListener('click', () => this.close(), options));
       this.querySelector('[data-age-continue]').addEventListener('click', () => this.continue(), options);
@@ -265,10 +266,10 @@
         const checks = document.createElement('div'); checks.className = 'age-document__passport-checks'; ending.append(checks);
         field(checks, 'optionalDigit'); field(checks, 'tail');
       }
-      this.form.elements.numberDigit.placeholder = '0';
+      this.form.elements.numberDigit.removeAttribute('placeholder');
       this.form.elements.optional.placeholder = '<'.repeat(id ? 15 : 14);
       this.form.elements.optionalDigit.placeholder = '0';
-      this.form.elements.tail.placeholder = swiss || !id ? '0' : '<'.repeat(11) + '0';
+      this.form.elements.tail.removeAttribute('placeholder');
       this.form.elements.birthYear.placeholder = '— — — —';
       if (values) Object.entries(values).forEach(([key, value]) => {
         if (this.form.elements[key]) this.form.elements[key].value = value;
@@ -352,7 +353,27 @@
       this.form.elements.birthYear.removeAttribute('aria-invalid');
       this.querySelector('[data-age-error="birthYear"]').textContent = '';
     }
+    validationInput() {
+      const input = Object.fromEntries(new FormData(this.form));
+      if (input.profile === 'ch-id') { input.optional = '<'.repeat(15); input.tail = '<'.repeat(11) + input.tail; }
+      return input;
+    }
+    refreshFieldFeedback() {
+      if (!this.policy) return;
+      const states = validation.fieldStates(this.validationInput(), this.policy.age);
+      for (const [key, wrapper] of this.fields) {
+        const input = wrapper.querySelector('input');
+        if (input.disabled || !this.touchedFields.has(key)) { delete input.dataset.validation; input.removeAttribute('aria-invalid'); continue; }
+        const valid = states[key] === true;
+        input.dataset.validation = valid ? 'valid' : 'warning';
+        if (valid) input.removeAttribute('aria-invalid'); else input.setAttribute('aria-invalid', 'true');
+        const error = this.querySelector(`[data-age-error="${key}"]`);
+        if (error) error.textContent = valid ? '' : this.copy.errors.incomplete;
+      }
+    }
     clearErrors() {
+      this.touchedFields = new Set();
+      this.form.querySelectorAll('[data-validation]').forEach(node => delete node.dataset.validation);
       this.querySelectorAll('[data-age-error]').forEach((node) => { node.textContent = ''; });
       this.form.querySelectorAll('[aria-invalid]').forEach((node) => node.removeAttribute('aria-invalid'));
     }
@@ -360,11 +381,7 @@
       if (this.continuing || this.closing) return;
       this.setHelp(false, false);
       this.clearErrors();
-      const input = Object.fromEntries(new FormData(this.form));
-      if (input.profile === 'ch-id') {
-        input.optional = '<'.repeat(15);
-        input.tail = '<'.repeat(11) + input.tail;
-      }
+      const input = this.validationInput();
       const result = validation.validate(input, this.policy.age);
       if (!result.ok) {
         if (result.field === 'birthYear') {
@@ -376,10 +393,12 @@
         const field = this.form.elements[result.field];
         const error = this.querySelector(`[data-age-error="${result.field}"]`);
         if (error) {
-          error.textContent = this.copy.errors[result.error].replaceAll('__AGE__', this.policy.age);
+          error.textContent = this.copy.errors.incomplete;
           this.animate(error, [{ opacity: 0 }, { opacity: 1 }]);
         }
         else this.status.textContent = this.copy.errors[result.error];
+        this.touchedFields.add(result.field);
+        this.refreshFieldFeedback();
         field?.setAttribute('aria-invalid', 'true');
         field?.focus();
         return;

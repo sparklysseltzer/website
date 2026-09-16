@@ -1,0 +1,15 @@
+<article class="article-card" data-poster-reveal>
+  <a class="article-card__link" href="{{ card_article.url }}">
+    <div class="article-card__media">
+      {% if card_article.image %}
+        {{ card_article.image | image_url: width: 1000 | image_tag: widths: '360, 540, 720, 1000', sizes: '(min-width: 990px) 33vw, (min-width: 600px) 50vw, 100vw', loading: 'lazy', alt: '' }}
+      {% endif %}
+      <span class="article-card__arrow" aria-hidden="true"><img src="{{ 'arrow-right.svg' | asset_url }}" width="24" height="24" alt=""></span>
+    </div>
+    <div class="article-card__content">
+      {% if show_date %}<time datetime="{{ card_article.published_at | date: '%Y-%m-%d' }}">{{ card_article.published_at | date: format: 'date' }}</time>{% endif %}
+      <{{ heading_tag | default: 'h3' }} class="article-card__title">{{ card_article.title | escape }}</{{ heading_tag | default: 'h3' }}>
+      {% if show_excerpt %}<p>{{ card_article.excerpt_or_content | strip_html | truncatewords: 28 | escape }}</p>{% endif %}
+    </div>
+  </a>
+</article>

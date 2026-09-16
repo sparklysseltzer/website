@@ -1,0 +1,8 @@
+{% assign public_origin = canonical_url | split: '/' | slice: 0, 3 | join: '/' %}
+{% unless section.settings.hide_on_mobile and section.settings.hide_on_desktop %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","@id":{{ canonical_url | append: '#articles-' | append: section.id | json }},"itemListElement":[
+{% for post in posts limit: count %}{% unless forloop.first %},{% endunless %}{"@type":"ListItem","position":{{ forloop.index | plus: offset | default: forloop.index }},"url":{{ public_origin | append: post.url | json }},"name":{{ post.title | json }}}{% endfor %}
+]}
+</script>
+{% endunless %}

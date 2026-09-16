@@ -1,2 +1,7 @@
-{% comment %}Cart amounts use Shopify's presentment currency code once, with Shopify-formatted numeric values.{% endcomment %}
-{{- cart.currency.iso_code | escape }} {{ amount | money_without_currency -}}
+{% comment %}Keep fractional amounts exact; optional whole-amount formatting is used by PDP shipping copy.{% endcomment %}
+{%- assign formatted_amount = amount | money_without_currency -%}
+{%- assign fraction = amount | modulo: 100 -%}
+{%- if trim_zeros and fraction == 0 -%}
+  {%- assign formatted_amount = formatted_amount | remove: '.00' | remove: ',00' -%}
+{%- endif -%}
+{{- cart.currency.iso_code | escape }} {{ formatted_amount -}}

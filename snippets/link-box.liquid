@@ -1,0 +1,5 @@
+{% if options.title != blank %}
+  {% assign tag = 'div' %}{% if options.link != blank %}{% assign tag = 'a' %}{% endif %}<{{ tag }} class="editorial-link-box" {% if options.link != blank %}href="{{ options.link }}"{% endif %} style="--link-box-background: {{ options.background }}; --link-box-color: {{ options.text_color }};">
+    <span>{{ options.title | escape }}</span><span class="editorial-chevron" aria-hidden="true"></span>
+  </{{ tag }}>
+{% endif %}

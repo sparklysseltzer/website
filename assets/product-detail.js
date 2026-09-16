@@ -22,6 +22,7 @@
       this.slides = [...this.querySelectorAll('.pdp-gallery__slide')];
       this.querySelectorAll('[data-enhanced-only]').forEach(node => node.hidden = false);
       this.querySelectorAll('[data-native-only]').forEach(node => node.hidden = true);
+      this.querySelector('[data-once-card]').hidden = this.data.requiresPlan;
       this.querySelector('.pdp-variant-form').addEventListener('submit', event => event.preventDefault(), events);
       this.variantSelect.addEventListener('change', () => this.syncVariant(true), events);
       this.planSelect.addEventListener('change', () => {
@@ -71,8 +72,16 @@
         this.syncPrice(false);
       }, events);
       this.syncVariant(false);
+      const details = this.querySelector('.pdp-details');
+      this.fitSticky = () => {
+        const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sticky-header-height')) || 0;
+        details.style.setProperty('--pdp-sticky-top', `${Math.min(header + 24, innerHeight - details.getBoundingClientRect().height - 24)}px`);
+      };
+      this.detailsObserver = new ResizeObserver(this.fitSticky); this.detailsObserver.observe(details);
+      window.addEventListener('resize', this.fitSticky, events);
+
     }
-    disconnectedCallback() { this.abort?.abort(); this.abort = null; this.observer?.disconnect(); this.planAnimation?.cancel(); cancelAnimationFrame(this.scrollFrame); }
+    disconnectedCallback() { this.abort?.abort(); this.abort = null; this.observer?.disconnect(); this.detailsObserver?.disconnect(); this.planAnimation?.cancel(); this.planFade?.cancel(); cancelAnimationFrame(this.scrollFrame); }
     syncBadge() { this.toggleAttribute('data-badge-running', Boolean(this.inView && !this.badgePaused && !document.hidden)); }
     money(amount) { return new Intl.NumberFormat(this.dataset.locale, { style: 'currency', currency: this.dataset.currency, currencyDisplay: 'code' }).format(amount / 100); }
     syncVariant(updateUrl) {
@@ -82,7 +91,7 @@
       this.buyForm.elements.id.value = this.variant.id;
       this.planSelect.replaceChildren();
       if (!this.data.requiresPlan) this.planSelect.add(new Option(this.querySelector('[data-once-card] strong').textContent, ''));
-      this.variant.allocations.forEach(plan => this.planSelect.add(new Option(`${plan.name} — ${this.money(plan.price)}`, String(plan.id))));
+      this.variant.allocations.forEach(plan => this.planSelect.add(new Option(plan.name, String(plan.id))));
       this.planSelect.value = this.variant.allocations.some(plan => String(plan.id) === previous) ? previous : (previous || this.data.requiresPlan) ? String(this.variant.allocations[0]?.id || '') : '';
       this.querySelector('[data-purchase-options]').hidden = !this.variant.allocations.length;
       this.planSelect.disabled = !this.variant.allocations.length;
@@ -106,6 +115,10 @@
       const compare = plan ? this.variant.price : this.variant.compare;
       const firstPlan = plan || this.variant.allocations[0];
       crossfade(this.querySelector('[data-subscription-price]'), firstPlan ? this.money(firstPlan.price) : '');
+      const subscriptionCompare = this.querySelector('[data-subscription-compare]');
+      subscriptionCompare.hidden = !firstPlan || this.variant.price <= firstPlan.price;
+      crossfade(subscriptionCompare, this.money(this.variant.price));
+      this.querySelector('[data-standalone-price]').hidden = this.variant.allocations.length > 0;
       crossfade(this.querySelector('[data-price]'), this.money(price));
       const compareNode = this.querySelector('[data-compare]');
       compareNode.hidden = !(compare > price); crossfade(compareNode, this.money(compare));
@@ -130,23 +143,43 @@
     }
     togglePlanField(open) {
       const field = this.querySelector('[data-plan-field]');
+      const content = field.querySelector('[data-plan-content]');
       if (this.planFieldOpen === open) return;
       const first = this.planFieldOpen === undefined;
       const height = field.hidden ? 0 : field.getBoundingClientRect().height;
-      const opacity = field.hidden ? 0 : Number(getComputedStyle(field).opacity);
+      const opacity = field.hidden ? 0 : Number(getComputedStyle(content).opacity);
       const margin = field.hidden ? 0 : parseFloat(getComputedStyle(field).marginTop);
       this.planAnimation?.cancel();
+      this.planFade?.cancel();
       this.planFieldOpen = open;
       field.hidden = false;
       field.inert = !open;
+      field.style.overflow = '';
+      if (!open && field.contains(document.activeElement)) this.querySelector('[name="purchase_type"]:checked')?.focus();
       if (first || reduced()) { field.hidden = !open; field.inert = false; return; }
-      field.style.overflow = 'hidden';
       const targetMargin = open ? getComputedStyle(field).marginTop : '0px';
-      this.planAnimation = field.animate([
-        { height: `${height}px`, opacity, marginTop: `${margin}px` },
-        { height: `${open ? field.scrollHeight : 0}px`, opacity: open ? 1 : 0, marginTop: targetMargin }
-      ], timing(this));
-      this.planAnimation.finished.then(() => { field.hidden = !open; field.inert = false; field.style.overflow = ''; }).catch(() => {});
+      const targetHeight = open ? field.getBoundingClientRect().height : 0;
+      field.style.overflow = 'hidden';
+      const motion = timing(this);
+      const animation = field.animate([
+        { height: `${height}px`, marginTop: `${margin}px` },
+        { height: `${targetHeight}px`, marginTop: targetMargin }
+      ], motion);
+      this.planAnimation = animation;
+      // Establish room before revealing content; fade out before the space closes.
+      // A reversal starts at the currently painted opacity, without an initial flash.
+      this.planFade = content.animate(open ? [
+        { opacity, offset: 0 }, { opacity, offset: .25 }, { opacity: 1, offset: 1 }
+      ] : [
+        { opacity, offset: 0 }, { opacity: 0, offset: .5 }, { opacity: 0, offset: 1 }
+      ], { ...motion, fill: 'both' });
+      animation.finished.then(() => {
+        if (this.planAnimation !== animation) return;
+        field.hidden = !open;
+        field.inert = false;
+        field.style.overflow = '';
+        this.planFade?.cancel();
+      }).catch(() => {});
     }
     slideIndex() { return Math.max(0, Math.min(this.slides.length - 1, Math.round(this.track.scrollLeft / this.track.clientWidth))); }
     showSlide(index, instant = false) {
@@ -177,8 +210,14 @@
   class PdpDescription extends HTMLElement {
     connectedCallback() {
       this.button = this.querySelector('button'); this.content = this.querySelector('.rte');
-      if (this.content.scrollHeight <= 110) return;
-      this.button.hidden = false; this.setAttribute('data-collapsed', '');
+      this.refresh = () => {
+        const limit = parseFloat(getComputedStyle(document.documentElement).fontSize) * 6;
+        const overflowing = this.content.scrollHeight > limit + 1;
+        this.button.hidden = !overflowing;
+        if (this.button.getAttribute('aria-expanded') !== 'true') this.toggleAttribute('data-collapsed', overflowing);
+      };
+      this.resizeObserver = new ResizeObserver(this.refresh); this.resizeObserver.observe(this);
+      this.refresh(); document.fonts.ready.then(() => { if (this.isConnected) this.refresh(); });
       this.click = () => {
         const start = this.content.getBoundingClientRect().height;
         this.animation?.cancel();
@@ -189,7 +228,7 @@
       };
       this.button.addEventListener('click', this.click);
     }
-    disconnectedCallback() { this.button?.removeEventListener('click', this.click); this.animation?.cancel(); }
+    disconnectedCallback() { this.button?.removeEventListener('click', this.click); this.resizeObserver?.disconnect(); this.animation?.cancel(); }
   }
   for (const [name, element] of [['product-detail', ProductDetail], ['pdp-disclosure', PdpDisclosure], ['pdp-description', PdpDescription]]) if (!customElements.get(name)) customElements.define(name, element);
 })();

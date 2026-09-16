@@ -1,0 +1,92 @@
+{% capture accordion_content %}{% content_for 'blocks' %}{% endcapture %}
+{% if accordion_content != blank or section.settings.heading != blank or section.settings.selected_faqs != blank or section.settings.faq_category != blank or request.design_mode %}
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{% render 'section-visibility', section: section %}
+{{ 'editorial-content.css' | asset_url | stylesheet_tag }}
+<div class="section page-width"><div class="editorial-faq-shell">{% render 'faq-list-content', options: section.settings, scope: section.id, accordion_content: accordion_content %}</div></div>
+{% endif %}
+{% schema %}
+{
+  "name": "Accordeon",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Optional. Leave blank to show only the accordion."
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+    },
+    {
+      "type": "header",
+      "content": "Optional FAQs"
+    },
+    {
+      "type": "metaobject",
+      "id": "faq_category",
+      "label": "FAQ category",
+      "metaobject_type": "faq_category",
+      "info": "Optional. FAQ entries follow your custom items. Individual selections are appended and duplicates removed."
+    },
+    {
+      "type": "metaobject_list",
+      "id": "selected_faqs",
+      "label": "FAQs",
+      "metaobject_type": "faq",
+      "limit": 20,
+      "info": "Optional. Add existing FAQs alongside your custom items."
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Accordeon",
+      "category": "Trust & information",
+      "blocks": [
+        {
+          "type": "accordion-item"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion-item"
+    }
+  ]
+}
+{% endschema %}
