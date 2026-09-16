@@ -139,3 +139,5 @@ header-navigation:not([data-enhanced]) .navigation-trigger[data-current] img, .n
 .navigation-card--product.catalog-card--soda .catalog-card__title { hyphens: manual; overflow-wrap: normal; }
 
 .navigation-card--product:not(.catalog-card--soda, .catalog-card--hardseltzer) .catalog-card__title { font-size: var(--font-size-compact); }
+
+@media (min-width: 64rem) { .navigation-panel { scrollbar-gutter: stable; overflow-x: hidden; } }

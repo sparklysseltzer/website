@@ -174,7 +174,7 @@
                   | image_url: width: 1200
                   | image_tag:
                     widths: '320, 480, 640, 800, 1000, 1200',
-                    sizes: '(min-width: 120rem) 28rem, (min-width: 64rem) calc((100vw - 10rem) / 4), (min-width: 48rem) 42vw, 78vw',
+                    sizes: '(min-width: 120rem) 28rem, (min-width: 75rem) calc((100vw - 10rem) / 4), calc((100vw - 3rem) / 2)',
                     loading: 'lazy',
                     alt: card_image.alt
                 }}
@@ -556,9 +556,8 @@
     .product-overview__navigation {
       width: 100%;
       padding-bottom: 0.25rem;
-      overflow-x: auto;
+      flex-wrap: wrap;
       justify-content: flex-start;
-      scrollbar-width: thin;
     }
 
     .product-overview__navigation-link {
@@ -568,6 +567,19 @@
     .product-overview__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+  }
+
+  @media (max-width: 74.999rem) {
+    .product-overview-card { aspect-ratio: 1 / 1.15; --product-card-collision-lift: 0rem; }
+    .product-overview-card__media { inset: -10% 0 36%; }
+    .product-overview-card__content { padding: .75rem; justify-content: center; }
+    .product-overview-card__identity { width: 100%; text-align: center; }
+    .product-overview-card__brand { margin-inline: auto; margin-bottom: .25rem; object-position: center; }
+    .product-overview-card__brand--soda { width: 34cqi; }
+    .product-overview-card__brand--seltzer { width: 48cqi; margin-bottom: -.25rem; }
+    .product-overview-card__flavor-logo { width: 65cqi; margin-inline: auto; }
+    .product-overview-card__arrow { display: none; }
+    .product-overview-card__badge { top: .5rem; right: .5rem; padding: .375rem .5rem; font-size: var(--font-size-small); }
   }
 
   @media (max-width: 47.999rem) {
@@ -596,25 +608,9 @@
       height: 3rem;
     }
 
-    .product-overview__grid {
-      margin-inline: calc(var(--page-gutter) * -1);
-      padding-inline: var(--page-gutter);
-      padding-bottom: 0.5rem;
-      grid-template-columns: none;
-      grid-auto-columns: min(78vw, 20rem);
-      grid-auto-flow: column;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: thin;
-    }
+    .product-overview__grid { gap: .75rem; }
+    .product-overview-card--soda .product-overview-card__title { font-size: var(--font-size-compact); }
 
-    .product-overview-card {
-      scroll-snap-align: start;
-    }
-
-    .product-overview-card__title {
-      font-size: 2rem;
-    }
   }
 
 {% endstylesheet %}

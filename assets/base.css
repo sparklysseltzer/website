@@ -2021,7 +2021,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 @media (prefers-reduced-motion: reduce) { .cart-drawer.is-entering :is(.cart-recommendation, .cart-recommendations__heading) { animation: none; } }
 
 .notifications {
-  position: fixed; inset: 0 0 auto auto; margin: 0; padding: 1.5rem 2rem 2.25rem;
+  position: fixed; inset: 0 0 auto; margin: 0 auto; padding: 1.5rem 2rem 2.25rem;
   width: min(29rem, 100vw); max-height: 100dvh;
   border: 0; background: transparent; color: var(--color-foreground);
   overflow-y: auto; pointer-events: none; z-index: 100;
@@ -2280,7 +2280,7 @@ input, select, textarea { font-family: var(--field-font-family); font-weight: va
   --heading-choice-tracking: var(--letter-spacing-heading-erode);
   --heading-choice-optical-offset: 0em;
 }
-[data-heading-font='newake'], [data-heading-font='seltzer'], .site-footer__card-heading {
+[data-heading-font='newake'], [data-heading-font='seltzer'], .site-footer__card-heading, .cart-drawer__header h2 {
   --heading-choice-family: var(--font-heading-default);
   --heading-choice-weight: 400;
   --heading-choice-leading: var(--line-height-heading-newake);

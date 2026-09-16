@@ -34,7 +34,7 @@ The current content bottom padding is 40px. Soda title line-height is `0.75`. Ha
 
 ## Navigation and motion
 
-The three top navigation pills use equal top/right/bottom padding around their arrow circles. Desktop renders four cards in one row. Below 1200px the grid becomes two columns; phones expose independent horizontal scrollers without page-level overflow.
+The three top navigation pills use equal top/right/bottom padding around their arrow circles. Desktop renders four cards in one row. Below 1200px the four cards form a two-column grid, including phones. Navigation pills wrap instead of scrolling. There are no horizontal scrollers in this section.
 
 `product-overview-motion` reuses the Offer cards scroll-scrub/parallax engine. Links, headings, badges, logos, and complete static cards remain available without JavaScript and in reduced-motion mode.
 
@@ -81,3 +81,5 @@ Trimmed-asset QA: inspected Product Overview at 1600px/390px and the collection 
 The merchant then supplied larger 385×1000 versions of both trimmed exports. These replace the initial 189×492 files losslessly, with intrinsic dimensions updated in every shared consumer. The bottom-edge shadow calibration remains unchanged.
 
 Merchant refinement: the shared `--can-shadow-seltzer-top` is 98.7%; the existing mask contact translation remains unchanged. This lifts the floor slightly into the can base across all shared Seltzer shadow applications.
+
+Ananotes 152 (2026-09-16): compact two-column cards use a 1:1.15 aspect ratio, centered brand/flavour lockups and a shorter media area while retaining shared can shadows and merchant artwork adjustments. Phone Soda lettering selects the existing Compact role. The decorative card arrow is omitted in the compact composition; the whole card remains a large native link. Desktop four-column artwork remains unchanged. Responsive image sizes now match the two-column layout.

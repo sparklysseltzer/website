@@ -75,10 +75,7 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
       for (const { target } of entries) {
         const panel = target.closest('.navigation-panel');
         if (this.mobile || panel.closest('[data-nav-root]') !== this.root) continue;
-        const height = panel.getBoundingClientRect().height;
-        const previous = this.panelHeights.get(panel);
-        this.panelHeights.set(panel, height);
-        if (previous) this.easePanelHeight(panel, previous);
+        this.easePanelHeight(panel, this.panelHeights.get(panel));
       }
     });
     this.querySelectorAll('.navigation-categories, .navigation-panel > .navigation-content').forEach(body => this.panelResize.observe(body));
@@ -140,7 +137,7 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     const frames = accordion
       ? [{ height: `${height}px`, opacity, overflow: 'hidden' }, { height: `${open ? panel.scrollHeight : 0}px`, opacity: open ? 1 : 0, overflow: 'hidden' }]
       : [{ opacity, transform }, { opacity: open ? 1 : 0, transform: `translateY(${open ? 0 : -6}px)` }];
-    this.animate(panel, frames, accordion ? 'base' : 'slow', () => { if (!open) details.open = false; });
+    this.animate(panel, frames, accordion ? 'base' : 'slow', () => { if (!open) { details.open = false; if (details.hasAttribute('data-nav-category')) this.clearLeaving(panel); } });
   }
   selectRoot(root) {
     if (this.root === root) { this.closeRoot(false); return; }
@@ -148,6 +145,7 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     this.root = root;
     this.header.querySelectorAll('[data-corporate-menu][open]').forEach(details => { details.open = false; });
     const categories = [...root.querySelectorAll('[data-nav-category]')];
+    categories.forEach(details => this.clearLeaving(details.querySelector(':scope > .navigation-content')));
     categories.forEach((details, index) => this.transition(details, index === 0, true));
     root.selectedCategory = categories[0] || null;
     this.transition(root, true);
@@ -164,23 +162,55 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     this.positionPill();
   }
   easePanelHeight(panel, fromHeight) {
-    if (this.mobile || this.reduced.matches || !panel.closest('[data-nav-root]').open) return;
-    this.heightEffects.get(panel)?.cancel();
-    const toHeight = panel.getBoundingClientRect().height;
-    if (Math.abs(fromHeight - toHeight) < 1) return;
-    const style = getComputedStyle(this);
-    const animation = panel.animate([{ height: `${fromHeight}px` }, { height: `${toHeight}px` }], { duration: parseFloat(style.getPropertyValue('--motion-duration-base')), easing: style.getPropertyValue('--motion-ease').trim() });
+    if (this.mobile || !panel.closest('[data-nav-root]').open) return;
+    const running = this.heightEffects.get(panel);
+    const paintedHeight = running ? panel.getBoundingClientRect().height : fromHeight;
+    // Observe intrinsic content, never feed an interpolated panel height back into the target.
+    const body = panel.querySelector(':scope > .navigation-categories, :scope > .navigation-content');
+    const style = getComputedStyle(panel);
+    const naturalHeight = body.getBoundingClientRect().height + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+    const maximum = parseFloat(style.maxHeight);
+    const toHeight = Number.isFinite(maximum) ? Math.min(naturalHeight, maximum) : naturalHeight;
+    if (Math.abs((this.panelHeights.get(panel) ?? 0) - toHeight) < 1) return;
+    this.panelHeights.set(panel, toHeight);
+    running?.cancel();
+    this.heightEffects.delete(panel);
+    if (this.reduced.matches || !paintedHeight || Math.abs(paintedHeight - toHeight) < 1) return;
+    const tokens = getComputedStyle(this);
+    const animation = panel.animate([{ height: `${paintedHeight}px` }, { height: `${toHeight}px` }], {
+      duration: parseFloat(tokens.getPropertyValue('--motion-duration-base')),
+      easing: tokens.getPropertyValue('--motion-ease').trim(),
+    });
     this.heightEffects.set(panel, animation);
-    animation.finished.then(() => { if (this.heightEffects.get(panel) === animation) this.heightEffects.delete(panel); }).catch(() => {});
+    animation.finished.then(() => {
+      if (this.heightEffects.get(panel) === animation) this.heightEffects.delete(panel);
+    }).catch(() => {});
+  }
+  clearLeaving(content) {
+    for (const property of ['position', 'left', 'top', 'width']) content.style.removeProperty(property);
   }
   selectCategory(category) {
     const root = category.closest('[data-nav-root]');
     const current = root.selectedCategory;
     if (current === category && !this.mobile) return;
+    const panel = root.querySelector(':scope > .navigation-panel');
+    const fromHeight = panel.getBoundingClientRect().height;
+    if (!this.mobile) {
+      // Only the incoming category determines grid height. The outgoing content fades
+      // at its painted position without holding the grid open until its fade completes.
+      const incoming = category.querySelector(':scope > .navigation-content');
+      this.clearLeaving(incoming);
+      if (current) {
+        const outgoing = current.querySelector(':scope > .navigation-content');
+        const rect = outgoing.getBoundingClientRect(), origin = outgoing.parentElement.parentElement.getBoundingClientRect();
+        Object.assign(outgoing.style, { position: 'absolute', left: `${rect.left - origin.left}px`, top: `${rect.top - origin.top}px`, width: `${rect.width}px` });
+      }
+    }
     if (current) this.transition(current, false);
     root.selectedCategory = current === category ? null : category;
     if (root.selectedCategory) { this.transition(category, true); this.reveal(category); }
     this.updateScrollers();
+    this.easePanelHeight(panel, fromHeight);
   }
   reveal(owner) {
     if (this.reduced.matches) return;
