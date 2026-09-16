@@ -9,56 +9,12 @@
  */
 {
   "sections": {
-    "intro": {
-      "type": "page-intro",
-      "settings": {
-        "heading_font": "erode",
-        "hide_on_mobile": false,
-        "hide_on_desktop": false
-      }
-    },
-    "two_column_eRhbaA": {
-      "type": "two-column",
-      "blocks": {
-        "content": {
-          "type": "_editorial-main",
-          "static": true,
-          "settings": {},
-          "blocks": {}
-        },
-        "sidebar": {
-          "type": "_editorial-sidebar",
-          "static": true,
-          "settings": {},
-          "blocks": {}
-        }
-      },
-      "name": "2 column",
-      "settings": {
-        "hide_on_mobile": false,
-        "hide_on_desktop": false
-      }
-    },
-    "faq_C7wfCz": {
-      "type": "faq",
-      "name": "FAQ",
-      "settings": {
-        "heading_font": "erode",
-        "selected_faqs": [],
-        "faq_category": "",
-        "heading": "",
-        "show_footer": true,
-        "footer_text": "",
-        "footer_link_label": "",
-        "footer_link": "#",
-        "hide_on_mobile": false,
-        "hide_on_desktop": false
-      }
+    "main": {
+      "type": "main-page",
+      "settings": {}
     }
   },
   "order": [
-    "intro",
-    "two_column_eRhbaA",
-    "faq_C7wfCz"
+    "main"
   ]
 }

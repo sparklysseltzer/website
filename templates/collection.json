@@ -1,75 +1,21 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hero": {
-      "type": "collection-hero",
-      "settings": {
-        "variant": "automatic"
-      }
-    },
     "main": {
       "type": "main-collection",
       "settings": {
         "show_header": false,
-        "heading": "",
-        "heading_font": "newake",
-        "products_per_page": 24,
-        "show_filters": true,
-        "header_in_hero": true
-      }
-    },
-    "details": {
-      "type": "two-column",
-      "settings": {},
-      "blocks": {
-        "content": {
-          "type": "_editorial-main",
-          "static": true,
-          "settings": {},
-          "blocks": {
-            "intro": {
-              "type": "editorial-text",
-              "settings": {
-                "heading": "Explore Sparklys",
-                "text": "<p>Explore our drinks, compare flavours and find your favourites. Each product page has more information about the available packs and ingredients.</p><p>This is preview copy for the collection’s editorial introduction. Replace it with your approved collection story before launch.</p>",
-                "heading_font": "erode"
-              }
-            }
-          },
-          "block_order": [
-            "intro"
-          ]
-        },
-        "sidebar": {
-          "type": "_editorial-sidebar",
-          "static": true,
-          "settings": {},
-          "blocks": {
-            "soda": {
-              "type": "link-box",
-              "settings": {
-                "title": "Explore Soda",
-                "link": "shopify://collections/soda"
-              }
-            },
-            "seltzer": {
-              "type": "link-box",
-              "settings": {
-                "title": "Explore Hard Seltzer",
-                "link": "shopify://collections/hard-seltzer"
-              }
-            }
-          },
-          "block_order": [
-            "soda",
-            "seltzer"
-          ]
-        }
+        "products_per_page": 16
       }
     }
   },
-  "order": [
-    "hero",
-    "main",
-    "details"
-  ]
+  "order": ["main"]
 }

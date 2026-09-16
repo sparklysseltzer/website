@@ -1,120 +1,64 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
-      "type": "collection-hero",
+      "type": "hero",
       "settings": {
-        "variant": "soda"
+        "eyebrow": "Sparklys",
+        "heading": "Sparklys Soda",
+        "text": "",
+        "button_label": "",
+        "button_link": "",
+        "background": "#f7f3eb",
+        "foreground": "#172019",
+        "overlay": 20
       }
     },
-    "main": {
+    "intro": {
+      "type": "rich-text",
+      "settings": {
+        "eyebrow": "Sparklys Soda",
+        "heading": "Über Sparklys Soda",
+        "text": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "usp": {
+      "type": "usp-section",
+      "settings": {
+        "variant": "automatic",
+        "heading": "",
+        "text": "",
+        "heading_font": "automatic",
+        "color_mode": "automatic"
+      }
+    },
+    "products": {
       "type": "main-collection",
       "settings": {
         "show_header": false,
-        "heading": "Choose your flavour",
-        "heading_font": "erode",
-        "products_per_page": 24,
-        "show_filters": true,
-        "header_in_hero": true
+        "products_per_page": 16
       }
-    },
-    "merchants": {
-      "type": "logo-marquee",
-      "settings": {
-        "merchant_collection": "soda-handler"
-      }
-    },
-    "reasons": {
-      "type": "soda-three-reasons",
-      "settings": {}
-    },
-    "comparison": {
-      "type": "versus",
-      "settings": {
-        "variant": "soda"
-      }
-    },
-    "subscription": {
-      "type": "subscription",
-      "settings": {
-        "variant": "soda"
-      }
-    },
-    "benefits": {
-      "type": "usp-section",
-      "settings": {
-        "variant": "soda"
-      }
-    },
-    "ingredients": {
-      "type": "soda-ingredients",
-      "settings": {}
     },
     "details": {
-      "type": "two-column",
-      "settings": {},
-      "blocks": {
-        "content": {
-          "type": "_editorial-main",
-          "static": true,
-          "settings": {},
-          "blocks": {
-            "intro": {
-              "type": "editorial-text",
-              "settings": {
-                "heading": "Discover Sparklys Soda",
-                "text": "<p>Explore our drinks, compare flavours and find your favourites. Each product page has more information about the available packs and ingredients.</p><p>This is preview copy for the collection’s editorial introduction. Replace it with your approved collection story before launch.</p>",
-                "heading_font": "erode"
-              }
-            }
-          },
-          "block_order": [
-            "intro"
-          ]
-        },
-        "sidebar": {
-          "type": "_editorial-sidebar",
-          "static": true,
-          "settings": {},
-          "blocks": {
-            "soda": {
-              "type": "link-box",
-              "settings": {
-                "title": "Explore Soda",
-                "link": "shopify://collections/soda"
-              }
-            },
-            "seltzer": {
-              "type": "link-box",
-              "settings": {
-                "title": "Explore Hard Seltzer",
-                "link": "shopify://collections/hard-seltzer"
-              }
-            }
-          },
-          "block_order": [
-            "soda",
-            "seltzer"
-          ]
-        }
-      }
-    },
-    "faq": {
-      "type": "faq",
+      "type": "rich-text",
       "settings": {
-        "faq_category": "soda"
+        "eyebrow": "",
+        "heading": "Mehr über Sparklys Soda",
+        "text": "",
+        "button_label": "",
+        "button_link": ""
       }
     }
   },
-  "order": [
-    "hero",
-    "main",
-    "merchants",
-    "reasons",
-    "ingredients",
-    "comparison",
-    "subscription",
-    "faq",
-    "benefits",
-    "details"
-  ]
+  "order": ["hero", "intro", "usp", "products", "details"]
 }

@@ -14,15 +14,13 @@
     "header": {
       "type": "header",
       "settings": {
-        "menu": "main-nav-general",
         "corporate_menu": "corporate-nav",
         "store_finder_page": "haendler",
-        "soda_menu": "main-nav-general",
-        "seltzer_menu": "main-nav-general"
+        "menu": "main-nav-general",
+        "soda_menu": "main-nav-soda",
+        "seltzer_menu": "main-nav-seltzer"
       }
     }
   },
-  "order": [
-    "header"
-  ]
+  "order": ["header"]
 }
