@@ -47,3 +47,5 @@ The shared `website/main` theme remains unpublished unless explicitly authorized
 ### Collection implementation — 2026-09-15
 
 Local all-products filtering and shared collection cards are implemented, with branded/neutral Collection hero, bounded cloud parallax, paused/offscreen ambient color/can motion, existing USP data plus an optional featured benefit, server-rendered CollectionPage/ItemList, and reusable editorial demo compositions. Shared editorial templates and collection suffix assignments are not deployed/changed. Current hidden variety/trial products remain hidden; Clothing and Accessories retain separate filters. See the owning section docs for tested limits and launch copy/data work.
+
+Blog implementation (2026-09-15): reusable News teaser, paginated listing and article detail share responsive article cards. Detail includes canonical sharing/copy, related posts and Shopify Article structured data; teaser/listing emit ItemList. Existing blog/article templates are reused. No store content or publication changes. See the section references.

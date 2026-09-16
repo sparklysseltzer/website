@@ -1,0 +1,15 @@
+{%- assign share_url = canonical_url | url_encode -%}
+{%- assign share_title = article.title | url_encode -%}
+<article-share data-url="{{ canonical_url | escape }}" data-copied="{{ 'blogs.share.copied' | t | escape }}">
+  <details class="article-share">
+    <summary class="button button--secondary"><span class="button__label">{{ 'blogs.share.title' | t }}</span></summary>
+    <div class="article-share__panel">
+      <a href="https://wa.me/?text={{ share_title }}%20{{ share_url }}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" rel="noopener noreferrer">Facebook</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:?subject={{ share_title }}&amp;body={{ share_url }}">{{ 'blogs.share.email' | t }}</a>
+      <button type="button" data-copy hidden>{{ 'blogs.share.copy' | t }}</button>
+      <label class="form-field"><span class="form-field__label">{{ 'blogs.share.link' | t }}</span><input class="form-control" readonly value="{{ canonical_url | escape }}" type="url"></label>
+    </div>
+  </details>
+</article-share>

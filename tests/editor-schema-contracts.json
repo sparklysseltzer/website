@@ -1733,5 +1733,196 @@
       }
     ],
     "schemaHash": "5352ccfb306a7125da120ddc5ed5f2c44cf735015e33670d7ce29a47e94d352a"
+  },
+  "sections/main-blog.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "articles_per_page": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "heading_font": {
+        "affects": [],
+        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
+      },
+      "hide_on_mobile": {
+        "affects": [],
+        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
+      },
+      "hide_on_desktop": {
+        "affects": [],
+        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
+      }
+    },
+    "scenarios": [
+      {
+        "name": "Default content controls",
+        "settings": {},
+        "visible": [
+          "heading_font",
+          "articles_per_page",
+          "hide_on_mobile",
+          "hide_on_desktop"
+        ]
+      }
+    ],
+    "schemaHash": "cad65eaaaf4562ae714508bb21003c9ca2b69745eb740553185859ee500e4884"
+  },
+  "sections/main-article.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "heading_font": {
+        "affects": [],
+        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
+      },
+      "hide_on_mobile": {
+        "affects": [],
+        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
+      },
+      "hide_on_desktop": {
+        "affects": [],
+        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
+      }
+    },
+    "scenarios": [
+      {
+        "name": "Default content controls",
+        "settings": {},
+        "visible": [
+          "heading_font",
+          "hide_on_mobile",
+          "hide_on_desktop"
+        ]
+      }
+    ],
+    "schemaHash": "1a8a34b4a7201d5b566563c4f51380ad3a9f73b2d230061bd767fd8249ac27e8"
+  },
+  "sections/blog-teaser.liquid": {
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "post_limit": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "show_excerpt": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "show_date": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "show_button": {
+        "group": "Action",
+        "visible_if": null
+      },
+      "button_label": {
+        "group": "Action",
+        "visible_if": "{{ section.settings.show_button }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "heading_font": {
+        "affects": [],
+        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
+      },
+      "show_excerpt": {
+        "affects": [],
+        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
+      },
+      "show_date": {
+        "affects": [],
+        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
+      },
+      "show_button": {
+        "affects": [
+          "button_label"
+        ],
+        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
+      },
+      "hide_on_mobile": {
+        "affects": [],
+        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
+      },
+      "hide_on_desktop": {
+        "affects": [],
+        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
+      }
+    },
+    "scenarios": [
+      {
+        "name": "Default content controls",
+        "settings": {},
+        "visible": [
+          "heading",
+          "heading_font",
+          "post_limit",
+          "show_excerpt",
+          "show_date",
+          "show_button",
+          "button_label",
+          "hide_on_mobile",
+          "hide_on_desktop"
+        ]
+      },
+      {
+        "name": "No blog action",
+        "settings": {
+          "show_button": false
+        },
+        "hidden": [
+          "button_label"
+        ],
+        "visible": [
+          "heading",
+          "heading_font",
+          "post_limit",
+          "show_excerpt",
+          "show_date"
+        ]
+      }
+    ],
+    "schemaHash": "aab3406842f6029fa6fde142f4d3f3dbabc58fc64711bf76c492398906fd927e"
   }
 }

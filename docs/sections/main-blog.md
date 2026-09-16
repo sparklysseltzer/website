@@ -1,29 +1,12 @@
-# Main blog
+# Blog
 
-Source: `sections/main-blog.liquid`
+Source: `sections/main-blog.liquid`, `snippets/article-card.liquid`, `snippets/article-list-schema.liquid`, `assets/blog.css`.
+Template: existing `templates/blog.json` (unchanged).
 
-Template: `templates/blog.json`
+The News listing uses Shopify's native blog title as its only H1, the shared page-heading typography, and the same article cards as Blog teaser and related posts. All published articles are accessible through native pagination. Date, featured image, title and a 28-word excerpt/content fallback come from each article. Images use responsive CDN widths and focal points; missing images have a neutral media area. Card links are fully usable without JavaScript.
 
-## Merchant control
+The Content group retains `heading_font` (Erode default, Newake optional) and `articles_per_page` (3–24 in steps of three, default nine). Visibility follows the shared final group. Existing setting IDs and templates are preserved. One/two/three columns at phone/tablet/desktop use shared spacing, Large radius and Card typography; body stays Maison Neue.
 
-`articles_per_page` accepts 3 to 24 articles in steps of three; the default is nine.
+Each page emits an ItemList containing only that page's rendered posts with pagination-adjusted positions and public-domain article URLs. It does not invent popularity or rank articles by unmeasured readership. No tag filters, separate blog selector, comments, reading-time estimates or popularity controls are introduced.
 
-## Rendering contract
-
-The section renders the blog title, a responsive card grid, lazy-loaded article images, dates, linked titles, and a 28-word excerpt/content fallback. It paginates through `snippets/pagination.liquid` and uses Shopify article URLs.
-
-## Known limits
-
-Tag filtering, featured articles, author display, reading time, search, and richer editorial card variants are not implemented.
-
-## Typography roles
-
-Hero-size page title; card-size article headings; body excerpts.
-
-## Breakpoint visibility
-
-Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.
-
-## Heading font selection
-
-**Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).
+Verification (2026-09-15): nine real articles per page at desktop/phone, no horizontal overflow, native page-two URL loads the next nine articles and ItemList positions start at 10. Teaser cards and listing cards share the same renderer; no synthetic content or popularity list was added.

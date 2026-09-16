@@ -92,3 +92,5 @@ After research, update the relevant local guide with the project decision and a 
 ### Cart section content negotiation
 
 For [Section Rendering API](https://shopify.dev/docs/api/ajax/section-rendering) requests at `/cart?sections=...`, use the default Accept header. On the development storefront, explicitly requesting `application/json` selected the raw cart JSON response instead of the section map, despite HTTP 200. Reproduced and fixed on 2026-09-06. This does not apply to JSON Cart Ajax mutation endpoints.
+
+Blog/article reference: [Liquid article](https://shopify.dev/docs/api/liquid/objects/article), [structured_data](https://shopify.dev/docs/api/liquid/filters/structured_data), and [blog templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/blog). Detail uses the native Article serializer; card lists use ItemList with real article URLs and pagination positions.

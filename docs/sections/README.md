@@ -50,6 +50,7 @@ All sections follow the [design system](../design-system.md), [asset-delivery ru
 | [Collection](main-collection.md) | `collection*.json` |
 | [Cart](main-cart.md) | `cart.json` |
 | [Search](main-search.md) | `search.json` |
+| [Blog teaser](blog-teaser.md) | Reusable News article teaser |
 | [Blog](main-blog.md) | `blog.json` |
 | [Article](main-article.md) | `article.json` |
 | [Page](main-page.md) | `page.json` |

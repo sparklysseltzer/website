@@ -1,28 +1,37 @@
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
-<article class="section page-width stack" style="max-width: 56rem">
-  <header class="stack">
-    <div>{{ article.published_at | date: format: 'date' }}</div>
-    <h1 class="page-title">{{ article.title }}</h1>
+{{ 'blog.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'article-share.js' | asset_url }}" defer="defer"></script>
+<article class="section page-width article-detail">
+  <header class="article-detail__header">
+    <a class="button button--secondary" href="{{ blog.url }}"><span class="button__label">{{ 'blogs.article.back_to_blog' | t: title: blog.title }}</span></a>
+    <h1>{{ article.title | escape }}</h1>
+    <p class="article-detail__meta"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'date' }}</time>{% if article.author != blank %} · {{ article.author | escape }}{% endif %}</p>
+    {% if article.excerpt != blank %}<div class="rte">{{ article.excerpt }}</div>{% endif %}
   </header>
-  {%- if article.image != blank -%}
-    {{
-      article.image
-      | image_url: width: 1600
-      | image_tag:
-        widths: '480, 750, 1100, 1400, 1600',
-        sizes: '(min-width: 900px) 56rem, 100vw',
-        alt: article.image.alt
-    }}
-  {%- endif -%}
-  <div class="rte">{{ article.content }}</div>
-  <a class="text-link" href="{{ blog.url }}"><span class="text-link__label">{{ 'blogs.article.back_to_blog' | t: title: blog.title }}</span></a>
+  {% if article.image %}{{ article.image | image_url: width: 1800 | image_tag: widths: '480, 750, 1100, 1400, 1800', sizes: '(min-width: 1280px) 1280px, 100vw', loading: 'eager', class: 'article-detail__image', alt: article.image.alt }}{% endif %}
+  <div class="article-detail__body rte">{{ article.content }}</div>
+  <footer class="article-detail__footer">
+    <a class="button button--secondary" href="{{ blog.url }}"><span class="button__label">{{ 'blogs.article.back_to_blog' | t: title: blog.title }}</span></a>
+    {% render 'article-share', article: article %}
+  </footer>
 </article>
+{% if blog.articles_count > 1 %}
+<section class="section page-width article-related">
+  <div class="blog-heading-row"><h2>{{ 'blogs.general.more' | t }}</h2></div>
+  <div class="blog-grid">{% assign related_count = 0 %}{% for post in blog.articles limit: 4 %}{% unless post.id == article.id %}{% render 'article-card', card_article: post, show_excerpt: true, show_date: true %}{% assign related_count = related_count | plus: 1 %}{% if related_count == 3 %}{% break %}{% endif %}{% endunless %}{% endfor %}</div>
+</section>
+{% endif %}
+{% unless section.settings.hide_on_mobile and section.settings.hide_on_desktop %}<script type="application/ld+json">{{ article | structured_data }}</script>{% endunless %}
 
 {% schema %}
 {
   "name": "Article",
   "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
     {
       "type": "select",
       "id": "heading_font",
@@ -40,9 +49,24 @@
       ],
       "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
     },
-    {"type": "header", "content": "Visibility"},
-    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
-    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    }
   ]
 }
 {% endschema %}

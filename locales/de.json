@@ -457,6 +457,20 @@
   "blogs": {
     "article": {
       "back_to_blog": "Zurück zu {{ title }}"
+    },
+    "general": {
+      "label": "Sparklys Journal",
+      "posts": "Blogbeiträge",
+      "view": "Blog anzeigen",
+      "empty": "Noch keine Beiträge.",
+      "more": "Weitere Beiträge"
+    },
+    "share": {
+      "title": "Teilen",
+      "email": "E-Mail",
+      "copy": "Link kopieren",
+      "copied": "Link kopiert.",
+      "link": "Link zum Beitrag"
     }
   },
   "cart": {
