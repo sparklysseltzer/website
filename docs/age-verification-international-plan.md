@@ -1,12 +1,12 @@
 # International MRZ document coverage plan
 
-Date: 2026-09-09. Status: proposed implementation plan; no additional documents enabled by this change.
+Initial strategy: 2026-09-09. Reconciled 2026-09-28: standard TD3 passport support is implemented; curated foreign IDs and wider specimen coverage remain proposed. The original Phase 1 design below is retained as decision context, not an instruction to rebuild the parser.
 
 ## Objective and boundaries
 
 Enable customers living in Switzerland or Liechtenstein to use supported foreign-issued documents. Issuing country, nationality, residence and delivery market are different concepts. Foreign-document acceptance must not enable additional Shopify markets, shipping destinations, currencies or tax behavior.
 
-Current decision: retain local MRZ plausibility/age checks. No paid provider, camera/OCR, biometric flow or new backend in this phase. [Provider options](age-verification-provider-reference.md) are future reference only. Current implemented choices remain Swiss ID/passport and Liechtenstein ID/passport, with the coverage limitations recorded in [Document references](age-verification-documents.md).
+Current decision: retain local MRZ plausibility/age checks. No paid provider, camera/OCR, biometric flow or new backend in this phase. [Provider options](age-verification-provider-reference.md) are future reference only. Current choices include Swiss ID/passport, Liechtenstein ID/passport and another-country standard TD3 passport. See [implemented support](#implemented-standard-passport-support--2026-09-09) and [Document references](age-verification-documents.md) for exact limits.
 
 ## Recommendation
 
@@ -91,9 +91,9 @@ Track only coarse unsupported-document requests and task completion outcomes, wi
 - Test phone/desktop, keyboard, reduced motion, paste/filtering, ambiguous years, document switching, both cart surfaces and no-JavaScript core cart behavior. Successful tests must not place an order.
 - Keep shared editorial content and deployments outside this planning task. No new Schema.org entity is introduced by private age-check form coverage.
 
-## Next concrete deliverable
+## Remaining coverage work
 
-A reviewed TD3 compatibility matrix plus generic-passport UI/parser change, followed by a separately verified Italian CIE profile. The remaining foreign-ID queue stays proposed until evidence and priority are established. Provider adoption remains deferred.
+Extend the country/edition specimen matrix beyond the existing ICAO and synthetic fixtures; separately review an Italian CIE profile before adding foreign-ID support. The generic TD3 UI/parser is already implemented. The remaining foreign-ID queue stays proposed until evidence and priority are established. Provider adoption remains deferred.
 
 ## Implemented standard passport support — 2026-09-09
 

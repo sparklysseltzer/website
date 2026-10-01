@@ -2,11 +2,9 @@
 
 This file tracks deferred Schema.org and JSON-LD work discovered during the 2026-09-04 storefront audit. These items are pending by default and must not be implemented without explicit approval. The implementation rules in [Architecture](architecture.md#structured-data) remain authoritative.
 
-## Completed foundation
+## Existing implementation
 
-- [x] Reusable FAQ sections emit server-rendered `FAQPage` JSON-LD for the questions and answers actually rendered.
-- [x] The full FAQ directory emits the same deduplicated `FAQPage`, `Question`, and `Answer` model.
-- [x] Add a repository rule requiring applicable structured data for every new or materially changed entity-like content feature.
+FAQ, Product/ProductGroup, Article and collection/blog ItemList markup are implemented. Their owning section contracts are indexed in the [section reference](sections/README.md); do not rebuild them from this backlog. Remaining organization references and external validation are tracked below.
 
 ## Pending retrofit work
 
@@ -22,17 +20,11 @@ This file tracks deferred Schema.org and JSON-LD work discovered during the 2026
 
 ### Product detail pages
 
-- [x] Add Product JSON-LD to all product templates through one shared renderer (`main-product`, Shopify `structured_data`, 2026-09-11).
-- [x] Include truthful Shopify-backed name, canonical URL, description, images, brand, SKU/GTIN identifiers when present, and variant/offer availability through Shopify’s native Product/ProductGroup output.
-- [x] Use active-market prices/currency and truthful variant availability. Verified CHF 28.80/57.60 offers against the actual Holunder variant data and visible selectable one-time prices.
 - [ ] Link the Product brand or seller/publisher to the canonical store entity rather than defining a competing organization.
-- [x] Revalidate the rendered result after the product variant UI is completed: parsed one ProductGroup with two real variant Offers; no duplicate product entity or invented reviews.
 
 ### Articles and news
 
-- [ ] Add `BlogPosting` or the most accurate Article subtype to individual article pages.
-- [ ] Include headline, canonical URL, image when present, publication/modification dates, author when available, and the canonical Sparklys publisher reference.
-- [ ] Do not emit full Article entities for cards on blog index, search, or recommendation surfaces.
+- [ ] Connect the native article output to the canonical Sparklys publisher identity once the homepage organization graph is defined, without emitting a duplicate Article entity. Preserve Shopify-backed headline, URLs, image, dates and author.
 
 ### Page hierarchy and remaining models
 

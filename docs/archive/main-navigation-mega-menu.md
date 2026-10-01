@@ -1,6 +1,6 @@
 # Main navigation and mega menu implementation plan
 
-Status: local implementation completed, 2026-09-15. See `docs/sections/header.md` for the implementation contract and fixture verification. Real menus are currently flat; image definitions and nesting remain separate store-content work. No deployment or store-data writes were performed.
+Historical plan: implementation completed in September 2026. Menu copying and resource-image definitions were subsequently provisioned; earlier flat-menu and setup notes below describe planning-time state. Use the [Header contract](../sections/header.md) for current behavior and [Status](../status.md) for remaining launch verification.
 
 ## Goal and scope
 

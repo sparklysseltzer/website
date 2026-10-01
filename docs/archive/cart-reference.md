@@ -1,6 +1,6 @@
 # Cart rebuild reference
 
-Historical planning/reference record. The cart implementation has since shipped in development; use the [current cart contract](sections/main-cart.md) and [Status](status.md) for current behavior and remaining work. The original observations below are retained for decision context.
+Historical planning/reference record. The cart implementation has since shipped in development; use the [current cart contract](../sections/main-cart.md) and [Status](../status.md) for current behavior and remaining work. The original observations below are retained for decision context.
 
 Inspected on 2026-09-06. Source: [current cart page](https://sparklys.ch/cart) and its global cart drawer. This is a discovery record, not an implemented theme contract or approval to copy every legacy behavior. The user requested inspection before implementation and confirmed there are currently no subscription products.
 
@@ -70,14 +70,14 @@ One authoritative Shopify cart response must update page rows, drawer rows, pric
 
 Implement accessible modal behavior, explicit quantity/remove labels, pending and error feedback, and a server-rendered cart fallback. Empty carts should offer shopping without an active checkout action. Product images must use Shopify data and responsive delivery. Do not port stale product-world labels, hidden recommendation placeholders, or newsletter-popup behavior into the cart.
 
-The cart is a transactional summary, not a new standalone product entity. Do not add duplicate Product/Offer JSON-LD merely for cart rows; use the owning product pages' structured-data work tracked in [Structured-data tasks](structured-data-tasks.md).
+The cart is a transactional summary, not a new standalone product entity. Do not add duplicate Product/Offer JSON-LD merely for cart rows; use the owning product pages' structured-data work tracked in [Structured-data tasks](../structured-data-tasks.md).
 
-When implementation starts, update [Main cart](sections/main-cart.md), the owning drawer documentation, [Section reference](sections/README.md) if a section is added, and [Status](status.md). Existing implementation facts remain in those guides.
+When implementation starts, update [Main cart](../sections/main-cart.md), the owning drawer documentation, [Section reference](../sections/README.md) if a section is added, and [Status](../status.md). Existing implementation facts remain in those guides.
 
 ## Native implementation follow-up — 2026-09-06
 
-The user authorized the cart/page drawer rebuild. First phase now retains cart-page notes and checkout code entry, with shared native rendering and a neutral localized bag empty state. The subsequent visual review authorized Bob Ross reuse, now implemented. Shipping eligibility/progress, recommendations and subscription commerce remain deferred. Current implementation contracts and preview verification gaps are in [Main cart](sections/main-cart.md) and [Cart drawer](sections/cart-drawer.md); the observations above remain the legacy discovery record.
+The user authorized the cart/page drawer rebuild. First phase now retains cart-page notes and checkout code entry, with shared native rendering and a neutral localized bag empty state. The subsequent visual review authorized Bob Ross reuse, now implemented. Shipping eligibility/progress, recommendations and subscription commerce remain deferred. Current implementation contracts and preview verification gaps are in [Main cart](../sections/main-cart.md) and [Cart drawer](../sections/cart-drawer.md); the observations above remain the legacy discovery record.
 
 ## Shipping confirmation — 2026-09-06
 
-The user confirmed CHF 50 and the trial-pack exception and authorized the growing bar. This supersedes the earlier deferred-progress scope. See [Main cart](sections/main-cart.md#free-shipping-progress--2026-09-06) for the settings, catalog fallback, calculation and verification limits.
+The user confirmed CHF 50 and the trial-pack exception and authorized the growing bar. This supersedes the earlier deferred-progress scope. See [Main cart](../sections/main-cart.md#free-shipping-progress--2026-09-06) for the settings, catalog fallback, calculation and verification limits.

@@ -70,12 +70,12 @@ For every affected journey, cover applicable rows:
 
 ## Automated gates
 
-`npm run check` runs Theme Check, global asset-budget checks, and shared typography regression checks locally and in GitHub Actions. JavaScript syntax, JSON parsing, and whitespace validation are additional local handoff gates. The [development guide](development.md#read-only-local-validation) owns the commands and the handling of Shopify-generated JSON headers.
+`npm run check` runs Theme Check, editor-schema contracts, asset budgets, typography checks, and cart, age-validation and content-sync regression tests locally and in GitHub Actions. JavaScript syntax, JSON parsing, and whitespace validation are additional local handoff gates. The [development guide](development.md#read-only-local-validation) owns the commands and the handling of Shopify-generated JSON headers.
 
 Not yet automated on the connected development theme:
 
 - Shopify Lighthouse CI for home, product, and collection pages;
-- browser journey tests for navigation, product selection, add-to-cart, cart editing, and checkout handoff;
+- continuous end-to-end browser coverage for navigation, product selection, add-to-cart, cart editing and checkout handoff; the existing `tests/browser/` navigation fixtures are manually invoked regression tools, not a complete CI suite;
 - screenshot comparisons against approved designs;
 - HTML and accessibility audits on rendered pages.
 

@@ -72,6 +72,8 @@ Reviewed: 2026-09-04.
 
 ## App integrations
 
+Contact forms use [`form 'contact'`](https://shopify.dev/docs/storefronts/themes/customer-engagement/add-contact-form), with `contact[email]` and standard `contact[body]`. Native notifications go to the store sender address; subjects are fixed ([merchant contract](https://help.shopify.com/en/manual/online-store/themes/customizing-themes/common-customizations/add-contact-page)). A contact checkbox alone does not create a marketing subscription. The separate newsletter enhancement uses [Klaviyo Client Subscriptions](https://developers.klaviyo.com/en/reference/create_client_subscription), public IDs only, explicit email consent and no enquiry payload. See [Contact form](sections/contact-form.md).
+
 | Topic / search terms | Official source | Local conclusion |
 | --- | --- | --- |
 | theme app extension, app block, app embed | [Theme app extensions](https://shopify.dev/docs/apps/build/online-store/theme-app-extensions) | Prefer supported extension surfaces over manually pasted vendor code. Audit placement and performance. |

@@ -1,50 +1,57 @@
 # Documentation
 
-This directory is the durable context for the Sparklys storefront. It records our decisions and routes developers to the current official Shopify source instead of copying large manuals that will become stale.
-
 ## Start here
 
-Read [Product](product.md), [Architecture](architecture.md), and [Development](development.md) first. Use [Status](status.md) for current capabilities and open gaps. Before section work, read the [Section reference](sections/README.md) and the owning section document; before styling, read the [Design system](design-system.md).
+Read [Product](product.md), [Architecture](architecture.md), and [Development](development.md) before changing behavior. Use [Status](status.md) for implemented capabilities and launch gaps. Before section work, read the [section reference](sections/README.md) and its owning document; before styling, read the [design system](design-system.md).
 
-## Documentation ownership
+## Current contracts
 
-| Guide | Authoritative content |
+| Area | Authoritative guide |
 | --- | --- |
-| [Product](product.md) | Product goals, audience, markets, and non-goals |
-| [Architecture](architecture.md) | Theme boundaries, brand-context resolution, schema conventions, and shared rendering rules |
-| [Section reference](sections/README.md) | The only complete section inventory; individual section contracts and exceptions |
-| [Tone and voice](tone-and-voice.md) | Brand personality, contextual humor, supplied reference copy, and storefront writing rules |
-| [Design system](design-system.md) | Typography roles, visual tokens, normalization, and approved composition exceptions |
-| [Form controls](forms.md) | Shared form tokens and accessibility contract |
-| [Design system studio](design-system-studio.md) | Permanent local component playground and designer workflow |
-| [Frontend assets](frontend-assets.md) | CSS/JS ownership, fonts, image delivery, exports, and budgets |
-| [Development](development.md) | Setup, local checks, preview synchronization, Ananotes annotations, Figma workflow, and delivery safety |
-| [Quality](quality.md) | Accessibility, performance, SEO, and verification criteria |
-| [Commerce](commerce.md) | Integration requirements for products, cart, subscriptions, and apps—not capability claims |
-| [Local MRZ age-check plan](age-verification-plan.md) | Browser-only age-check scope, document fields, checkout limitations, privacy and implementation decisions |
-| [International MRZ coverage plan](age-verification-international-plan.md) | Proposed passport/foreign-ID coverage, selector strategy and rollout gates |
-| [Future age-verification providers](age-verification-provider-reference.md) | Deferred API options, dated public pricing and integration considerations |
-| [Cart coupon plan](cart-coupons-plan.md) | MVP plan for known-code entry, applied-code visibility and discount breakdowns |
-| [Cart rebuild reference](cart-reference.md) | Live-site cart observations, state coverage, and pending rebuild decisions |
-| [Merchant content](merchant-content.md) | Product-world metafields, Merchant and FAQ definitions, provisioning history |
-| [Shared section content](shared-section-content.md) | Local/global Offer content contract and definitions |
-| [Status](status.md) | Current capability map and remaining launch gaps |
-| [Task inbox](tasks.md) | Unapproved ideas, explicit approvals, and completed task history |
-| [Structured-data tasks](structured-data-tasks.md) | Dedicated deferred Schema.org/JSON-LD retrofit checklist |
-| [Annotation history](annotation-history.md) | Approved visual feedback and its implementation references |
-| [Shopify reference](shopify-reference.md) | Topic routing to official platform documentation |
+| Scope, audience, markets and non-goals | [Product](product.md) |
+| Theme boundaries, brand resolution, composition and editor conventions | [Architecture](architecture.md) |
+| Available sections and their individual contracts | [Section reference](sections/README.md) — the only complete section inventory |
+| Typography, colors, spacing, icons and motion | [Design system](design-system.md) |
+| Inputs, dropdowns, checkboxes and radios | [Form controls](forms.md) |
+| Brand personality and storefront writing | [Tone and voice](tone-and-voice.md) |
+| CSS/JS ownership, images, exports and budgets | [Frontend assets](frontend-assets.md) |
+| Metafields, metaobjects and language ownership | [Merchant content](merchant-content.md) |
+| Shared/local Offer content ownership | [Shared section content](shared-section-content.md) |
+| Commerce integration boundaries and provider verification | [Commerce](commerce.md) |
+| Browser-only MRZ implementation and privacy | [Local age check](age-verification-plan.md) |
+| Document specimens and supported formats | [Document references](age-verification-documents.md), [international coverage](age-verification-international-plan.md) |
 
-Keep each fact in its owning guide and link to it elsewhere. Section docs describe their own role mappings and exceptions, not copies of the shared system. Current template composition belongs in `templates/*.json`, not duplicated lists across prose guides. Historical task/annotation records remain historical; do not rewrite them as current capability claims. Recording a backlog item does not authorize implementation.
+## Working on the theme
 
-## Source policy
+| Need | Guide |
+| --- | --- |
+| Setup, preview, checks, Admin API, annotations and safe delivery | [Development](development.md) |
+| Accessibility, performance, SEO and verification criteria | [Quality](quality.md) |
+| Local designer playground and tuning workflow | [Design Studio](design-system-studio.md) |
+| Official platform documentation by topic | [Shopify reference](shopify-reference.md) |
 
-- Local docs define Sparklys decisions and constraints.
-- [Shopify developer documentation](https://shopify.dev/docs/storefronts/themes) defines platform behavior.
-- The [Shopify Liquid reference](https://shopify.dev/docs/api/liquid) defines available tags, filters, and objects.
-- When platform behavior matters, verify the current official page before implementing. Record new durable conclusions here, but link to the source rather than vendoring the whole page.
+## Open work
 
-Documentation structure and current capability descriptions were reconciled on 2026-09-13. This is not a fresh verification of every external platform link or remote store setting.
+| List | Scope |
+| --- | --- |
+| [Status](status.md#known-incomplete-capabilities) | Launch readiness and integration verification |
+| [Feature backlog](tasks.md) | Discrete future features awaiting approval |
+| [Structured-data tasks](structured-data-tasks.md) | Remaining Schema.org implementation and validation |
+| [Age-check extensions](age-verification-extensions.md) | Separately scoped document, privacy and enforcement follow-ups |
 
-## Decision records and current contracts
+Keep each task in one owning list. Other guides link to that list instead of copying its checkboxes. Recording, prioritizing or documenting a task does not authorize implementation.
 
-Completed implementation plans remain as dated decision records, not instructions to rebuild existing features: [PDP discovery](product-detail-plan.md), [coupon plan](cart-coupons-plan.md) and [cart reference](cart-reference.md). Current behavior belongs in the owning section contract and Status. Age-check document research, international coverage and future provider options remain separate because they describe different support boundaries and deferred choices. Retain annotation/task history and the icon license; they are not unused documentation.
+## Historical decisions and research
+
+- [Decision and completion archive](archive/README.md): completed PDP, cart, coupon and navigation plans, plus completed task records.
+- [Annotation history](annotation-history.md): dated feedback and verification references; preserve original annotation provenance.
+- [Future verification-provider reference](age-verification-provider-reference.md): deferred options and dated pricing, not current quotes or adoption approval.
+- [Icon license](untitled-ui-icons-license.txt): retained asset licensing terms.
+
+## Maintenance and source policy
+
+Each fact has one current owner. Section documents describe local contracts and exceptions, linking to shared rules rather than duplicating them. JSON templates own actual page composition. Completed plans belong in the archive; historical observations must not read as present-day instructions. Preserve useful decision rationale and verification limits.
+
+Local guides define Sparklys decisions. Official [Shopify theme documentation](https://shopify.dev/docs/storefronts/themes) and the [Liquid reference](https://shopify.dev/docs/api/liquid) define platform behavior; verify current guidance when implementing, and link to sources rather than copying manuals.
+
+Reconciled with local implementation and existing verification records on 2026-09-28. This cleanup does not revalidate external links, current store settings or provider integrations.

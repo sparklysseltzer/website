@@ -1,6 +1,6 @@
 # Implementation status
 
-This is the current capability map, not a promise of production readiness. Reconciled with local code and owning contracts on 2026-09-13. Remote provisioning dates elsewhere are historical records; this audit did not revalidate every store setting or provider integration.
+This is the current capability map, not a promise of production readiness. Reconciled with local code and owning contracts on 2026-09-28. Remote provisioning dates elsewhere are historical records; this audit did not revalidate every store setting or provider integration.
 
 ## Implemented in the current theme
 
@@ -16,8 +16,14 @@ This is the current capability map, not a promise of production readiness. Recon
 - Page-owned intro fields, reusable editorial introductions and default page/policy body rendering. Nested editorial composition includes Accordeon items with Text, Image, Text and image, Poster and optional FAQ entries. Existing internal IDs are preserved.
 - Merchant/FAQ/offer and product-world content models, native FAQ directory filtering, and shared FAQ structured data. Product and page structured data follow their owning contracts; other typed-content gaps remain tracked separately.
 - Guarded local development preview and shared-theme release workflows, protected editor-owned content, direct Shopify Admin API client, schema contracts, asset budgets, typography checks and commerce regression tests.
+- Collection filtering, shared catalog cards, branded/neutral collection heroes and collection overview are implemented. CollectionPage/ItemList markup uses real resources; merchant compositions and resource template assignments require separate review.
+- News teaser, paginated blog listing and article detail share responsive cards. Detail includes accessible sharing/copy, related posts and Shopify Article markup; lists emit ItemList. See the owning section contracts for verification limits.
 
 ## Known incomplete capabilities
+
+Contact page addition (2026-10-01): native enquiry form and Page intro are available on the development `kontakt` template. Optional direct Klaviyo newsletter signup is configured for merchant-confirmed list `TwzfPb`; real provider verification remains pending; see [Contact form](sections/contact-form.md). No shared/live deployment. Contact intro English translation and release SEO metadata remain pending.
+
+This is the launch-readiness list. Separately scoped feature proposals live in the [feature backlog](tasks.md); specific [SEO](structured-data-tasks.md) and [age-check](age-verification-extensions.md) work stays in its owning list.
 
 | Area | Remaining work |
 | --- | --- |
@@ -27,13 +33,13 @@ This is the current capability map, not a promise of production readiness. Recon
 | Discounts and shipping | Reconfirm real campaign-code combinations, checkout retention and actual configured rates/eligibility before launch. PDP coupon discovery/hints remain outside current scope. |
 | Age verification | Review classification, document support, privacy, unsupported-document assistance and rollout. Trusted identity verification requires a separate server/provider design. |
 | Markets and languages | Verify CH/LI Markets and language publication/translation completeness. French/Italian and other markets are not implemented or implied. |
-| Navigation and footer | Local mega-menu/mobile sheet implemented and fixture-tested; configure real nested menus and Navigation images separately, verify published-language navigation, store-finder destination, newsletter/Klaviyo routing and actual payment-provider availability. |
+| Navigation and footer | Mega-menu/mobile sheet, menu structure copying and resource Navigation image definitions are implemented. Review final menu/image content and verify published-language navigation, store-finder destination, newsletter/Klaviyo routing and actual payment-provider availability. |
 | SEO | Complete the [structured-data backlog](structured-data-tasks.md); verify metadata, canonical URLs, accessible H1s and launch indexing behavior. |
-| Collections and search | All-products collection filters and shared cards are implemented locally. Native facet/sort controls, predictive search and richer mixed-result UI remain follow-ups. |
+| Collections and search | All-products collection filters and shared cards are implemented. Native facet/sort controls, predictive search and richer mixed-result UI remain follow-ups. |
 | Customer accounts and apps | Audit Shopify account entry/portal behavior and installed app blocks/embeds end to end. |
 | Analytics and consent | Define provider inventory, event ownership, consent requirements and duplicate-event checks. |
 | Accessibility and performance | Complete enlarged-text/zoom reflow, full-site accessibility and stable browser regression coverage. Lighthouse CI is not configured. |
-| Design Studio | Local forms reference and adjustable Button Motion Lab; broader expansion is deferred in the [task inbox](tasks.md). |
+| Design Studio | Local forms reference and adjustable Button Motion Lab; broader expansion is deferred in the [feature backlog](tasks.md). |
 
 ## Recommended next sequence
 
@@ -43,9 +49,3 @@ This is the current capability map, not a promise of production readiness. Recon
 4. Close the approved SEO and consent gaps, then add repeatable browser/performance coverage.
 
 The shared `website/main` theme remains unpublished unless explicitly authorized. Store data, app permissions and theme publication have separate scopes; a code commit is not a deployment or publishing action.
-
-### Collection implementation — 2026-09-15
-
-Local all-products filtering and shared collection cards are implemented, with branded/neutral Collection hero, bounded cloud parallax, paused/offscreen ambient color/can motion, existing USP data plus an optional featured benefit, server-rendered CollectionPage/ItemList, and reusable editorial demo compositions. Shared editorial templates and collection suffix assignments are not deployed/changed. Current hidden variety/trial products remain hidden; Clothing and Accessories retain separate filters. See the owning section docs for tested limits and launch copy/data work.
-
-Blog implementation (2026-09-15): reusable News teaser, paginated listing and article detail share responsive article cards. Detail includes canonical sharing/copy, related posts and Shopify Article structured data; teaser/listing emit ItemList. Existing blog/article templates are reused. No store content or publication changes. See the section references.

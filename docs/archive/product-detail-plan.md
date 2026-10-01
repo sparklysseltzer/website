@@ -1,6 +1,6 @@
 # Product detail first-section plan
 
-Status: first-section implementation completed in local development, 2026-09-11. See [Main product](sections/main-product.md) for the current contract and [Merchant content](merchant-content.md#product-detail-shared-content--implemented-2026-09-11) for the created content model. The discovery record below explains the decisions.
+Status: first-section implementation completed in local development, 2026-09-11. See [Main product](../sections/main-product.md) for the current contract and [Merchant content](../merchant-content.md#product-detail-shared-content--implemented-2026-09-11) for the created content model. The discovery record below explains the decisions.
 
 ## Scope
 

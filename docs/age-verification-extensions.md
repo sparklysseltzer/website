@@ -3,7 +3,6 @@
 The local MVP is described in [the implementation contract](age-verification-plan.md). These are scoped follow-ups, not claims of current support.
 
 - **AGE-001 — Account persistence:** authenticated customer write/read integration; minimal threshold/method/timestamps/version only, explicit expiry and account isolation. Requires separately approved infrastructure; no browser Admin API secrets.
-- **AGE-002 — Foreign passports:** proposed shared ordinary TD3 path, preceded by a compatibility matrix; see [International coverage plan](age-verification-international-plan.md). No 100-country menu or additional shipping markets.
 - **AGE-003 — Foreign IDs:** proposed curated coverage beginning with Italian CIE; reuse reviewed TD1/TD2 primitives and document-specific rules. See [International coverage plan](age-verification-international-plan.md); no unrestricted Other ID acceptance.
 - **AGE-004 — Document artwork and coverage (partially delivered):** inline fields, responsive schematics and the Liechtenstein ID version switch are implemented. Further refine the supplied baseline, provide recognizable rights-cleared local illustrations for current/older CH and LI editions and a version selector where layouts differ. Verify each guide against official specimens.
 - **AGE-005 — Unsupported-document assistance:** agree the merchant-operated alternative and customer wording before offering it. Never request ID photos by ordinary email or silently bypass the gate.
@@ -14,4 +13,4 @@ Already in MVP: durable per-tab convenience state, context/version/expiry invali
 
 ## Direction recorded 2026-09-09
 
-The merchant retains local MRZ checking for now. The [international coverage strategy](age-verification-international-plan.md) is a proposal, not newly implemented support. The [provider reference](age-verification-provider-reference.md) records API options and dated pricing for future evaluation only. No biometric service, subscription, new infrastructure or deployment is authorized by this documentation work.
+The merchant retains local MRZ checking for now. Standard foreign TD3 passport support is implemented within the [documented limits](age-verification-international-plan.md#implemented-standard-passport-support--2026-09-09). Foreign IDs, unsupported passport editions and broader specimen coverage remain separate follow-ups. The [provider reference](age-verification-provider-reference.md) records API options and dated pricing for future evaluation only. No biometric service, subscription, new infrastructure or deployment is authorized by this documentation work.

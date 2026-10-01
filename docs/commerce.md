@@ -20,7 +20,7 @@ For JavaScript enhancement, use the locale-aware [Cart Ajax API](https://shopify
 
 The cart page and global drawer now share server-rendered rows and totals, including images, public properties, line/cart discount allocations and selling-plan names where present. Native forms retain quantity edits, notes and checkout; enhanced mutations use `change.js` for inventory validation and refresh both surfaces/count from Shopify sections. See [Main cart](sections/main-cart.md) and [Cart drawer](sections/cart-drawer.md).
 
-Remaining production work includes real-store inventory/discount/checkout verification, subscription checkout-charge details and end-to-end selling-plan support, cart attributes, and the separately scoped coupon and upsell features below. The user-confirmed CHF 50 threshold and trial-pack exception now drive the shared progress bar; see [Main cart](sections/main-cart.md#free-shipping-progress--2026-09-06).
+Remaining production work includes real-store inventory/discount/checkout verification, subscription checkout-charge details and provider/account integration. Cart attributes and product-page coupon hints remain outside the current implementation. The user-confirmed CHF 50 threshold and trial-pack exception now drive the shared progress bar; see [Main cart](sections/main-cart.md#free-shipping-progress--2026-09-06).
 
 ## Subscriptions
 
@@ -55,11 +55,11 @@ Discovery must cover:
 - accessible fallback, manual review, retry, device/camera limitations, and support operations;
 - analytics redaction so MRZ or document data never enters storefront events.
 
-Until that is resolved, age verification is a product requirement and architecture decision record—not a client-side component task.
+The current [local MRZ check](age-verification-plan.md) is implemented as a browser-only plausibility check. It does not satisfy trusted identity verification or checkout enforcement. Remaining extensions are tracked in the [age-check backlog](age-verification-extensions.md).
 
 ## Coupon experience
 
-See the [cart coupon implementation plan](cart-coupons-plan.md) for the theme-first decision, shared cart/drawer UX and shipping-code limitations. The confirmed MVP covers applied-code visibility and known campaign/newsletter code entry; coupon discovery and catalog synchronization are excluded. The cart/drawer MVP is implemented; see the section contracts for the remaining real-code and checkout verification.
+See the [cart coupon implementation plan](archive/cart-coupons-plan.md) for the theme-first decision, shared cart/drawer UX and shipping-code limitations. The confirmed MVP covers applied-code visibility and known campaign/newsletter code entry; coupon discovery and catalog synchronization are excluded. The cart/drawer MVP is implemented; see the section contracts for the remaining real-code and checkout verification.
 
 Shopify's Cart Ajax API now supports adding or removing discount codes through the `discount` parameter on `cart/update.js`; see [Update discounts in the cart](https://shopify.dev/docs/api/ajax/reference/cart#update-discounts-in-the-cart). Final behavior still depends on Shopify's discount validation and combinations.
 
@@ -76,12 +76,7 @@ Open decisions include whether product-page hints are configured in Shopify, dri
 
 ## Cart-drawer offers and free-shipping upsell
 
-The cart drawer should support two future conversion patterns:
-
-1. a “last-minute sale” or “others took this” module whose exact product meaning still needs definition;
-2. relevant add-on recommendations plus progress toward free shipping.
-
-Before building either, define recommendation source, eligibility, inventory handling, merchandising control, analytics, dismiss behavior, repetition limits, and fallbacks. An app, Shopify product recommendations, manually selected products, or custom logic might own the offers.
+Curated add-on recommendations and free-shipping progress are implemented; their data and rendering contracts belong in [Cart drawer](sections/cart-drawer.md) and [Main cart](sections/main-cart.md). A separate “last-minute sale” or social-proof feature remains undefined. Before adding it, agree its truthful meaning, source, eligibility, inventory behavior, analytics and fallbacks.
 
 Free-shipping progress must be calculated from the same effective threshold used by Shopify for the current market/currency and must account for qualifying subtotal semantics and discounts. The theme uses an explicit merchant-maintained Cart → Shipping setting matching the confirmed checkout rule. Shopify does not synchronize it automatically; keep the threshold, flat rate and qualifying product selection aligned with shipping settings. Cart and drawer also show estimated shipping and a total including shipping: CHF 9 below CHF 50, free from CHF 50 or when every cart item qualifies for the trial-pack exception. These estimates use the discounted cart total for CH/LI in CHF; final shipping, taxes and shipping discounts are confirmed at checkout.
 
@@ -96,7 +91,7 @@ Shopify Markets can introduce locale and market path prefixes. [Support multiple
 - structured-data currency from `cart.currency.iso_code`;
 - translation keys in storefront locale files and, when needed, schema locale files.
 
-The current theme is URL-aware but does not yet expose country or language selectors.
+The footer exposes a native language selector using Shopify’s available/published languages. English publication remains deferred until go-live approval. There is no country selector; see the [Footer contract](sections/footer.md).
 
 Planned rollout:
 
