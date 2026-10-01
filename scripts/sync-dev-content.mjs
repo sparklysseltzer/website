@@ -9,7 +9,7 @@ import { isDeepStrictEqual } from 'node:util';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const store = 'sparklys-hard-seltzer.myshopify.com';
 const sourceTheme = '199388037507';
-const developmentTheme = '199384498563';
+const developmentTheme = '199837745539';
 const backupRoot = join(homedir(), 'Library', 'Application Support', 'Sparklys', 'theme-backups', 'content-sync');
 const parse = text => JSON.parse(text.replace(/^\s*\/\*[\s\S]*?\*\//, ''));
 const hash = text => text === null ? null : createHash('sha256').update(text).digest('hex');
@@ -26,7 +26,7 @@ export function verifyThemes(themes) {
   const source = themes.find(theme => String(theme.id) === sourceTheme);
   const dev = themes.find(theme => String(theme.id) === developmentTheme);
   if (source?.role !== 'unpublished' || source.name !== 'website/main') throw new Error('Source must be the unpublished website/main theme (199388037507).');
-  if (dev?.role !== 'development') throw new Error('Preview target 199384498563 must still be a development theme.');
+  if (dev?.role !== 'development') throw new Error('Preview target 199837745539 must still be a development theme.');
 }
 
 // Saved source values win; new development translation keys remain available.

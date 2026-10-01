@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { isContentFile, mergeLocale, verifyThemes, buildPlan, applyPlan, restoreBackup } from '../scripts/sync-dev-content.mjs';
 
-const themes = [{ id: 199388037507, name: 'website/main', role: 'unpublished' }, { id: 199384498563, role: 'development' }];
+const themes = [{ id: 199388037507, name: 'website/main', role: 'unpublished' }, { id: 199837745539, role: 'development' }];
 async function put(root, file, value) { await mkdir(dirname(join(root, file)), { recursive: true }); await writeFile(join(root, file), typeof value === 'string' ? value : JSON.stringify(value)); }
 async function fixture(t) {
   const base = await mkdtemp(join(tmpdir(), 'sparklys-sync-test-'));

@@ -9,7 +9,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const cli = join(root, 'node_modules/@shopify/cli/bin/run.js');
 const directories = ['config', 'locales', 'sections', 'templates', 'blocks'];
 const store = 'sparklys-hard-seltzer.myshopify.com';
-const developmentTheme = '199384498563';
+const developmentTheme = '199837745539';
 let child;
 let stopping = false;
 for (const signal of ['SIGTERM', 'SIGINT']) process.on(signal, () => {
