@@ -43,3 +43,14 @@ h1 { font-family: var(--font-heading-default); font-weight: 400; font-size: var(
 #MotionPreview[data-reduced] .button::before { transition: none; }
 .motion-wide { width: 100%; }
 .motion-multiline { justify-self: start; }
+
+.studio-collections { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-bottom: 2rem; }
+.studio-collections a { display: inline-flex; align-items: center; min-height: 44px; }
+.studio-social { margin-bottom: 2rem; }
+.studio-social h2 { margin: 0; font-size: var(--font-size-card); }
+.studio-social h3 { margin: 0 0 1.5rem; font-size: var(--font-size-compact); }
+.studio-social p { margin: 0; font-size: var(--font-size-body); }
+.studio-social__variant { padding-block: 1rem; }
+.studio-social__variant + .studio-social__variant { border-top: 1px solid #ddd; padding-top: 2rem; }
+.studio-social button.social-channels__link { width: 100%; padding: 0; border: 0; background: none; font: inherit; cursor: pointer; }
+@media (hover: hover) { .studio-social button.social-channels__link:hover .button::before { transform: translate(-50%, -66.667%); transition-duration: var(--button-sweep-enter-duration); } }
