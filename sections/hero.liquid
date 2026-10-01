@@ -1,8 +1,9 @@
+{% render 'section-background', section: section, color: section.settings.background, original_color: '#e6d783' %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 <section
-  class="hero"
-  style="--hero-background: {{ section.settings.background }}; --hero-foreground: {{ section.settings.foreground }}; --overlay-opacity: {{ section.settings.overlay | divided_by: 100.0 }}"
+  data-section-background class="hero"
+  style="--hero-background: {{ section.settings.background | default: 'transparent' }}; --hero-foreground: {{ section.settings.foreground }}; --overlay-opacity: {{ section.settings.overlay | divided_by: 100.0 }}"
 >
   {%- if section.settings.image != blank -%}
     <div class="hero__media">
@@ -45,6 +46,42 @@
   "name": "Hero",
   "settings": [
     {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "overlay",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Image overlay",
+      "default": 20,
+      "visible_if": "{{ section.settings.image != blank }}"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Sparklys Switzerland"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Prickelnd anders."
+    },
+    {
       "type": "select",
       "id": "heading_font",
       "label": "Heading font",
@@ -62,27 +99,14 @@
       "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
     },
     {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Image"
-    },
-    {
-      "type": "text",
-      "id": "eyebrow",
-      "label": "Eyebrow",
-      "default": "Sparklys Switzerland"
-    },
-    {
-      "type": "inline_richtext",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Prickelnd anders."
-    },
-    {
       "type": "richtext",
       "id": "text",
       "label": "Text",
       "default": "<p>Natürlicher Seltzer aus der Schweiz.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Action"
     },
     {
       "type": "text",
@@ -96,10 +120,8 @@
       "label": "Button link"
     },
     {
-      "type": "color",
-      "id": "background",
-      "label": "Background",
-      "default": "#e6d783"
+      "type": "header",
+      "content": "Appearance"
     },
     {
       "type": "color",
@@ -108,23 +130,63 @@
       "default": "#172019"
     },
     {
-      "type": "range",
-      "id": "overlay",
-      "min": 0,
-      "max": 80,
-      "step": 5,
-      "unit": "%",
-      "label": "Image overlay",
-      "default": 20
+      "type": "header",
+      "content": "Visibility"
     },
-    {"type": "header", "content": "Visibility"},
-    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
-    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
   ],
   "presets": [
     {
       "name": "Hero",
-      "category": "Brand storytelling"
+      "category": "Brand storytelling",
+      "settings": {
+        "section_background_mode": "transparent"
+      }
     }
   ]
 }

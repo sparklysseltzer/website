@@ -53,3 +53,9 @@ Top matches Figma `10989:45021`/`10989:45022`: a full-width banner over an enclo
 Layout groups image side, relevant height/width and text-column controls. Image comes next, followed by Content, the conditional Second text column group, Button, Appearance and Visibility. Side layouts hide Top height/text-column fields; Top hides side width/minimum height. Two text columns exposes both secondary fields and keeps Heading level available even when the first heading is disabled. All dependent fields carry their own conditions; conditional headers alone do not hide fields.
 
 Editor naming (2026-09-12): **Image and text panel**. Display names only; internal IDs, saved settings and rendering are unchanged.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows); nested surfaces suppress the additional shadow. Existing layout, focus and motion behavior is preserved.

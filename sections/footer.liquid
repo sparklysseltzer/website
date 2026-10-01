@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 {%- liquid
@@ -36,7 +37,7 @@
   endif
 -%}
 
-<footer class="site-footer site-footer--{{ footer_context }}" data-footer-context="{{ footer_context }}">
+<footer data-section-background class="site-footer site-footer--{{ footer_context }}" data-footer-context="{{ footer_context }}">
   <div class="site-footer__container">
     <div class="site-footer__main">
       <section class="site-footer__newsletter" aria-labelledby="footer-newsletter-heading">
@@ -259,6 +260,10 @@
   "name": "Footer",
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
       "type": "select",
       "id": "heading_font",
       "label": "Heading font",
@@ -302,9 +307,56 @@
       "id": "legal_menu",
       "label": "Legal navigation"
     },
-    {"type": "header", "content": "Visibility"},
-    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
-    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
   ]
 }
 {% endschema %}

@@ -114,3 +114,7 @@ Before implementing a new or changed section/block schema, read `docs/architectu
 `npm run check:editor` is mandatory and included in `npm run check`. New schemas and changes to a legacy schema must have an entry in `tests/editor-schema-contracts.json`: reviewed grouping, a dependency rationale for every checkbox/select, and visible/hidden mode cases. The legacy fingerprint file is a frozen inventory of pre-existing unaudited schemas; do not expand it or refresh hashes to bypass review. Do not regenerate contract fingerprints/assertions merely to silence a failure. Update them only after reviewing the actual labels, defaults, options, rendering conditions and each relevant mode, and update the owning documentation in the same change.
 
 Before handoff, run the gate and inspect the affected rendered modes at mobile/desktop sizes. Report what was actually verified. Passing Theme Check alone does not constitute a Theme Editor usability review; automated contracts do not certify editorial wording or visual quality.
+
+## Erode heading casing
+
+Erode headings must preserve authored casing: no uppercase or capitalize styling, including section titles, rich-text headings and merchandising compositions. Switch casing with the shared font-choice contract. Never lowercase/capitalize merchant copy programmatically to compensate, since that damages names and acronyms. Newake and Maison Neue retain their own approved treatments. Audit actual computed font and text-transform at phone/desktop sizes when changing typography.

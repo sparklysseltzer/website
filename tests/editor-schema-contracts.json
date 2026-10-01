@@ -68,6 +68,14 @@
       "hide_on_desktop": {
         "group": "Visibility",
         "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       }
     },
     "controls": {
@@ -79,7 +87,8 @@
       "show_button": "Controls the action fields and rendered action.",
       "button_style": "Changes button appearance; no dependent controls.",
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
-      "hide_on_desktop": "Responsive visibility; no additional input fields."
+      "hide_on_desktop": "Responsive visibility; no additional input fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
     },
     "scenarios": [
       {
@@ -138,9 +147,44 @@
           "button_link",
           "button_style"
         ]
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
       }
     ],
-    "schemaHash": "11d7ad11809194b3d158f048198b1bce0d9582e038a9b89e7d9a7af6c520322d"
+    "schemaHash": "6d7b741b95b77b4a79cd74a491a3bd634f7fe4dc9064e0fb20e03c60a62e77cc"
   },
   "sections/two-column.liquid": {
     "fields": {
@@ -151,14 +195,59 @@
       "hide_on_desktop": {
         "group": "Visibility",
         "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       }
     },
     "controls": {
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
-      "hide_on_desktop": "Responsive visibility; no additional input fields."
+      "hide_on_desktop": "Responsive visibility; no additional input fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
     },
-    "scenarios": [],
-    "schemaHash": "e53fcc0d669c1db8d164b8d1014a5d00178028c039186804f088e7d942b2081c"
+    "scenarios": [
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "c62e620e298a535d88ba07cfbfd630e1cbb86955e4d7f78f12d9938624affed9"
   },
   "sections/faq-accordion.liquid": {
     "fields": {
@@ -185,15 +274,60 @@
       "hide_on_desktop": {
         "group": "Visibility",
         "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       }
     },
     "controls": {
       "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
-      "hide_on_desktop": "Responsive visibility; no additional input fields."
+      "hide_on_desktop": "Responsive visibility; no additional input fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
     },
-    "scenarios": [],
-    "schemaHash": "a15631aa93af71c9b1bac1578616622ea250a11545cf2d31e5ec4204234d08a5"
+    "scenarios": [
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "1193efacb24d9b6eb803dd41a96ef4f35e4feedc7a1a0d3ac699210ffcab6c72"
   },
   "sections/split-image-text.liquid": {
     "fields": {
@@ -292,6 +426,14 @@
       "hide_on_desktop": {
         "group": "Visibility",
         "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       }
     },
     "controls": {
@@ -305,7 +447,8 @@
       "show_button": "Controls the action fields and rendered action.",
       "button_style": "Changes button appearance; no dependent controls.",
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
-      "hide_on_desktop": "Responsive visibility; no additional input fields."
+      "hide_on_desktop": "Responsive visibility; no additional input fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
     },
     "scenarios": [
       {
@@ -376,9 +519,44 @@
           "second_text",
           "heading_level"
         ]
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
       }
     ],
-    "schemaHash": "5ae2f17efd1c115d8fc61c7f3418dc819d493ea3a5f9e6ca3293166451a30ab8"
+    "schemaHash": "cd933cebf90f110cdb92d03878c6d468a9f4300c67899e106bc32cb5e0b5e8e6"
   },
   "sections/poster.liquid": {
     "fields": {
@@ -469,6 +647,14 @@
       "hide_on_desktop": {
         "group": "Visibility",
         "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       }
     },
     "controls": {
@@ -481,7 +667,8 @@
       "show_button": "Controls the action fields and rendered action.",
       "button_style": "Changes button appearance; no dependent controls.",
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
-      "hide_on_desktop": "Responsive visibility; no additional input fields."
+      "hide_on_desktop": "Responsive visibility; no additional input fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
     },
     "scenarios": [
       {
@@ -542,9 +729,44 @@
         "hidden": [
           "overlay_color"
         ]
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
       }
     ],
-    "schemaHash": "c42d5eebc31ded4d214abc103a315eb6d3f64b96d74dea8b3b73b15272fd63bd"
+    "schemaHash": "22101af09af248b545e1e4ed91c522e2ce48bdfc34820ef19105c11313c83cf0"
   },
   "blocks/editorial-faq.liquid": {
     "fields": {
@@ -1396,7 +1618,7 @@
         ]
       }
     ],
-    "schemaHash": "93adee834edc0c40860a896d7fcebffedbde4059b5501cb47c1d98c8f445933a"
+    "schemaHash": "cce3b310d3b0c6c11763ae83383e0555ff712dae319bb2bbc982e76418de3e3a"
   },
   "sections/hard-seltzer-awards.liquid": {
     "fields": {
@@ -1423,11 +1645,20 @@
       "hide_on_desktop": {
         "group": "Visibility",
         "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       }
     },
     "controls": {
       "hide_on_mobile": "Independent breakpoint visibility; no dependent content fields.",
-      "hide_on_desktop": "Independent breakpoint visibility; no dependent content fields."
+      "hide_on_desktop": "Independent breakpoint visibility; no dependent content fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
     },
     "scenarios": [
       {
@@ -1456,9 +1687,44 @@
           "hide_on_mobile",
           "hide_on_desktop"
         ]
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
       }
     ],
-    "schemaHash": "db67b4c7e50c0d6c6e5f5dd0a8850ad46a0164e9f70244c95d790bc06c9f9538"
+    "schemaHash": "868b195062b6b2a7c7d297d299c6e5a10ed641e618b765b217ca7f98987c47ac"
   },
   "blocks/accordion-item.liquid": {
     "controls": {},
@@ -1512,6 +1778,14 @@
       "hide_on_desktop": {
         "group": "Visibility",
         "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       }
     },
     "controls": {
@@ -1520,7 +1794,8 @@
       "show_filters": "Enables collection navigation on collections/all only; the resource context selects applicability.",
       "hide_on_mobile": "Hides the section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the section from 768px; no dependent fields.",
-      "header_in_hero": "Delegates the collection H1 to the separate hero. All-products always supplies its own H1."
+      "header_in_hero": "Delegates the collection H1 to the separate hero. All-products always supplies its own H1.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
     },
     "scenarios": [
       {
@@ -1546,9 +1821,44 @@
           "heading",
           "heading_font"
         ]
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
       }
     ],
-    "schemaHash": "261c31853b279fca712ec98bf61e4f1e57c854462b39fd54ee778649b0e73212"
+    "schemaHash": "27a615aafe16f4064bff235c79bb7b127b9ab6e861c27d2021548808eb4db972"
   },
   "sections/collection-hero.liquid": {
     "fields": {
@@ -1603,6 +1913,14 @@
       "hide_on_desktop": {
         "group": "Visibility",
         "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       }
     },
     "controls": {
@@ -1611,7 +1929,8 @@
       "heading_font": "Selects heading typography without changing body text.",
       "show_button": "Shows the in-page shop action and its label control.",
       "hide_on_mobile": "Hides the section below 768px; no dependent fields.",
-      "hide_on_desktop": "Hides the section from 768px; no dependent fields."
+      "hide_on_desktop": "Hides the section from 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
     },
     "scenarios": [
       {
@@ -1691,9 +2010,44 @@
           "heading_font",
           "animate"
         ]
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
       }
     ],
-    "schemaHash": "d8665b40628af9577d145def22b8ec9f3db87a8307eaf7f319078e3b77717dc0"
+    "schemaHash": "97b834da65ffe973654c1bdba253b8fcb020e91f5f4bd50635a2c67669b96aa6"
   },
   "sections/header.liquid": {
     "fields": {
@@ -1751,6 +2105,14 @@
       "hide_on_desktop": {
         "group": "Visibility",
         "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       }
     },
     "controls": {
@@ -1765,7 +2127,8 @@
       "hide_on_desktop": {
         "affects": [],
         "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
-      }
+      },
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
     },
     "scenarios": [
       {
@@ -1777,9 +2140,44 @@
           "hide_on_mobile",
           "hide_on_desktop"
         ]
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
       }
     ],
-    "schemaHash": "cad65eaaaf4562ae714508bb21003c9ca2b69745eb740553185859ee500e4884"
+    "schemaHash": "1b1f51127daf3b0f6f464981926dd2a93b5326c1697c92ae65eedda29277c8e8"
   },
   "sections/main-article.liquid": {
     "fields": {
@@ -1794,6 +2192,14 @@
       "hide_on_desktop": {
         "group": "Visibility",
         "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       }
     },
     "controls": {
@@ -1808,7 +2214,8 @@
       "hide_on_desktop": {
         "affects": [],
         "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
-      }
+      },
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
     },
     "scenarios": [
       {
@@ -1819,9 +2226,44 @@
           "hide_on_mobile",
           "hide_on_desktop"
         ]
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
       }
     ],
-    "schemaHash": "1a8a34b4a7201d5b566563c4f51380ad3a9f73b2d230061bd767fd8249ac27e8"
+    "schemaHash": "5761ee9148b49a1efd0b3a31da1da8ece917f9f99180d05b508f5063c47a9261"
   },
   "sections/blog-teaser.liquid": {
     "fields": {
@@ -1860,6 +2302,14 @@
       "hide_on_desktop": {
         "group": "Visibility",
         "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       }
     },
     "controls": {
@@ -1888,7 +2338,8 @@
       "hide_on_desktop": {
         "affects": [],
         "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
-      }
+      },
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
     },
     "scenarios": [
       {
@@ -1921,8 +2372,3561 @@
           "show_excerpt",
           "show_date"
         ]
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
       }
     ],
-    "schemaHash": "aab3406842f6029fa6fde142f4d3f3dbabc58fc64711bf76c492398906fd927e"
+    "schemaHash": "0a25484ba41b0736272456fe8048873a95f76dad880f5503665664fd011661af"
+  },
+  "sections/faq.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "selected_faqs": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "faq_category": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "show_footer": {
+        "group": "Closing link",
+        "visible_if": null
+      },
+      "footer_text": {
+        "group": "Closing link",
+        "visible_if": "{{ section.settings.show_footer }}"
+      },
+      "footer_link_label": {
+        "group": "Closing link",
+        "visible_if": "{{ section.settings.show_footer }}"
+      },
+      "footer_link": {
+        "group": "Closing link",
+        "visible_if": "{{ section.settings.show_footer }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "show_footer": "Enables closing copy, link label and destination; all three fields depend on this toggle.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "show_footer: false",
+        "settings": {
+          "show_footer": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "footer_text",
+          "footer_link_label",
+          "footer_link"
+        ]
+      },
+      {
+        "name": "show_footer: true",
+        "settings": {
+          "show_footer": true
+        },
+        "visible": [
+          "footer_text",
+          "footer_link_label",
+          "footer_link",
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "5ced4195f2b2b96017676c35be495b79b2639436b5bec26cfe5307ee1b6578ac"
+  },
+  "sections/featured-collection.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "collection": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "products_to_show": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "0472c8185f866c8a69006f29b88ba7792b6a5786be278f1a6fc6073437948a59"
+  },
+  "sections/footer.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "menu": {
+        "group": "Navigation",
+        "visible_if": null
+      },
+      "soda_menu": {
+        "group": "Navigation",
+        "visible_if": null
+      },
+      "seltzer_menu": {
+        "group": "Navigation",
+        "visible_if": null
+      },
+      "legal_menu": {
+        "group": "Navigation",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "8e499ef0154d689ed6581707dd3ad193ea790fb6390288b1d814f5e639bedf97"
+  },
+  "sections/hard-seltzer-ingredients.liquid": {
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "intro": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "301b7b93e00455748019684446257bd5502ff9beade4e6cc9d3428ddf4a999bc"
+  },
+  "sections/hero.liquid": {
+    "fields": {
+      "image": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "overlay": {
+        "group": "Image",
+        "visible_if": "{{ section.settings.image != blank }}"
+      },
+      "eyebrow": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "text": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "button_label": {
+        "group": "Action",
+        "visible_if": null
+      },
+      "button_link": {
+        "group": "Action",
+        "visible_if": null
+      },
+      "foreground": {
+        "group": "Appearance",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "No image hides overlay",
+        "settings": {
+          "image": ""
+        },
+        "hidden": [
+          "overlay"
+        ]
+      },
+      {
+        "name": "Selected image exposes overlay",
+        "settings": {
+          "image": "shopify://image.jpg"
+        },
+        "visible": [
+          "overlay"
+        ]
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "6e78b59be29800e943d750690c40257246adff799e8a32390443c54f384ec6d5"
+  },
+  "sections/logo-marquee.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "merchant_collection": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "duration": {
+        "group": "Motion",
+        "visible_if": null
+      },
+      "direction": {
+        "group": "Motion",
+        "visible_if": null
+      },
+      "pause_on_interaction": {
+        "group": "Motion",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "background_style": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.background_style == '__retired__' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "direction": "Selects marquee direction; duration and pause are meaningful for either direction.",
+      "pause_on_interaction": "Pauses the marquee for pointer hover and keyboard focus; no additional fields.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "background_style": "Hidden compatibility storage only; the original gray/white/transparent selection remains readable for older placements. Color is the single current canvas control.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background_style"
+        ]
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background_style"
+        ]
+      },
+      {
+        "name": "direction: normal",
+        "settings": {
+          "direction": "normal"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background_style"
+        ]
+      },
+      {
+        "name": "direction: reverse",
+        "settings": {
+          "direction": "reverse"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background_style"
+        ]
+      },
+      {
+        "name": "pause_on_interaction: false",
+        "settings": {
+          "pause_on_interaction": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background_style"
+        ]
+      },
+      {
+        "name": "pause_on_interaction: true",
+        "settings": {
+          "pause_on_interaction": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background_style"
+        ]
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background_style"
+        ]
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background_style"
+        ]
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background_style"
+        ]
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background_style"
+        ]
+      },
+      {
+        "name": "background_style: gray",
+        "settings": {
+          "background_style": "gray"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background_style"
+        ]
+      },
+      {
+        "name": "background_style: transparent",
+        "settings": {
+          "background_style": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background_style"
+        ]
+      },
+      {
+        "name": "background_style: white",
+        "settings": {
+          "background_style": "white"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background_style"
+        ]
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "98790f7a6965ef17c1564c9b93ba556af173b61c94d4cd2efdfa70b1f8fe45a3"
+  },
+  "sections/main-404.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "322e67ae0ab4cada6dcdd2b55bce8021f2a5e14caf61e6e0a3ce30f8afb87dc3"
+  },
+  "sections/main-cart.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "5161c3f442e769df86e214e980300cbc773fe2baad4ebe915af7bbf5cf8b7393"
+  },
+  "sections/main-faq.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "41771b5da8e9589b1776b62406d3c24611cf81a8ca493e2f3ccc95c143f6338a"
+  },
+  "sections/main-list-collections.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "0511b150bdefc70b975c2f640c12e50e3efb9af391dbfae7c8ab9e8394ee7aa4"
+  },
+  "sections/main-page.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Heading font",
+        "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Heading font",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Erode/Newake chooses shared heading tokens. Only Newake exposes uppercase_heading; switching to Erode ignores a retained uppercase value.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "uppercase_heading": "Visible only when heading_font is newake. No dependent fields; affects heading casing via CSS only, never stored text."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Newake authored casing",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Erode ignores retained uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "hidden": [
+          "uppercase_heading"
+        ]
+      }
+    ],
+    "schemaHash": "a26e313d696ec459fc2d4f327bc9d2cd3a3e66f511c70dd54fd72b9be697d524"
+  },
+  "sections/main-product.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "show_vendor": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "show_vendor": "Shows the actual product vendor; there is no separate vendor editor field.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "show_vendor: false",
+        "settings": {
+          "show_vendor": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "show_vendor: true",
+        "settings": {
+          "show_vendor": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "407591f4d82efb7c14476a842a7abf570a8c64400cbdf60234cf0d67894bc835"
+  },
+  "sections/main-search.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "90a69e0712a21ee3b4389fcc057e45c75362a5c8b3efbae381e7378b28bd0e6f"
+  },
+  "sections/offer-cards.liquid": {
+    "fields": {
+      "content_source": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "show_heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.content_source == 'local' and section.settings.show_heading }}"
+      },
+      "show_intro": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "intro": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.content_source == 'local' and section.settings.show_intro }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "content_source": "Global uses the shared metaobject. Local heading/intro fields require Local plus their display toggle; existing local blocks remain saved because Shopify cannot conditionally hide block entries.",
+      "show_heading": "Enables heading content; heading fields depend on this toggle. Offer cards also require Local source for local copy.",
+      "show_intro": "Enables introduction; its copy depends on this toggle. Offer cards also require Local source for local copy.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "content_source: local",
+        "settings": {
+          "content_source": "local"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "content_source: global",
+        "settings": {
+          "content_source": "global"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "show_heading: false",
+        "settings": {
+          "show_heading": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "show_heading: true",
+        "settings": {
+          "show_heading": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "show_intro: false",
+        "settings": {
+          "show_intro": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "show_intro: true",
+        "settings": {
+          "show_intro": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "local, copy false",
+        "settings": {
+          "content_source": "local",
+          "show_heading": false,
+          "show_intro": false
+        },
+        "visible": [],
+        "hidden": [
+          "heading",
+          "intro"
+        ]
+      },
+      {
+        "name": "local, copy true",
+        "settings": {
+          "content_source": "local",
+          "show_heading": true,
+          "show_intro": true
+        },
+        "visible": [
+          "heading",
+          "intro"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "global, copy false",
+        "settings": {
+          "content_source": "global",
+          "show_heading": false,
+          "show_intro": false
+        },
+        "visible": [],
+        "hidden": [
+          "heading",
+          "intro"
+        ]
+      },
+      {
+        "name": "global, copy true",
+        "settings": {
+          "content_source": "global",
+          "show_heading": true,
+          "show_intro": true
+        },
+        "visible": [],
+        "hidden": [
+          "heading",
+          "intro"
+        ]
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "547e485d1ae24aef4e5942b417137995d2e401d785e6db318a9f50efb59096a9"
+  },
+  "sections/page-intro.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Heading font",
+        "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Heading font",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Erode/Newake chooses shared heading tokens. Only Newake exposes uppercase_heading; switching to Erode ignores a retained uppercase value.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "uppercase_heading": "Visible only when heading_font is newake. No dependent fields; affects heading casing via CSS only, never stored text."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Newake authored casing",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Erode ignores retained uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "hidden": [
+          "uppercase_heading"
+        ]
+      }
+    ],
+    "schemaHash": "a64ba432f334175e42d90959d7f08491986c7825a78e1ae9f27d762d07b98e7c"
+  },
+  "sections/product-overview-teaser.liquid": {
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "all_products_label": {
+        "group": "Navigation",
+        "visible_if": null
+      },
+      "all_products_link": {
+        "group": "Navigation",
+        "visible_if": null
+      },
+      "soda_link": {
+        "group": "Navigation",
+        "visible_if": null
+      },
+      "hard_seltzer_link": {
+        "group": "Navigation",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "d679e52c24033bd25ae9fc3f3f1cc385e543b56a25574bae5145b037c7c8b8ac"
+  },
+  "sections/rich-text.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "eyebrow": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "text": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "button_label": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "button_link": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "heading_font: erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "f145c54463d31d578ad388b3ca1c409e8d80aed2b7372f7b2e7c26504e5a6bbc"
+  },
+  "sections/soda-ingredients.liquid": {
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "intro": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "link_label": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "link": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "footnote": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "8f01c88dfc5cc57014836ed14d36dec51888f84c5c8651595179f37a6c0b5676"
+  },
+  "sections/soda-three-reasons.liquid": {
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "intro": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "link_label": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "link": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "footnote": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "9389755e71f0c4e5fc052b879bab8322618a64fe0b61bea11adac074275d3cf1"
+  },
+  "sections/subscription.liquid": {
+    "fields": {
+      "variant": {
+        "group": "Product world",
+        "visible_if": null
+      },
+      "image": {
+        "group": "Images",
+        "visible_if": null
+      },
+      "mobile_image": {
+        "group": "Images",
+        "visible_if": null
+      },
+      "image_alt": {
+        "group": "Images",
+        "visible_if": null
+      },
+      "show_logo": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "show_heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.show_heading }}"
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.show_heading }}"
+      },
+      "show_intro": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "intro": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.show_intro }}"
+      },
+      "show_button": {
+        "group": "Subscribe action",
+        "visible_if": null
+      },
+      "button_label": {
+        "group": "Subscribe action",
+        "visible_if": "{{ section.settings.show_button }}"
+      },
+      "button_link": {
+        "group": "Subscribe action",
+        "visible_if": "{{ section.settings.show_button }}"
+      },
+      "show_account": {
+        "group": "Existing subscribers",
+        "visible_if": null
+      },
+      "account_prompt": {
+        "group": "Existing subscribers",
+        "visible_if": "{{ section.settings.show_account }}"
+      },
+      "account_label": {
+        "group": "Existing subscribers",
+        "visible_if": "{{ section.settings.show_account }}"
+      },
+      "account_link": {
+        "group": "Existing subscribers",
+        "visible_if": "{{ section.settings.show_account }}"
+      },
+      "minimum_height": {
+        "group": "Size",
+        "visible_if": null
+      },
+      "minimum_height_mobile": {
+        "group": "Size",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "variant": "Chooses the existing product-world content and artwork. Additive image/text overrides remain useful for every world; Versus footnote applies only to Soda.",
+      "show_logo": "Controls the variant-owned logo without a separate logo picker.",
+      "show_heading": "Enables heading content; heading fields depend on this toggle. Offer cards also require Local source for local copy.",
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "show_intro": "Enables introduction; its copy depends on this toggle. Offer cards also require Local source for local copy.",
+      "show_button": "Enables action label and destination; both fields depend on this toggle.",
+      "show_account": "Enables subscriber prompt, link label and destination; all three depend on this toggle.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "variant: automatic",
+        "settings": {
+          "variant": "automatic"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "variant: soda",
+        "settings": {
+          "variant": "soda"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "variant: seltzer",
+        "settings": {
+          "variant": "seltzer"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "show_logo: false",
+        "settings": {
+          "show_logo": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "show_logo: true",
+        "settings": {
+          "show_logo": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "show_heading: false",
+        "settings": {
+          "show_heading": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "heading",
+          "heading_font"
+        ]
+      },
+      {
+        "name": "show_heading: true",
+        "settings": {
+          "show_heading": true
+        },
+        "visible": [
+          "heading",
+          "heading_font",
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: automatic",
+        "settings": {
+          "heading_font": "automatic"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: soda",
+        "settings": {
+          "heading_font": "soda"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: seltzer",
+        "settings": {
+          "heading_font": "seltzer"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "show_intro: false",
+        "settings": {
+          "show_intro": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "intro"
+        ]
+      },
+      {
+        "name": "show_intro: true",
+        "settings": {
+          "show_intro": true
+        },
+        "visible": [
+          "intro",
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "show_button: false",
+        "settings": {
+          "show_button": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "button_label",
+          "button_link"
+        ]
+      },
+      {
+        "name": "show_button: true",
+        "settings": {
+          "show_button": true
+        },
+        "visible": [
+          "button_label",
+          "button_link",
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "show_account: false",
+        "settings": {
+          "show_account": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "account_prompt",
+          "account_label",
+          "account_link"
+        ]
+      },
+      {
+        "name": "show_account: true",
+        "settings": {
+          "show_account": true
+        },
+        "visible": [
+          "account_prompt",
+          "account_label",
+          "account_link",
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "579b28e1d9d249997836ec522a11667800aa34aabf21df7e89872e7800d5c0cf"
+  },
+  "sections/usp-section.liquid": {
+    "fields": {
+      "variant": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "text": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "image": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "color_mode": {
+        "group": "Panel colors",
+        "visible_if": null
+      },
+      "background": {
+        "group": "Panel colors",
+        "visible_if": "{{ section.settings.color_mode == 'custom' }}"
+      },
+      "text_color": {
+        "group": "Panel colors",
+        "visible_if": "{{ section.settings.color_mode == 'custom' }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "variant": "Chooses the existing product-world content and artwork. Additive image/text overrides remain useful for every world; Versus footnote applies only to Soda.",
+      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "color_mode": "Automatic keeps the product-world panel palette; Custom exposes panel and text colors. The outer section canvas is independent.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "variant: automatic",
+        "settings": {
+          "variant": "automatic"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "variant: soda",
+        "settings": {
+          "variant": "soda"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "variant: seltzer",
+        "settings": {
+          "variant": "seltzer"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: automatic",
+        "settings": {
+          "heading_font": "automatic"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: default",
+        "settings": {
+          "heading_font": "default"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "heading_font: soda",
+        "settings": {
+          "heading_font": "soda"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "color_mode: automatic",
+        "settings": {
+          "color_mode": "automatic"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "background",
+          "text_color"
+        ]
+      },
+      {
+        "name": "color_mode: custom",
+        "settings": {
+          "color_mode": "custom"
+        },
+        "visible": [
+          "background",
+          "text_color",
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "6ffda24286e112bf4eff847b575bdcdf4c4d2e71f76188ec1ee7ed74dc7ee4f1"
+  },
+  "sections/versus.liquid": {
+    "fields": {
+      "variant": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "comparison_basis": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "disclaimer": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "footnote": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.variant == 'soda' }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "variant": "Chooses the existing product-world content and artwork. Additive image/text overrides remain useful for every world; Versus footnote applies only to Soda.",
+      "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
+      "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+    },
+    "scenarios": [
+      {
+        "name": "variant: soda",
+        "settings": {
+          "variant": "soda"
+        },
+        "visible": [
+          "footnote",
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "variant: seltzer",
+        "settings": {
+          "variant": "seltzer"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "footnote"
+        ]
+      },
+      {
+        "name": "hide_on_mobile: false",
+        "settings": {
+          "hide_on_mobile": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_mobile: true",
+        "settings": {
+          "hide_on_mobile": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: false",
+        "settings": {
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "hide_on_desktop: true",
+        "settings": {
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      }
+    ],
+    "schemaHash": "be7bbc6912a16205be07fbcf6025c6fab921dab41da5018cadefc982fc7c8f92"
   }
 }

@@ -44,10 +44,20 @@ Theme Check, editor schema and typography gates; desktop 1440px and phone 390px;
 
 Shared card styling now lives in `assets/catalog-card.css` and is available on every header-bearing page. The header uses the same renderer with a documented `navigation` presentation: direct merchant imagery and Navigation titles, without prices or bundled cutout reconstruction. Collection rendering and filtering stay unchanged. See [Header](header.md).
 
-Paired Variety Pack cans now lift and scale together on hover and keyboard focus, preserving their individual rotations. Reduced motion keeps the composition static.
+Paired Variety Pack cans lift together without scaling on hover and keyboard focus, preserving their individual rotations. Reduced motion keeps the composition static.
 
 Ananotes 123–124: result counts/loading announcements are visually hidden; actionable fetch errors remain visible. Shared collection media uses an inset contain box (84% width, 88% height) anchored to the same bottom edge; paired cans are reduced proportionally. Navigation presentation is excluded. Original complete merchant images retain their intrinsic proportions; existing crops baked into uploads cannot be recovered by CSS.
 
 Grounded Soda/Hard Seltzer catalog cans now render the shared `can-shadow` primitive inside an aspect-ratio-matched `can-artwork` wrapper. Wrapper sizing preserves the existing 84%/88% contained-image bounds; hover/focus moves can and shadow together. Tilted Variety Pack pairs remain floating, without an invented floor. Shared parameters live in `can-artwork.css`; card typography, image selection and structured data remain unchanged.
 
 The shared Hard Seltzer fallback cutouts now use the merchant’s tightly trimmed 385×1000 exports (lossless WebP). Single and paired image dimensions match those files. The shared Seltzer shadow anchors its ellipse centre to the visible bottom edge; the former padded-asset calibration is removed centrally.
+
+Shared card motion (Ananotes 158): artwork uses an 8px vertical lift over Fast duration with UI easing, without scaling. Can/shadow groups and paired artwork retain their composition. An explicit zero-translation resting transform matches the final transition geometry. Reduced motion disables the lift. This is shared with navigation cards through `catalog-card.css`.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows); nested surfaces suppress the additional shadow. Existing layout, focus and motion behavior is preserved.
+
+Shadow rollout: catalog grids preserve their overflow clipping with a 2rem overflow-clip margin so edge-card shadows can paint. All-products, default and branded collections reuse the same card/grid styling.

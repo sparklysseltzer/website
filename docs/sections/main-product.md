@@ -9,7 +9,7 @@ Templates: existing `product.json`, `product.soda.json` and `product.seltzer.jso
 The central `brand-context` resolver supplies Soda, Hard Seltzer or neutral presentation. `custom.brand_variant` is authoritative; `hardseltzer` normalizes to `seltzer`. Alcohol eligibility remains exclusively `custom.contains_alcohol`.
 
 - Desktop uses a 75rem, approximately 620/520 two-column composition. Phone order is identity, gallery, purchase information, then supporting marketing/USPs/benefits. Controls are not duplicated.
-- All Shopify product media appear in a horizontal scroll-snap gallery with arrow controls, keyboard Left/Right navigation, counter and touch scrolling. Initial entry shows the first image; explicit variant URLs and subsequent variant changes select assigned media. Images use Shopify responsive CDN output. Native videos pause when their slide leaves view.
+- All Shopify product media appear in a horizontal scroll-snap gallery with arrow controls, keyboard Left/Right navigation and touch scrolling. Initial entry shows the first image; explicit variant URLs and subsequent variant changes select assigned media. Images use Shopify responsive CDN output. Native videos pause when their slide leaves view.
 - Existing `custom.gallery_gradient` supplies validated layered linear/radial gradients. Optional image-only `custom.gallery_background_image` takes precedence through the shared `product-background` renderer. `custom.soda_background_color` supplies the whole page canvas through the layout’s shared `--color-page-background`, including the PDP and space before the footer. An empty value falls back to white in every brand context. Existing product photographs retain their own background and colors.
 - Existing `custom.gallery_image_1`, `_2`, `_3` produce a wide marketing image and two square images below the gallery. Missing references produce no empty placeholders. Soda references are populated. Maracuja and Holunder use the exact three Figma compositions as bundled WebP fallbacks while their existing fields are blank; Shopify-selected images always win. Other products have no inferred marketing fallback.
 - Soda uses shared Display typography and Erode; ordinary titles use the Section role. Maracuja/Holunder reuse the exact existing SVG flavour lockups as artwork, with the complete title accessible in the h1. Newake standalone headings do not receive a blind optical offset.
@@ -32,7 +32,7 @@ App blocks are supported deliberately through `@app` blocks. Accelerated checkou
 
 Shared duration/easing tokens govern gallery movement, price changes, description expansion, frequency-field expansion and the benefits disclosure. Reversed expansions start at their currently painted height/opacity. Hidden closing controls become inert until the transition completes; unchanged prices and selections do not replay motion. All controls retain shared keyboard focus and native form fallbacks.
 
-SVG badge text rotates over a stationary disc/symbol. It pauses offscreen, in hidden tabs, and for reduced motion; it loops every 40 seconds, with a keyboard-accessible pause toggle. The Soda text ring occupies 92% of the badge instead of 84%. The 5% artwork is restricted to the three audited Hard Seltzer products with alcohol explicitly true; future strengths require approved artwork/data. Decorative assets have empty alt text; the badge exposes one translated description.
+SVG badge text rotates over a stationary disc/symbol. It pauses offscreen, in hidden tabs, and for reduced motion; it loops every 40 seconds, pausing on gallery hover or keyboard focus and stopping after gallery interaction. The Soda text ring occupies 92% of the badge instead of 84%. The 5% artwork is restricted to the three audited Hard Seltzer products with alcohol explicitly true; future strengths require approved artwork/data. Decorative assets have empty alt text; the badge exposes one translated description.
 
 ## Structured data
 
@@ -42,7 +42,7 @@ One server-rendered Shopify `product | structured_data` entity supplies real Pro
 
 The current catalog uses a small packaging variant list and standard recurring plans. Liquid's product-variant limit applies; catalogs exceeding 250 variants need an option-based section-fetch implementation. Prepaid/deferred plans, external-video pause integration, the subscription customer portal and completed checkout/payment flows require their own end-to-end verification before claiming full support. The current implementation does not change Shopify shipping or subscription rules.
 
-Local preview checks cover phone/desktop layouts, real plan/pack changes and subscription add-to-cart. See the implementation verification notes in [PDP plan](../product-detail-plan.md).
+Local preview checks cover phone/desktop layouts, real plan/pack changes and subscription add-to-cart. See the implementation verification notes in [PDP plan](../archive/product-detail-plan.md).
 
 Crossed-out original prices use the shared second accent (`--color-accent-secondary`, default `#FF6600`), including subscription comparisons where rendered. Price calculations and discount eligibility are unchanged.
 
@@ -79,3 +79,23 @@ Subscription details (Ananotes, 2026-09-12): the delivery selector, plan terms a
 Verified at 1440px and 390px: collapsed benefits are absent, opening grows monotonically with a staged fade, interrupted closure/reopening preserves the exact painted height, keyboard frequency selection retains the selling-plan ID, and the open menu is not clipped. Reduced motion hides the group immediately; no-JavaScript rendering keeps both the native selector and tick list visible.
 
 Soda Variety Pack uses the exact background-only Figma export through `custom.gallery_background_image`; its blurred vector composition supersedes the initial CSS approximation. See [product background ownership](../merchant-content.md#product-gallery-backgrounds) for source nodes and export provenance.
+
+## Subscription motion — Ananotes 157
+
+The collapsible group includes its fixed top spacing inside the content, so only the outer height animates. The delivery label and benefit ticks remain stationary relative to the wrapper while content fades in. Fast duration and shared UI easing replace the long settling tail. Closing content remains inert; reversal starts at its painted height/opacity, and settled overflow permits the dropdown. Native rendering retains the same spacing.
+
+Verified in headless Chromium at 2074px and 390px: zero relative label/tick drift across sampled frames, zero height discontinuity on reversal, visible unclipped dropdown and retained plan selection. Inspected an intermediate phone frame; reduced-motion closure is immediate and blocked storefront scripts retain the native select, benefits and buy form.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+## Ananotes 159–160 — purchase and gallery continuity
+
+Enhanced subscription frequency options contain only real selling plans. One-time purchase is owned by its radio; the frequency select retains its value and label while the panel closes, but is disabled so native FormData/Ajax submission excludes `selling_plan`. Returning to Subscribe restores that frequency. Compatible selections survive variant changes; required-plan products still submit a valid plan. The unenhanced native selector retains its one-time option, because it is the no-JavaScript purchase-type control. URL, price and submit state follow the selected purchase type independently from the remembered frequency.
+
+The visible gallery counter and badge play/pause control are removed. Slide groups retain accessible position/count labels. Visible image galleries advance every six seconds; badge rotation runs automatically. Pointer hover pauses both and leaving resumes; clicking, touching, keyboard focus/interaction or wheel interaction stops automatic motion for that page visit. Manual arrows and native touch/keyboard scrolling remain available. Offscreen, hidden-tab and reduced-motion states pause automatic motion. Video/model slides are not advanced automatically, and no media playback is started. Timers, observers and listeners clean up when the section disconnects. No new locale values, content migrations or commerce rules are introduced.
+
+Verification (2026-09-28): phone/desktop frequency transitions retained the exact label across 16–17 sampled frames, with zero inner-content drift and zero reversal jump. FormData and URL checks verified selected subscriptions, one-time exclusion, frequency retention and compatible variant changes. An isolated script-blocked browser retained six native purchase options and submitted the chosen plan value. Gallery checks verified six-second advancement, hover pause/resume, persistent keyboard/touch stop (including phone autoplay 0 → 1, then remaining at 1 after touch) and no advancement under reduced motion. Visible counter/toggle elements are absent; accessible slide counts remain. No checkout or orders were submitted.
+
+Panel-shadow rollout (2026-10-01): Gallery, marketing images, shipping, USP/benefits and subscription panels share the subtle panel shadow across all product templates. Selection borders and focus indicators are preserved; nested purchase controls remain flat. See the [shared contract](../design-system.md#panel-shadows).

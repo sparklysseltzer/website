@@ -45,3 +45,7 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 Hard Seltzer awards retains its original Newake display heading, uppercase treatment, regular weight and shared heading rhythm. It opts out of the general editorial heading-font feature through `heading-font-legacy`; the added font selector is removed. Body copy remains Maison Neue. Existing content, award blocks, visibility settings and motion are unchanged.
 
 Editor naming (2026-09-12): **Hard Seltzer awards**. Display names only; internal IDs, saved settings and rendering are unchanged.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.

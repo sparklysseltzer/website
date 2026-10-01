@@ -59,3 +59,9 @@ Editor naming (2026-09-12): **Sidebar box**; presets: **Soda promotion**, **Hard
 Editor naming (2026-09-12): **Link box**. Display names only; internal IDs, saved settings and rendering are unchanged.
 
 Accordeon supports titled items containing repeatable Text, Image, Text and image, and Poster blocks, with optional existing FAQs appended. Its internal `editorial-faq` type is preserved; see [Accordeon](faq-accordion.md).
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows); nested surfaces suppress the additional shadow. Existing layout, focus and motion behavior is preserved.

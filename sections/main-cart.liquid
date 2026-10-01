@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% comment %}Always expose shared cart controls to the editor, including empty-cart previews. No separate section values.{% endcomment %}
 {% if request.design_mode %}
@@ -13,7 +14,13 @@
   {% render 'cart-content', surface: 'page' %}
 </section>
 {% schema %}
-{"name":"Cart","settings":[
+{
+  "name": "Cart",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
     {
       "type": "select",
       "id": "heading_font",
@@ -30,5 +37,39 @@
         }
       ],
       "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
-    }]}
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
+  ]
+}
 {% endschema %}

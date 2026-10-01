@@ -187,3 +187,7 @@ Page background is resolved centrally in `layout/theme.liquid`, independently of
 ### Section and block naming
 
 Use sentence case for Theme Editor section, block and preset names, preserving brand names and acronyms. Use an em dash for product-world presets (`Section — Soda` / `Section — Hard Seltzer`), and descriptive composition names. The section index is the authoritative inventory. Display-name-only maintenance must compare parsed schemas with names omitted to prove settings, conditions, defaults, IDs and preset content are unchanged before refreshing fingerprints. This narrow naming review does not certify legacy controls as audited; any configuration change still requires the full schema review above.
+
+### Section canvas controls
+
+Follow [Section backgrounds](design-system.md#section-backgrounds): one final Section background group with Default / Transparent / Custom Color and a picker visible only for Custom Color; reuse existing canvas IDs rather than duplicating controls. New presets start transparent, while missing overrides preserve existing saved and brand-world appearance. Do not migrate editor-owned templates to apply new defaults. Panel, card and photo-overlay settings describe separate surfaces and must be labeled accordingly.

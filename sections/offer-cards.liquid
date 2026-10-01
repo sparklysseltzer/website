@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {%- liquid
   assign use_global_content = false
@@ -398,12 +399,22 @@
   "max_blocks": 4,
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
       "type": "select",
       "id": "content_source",
       "label": "Content source",
       "options": [
-        { "value": "local", "label": "Local to this template" },
-        { "value": "global", "label": "Globally synchronized" }
+        {
+          "value": "local",
+          "label": "Local to this template"
+        },
+        {
+          "value": "global",
+          "label": "Globally synchronized"
+        }
       ],
       "default": "local",
       "info": "Edit global content under Content > Metaobjects > Offer teaser. Visibility settings remain local to each placement."
@@ -424,7 +435,7 @@
       "id": "heading",
       "label": "Heading",
       "default": "Unser Angebot",
-      "visible_if": "{{ section.settings.content_source == 'local' }}"
+      "visible_if": "{{ section.settings.content_source == 'local' and section.settings.show_heading }}"
     },
     {
       "type": "checkbox",
@@ -437,11 +448,58 @@
       "id": "intro",
       "label": "Introduction",
       "default": "<p>Mit unseren zwei Produkten Sparklys Soda und Sparklys Hard Seltzer decken wir eine breite Palette an Einsatzmöglichkeiten ab. Ob in Kantinen mit Sparklys Soda, an Events mit Sparklys Hard Seltzer oder im Detailhandel im Regal: Sparklys passt in unterschiedlichste Verkaufssituationen.</p>",
-      "visible_if": "{{ section.settings.content_source == 'local' }}"
+      "visible_if": "{{ section.settings.content_source == 'local' and section.settings.show_intro }}"
     },
-    {"type": "header", "content": "Visibility"},
-    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
-    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
   ],
   "blocks": [
     {
@@ -560,7 +618,10 @@
             "tag_4": "Firmen-Events"
           }
         }
-      ]
+      ],
+      "settings": {
+        "section_background_mode": "transparent"
+      }
     }
   ]
 }

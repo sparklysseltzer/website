@@ -51,3 +51,7 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 This section opts out of the general editorial heading-font feature through `heading-font-legacy`. Original type families, weights, tracking, line heights and composition-specific optical treatment remain authoritative. No new heading-font selector is added.
 
 Editor naming (2026-09-12): **Hard Seltzer ingredients**. Display names only; internal IDs, saved settings and rendering are unchanged.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.

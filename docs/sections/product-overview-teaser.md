@@ -83,3 +83,9 @@ The merchant then supplied larger 385×1000 versions of both trimmed exports. Th
 Merchant refinement: the shared `--can-shadow-seltzer-top` is 98.7%; the existing mask contact translation remains unchanged. This lifts the floor slightly into the can base across all shared Seltzer shadow applications.
 
 Ananotes 152 (2026-09-16): compact two-column cards use a 1:1.15 aspect ratio, centered brand/flavour lockups and a shorter media area while retaining shared can shadows and merchant artwork adjustments. Phone Soda lettering selects the existing Compact role. The decorative card arrow is omitted in the compact composition; the whole card remains a large native link. Desktop four-column artwork remains unchanged. Responsive image sizes now match the two-column layout.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Panel-shadow rollout (2026-10-01): Overview cards use the shared panel shadow without changing artwork or hover motion. See the [shared contract](../design-system.md#panel-shadows).

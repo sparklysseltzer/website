@@ -37,7 +37,7 @@ test('a new control requires a dependency audit', () => {
   }), /unaudited control new_mode/);
 });
 test('changing an older schema requires moving it out of the legacy baseline', () => {
-  checkMutation(directory => changeSchema(directory, 'sections/hero.liquid', schema => {
+  checkMutation(directory => changeSchema(directory, 'sections/cart-drawer.liquid', schema => {
     schema.settings.push({ type: 'text', id: 'unreviewed', label: 'Unreviewed' });
   }), /new or changed legacy schema needs an editor contract/);
 });

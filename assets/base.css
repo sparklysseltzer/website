@@ -10,6 +10,7 @@
   --button-padding-regular: .75rem 1.35rem;
   --button-padding-small: .375rem .625rem;
   --radius-compact: .5rem;
+  --shadow-panel: 0 6px 24px rgb(0 0 0 / 5%);
   /* Shared fluid roles: 390–1440px at a 16px root. Never scale the root. */
   --font-size-body: clamp(1rem, calc(.976786rem + .095238vw), 1.0625rem);
   --font-size-ui: var(--font-size-body);
@@ -46,8 +47,8 @@
   --motion-duration-base: 260ms;
   --motion-duration-slow: 360ms;
   --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --motion-ease-emphasis: cubic-bezier(0.65, 0, 0.35, 1);
   --motion-ease-ui: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --motion-ease-emphasis: cubic-bezier(0.65, 0, 0.35, 1);
   --focus-ring-width: .1875rem;
   --focus-ring-offset: .1875rem;
   --focus-ring-color: var(--color-accent);
@@ -433,7 +434,6 @@ input[type='submit'] {
   margin-bottom: 0;
 }
 
-.shopify-section-header {
 /* Native same-origin document navigation; ignored by unsupported browsers.
    Separate identity changes from the shell and preserve native geometry interpolation. */
 @media (prefers-reduced-motion: no-preference) {
@@ -479,11 +479,12 @@ input[type='submit'] {
   @view-transition { navigation: none; }
 }
 
-  position: sticky;
+.shopify-section-header {
   /* Filter on the snapshot boundary itself: a descendant cannot sample the page
      through an ancestor's view-transition backdrop root. */
   -webkit-backdrop-filter: blur(1.5rem);
   backdrop-filter: blur(1.5rem);
+  position: sticky;
   top: 0;
   z-index: 20;
 }
@@ -496,7 +497,6 @@ input[type='submit'] {
   font-weight: 400;
 }
 
-.site-header__switcher {
 /* One backdrop sample for the bar and its active tab. The SVG above this
    surface removes black paint instead of tinting glass with black underneath. */
 .site-header--glass {
@@ -512,10 +512,11 @@ header-glass svg { display: block; width: 100%; height: 100%; fill: var(--color-
 .site-header--glass .site-header__brand-tab--active::before,
 .site-header--glass .site-header__brand-tab--active::after { display: none; }
 
-  display: none;
+.site-header__switcher {
   /* The named switcher is a stacking context; its popovers must clear main-bar controls. */
   position: relative;
   z-index: 4;
+  display: none;
   height: var(--header-switcher-height, 2.0625rem);
   overflow: visible;
   color: var(--color-text-inverse);
@@ -860,10 +861,10 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 }
 
 .site-header__logo {
-  grid-column: 2;
   width: min(100%, 9.25rem);
   height: 4rem;
   justify-content: center;
+  grid-column: 2;
   justify-self: center;
   display: inline-flex;
   align-items: center;
@@ -1139,7 +1140,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   font-size: var(--font-size-small);
   font-weight: 700;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
+  --heading-original-case: uppercase; text-transform: uppercase;
 }
 
 .hero__heading,
@@ -1482,7 +1483,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   font-weight: 400;
   line-height: var(--line-height-heading);
   letter-spacing: normal;
-  text-transform: uppercase;
+  --heading-original-case: uppercase; text-transform: uppercase;
 }
 
 .site-footer__information { display: grid; gap: 1.25rem; min-width: 0; }
@@ -1800,9 +1801,9 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   }
 
   .site-header__logo {
-    grid-column: 2;
     width: 15rem;
     height: 4.5rem;
+    grid-column: 2;
     grid-row: 1;
   }
 
@@ -1864,7 +1865,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 
 /* Shared cart page and global drawer. */
 .cart-page { max-width: 52rem; color: var(--color-editorial-heading); }
-.cart-page > h1 { text-align: center; text-transform: uppercase; margin: 0 0 2rem; }
+.cart-page > h1 { text-align: center; --heading-original-case: uppercase; text-transform: uppercase; margin: 0 0 2rem; }
 .cart-drawer {
   position: fixed;
   --cart-overlay-gap: clamp(.5rem, 1vw, 1rem);
@@ -1887,16 +1888,16 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 .cart-drawer[open]::backdrop { animation: cart-backdrop-enter 500ms var(--motion-ease); }
 .cart-drawer.is-closing::backdrop { animation: cart-backdrop-exit 400ms ease forwards; }
 .cart-drawer__panel { min-height: 100%; padding: 1rem; display: flex; flex-direction: column; }
-.cart-drawer__header { position: relative; display: flex; justify-content: center; align-items: center; gap: .5rem; min-height: 2.75rem; padding-inline: 2.75rem; margin-bottom: 1rem; }
+.cart-drawer__header { position: relative; display: flex; justify-content: center; align-items: center; gap: .875rem; min-height: 2.75rem; padding-inline: 2.75rem; margin-bottom: 1rem; }
 .cart-drawer__header img { width: 1.5rem; height: 1.5rem; }
-.cart-drawer__header h2 { transform: translateY(var(--font-optical-offset-newake)); margin: 0; font-family: var(--font-heading-default); font-weight: 400; font-size: var(--font-size-card); text-align: center; text-transform: uppercase; }
+.cart-drawer__header h2 { transform: translateY(var(--font-optical-offset-newake)); margin: 0; font-family: var(--font-heading-default); font-weight: 400; font-size: var(--font-size-card); text-align: center; --heading-original-case: uppercase; text-transform: uppercase; }
 .cart-drawer__close { position: absolute; top: 0; right: 0; }
 .cart-status { font-size: var(--font-size-small); margin: 0; }
 .cart-status:not(:empty):not(.visually-hidden) { padding: .75rem 0; }
 .cart-shipping { margin: 0 0 1.5rem; padding: .5rem .75rem; border-radius: var(--radius-compact); background: var(--color-surface-muted); font-size: var(--font-size-small); text-align: center; }
 .cart-empty { display: grid; justify-items: center; align-content: center; gap: 1rem; text-align: center; padding: 2rem 0; margin: auto; width: 100%; max-width: 28rem; }
 .cart-empty__art { width: min(65%, 18.5rem); max-height: 42dvh; object-fit: contain; }
-.cart-empty__quote { margin: 0; color: var(--color-editorial-muted); font-family: var(--font-heading-soda); font-weight: 700; font-style: italic; font-synthesis: style; font-size: var(--font-size-compact); line-height: var(--line-height-body-compact); }
+.cart-empty__quote { margin: 0; color: var(--color-editorial-muted); font-family: var(--font-heading-soda); font-weight: 400; font-style: italic; font-synthesis: none; font-size: var(--font-size-compact); line-height: var(--line-height-body-compact); }
 .cart-empty__copy { margin: 0; max-width: 26rem; font-size: var(--font-size-body); line-height: var(--line-height-body-compact); }
 .cart-empty > .button { margin-top: .25rem; }
 .cart-lines { list-style: none; padding: 0; margin: 0; }
@@ -1976,7 +1977,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 .cart-coupons__status[data-error="true"] { color: var(--color-error-text); }
 
 .cart-discount--badge { display: inline-flex; align-items: center; gap: .25rem; max-width: 100%; font-size: var(--font-size-badge); padding: .25rem .5rem; border-radius: var(--radius-compact); background: var(--color-success-surface); color: var(--color-success-text); overflow-wrap: anywhere; }
-.cart-discount__title, .cart-coupons__code { text-transform: uppercase; }
+.cart-discount__title, .cart-coupons__code { --heading-original-case: uppercase; text-transform: uppercase; }
 .cart-coupons__codes .cart-coupons__code--applied { background: var(--color-success-surface); color: var(--color-success-text); }
 .cart-savings { color: var(--color-success-text); }
 .cart-totals__supporting { color: var(--color-foreground); }
@@ -2043,7 +2044,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 .cart-shipping--qualified .cart-shipping__fill { background: var(--color-success-text); }
 
 .cart-recommendations { flex-shrink: 0; margin-block: 1rem; }
-.cart-recommendations__heading { text-align: center; text-transform: uppercase; margin: 0 0 .75rem; color: var(--color-foreground); font-family: var(--font-body-strong); font-size: var(--font-size-compact); font-weight: 700; line-height: var(--line-height-body-compact); }
+.cart-recommendations__heading { text-align: center; --heading-original-case: uppercase; text-transform: uppercase; margin: 0 0 .75rem; color: var(--color-foreground); font-family: var(--font-body-strong); font-size: var(--font-size-compact); font-weight: 700; line-height: var(--line-height-body-compact); }
 .cart-recommendations ul { display: grid; gap: .75rem; margin: 0; padding: 0; list-style: none; }
 .cart-recommendation { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); align-items: start; gap: .75rem; padding: 1rem; border-radius: var(--radius-small); background: var(--color-surface-warm); }
 .cart-recommendation__image { display: block; aspect-ratio: 1; overflow: hidden; border-radius: var(--radius-compact); }
@@ -2349,6 +2350,7 @@ input, select, textarea { font-family: var(--field-font-family); font-weight: va
 :root, [data-heading-font='erode'], [data-heading-font='soda'] {
   --heading-choice-family: var(--font-heading-soda);
   --heading-choice-weight: 700;
+  --heading-choice-case: none;
   --heading-choice-leading: var(--line-height-heading-erode);
   --heading-choice-tracking: var(--letter-spacing-heading-erode);
   --heading-choice-optical-offset: 0em;
@@ -2356,11 +2358,13 @@ input, select, textarea { font-family: var(--field-font-family); font-weight: va
 [data-heading-font='newake'], [data-heading-font='seltzer'], .site-footer__card-heading, .cart-drawer__header h2 {
   --heading-choice-family: var(--font-heading-default);
   --heading-choice-weight: 400;
+  --heading-choice-case: initial;
   --heading-choice-leading: var(--line-height-heading-newake);
   --heading-choice-tracking: var(--letter-spacing-heading-newake);
   --heading-choice-optical-offset: var(--font-optical-offset-newake);
 }
 :is(h1, h2, h3, h4, h5, h6):not(:where(.heading-font-legacy *)) {
+  text-transform: var(--heading-choice-case, var(--heading-original-case, none)) !important;
   font-family: var(--heading-choice-family) !important;
   font-weight: var(--heading-choice-weight) !important;
   line-height: var(--heading-choice-leading) !important;
@@ -2402,3 +2406,28 @@ body:has(.site-header[data-header-context='soda']) .heading-font-legacy {
 .product-background { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .product-background img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .product-card:hover .product-background img { transform: none; }
+
+/* Erode merchandising headings bypass the editorial font selector but follow
+   the same casing rule. Newake artwork and Maison Neue UI remain independent. */
+.soda-ingredients__heading,
+.soda-ingredients__item h3,
+.soda-reasons__heading,
+.soda-reasons__item h3,
+.subscription--heading-soda .subscription__heading,
+.versus--soda .versus__header h2,
+.usp-section--heading-soda .usp-section__heading,
+.catalog-card--soda .catalog-card__title,
+.product-overview-card--soda .product-overview-card__title,
+.brand-context--soda .offer-cards__heading,
+body:has(.site-header[data-header-context='soda']) .offer-cards__heading {
+  text-transform: none !important;
+}
+
+/* One soft shadow per enclosed editorial/card surface. Nested panels stay flat. */
+:where(.poster, .split-image-text, .usp-section__panel, .subscription, .editorial-image, .sidebar-box, .editorial-link-box, .content-card, .article-card, .catalog-card, .offer-card, .product-overview-card, .product-card__media, .product__media, .pdp-gallery, .pdp-shipping, .pdp-usps, .pdp-benefits, .pdp-subscription-card, .pdp-marketing > img, .faq-item, .versus__card, .logo-marquee__tile, .article-detail__image, .site-footer__card) {
+  box-shadow: var(--shadow-panel);
+}
+
+:where(.poster, .split-image-text, .usp-section__panel, .subscription, .editorial-image, .sidebar-box, .editorial-link-box, .content-card, .article-card, .catalog-card, .offer-card, .product-overview-card, .product-card__media, .product__media, .pdp-gallery, .pdp-shipping, .pdp-usps, .pdp-benefits, .pdp-subscription-card, .pdp-marketing > img, .faq-item, .versus__card, .logo-marquee__tile, .article-detail__image, .site-footer__card) > * {
+  --shadow-panel: none;
+}

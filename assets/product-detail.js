@@ -16,6 +16,7 @@
       this.data = JSON.parse(this.querySelector('[data-product-data]').textContent);
       this.variantSelect = this.querySelector('[data-variant-select]');
       this.planSelect = this.querySelector('[data-plan-select]');
+      this.purchaseType = this.planSelect.value || this.data.requiresPlan ? 'subscription' : 'once';
       this.quantity = this.querySelector('[name="quantity"]');
       this.buyForm = this.querySelector('product-form form');
       this.track = this.querySelector('.pdp-gallery__track');
@@ -24,15 +25,16 @@
       this.querySelectorAll('[data-native-only]').forEach(node => node.hidden = true);
       this.querySelector('[data-once-card]').hidden = this.data.requiresPlan;
       this.querySelector('.pdp-variant-form').addEventListener('submit', event => event.preventDefault(), events);
-      this.variantSelect.addEventListener('change', () => this.syncVariant(true), events);
+      this.variantSelect.addEventListener('change', () => { this.stopGalleryMotion(); this.syncVariant(true); }, events);
       this.planSelect.addEventListener('change', () => {
-        this.querySelector(`[name="purchase_type"][value="${this.planSelect.value ? 'subscription' : 'once'}"]`).checked = true;
-        if (this.planSelect.value) this.lastPlan = this.planSelect.value;
-        this.syncPrice(true);
+        this.purchaseType = 'subscription';
+          this.syncPrice(true);
       }, events);
       this.querySelectorAll('[name="purchase_type"]').forEach(radio => radio.addEventListener('change', () => {
-        this.planSelect.value = radio.value === 'once' ? '' : String(this.variant.allocations.find(plan => String(plan.id) === this.lastPlan)?.id || this.variant.allocations[0]?.id || '');
-        this.planSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        this.purchaseType = radio.value;
+        // Retain the selected frequency while its panel closes. A disabled select
+        // excludes selling_plan from one-time submissions without changing its label.
+        this.syncPrice(true);
       }, events));
       this.quantity.addEventListener('input', () => this.syncPrice(false), events);
       this.quantity.addEventListener('change', () => { this.normalizeQuantity(); this.syncPrice(false); }, events);
@@ -49,25 +51,33 @@
         cancelAnimationFrame(this.scrollFrame);
         this.scrollFrame = requestAnimationFrame(() => {
           const index = this.slideIndex();
-          const counter = this.querySelector('[data-gallery-counter]');
-          if (counter) counter.textContent = `${index + 1} / ${this.slides.length}`;
           this.slides.forEach((slide, i) => { if (i !== index) slide.querySelectorAll('video').forEach(video => video.pause()); });
         });
       }, { ...events, passive: true });
-      if (!this.querySelector('.pdp-badge')) this.querySelector('[data-badge-toggle]')?.setAttribute('hidden', '');
-      this.querySelector('[data-badge-toggle]')?.addEventListener('click', event => {
-        this.badgePaused = !this.badgePaused;
-        event.currentTarget.setAttribute('aria-pressed', String(this.badgePaused)); this.syncBadge();
+      this.gallery = this.querySelector('.pdp-gallery');
+      this.gallery.addEventListener('pointerenter', event => {
+        if (event.pointerType === 'mouse' || event.pointerType === 'pen') { this.galleryHovered = true; this.syncGalleryMotion(); }
       }, events);
-      this.observer = new IntersectionObserver(entries => { this.inView = entries[0].isIntersecting; this.syncBadge(); });
-      this.observer.observe(this.querySelector('.pdp-gallery'));
-      document.addEventListener('visibilitychange', () => this.syncBadge(), events);
+      this.gallery.addEventListener('pointerleave', () => { this.galleryHovered = false; this.syncGalleryMotion(); }, events);
+      for (const type of ['pointerdown', 'keydown', 'focusin', 'wheel']) {
+        this.gallery.addEventListener(type, () => this.stopGalleryMotion(), { ...events, passive: true });
+      }
+      this.motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+      this.motionPreference.addEventListener('change', () => this.syncGalleryMotion(), events);
+      this.observer = new IntersectionObserver(entries => {
+        this.inView = entries[0].isIntersecting && entries[0].intersectionRatio >= .2;
+        this.syncGalleryMotion();
+      }, { threshold: .2 });
+      this.observer.observe(this.gallery);
+      document.addEventListener('visibilitychange', () => this.syncGalleryMotion(), events);
       window.addEventListener('popstate', () => {
         const params = new URL(location.href).searchParams;
+        this.purchaseType = params.has('selling_plan') || this.data.requiresPlan ? 'subscription' : 'once';
         this.variantSelect.value = params.get('variant') || this.data.variants[0].id;
         this.syncVariant(false);
         this.variantSelect.closest('sparklys-select')?.sync?.();
-        this.planSelect.value = params.get('selling_plan') || '';
+        const requestedPlan = params.get('selling_plan');
+        if (this.variant.allocations.some(plan => String(plan.id) === requestedPlan)) this.planSelect.value = requestedPlan;
         this.planSelect.closest('sparklys-select')?.sync?.();
         this.syncPrice(false);
       }, events);
@@ -81,8 +91,20 @@
       window.addEventListener('resize', this.fitSticky, events);
 
     }
-    disconnectedCallback() { this.abort?.abort(); this.abort = null; this.observer?.disconnect(); this.detailsObserver?.disconnect(); this.planAnimation?.cancel(); this.planFade?.cancel(); cancelAnimationFrame(this.scrollFrame); }
-    syncBadge() { this.toggleAttribute('data-badge-running', Boolean(this.inView && !this.badgePaused && !document.hidden)); }
+    disconnectedCallback() { this.abort?.abort(); this.abort = null; this.observer?.disconnect(); this.detailsObserver?.disconnect(); this.planAnimation?.cancel(); this.planFade?.cancel(); cancelAnimationFrame(this.scrollFrame); clearTimeout(this.galleryTimer); }
+    stopGalleryMotion() { this.galleryStopped = true; this.syncGalleryMotion(); }
+    syncGalleryMotion() {
+      clearTimeout(this.galleryTimer);
+      const running = this.inView && !this.galleryHovered && !this.galleryStopped && !document.hidden && !reduced();
+      this.toggleAttribute('data-badge-running', Boolean(running));
+      // Do not advance away from video/model content; its own controls remain authoritative.
+      if (running && this.slides.length > 1 && this.slides[this.slideIndex()]?.dataset.mediaType === 'image') {
+        this.galleryTimer = setTimeout(() => {
+          if (this.slides[this.slideIndex()]?.dataset.mediaType === 'image') this.showSlide(this.slideIndex() + 1);
+          this.syncGalleryMotion();
+        }, 6000);
+      }
+    }
     money(amount) { return new Intl.NumberFormat(this.dataset.locale, { style: 'currency', currency: this.dataset.currency, currencyDisplay: 'code' }).format(amount / 100); }
     syncVariant(updateUrl) {
       this.variant = this.data.variants.find(variant => String(variant.id) === this.variantSelect.value);
@@ -90,9 +112,8 @@
       const previous = this.planSelect.value;
       this.buyForm.elements.id.value = this.variant.id;
       this.planSelect.replaceChildren();
-      if (!this.data.requiresPlan) this.planSelect.add(new Option(this.querySelector('[data-once-card] strong').textContent, ''));
       this.variant.allocations.forEach(plan => this.planSelect.add(new Option(plan.name, String(plan.id))));
-      this.planSelect.value = this.variant.allocations.some(plan => String(plan.id) === previous) ? previous : (previous || this.data.requiresPlan) ? String(this.variant.allocations[0]?.id || '') : '';
+      this.planSelect.value = this.variant.allocations.some(plan => String(plan.id) === previous) ? previous : String(this.variant.allocations[0]?.id || '');
       this.querySelector('[data-purchase-options]').hidden = !this.variant.allocations.length;
       this.planSelect.disabled = !this.variant.allocations.length;
       this.quantity.min = this.variant.min; this.quantity.step = this.variant.step;
@@ -110,7 +131,9 @@
       this.quantity.value = Math.min(ceiling, Math.max(min, min + Math.round(((Number.isFinite(value) ? value : min) - min) / step) * step));
     }
     syncPrice(updateUrl) {
-      const plan = this.variant.allocations.find(item => String(item.id) === this.planSelect.value);
+      const plan = this.purchaseType === 'subscription' || this.data.requiresPlan ? this.variant.allocations.find(item => String(item.id) === this.planSelect.value) : undefined;
+      this.planSelect.disabled = !plan;
+      this.planSelect.closest('sparklys-select')?.sync?.();
       const price = plan?.price ?? this.variant.price;
       const compare = plan ? this.variant.price : this.variant.compare;
       const firstPlan = plan || this.variant.allocations[0];
@@ -130,7 +153,7 @@
       crossfade(this.querySelector('[data-add-total]'), ` · ${this.money(price * Math.max(this.variant.min, Number(this.quantity.value) || this.variant.min))}`);
       this.querySelector('[data-quantity-step="-1"]').disabled = Number(this.quantity.value) <= this.variant.min;
       this.querySelector('[data-quantity-step="1"]').disabled = this.variant.max !== null && Number(this.quantity.value) + this.variant.step > this.variant.max;
-            this.querySelectorAll('[name="purchase_type"]').forEach(radio => radio.checked = radio.value === (plan ? 'subscription' : 'once'));
+      this.querySelectorAll('[name="purchase_type"]').forEach(radio => radio.checked = radio.value === (plan ? 'subscription' : 'once'));
       // Shopify plan names and allocation adjustment prices are authoritative.
       const terms = plan ? [...plan.adjustments.slice(1).map(item => this.money(item.price)), ...(plan.remaining > 0 ? [this.dataset.chargeLabel.replace('[amount]', this.money(plan.checkoutCharge)), this.dataset.balanceLabel.replace('[amount]', this.money(plan.remaining))] : [])].join(' · ') : '';
       crossfade(this.querySelector('[data-plan-terms]'), terms);
@@ -148,7 +171,6 @@
       const first = this.planFieldOpen === undefined;
       const height = field.hidden ? 0 : field.getBoundingClientRect().height;
       const opacity = field.hidden ? 0 : Number(getComputedStyle(content).opacity);
-      const margin = field.hidden ? 0 : parseFloat(getComputedStyle(field).marginTop);
       this.planAnimation?.cancel();
       this.planFade?.cancel();
       this.planFieldOpen = open;
@@ -157,13 +179,13 @@
       field.style.overflow = '';
       if (!open && field.contains(document.activeElement)) this.querySelector('[name="purchase_type"]:checked')?.focus();
       if (first || reduced()) { field.hidden = !open; field.inert = false; return; }
-      const targetMargin = open ? getComputedStyle(field).marginTop : '0px';
       const targetHeight = open ? field.getBoundingClientRect().height : 0;
       field.style.overflow = 'hidden';
-      const motion = timing(this);
+      const style = getComputedStyle(this);
+      const motion = { duration: parseFloat(style.getPropertyValue('--motion-duration-fast')) || 200, easing: style.getPropertyValue('--motion-ease-ui').trim() || 'ease' };
       const animation = field.animate([
-        { height: `${height}px`, marginTop: `${margin}px` },
-        { height: `${targetHeight}px`, marginTop: targetMargin }
+        { height: `${height}px` },
+        { height: `${targetHeight}px` }
       ], motion);
       this.planAnimation = animation;
       // Establish room before revealing content; fade out before the space closes.

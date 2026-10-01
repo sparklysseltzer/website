@@ -5,7 +5,7 @@ Template: `templates/cart.json`.
 
 ## Rendering contract
 
-A neutral, centered cart column follows the composition recorded in [Cart reference](../cart-reference.md), using shared typography, 80px phone/104px desktop rounded image tiles, compact product rows with quantity/line-total alignment, gray circular remove targets, outlined pill quantity controls, a right-aligned Update action, a checkout notice, outlined notes and totals, and a full-width checkout button. A shared free-shipping meter replaces the shipping strip for supported destinations/currency; see its contract below. Desktop notes sit beside totals; phone totals precede notes. There are no section settings or fallback product assets beyond a generic Shopify placeholder when an item has no image.
+A neutral, centered cart column follows the composition recorded in [Cart reference](../archive/cart-reference.md), using shared typography, 80px phone/104px desktop rounded image tiles, compact product rows with quantity/line-total alignment, gray circular remove targets, outlined pill quantity controls, a right-aligned Update action, a checkout notice, outlined notes and totals, and a full-width checkout button. A shared free-shipping meter replaces the shipping strip for supported destinations/currency; see its contract below. Desktop notes sit beside totals; phone totals precede notes. There are no section settings or fallback product assets beyond a generic Shopify placeholder when an item has no image.
 
 Shopify supplies responsive images, product/option names, public line properties (private underscore-prefixed properties are omitted), selling-plan names when present, unit/unit-measurement prices, original/final line prices, line/cart discount allocations, savings, currency and tax state. Savings are informational, not subtracted twice. English source and German UI live in locale files. Shipping progress follows the confirmed rule and editable settings documented below.
 
@@ -29,7 +29,7 @@ Real-store preview checks remain for checkout handoff, inventory/discount combin
 
 ## Typography roles
 
-Hero page title; bold body product titles; compact total and empty-state quote; body/UI forms; label line prices; small options, discounts and guidance. The empty-state quote uses Erode Bold with explicitly synthesized italic styling and body-compact leading, rather than introducing a new typeface or size. It is supporting copy, not a heading. No heading-size or rhythm exceptions.
+Hero page title; bold body product titles; compact total and empty-state quote; body/UI forms; label line prices; small options, discounts and guidance. The empty-state quote uses Erode regular italic at weight 400 and body-compact leading, retaining its existing typeface and size. It is supporting copy, not a heading. No heading-size or rhythm exceptions.
 
 ## Section refresh regression — 2026-09-06
 
@@ -287,3 +287,9 @@ Essential-function exception: this section stays available at every breakpoint a
 ## Heading font selection
 
 **Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Ananotes 155 (2026-09-28): the empty-cart quotation now uses the actual regular-weight italic file from the merchant’s Erode package, shared with the drawer. No heading weights change.

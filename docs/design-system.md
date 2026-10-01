@@ -140,11 +140,22 @@ Follow the [motion language](architecture.md#motion-language) and shared `--moti
 
 - Dissolve departing elements, gently reveal arrivals, and ease surviving elements into their new positions. Crossfade changed messages and interpolate progress or semantic colors when it helps users follow the update.
 - Preserve visual continuity across Ajax section replacement and interrupted or repeated actions. Resume from the currently rendered state; do not restart unrelated entrance sequences or flash an intermediate state. Preserve focus and scroll position.
+- Small UI movements use Fast (200ms) with `--motion-ease-ui` (`cubic-bezier(0.25, 0.1, 0.25, 1)`) to avoid a prolonged subpixel tail. Current adopters are subscription-group expansion and shared catalog-card artwork hover. Keep the expressive easing for larger reveals and artwork. Expand a clipping wrapper around stationary text/icons instead of animating their spacing. Shared card hover uses translation only, with matching resting/final transform geometry; do not stack a card entrance slide with artwork hover. Check interrupted motion and the final painted-to-resting handoff.
 - Keep feedback prompt. Do not delay requests, queue unnecessary animations, or block input solely for decorative motion. Commerce values and success states remain based on Shopify-confirmed responses; failed actions must leave usable content visible.
 - Prefer opacity and transforms. Animate necessary height or progress changes narrowly, without page-wide reflow, excessive travel, or new animation dependencies.
 - Respect `prefers-reduced-motion`: show the final usable state immediately when motion is reduced. Temporary visual copies must be hidden from assistive technology and cleaned up after transitions.
 
 Verify both directions, rapid repeated actions, interrupted transitions, error recovery, and reduced motion at phone and desktop sizes for the interaction being changed. Check the transition itself as well as the settled layout. This is an implementation and review requirement; do not wait for the merchant to report abrupt updates.
+
+### Page navigation transitions
+
+Native cross-document view transitions progressively enhance same-origin navigation through CSS in `base.css`. The root snapshots retain the browser’s complementary crossfade, using Base duration (260ms) and the shared easing. The header shell and its logo, world switcher and utility actions use separate, stable snapshot names. Geometry interpolates over Base duration with UI easing, while changed identity snapshots crossfade. The logo has a consistent reserved box per breakpoint so different brand proportions do not stretch the artwork or move the surrounding layout. The backdrop blur belongs on the outer named header wrapper, never inside its snapshot boundary: a descendant filter cannot sample the page through that boundary. The incoming shell stays opaque; the outgoing shell (including the main mega menu) is omitted. Current navigation selection must be initialized at its final appearance, never faded from zero on every document load. Changed brand identity, cart state and responsive geometry remain the destination document’s truth; this is visual continuity, not persisted DOM or scroll-intent state.
+
+Only visitors with no reduced-motion preference opt in. Unsupported browsers, nonparticipating destinations, external navigation and reduced motion use normal page loads. There is no click interception, navigation delay, JavaScript router or transition polyfill. Native navigation, history, anchors and forms retain browser behavior. The transition overlay does not intercept pointer input. Header menus from the departing page are not retained in its incoming snapshot.
+
+Reference: [MDN cross-document opt-in](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@view-transition). Both same-origin documents must opt in; a skipped transition is an acceptable fallback.
+
+Verification (2026-09-28): headless Chromium native navigations between Soda, Hard Seltzer and Home confirmed separate 260ms logo/group transitions and an immediately opaque current-item pill with no initialization animation. Inspected a paused 100ms brand crossfade. A scrolled header interpolated from logo y=14px to y=47px instead of jumping. Earlier root-fade verification covered keyboard, Back and blocked scripts; see the Header contract for current follow-up coverage. Unsupported engines retain normal navigation; Safari remains a manual cross-browser check. No production navigation-transition JavaScript was introduced.
 
 ### Server-rendered state changes
 
@@ -166,7 +177,7 @@ The initial fluid-role migration was checked in the development storefront at 32
 
 ## Cart supporting quotation
 
-The shared cart empty state uses the existing Erode Bold family for its playful quotation, at the compact role with body-compact leading and muted editorial color. It explicitly permits synthesized italic styling (`font-synthesis: style`) to echo the legacy quotation without adding another font asset. This is supporting copy, not a heading; all Newake/Erode heading rhythm and size rules remain unchanged.
+The shared cart empty state uses the Erode regular italic face (`erode-italic.woff2`, weight 400) for its playful quotation, at the compact role with body-compact leading and muted editorial color. The real italic font comes unchanged from the merchant’s downloaded Erode package, with its Fontshare license retained in `docs/erode-font-license.txt`. It loads only when used and disables synthesized styles. This is supporting copy, not a heading; all Newake/Erode heading rhythm and size rules remain unchanged.
 
 ## Shipping progress
 
@@ -309,7 +320,15 @@ The document background is separate from brand section palettes. `layout/theme.l
 
 The root canvas and PDP section consume this same role. Transparent content and the main-content bottom buffer reveal it, so product colors extend beyond the top section. Existing palette background setting IDs/values remain intact, now labeled **Section background** to clarify their scope. Explicit section/card backgrounds, gallery gradients and intentional surfaces retain their own colors. This supersedes previous statements that brand palette background settings control the page canvas. No new metafield or saved-setting migration is needed.
 
+## Erode heading casing
+
+Hard rule: Erode is never uppercased by styling. Render text in its authored sentence/mixed case with `text-transform: none`; do not apply `capitalize` or transform the source string. This applies to semantic and rich-text headings, section headings, cards and fixed Erode merchandising compositions. Merchant-authored all-caps text must be corrected editorially, not automatically lowercased, to preserve acronyms and names.
+
+The shared font-choice contract pairs Erode with `--heading-choice-case: none`; Newake uses the component’s `--heading-original-case` intent (normal by default). Existing uppercase Newake designs remain intact. Fixed merchandising Erode selectors receive the same normal-case guard even where editorial font selection is deliberately excluded.
+
 ## Editorial heading font selection
+
+Page and Page intro expose an optional **Uppercase headings** control, shown only for Newake and off by default. The shared `heading-font` renderer accepts this explicit choice through the existing casing role. It never changes merchant text, and Erode always resolves to `none`, even if a saved uppercase toggle remains true after switching fonts. Other sections retain their existing casing unless they explicitly opt into this control.
 
 Erode is the default for new heading-bearing sections and theme blocks, independently of brand world. Newake remains selectable. `heading-font.liquid` scopes the choice to the Shopify section wrapper; native blocks use `data-heading-font`. Shared rules in `base.css` apply the nearest choice only to H1–H6, including rich-text headings. Legacy saved selector values remain supported. Family, weight, tracking and rhythm switch together; size roles do not change. Maison Neue remains the paragraph, field, button and ordinary UI face, with Maison Neue Bold for deliberate emphasis such as FAQ questions.
 
@@ -370,3 +389,29 @@ Navigation review 143–148: root carets use the shared padded Untitled UI asset
 **Approved composition exception — Soda collection hero (Ananotes 149):** Figma `8734:14210` uses Erode Bold at 75px with 62px leading. The hero retains the shared Display size and applies `--soda-hero-heading-leading: calc(62 / 75)` only for its Soda/Erode composition. General Erode remains 0.9 and explicit Newake uses its normal rhythm.
 
 Ananotes September 16: the cart drawer title always uses the central Newake heading mapping and optical offset, regardless of surrounding editorial font choices. Notifications are horizontally centered in the viewport using symmetric fixed insets and automatic margins, preserving the native top-layer host, mobile gutters, timers and accessible announcements. Product Overview uses a non-scrolling 2×2 compact grid; its existing artwork exception retains brand/flavour lettering, with the shared Compact role on phones.
+
+## Section backgrounds
+
+Every content/resource section and Footer exposes one **Section background** group at the end of its settings. Header and Cart drawer are intentional shell exceptions: the header retains its shared glass/cutout treatment and the modal retains its commerce surface. Never add a second control for a canvas that already has one; Hero reuses `background`. Merchant marquee's previous `background_style` remains hidden compatibility storage, not another editing option.
+
+The group offers **Default / Transparent / Custom Color**. Only Custom Color exposes the native picker; clearing it means transparent. New add-section presets select Transparent, showing the page background. Existing placements without a saved mode use Default, preserving their existing colors and product-world defaults. This explicit distinction is necessary: Shopify returns the same empty string for a missing color setting and an explicitly cleared picker, so blank alone cannot distinguish old content from a request for transparency. The merchant approved this three-choice control on 2026-09-28.
+
+A chosen color covers the complete Shopify section wrapper, including side gutters. White, gray, arbitrary colors and alpha values use the same picker. Hero retains its original yellow as a rendering fallback only in Default, so its reused picker has no schema default and can be cleared. Resource sections without presets already have transparent outer canvases; Footer retains its existing dark surface in Default.
+
+`snippets/section-background.liquid` paints the wrapper once. Only explicitly marked outer canvas elements (`data-section-background`, or Page intro's scoped surface selector) become transparent under an override. Do not reset all descendants or paint translucent color twice. Internal cards, enclosed panels, product/gallery backgrounds, photographs, brand artwork and image overlays keep their own colors. In particular, Subscription and Product benefits preserve their branded panels; Collection hero keeps its decorative atmosphere and selected imagery. This is a canvas setting, not an automatic recoloring/contrast system. Editors must select colors that keep existing text readable.
+
+Preserve existing setting IDs, brand choices, templates and saved values. Put defaults for new placements in presets, not a migration of merchant content. Register schema groups and visible/hidden modes in the editor contracts. A native shared color palette is a separate possible future migration, not part of this change.
+
+## Panel shadows
+
+Merchant-approved on 2026-10-01: shadows should be barely perceptible, providing gentle separation from the page background without looking like floating cards. Keep this subtle treatment as the default for new rounded panels; do not increase opacity, add a tight edge shadow, or introduce hover elevation simply to make the shadow more noticeable. Photography and content remain the visual focus.
+
+Enclosed editorial and catalog surfaces use `--shadow-panel`: `0 6px 24px rgb(0 0 0 / 5%)`. Apply it to the outer rounded surface only: Poster, Image and text panel, Product benefits, Subscription, editorial images, sidebar/link boxes, generic content cards, article cards, catalog cards and offer cards. Descendants inherit `none` for this token so nested panels do not stack shadows. Keep controls, full-width section backgrounds, transparent layout wrappers, and existing overlay/dialog elevation separate. The shadow follows the existing surface reveal without a new hover lift or animation.
+
+### Storefront coverage
+
+The same shadow applies across default/Soda/Hard Seltzer collection grids, all-products and search cards, the all-collections Poster directory, product overview cards, and all product-detail templates. Product detail applies it to the gallery, marketing images, shipping, USP/benefits and subscription panels. FAQ items, comparison cards, merchant-logo tiles, article hero images and footer cards share the treatment. Generic product media retain it wherever the fallback markup is used. Native selected borders, keyboard focus and purchase-state styling remain authoritative; form inputs, pills, flavour circles, badges, inline validation, transparent wrappers and full-width backgrounds do not gain elevation. Cart/dialog/popover/toast elevation remains separate.
+
+Catalog grids retain overflow clipping with a 2rem paint margin for edge-card shadows. Scrollable comparison and merchant-logo rows reserve space for the soft shadow. Featured comparison cards keep their green inset highlight as an inward outline, leaving the box shadow available for the shared elevation. Nested panels still inherit a suppressed shadow, including FAQ/editorial content inside another panel.
+
+Rollout verification (2026-10-01): headless computed-style and page-width audit covered 26 routes at 390px and 1440px (52 checks): all 16 active products with storefront URLs, four collections, collection directory, all-products, both branded template previews, FAQ and Kontakt. All present audited panels received shadows. Initial phone overflow in branded previews was traced to comparison shadow gutters, bounded by the page gutter, and rechecked at 390px. Product-detail screenshots were visually reviewed at both sizes. Empty merchant compositions were not populated for testing. No template assignments or saved content changed.

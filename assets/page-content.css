@@ -48,3 +48,4 @@
 }
 .page-intro__heading,
 .shopify-policy__title h1 { hyphens: auto; }
+.text-page--empty { padding-bottom: 0; }

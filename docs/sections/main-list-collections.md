@@ -25,3 +25,9 @@ The existing Heading font selector remains authoritative (Erode default, optiona
 ## Verification
 
 Local desktop and phone checks cover collection destination links, responsive images, one H1, matching ItemList entries, reduced motion and keyboard access. Store/editor-owned template content is unchanged; deployment remains separate.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Panel-shadow rollout (2026-10-01): Every collection panel inherits the shared shadow from Poster. See the [shared contract](../design-system.md#panel-shadows).

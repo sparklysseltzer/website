@@ -10,9 +10,15 @@
     min-height: var(--poster-min-height-desktop);
     margin-inline: auto;
     overflow: hidden;
+    isolation: isolate;
     color: var(--poster-poster-color);
     background: var(--color-surface-inverse);
     border-radius: var(--radius-large);
+  }
+
+  /* Image-only artwork must not expose a dark backing at its rounded edge. */
+  .poster--image-only {
+    background: transparent;
   }
 
   .poster__media,

@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 {%- liquid
@@ -27,7 +28,7 @@
 -%}
 
 {%- if merchant_count > 0 or request.design_mode or show_visual_preview -%}
-  <section
+  <section data-section-background
     class="logo-marquee logo-marquee--{{ section.settings.background_style | default: 'gray' }}{% if marquee_heading != blank %} logo-marquee--with-heading{% endif %}"
     style="--logo-marquee-duration: {{ section.settings.duration }}s; --logo-marquee-direction: {{ section.settings.direction }};"
     aria-labelledby="LogoMarquee-{{ section.id }}"
@@ -157,7 +158,7 @@
     font-weight: 400;
     line-height: var(--line-height-heading);
     text-align: center;
-    text-transform: uppercase;
+    --heading-original-case: uppercase; text-transform: uppercase;
   }
 
   .logo-marquee--transparent {
@@ -174,6 +175,8 @@
   }
 
   .logo-marquee__viewport {
+    padding-block: 1.5rem;
+    margin-block: -1.5rem;
     width: 100%;
     overflow: hidden;
   }
@@ -248,7 +251,7 @@
     font-family: var(--font-heading-default);
     font-size: var(--font-size-card);
     line-height: var(--line-height-solid);
-    text-transform: uppercase;
+    --heading-original-case: uppercase; text-transform: uppercase;
   }
 
   .logo-marquee__empty {
@@ -297,6 +300,10 @@
   "name": "Merchant marquee",
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
       "type": "select",
       "id": "heading_font",
       "label": "Heading font",
@@ -326,15 +333,8 @@
       "info": "Leave blank to hide the visible heading."
     },
     {
-      "type": "select",
-      "id": "background_style",
-      "label": "Background treatment",
-      "options": [
-        { "value": "gray", "label": "Gray section with white cards" },
-        { "value": "transparent", "label": "Fully transparent" },
-        { "value": "white", "label": "Fully white" }
-      ],
-      "default": "gray"
+      "type": "header",
+      "content": "Motion"
     },
     {
       "type": "range",
@@ -351,8 +351,14 @@
       "id": "direction",
       "label": "Direction",
       "options": [
-        { "value": "normal", "label": "Left" },
-        { "value": "reverse", "label": "Right" }
+        {
+          "value": "normal",
+          "label": "Left"
+        },
+        {
+          "value": "reverse",
+          "label": "Right"
+        }
       ],
       "default": "normal"
     },
@@ -362,14 +368,87 @@
       "label": "Pause on hover and focus",
       "default": true
     },
-    {"type": "header", "content": "Visibility"},
-    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
-    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background treatment",
+      "options": [
+        {
+          "value": "gray",
+          "label": "Gray section with white cards"
+        },
+        {
+          "value": "transparent",
+          "label": "Fully transparent"
+        },
+        {
+          "value": "white",
+          "label": "Fully white"
+        }
+      ],
+      "default": "gray",
+      "visible_if": "{{ section.settings.background_style == '__retired__' }}",
+      "info": "Retained for previously saved sections. Use Color below."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
   ],
   "presets": [
     {
       "name": "Merchant marquee",
-      "category": "Trust & partners"
+      "category": "Trust & partners",
+      "settings": {
+        "background_style": "transparent",
+        "section_background_mode": "transparent"
+      }
     }
   ]
 }

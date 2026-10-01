@@ -8,7 +8,7 @@ Introduces branded and neutral collection pages. The all-products resource suppr
 
 Automatic uses the existing `brand-context` resolver and `custom.brand_variant`; no new product-world classification. Soda uses Erode and the sky treatment; Hard Seltzer uses Newake and warm/green color fields. General collections use an Erode title, collection description and neutral surface. Explicit heading font choices affect headings only. Brand defaults translate approved Figma text through English/German locales; merchant heading, intro and label overrides remain translatable theme content.
 
-Groups follow Design, Content, Artwork, Action and Visibility. The shop label appears only when its action is enabled; the action targets the real catalog anchor. Image pickers remain useful additive overrides in all worlds, including a neutral collection with custom artwork. Empty pickers select bundled brand artwork; there are no crop controls or duplicate brand metafields. Both images use contain; background images use cover and Shopify focal points. Default neutral collections have no decorative cans.
+Groups follow Design, Content, Artwork, Action, Visibility and Section background. The shop label appears only when its action is enabled; the action targets the real catalog anchor. Image pickers remain useful additive overrides in all worlds, including a neutral collection with custom artwork. Empty pickers select bundled brand artwork; there are no crop controls or duplicate brand metafields. Both images use contain; background images use cover and Shopify focal points. Default neutral collections have no decorative cans.
 
 ## Shared benefits
 
@@ -41,3 +41,7 @@ Shared floor-shadow review: these cans float without a ground plane, so they int
 Ananotes 144: automatic brand eyebrows use Sparklys™ for both Soda and Hard Seltzer, replacing the registered mark. Merchant-provided eyebrow copy remains authoritative.
 
 Ananotes 149: the Soda hero with Erode uses a named composition exception, `--soda-hero-heading-leading: calc(62 / 75)`, matching Figma text node `8734:14210`. Display type size remains shared. The resolved font is exposed on the hero so explicit Newake choices retain normal Newake leading. Other collection worlds and general Erode typography remain unchanged.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.

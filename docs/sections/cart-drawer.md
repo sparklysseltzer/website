@@ -355,3 +355,7 @@ Age-field annotations (2026-09-11): generic per-field warning guidance uses yell
 Ananotes 113: line-removal links use the shared secondary accent on hover/keyboard focus, with a single short fine-pointer icon nudge. Reduced motion disables the nudge; target size, accessible labels and native removal links remain intact.
 
 Ananotes 153 (2026-09-16): the drawer title is a fixed Newake UI composition, mapped in the shared heading-choice selector alongside footer card titles. This overrides inherited editorial Erode choices using the existing font/weight/leading/tracking tokens and .06em optical offset; no font-size or schema changes.
+
+Ananotes 155–156 (2026-09-28): the shared empty-cart quote uses Erode regular italic (400). The cart icon/title gap is .875rem, while the existing Newake optical offset remains intact. Both changes apply at phone and desktop sizes.
+
+Verification: 1440px and 390px rendered the real Erode italic font at 400, a 14px icon/title gap and no page overflow. The Newake title remains optically aligned. Escape completed the close transition and restored focus to the header cart link.

@@ -11,8 +11,10 @@ Poster owns the approved full-image editorial composition, either with overlaid 
 - Poster with Content or Image only Poster layout;
 - optional Shopify desktop and mobile images;
 - shared image alternative text and Shopify-native focal points for selected images;
-- independent desktop/mobile minimum heights;
+- independent desktop/mobile minimum heights: desktop 420–800px and mobile 120–800px, in 10px increments; defaults remain 630px and 540px;
 - in Poster with Content: left/center/right content alignment, optional heading (`h2` or `h3`), rich text, tick-list blocks, linked action, automatic/dark/light button treatment, text color, and overlay color/strength.
+
+Minimum heights apply in both layouts and both standalone/embedded placements. Content and padding may make the rendered poster taller than the selected minimum; reducing mobile height never clips the content or changes the desktop setting.
 
 Image-only mode hides the content, tick-item, action, and overlay fields while retaining media and size controls. Its renderer omits the overlay and complete content subtree, including configured tick-list blocks. Poster with Content reveals those controls; heading, subtext, and action fields remain conditionally visible only while their corresponding display toggle is enabled. Headers divide layout, media, content, appearance, and size controls.
 
@@ -63,3 +65,12 @@ The existing native block is also available inside Accordeon items, retaining it
 `poster-content` accepts an optional `collection_resource` for the Collection list. That mode obtains the title, description, image and URL directly from Shopify, selects the existing left-content layout and light action, and disables the subscription fallback image. Standalone and editorial block callers continue to use their existing `options` contracts unchanged. See [Collection list](main-list-collections.md).
 
 Ananotes 125: light Poster actions use the shared button--inverse border treatment so the outline remains white against artwork during the black hover sweep. Existing options, IDs and content ownership are unchanged.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows); nested surfaces suppress the additional shadow. Existing layout, focus and motion behavior is preserved.
+Image-only Poster has a transparent backing and an isolated rounded clipping surface, avoiding a dark fringe behind the image. Content-mode posters retain their dark backing for readability.
+
+Verification (2026-10-01): inspected the merchant’s Kontakt image-only Poster at 1440px and 390px in an isolated headless browser. Transparent backing, rounded crop and the 5% outer shadow render correctly. Nested content-card probe confirmed a single outer shadow and `none` on the inner card. Checked computed shared shadows on Soda collection catalog, Subscription and Product benefits surfaces at both widths. No saved templates were changed.

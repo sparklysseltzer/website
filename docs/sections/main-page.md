@@ -4,13 +4,15 @@ Source: `sections/main-page.liquid`, shared `snippets/page-intro.liquid` and `as
 
 Template: `templates/page.json`. The default template retains this fixed section. The approved custom-template migration replaces it with Page intro in `page.about` and `page.retail`, preserving section IDs and saved settings.
 
-The fixed main section renders the Shopify Page title as its H1, optional `custom.intro_text` beneath it, and `page.content` as long-form reading copy. It never shows a small label and deliberately ignores `custom.intro_heading`. Empty intro/body containers are omitted. No section needs to be manually added to the default template: JSON templates render their built-in main section.
+Main page has no `presets`, so the Theme Editor does not expose the same removal/add controls as the reusable Page intro. For composed editorial pages, use a dedicated template with Page intro (Contact uses `page.kontakt`) rather than stacking both H1 owners. As an immediate existing-template workaround, enable both Hide on mobile and Hide on desktop on Main page; this also hides its Page body and suppresses its JSON-LD. Keep Page intro visible at both widths. Do not remove Main page globally or change a shared template without checking all assigned Pages.
+
+The fixed main section uses the same editorial header as Page intro: decorative Arc, centered heading and introduction, shared spacing, background and font controls. H1 reads `custom.intro_heading`, falling back to `page.title`; a populated custom heading shows `page.title` as a small label. `custom.intro_text` appears beneath it and `page.content` remains long-form reading copy below. Empty intro/body containers are omitted; a page without body copy has no additional body padding. No second intro needs to be added to the default template. Existing section IDs, settings and Page content are preserved; saved templates are not rewritten by this code change.
 
 Page body HTML is merchant-owned. Use H2 and deeper headings in that editor so the template retains a single H1. Responsive media, horizontally scrollable tables and wrapping protect the reading column. Content is centered at a maximum 800px; body text remains left aligned.
 
 Supporting pages retain `custom.brand_variant` for shared shell and heading typography. The H1 uses the shared Display role; body uses Body/reading leading and semantic heading roles. There is no JavaScript or additional entrance motion.
 
-The shared intro renderer emits `WebPage` JSON-LD from visible content; see [Page intro](page-intro.md) for fields, escaping and entity ownership. For editorial pages use the Page intro section and the `page.editorial` starter instead of this section, avoiding two H1s or automatic body output.
+The shared intro renderer emits `WebPage` JSON-LD from visible content (`ContactPage` on the contact template); see [Page intro](page-intro.md) for fields, escaping and entity ownership. Main page and Page intro now share header design; use the standalone Page intro in a dedicated template when no automatic Page body is wanted. Never stack both H1 owners.
 
 ## Native policies
 
@@ -23,3 +25,11 @@ Existing Hide on mobile / Hide on desktop settings and IDs are preserved. See th
 ## Heading font selection
 
 **Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).
+
+The **Heading font** group also exposes **Uppercase headings**, default false and visible only for Newake. It sets the shared heading casing role without changing stored text. When switching to Erode, a retained true value is ignored and authored casing wins. Body/UI text and the small label are unaffected. Schema contracts cover Newake off/on, Erode with stale uppercase enabled, both visibility flags and all canvas modes. Content guidance, Visibility and Section background follow in composition order.
+
+Verification on 2026-10-01: development rendering at 390px/1440px checked Newake authored/uppercase and Erode with a retained true uppercase value. Computed font/casing, artwork, one H1, unchanged source text and no overflow passed. Blank-body rendering has zero extra body padding. The existing About page retains its Page-body HTML below the new shared intro. The unassigned editorial QA template was restored to its recorded original test composition after a watcher echo interrupted the remaining standalone-intro checks. Standalone Page intro's Erode rendering is covered by the Contact page; both sections call the same reviewed font renderer. Full authenticated Theme Editor interaction is not claimed.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.

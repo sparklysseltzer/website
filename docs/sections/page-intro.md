@@ -2,7 +2,7 @@
 
 Source: `sections/page-intro.liquid`, `snippets/page-intro.liquid`, `assets/page-content.css`.
 
-Preset: **Page intro**, under Brand storytelling, available only on Page templates, limited to one instance per template. The new `page.editorial.json` is an intro-only starting composition; duplicate it for pages needing different sections. The approved 2026-09-12 follow-up migrates the existing development `page.about` and `page.retail` templates from Main page to Page intro, retaining the `main` IDs, order, settings and every other section/block. Latest saved development JSON was pulled and compared before the two type-only edits. The default `page.json` keeps Main page; `page.faq` keeps its dedicated FAQ directory; `page.editorial` already uses Page intro. No page assignments or shared/live theme content are changed.
+Preset: **Page intro**, under Brand storytelling, available only on Page templates, limited to one instance per template. The unused intro-only Editorial starter was removed locally and from the development theme on 2026-10-01 at the merchant’s request. Page intro remains available for dedicated page compositions. The approved 2026-09-12 follow-up migrates the existing development `page.about` and `page.retail` templates from Main page to Page intro, retaining the `main` IDs, order, settings and every other section/block. Latest saved development JSON was pulled and compared before the two type-only edits. The default `page.json` keeps Main page; `page.faq` keeps its dedicated FAQ directory. No page assignments or shared/live theme content are changed.
 
 ## Content ownership
 
@@ -14,7 +14,7 @@ Preset: **Page intro**, under Brand storytelling, available only on Page templat
 
 Both fields are optional Page-owned `multi_line_text_field` definitions. They render escaped text with preserved line breaks, not merchant HTML. They were created and pinned in Shopify on 2026-09-12. Their labels/help are English; populated merchant source content is German and translations belong to Translate & Adapt. No placeholder content is written to pages.
 
-The section does not render the page body. Use the default Page section for title/intro/body pages. Do not combine Page intro with Main page, FAQ directory, or another H1-owning section. Additional editorial section headings must start at H2. Template composition must retain one visible H1 at every breakpoint.
+The section does not render the page body. The default Page section now uses this same editorial header design and controls, followed by the Page body. Use it for title/intro/body pages. Do not combine Page intro with Main page, FAQ directory, or another H1-owning section. Additional editorial section headings must start at H2. Template composition must retain one visible H1 at every breakpoint.
 
 ## Presentation
 
@@ -26,7 +26,7 @@ No section JavaScript or entrance animation is required for this static content.
 
 ## Structured data
 
-The shared renderer emits one server-rendered `WebPage` with canonical URL/ID, visible heading, optional visible intro description and active language. Less-than signs are escaped in JSON to prevent embedded markup closing the script. Both-hidden sections omit JSON-LD. Do not add a second Page intro or duplicate WebPage entity elsewhere in the same composition. Page SEO title/description settings remain independent.
+The shared renderer emits one server-rendered `WebPage` with canonical URL/ID, visible heading, optional visible intro description and active language. The `kontakt` template specializes this same entity to `ContactPage`; the contact form never adds a duplicate page entity. Less-than signs are escaped in JSON to prevent embedded markup closing the script. Both-hidden sections omit JSON-LD. Do not add a second Page intro or duplicate WebPage entity elsewhere in the same composition. Page SEO title/description settings remain independent.
 
 ## Verification
 
@@ -37,3 +37,11 @@ Final checks also verified the `?view=editorial` development template at 390px, 
 ## Heading font selection
 
 **Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).
+
+The **Heading font** group includes **Uppercase headings**, default false, with conditional visibility on the checkbox itself when Newake is chosen. It uses the shared heading casing role; stored Page text and JSON-LD remain authored text. Erode ignores a retained uppercase choice. The same control exists in Main page. Editor contracts cover Newake off/on and Erode with a stale true value; existing setting IDs are preserved.
+
+2026-10-01 verification: Erode Page intro rendered on Contact at phone/desktop with authored casing, one H1 and valid ContactPage data. The common font renderer's Newake off/on and retained-uppercase Erode cases were rendered through Main page at both widths. Standalone Page intro's Newake modes were schema-reviewed but not separately rendered after the preview fixture sync interruption; see Main page's verification record.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.

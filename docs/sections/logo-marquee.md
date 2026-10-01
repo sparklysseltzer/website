@@ -17,7 +17,7 @@ The marquee renders an ordered `merchant_collection` metaobject whose `merchants
 
 ## Rendering contract
 
-The optional heading uses centered uppercase Newake with the shared section-heading size role. When the heading is blank, the localized section label remains as a visually hidden `h2` for the section landmark.
+The optional heading uses the shared section-heading size role: Erode preserves authored casing; Newake retains the established uppercase treatment. When the heading is blank, the localized section label remains as a visually hidden `h2` for the section landmark.
 
 The full-width surface uses the Figma-derived gray background with white logo cards, a fully transparent treatment, or a fully white treatment for both the section and cards. Duplicated visual groups create a seamless CSS loop. Duplicate groups are hidden from assistive technology and removed from keyboard order. A merchant URL makes only the canonical tile interactive. Missing or empty data emits no storefront section.
 
@@ -48,3 +48,12 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 **Heading font** selects Erode (default for new placements) or Newake, independently of the product world. It applies to semantic headings rendered by this section, including headings inside rich text; Maison Neue body/UI text and existing size roles are unchanged. This supersedes earlier automatic brand-based font descriptions in this document. Existing explicit font selections retain their saved values. SVG logos and product-title artwork remain artwork, not configurable type. See the [shared heading contract](../design-system.md#editorial-heading-font-selection).
 
 Editor naming (2026-09-12): **Merchant marquee**. Display names only; internal IDs, saved settings and rendering are unchanged.
+
+Casing verification (2026-09-28): shared font-choice checks at 1440px/390px render Erode with `text-transform: none`, and a nested Newake choice retains uppercase. Home and both collection pages were scanned for Erode headings with non-normal transformations; none remained. Source copy, merchant data and logo artwork are unchanged.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+The old `background_style` ID remains hidden compatibility storage, preserving saved gray/white/transparent treatments and logo-card colors. Only the shared background group edits the canvas. New presets select transparent legacy card treatment as well; Default restores its saved treatment.
+
+Panel-shadow rollout (2026-10-01): Logo tiles use the shared panel shadow. The viewport reserves vertical shadow gutters with compensating margins, preserving row placement and continuous scrolling. See the [shared contract](../design-system.md#panel-shadows).

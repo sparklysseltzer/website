@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {{ 'editorial-content.css' | asset_url | stylesheet_tag }}
 <div class="section page-width"><div class="editorial-layout">
@@ -23,6 +24,38 @@
       "id": "hide_on_desktop",
       "label": "Hide on desktop",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
     }
   ],
   "blocks": [
@@ -58,7 +91,10 @@
             }
           ]
         }
-      ]
+      ],
+      "settings": {
+        "section_background_mode": "transparent"
+      }
     }
   ]
 }

@@ -52,3 +52,9 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 ## Interrupted disclosure motion
 
 The shared controller tracks the intended open state separately from the native `open` attribute during closing. Reversing a toggle captures the currently rendered answer height, opacity and transform before cancellation, then continues from that frame. Switching to reduced motion settles each item to its requested state and clears the animation. No alternate timings are introduced by embedded use.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Panel-shadow rollout (2026-10-01): FAQ items inherit the shared panel shadow and suppress nested panel shadows. See the [shared contract](../design-system.md#panel-shadows).

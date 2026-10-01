@@ -16,8 +16,14 @@ Content, image and action are server-rendered and work without JavaScript. There
 
 ## Editor dependency contract
 
-Groups follow Layout → Image → Content → Button → Visibility (the embedded block omits section visibility). Square hides desktop/mobile height controls; Custom exposes both. Show heading gates heading copy and level, while a populated rich-text field keeps heading-font selection relevant. Show button gates label, destination and style and also suppresses the rendered action. Hiding fields preserves saved values. Both standalone and embedded schemas have reviewed mode cases in the editor contract registry.
+Groups follow Layout → Image → Content → Button → Visibility → Section background (the embedded block omits the section visibility and canvas controls). Square hides desktop/mobile height controls; Custom exposes both. Show heading gates heading copy and level, while a populated rich-text field keeps heading-font selection relevant. Show button gates label, destination and style and also suppresses the rendered action. Hiding fields preserves saved values. Both standalone and embedded schemas have reviewed mode cases in the editor contract registry.
 
 ## Accordion reuse
 
 The existing native block is also available inside Accordeon items, retaining its settings, conditional fields, image handling and responsive behavior. Accordion placements use the same compact embedded spacing as Two-column layout. No duplicate content model or structured data is introduced.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows); nested surfaces suppress the additional shadow. Existing layout, focus and motion behavior is preserved.

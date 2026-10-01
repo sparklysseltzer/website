@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {%- liquid
   assign heading = section.settings.heading
@@ -16,7 +17,7 @@
 -%}
 
 <editorial-section-motion>
-  <section class="seltzer-awards section" data-scroll-motion-section>
+  <section data-section-background class="seltzer-awards section" data-scroll-motion-section>
     <div class="seltzer-awards__inner page-width" data-scroll-motion-surface>
       <header class="seltzer-awards__header">
         <h2 class="seltzer-awards__heading" data-scroll-motion-reveal>{{ heading | newline_to_br }}</h2>
@@ -95,15 +96,84 @@
   "tag": "section",
   "class": "section-hard-seltzer-awards heading-font-legacy",
   "settings": [
-    { "type": "header", "content": "Content" },
-    { "type": "textarea", "id": "heading", "label": "Heading" },
-    { "type": "textarea", "id": "intro", "label": "Introduction" },
-    { "type": "header", "content": "Action" },
-    { "type": "text", "id": "button_label", "label": "Button label" },
-    { "type": "url", "id": "button_link", "label": "Button link" },
-    {"type": "header", "content": "Visibility"},
-    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
-    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Introduction"
+    },
+    {
+      "type": "header",
+      "content": "Action"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
   ],
   "blocks": [
     {
@@ -111,8 +181,16 @@
       "name": "Award",
       "limit": 3,
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Award image" },
-        { "type": "text", "id": "alt", "label": "Image alternative text" }
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Award image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Image alternative text"
+        }
       ]
     }
   ],
@@ -122,8 +200,19 @@
       "name": "Hard Seltzer awards",
       "category": "Trust & information",
       "blocks": [
-        { "type": "award" }, { "type": "award" }, { "type": "award" }
-      ]
+        {
+          "type": "award"
+        },
+        {
+          "type": "award"
+        },
+        {
+          "type": "award"
+        }
+      ],
+      "settings": {
+        "section_background_mode": "transparent"
+      }
     }
   ]
 }

@@ -1,9 +1,10 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 {{ 'blog.css' | asset_url | stylesheet_tag }}
 {% assign news = blogs['news'] %}
 {% if news.articles_count > 0 or request.design_mode %}
-<editorial-section-motion><section class="blog-teaser" data-scroll-motion-section><div class="section page-width">
+<editorial-section-motion><section data-section-background class="blog-teaser" data-scroll-motion-section><div class="section page-width">
   <div class="blog-heading-row" data-poster-reveal>
     <h2>{{ section.settings.heading | default: '' | escape }}{% if section.settings.heading == blank %}{{ 'blogs.general.posts' | t }}{% endif %}</h2>
     {% if section.settings.show_button and news != blank %}<a class="button button--secondary" href="{{ news.url }}"><span class="button__label">{% if section.settings.button_label != blank %}{{ section.settings.button_label | escape }}{% else %}{{ 'blogs.general.view' | t }}{% endif %}<img src="{{ 'arrow-right.svg' | asset_url }}" width="24" height="24" alt=""></span></a>{% endif %}
@@ -98,11 +99,46 @@
       "id": "hide_on_desktop",
       "label": "Hide on desktop",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
     }
   ],
   "presets": [
     {
-      "name": "Blog teaser"
+      "name": "Blog teaser",
+      "settings": {
+        "section_background_mode": "transparent"
+      }
     }
   ]
 }

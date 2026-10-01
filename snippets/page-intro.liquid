@@ -7,6 +7,10 @@
     assign eyebrow = page.title
   endif
   assign intro = page.metafields.custom.intro_text.value
+  assign page_schema_type = 'WebPage'
+  if template.suffix == 'kontakt'
+    assign page_schema_type = 'ContactPage'
+  endif
 -%}
 <header class="page-intro{% if editorial %} page-intro--editorial{% else %} page-intro--plain{% endif %}">
   {%- if editorial -%}
@@ -22,7 +26,7 @@
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebPage",
+      "@type": {{ page_schema_type | json }},
       "@id": {{ canonical_url | append: '#webpage' | json | replace: '<', '\u003c' }},
       "url": {{ canonical_url | json | replace: '<', '\u003c' }},
       "name": {{ heading | json | replace: '<', '\u003c' }},

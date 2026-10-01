@@ -14,8 +14,6 @@
 .pdp-gallery__navigation button { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 0; border-radius: 50%; background: var(--color-surface); color: var(--color-foreground); cursor: pointer; pointer-events: auto; transition: background var(--motion-duration-fast); }
 .pdp-gallery__navigation img { width: 1.25rem; height: 1.25rem; }
 .pdp-gallery__navigation button:hover { background: var(--color-surface-muted); }
-.pdp-gallery__navigation [data-gallery-counter] { position: absolute; top: auto; left: 50%; transform: translateX(-50%); padding: .25rem .5rem; background: var(--color-surface); border-radius: 999px; font-size: var(--font-size-small); opacity: 0; transition: opacity var(--motion-duration-fast); }
-.pdp-gallery:hover [data-gallery-counter], .pdp-gallery:focus-within [data-gallery-counter] { opacity: 1; }
 .pdp-badge { position: absolute; top: .5rem; right: .5rem; width: 26%; aspect-ratio: 1; pointer-events: none; }
 .pdp-badge__disc, .pdp-badge__ring { position: absolute; width: 100%; height: 100%; inset: 0; object-fit: contain; }
 .pdp-badge__ring { animation: pdp-spin 28s linear infinite; animation-play-state: paused; }
@@ -28,8 +26,6 @@
 .pdp-badge__percent { width: 38%; top: 0; left: 53%; }
 .pdp-badge__alc { width: 33%; top: 49%; left: 56%; }
 .pdp-badge__vol { width: 34%; top: 69%; left: 56%; }
-.pdp-badge-toggle { position: absolute; bottom: .5rem; right: .5rem; min-height: 2.75rem; width: 2.75rem; padding: .625rem; border: 0; border-radius: 999px; background: var(--color-surface); color: var(--color-foreground); font-size: var(--font-size-small); cursor: pointer; opacity: 0; transition: opacity var(--motion-duration-fast); }
-.pdp-gallery:hover .pdp-badge-toggle, .pdp-gallery:focus-within .pdp-badge-toggle { opacity: 1; }
 .pdp-purchase { grid-column: 2; grid-row: 2 / span 2; display: grid; gap: 1rem; }
 .pdp-description { display: block; }
 .pdp-description .rte > :first-child { margin-top: 0; }
@@ -102,10 +98,8 @@
   .pdp-section { padding-top: 1.5rem; }
   .pdp { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
   .pdp-identity, .pdp-gallery, .pdp-purchase, .pdp-support { grid-column: 1; grid-row: auto; }
-  .pdp-badge-toggle { opacity: 1; }
 }
 @media (max-width: 30rem) { .pdp-benefit { padding-inline: 1rem; gap: .75rem; } .pdp-benefit__art { flex-basis: 4.5rem; width: 4.5rem; height: 4.5rem; } .pdp-savings { white-space: normal; max-width: 5rem; } }
-@media (prefers-reduced-motion: reduce) { .pdp *, .pdp *::before { animation: none !important; transition: none !important; scroll-behavior: auto !important; } .pdp-badge-toggle { display: none !important; } }
 
 .pdp-badge--soda .pdp-badge__ring { inset: 4%; width: 92%; height: 92%; }
 .pdp-purchase-options .form-choice--card { background: var(--color-surface); }
@@ -121,8 +115,6 @@
 [data-color-world="seltzer"] .pdp-identity__logo { filter: invert(1); }
 .pdp-title__art { display: block; width: min(100%, 20rem); height: auto; }
 
-.pdp-badge-toggle img { display: block; width: 1.5rem; height: 1.5rem; }
-.pdp-badge-toggle[aria-pressed="true"] { background: var(--color-accent); }
 
 .pdp-gallery__track:focus-visible { outline-offset: calc(-1 * (var(--focus-ring-width) + var(--focus-ring-offset))); }
 
@@ -166,5 +158,6 @@
 }
 
 /* Dropdown and benefits expand as one subscription detail group. */
-.pdp-subscription-details { display: flow-root; margin-top: .75rem; }
+.pdp-subscription-details { display: flow-root; }
+.pdp-subscription-details > [data-plan-content] { padding-top: .75rem; }
 .pdp-subscription-details .pdp-plan-field { margin-top: 0; }

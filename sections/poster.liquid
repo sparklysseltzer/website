@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 {{ 'component-poster.css' | asset_url | stylesheet_tag }}
@@ -230,7 +231,7 @@
     {
       "type": "range",
       "id": "minimum_height_mobile",
-      "min": 360,
+      "min": 120,
       "max": 800,
       "step": 10,
       "unit": "px",
@@ -254,6 +255,38 @@
       "label": "Hide on desktop",
       "default": false,
       "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
     }
   ],
   "blocks": [
@@ -277,7 +310,8 @@
       "category": "Brand storytelling",
       "settings": {
         "image_alt": "Sparklys cans on a cart",
-        "button_link": "#"
+        "button_link": "#",
+        "section_background_mode": "transparent"
       },
       "blocks": [
         {

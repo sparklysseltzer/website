@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {%- liquid
   assign all_products_link = section.settings.all_products_link | default: routes.all_products_collection_url
@@ -5,7 +6,7 @@
   assign hard_seltzer_link = section.settings.hard_seltzer_link | default: collections['hard-seltzer'].url
 -%}
 
-<product-overview-motion>
+<product-overview-motion data-section-background>
   <section class="product-overview section page-width" data-card-motion-section>
     <div class="product-overview__header" data-card-motion-header>
       {%- if section.settings.heading != blank -%}
@@ -622,6 +623,10 @@
   "max_blocks": 4,
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
@@ -652,9 +657,56 @@
       "id": "hard_seltzer_link",
       "label": "Hard Seltzer link"
     },
-    {"type": "header", "content": "Visibility"},
-    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
-    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
   ],
   "blocks": [
     {
@@ -823,7 +875,10 @@
             "image_offset_y": 0
           }
         }
-      ]
+      ],
+      "settings": {
+        "section_background_mode": "transparent"
+      }
     }
   ]
 }

@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {%- unless collection.handle == 'all' -%}
 {{ 'collection.css' | asset_url | stylesheet_tag }}
@@ -47,7 +48,7 @@
   endif
 -%}
 {% render 'heading-font', choice: font, section_id: section.id %}
-<collection-hero-motion class="collection-hero collection-hero--{{ variant }}" data-heading-font="{{ font }}"{% if section.settings.animate %} data-animate{% endif %}>
+<collection-hero-motion data-section-background class="collection-hero collection-hero--{{ variant }}" data-heading-font="{{ font }}"{% if section.settings.animate %} data-animate{% endif %}>
   <div class="collection-hero__atmosphere" aria-hidden="true">
     {% if section.settings.background_image %}{{ section.settings.background_image | image_url: width: 2400 | image_tag: widths: '750, 1200, 1800, 2400', sizes: '100vw', class: 'collection-hero__background', loading: 'eager', alt: '' }}{% else %}
       {% if variant == 'soda' %}<div class="collection-hero__clouds" data-clouds></div>{% endif %}
@@ -101,7 +102,7 @@
       "options": [
         {
           "value": "automatic",
-          "label": "Automatic \u2014 collection"
+          "label": "Automatic — collection"
         },
         {
           "value": "soda",
@@ -136,7 +137,7 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "info": "Leave blank to use the collection\u2019s default heading."
+      "info": "Leave blank to use the collection’s default heading."
     },
     {
       "type": "richtext",
@@ -151,7 +152,7 @@
       "options": [
         {
           "value": "automatic",
-          "label": "Automatic \u2014 product world"
+          "label": "Automatic — product world"
         },
         {
           "value": "erode",
@@ -214,25 +215,62 @@
       "id": "hide_on_desktop",
       "label": "Hide on desktop",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
     }
   ],
   "presets": [
     {
       "name": "Collection hero",
-      "category": "Products & offers"
-    },
-    {
-      "name": "Collection hero \u2014 Soda",
       "category": "Products & offers",
       "settings": {
-        "variant": "soda"
+        "section_background_mode": "transparent"
       }
     },
     {
-      "name": "Collection hero \u2014 Hard Seltzer",
+      "name": "Collection hero — Soda",
       "category": "Products & offers",
       "settings": {
-        "variant": "seltzer"
+        "variant": "soda",
+        "section_background_mode": "transparent"
+      }
+    },
+    {
+      "name": "Collection hero — Hard Seltzer",
+      "category": "Products & offers",
+      "settings": {
+        "variant": "seltzer",
+        "section_background_mode": "transparent"
       }
     }
   ]

@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {{ 'product-detail.css' | asset_url | stylesheet_tag }}
 {{ 'product-usps.css' | asset_url | stylesheet_tag }}
@@ -24,7 +25,7 @@
   assign title = product.title | remove_first: 'Sparklys Soda ' | remove_first: 'Sparklys Hard Seltzer '
   assign form_id = 'ProductBuy-' | append: section.id
 -%}
-<section class="pdp-section" data-color-world="{{ brand }}">
+<section data-section-background class="pdp-section" data-color-world="{{ brand }}">
   <product-detail class="pdp" data-section="{{ section.id }}" data-url="{{ product.url }}" data-currency="{{ cart.currency.iso_code }}" data-locale="{{ request.locale.iso_code }}" data-add-label="{{ 'products.product.add_to_cart' | t }}" data-sold-label="{{ 'products.product.sold_out' | t }}" data-savings-label="{{ 'products.pdp.save_percent' | t: percent: '[percent]' }}" data-charge-label="{{ 'products.pdp.checkout_charge' | t: amount: '[amount]' }}" data-balance-label="{{ 'products.pdp.remaining_balance' | t: amount: '[amount]' }}">
     <div class="pdp-details">
     <header class="pdp-identity">
@@ -96,7 +97,7 @@
       <div class="pdp-gallery__track" tabindex="0" role="region" aria-label="{{ 'products.pdp.gallery' | t }}">
         {% for media in product.media %}
           {% assign media_alt = media.alt | default: product.title %}
-          <div class="pdp-gallery__slide" id="ProductMedia-{{ section.id }}-{{ media.id }}" data-media-id="{{ media.id }}" role="group" aria-label="{{ forloop.index }} / {{ product.media.size }}">
+          <div class="pdp-gallery__slide" id="ProductMedia-{{ section.id }}-{{ media.id }}" data-media-id="{{ media.id }}" data-media-type="{{ media.media_type }}" role="group" aria-label="{{ forloop.index }} / {{ product.media.size }}">
             {% if media.media_type == 'image' %}
               {% if forloop.first %}{{ media | image_url: width: 1600 | image_tag: widths: '400, 620, 900, 1240, 1600', sizes: '(min-width: 900px) 48vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: media_alt }}{% else %}{{ media | image_url: width: 1600 | image_tag: widths: '400, 620, 900, 1240, 1600', sizes: '(min-width: 900px) 48vw, 100vw', loading: 'lazy', alt: media_alt }}{% endif %}
             {% else %}{{ media | media_tag: image_size: '1000x', controls: true, preload: 'none' }}{% endif %}
@@ -105,7 +106,7 @@
       </div>
       {% render 'product-badge', brand: brand, product: product %}
       {% if product.media.size > 1 %}
-        <div class="pdp-gallery__navigation" data-enhanced-only hidden><button type="button" data-gallery-step="-1" aria-label="{{ 'products.pdp.previous_image' | t }}"><img src="{{ 'icon-arrow-left.svg' | asset_url }}" width="24" height="24" alt=""></button><span data-gallery-counter aria-live="polite">1 / {{ product.media.size }}</span><button type="button" data-gallery-step="1" aria-label="{{ 'products.pdp.next_image' | t }}"><img src="{{ 'icon-arrow-left.svg' | asset_url }}" width="24" height="24" alt="" style="transform: rotate(180deg);"></button></div>
+        <div class="pdp-gallery__navigation" data-enhanced-only hidden><button type="button" data-gallery-step="-1" aria-label="{{ 'products.pdp.previous_image' | t }}"><img src="{{ 'icon-arrow-left.svg' | asset_url }}" width="24" height="24" alt=""></button><button type="button" data-gallery-step="1" aria-label="{{ 'products.pdp.next_image' | t }}"><img src="{{ 'icon-arrow-left.svg' | asset_url }}" width="24" height="24" alt="" style="transform: rotate(180deg);"></button></div>
       {% endif %}
     </div>
     <div class="pdp-support">
@@ -132,7 +133,13 @@
 </section>
 <script type="application/ld+json">{{ product | structured_data }}</script>
 {% schema %}
-{"name":"Product","settings":[
+{
+  "name": "Product",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
     {
       "type": "select",
       "id": "heading_font",
@@ -149,5 +156,50 @@
         }
       ],
       "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
-    },{"type":"checkbox","id":"show_vendor","label":"Show vendor","default":false}],"blocks":[{"type":"@app"}]}
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ]
+}
 {% endschema %}

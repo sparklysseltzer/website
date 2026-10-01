@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {%- liquid
   assign heading = section.settings.heading
@@ -12,7 +13,7 @@
 -%}
 
 <editorial-section-motion>
-  <section class="seltzer-ingredients section" data-scroll-motion-section>
+  <section data-section-background class="seltzer-ingredients section" data-scroll-motion-section>
     <div class="seltzer-ingredients__inner page-width" data-scroll-motion-surface>
       <header class="seltzer-ingredients__header">
         <h2 class="seltzer-ingredients__heading" data-scroll-motion-reveal>
@@ -124,12 +125,70 @@
   "tag": "section",
   "class": "section-hard-seltzer-ingredients heading-font-legacy",
   "settings": [
-    { "type": "header", "content": "Content" },
-    { "type": "textarea", "id": "heading", "label": "Heading" },
-    { "type": "textarea", "id": "intro", "label": "Introduction" },
-    {"type": "header", "content": "Visibility"},
-    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
-    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Introduction"
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
   ],
   "blocks": [
     {
@@ -137,8 +196,16 @@
       "name": "Ingredient",
       "limit": 3,
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Illustration" },
-        { "type": "textarea", "id": "text", "label": "Text" }
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Illustration"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        }
       ]
     }
   ],
@@ -148,10 +215,19 @@
       "name": "Hard Seltzer ingredients",
       "category": "Trust & information",
       "blocks": [
-        { "type": "ingredient" },
-        { "type": "ingredient" },
-        { "type": "ingredient" }
-      ]
+        {
+          "type": "ingredient"
+        },
+        {
+          "type": "ingredient"
+        },
+        {
+          "type": "ingredient"
+        }
+      ],
+      "settings": {
+        "section_background_mode": "transparent"
+      }
     }
   ]
 }

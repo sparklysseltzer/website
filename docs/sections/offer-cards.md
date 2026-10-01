@@ -47,3 +47,11 @@ Editor naming (2026-09-12): **Offer cards**. Display names only; internal IDs, s
 Explicit card links remain authoritative. Otherwise the canonical artwork slot resolves the Shopify page handle `retail`, `gastro`, `events`, or `companies` through `pages`, retaining localized URLs. If a page is unavailable, the card remains an article rather than linking to a nonexistent page. Local `page.<handle>.json` templates use Page intro and are ready for merchant composition.
 
 Ananotes 116 store inspection (2026-09-15): Admin API content access is now available. Retail (`retail`), Gastronomie (`gastro`), Events (`events`) and Firmen (`firmen`) already exist as hidden pages with template suffix `page`. Reuse them; do not create a duplicate Companies page. The Companies artwork slot prefers the existing `firmen` resource, then legacy `companies`. Local templates remain ready as `retail`, `gastro`, `events`, `companies`. Assigning those suffixes is a separate store-data step; it has not been performed by the local-only Ananotes pass. Hidden pages remain unavailable to ordinary storefront links until their publication is separately authorized. Existing explicit card links, page handles, content, visibility and saved templates are preserved.
+
+Erode casing: the brand-inherited Soda section heading preserves authored case under the shared typography rule; existing Newake card-title treatments remain unchanged.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Offer cards use the shared [panel shadow](../design-system.md#panel-shadows) on their outer rounded surface, with nested panel shadows suppressed.

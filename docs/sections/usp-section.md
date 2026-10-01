@@ -77,3 +77,11 @@ The alcohol icon now uses the complete Figma group `6619:23955` from file `wU2QC
 The existing `usp_item` entry `seltzer-1` (ID `683031036291`, caption “Perfect alc. vol.”) references the Hard Seltzer USP set. Its Icon field now selects the complete 4× PNG export `usp-seltzer-alcohol-composite.png` (278×278, MediaImage ID `73588198637955`), uploaded and assigned through the dedicated Admin API connection on 2026-09-12. No metaobject definition or caption was changed. The entry image takes precedence over the matching local SVG fallback. Desktop and phone rendering of the composite fallback was visually checked; theme checks pass.
 
 Editor naming (2026-09-12): **Product benefits**; presets: **Product benefits — Soda**, **Product benefits — Hard Seltzer**. Display names only; internal IDs, saved settings and rendering are unchanged.
+
+Erode casing: an explicit Soda/Erode heading choice always preserves authored case, including on the Hard Seltzer composition. Maison Neue USP labels retain their existing uppercase treatment.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows); nested surfaces suppress the additional shadow. Existing layout, focus and motion behavior is preserved.

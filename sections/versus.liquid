@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {%- liquid
   assign variant = section.settings.variant | default: 'soda'
@@ -22,7 +23,7 @@
 -%}
 
 <editorial-section-motion>
-  <section class="versus versus--{{ variant }} section" data-scroll-motion-section>
+  <section data-section-background class="versus versus--{{ variant }} section" data-scroll-motion-section>
     <div class="versus__inner page-width" data-scroll-motion-surface>
       <header class="versus__header">
         <h2 data-scroll-motion-reveal>{{ heading | newline_to_br }}</h2>
@@ -209,11 +210,11 @@
   .versus--soda .versus__header h2 { font-family: var(--font-heading-soda); font-weight: 700; letter-spacing: -.03em; }
   .versus--seltzer .versus__header h2 { font-family: var(--font-heading-default); font-size: var(--font-size-section); font-weight: 400; letter-spacing: normal; text-transform: uppercase; }
   .versus__header p { display: inline-flex; padding: .75rem 1.5rem; margin: .75rem 0 0; align-items: center; border-radius: 999px; background: rgb(255 255 255 / .5); font-size: var(--font-size-body); line-height: var(--line-height-body-compact); }
-  .versus__scroller { padding-top: 1.25rem; padding-bottom: .25rem; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: inline proximity; scrollbar-color: rgb(0 0 0 / .35) transparent; scrollbar-width: thin; }
+  .versus__scroller { padding-top: 1.25rem; padding-bottom: 2rem; padding-inline: min(1.5rem, var(--page-gutter)); margin-inline: calc(-1 * min(1.5rem, var(--page-gutter))); overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: inline proximity; scrollbar-color: rgb(0 0 0 / .35) transparent; scrollbar-width: thin; }
   .versus__scroller:focus-visible { outline: 2px solid currentColor; outline-offset: .35rem; }
   .versus__track { display: flex; gap: .75rem; min-width: min-content; }
   .versus__card { position: relative; display: flex; width: min(78vw, 14.4rem); flex: 0 0 min(78vw, 14.4rem); flex-direction: column; padding: 1.5rem 1.25rem 1.875rem; border-radius: var(--radius-small); background: var(--versus-card-color); scroll-snap-align: start; order: 0; }
-  .versus__card--featured { box-shadow: inset 0 0 0 3px rgb(0 110 57 / .4); order: -1; }
+  .versus__card--featured { outline: 3px solid rgb(0 110 57 / .4); outline-offset: -3px; order: -1; }
   .versus__badge { position: absolute; display: grid; place-items: center; z-index: 1; top: -.875rem; right: -.25rem; width: 4.664rem; height: 4.664rem; transform: rotate(-11.26deg); }
   .versus__badge img { grid-area: 1 / 1; width: 100%; height: 100%; }
   .versus__badge img:nth-child(2) { width: 85.7%; height: 85.7%; }
@@ -271,24 +272,97 @@
   "tag": "section",
   "class": "section-versus heading-font-legacy",
   "settings": [
-    { "type": "header", "content": "Content" },
+    {
+      "type": "header",
+      "content": "Content"
+    },
     {
       "type": "select",
       "id": "variant",
       "label": "Product world",
       "options": [
-        { "value": "soda", "label": "Soda" },
-        { "value": "seltzer", "label": "Hard Seltzer" }
+        {
+          "value": "soda",
+          "label": "Soda"
+        },
+        {
+          "value": "seltzer",
+          "label": "Hard Seltzer"
+        }
       ],
       "default": "soda"
     },
-    { "type": "textarea", "id": "heading", "label": "Heading" },
-    { "type": "text", "id": "comparison_basis", "label": "Comparison basis" },
-    { "type": "textarea", "id": "disclaimer", "label": "Comparison disclaimer" },
-    { "type": "textarea", "id": "footnote", "label": "Footnote", "visible_if": "{{ section.settings.variant == 'soda' }}" },
-    {"type": "header", "content": "Visibility"},
-    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
-    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "comparison_basis",
+      "label": "Comparison basis"
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer",
+      "label": "Comparison disclaimer"
+    },
+    {
+      "type": "textarea",
+      "id": "footnote",
+      "label": "Footnote",
+      "visible_if": "{{ section.settings.variant == 'soda' }}"
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
   ],
   "blocks": [
     {
@@ -296,17 +370,64 @@
       "name": "Comparison item",
       "limit": 5,
       "settings": [
-        { "type": "header", "content": "Product" },
-        { "type": "checkbox", "id": "featured", "label": "Sparklys product", "default": false, "info": "Shown first on mobile and third on desktop." },
-        { "type": "image_picker", "id": "image", "label": "Product image" },
-        { "type": "text", "id": "title", "label": "Title" },
-        { "type": "header", "content": "Comparison values" },
-        { "type": "text", "id": "value_1", "label": "Value 1" },
-        { "type": "text", "id": "value_2", "label": "Value 2" },
-        { "type": "text", "id": "value_3", "label": "Value 3" },
-        { "type": "text", "id": "value_4", "label": "Value 4", "visible_if": "{{ section.settings.variant == 'soda' }}" },
-        { "type": "text", "id": "value_5", "label": "Value 5", "visible_if": "{{ section.settings.variant == 'soda' }}" },
-        { "type": "text", "id": "value_6", "label": "Value 6", "visible_if": "{{ section.settings.variant == 'soda' }}" }
+        {
+          "type": "header",
+          "content": "Product"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Sparklys product",
+          "default": false,
+          "info": "Shown first on mobile and third on desktop."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "header",
+          "content": "Comparison values"
+        },
+        {
+          "type": "text",
+          "id": "value_1",
+          "label": "Value 1"
+        },
+        {
+          "type": "text",
+          "id": "value_2",
+          "label": "Value 2"
+        },
+        {
+          "type": "text",
+          "id": "value_3",
+          "label": "Value 3"
+        },
+        {
+          "type": "text",
+          "id": "value_4",
+          "label": "Value 4",
+          "visible_if": "{{ section.settings.variant == 'soda' }}"
+        },
+        {
+          "type": "text",
+          "id": "value_5",
+          "label": "Value 5",
+          "visible_if": "{{ section.settings.variant == 'soda' }}"
+        },
+        {
+          "type": "text",
+          "id": "value_6",
+          "label": "Value 6",
+          "visible_if": "{{ section.settings.variant == 'soda' }}"
+        }
       ]
     }
   ],
@@ -315,19 +436,57 @@
     {
       "name": "Product comparison — Soda",
       "category": "Trust & information",
-      "settings": { "variant": "soda" },
+      "settings": {
+        "variant": "soda",
+        "section_background_mode": "transparent"
+      },
       "blocks": [
-        { "type": "item", "settings": { "featured": true } },
-        { "type": "item" }, { "type": "item" }, { "type": "item" }, { "type": "item" }
+        {
+          "type": "item",
+          "settings": {
+            "featured": true
+          }
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
       ]
     },
     {
       "name": "Product comparison — Hard Seltzer",
       "category": "Trust & information",
-      "settings": { "variant": "seltzer" },
+      "settings": {
+        "variant": "seltzer",
+        "section_background_mode": "transparent"
+      },
       "blocks": [
-        { "type": "item", "settings": { "featured": true } },
-        { "type": "item" }, { "type": "item" }, { "type": "item" }, { "type": "item" }
+        {
+          "type": "item",
+          "settings": {
+            "featured": true
+          }
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
       ]
     }
   ]

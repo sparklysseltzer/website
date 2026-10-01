@@ -12,7 +12,7 @@ Optional FAQ category and individual FAQ selections remain additive. Custom item
 
 ## Editor dependency contract
 
-Content groups the optional overall heading and heading font. Optional FAQs groups both resource pickers, which remain relevant in every configuration. Standalone Visibility stays last. Item blocks have only a title; nested blocks represent real content rather than field groups. All four content blocks retain their existing conditional fields. Poster supports nested Tick items; even inside Two-column layout, the deepest path is five native block levels. The section and nested block are registered with reviewed schema contracts.
+Content groups the optional overall heading and heading font. Optional FAQs groups both resource pickers, which remain relevant in every configuration. Standalone Visibility precedes the final Section background group. Item blocks have only a title; nested blocks represent real content rather than field groups. All four content blocks retain their existing conditional fields. Poster supports nested Tick items; even inside Two-column layout, the deepest path is five native block levels. The section and nested block are registered with reviewed schema contracts.
 
 ## Rendering, motion and accessibility
 
@@ -29,3 +29,9 @@ Only actual selected FAQ metaobjects emit FAQPage JSON-LD through the shared ren
 Theme, schema, typography and commerce regression checks pass. Local preview has been restored. Check custom-only, FAQ-only and mixed lists at phone/desktop sizes during the remaining full journey QA, including keyboard, no-JavaScript and interrupted transitions.
 
 Text and image / Poster reuse checked in the Shopify-rendered accordion at 1440px and 390px: both blocks render inside the opened item, neither viewport overflows horizontally, and Text and image stacks to one column on phone. Keyboard activation was exercised. The temporary development fixture was restored and the isolated browser closed.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Panel-shadow rollout (2026-10-01): FAQ items use one shared panel shadow; nested content panels remain flat. See the [shared contract](../design-system.md#panel-shadows).

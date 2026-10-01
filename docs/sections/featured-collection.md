@@ -35,3 +35,7 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 ## Product backgrounds
 
 Shared product cards use `product-background.liquid`: optional product `custom.gallery_background_image` overrides layered `custom.gallery_gradient`. Backgrounds remain behind product photography; opaque product photos naturally conceal them. Empty or rejected fields retain the existing neutral card surface. Decorative Shopify images use responsive delivery and their native focal point; they introduce no structured-data changes.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.

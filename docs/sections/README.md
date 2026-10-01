@@ -2,7 +2,7 @@
 
 This directory documents every Liquid section in `sections/`. Keep implementation details here; keep cross-cutting rules in [Architecture](../architecture.md), commerce requirements in [Commerce](../commerce.md), and capability state in [Status](../status.md).
 
-Last reconciled with the repository: 2026-09-15. The tables below cover all 34 Liquid sections; variants and presets do not count as separate sections.
+Last reconciled with the repository: 2026-10-02. The tables below cover all 34 Liquid sections; variants and presets do not count as separate sections.
 
 ## Shared contracts
 
@@ -73,3 +73,9 @@ In the Theme Editor, a hidden section's children are replaced visually by an Eng
 Essential-function exceptions: Header, Main product, Main cart and Cart drawer do not expose these settings, preserving navigation, purchase forms and the shared modal/age-check host. All other current sections, including the footer and resource content sections, use the same contract. Future sections must adopt the controls and renderer unless an essential-function exception is documented here.
 
 FAQ sections suppress their JSON-LD when both hide settings are enabled; with one enabled, their content remains accessible at the other viewport. No new structured-data entity is introduced by visibility controls. Hidden duplicate editorial copies should not carry independent conflicting content.
+
+## Section backgrounds
+
+All content/resource sections and Footer use the [shared canvas color contract](../design-system.md#section-backgrounds), with **Section background** as the final group after Visibility, with Default / Transparent / Custom Color. New add-section presets start transparent; existing placements preserve their saved or brand-derived defaults. Header and Cart drawer retain their specialized shell surfaces. Enclosed panel/card colors are separate from the full-width canvas; never expose two controls for the same surface.
+
+Canvas verification (2026-09-28): temporary development templates exercised all 23 reusable non-hero presets plus three Collection hero variants and Page intro. Checked Transparent, Custom Color (clear, white, gray, orange and alpha), and Default restoration at 390px/1440px. Product benefits and Subscription retained their Soda/Seltzer panel colors; comparison cards retained their own surfaces. The existing Hard Seltzer PDP kept its `#e1e1df` page field, black footer and 24px header blur. Script-blocked phone rendering and keyboard skip navigation passed. Native Shopify renders missing and explicitly cleared colors identically; the approved three-choice mode handles that distinction. Schema dependency contracts cover all 32 affected sections. Temporary fixtures and the isolated test browser were removed.

@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {%- liquid
   capture page_context
@@ -203,42 +204,336 @@
   "name": "Subscription",
   "max_blocks": 6,
   "settings": [
-    { "type": "header", "content": "Product world" },
-    { "type": "select", "id": "variant", "label": "Content variant", "default": "automatic", "options": [{ "value": "automatic", "label": "Automatic" }, { "value": "soda", "label": "Soda" }, { "value": "seltzer", "label": "Hard Seltzer" }], "info": "Automatic follows the page's product world. Choose a variant explicitly for shared pages." },
-    { "type": "header", "content": "Images" },
-    { "type": "image_picker", "id": "image", "label": "Desktop image" },
-    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image", "info": "Optional. Set focal points in Shopify's image editor. When blank, the desktop image is reused." },
-    { "type": "text", "id": "image_alt", "label": "Image alternative text", "info": "Leave blank to use the selected desktop image's alt text." },
-    { "type": "header", "content": "Content" },
-    { "type": "checkbox", "id": "show_logo", "label": "Show product-world logo", "default": true },
-    { "type": "checkbox", "id": "show_heading", "label": "Show heading", "default": true },
-    { "type": "text", "id": "heading", "label": "Heading", "info": "Leave blank to use the translated default.", "visible_if": "{{ section.settings.show_heading }}" },
-    { "type": "select", "id": "heading_font", "label": "Heading font", "default": "automatic", "options": [{ "value": "automatic", "label": "Automatic" }, { "value": "soda", "label": "Erode" }, { "value": "seltzer", "label": "Newake" }], "visible_if": "{{ section.settings.show_heading }}" },
-    { "type": "checkbox", "id": "show_intro", "label": "Show introduction", "default": true },
-    { "type": "richtext", "id": "intro", "label": "Introduction", "info": "Leave blank to use the selected product world's translated default.", "visible_if": "{{ section.settings.show_intro }}" },
-    { "type": "header", "content": "Subscribe action" },
-    { "type": "checkbox", "id": "show_button", "label": "Show subscribe button", "default": true },
-    { "type": "text", "id": "button_label", "label": "Button label", "info": "Leave blank to use the translated default.", "visible_if": "{{ section.settings.show_button }}" },
-    { "type": "url", "id": "button_link", "label": "Button link", "info": "Select your subscription destination before publishing.", "visible_if": "{{ section.settings.show_button }}" },
-    { "type": "header", "content": "Existing subscribers" },
-    { "type": "checkbox", "id": "show_account", "label": "Show sign-in link", "default": true },
-    { "type": "text", "id": "account_prompt", "label": "Sign-in introduction", "info": "Leave blank to use the translated default.", "visible_if": "{{ section.settings.show_account }}" },
-    { "type": "text", "id": "account_label", "label": "Link label", "info": "Leave blank to use the translated default.", "visible_if": "{{ section.settings.show_account }}" },
-    { "type": "url", "id": "account_link", "label": "Sign-in link", "info": "Defaults to Shopify account login. Select your subscription portal if it uses a different URL.", "visible_if": "{{ section.settings.show_account }}" },
-    { "type": "header", "content": "Size" },
-    { "type": "range", "id": "minimum_height", "label": "Desktop minimum height", "min": 420, "max": 900, "step": 10, "unit": "px", "default": 630 },
-    { "type": "range", "id": "minimum_height_mobile", "label": "Mobile minimum height", "min": 420, "max": 900, "step": 10, "unit": "px", "default": 680 },
-    {"type": "header", "content": "Visibility"},
-    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
-    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+    {
+      "type": "header",
+      "content": "Product world"
+    },
+    {
+      "type": "select",
+      "id": "variant",
+      "label": "Content variant",
+      "default": "automatic",
+      "options": [
+        {
+          "value": "automatic",
+          "label": "Automatic"
+        },
+        {
+          "value": "soda",
+          "label": "Soda"
+        },
+        {
+          "value": "seltzer",
+          "label": "Hard Seltzer"
+        }
+      ],
+      "info": "Automatic follows the page's product world. Choose a variant explicitly for shared pages."
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image",
+      "info": "Optional. Set focal points in Shopify's image editor. When blank, the desktop image is reused."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alternative text",
+      "info": "Leave blank to use the selected desktop image's alt text."
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_logo",
+      "label": "Show product-world logo",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Leave blank to use the translated default.",
+      "visible_if": "{{ section.settings.show_heading }}"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "automatic",
+      "options": [
+        {
+          "value": "automatic",
+          "label": "Automatic"
+        },
+        {
+          "value": "soda",
+          "label": "Erode"
+        },
+        {
+          "value": "seltzer",
+          "label": "Newake"
+        }
+      ],
+      "visible_if": "{{ section.settings.show_heading }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_intro",
+      "label": "Show introduction",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Introduction",
+      "info": "Leave blank to use the selected product world's translated default.",
+      "visible_if": "{{ section.settings.show_intro }}"
+    },
+    {
+      "type": "header",
+      "content": "Subscribe action"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show subscribe button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "info": "Leave blank to use the translated default.",
+      "visible_if": "{{ section.settings.show_button }}"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "info": "Select your subscription destination before publishing.",
+      "visible_if": "{{ section.settings.show_button }}"
+    },
+    {
+      "type": "header",
+      "content": "Existing subscribers"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show sign-in link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "account_prompt",
+      "label": "Sign-in introduction",
+      "info": "Leave blank to use the translated default.",
+      "visible_if": "{{ section.settings.show_account }}"
+    },
+    {
+      "type": "text",
+      "id": "account_label",
+      "label": "Link label",
+      "info": "Leave blank to use the translated default.",
+      "visible_if": "{{ section.settings.show_account }}"
+    },
+    {
+      "type": "url",
+      "id": "account_link",
+      "label": "Sign-in link",
+      "info": "Defaults to Shopify account login. Select your subscription portal if it uses a different URL.",
+      "visible_if": "{{ section.settings.show_account }}"
+    },
+    {
+      "type": "header",
+      "content": "Size"
+    },
+    {
+      "type": "range",
+      "id": "minimum_height",
+      "label": "Desktop minimum height",
+      "min": 420,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 630
+    },
+    {
+      "type": "range",
+      "id": "minimum_height_mobile",
+      "label": "Mobile minimum height",
+      "min": 420,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 680
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
   ],
-  "blocks": [{ "type": "benefit", "name": "Benefit", "settings": [
-    { "type": "select", "id": "default_content", "label": "Default benefit", "default": "none", "options": [{ "value": "none", "label": "Custom text only" }, { "value": "discount", "label": "Subscription discount" }, { "value": "shipping", "label": "Shipping" }, { "value": "flexibility", "label": "Flexibility" }] },
-    { "type": "text", "id": "text", "label": "Text", "info": "Replaces the selected default benefit. Remove the block to remove this benefit." }
-  ] }],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "select",
+          "id": "default_content",
+          "label": "Default benefit",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "Custom text only"
+            },
+            {
+              "value": "discount",
+              "label": "Subscription discount"
+            },
+            {
+              "value": "shipping",
+              "label": "Shipping"
+            },
+            {
+              "value": "flexibility",
+              "label": "Flexibility"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "info": "Replaces the selected default benefit. Remove the block to remove this benefit."
+        }
+      ]
+    }
+  ],
   "presets": [
-    { "name": "Subscription — Soda", "category": "Brand storytelling", "settings": { "variant": "soda", "button_link": "#" }, "blocks": [{ "type": "benefit", "settings": { "default_content": "discount" } }, { "type": "benefit", "settings": { "default_content": "shipping" } }, { "type": "benefit", "settings": { "default_content": "flexibility" } }] },
-    { "name": "Subscription — Hard Seltzer", "category": "Brand storytelling", "settings": { "variant": "seltzer", "button_link": "#" }, "blocks": [{ "type": "benefit", "settings": { "default_content": "discount" } }, { "type": "benefit", "settings": { "default_content": "shipping" } }, { "type": "benefit", "settings": { "default_content": "flexibility" } }] }
+    {
+      "name": "Subscription — Soda",
+      "category": "Brand storytelling",
+      "settings": {
+        "variant": "soda",
+        "button_link": "#",
+        "section_background_mode": "transparent"
+      },
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "default_content": "discount"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "default_content": "shipping"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "default_content": "flexibility"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Subscription — Hard Seltzer",
+      "category": "Brand storytelling",
+      "settings": {
+        "variant": "seltzer",
+        "button_link": "#",
+        "section_background_mode": "transparent"
+      },
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "default_content": "discount"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "default_content": "shipping"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "default_content": "flexibility"
+          }
+        }
+      ]
+    }
   ]
 }
 {% endschema %}

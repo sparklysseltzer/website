@@ -124,3 +124,5 @@ Editorial photo fallbacks are source-exported WebP assets, not baked screenshots
 ## Unused asset audit — 2026-09-13
 
 Removed eight unreferenced SVGs: the unused PDP bag icon, the two superseded Soda leaf fragments and the five superseded alcohol-icon fragments. Their complete replacement artwork remains. Dynamic filename families for product marketing images, subscription backgrounds and product-world artwork were checked and retained. Do not infer that an asset is unused solely because its full filename does not appear in a literal search. No section, block, template or merchant-selected file was removed.
+
+The Header loads `header-glass.js` for its decorative desktop active-tab cutout. It measures on border-box resize and font readiness only, reusing one backdrop filter for the header; scroll uses the existing header movement without per-frame geometry work. See the [Header contract](sections/header.md#shared-glass-and-active-tab-cutout--2026-09-28).

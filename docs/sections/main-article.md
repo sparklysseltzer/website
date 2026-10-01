@@ -17,6 +17,12 @@ Progressive enhancement animates height/opacity with Base/shared easing and cont
 
 ## Editor and structured data
 
-Content retains the existing heading-font ID and Erode default; Newake is optional. Visibility remains the last group. Shopify's `article | structured_data` emits the only primary Article entity, using actual article metadata; it is suppressed when hidden on both viewports. Related cards remain ordinary links, not duplicate full Article entities. Native tags, comments/forms and reading-time estimates are outside this implementation.
+Content retains the existing heading-font ID and Erode default; Newake is optional. Visibility precedes the final Section background group. Shopify's `article | structured_data` emits the only primary Article entity, using actual article metadata; it is suppressed when hidden on both viewports. Related cards remain ordinary links, not duplicate full Article entities. Native tags, comments/forms and reading-time estimates are outside this implementation.
 
 Verification (2026-09-15): existing Windräder article inspected at 1440px and 390px; one H1, one Article JSON-LD entity, body/media intact and no signature image. Keyboard Enter/Tab/Escape and focus restoration, open/close interruption, reduced-motion duration, canonical channel URLs and copy-success toast verified. Clipboard writes were mocked in the isolated browser to avoid replacing the user's clipboard. With scripts blocked, the complete body, native share disclosure and four channel links remain accessible; Copy stays hidden. All test browsers closed. Repository checks pass; all 34 content JSON files parse after stripping Shopify's generated leading comments (raw jq still rejects those existing comments).
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Panel-shadow rollout (2026-10-01): Article hero images and related article cards use the shared panel shadow. See the [shared contract](../design-system.md#panel-shadows).

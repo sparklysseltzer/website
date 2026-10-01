@@ -6,7 +6,7 @@ Add **Blog teaser** from the Theme Editor. It reads the existing `news` blog dir
 
 ## Content and controls
 
-Content groups heading/font, number of latest published posts (3/6/9), date and excerpt visibility. Erode is the shared new-section default; Newake is available to match Figma `10940:88123`. Body remains Maison Neue. Blank heading/button label uses translated UI. The Action group hides the button-label setting when the blog link is disabled. Shared breakpoint visibility is last. Empty blogs render no storefront teaser; the editor shows its empty-state message.
+Content groups heading/font, number of latest published posts (3/6/9), date and excerpt visibility. Erode is the shared new-section default; Newake is available to match Figma `10940:88123`. Body remains Maison Neue. Blank heading/button label uses translated UI. The Action group hides the button-label setting when the blog link is disabled. Shared breakpoint visibility precedes the final Section background group. Empty blogs render no storefront teaser; the editor shows its empty-state message.
 
 ## Rendering and motion
 
@@ -17,3 +17,9 @@ The shared `editorial-section-motion` controller provides reversible reveals; ca
 An ItemList describes only the visible article links, with a section-specific ID; it is suppressed when both viewport visibility options are off. Full Article entities belong to detail pages, avoiding duplicate entities in teaser cards.
 
 Verification (2026-09-15): real Section Rendering API response inspected in an isolated browser at 1440px/390px with three News articles and matching ItemList entries; no saved template changed. Teaser and listing share the same card snippet. Full Theme Check, typography and editor-schema gates passed.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows); nested surfaces suppress the additional shadow. Existing layout, focus and motion behavior is preserved.

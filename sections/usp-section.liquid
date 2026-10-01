@@ -1,3 +1,4 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {%- liquid
   assign soda_collection = collections['soda']
@@ -339,13 +340,26 @@
   "max_blocks": 6,
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
       "type": "select",
       "id": "variant",
       "label": "Content variant",
       "options": [
-        { "value": "automatic", "label": "Automatic — page context" },
-        { "value": "soda", "label": "Sparklys Soda" },
-        { "value": "seltzer", "label": "Sparklys Hard Seltzer" }
+        {
+          "value": "automatic",
+          "label": "Automatic — page context"
+        },
+        {
+          "value": "soda",
+          "label": "Sparklys Soda"
+        },
+        {
+          "value": "seltzer",
+          "label": "Sparklys Hard Seltzer"
+        }
       ],
       "default": "automatic",
       "info": "Automatic uses Soda content on Soda pages and Hard Seltzer content on Hard Seltzer pages. Choose an explicit variant on shared pages."
@@ -373,26 +387,45 @@
       "id": "heading_font",
       "label": "Heading typeface",
       "options": [
-        { "value": "automatic", "label": "Automatic — content variant" },
-        { "value": "default", "label": "Sparklys / Hard Seltzer — Newake" },
-        { "value": "soda", "label": "Sparklys Soda — Erode" }
+        {
+          "value": "automatic",
+          "label": "Automatic — content variant"
+        },
+        {
+          "value": "default",
+          "label": "Sparklys / Hard Seltzer — Newake"
+        },
+        {
+          "value": "soda",
+          "label": "Sparklys Soda — Erode"
+        }
       ],
       "default": "automatic"
+    },
+    {
+      "type": "header",
+      "content": "Panel colors"
     },
     {
       "type": "select",
       "id": "color_mode",
       "label": "Color treatment",
       "options": [
-        { "value": "automatic", "label": "Automatic — content variant" },
-        { "value": "custom", "label": "Custom" }
+        {
+          "value": "automatic",
+          "label": "Automatic — content variant"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
       ],
       "default": "automatic"
     },
     {
       "type": "color",
       "id": "background",
-      "label": "Background color",
+      "label": "Panel color",
       "default": "#69bdf7",
       "visible_if": "{{ section.settings.color_mode == 'custom' }}"
     },
@@ -403,9 +436,56 @@
       "default": "#000000",
       "visible_if": "{{ section.settings.color_mode == 'custom' }}"
     },
-    {"type": "header", "content": "Visibility"},
-    {"type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor."},
-    {"type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."}
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
   ],
   "blocks": [
     {
@@ -432,14 +512,16 @@
       "name": "Product benefits — Soda",
       "category": "Brand storytelling",
       "settings": {
-        "variant": "soda"
+        "variant": "soda",
+        "section_background_mode": "transparent"
       }
     },
     {
       "name": "Product benefits — Hard Seltzer",
       "category": "Brand storytelling",
       "settings": {
-        "variant": "seltzer"
+        "variant": "seltzer",
+        "section_background_mode": "transparent"
       }
     }
   ]

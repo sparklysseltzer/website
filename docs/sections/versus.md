@@ -53,3 +53,9 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 This section opts out of the general editorial heading-font feature through its Shopify wrapper class `heading-font-legacy`. Its original type families, weights, tracking and line heights remain authoritative. Existing variant-based type selection and pre-existing font controls (where present) are preserved; no new global font selector is added.
 
 Editor naming (2026-09-12): **Product comparison**; presets: **Product comparison — Soda**, **Product comparison — Hard Seltzer**. Display names only; internal IDs, saved settings and rendering are unchanged.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Panel-shadow rollout (2026-10-01): Comparison cards use the shared panel shadow. Featured cards preserve the green inward highlight with an inset outline. The horizontal scroller reserves shadow gutters and bottom space. See the [shared contract](../design-system.md#panel-shadows).
