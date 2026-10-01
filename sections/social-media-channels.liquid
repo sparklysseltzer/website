@@ -1,0 +1,362 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{% render 'section-visibility', section: section %}
+<div class="social-channels section page-width" data-button-style="{{ section.settings.button_style }}">
+  {%- if section.settings.heading != blank -%}<h2 class="social-channels__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+  <ul class="social-channels__list" role="list" aria-label="{{ 'social_channels.label' | t | escape }}">
+    {%- assign channels = 'instagram,instagram_secondary,tiktok,linkedin,youtube,facebook' | split: ',' -%}
+    {%- for channel in channels -%}
+      {%- liquid
+        assign hidden_key = channel | append: '_hidden'
+        if section.settings[hidden_key]
+          continue
+        endif
+        assign platform = channel | replace: '_secondary', ''
+        assign url_key = channel | append: '_url'
+        assign username_key = channel | append: '_username'
+        capture channel_url
+          render 'social-channel-url', channel: channel, url_override: section.settings[url_key]
+        endcapture
+        assign channel_url = channel_url | strip
+        assign platform_label = platform | capitalize
+        case platform
+          when 'tiktok'
+            assign platform_label = 'TikTok'
+          when 'linkedin'
+            assign platform_label = 'LinkedIn'
+          when 'youtube'
+            assign platform_label = 'YouTube'
+        endcase
+        assign prefix = channel_url | slice: 0, 8
+        assign prefix_http = channel_url | slice: 0, 7
+        assign valid_url = false
+        if prefix == 'https://' or prefix_http == 'http://'
+          assign valid_url = true
+        endif
+        assign username = section.settings[username_key]
+        if username == blank
+          assign username = channel_url | split: '?' | first | split: '#' | first | split: '/' | last | url_decode
+        endif
+        if username != blank and platform == 'instagram' or platform == 'tiktok'
+          assign first_character = username | slice: 0, 1
+          if first_character != '@'
+            assign username = '@' | append: username
+          endif
+        endif
+        assign icon_asset = 'social-channel-' | append: platform | append: '.svg'
+      -%}
+      {%- if valid_url or request.design_mode -%}
+        <li class="social-channels__item" data-social-platform="{{ platform }}">
+          {%- if valid_url -%}
+            <a class="social-channels__link" href="{{ channel_url | escape }}" target="_blank" rel="noopener noreferrer">
+          {%- else -%}
+            <span class="social-channels__link social-channels__link--unconfigured">
+          {%- endif -%}
+            <span class="button{% if section.settings.button_style == 'outline' %} button--secondary{% endif %} social-channels__circle" aria-hidden="true">
+              <span class="button__label social-channels__icon" style="--social-channel-icon: url('{{ icon_asset | asset_url }}');"></span>
+            </span>
+            <span class="social-channels__platform">{{ platform_label }}</span>
+            {%- if valid_url -%}
+              <span class="social-channels__username">{{ username | escape }}</span>
+              <span class="visually-hidden">{{ 'social_channels.new_tab' | t }}</span>
+            {%- else -%}
+              <span class="social-channels__username">Add a channel link</span>
+            {%- endif -%}
+          {%- if valid_url -%}</a>{%- else -%}</span>{%- endif -%}
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% stylesheet %}
+  .social-channels { max-width: 75rem; }
+  .social-channels__heading { margin: 0 0 2.5rem; font-size: var(--font-size-section); text-align: center; }
+  .social-channels__list { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: 2rem 1.5rem; padding: 0; margin: 0; list-style: none; }
+  .social-channels__item { min-width: 0; }
+  .social-channels__link { display: flex; flex-direction: column; align-items: center; color: var(--color-foreground); text-align: center; text-decoration: none; border-radius: var(--radius-small); }
+  .social-channels__circle.button { width: min(100%, 7rem); aspect-ratio: 1; min-height: 0; padding: 0; border-radius: 50%; }
+  .social-channels__icon { display: block; width: 2.75rem; height: 2.75rem; background: currentColor; mask: var(--social-channel-icon) center / contain no-repeat; }
+  /* Brand artwork keeps white marks; difference blending would distort these colours. */
+  .social-channels[data-button-style="brand"] .social-channels__circle {
+    --button-background: var(--social-channel-gradient);
+    --button-border-color: transparent;
+    --button-sweep-background: rgb(0 0 0 / 18%);
+    background-origin: border-box;
+    background-repeat: no-repeat;
+  }
+  .social-channels[data-button-style="brand"] .social-channels__icon { color: #fff; mix-blend-mode: normal; }
+  .social-channels__item[data-social-platform="instagram"] { --social-channel-gradient: radial-gradient(circle at 22% 105%, #ffd36b 0%, #f9913d 23%, #e53969 48%, #b52eb8 72%, #6548cf 100%); }
+  .social-channels__item[data-social-platform="tiktok"] { --social-channel-gradient: linear-gradient(135deg, #17666b 0%, #151b25 38%, #211725 65%, #9c284c 100%); }
+  .social-channels__item[data-social-platform="linkedin"] { --social-channel-gradient: linear-gradient(145deg, #1686c0 0%, #0a66a3 55%, #064a7a 100%); }
+  .social-channels__item[data-social-platform="youtube"] { --social-channel-gradient: linear-gradient(145deg, #f34f46 0%, #e32327 55%, #b80e25 100%); }
+  .social-channels__item[data-social-platform="facebook"] { --social-channel-gradient: linear-gradient(145deg, #3988ed 0%, #2264c7 55%, #194697 100%); }
+  .social-channels__platform { margin-top: 1rem; font-family: var(--font-body-strong); font-size: var(--font-size-body); }
+  .social-channels__username { margin-top: .25rem; font-size: var(--font-size-small); color: var(--color-text-secondary); overflow-wrap: anywhere; max-width: 100%; }
+  .social-channels__link--unconfigured { opacity: .45; }
+  .social-channels__link:focus-visible .button::before { transform: translate(-50%, -66.667%); transition-duration: var(--button-sweep-enter-duration); }
+  @media (hover: hover) { a.social-channels__link:hover .button::before { transform: translate(-50%, -66.667%); transition-duration: var(--button-sweep-enter-duration); } }
+  @media (max-width: 47.999rem) { .social-channels__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.75rem 1rem; } }
+  @media (max-width: 22rem) { .social-channels__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (prefers-reduced-motion: reduce) { .social-channels__link .button::before { transition: none; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Social Media Channels",
+  "tag": "section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "visible_if": "{{ section.settings.heading != blank }}"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "default": "brand",
+      "options": [
+        {
+          "value": "brand",
+          "label": "Brand colours"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "solid",
+          "label": "Solid"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Instagram — primary"
+    },
+    {
+      "type": "checkbox",
+      "id": "instagram_hidden",
+      "label": "Hide channel",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Channel link",
+      "info": "Leave blank to use the central Shopify Brand link.",
+      "visible_if": "{{ section.settings.instagram_hidden == false }}"
+    },
+    {
+      "type": "text",
+      "id": "instagram_username",
+      "label": "Username",
+      "info": "Optional. Leave blank to display the account name from the link.",
+      "visible_if": "{{ section.settings.instagram_hidden == false }}"
+    },
+    {
+      "type": "header",
+      "content": "Instagram — second channel"
+    },
+    {
+      "type": "checkbox",
+      "id": "instagram_secondary_hidden",
+      "label": "Hide channel",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "instagram_secondary_url",
+      "label": "Channel link",
+      "info": "Leave blank to use the store’s Instagram — Sparklys Soda metafield.",
+      "visible_if": "{{ section.settings.instagram_secondary_hidden == false }}"
+    },
+    {
+      "type": "text",
+      "id": "instagram_secondary_username",
+      "label": "Username",
+      "info": "Optional. Leave blank to display the account name from the link.",
+      "visible_if": "{{ section.settings.instagram_secondary_hidden == false }}"
+    },
+    {
+      "type": "header",
+      "content": "TikTok"
+    },
+    {
+      "type": "checkbox",
+      "id": "tiktok_hidden",
+      "label": "Hide channel",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "Channel link",
+      "info": "Leave blank to use the central Shopify Brand link.",
+      "visible_if": "{{ section.settings.tiktok_hidden == false }}"
+    },
+    {
+      "type": "text",
+      "id": "tiktok_username",
+      "label": "Username",
+      "info": "Optional. Leave blank to display the account name from the link.",
+      "visible_if": "{{ section.settings.tiktok_hidden == false }}"
+    },
+    {
+      "type": "header",
+      "content": "LinkedIn"
+    },
+    {
+      "type": "checkbox",
+      "id": "linkedin_hidden",
+      "label": "Hide channel",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "linkedin_url",
+      "label": "Channel link",
+      "info": "Leave blank to use the central Shopify Brand link.",
+      "visible_if": "{{ section.settings.linkedin_hidden == false }}"
+    },
+    {
+      "type": "text",
+      "id": "linkedin_username",
+      "label": "Username",
+      "info": "Optional. Leave blank to display the account name from the link.",
+      "visible_if": "{{ section.settings.linkedin_hidden == false }}"
+    },
+    {
+      "type": "header",
+      "content": "YouTube"
+    },
+    {
+      "type": "checkbox",
+      "id": "youtube_hidden",
+      "label": "Hide channel",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "Channel link",
+      "info": "Leave blank to use the central Shopify Brand link.",
+      "visible_if": "{{ section.settings.youtube_hidden == false }}"
+    },
+    {
+      "type": "text",
+      "id": "youtube_username",
+      "label": "Username",
+      "info": "Optional. Leave blank to display the account name from the link.",
+      "visible_if": "{{ section.settings.youtube_hidden == false }}"
+    },
+    {
+      "type": "header",
+      "content": "Facebook"
+    },
+    {
+      "type": "checkbox",
+      "id": "facebook_hidden",
+      "label": "Hide channel",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Channel link",
+      "info": "Leave blank to use the central Shopify Brand link.",
+      "visible_if": "{{ section.settings.facebook_hidden == false }}"
+    },
+    {
+      "type": "text",
+      "id": "facebook_username",
+      "label": "Username",
+      "info": "Optional. Leave blank to display the account name from the link.",
+      "visible_if": "{{ section.settings.facebook_hidden == false }}"
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social Media Channels",
+      "category": "Trust & information",
+      "settings": {
+        "section_background_mode": "transparent"
+      }
+    }
+  ]
+}
+{% endschema %}

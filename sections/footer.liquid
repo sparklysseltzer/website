@@ -26,15 +26,6 @@
   assign newsletter_form_id = 'FooterNewsletterForm-' | append: section.id
   assign newsletter_email_id = 'FooterNewsletterEmail-' | append: section.id
   assign newsletter_status_id = 'FooterNewsletterStatus-' | append: section.id
-  assign instagram_url = 'https://www.instagram.com/sparklysseltzer/'
-  assign tiktok_url = 'https://www.tiktok.com/@sparklysseltzer'
-  assign facebook_url = 'https://www.facebook.com/sparklysseltzer'
-
-  if footer_context == 'soda'
-    assign instagram_url = 'https://www.instagram.com/sparklyssoda/'
-    assign tiktok_url = 'https://www.tiktok.com/@sparklyssoda'
-    assign facebook_url = 'https://www.facebook.com/sparklyssoda'
-  endif
 -%}
 
 <footer data-section-background class="site-footer site-footer--{{ footer_context }}" data-footer-context="{{ footer_context }}">
@@ -192,42 +183,38 @@
           {%- endfor -%}
         </ul>
         <div class="site-footer__social" aria-label="{{ 'sections.footer.social_media' | t }}">
-          <a
-            class="site-footer__social-link"
-            href="{{ instagram_url }}"
-            aria-label="{{ 'sections.footer.social_media' | t }}: Instagram"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="{{ 'footer-social-instagram.svg' | asset_url }}" width="32" height="32" alt="">
-          </a>
-          <a
-            class="site-footer__social-link"
-            href="{{ tiktok_url }}"
-            aria-label="{{ 'sections.footer.social_media' | t }}: TikTok"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="{{ 'footer-social-tiktok.svg' | asset_url }}" width="32" height="32" alt="">
-          </a>
-          <a
-            class="site-footer__social-link"
-            href="https://www.linkedin.com/company/sparklys/"
-            aria-label="{{ 'sections.footer.social_media' | t }}: LinkedIn"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="{{ 'footer-social-linkedin.svg' | asset_url }}" width="32" height="32" alt="">
-          </a>
-          <a
-            class="site-footer__social-link"
-            href="{{ facebook_url }}"
-            aria-label="{{ 'sections.footer.social_media' | t }}: Facebook"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="{{ 'footer-social-facebook.svg' | asset_url }}" width="32" height="32" alt="">
-          </a>
+          {%- assign footer_platforms = 'instagram,tiktok,linkedin,youtube,facebook' | split: ',' -%}
+          {%- for platform in footer_platforms -%}
+            {%- liquid
+              assign source_channel = platform
+              if platform == 'instagram' and footer_context == 'soda'
+                assign source_channel = 'instagram_secondary'
+              endif
+              capture social_url
+                render 'social-channel-url', channel: source_channel
+              endcapture
+              assign social_url = social_url | strip
+              assign platform_label = platform | capitalize
+              case platform
+                when 'tiktok'
+                  assign platform_label = 'TikTok'
+                when 'linkedin'
+                  assign platform_label = 'LinkedIn'
+                when 'youtube'
+                  assign platform_label = 'YouTube'
+              endcase
+              assign social_asset = 'footer-social-' | append: platform | append: '.svg'
+            -%}
+            {%- if social_url != blank -%}
+              <a class="site-footer__social-link" href="{{ social_url | escape }}" aria-label="{{ 'sections.footer.social_media' | t }}: {{ platform_label }}" target="_blank" rel="noopener noreferrer">
+                {%- if platform == 'youtube' -%}
+                  <span class="site-footer__youtube-icon" aria-hidden="true"></span>
+                {%- else -%}
+                  <img src="{{ social_asset | asset_url }}" width="32" height="32" alt="">
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
         </div>
       </div>
     </div>

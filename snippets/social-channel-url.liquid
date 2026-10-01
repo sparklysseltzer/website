@@ -1,0 +1,17 @@
+{%- comment -%}Shared social destination. Explicit section overrides stay local; automatic values are store-owned.{%- endcomment -%}
+{%- liquid
+  assign social_url = url_override
+  if social_url == blank
+    if channel == 'instagram_secondary'
+      assign social_url = shop.metafields.custom.instagram_soda.value
+    else
+      assign social_url = shop.brand.metafields.social_links[channel].value
+    endif
+  endif
+  assign social_url = social_url | strip
+  assign secure_prefix = social_url | slice: 0, 8
+  assign plain_prefix = social_url | slice: 0, 7
+  if secure_prefix == 'https://' or plain_prefix == 'http://'
+    echo social_url
+  endif
+-%}

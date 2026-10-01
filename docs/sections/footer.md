@@ -17,7 +17,7 @@ Pages and Products explicitly select their context through the existing `custom.
 
 ## Rendering contract
 
-Each context selects its matching Arc, Soda, or Hard Seltzer identity and navigation. Footer card headings intentionally use Newake in every context. A native Shopify customer form tagged `newsletter` supplies the newsletter path expected by the existing Shopify–Klaviyo integration. General and Hard Seltzer social links use `@sparklysseltzer`; Soda uses `@sparklyssoda`; LinkedIn is shared.
+Each context selects its matching Arc, Soda, or Hard Seltzer identity and navigation. Footer card headings intentionally use Newake in every context. A native Shopify customer form tagged `newsletter` supplies the newsletter path expected by the existing Shopify–Klaviyo integration. Social destinations come from the shared `social-channel-url` resolver. General/Hard Seltzer Instagram and all TikTok, LinkedIn, YouTube and Facebook links use Shopify Brand data; Soda Instagram uses the pinned store URL metafield `custom.instagram_soda`. Missing or non-HTTP(S) destinations are omitted. No hardcoded backups remain. YouTube appears automatically when centrally configured.
 
 Payment marks and Store Finder remain non-interactive artwork. German and English language chips submit Shopify’s native localization form. Legal links and social destinations are active.
 
@@ -90,3 +90,11 @@ Footer card titles always use Newake with its original regular weight, tracking 
 Embedded newsletter button (Ananotes follow-up, 2026-09-15): `button--embedded` uses the input surface color for its permanent outline, restoring the white inset border around the black button. This supersedes the foreground-outline change in note 126. The shared outline overlay keeps that border above the hover sweep; the input shell and submit button read as one composition. Newsletter submission and keyboard focus behavior are unchanged.
 
 Ananotes 128: the embedded button also retains a foreground inner ring above the sweep. This keeps the white outer edge while clearly outlining the white hover fill against the white input. The shared embedded-button tokens own both colors and thickness; no form behavior changes.
+
+## Section background
+
+**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Panel-shadow rollout (2026-10-01): Rounded footer navigation cards use the shared panel shadow; its subtle black tone remains intentionally barely visible on the dark footer. See the [shared contract](../design-system.md#panel-shadows).
+
+Central social sources (2026-10-02): Social Media Channels and Footer read identical store-owned destinations. The Soda footer retains its separate Instagram account; its TikTok and Facebook now use the shared Brand destinations rather than the old hardcoded Soda URLs. Existing Instagram/TikTok/LinkedIn/Facebook artwork is preserved; optional YouTube reuses the local social-channel mask. No saved footer settings, menus or template content changed.

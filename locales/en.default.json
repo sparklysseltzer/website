@@ -658,5 +658,9 @@
     "newsletter_success": "Newsletter request received. If you receive a confirmation email, follow its link to complete your signup.",
     "newsletter_error": "Your message is sent, but we couldn’t confirm your newsletter signup. Please try the newsletter signup again.",
     "newsletter_retry": "Retry newsletter signup"
+  },
+  "social_channels": {
+    "label": "Social media channels",
+    "new_tab": "(opens in a new tab)"
   }
 }

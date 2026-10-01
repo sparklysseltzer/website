@@ -658,5 +658,9 @@
     "newsletter_success": "Newsletter-Anmeldung übermittelt. Falls du eine Bestätigungs-E-Mail erhältst, schliesse die Anmeldung über den Link darin ab.",
     "newsletter_error": "Deine Nachricht ist gesendet, aber wir konnten deine Newsletter-Anmeldung nicht bestätigen. Bitte versuche die Newsletter-Anmeldung erneut.",
     "newsletter_retry": "Newsletter-Anmeldung wiederholen"
+  },
+  "social_channels": {
+    "label": "Social-Media-Kanäle",
+    "new_tab": "(öffnet in einem neuen Tab)"
   }
 }

@@ -2431,3 +2431,5 @@ body:has(.site-header[data-header-context='soda']) .offer-cards__heading {
 :where(.poster, .split-image-text, .usp-section__panel, .subscription, .editorial-image, .sidebar-box, .editorial-link-box, .content-card, .article-card, .catalog-card, .offer-card, .product-overview-card, .product-card__media, .product__media, .pdp-gallery, .pdp-shipping, .pdp-usps, .pdp-benefits, .pdp-subscription-card, .pdp-marketing > img, .faq-item, .versus__card, .logo-marquee__tile, .article-detail__image, .site-footer__card) > * {
   --shadow-panel: none;
 }
+
+.site-footer__youtube-icon { display: block; width: 1rem; height: 1rem; background: var(--color-text-inverse); mask: url('social-channel-youtube.svg') center / contain no-repeat; }

@@ -6056,5 +6056,358 @@
         ]
       }
     ]
+  },
+  "sections/social-media-channels.liquid": {
+    "schemaHash": "09c0f71d50e9c698921aacbdc5afdc61c4cb56268902185e3752ffc71be650f3",
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading != blank }}"
+      },
+      "button_style": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "instagram_url": {
+        "group": "Instagram — primary",
+        "visible_if": "{{ section.settings.instagram_hidden == false }}"
+      },
+      "instagram_username": {
+        "group": "Instagram — primary",
+        "visible_if": "{{ section.settings.instagram_hidden == false }}"
+      },
+      "instagram_secondary_url": {
+        "group": "Instagram — second channel",
+        "visible_if": "{{ section.settings.instagram_secondary_hidden == false }}"
+      },
+      "instagram_secondary_username": {
+        "group": "Instagram — second channel",
+        "visible_if": "{{ section.settings.instagram_secondary_hidden == false }}"
+      },
+      "tiktok_url": {
+        "group": "TikTok",
+        "visible_if": "{{ section.settings.tiktok_hidden == false }}"
+      },
+      "tiktok_username": {
+        "group": "TikTok",
+        "visible_if": "{{ section.settings.tiktok_hidden == false }}"
+      },
+      "linkedin_url": {
+        "group": "LinkedIn",
+        "visible_if": "{{ section.settings.linkedin_hidden == false }}"
+      },
+      "linkedin_username": {
+        "group": "LinkedIn",
+        "visible_if": "{{ section.settings.linkedin_hidden == false }}"
+      },
+      "youtube_url": {
+        "group": "YouTube",
+        "visible_if": "{{ section.settings.youtube_hidden == false }}"
+      },
+      "youtube_username": {
+        "group": "YouTube",
+        "visible_if": "{{ section.settings.youtube_hidden == false }}"
+      },
+      "facebook_url": {
+        "group": "Facebook",
+        "visible_if": "{{ section.settings.facebook_hidden == false }}"
+      },
+      "facebook_username": {
+        "group": "Facebook",
+        "visible_if": "{{ section.settings.facebook_hidden == false }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "instagram_hidden": {
+        "group": "Instagram — primary",
+        "visible_if": null
+      },
+      "instagram_secondary_hidden": {
+        "group": "Instagram — second channel",
+        "visible_if": null
+      },
+      "tiktok_hidden": {
+        "group": "TikTok",
+        "visible_if": null
+      },
+      "linkedin_hidden": {
+        "group": "LinkedIn",
+        "visible_if": null
+      },
+      "youtube_hidden": {
+        "group": "YouTube",
+        "visible_if": null
+      },
+      "facebook_hidden": {
+        "group": "Facebook",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "heading_font": "Changes optional heading typography; visible only when a heading is entered.",
+      "button_style": "Brand colours (default), Outline or Solid use the same circular control and shared sweep; no dependent fields.",
+      "hide_on_mobile": "Independent shared breakpoint visibility; no dependent fields.",
+      "hide_on_desktop": "Independent shared breakpoint visibility; no dependent fields.",
+      "section_background_mode": "Only Custom Color exposes the color picker.",
+      "instagram_hidden": "Hides this channel in this section only; link and username controls appear only when the channel is visible. Stored values and central sources are preserved.",
+      "instagram_secondary_hidden": "Hides this channel in this section only; link and username controls appear only when the channel is visible. Stored values and central sources are preserved.",
+      "tiktok_hidden": "Hides this channel in this section only; link and username controls appear only when the channel is visible. Stored values and central sources are preserved.",
+      "linkedin_hidden": "Hides this channel in this section only; link and username controls appear only when the channel is visible. Stored values and central sources are preserved.",
+      "youtube_hidden": "Hides this channel in this section only; link and username controls appear only when the channel is visible. Stored values and central sources are preserved.",
+      "facebook_hidden": "Hides this channel in this section only; link and username controls appear only when the channel is visible. Stored values and central sources are preserved."
+    },
+    "scenarios": [
+      {
+        "name": "No heading, default canvas",
+        "settings": {},
+        "hidden": [
+          "heading_font",
+          "section_background"
+        ],
+        "visible": [
+          "heading",
+          "button_style",
+          "youtube_url",
+          "youtube_username"
+        ]
+      },
+      {
+        "name": "Heading and solid buttons",
+        "settings": {
+          "heading": "Find us here",
+          "button_style": "solid"
+        },
+        "visible": [
+          "heading_font",
+          "button_style"
+        ]
+      },
+      {
+        "name": "Custom canvas",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Transparent canvas",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Newake heading and hidden breakpoints",
+        "settings": {
+          "heading": "Follow Sparklys",
+          "heading_font": "newake",
+          "hide_on_mobile": true,
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "heading_font",
+          "hide_on_mobile",
+          "hide_on_desktop"
+        ]
+      },
+      {
+        "name": "Brand colours",
+        "settings": {
+          "button_style": "brand"
+        },
+        "visible": [
+          "button_style",
+          "instagram_url",
+          "instagram_secondary_url",
+          "tiktok_url",
+          "linkedin_url",
+          "youtube_url",
+          "facebook_url"
+        ],
+        "hidden": [
+          "heading_font",
+          "section_background"
+        ]
+      },
+      {
+        "name": "Outline buttons",
+        "settings": {
+          "button_style": "outline"
+        },
+        "visible": [
+          "button_style"
+        ],
+        "hidden": [
+          "heading_font",
+          "section_background"
+        ]
+      },
+      {
+        "name": "Hide instagram",
+        "settings": {
+          "instagram_hidden": true
+        },
+        "visible": [
+          "instagram_hidden"
+        ],
+        "hidden": [
+          "instagram_url",
+          "instagram_username"
+        ]
+      },
+      {
+        "name": "Show instagram",
+        "settings": {
+          "instagram_hidden": false
+        },
+        "visible": [
+          "instagram_hidden",
+          "instagram_url",
+          "instagram_username"
+        ]
+      },
+      {
+        "name": "Hide instagram_secondary",
+        "settings": {
+          "instagram_secondary_hidden": true
+        },
+        "visible": [
+          "instagram_secondary_hidden"
+        ],
+        "hidden": [
+          "instagram_secondary_url",
+          "instagram_secondary_username"
+        ]
+      },
+      {
+        "name": "Show instagram_secondary",
+        "settings": {
+          "instagram_secondary_hidden": false
+        },
+        "visible": [
+          "instagram_secondary_hidden",
+          "instagram_secondary_url",
+          "instagram_secondary_username"
+        ]
+      },
+      {
+        "name": "Hide tiktok",
+        "settings": {
+          "tiktok_hidden": true
+        },
+        "visible": [
+          "tiktok_hidden"
+        ],
+        "hidden": [
+          "tiktok_url",
+          "tiktok_username"
+        ]
+      },
+      {
+        "name": "Show tiktok",
+        "settings": {
+          "tiktok_hidden": false
+        },
+        "visible": [
+          "tiktok_hidden",
+          "tiktok_url",
+          "tiktok_username"
+        ]
+      },
+      {
+        "name": "Hide linkedin",
+        "settings": {
+          "linkedin_hidden": true
+        },
+        "visible": [
+          "linkedin_hidden"
+        ],
+        "hidden": [
+          "linkedin_url",
+          "linkedin_username"
+        ]
+      },
+      {
+        "name": "Show linkedin",
+        "settings": {
+          "linkedin_hidden": false
+        },
+        "visible": [
+          "linkedin_hidden",
+          "linkedin_url",
+          "linkedin_username"
+        ]
+      },
+      {
+        "name": "Hide youtube",
+        "settings": {
+          "youtube_hidden": true
+        },
+        "visible": [
+          "youtube_hidden"
+        ],
+        "hidden": [
+          "youtube_url",
+          "youtube_username"
+        ]
+      },
+      {
+        "name": "Show youtube",
+        "settings": {
+          "youtube_hidden": false
+        },
+        "visible": [
+          "youtube_hidden",
+          "youtube_url",
+          "youtube_username"
+        ]
+      },
+      {
+        "name": "Hide facebook",
+        "settings": {
+          "facebook_hidden": true
+        },
+        "visible": [
+          "facebook_hidden"
+        ],
+        "hidden": [
+          "facebook_url",
+          "facebook_username"
+        ]
+      },
+      {
+        "name": "Show facebook",
+        "settings": {
+          "facebook_hidden": false
+        },
+        "visible": [
+          "facebook_hidden",
+          "facebook_url",
+          "facebook_username"
+        ]
+      }
+    ]
   }
 }
