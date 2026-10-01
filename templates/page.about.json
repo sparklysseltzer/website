@@ -12,8 +12,12 @@
     "main": {
       "type": "page-intro",
       "settings": {
+        "heading_font": "erode",
+        "uppercase_heading": false,
         "hide_on_mobile": false,
-        "hide_on_desktop": false
+        "hide_on_desktop": false,
+        "section_background_mode": "original",
+        "section_background": ""
       }
     }
   },

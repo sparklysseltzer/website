@@ -1,0 +1,100 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "intro_about": {
+      "type": "page-intro",
+      "settings": {
+        "heading_font": "erode",
+        "uppercase_heading": false,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "original",
+        "section_background": ""
+      }
+    },
+    "social_media_channels_GfyibV": {
+      "type": "social-media-channels",
+      "name": "Social Media Channels",
+      "settings": {
+        "heading": "Follow us!",
+        "heading_font": "erode",
+        "button_style": "brand",
+        "instagram_hidden": false,
+        "instagram_url": "",
+        "instagram_username": "",
+        "instagram_secondary_hidden": false,
+        "instagram_secondary_url": "",
+        "instagram_secondary_username": "",
+        "tiktok_hidden": false,
+        "tiktok_url": "",
+        "tiktok_username": "",
+        "linkedin_hidden": false,
+        "linkedin_url": "",
+        "linkedin_username": "Sparklys Switzerland AG",
+        "youtube_hidden": true,
+        "youtube_url": "https://www.youtube.com/@sparklyshardseltzer1133",
+        "youtube_username": "sparklyshardseltzer1133",
+        "facebook_hidden": false,
+        "facebook_url": "",
+        "facebook_username": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
+      }
+    },
+    "contact": {
+      "type": "contact-form",
+      "settings": {
+        "heading": "Sende uns eine Nachricht",
+        "heading_font": "erode",
+        "enable_newsletter": true,
+        "klaviyo_site_id": "Vv6a6f",
+        "klaviyo_list_id": "TwzfPb",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
+      }
+    },
+    "text_image_zQMX6Y": {
+      "type": "text-image",
+      "name": "Text and image",
+      "settings": {
+        "image_side": "left",
+        "image": "shopify://shop_images/sparklys-soda-variety-pack-gallery-image-02.jpg",
+        "image_alt": "",
+        "image_height_mode": "custom",
+        "image_height": 640,
+        "mobile_image_height": 180,
+        "show_heading": true,
+        "heading": "Briefe schreiben oder vorbeikommen",
+        "heading_level": "h2",
+        "text": "<h3>Postanschrift</h3><p>Sparklys Switzerland AG<br/>Haslenstrasse 13<br/>9050 Appenzell<br/><br/></p><h3>Office St.Gallen</h3><p>Sparklys Switzerland AG<br/>Ruhbergstrasse 1<br/>9000 St.Gallen</p>",
+        "heading_font": "erode",
+        "show_button": true,
+        "button_label": "Anfahrt zum Office",
+        "button_link": "https://maps.app.goo.gl/KSbyb1WKL9dwmAEa8",
+        "button_style": "dark",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
+      }
+    }
+  },
+  "order": [
+    "intro_about",
+    "social_media_channels_GfyibV",
+    "contact",
+    "text_image_zQMX6Y"
+  ]
+}
