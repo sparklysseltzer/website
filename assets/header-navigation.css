@@ -16,7 +16,7 @@ header-navigation[hidden], header-navigation [hidden] { display: none !important
 .navigation-categories summary[aria-expanded='true'] img { transform: rotate(180deg); }
 .navigation-content { min-width: 0; }
 .navigation-content__heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
-.navigation-content__title { margin: 0; text-transform: uppercase; font-family: var(--font-heading-default); font-size: var(--font-size-card); line-height: var(--line-height-heading-newake); overflow-wrap: anywhere; }
+.navigation-content__title { margin: 0; --heading-original-case: uppercase; text-transform: uppercase; font-family: var(--font-heading-default); font-size: var(--font-size-card); line-height: var(--line-height-heading-newake); overflow-wrap: anywhere; }
 .navigation-controls { display: flex; gap: .25rem; }
 .navigation-controls button, .navigation-mobile-bar button, .navigation-mobile-bar > a { display: inline-flex; align-items: center; justify-content: center; flex: none; min-width: 44px; min-height: 44px; padding: .5rem; border: 0; border-radius: 999px; background: var(--color-surface-muted); color: inherit; cursor: pointer; }
 .navigation-controls button:disabled { opacity: .35; cursor: default; }
@@ -35,7 +35,7 @@ header-navigation[hidden], header-navigation [hidden] { display: none !important
 .navigation-card .product-background { display: none; }
 .navigation-card--text .catalog-card__link { background: var(--color-surface-muted); }
 .navigation-card .catalog-card__content { position: relative; z-index: 2; min-height: 0; margin-top: auto; text-align: left; justify-content: flex-start; color: #000; }
-.navigation-card .catalog-card__title { font-size: var(--font-size-card); text-transform: uppercase; overflow-wrap: anywhere; }
+.navigation-card .catalog-card__title { font-size: var(--font-size-card); --heading-original-case: uppercase; text-transform: uppercase; overflow-wrap: anywhere; }
 .navigation-card--text .catalog-card__link { justify-content: center; }
 .navigation-card--text .catalog-card__content { margin: 0; }
 .navigation-root-destination { margin-top: 1rem; }

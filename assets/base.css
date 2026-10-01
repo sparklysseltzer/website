@@ -47,6 +47,7 @@
   --motion-duration-slow: 360ms;
   --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --motion-ease-emphasis: cubic-bezier(0.65, 0, 0.35, 1);
+  --motion-ease-ui: cubic-bezier(0.25, 0.1, 0.25, 1);
   --focus-ring-width: .1875rem;
   --focus-ring-offset: .1875rem;
   --focus-ring-color: var(--color-accent);
@@ -433,7 +434,56 @@ input[type='submit'] {
 }
 
 .shopify-section-header {
+/* Native same-origin document navigation; ignored by unsupported browsers.
+   Separate identity changes from the shell and preserve native geometry interpolation. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+
+  .shopify-section-header { view-transition-name: storefront-header; }
+  .site-header__logo { view-transition-name: storefront-logo; }
+  .site-header__switcher { view-transition-name: storefront-switcher; }
+  .site-header__actions { view-transition-name: storefront-actions; }
+
+  ::view-transition { pointer-events: none; }
+  ::view-transition-group(root) { animation: none; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--motion-duration-base);
+    animation-timing-function: var(--motion-ease);
+  }
+
+  ::view-transition-group(storefront-header),
+  ::view-transition-group(storefront-logo),
+  ::view-transition-group(storefront-switcher),
+  ::view-transition-group(storefront-actions) {
+    animation-duration: var(--motion-duration-base);
+    animation-timing-function: var(--motion-ease-ui);
+    z-index: 1;
+  }
+  ::view-transition-group(storefront-logo),
+  ::view-transition-group(storefront-switcher),
+  ::view-transition-group(storefront-actions) { z-index: 2; }
+  ::view-transition-group(storefront-switcher) { z-index: 3; }
+  ::view-transition-old(storefront-logo), ::view-transition-new(storefront-logo),
+  ::view-transition-old(storefront-switcher), ::view-transition-new(storefront-switcher),
+  ::view-transition-old(storefront-actions), ::view-transition-new(storefront-actions) {
+    animation-duration: var(--motion-duration-base);
+    animation-timing-function: var(--motion-ease-ui);
+  }
+  /* Keep menus out of the outgoing shell; named identity snapshots crossfade independently. */
+  ::view-transition-old(storefront-header) { display: none; }
+  ::view-transition-new(storefront-header) { animation: none; mix-blend-mode: normal; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
   position: sticky;
+  /* Filter on the snapshot boundary itself: a descendant cannot sample the page
+     through an ancestor's view-transition backdrop root. */
+  -webkit-backdrop-filter: blur(1.5rem);
+  backdrop-filter: blur(1.5rem);
   top: 0;
   z-index: 20;
 }
@@ -447,7 +497,25 @@ input[type='submit'] {
 }
 
 .site-header__switcher {
+/* One backdrop sample for the bar and its active tab. The SVG above this
+   surface removes black paint instead of tinting glass with black underneath. */
+.site-header--glass {
+  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+}
+header-glass { display: none; }
+.site-header--glass header-glass { display: block; position: absolute; inset: 0; pointer-events: none; }
+header-glass svg { display: block; width: 100%; height: 100%; fill: var(--color-foreground); }
+.site-header--glass .site-header__switcher { position: relative; background: transparent; }
+.site-header--glass .site-header__switcher-inner { position: relative; }
+.site-header--glass .site-header__main { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; isolation: auto; }
+.site-header--glass .site-header__brand-tab--active .site-header__brand-tab-surface { background: transparent; }
+.site-header--glass .site-header__brand-tab--active::before,
+.site-header--glass .site-header__brand-tab--active::after { display: none; }
+
   display: none;
+  /* The named switcher is a stacking context; its popovers must clear main-bar controls. */
+  position: relative;
+  z-index: 4;
   height: var(--header-switcher-height, 2.0625rem);
   overflow: visible;
   color: var(--color-text-inverse);
@@ -485,7 +553,8 @@ input[type='submit'] {
 .site-header__brand-tab {
   display: inline-flex;
   height: 100%;
-  margin-right: 0.875rem;
+  /* Slight separation at the lower joins without widening the tab group. */
+  margin-right: 1rem;
   align-items: flex-end;
   justify-content: center;
   font-size: var(--font-size-small);
@@ -762,7 +831,6 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   position: relative;
   padding-block: 0.625rem;
   background: color-mix(in srgb, var(--color-surface) 92%, transparent);
-  backdrop-filter: blur(2rem);
   isolation: isolate;
 }
 
@@ -793,6 +861,9 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 
 .site-header__logo {
   grid-column: 2;
+  width: min(100%, 9.25rem);
+  height: 4rem;
+  justify-content: center;
   justify-self: center;
   display: inline-flex;
   align-items: center;
@@ -1730,6 +1801,8 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 
   .site-header__logo {
     grid-column: 2;
+    width: 15rem;
+    height: 4.5rem;
     grid-row: 1;
   }
 

@@ -4,7 +4,7 @@
 .catalog-card--hardseltzer { background: linear-gradient(160deg, #ffc244, #fffce6); }
 .catalog-card__link { position: relative; display: flex; height: 100%; flex-direction: column; color: var(--color-foreground); text-decoration: none; padding: 2rem 1.25rem; }
 .catalog-card__media { position: relative; height: auto; aspect-ratio: 1 / 1.08; margin-bottom: 1.75rem; }
-.catalog-card__media > img { width: 100%; height: 100%; object-fit: contain; transition: transform var(--motion-duration-slow) var(--motion-ease); }
+.catalog-card__media > img { width: 100%; height: 100%; object-fit: contain; transition: transform var(--motion-duration-fast) var(--motion-ease-ui); }
 .catalog-card__media--pair > img { position: absolute; width: 70%; height: 85%; top: 0; left: -2%; transform: rotate(-14deg); }
 .catalog-card__media--pair > img + img { left: 35%; top: 20%; transform: rotate(16deg); }
 .catalog-card__content { position: relative; display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: auto; min-height: 5rem; }
@@ -21,15 +21,19 @@
 .catalog-card--hardseltzer .catalog-card__logo { filter: invert(1); }
 .catalog-card__link { isolation: isolate; }
 .catalog-card[data-product-handle='sparklys-hard-seltzer-holunder'] { background: linear-gradient(160deg, #92c866, #efffe7); }
-@media(hover:hover) { .catalog-card__link:hover .catalog-card__media:not(.catalog-card__media--pair) > img { transform: translateY(-.5rem) scale(1.025); } }
-@media(prefers-reduced-motion:reduce) { .catalog-card img { transition: none; } }
+@media(hover:hover) { .catalog-card__link:hover .catalog-card__media:not(.catalog-card__media--pair) > img { transform: translateY(-.5rem); } }
+@media(prefers-reduced-motion:reduce) { .catalog-card img { transition: none; } .catalog-card__link:hover .catalog-card__media:not(.catalog-card__media--pair) > img { transform: none; } }
+
+.catalog-card__media:not(.catalog-card__media--pair) > img,
+.catalog-card__media--pair,
+.catalog-card__media--can .can-artwork { transform: translateY(0); }
 
 /* Paired artwork moves as one composition, preserving the cans' individual rotations. */
-.catalog-card__media--pair { transition: transform var(--motion-duration-slow) var(--motion-ease); }
+.catalog-card__media--pair { transition: transform var(--motion-duration-fast) var(--motion-ease-ui); }
 @media (hover: hover) {
-  .catalog-card__link:hover .catalog-card__media--pair { transform: translateY(-.5rem) scale(1.025); }
+  .catalog-card__link:hover .catalog-card__media--pair { transform: translateY(-.5rem); }
 }
-.catalog-card__link:focus-visible .catalog-card__media--pair { transform: translateY(-.5rem) scale(1.025); }
+.catalog-card__link:focus-visible .catalog-card__media--pair { transform: translateY(-.5rem); }
 @media (prefers-reduced-motion: reduce) {
   .catalog-card__media--pair { transition: none; }
   .catalog-card__link:hover .catalog-card__media--pair, .catalog-card__link:focus-visible .catalog-card__media--pair { transform: none; }
@@ -43,8 +47,8 @@
 
 /* Size the entire can/shadow group to the contained image, keeping contact during hover. */
 .catalog-card__media--can { container-type: size; }
-.catalog-card__media--can .can-artwork { position: absolute; bottom: 0; left: 50%; width: min(84%, calc(88cqh * var(--can-aspect))); aspect-ratio: var(--can-aspect); translate: -50% 0; transition: transform var(--motion-duration-slow) var(--motion-ease); }
+.catalog-card__media--can .can-artwork { position: absolute; bottom: 0; left: 50%; width: min(84%, calc(88cqh * var(--can-aspect))); aspect-ratio: var(--can-aspect); translate: -50% 0; transition: transform var(--motion-duration-fast) var(--motion-ease-ui); }
 .navigation-card .catalog-card__media--can .can-artwork { width: min(100%, calc(100cqh * var(--can-aspect))); }
-@media (hover: hover) { .catalog-card__link:hover .can-artwork { transform: translateY(-.5rem) scale(1.025); } }
-.catalog-card__link:focus-visible .can-artwork { transform: translateY(-.5rem) scale(1.025); }
+@media (hover: hover) { .catalog-card__link:hover .can-artwork { transform: translateY(-.5rem); } }
+.catalog-card__link:focus-visible .can-artwork { transform: translateY(-.5rem); }
 @media (prefers-reduced-motion: reduce) { .catalog-card .can-artwork { transition: none; } .catalog-card__link:is(:hover, :focus-visible) .can-artwork { transform: none; } }

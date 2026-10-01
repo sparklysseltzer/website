@@ -99,7 +99,9 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
       group.addEventListener('pointerleave', () => { pill.hovered = null; this.positionCategoryPill(pill); }, { signal });
     });
     this.dataset.enhanced = '';
+    this.initializingPill = true;
     this.measure();
+    this.initializingPill = false;
     document.fonts.ready.then(() => { if (this.isConnected) this.measure(); });
   }
   state(details, open) {
@@ -216,7 +218,7 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     if (this.reduced.matches) return;
     [...owner.querySelectorAll('.navigation-cards > *')].filter(card => !card.closest('[inert]')).forEach((card, index) => {
       const delay = Math.min(index * 40, 160);
-      this.animate(card, [{ opacity: 0, transform: 'translateY(8px)', offset: 0 }, { opacity: 0, transform: 'translateY(8px)', offset: delay / (360 + delay) }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 'slow');
+      this.animate(card, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: delay / (360 + delay) }, { opacity: 1, offset: 1 }], 'slow');
     });
   }
   click(event) {
@@ -323,7 +325,8 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     if (this.pillTarget === target && this.pillEnd === key && opacity === '1') return;
     this.pillTarget = target; this.pillEnd = key;
     Object.assign(this.pill.style, end, { opacity: '1' });
-    this.animate(this.pill, [{ ...frame(previous), opacity }, { ...end, opacity: 1 }], 'navigation');
+    // The server already paints the current item. Hand it to the pill without replaying entry.
+    if (!this.initializingPill) this.animate(this.pill, [{ ...frame(previous), opacity }, { ...end, opacity: 1 }], 'navigation');
   }
 
   disconnectedCallback() {

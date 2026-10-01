@@ -28,8 +28,10 @@
 {{ 'catalog-card.css' | asset_url | stylesheet_tag }}
 {{ 'header-navigation.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'header-navigation.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'header-glass.js' | asset_url }}" defer="defer"></script>
 <header class="site-header" data-header-context="{{ header_context }}">
   <div class="site-header__switcher" aria-label="{{ 'sections.header.brand_navigation' | t }}">
+    <header-glass aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" focusable="false"><path fill-rule="evenodd" /></svg></header-glass>
     <div class="site-header__switcher-inner">
       <div class="site-header__brands">
         <a class="site-header__home" href="{{ routes.root_url }}" aria-label="{{ 'sections.header.home' | t }}" {% if request.page_type == 'index' %}aria-current="page"{% endif %}>
