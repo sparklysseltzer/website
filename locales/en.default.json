@@ -632,5 +632,31 @@
     "passportOptionalLabel": "Optional characters",
     "passportOptionalHelp": "Lower code line: all 14 characters after the expiry date and its check digit (positions 29–42). Include every <.",
     "optionalDigitHelp": "The second-last character of the lower code line: a digit or <."
+  },
+  "contact": {
+    "heading": "Let's have a chat!",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "email": "Email address",
+    "phone": "Phone",
+    "optional": "(optional)",
+    "message": "Message",
+    "first_name_placeholder": "Bob",
+    "last_name_placeholder": "Ross",
+    "email_placeholder": "bob@example.com",
+    "message_placeholder": "Questions, feedback or a wonderfully specific request? Let’s hear it.",
+    "required_note": "Fields marked * are required.",
+    "send": "Send message",
+    "privacy": "Privacy policy",
+    "success_heading": "Cheers!",
+    "success": "Your message has arrived. Our inbox just got more interesting. We’ll get back to you.",
+    "send_another": "Send another message",
+    "error_heading": "Please check your details and try again.",
+    "newsletter_label": "Yes, email me Sparklys news and offers. I can unsubscribe at any time.",
+    "newsletter_unavailable": "Newsletter signup is unavailable here. You can still send your message.",
+    "newsletter_pending": "Your message is sent. Sending your separate newsletter request…",
+    "newsletter_success": "Newsletter request received. If you receive a confirmation email, follow its link to complete your signup.",
+    "newsletter_error": "Your message is sent, but we couldn’t confirm your newsletter signup. Please try the newsletter signup again.",
+    "newsletter_retry": "Retry newsletter signup"
   }
 }

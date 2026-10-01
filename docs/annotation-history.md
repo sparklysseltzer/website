@@ -200,3 +200,7 @@ Older 116 remains acknowledged: existing hidden target pages were found via read
 - 153 (`1789518731663-aw2ngm88f`): cart drawer title selects shared Newake tokens and the .06em optical correction instead of inheriting editorial Erode.
 - `1789518761620-j71645ktp`: toast host centered at the viewport top, including above modal content. Desktop center measured 720px at 1440px; phone center 195px at 390px.
 - Verified real desktop/phone rendering, 1024px reduced-motion navigation, keyboard category activation/Escape with root focus restoration, and script-blocked phone overview with all four native links. Full checks, syntax and whitespace passed. All 34 JSON files parse after removing Shopify's existing generated comment headers; raw jq continues to reject those comments. Isolated browsers closed. Prior blog work preserved; no store-data changes or deployment. Older notes 75/116 remain acknowledged.
+
+## 2026-10-02 — Contact required-fields note
+
+Resolved Ananotes 162 (`1790882123315-5dvjzxud8`): removed the standalone required-fields explanation, retaining individual labels, asterisks and all four native required constraints. Verified 390px/1440px rendering and no horizontal overflow. Full repository, JavaScript, JSON and whitespace checks passed. Browser closed. Older 75 (wording review) and 116 (store assignments/publication) remain acknowledged under their existing scope decisions.

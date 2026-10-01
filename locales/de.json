@@ -632,5 +632,31 @@
     "passportOptionalLabel": "Optionale Zeichen",
     "passportOptionalHelp": "Untere Codezeile: alle 14 Zeichen nach Ablaufdatum und Prüfziffer (Positionen 29–42). Auch alle < eingeben.",
     "optionalDigitHelp": "Vorletztes Zeichen der unteren Codezeile: eine Ziffer oder <."
+  },
+  "contact": {
+    "heading": "Wir freuen uns auf deine Nachricht!",
+    "first_name": "Vorname",
+    "last_name": "Nachname",
+    "email": "E-Mail-Adresse",
+    "phone": "Telefon",
+    "optional": "(optional)",
+    "message": "Anliegen",
+    "first_name_placeholder": "Bob",
+    "last_name_placeholder": "Ross",
+    "email_placeholder": "bob@example.com",
+    "message_placeholder": "Fragen, Feedback oder ein wunderbar spezifisches Anliegen? Immer her damit.",
+    "required_note": "Felder mit * sind Pflichtfelder.",
+    "send": "Nachricht senden",
+    "privacy": "Datenschutzerklärung",
+    "success_heading": "Cheers!",
+    "success": "Deine Nachricht ist angekommen. Unser Posteingang ist jetzt ein bisschen interessanter. Wir melden uns bei dir.",
+    "send_another": "Weitere Nachricht senden",
+    "error_heading": "Bitte prüfe deine Angaben und versuche es erneut.",
+    "newsletter_label": "Ja, ich möchte Sparklys News und Angebote per E-Mail erhalten. Ich kann mich jederzeit abmelden.",
+    "newsletter_unavailable": "Die Newsletter-Anmeldung ist hier nicht verfügbar. Du kannst deine Nachricht trotzdem senden.",
+    "newsletter_pending": "Deine Nachricht ist gesendet. Deine separate Newsletter-Anmeldung wird übermittelt …",
+    "newsletter_success": "Newsletter-Anmeldung übermittelt. Falls du eine Bestätigungs-E-Mail erhältst, schliesse die Anmeldung über den Link darin ab.",
+    "newsletter_error": "Deine Nachricht ist gesendet, aber wir konnten deine Newsletter-Anmeldung nicht bestätigen. Bitte versuche die Newsletter-Anmeldung erneut.",
+    "newsletter_retry": "Newsletter-Anmeldung wiederholen"
   }
 }

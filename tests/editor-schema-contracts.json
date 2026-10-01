@@ -5928,5 +5928,133 @@
       }
     ],
     "schemaHash": "be7bbc6912a16205be07fbcf6025c6fab921dab41da5018cadefc982fc7c8f92"
+  },
+  "sections/contact-form.liquid": {
+    "schemaHash": "98b70d0a518f2ed17dc04c7f145a42f8b35e02d3943765c7d73ab979fb50892a",
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Appearance",
+        "visible_if": null
+      },
+      "enable_newsletter": {
+        "group": "Newsletter",
+        "visible_if": null
+      },
+      "klaviyo_site_id": {
+        "group": "Newsletter",
+        "visible_if": "{{ section.settings.enable_newsletter }}"
+      },
+      "klaviyo_list_id": {
+        "group": "Newsletter",
+        "visible_if": "{{ section.settings.enable_newsletter }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Erode/Newake only changes heading presentation; no dependent controls. Both preserve authored casing.",
+      "hide_on_mobile": "Independent breakpoint visibility, no dependent fields.",
+      "hide_on_desktop": "Independent breakpoint visibility, no dependent fields.",
+      "section_background_mode": "Only Custom Color enables the section_background picker. Default and Transparent hide it.",
+      "enable_newsletter": "Enables both public Klaviyo configuration fields; each has visible_if. Storefront opt-in requires both IDs. Checkbox starts unchecked and email-only."
+    },
+    "scenarios": [
+      {
+        "name": "Default canvas",
+        "settings": {},
+        "visible": [
+          "heading",
+          "heading_font",
+          "hide_on_mobile",
+          "hide_on_desktop",
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Transparent canvas",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Custom canvas",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Newake with both breakpoints hidden",
+        "settings": {
+          "heading_font": "newake",
+          "hide_on_mobile": true,
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "heading_font",
+          "hide_on_mobile",
+          "hide_on_desktop"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Newsletter enabled",
+        "settings": {
+          "enable_newsletter": true
+        },
+        "visible": [
+          "klaviyo_site_id",
+          "klaviyo_list_id"
+        ]
+      },
+      {
+        "name": "Newsletter disabled",
+        "settings": {
+          "enable_newsletter": false
+        },
+        "hidden": [
+          "klaviyo_site_id",
+          "klaviyo_list_id"
+        ]
+      },
+      {
+        "name": "Custom heading",
+        "settings": {
+          "heading": "Get in touch"
+        },
+        "visible": [
+          "heading",
+          "heading_font"
+        ]
+      }
+    ]
   }
 }

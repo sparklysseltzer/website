@@ -1,0 +1,148 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{% render 'section-visibility', section: section %}
+{%- assign form_id = 'ContactForm-' | append: section.id -%}
+{%- liquid
+  assign newsletter_ready = false
+  if section.settings.enable_newsletter and section.settings.klaviyo_site_id != blank and section.settings.klaviyo_list_id != blank
+    assign newsletter_ready = true
+  endif
+-%}
+<script src="{{ 'contact-form.js' | asset_url }}" defer="defer"></script>
+<sparklys-contact data-site-id="{{ section.settings.klaviyo_site_id | escape }}" data-list-id="{{ section.settings.klaviyo_list_id | escape }}" data-newsletter-pending="{{ 'contact.newsletter_pending' | t | escape }}" data-newsletter-success="{{ 'contact.newsletter_success' | t | escape }}" data-newsletter-error="{{ 'contact.newsletter_error' | t | escape }}">
+<section class="contact-section section" aria-labelledby="ContactHeading-{{ section.id }}">
+  <div class="contact-section__inner">
+    <h2 class="contact-section__heading" id="ContactHeading-{{ section.id }}">{% if section.settings.heading != blank %}{{ section.settings.heading | escape }}{% else %}{{ 'contact.heading' | t }}{% endif %}</h2>
+    {% form 'contact', id: form_id, class: 'contact-section__form' %}
+      {%- if form.posted_successfully? -%}
+        <div class="contact-section__confirmation" data-contact-success tabindex="-1" autofocus>
+          <h3>{{ 'contact.success_heading' | t }}</h3>
+          <p>{{ 'contact.success' | t }}</p>
+          <div class="contact-section__newsletter-result" data-newsletter-result hidden>
+            <p data-newsletter-status role="status"></p>
+            <button class="button button--secondary" type="button" data-newsletter-retry hidden><span class="button__label">{{ 'contact.newsletter_retry' | t }}</span></button>
+          </div>
+          <a class="button button--secondary" href="{{ request.path }}#{{ form_id }}"><span class="button__label">{{ 'contact.send_another' | t }}</span></a>
+        </div>
+      {%- else -%}
+        {%- if form.errors -%}
+          <div class="contact-section__errors" role="alert" tabindex="-1" autofocus>
+            <p>{{ 'contact.error_heading' | t }}</p>
+            <ul>
+              {%- for field in form.errors -%}
+                <li>
+                  {%- if field == 'email' -%}
+                    <a href="#{{ form_id }}-email">{{ 'contact.email' | t }} {{ form.errors.messages[field] }}</a>
+                  {%- else -%}
+                    {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+        <div class="contact-section__fields">
+          <div class="form-field">
+            <label class="form-field__label" for="{{ form_id }}-first-name">{{ 'contact.first_name' | t }} <span aria-hidden="true">*</span></label>
+            <input class="form-control" id="{{ form_id }}-first-name" type="text" name="contact[first_name]" autocomplete="given-name" placeholder="{{ 'contact.first_name_placeholder' | t | escape }}" value="{{ form.first_name | default: customer.first_name | escape }}" required>
+          </div>
+          <div class="form-field">
+            <label class="form-field__label" for="{{ form_id }}-last-name">{{ 'contact.last_name' | t }} <span aria-hidden="true">*</span></label>
+            <input class="form-control" id="{{ form_id }}-last-name" type="text" name="contact[last_name]" autocomplete="family-name" placeholder="{{ 'contact.last_name_placeholder' | t | escape }}" value="{{ form.last_name | default: customer.last_name | escape }}" required>
+          </div>
+          <div class="form-field">
+            <label class="form-field__label" for="{{ form_id }}-email">{{ 'contact.email' | t }} <span aria-hidden="true">*</span></label>
+            <input class="form-control" id="{{ form_id }}-email" type="email" name="contact[email]" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="{{ 'contact.email_placeholder' | t | escape }}" value="{{ form.email | default: customer.email | escape }}" required{% if form.errors contains 'email' %} aria-invalid="true" aria-describedby="{{ form_id }}-email-error"{% endif %}>
+            {%- if form.errors contains 'email' -%}
+              <p class="form-field__error" id="{{ form_id }}-email-error">{{ 'contact.email' | t }} {{ form.errors.messages.email }}</p>
+            {%- endif -%}
+          </div>
+          <div class="form-field">
+            <label class="form-field__label" for="{{ form_id }}-phone">{{ 'contact.phone' | t }} <span class="contact-section__optional">{{ 'contact.optional' | t }}</span></label>
+            <input class="form-control" id="{{ form_id }}-phone" type="tel" name="contact[contact_phone_number]" autocomplete="tel" value="{{ form.contact_phone_number | default: customer.phone | escape }}">
+          </div>
+          <div class="form-field contact-section__message">
+            <label class="form-field__label" for="{{ form_id }}-body">{{ 'contact.message' | t }} <span aria-hidden="true">*</span></label>
+            <textarea class="form-control" id="{{ form_id }}-body" name="contact[body]" rows="6" placeholder="{{ 'contact.message_placeholder' | t | escape }}" required>{{ form.body | escape }}</textarea>
+          </div>
+        </div>
+        {%- if newsletter_ready -%}
+          <div class="contact-section__newsletter">
+            <label class="form-choice">
+              <input type="checkbox" name="contact[newsletter]" value="yes" data-newsletter-opt-in disabled>
+              <span class="form-choice__indicator" aria-hidden="true"></span>
+              <span>{{ 'contact.newsletter_label' | t }}</span>
+            </label>
+            <p class="contact-section__newsletter-hint" data-newsletter-unavailable>{{ 'contact.newsletter_unavailable' | t }}</p>
+          </div>
+        {%- elsif request.design_mode and section.settings.enable_newsletter -%}
+          <p class="contact-section__required">Add the Klaviyo public site ID and newsletter list ID to enable the newsletter checkbox.</p>
+        {%- endif -%}
+        <div class="contact-section__actions">
+          {%- if shop.privacy_policy.url != blank -%}
+            <a class="contact-section__privacy" href="{{ shop.privacy_policy.url }}">{{ 'contact.privacy' | t }}</a>
+          {%- endif -%}
+          <button class="button" type="submit"><span class="button__label">{{ 'contact.send' | t }}</span></button>
+        </div>
+      {%- endif -%}
+    {% endform %}
+  </div>
+</section>
+</sparklys-contact>
+
+{% stylesheet %}
+  .contact-section { padding-inline: var(--page-gutter); }
+  .contact-section :is(.form-control, .contact-section__errors, .contact-section__confirmation) { scroll-margin-block-start: calc(var(--sticky-header-height, 8.5rem) + 2rem); }
+  .contact-section__inner { max-width: 50rem; margin-inline: auto; }
+  sparklys-contact { display: block; }
+  .contact-section__newsletter { margin-top: 1.5rem; }
+  .contact-section__newsletter .form-choice { align-items: flex-start; }
+  .contact-section__newsletter .form-choice__indicator { margin-top: .125rem; }
+  .contact-section__newsletter-hint { font-size: var(--font-size-small); }
+  .contact-section__newsletter-result { margin-bottom: 2rem; }
+  .contact-section__newsletter-result[hidden], .contact-section__newsletter-result [hidden], .contact-section__newsletter-hint[hidden] { display: none; }
+  .contact-section__newsletter-result p { margin-bottom: 1rem; }
+  .contact-section__heading { margin: 0 0 2rem; font-size: var(--font-size-section); text-align: left; text-wrap: balance; }
+  .contact-section__required { margin: 0 0 1.5rem; font-size: var(--font-size-small); color: var(--color-text-secondary); }
+  .contact-section__fields { display: grid; gap: 1.5rem; }
+  .contact-section__optional { text-transform: none; font-family: var(--font-body); }
+  .contact-section__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 1.5rem; }
+  .contact-section__actions .button { margin-left: auto; }
+  .contact-section__privacy { display: inline-flex; align-items: center; min-height: 2.75rem; font-size: var(--font-size-small); }
+  .contact-section__errors { margin-bottom: 1.5rem; padding: 1.25rem; border-radius: var(--radius-small); color: var(--color-error-text); background: var(--color-error-surface); }
+  .contact-section__errors p { margin: 0; }
+  .contact-section__errors ul { margin-bottom: 0; }
+  .contact-section__confirmation { padding: 2rem; border-radius: var(--radius-large); background: var(--color-surface); text-align: center; }
+  .contact-section__confirmation h3 { margin: 0; font-size: var(--font-size-card); }
+  .contact-section__confirmation p { margin: 1.25rem 0 2rem; }
+  @media (min-width: 48rem) {
+    .contact-section__fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .contact-section__message { grid-column: 1 / -1; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Contact form",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "heading", "label": "Heading", "info": "Leave blank to use the default translated heading." },
+    { "type": "header", "content": "Appearance" },
+    { "type": "select", "id": "heading_font", "label": "Heading font", "default": "erode", "options": [{ "value": "erode", "label": "Erode" }, { "value": "newake", "label": "Newake" }] },
+    { "type": "paragraph", "content": "Messages go to the store’s sender email address, set under Settings → Notifications. Sending a message does not subscribe the visitor to marketing." },
+    { "type": "header", "content": "Newsletter" },
+    { "type": "checkbox", "id": "enable_newsletter", "label": "Offer newsletter signup", "default": true },
+    { "type": "text", "id": "klaviyo_site_id", "label": "Klaviyo public site ID", "info": "Use the public six-character site ID. Never enter a private API key.", "visible_if": "{{ section.settings.enable_newsletter }}" },
+    { "type": "text", "id": "klaviyo_list_id", "label": "Klaviyo newsletter list ID", "info": "Use your existing email list. Its opt-in settings still apply. Only email marketing consent is requested.", "visible_if": "{{ section.settings.enable_newsletter }}" },
+    { "type": "header", "content": "Visibility" },
+    { "type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false, "info": "Applies below 768px. Hidden sections remain selectable in the editor." },
+    { "type": "checkbox", "id": "hide_on_desktop", "label": "Hide on desktop", "default": false, "info": "Includes tablets at 768px and above. Enable both options to hide on every screen." },
+    { "type": "header", "content": "Section background" },
+    { "type": "select", "id": "section_background_mode", "label": "Background", "default": "original", "options": [{ "value": "original", "label": "Default" }, { "value": "transparent", "label": "Transparent" }, { "value": "custom", "label": "Custom Color" }], "info": "Default keeps the section’s existing colors. Transparent shows the page background." },
+    { "type": "color", "id": "section_background", "label": "Color", "info": "Clear the color to show the page background.", "visible_if": "{{ section.settings.section_background_mode == 'custom' }}" }
+  ],
+  "presets": [{ "name": "Contact form", "category": "Trust & information", "settings": { "section_background_mode": "transparent" } }]
+}
+{% endschema %}

@@ -2,7 +2,7 @@
 
 This directory documents every Liquid section in `sections/`. Keep implementation details here; keep cross-cutting rules in [Architecture](../architecture.md), commerce requirements in [Commerce](../commerce.md), and capability state in [Status](../status.md).
 
-Last reconciled with the repository: 2026-10-02. The tables below cover all 34 Liquid sections; variants and presets do not count as separate sections.
+Last reconciled with the repository: 2026-10-02. The tables below cover all 35 Liquid sections; variants and presets do not count as separate sections.
 
 ## Shared contracts
 
@@ -21,6 +21,7 @@ All sections follow the [design system](../design-system.md), [asset-delivery ru
 | Section | Add-section category | Role |
 | --- | --- | --- |
 | [Page intro](page-intro.md) | Brand storytelling | Page-owned label, H1 and introduction with decorative Arc |
+| [Contact form](contact-form.md) | Trust & information | Native contact enquiries with optional, separately configured Klaviyo email signup |
 | [Hero](hero.md) | Brand storytelling | Full-width heading, optional image, copy, and action |
 | [Rich text](rich-text.md) | Brand storytelling | Narrow editorial copy and optional action |
 | [Two-column layout](two-column.md) | Brand storytelling | Nested editorial content and repeatable sidebar/link boxes |
