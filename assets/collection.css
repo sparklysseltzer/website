@@ -64,3 +64,11 @@ collection-catalog, collection-hero-motion { display: block; }
 
 /* Figma 8734:14210: the Soda hero is a tightly composed two-line headline. */
 .collection-hero--soda[data-heading-font="erode"] .collection-hero__copy h1 { --soda-hero-heading-leading: calc(62 / 75); line-height: var(--soda-hero-heading-leading); }
+
+.collection-hero__copy > .button { order: 1; }
+@media (width < 990px) {
+  .collection-hero__copy { display: contents; }
+  .collection-hero__layout { justify-items: center; text-align: center; }
+  .collection-hero__art { order: -1; width: 100%; }
+  .collection-hero__usps { order: 2; }
+}

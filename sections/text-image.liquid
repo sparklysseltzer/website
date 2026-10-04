@@ -1,8 +1,9 @@
+{% render 'section-width', section: section, default_width: 'editorial', frame: '.page-width', surface: '.editorial-shell', compact: 'columns' %}
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 {{ 'editorial-content.css' | asset_url | stylesheet_tag }}
-<div class="section page-width"><div class="editorial-shell">{% render 'text-image-content', options: section.settings %}</div></div>
+<poster-motion><div class="section page-width" data-scroll-motion-section><div class="editorial-shell" data-scroll-motion-surface>{% render 'text-image-content', options: section.settings, motion: true %}</div></div></poster-motion>
 {% schema %}
 {
   "name": "Text and image",
@@ -10,6 +11,27 @@
     {
       "type": "header",
       "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "editorial",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
     },
     {
       "type": "select",
@@ -99,6 +121,24 @@
     },
     {
       "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue.",
+      "visible_if": "{{ section.settings.show_heading or section.settings.text != blank }}"
+    },
+    {
+      "type": "select",
       "id": "heading_level",
       "label": "Heading level",
       "default": "h2",
@@ -119,24 +159,6 @@
       "id": "text",
       "label": "Text",
       "default": "<p>Add your content.</p>"
-    },
-    {
-      "type": "select",
-      "id": "heading_font",
-      "label": "Heading font",
-      "default": "erode",
-      "options": [
-        {
-          "value": "erode",
-          "label": "Erode"
-        },
-        {
-          "value": "newake",
-          "label": "Newake"
-        }
-      ],
-      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue.",
-      "visible_if": "{{ section.settings.show_heading or section.settings.text != blank }}"
     },
     {
       "type": "header",

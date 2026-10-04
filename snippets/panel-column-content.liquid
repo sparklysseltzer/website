@@ -1,0 +1,29 @@
+{%- liquid
+  assign heading_tag = heading_tag | default: 'h2'
+  assign button_class = 'button'
+  if options.button_style == 'light'
+    assign button_class = button_class | append: ' button--secondary'
+  endif
+  assign button_link = options.button_link | default: '#'
+-%}
+<div class="split-image-text__content-inner" {{ attributes }}>
+  {% if options.show_heading and options.heading != blank %}
+    <{{ heading_tag }} class="split-image-text__heading" data-scroll-motion-reveal>{{ options.heading }}</{{ heading_tag }}>
+  {% endif %}
+  {% if options.show_subtext and options.subtext != blank %}
+    <div class="split-image-text__subtext rte" data-scroll-motion-reveal>{{ options.subtext }}</div>
+  {% endif %}
+  {% if options.show_list and tick_items != blank %}
+    <ul class="split-image-text__list" data-scroll-motion-reveal>{{ tick_items }}</ul>
+  {% endif %}
+  {% if options.show_button and options.button_label != blank %}
+    <div class="split-image-text__action" data-scroll-motion-reveal>
+      <a class="{{ button_class }}" href="{{ button_link }}">
+        <span class="button__label split-image-text__button-label">
+          <span>{{ options.button_label | escape }}</span>
+          <img class="split-image-text__button-icon" src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="16" height="16">
+        </span>
+      </a>
+    </div>
+  {% endif %}
+</div>

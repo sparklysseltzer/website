@@ -13,7 +13,7 @@
 .page-intro__content { position: relative; max-width: 50rem; margin-inline: auto; }
 .page-intro__label { margin: 0 0 .375rem; color: var(--color-text-secondary); font-size: var(--font-size-body); }
 .page-intro__heading { margin: 0; font-size: var(--font-size-display); text-wrap: balance; }
-.page-intro__text { margin: 1.25rem 0 0; font-size: var(--font-size-body); line-height: var(--line-height-body-compact); overflow-wrap: anywhere; }
+.page-intro__text { max-width: var(--content-width-narrow); margin: 1.25rem auto 0; font-size: var(--font-size-body); line-height: var(--line-height-body-compact); overflow-wrap: anywhere; }
 .page-intro__art {
   position: absolute;
   z-index: -1;

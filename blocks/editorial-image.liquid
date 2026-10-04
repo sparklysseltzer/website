@@ -1,4 +1,4 @@
-<div class="editorial-image editorial-image--{{ block.settings.image_height_mode }}" style="--editorial-image-height: {{ block.settings.image_height }}px; --editorial-image-height-mobile: {{ block.settings.mobile_image_height }}px;">{% render 'editorial-image', options: block.settings %}</div>
+<div class="editorial-image editorial-image--plain editorial-image--{{ block.settings.image_height_mode }}" style="--editorial-image-height: {{ block.settings.image_height }}px; --editorial-image-height-mobile: {{ block.settings.mobile_image_height }}px;">{% render 'editorial-image', options: block.settings %}</div>
 {% schema %}
 {
   "name": "Image",
@@ -29,6 +29,10 @@
       "label": "Image height",
       "default": "square",
       "options": [
+        {
+          "value": "natural",
+          "label": "Original proportions"
+        },
         {
           "value": "square",
           "label": "Square"

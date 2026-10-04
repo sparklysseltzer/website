@@ -6,7 +6,7 @@
   .poster {
     position: relative;
     width: 100%;
-    max-width: 87.5rem;
+    max-width: var(--content-width-editorial);
     min-height: var(--poster-min-height-desktop);
     margin-inline: auto;
     overflow: hidden;

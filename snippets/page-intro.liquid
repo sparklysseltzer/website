@@ -8,7 +8,9 @@
   endif
   assign intro = page.metafields.custom.intro_text.value
   assign page_schema_type = 'WebPage'
-  if template.suffix == 'kontakt'
+  if template.suffix == 'about' or template.suffix == 'ueber-uns'
+    assign page_schema_type = 'AboutPage'
+  elsif template.suffix == 'kontakt'
     assign page_schema_type = 'ContactPage'
   endif
 -%}

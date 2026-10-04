@@ -1,4 +1,7 @@
 {%- liquid
+  capture poster_sizes
+    render 'content-image-sizes', width: options.content_width
+  endcapture
   assign poster_image = options.image
   assign mobile_image = options.mobile_image
   assign fallback_image = 'poster-subscription.webp'
@@ -103,7 +106,7 @@
                 | image_url: width: 2400
                 | image_tag:
                   widths: '480, 750, 1100, 1500, 2000, 2400',
-                  sizes: '(min-width: 120rem) 120rem, calc(100vw - 2rem)',
+                  sizes: poster_sizes,
                   loading: 'lazy',
                   alt: image_alt,
                   style: image_style

@@ -76,6 +76,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -88,7 +92,8 @@
       "button_style": "Changes button appearance; no dependent controls.",
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
       "hide_on_desktop": "Responsive visibility; no additional input fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -182,9 +187,60 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Heading enabled without body",
+        "settings": {
+          "show_heading": true,
+          "text": ""
+        },
+        "visible": [
+          "heading",
+          "heading_font",
+          "heading_level"
+        ]
+      },
+      {
+        "name": "No heading content",
+        "settings": {
+          "show_heading": false,
+          "text": ""
+        },
+        "hidden": [
+          "heading",
+          "heading_font",
+          "heading_level"
+        ]
       }
     ],
-    "schemaHash": "6d7b741b95b77b4a79cd74a491a3bd634f7fe4dc9064e0fb20e03c60a62e77cc"
+    "schemaHash": "e70a7ce335a7b4beaa6ebfcab4e4bf2759e4debacdc38176584c57d63759d1f0"
   },
   "sections/two-column.liquid": {
     "fields": {
@@ -203,12 +259,22 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
+      "sticky_sidebar": {
+        "group": "Layout",
+        "visible_if": "{{ section.settings.content_width != 'narrow' }}"
       }
     },
     "controls": {
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
       "hide_on_desktop": "Responsive visibility; no additional input fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared three-role container width. Narrow stacks the columns and hides Sticky sidebar; Editorial and Page reveal it.",
+      "sticky_sidebar": "Optional desktop-only sticky sidebar; no dependent fields. Hidden and ignored in Narrow mode, where the layout stacks. Off by default."
     },
     "scenarios": [
       {
@@ -245,9 +311,63 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ],
+        "hidden": [
+          "sticky_sidebar"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width",
+          "sticky_sidebar"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width",
+          "sticky_sidebar"
+        ]
+      },
+      {
+        "name": "Sticky sidebar off",
+        "settings": {
+          "content_width": "editorial",
+          "sticky_sidebar": false
+        },
+        "visible": [
+          "sticky_sidebar",
+          "content_width"
+        ]
+      },
+      {
+        "name": "Sticky sidebar on",
+        "settings": {
+          "content_width": "editorial",
+          "sticky_sidebar": true
+        },
+        "visible": [
+          "sticky_sidebar",
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "c62e620e298a535d88ba07cfbfd630e1cbb86955e4d7f78f12d9938624affed9"
+    "schemaHash": "0e8288a806748aaff96849492368ea30e841392a8d383135142aca74deb59a1d"
   },
   "sections/faq-accordion.liquid": {
     "fields": {
@@ -282,13 +402,18 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
       "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
       "hide_on_desktop": "Responsive visibility; no additional input fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -325,12 +450,43 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "1193efacb24d9b6eb803dd41a96ef4f35e4feedc7a1a0d3ac699210ffcab6c72"
+    "schemaHash": "856e1b200401f77ed9a80a85bc251cfb009d8255478562167cb012278290e830"
   },
   "sections/split-image-text.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "image_side": {
         "group": "Layout",
         "visible_if": null
@@ -359,57 +515,61 @@
         "group": "Image",
         "visible_if": null
       },
-      "show_heading": {
-        "group": "Content",
+      "column_content": {
+        "group": "Columns",
         "visible_if": null
+      },
+      "show_heading": {
+        "group": "Existing content",
+        "visible_if": "{{ section.settings.column_content == 'legacy' }}"
       },
       "heading": {
-        "group": "Content",
-        "visible_if": "{{ section.settings.show_heading }}"
-      },
-      "heading_level": {
-        "group": "Content",
-        "visible_if": "{{ section.settings.show_heading or section.settings.text_columns == 'two' and section.settings.image_side == 'top' }}"
+        "group": "Existing content",
+        "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_heading }}"
       },
       "show_subtext": {
-        "group": "Content",
-        "visible_if": null
+        "group": "Existing content",
+        "visible_if": "{{ section.settings.column_content == 'legacy' }}"
       },
       "subtext": {
-        "group": "Content",
-        "visible_if": "{{ section.settings.show_subtext }}"
+        "group": "Existing content",
+        "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_subtext }}"
       },
       "show_list": {
-        "group": "Content",
+        "group": "Existing content",
+        "visible_if": "{{ section.settings.column_content == 'legacy' }}"
+      },
+      "second_heading": {
+        "group": "Existing second column",
+        "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
+      },
+      "second_text": {
+        "group": "Existing second column",
+        "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
+      },
+      "show_button": {
+        "group": "Existing button",
+        "visible_if": "{{ section.settings.column_content == 'legacy' }}"
+      },
+      "button_label": {
+        "group": "Existing button",
+        "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_button }}"
+      },
+      "button_link": {
+        "group": "Existing button",
+        "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_button }}"
+      },
+      "button_style": {
+        "group": "Existing button",
+        "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_button }}"
+      },
+      "heading_level": {
+        "group": "Typography",
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Typography",
         "visible_if": null
-      },
-      "second_heading": {
-        "group": "Second text column",
-        "visible_if": "{{ section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
-      },
-      "second_text": {
-        "group": "Second text column",
-        "visible_if": "{{ section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
-      },
-      "show_button": {
-        "group": "Button",
-        "visible_if": null
-      },
-      "button_label": {
-        "group": "Button",
-        "visible_if": "{{ section.settings.show_button }}"
-      },
-      "button_link": {
-        "group": "Button",
-        "visible_if": "{{ section.settings.show_button }}"
-      },
-      "button_style": {
-        "group": "Button",
-        "visible_if": "{{ section.settings.show_button }}"
       },
       "panel_color": {
         "group": "Appearance",
@@ -439,16 +599,18 @@
     "controls": {
       "image_side": "Changes visual/DOM image position; Top-only controls are tested where supported.",
       "text_columns": "Top/two reveals the second text column.",
-      "show_heading": "Controls heading content and semantic level. Font remains relevant for rich-text headings.",
-      "heading_level": "Changes the semantic heading tag; no further dependent settings.",
-      "show_subtext": "Controls supporting rich text.",
-      "show_list": "Controls existing tick blocks; Shopify does not conditionally hide block entries.",
+      "show_heading": "Compatibility-only existing section content control; hidden in Column blocks mode. Original dependent content/button fields keep their own conditions.",
+      "heading_level": "Shared H2/H3 choice applies to both columns in either source mode.",
+      "show_subtext": "Compatibility-only existing section content control; hidden in Column blocks mode. Original dependent content/button fields keep their own conditions.",
+      "show_list": "Compatibility-only existing section content control; hidden in Column blocks mode. Original dependent content/button fields keep their own conditions.",
       "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
-      "show_button": "Controls the action fields and rendered action.",
-      "button_style": "Changes button appearance; no dependent controls.",
+      "show_button": "Compatibility-only existing section content control; hidden in Column blocks mode. Original dependent content/button fields keep their own conditions.",
+      "button_style": "Compatibility-only existing section content control; hidden in Column blocks mode. Original dependent content/button fields keep their own conditions.",
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
       "hide_on_desktop": "Responsive visibility; no additional input fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
+      "column_content": "New presets use Column blocks with static Left/Right groups. Existing section content preserves prior saved instances until explicitly migrated; it reveals the original content/button fields. No content is copied at render time."
     },
     "scenarios": [
       {
@@ -554,9 +716,82 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Nested columns hide old content inputs",
+        "settings": {
+          "column_content": "blocks",
+          "image_side": "top",
+          "text_columns": "two"
+        },
+        "visible": [
+          "column_content",
+          "heading_font",
+          "heading_level",
+          "text_columns"
+        ],
+        "hidden": [
+          "show_heading",
+          "heading",
+          "show_subtext",
+          "subtext",
+          "show_list",
+          "show_button",
+          "button_label",
+          "button_link",
+          "button_style",
+          "second_heading",
+          "second_text"
+        ]
+      },
+      {
+        "name": "Legacy two-column content stays editable",
+        "settings": {
+          "column_content": "legacy",
+          "image_side": "top",
+          "text_columns": "two",
+          "show_heading": true,
+          "show_subtext": true,
+          "show_button": true
+        },
+        "visible": [
+          "heading",
+          "subtext",
+          "show_list",
+          "button_label",
+          "second_heading",
+          "second_text"
+        ]
       }
     ],
-    "schemaHash": "cd933cebf90f110cdb92d03878c6d468a9f4300c67899e106bc32cb5e0b5e8e6"
+    "schemaHash": "f18e5d2ee4b2e73e6fb6909930100cc6fc0311eba64af7dcd8f2ae36ad55d68f"
   },
   "sections/poster.liquid": {
     "fields": {
@@ -655,6 +890,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -668,7 +907,8 @@
       "button_style": "Changes button appearance; no dependent controls.",
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
       "hide_on_desktop": "Responsive visibility; no additional input fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -764,9 +1004,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "22101af09af248b545e1e4ed91c522e2ce48bdfc34820ef19105c11313c83cf0"
+    "schemaHash": "482b527682e0e61534e87293d98a28387f4a1d19b493aa57c379ac09f920673f"
   },
   "blocks/editorial-faq.liquid": {
     "fields": {
@@ -1387,9 +1654,33 @@
           "button_link",
           "button_style"
         ]
+      },
+      {
+        "name": "Heading enabled without body",
+        "settings": {
+          "show_heading": true,
+          "text": ""
+        },
+        "visible": [
+          "heading",
+          "heading_font",
+          "heading_level"
+        ]
+      },
+      {
+        "name": "No heading content",
+        "settings": {
+          "show_heading": false,
+          "text": ""
+        },
+        "hidden": [
+          "heading",
+          "heading_font",
+          "heading_level"
+        ]
       }
     ],
-    "schemaHash": "b7c5fc3386c3b7294443e85cccffffc5d7c6d756e041512dcd2897e92e1225cf"
+    "schemaHash": "b117a0a0bb0a34486ec07317bbea2f425cdd36d5619c6dca782b37fc14a080c7"
   },
   "blocks/_editorial-sidebar.liquid": {
     "fields": {},
@@ -1432,7 +1723,7 @@
       }
     },
     "controls": {
-      "image_height_mode": "Custom reveals desktop and mobile heights."
+      "image_height_mode": "Original proportions preserves the full image; Square crops to a square; Custom alone reveals desktop/mobile heights. Existing square default and IDs are preserved."
     },
     "scenarios": [
       {
@@ -1454,9 +1745,24 @@
           "image_height",
           "mobile_image_height"
         ]
+      },
+      {
+        "name": "Original proportions",
+        "settings": {
+          "image_height_mode": "natural"
+        },
+        "visible": [
+          "image",
+          "image_alt",
+          "image_height_mode"
+        ],
+        "hidden": [
+          "image_height",
+          "mobile_image_height"
+        ]
       }
     ],
-    "schemaHash": "be8f8d411207e53418a5c3b9be3fc1531f1cd60cb90892fc43b7a9d2e292c8bf"
+    "schemaHash": "8c2ee118a232ac9e82bf0683f8f7866795f3adace485d9faa36fbccdcaf5ce6c"
   },
   "blocks/_editorial-main.liquid": {
     "fields": {},
@@ -1786,6 +2092,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -1795,7 +2105,8 @@
       "hide_on_mobile": "Hides the section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the section from 768px; no dependent fields.",
       "header_in_hero": "Delegates the collection H1 to the separate hero. All-products always supplies its own H1.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -1856,9 +2167,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "27a615aafe16f4064bff235c79bb7b127b9ab6e861c27d2021548808eb4db972"
+    "schemaHash": "99ff277cb0dc181e80f802bd75120b807828230043557f3c351b9e866d63b6c7"
   },
   "sections/collection-hero.liquid": {
     "fields": {
@@ -1921,6 +2259,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -1930,7 +2272,8 @@
       "show_button": "Shows the in-page shop action and its label control.",
       "hide_on_mobile": "Hides the section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the section from 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -2045,9 +2388,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "97b834da65ffe973654c1bdba253b8fcb020e91f5f4bd50635a2c67669b96aa6"
+    "schemaHash": "ed53c2783e9132239cc127464e86df4646ef9e93d9e470e2a00da40e0104bc3c"
   },
   "sections/header.liquid": {
     "fields": {
@@ -2113,6 +2483,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -2128,7 +2502,8 @@
         "affects": [],
         "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
       },
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -2175,9 +2550,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "1b1f51127daf3b0f6f464981926dd2a93b5326c1697c92ae65eedda29277c8e8"
+    "schemaHash": "a8e416f37b63e4463bcafc979671eb14def4cebd4a3d51ee168cfb6be0b4143f"
   },
   "sections/main-article.liquid": {
     "fields": {
@@ -2200,6 +2602,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -2215,7 +2621,8 @@
         "affects": [],
         "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
       },
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -2261,9 +2668,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "5761ee9148b49a1efd0b3a31da1da8ece917f9f99180d05b508f5063c47a9261"
+    "schemaHash": "40a0cd8fc11affda3342ab677dc95c76312fe2773758c93b776addc698193a0d"
   },
   "sections/blog-teaser.liquid": {
     "fields": {
@@ -2310,6 +2744,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -2339,7 +2777,8 @@
         "affects": [],
         "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
       },
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -2407,9 +2846,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "0a25484ba41b0736272456fe8048873a95f76dad880f5503665664fd011661af"
+    "schemaHash": "0a5323861333edc9afa76c18f3699ae41991f3744d8231e00e19cafa8c376a81"
   },
   "sections/faq.liquid": {
     "fields": {
@@ -2460,6 +2926,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -2467,7 +2937,8 @@
       "show_footer": "Enables closing copy, link label and destination; all three fields depend on this toggle.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -2591,9 +3062,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "5ced4195f2b2b96017676c35be495b79b2639436b5bec26cfe5307ee1b6578ac"
+    "schemaHash": "33ee6fc4e5155712c05b561261b6c8bbd2425cc518782d7049c008fe04cde415"
   },
   "sections/featured-collection.liquid": {
     "fields": {
@@ -2628,13 +3126,18 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
       "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -2731,9 +3234,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "0472c8185f866c8a69006f29b88ba7792b6a5786be278f1a6fc6073437948a59"
+    "schemaHash": "910cc75393f7ea62c4370cce65db01aee16dd89aa036762535f7fcf240714cea"
   },
   "sections/footer.liquid": {
     "fields": {
@@ -3043,13 +3573,18 @@
       "background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
       "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -3164,9 +3699,36 @@
           "background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "6e78b59be29800e943d750690c40257246adff799e8a32390443c54f384ec6d5"
+    "schemaHash": "9685d353ed2c3e8d75274a05448c984ef093ea57b91697d96d217d04f02eca78"
   },
   "sections/logo-marquee.liquid": {
     "fields": {
@@ -3646,13 +4208,18 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
       "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -3749,9 +4316,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "41771b5da8e9589b1776b62406d3c24611cf81a8ca493e2f3ccc95c143f6338a"
+    "schemaHash": "0aed5c8e60d4a7bbbc6f2cfbf6909649856a11b2711336ad7bfcb3411b077378"
   },
   "sections/main-list-collections.liquid": {
     "fields": {
@@ -3774,13 +4368,18 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
       "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -3877,9 +4476,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "0511b150bdefc70b975c2f640c12e50e3efb9af391dbfae7c8ab9e8394ee7aa4"
+    "schemaHash": "a623923e9f429f662c41dcf573eccdf650ee45558402dbe38d6814622915f467"
   },
   "sections/main-page.liquid": {
     "fields": {
@@ -3906,6 +4532,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -3913,7 +4543,8 @@
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
-      "uppercase_heading": "Visible only when heading_font is newake. No dependent fields; affects heading casing via CSS only, never stored text."
+      "uppercase_heading": "Visible only when heading_font is newake. No dependent fields; affects heading casing via CSS only, never stored text.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -4040,9 +4671,36 @@
         "hidden": [
           "uppercase_heading"
         ]
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "a26e313d696ec459fc2d4f327bc9d2cd3a3e66f511c70dd54fd72b9be697d524"
+    "schemaHash": "75316d62ac40525b92ccc7719378060f96bcfb272c1aeb8d5ff14c98e815c18f"
   },
   "sections/main-product.liquid": {
     "fields": {
@@ -4168,13 +4826,18 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
       "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -4271,9 +4934,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "90a69e0712a21ee3b4389fcc057e45c75362a5c8b3efbae381e7378b28bd0e6f"
+    "schemaHash": "bed258ef42e2f6226434cd1fe7611f821246f034b164b32e6d45714f2d144e9f"
   },
   "sections/offer-cards.liquid": {
     "fields": {
@@ -4312,6 +5002,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -4320,7 +5014,8 @@
       "show_intro": "Enables introduction; its copy depends on this toggle. Offer cards also require Local source for local copy.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -4509,9 +5204,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "547e485d1ae24aef4e5942b417137995d2e401d785e6db318a9f50efb59096a9"
+    "schemaHash": "a04c46bfdc9301e7f37790b647d66fcd744095e409115e15ba7101f3cdcdaa53"
   },
   "sections/page-intro.liquid": {
     "fields": {
@@ -4538,6 +5260,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -4545,7 +5271,8 @@
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
-      "uppercase_heading": "Visible only when heading_font is newake. No dependent fields; affects heading casing via CSS only, never stored text."
+      "uppercase_heading": "Visible only when heading_font is newake. No dependent fields; affects heading casing via CSS only, never stored text.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -4672,9 +5399,36 @@
         "hidden": [
           "uppercase_heading"
         ]
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "a64ba432f334175e42d90959d7f08491986c7825a78e1ae9f27d762d07b98e7c"
+    "schemaHash": "13564fb522ceca42c00d4bbc657f2777485c68d532304a1f5a7b4825cf06ac49"
   },
   "sections/product-overview-teaser.liquid": {
     "fields": {
@@ -4840,13 +5594,18 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
       "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -4943,9 +5702,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "f145c54463d31d578ad388b3ca1c409e8d80aed2b7372f7b2e7c26504e5a6bbc"
+    "schemaHash": "18ec397083b14ae1dedb5787b9cc203a5346b4e3f78c0ee5139aab9593db5cfd"
   },
   "sections/soda-ingredients.liquid": {
     "fields": {
@@ -4984,12 +5770,17 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -5066,9 +5857,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "8f01c88dfc5cc57014836ed14d36dec51888f84c5c8651595179f37a6c0b5676"
+    "schemaHash": "219ffdce305aa2b8e9e56a0cea40e4179ac937f3326d01e86fcd15f9b5dca8a5"
   },
   "sections/soda-three-reasons.liquid": {
     "fields": {
@@ -5286,6 +6104,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -5298,7 +6120,8 @@
       "show_account": "Enables subscriber prompt, link label and destination; all three depend on this toggle.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -5555,9 +6378,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "579b28e1d9d249997836ec522a11667800aa34aabf21df7e89872e7800d5c0cf"
+    "schemaHash": "9351c1e9fe17049f6a18b951fe5d884e79fefdd087f4c8bb72a3569e4d20c77e"
   },
   "sections/usp-section.liquid": {
     "fields": {
@@ -5608,6 +6458,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -5616,7 +6470,8 @@
       "color_mode": "Automatic keeps the product-world panel palette; Custom exposes panel and text colors. The outer section canvas is independent.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -5778,9 +6633,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "6ffda24286e112bf4eff847b575bdcdf4c4d2e71f76188ec1ee7ed74dc7ee4f1"
+    "schemaHash": "5fcbda25b4b1cb850405c9a81c9d9f66921db23df1879fcd0e46e2dc14065a68"
   },
   "sections/versus.liquid": {
     "fields": {
@@ -5819,13 +6701,18 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
       "variant": "Chooses the existing product-world content and artwork. Additive image/text overrides remain useful for every world; Versus footnote applies only to Soda.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -5925,9 +6812,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "be7bbc6912a16205be07fbcf6025c6fab921dab41da5018cadefc982fc7c8f92"
+    "schemaHash": "58d93cdd8ca362a37d96166b02378c347efd24c52dcad78ed0c4195c8245dee7"
   },
   "sections/contact-form.liquid": {
     "schemaHash": "98b70d0a518f2ed17dc04c7f145a42f8b35e02d3943765c7d73ab979fb50892a",
@@ -6058,7 +6972,7 @@
     ]
   },
   "sections/social-media-channels.liquid": {
-    "schemaHash": "09c0f71d50e9c698921aacbdc5afdc61c4cb56268902185e3752ffc71be650f3",
+    "schemaHash": "0d4f54bd239f5a35696f016bf4ec35fcc807cd9b228d9eeebbb81ca600ce7df1",
     "fields": {
       "heading": {
         "group": "Content",
@@ -6159,6 +7073,10 @@
       "facebook_hidden": {
         "group": "Facebook",
         "visible_if": null
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -6172,7 +7090,8 @@
       "tiktok_hidden": "Hides this channel in this section only; link and username controls appear only when the channel is visible. Stored values and central sources are preserved.",
       "linkedin_hidden": "Hides this channel in this section only; link and username controls appear only when the channel is visible. Stored values and central sources are preserved.",
       "youtube_hidden": "Hides this channel in this section only; link and username controls appear only when the channel is visible. Stored values and central sources are preserved.",
-      "facebook_hidden": "Hides this channel in this section only; link and username controls appear only when the channel is visible. Stored values and central sources are preserved."
+      "facebook_hidden": "Hides this channel in this section only; link and username controls appear only when the channel is visible. Stored values and central sources are preserved.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -6407,7 +7326,324 @@
           "facebook_url",
           "facebook_username"
         ]
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ]
+  },
+  "blocks/_panel-left-column.liquid": {
+    "fields": {
+      "show_heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.show_heading }}"
+      },
+      "show_subtext": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "subtext": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.show_subtext }}"
+      },
+      "show_list": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "show_button": {
+        "group": "Button",
+        "visible_if": null
+      },
+      "button_label": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.show_button }}"
+      },
+      "button_link": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.show_button }}"
+      },
+      "button_style": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.show_button }}"
+      }
+    },
+    "controls": {
+      "show_heading": "Reveals this column heading only.",
+      "show_subtext": "Reveals this column rich text only.",
+      "show_list": "Renders this column tick items; child blocks remain saved and listed by Shopify when off. No dependent fields.",
+      "show_button": "Reveals label, destination and button style for this column.",
+      "button_style": "Changes the button treatment; no dependent fields."
+    },
+    "scenarios": [
+      {
+        "name": "show_heading: False",
+        "settings": {
+          "show_heading": false
+        },
+        "hidden": [
+          "heading"
+        ]
+      },
+      {
+        "name": "show_heading: True",
+        "settings": {
+          "show_heading": true
+        },
+        "visible": [
+          "heading"
+        ]
+      },
+      {
+        "name": "show_subtext: False",
+        "settings": {
+          "show_subtext": false
+        },
+        "hidden": [
+          "subtext"
+        ]
+      },
+      {
+        "name": "show_subtext: True",
+        "settings": {
+          "show_subtext": true
+        },
+        "visible": [
+          "subtext"
+        ]
+      },
+      {
+        "name": "show_button: False",
+        "settings": {
+          "show_button": false
+        },
+        "hidden": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      },
+      {
+        "name": "show_button: True",
+        "settings": {
+          "show_button": true
+        },
+        "visible": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      },
+      {
+        "name": "Tick list: False",
+        "settings": {
+          "show_list": false
+        },
+        "visible": [
+          "show_list"
+        ]
+      },
+      {
+        "name": "Tick list: True",
+        "settings": {
+          "show_list": true
+        },
+        "visible": [
+          "show_list"
+        ]
+      }
+    ],
+    "schemaHash": "f6b081f2cdb271e0b6acd643a98b6501fe7bf96c9d4ec6ff84112d9858cd5a63"
+  },
+  "blocks/_panel-right-column.liquid": {
+    "fields": {
+      "show_heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.show_heading }}"
+      },
+      "show_subtext": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "subtext": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.show_subtext }}"
+      },
+      "show_list": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "show_button": {
+        "group": "Button",
+        "visible_if": null
+      },
+      "button_label": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.show_button }}"
+      },
+      "button_link": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.show_button }}"
+      },
+      "button_style": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.show_button }}"
+      }
+    },
+    "controls": {
+      "show_heading": "Reveals this column heading only.",
+      "show_subtext": "Reveals this column rich text only.",
+      "show_list": "Renders this column tick items; child blocks remain saved and listed by Shopify when off. No dependent fields.",
+      "show_button": "Reveals label, destination and button style for this column.",
+      "button_style": "Changes the button treatment; no dependent fields."
+    },
+    "scenarios": [
+      {
+        "name": "show_heading: False",
+        "settings": {
+          "show_heading": false
+        },
+        "hidden": [
+          "heading"
+        ]
+      },
+      {
+        "name": "show_heading: True",
+        "settings": {
+          "show_heading": true
+        },
+        "visible": [
+          "heading"
+        ]
+      },
+      {
+        "name": "show_subtext: False",
+        "settings": {
+          "show_subtext": false
+        },
+        "hidden": [
+          "subtext"
+        ]
+      },
+      {
+        "name": "show_subtext: True",
+        "settings": {
+          "show_subtext": true
+        },
+        "visible": [
+          "subtext"
+        ]
+      },
+      {
+        "name": "show_button: False",
+        "settings": {
+          "show_button": false
+        },
+        "hidden": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      },
+      {
+        "name": "show_button: True",
+        "settings": {
+          "show_button": true
+        },
+        "visible": [
+          "button_label",
+          "button_link",
+          "button_style"
+        ]
+      },
+      {
+        "name": "Tick list: False",
+        "settings": {
+          "show_list": false
+        },
+        "visible": [
+          "show_list"
+        ]
+      },
+      {
+        "name": "Tick list: True",
+        "settings": {
+          "show_list": true
+        },
+        "visible": [
+          "show_list"
+        ]
+      }
+    ],
+    "schemaHash": "72ea2692179f1e5fc667260d9836a4372b7f4ca7ffce91ce565eab2f30675788"
+  },
+  "blocks/_panel-tick.liquid": {
+    "fields": {
+      "text": {
+        "group": null,
+        "visible_if": null
+      }
+    },
+    "controls": {},
+    "scenarios": [
+      {
+        "name": "Tick text",
+        "settings": {},
+        "visible": [
+          "text"
+        ]
+      }
+    ],
+    "schemaHash": "708ae2d6727c1c98e354c23147b9fb87d47920dd6f5a5e8bf7256aa8a792a2b5"
+  },
+  "blocks/item.liquid": {
+    "fields": {
+      "text": {
+        "group": null,
+        "visible_if": null
+      }
+    },
+    "controls": {},
+    "scenarios": [
+      {
+        "name": "Tick text",
+        "settings": {},
+        "visible": [
+          "text"
+        ]
+      }
+    ],
+    "schemaHash": "489d5928161321a74978d384c0a55e538c7282c6286d6cdeae9aa73cfeafd4b6"
   }
 }

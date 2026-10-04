@@ -1,3 +1,4 @@
+{% render 'section-width', section: section, default_width: 'editorial', frame: '.page-width', surface: '.subscription', compact: 'subscription' %}
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {%- liquid
@@ -12,6 +13,9 @@
   if heading_font == 'automatic'
     assign heading_font = variant
   endif
+  capture desktop_sizes
+    render 'content-image-sizes', width: section.settings.content_width
+  endcapture
   assign desktop_image = section.settings.image
   assign mobile_image = section.settings.mobile_image
   assign desktop_focal = desktop_image.presentation.focal_point | default: '50% 50%'
@@ -68,7 +72,7 @@
                 <source media="(max-width: 47.999rem)" srcset="{{ mobile_image | image_url: width: 480 }} 480w, {{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w" sizes="calc(100vw - 2rem)" width="{{ mobile_image.width }}" height="{{ mobile_image.height }}">
               {%- endif -%}
               {%- if desktop_image != blank -%}
-                {{ desktop_image | image_url: width: 2400 | image_tag: widths: '480, 750, 1100, 1500, 2000, 2400', sizes: '(min-width: 92rem) 1400px, (min-width: 48rem) calc(100vw - 4rem), calc(100vw - 2rem)', loading: 'lazy', alt: image_alt, style: 'object-position: var(--subscription-current-focal);' }}
+                {{ desktop_image | image_url: width: 2400 | image_tag: widths: '480, 750, 1100, 1500, 2000, 2400', sizes: desktop_sizes, loading: 'lazy', alt: image_alt, style: 'object-position: var(--subscription-current-focal);' }}
               {%- else -%}
                 <img src="{{ fallback_media | asset_url }}" width="{{ fallback_width }}" height="{{ fallback_height }}" loading="lazy" alt="{{ image_alt | escape }}">
               {%- endif -%}
@@ -142,7 +146,7 @@
 {%- endif -%}
 
 {% stylesheet %}
-  .subscription { position: relative; max-width: 87.5rem; margin-inline: auto; overflow: hidden; border-radius: var(--radius-large); background: var(--color-foreground); color: var(--color-text-inverse); }
+  .subscription { position: relative; max-width: var(--content-width-editorial); margin-inline: auto; overflow: hidden; border-radius: var(--radius-large); background: var(--color-foreground); color: var(--color-text-inverse); }
   .subscription--soda { background: #8cd0ff; color: var(--color-foreground); }
   .subscription__media { position: absolute; inset: 0; overflow: hidden; --subscription-current-focal: var(--subscription-focal); }
   .subscription--soda:not(.subscription--custom-image) .subscription__media { left: 17%; }
@@ -204,6 +208,31 @@
   "name": "Subscription",
   "max_blocks": 6,
   "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "editorial",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
     {
       "type": "header",
       "content": "Product world"

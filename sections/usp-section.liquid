@@ -1,3 +1,4 @@
+{% render 'section-width', section: section, default_width: 'editorial', surface: '.usp-section__panel', compact: 'benefits' %}
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {%- liquid
@@ -166,7 +167,7 @@
   .usp-section__panel {
     position: relative;
     width: 100%;
-    max-width: 87.5rem;
+    max-width: var(--content-width-editorial);
     aspect-ratio: 1400 / 630;
     min-height: 34rem;
     margin-inline: auto;
@@ -265,7 +266,7 @@
   }
 
   .usp-section__editor-note {
-    max-width: 87.5rem;
+    max-width: var(--content-width-editorial);
     padding: 2rem;
     margin-inline: auto;
     color: var(--color-foreground);
@@ -339,6 +340,31 @@
   "name": "Product benefits",
   "max_blocks": 6,
   "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "editorial",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
     {
       "type": "header",
       "content": "Content"

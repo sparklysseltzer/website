@@ -4,7 +4,7 @@ Sources: `sections/text-image.liquid`, `blocks/editorial-text-image.liquid`, `sn
 
 ## Controls and layout
 
-Matches Figma `10989:45023` and `10989:45024`. Available under Brand storytelling, and as a Content block in Two-column layout. This is an open composition on the page canvas, unlike Image and text panel's enclosed panel. Desktop uses two equal columns within 1200px, separated by 60px (32px when embedded). Below 900px it stacks in DOM order: Image left places the image before text; Image right places it after text. Reading, keyboard and visual order agree.
+Matches Figma `10989:45023` and `10989:45024`. Available under Brand storytelling, and as a Content block in Two-column layout. This is an open composition on the page canvas, unlike Image and text panel's enclosed panel. Desktop uses two equal columns within the selected shared content width (Editorial 1400px by default), separated by 60px (32px when embedded). Below 900px it stacks in DOM order: Image left places the image before text; Image right places it after text. Reading, keyboard and visual order agree.
 
 Editors set image side, Shopify image/alternative text, H2/H3 heading, rich text, optional linked action and heading font. Erode is the default, Newake optional; rich-text headings follow that choice while body remains Maison Neue. Sizes use Section and Body roles, with shared button typography.
 
@@ -12,7 +12,7 @@ The default image is square, cover cropped and rounded with the shared large rad
 
 ## Behavior and scope
 
-Content, image and action are server-rendered and work without JavaScript. There is no new entrance animation or interactive state beyond the shared button states. Section visibility follows the shared contract. This generic editorial composition emits no standalone Article/Product/Offer entity: it does not imply such a content model. Rich-text authors must keep their heading hierarchy appropriate to the page.
+Content, image and action are server-rendered and work without JavaScript. Standalone sections use the shared poster-motion reveal; embedded instances retain static content. Shared button states remain unchanged. Section visibility follows the shared contract. This generic editorial composition emits no standalone Article/Product/Offer entity: it does not imply such a content model. Rich-text authors must keep their heading hierarchy appropriate to the page.
 
 ## Editor dependency contract
 
@@ -27,3 +27,11 @@ The existing native block is also available inside Accordeon items, retaining it
 **Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
 
 Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows); nested surfaces suppress the additional shadow. Existing layout, focus and motion behavior is preserved.
+
+Ananotes 171 (2026-10-04): standalone Text and image now reuses `poster-motion` for the same reversible scroll-scrubbed surface fade/upward reveal and delayed text reveal as other editorial compositions. The shared controller handles reduced motion, scroll/resize updates and disconnect cleanup. Embedded/accordion instances remain static to avoid competing with their enclosing disclosure. No media parallax is added and no schema changes are needed.
+
+## Shared content width
+
+**Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Editorial**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).
+
+Editor discoverability (2026-10-04): Heading font sits directly after Heading, before Heading level and body Text, in both the standalone section and embedded block. The existing `heading_font` ID, Erode/Newake choices and saved values are preserved. It remains available when the main heading is hidden but rich text contains content.

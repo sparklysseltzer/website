@@ -74,3 +74,9 @@ Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows
 Image-only Poster has a transparent backing and an isolated rounded clipping surface, avoiding a dark fringe behind the image. Content-mode posters retain their dark backing for readability.
 
 Verification (2026-10-01): inspected the merchant’s Kontakt image-only Poster at 1440px and 390px in an isolated headless browser. Transparent backing, rounded crop and the 5% outer shadow render correctly. Nested content-card probe confirmed a single outer shadow and `none` on the inner card. Checked computed shared shadows on Soda collection catalog, Subscription and Product benefits surfaces at both widths. No saved templates were changed.
+
+## Shared content width
+
+**Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Editorial**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).
+
+Full-width selected media uses the shared `content-image-sizes` hint for Narrow/Editorial/Page, so a wider selection is not capped to the old source size. Split media retains its side-by-side hint except in stacked/Narrow layouts.

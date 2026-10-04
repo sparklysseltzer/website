@@ -1,14 +1,49 @@
+{% render 'section-width', section: section, default_width: 'editorial', frame: '.page-width', surface: '.editorial-layout', compact: 'columns' %}
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {{ 'editorial-content.css' | asset_url | stylesheet_tag }}
-<div class="section page-width"><div class="editorial-layout">
+{% if section.settings.sticky_sidebar and section.settings.content_width != 'narrow' %}<script src="{{ 'two-column-layout.js' | asset_url }}" defer></script>{% endif %}
+<div class="section page-width"><two-column-layout class="editorial-layout"{% if section.settings.sticky_sidebar and section.settings.content_width != 'narrow' %} data-sticky-sidebar{% endif %}>
 {% content_for 'block', type: '_editorial-main', id: 'content' %}
 {% content_for 'block', type: '_editorial-sidebar', id: 'sidebar' %}
-</div></div>
+</two-column-layout></div>
 {% schema %}
 {
   "name": "Two-column layout",
   "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "editorial",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_sidebar",
+      "label": "Sticky sidebar",
+      "default": false,
+      "info": "Keeps the sidebar in view on desktop while scrolling through this section.",
+      "visible_if": "{{ section.settings.content_width != 'narrow' }}"
+    },
     {
       "type": "header",
       "content": "Visibility"

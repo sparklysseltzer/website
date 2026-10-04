@@ -1,0 +1,95 @@
+{% capture tick_items %}{% content_for 'blocks' %}{% endcapture %}
+{% render 'panel-column-content', options: block.settings, attributes: block.shopify_attributes, tick_items: tick_items, heading_tag: section.settings.heading_level %}
+{% schema %}
+{
+  "name": "Left column",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "_panel-tick"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Column heading",
+      "visible_if": "{{ block.settings.show_heading }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subtext",
+      "label": "Show text",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Text",
+      "default": "<p>Add supporting copy for this column.</p>",
+      "visible_if": "{{ block.settings.show_subtext }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_list",
+      "label": "Show tick list",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Learn more",
+      "visible_if": "{{ block.settings.show_button }}"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "visible_if": "{{ block.settings.show_button }}"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "default": "automatic",
+      "options": [
+        {
+          "value": "automatic",
+          "label": "Automatic"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        }
+      ],
+      "visible_if": "{{ block.settings.show_button }}"
+    }
+  ]
+}
+{% endschema %}

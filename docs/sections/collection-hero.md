@@ -28,7 +28,7 @@ Only transforms animate: independent cans follow overlapping horizontal/vertical
 
 ## Layout, typography and structured data
 
-Phone stacks copy, benefits and artwork; the benefits use a three-column grid with wrapping labels. Desktop uses a 44/56 copy/art split. Hero heading uses Display, copy Body, benefit labels Label, footnotes and motion controls Small. Font-specific line heights remain shared. The hero introduces no separate entity; the accompanying catalog owns CollectionPage/ItemList JSON-LD. Claims and footnotes stay visible, including with JS disabled.
+Phone stacks artwork, copy, shop action and benefits; the benefits use a three-column grid with wrapping labels. Desktop uses a 44/56 copy/art split. Hero heading uses Display, copy Body, benefit labels Label, footnotes and motion controls Small. Font-specific line heights remain shared. The hero introduces no separate entity; the accompanying catalog owns CollectionPage/ItemList JSON-LD. Claims and footnotes stay visible, including with JS disabled.
 
 Motion verification (2026-09-15): desktop idle transforms advance between sampled frames; pointer response eases toward the cursor and returns near neutral after leaving. Pause freezes the can transform exactly; reduced motion clears transforms and hides the control. Phone idle motion remains active with no horizontal overflow. Shared checks and JavaScript syntax validation pass.
 
@@ -45,3 +45,9 @@ Ananotes 149: the Soda hero with Erode uses a named composition exception, `--so
 ## Section background
 
 **Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+Ananotes 170 (2026-10-04): below 990px, both Soda and Hard Seltzer show decorative cans first, followed by heading/introduction, the shop action, and benefits last. The copy wrapper uses display:contents so these share one grid. The action precedes benefits in source order; desktop CSS restores the original copy/benefits/action composition beside artwork. Artwork stays aria-hidden; no duplicated controls or content.
+
+## Shared content width
+
+**Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Page**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).

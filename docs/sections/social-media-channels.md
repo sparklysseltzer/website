@@ -6,7 +6,7 @@ Source: `sections/social-media-channels.liquid`, `snippets/social-channel-url.li
 
 Add **Social Media Channels** under **Trust & information**. Six fixed slots: primary Instagram, second Instagram, TikTok, LinkedIn, YouTube and Facebook. Large circular controls use the existing `.button` geometry with Brand colours (default), Outline or Solid styles, oval sweep, easing and reduced-motion contract. Icons and labels form one native external link per channel, with `target="_blank"`, `rel="noopener noreferrer"` and a localized new-tab announcement. No JavaScript is needed. Usernames sit beneath each circle so the icons stay recognizable; platform labels distinguish channels. The optional heading is H2 and uses Section size; platform names use Body and usernames Small. Social logos are brand artwork at 2.75rem, inside circles up to 7rem; they are not inline UI icons. Controls deliberately have no panel shadow or hover lift.
 
-The row auto-fits across the 75rem content width; phones use three columns, switching to two below 352px. Labels wrap without shrinking text roles. Keyboard focus covers the complete link and triggers the same sweep as hovering either icon or label. There is no Newake/icon pairing: only the separate optional heading uses the selected heading font.
+The row auto-fits across the shared Editorial content width (`--content-width-editorial`, 75rem); phones use three columns, switching to two below 352px. Labels wrap without shrinking text roles. Keyboard focus covers the complete link and triggers the same sweep as hovering either icon or label. There is no Newake/icon pairing: only the separate optional heading uses the selected heading font.
 
 ## Sources and empty states
 
@@ -43,3 +43,9 @@ Colour verification: Section Rendering API returned Brand colours by default wit
 Design Studio comparison: `http://127.0.0.1:9293/#SocialButtons` renders all six slots in Brand colours, Outline and Solid using this section’s CSS served directly by the local-only studio. The studio buttons are inert profile previews with sample usernames, not live store links.
 
 Per-channel visibility verification: editor contracts cover each toggle's shown/hidden field dependencies independently, and the full repository gate passes. Development Section Rendering API preserves all five configured channels under the new default-off hide flags. Headless 390px/1440px screenshots checked a browser-only three-channel subset without changing saved editor content; no phone overflow. Actual saved-toggle Theme Editor interaction was not performed. Test browser closed.
+
+Editorial width (2026-10-02): an outer Page-width wrapper supplies responsive gutters; the inner social row uses the shared Editorial maximum and centers itself, matching Two-column and Editorial Video compositions. This removes the competing Page/section max-width declarations from the same element. Phone column rules and saved settings remain unchanged.
+
+## Shared content width
+
+**Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Editorial**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).

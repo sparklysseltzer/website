@@ -1,3 +1,4 @@
+{% render 'section-width', section: section, default_width: 'page', frame: '.page-width', compact: 'collection-hero' %}
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {%- unless collection.handle == 'all' -%}
@@ -60,13 +61,13 @@
       {% if section.settings.eyebrow != blank %}<p class="collection-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% elsif variant != 'default' %}<p class="collection-hero__eyebrow">Sparklys™ {{ collection.title | escape }}</p>{% endif %}
       <h1>{{ heading | escape }}</h1>
       {% if intro != blank %}<div class="rte collection-hero__text">{{ intro }}</div>{% endif %}
+      {% if section.settings.show_button %}<a class="button" href="#CollectionProducts"><span class="button__label">{{ section.settings.button_label | escape }}{% if section.settings.button_label == blank %}{{ 'collections.hero.shop' | t }}{% endif %}</span></a>{% endif %}
       {% if variant != 'default' or set != blank %}
         <div class="collection-hero__usps usp-items" role="list">
           {% if featured != blank %}<div class="collection-hero__featured" role="listitem">{% if featured.icon.value %}{{ featured.icon.value | image_url: width: 320 | image_tag: widths: '160, 320', sizes: '112px', loading: 'eager', alt: featured.caption.value }}{% elsif featured.system.handle == 'soda-no-added-sugar' %}<img src="{{ 'usp-soda-no-added-sugar.svg' | asset_url }}" width="135" height="110" alt="{{ featured.caption.value | escape }}">{% else %}<p>{{ featured.caption.value | escape }}</p>{% endif %}</div>{% endif %}
           {% render 'usp-items', usp_set: set, usp_variant: variant %}
         </div>
       {% endif %}
-      {% if section.settings.show_button %}<a class="button" href="#CollectionProducts"><span class="button__label">{{ section.settings.button_label | escape }}{% if section.settings.button_label == blank %}{{ 'collections.hero.shop' | t }}{% endif %}</span></a>{% endif %}
     </div>
     {% if variant != 'default' or section.settings.first_image != blank or section.settings.second_image != blank %}
       <div class="collection-hero__art" aria-hidden="true">
@@ -90,6 +91,31 @@
     ]
   },
   "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "page",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
     {
       "type": "header",
       "content": "Design"

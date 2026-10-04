@@ -1,0 +1,16 @@
+<span class="split-image-text__check" aria-hidden="true"></span><span>{{ block.settings.text | escape }}</span>
+{% schema %}
+{
+  "name": "Tick item",
+  "tag": "li",
+  "class": "split-image-text__list-item",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Add a benefit or key point"
+    }
+  ]
+}
+{% endschema %}

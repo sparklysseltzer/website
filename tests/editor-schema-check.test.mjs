@@ -44,3 +44,9 @@ test('changing an older schema requires moving it out of the legacy baseline', (
 test('a new section cannot bypass the editor contract inventory', () => {
   checkMutation(directory => writeFileSync(join(directory, 'sections/unreviewed.liquid'), '{% schema %}{"name":"Unreviewed","settings":[]}{% endschema %}'), /unreviewed.liquid: new or changed legacy schema/);
 });
+
+test('content slider card fields follow the selected layout', () => {
+  checkMutation(directory => changeSchema(directory, 'sections/content-slider.liquid', schema => {
+    schema.blocks[0].settings.find(field => field.id === 'link').visible_if = "{{ section.settings.card_layout == 'benefits' }}";
+  }), /block card: Crosslinks: link must be visible/);
+});

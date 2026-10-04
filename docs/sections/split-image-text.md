@@ -46,7 +46,7 @@ Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the
 
 ## Top image and two-column text
 
-Top matches Figma `10989:45021`/`10989:45022`: a full-width banner over an enclosed content panel, maximum 1200px. Its independent image-height control replaces image width; phones cap the banner height to 70vw. New placements default to a white panel; existing saved colors remain authoritative. Top mode can show one or two text columns. The original heading/rich text/list/action form the first column; Second heading and Second text form the second. Both use the selected semantic heading level and font. Columns stack on phones. A blank Top image uses `editorial-soda-banner.webp` (1600×948); Left/Right retain the existing team portrait. Shared scroll motion and reduced-motion behavior remain unchanged.
+Top matches Figma `10989:45021`/`10989:45022`: a full-width banner over an enclosed content panel, using the shared content width (Editorial defaults to 1400px). Its independent image-height control replaces image width; phones cap the banner height to 70vw. New placements default to a white panel; existing saved colors remain authoritative. Top mode can show one or two text columns. The original heading/rich text/list/action form the first column; Second heading and Second text form the second. Both use the selected semantic heading level and font. Columns stack on phones. A blank Top image uses `editorial-soda-banner.webp` (1600×948); Left/Right retain the existing team portrait. Shared scroll motion and reduced-motion behavior remain unchanged.
 
 ## Editor dependency contract
 
@@ -59,3 +59,25 @@ Editor naming (2026-09-12): **Image and text panel**. Display names only; intern
 **Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
 
 Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows); nested surfaces suppress the additional shadow. Existing layout, focus and motion behavior is preserved.
+
+## Shared content width
+
+**Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Editorial**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).
+
+Full-width selected media uses the shared `content-image-sizes` hint for Narrow/Editorial/Page, so a wider selection is not capped to the old source size. Split media retains its side-by-side hint except in stacked/Narrow layouts.
+
+## Nested column blocks
+
+New panels use **Content source → Column blocks**. The section renders two fixed, editor-selectable theme blocks: **Left column** (`_panel-left-column`, static ID `left_column`) and **Right column** (`_panel-right-column`, static ID `right_column`). Each column owns its optional heading, rich text, tick list and button. Tick items (`_panel-tick`) are independent reorderable children. Heading level/font, image/layout, panel colors, container width and section visibility remain section-level controls.
+
+Top + Two renders both columns; Top + One and side-image modes render only Left. Shopify shows its conditional-rendering cue for the Right block; its content is retained across mode changes. Columns stack on phones. Show heading/text/button independently condition their fields. Show tick list hides the list but does not delete/hide its child entries from Shopify's block tree. No additional list-container block is needed. Static column roots use `tag: null` with Shopify attributes to preserve the two-column grid; ticks use semantic list items. Existing motion hooks, heading casing, links, responsive media and no-JavaScript rendering remain shared. The content describes general prose and benefit lists, not distinct typed entities; no new JSON-LD is warranted.
+
+### Existing-content compatibility and migration
+
+The original section-setting IDs remain available under **Content source → Existing section content**. That is the schema default for unmigrated instances; the add-section preset explicitly chooses Column blocks. Legacy root `item` entries are supported by `blocks/item.liquid`, which intentionally has no picker preset. This makes every declared block a theme block (Shopify cannot mix section-local and theme block definitions). New panels receive only the fixed column groups and their nested tick items.
+
+`node scripts/migrate-panel-columns.mjs <fresh-download-directory> <separate-output-directory>` produces reviewable copies of affected JSON only. It copies first/second-column text and original flags/buttons into their respective static blocks, preserves tick IDs/order/disabled state and all section settings, and is idempotent. It rejects unfamiliar root blocks or inconsistent ordering. It never uploads, edits source files, or updates Shopify. `npm run check:panel` covers preservation, unrelated content, rejection and idempotency.
+
+Read-only inventory on 2026-10-04 found no instances in the current development theme and two legacy instances in the shared draft (home and About templates). Migration candidates were generated from fresh CLI downloads outside the repository; shared/live templates remain untouched. Before a future shared release, rerun against current editor-owned content and review the same protected-file merge as any saved-content migration. The compatibility path keeps those instances usable in the meantime.
+
+Nested-column verification: actual Shopify section rendering produced two native column roots for Top/Two and one for Top/One, Left and Right. At 1440px the two tracks were equal; at 390px they stacked without horizontal overflow. Computed Erode casing remained `none`. Schema cases cover independent column controls and hide the legacy fields in Column blocks mode. Migration tests passed for both shared-draft candidates. No shared/live templates were written.

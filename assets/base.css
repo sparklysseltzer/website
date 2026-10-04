@@ -5,10 +5,16 @@
 }
 
 :root {
+  --content-width-narrow: 50rem;
+  --content-width-editorial: 87.5rem;
+  --content-width-page: calc(var(--page-width) - 2 * var(--page-gutter));
   --button-height-regular: 3rem;
   --button-height-small: 2rem;
   --button-padding-regular: .75rem 1.35rem;
   --button-padding-small: .375rem .625rem;
+  --radius-scale: 1;
+  --radius-small: calc(var(--radius-small-base, 16px) * var(--radius-scale));
+  --radius-large: calc(var(--radius-large-base, 30px) * var(--radius-scale));
   --radius-compact: .5rem;
   --shadow-panel: 0 6px 24px rgb(0 0 0 / 5%);
   /* Shared fluid roles: 390–1440px at a 16px root. Never scale the root. */
@@ -17,6 +23,8 @@
   --font-size-label: clamp(.875rem, calc(.851786rem + .095238vw), .9375rem);
   --font-size-small: clamp(.8125rem, calc(.789286rem + .095238vw), .875rem);
   --font-size-compact: clamp(1.125rem, calc(1.078571rem + .190476vw), 1.25rem);
+  --font-size-panel-name: clamp(2rem, calc(1rem + 10cqi), 4rem);
+  --font-size-panel-info: clamp(1rem, calc(.75rem + 1.25cqi), 1.25rem);
   --font-size-card: clamp(1.625rem, calc(1.485714rem + .571429vw), 2rem);
   --font-size-section: clamp(2.25rem, calc(1.692857rem + 2.285714vw), 3.75rem);
   --font-size-display: clamp(2.75rem, calc(2.007143rem + 3.047619vw), 4.75rem);
@@ -46,6 +54,7 @@
   --motion-duration-fast: 200ms;
   --motion-duration-base: 260ms;
   --motion-duration-slow: 360ms;
+  --motion-duration-page: 400ms;
   --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --motion-ease-ui: cubic-bezier(0.25, 0.1, 0.25, 1);
   --motion-ease-emphasis: cubic-bezier(0.65, 0, 0.35, 1);
@@ -53,6 +62,10 @@
   --focus-ring-offset: .1875rem;
   --focus-ring-color: var(--color-accent);
   --focus-field-border-color: var(--color-foreground);
+}
+
+@media (width < 768px) {
+  :root { --radius-scale: .5; }
 }
 
 html {
@@ -273,8 +286,8 @@ input[type='submit'] {
   --button-color: var(--color-text-inverse);
   --button-sweep-background: var(--color-surface);
   --button-sweep-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --button-sweep-enter-duration: 480ms;
-  --button-sweep-exit-duration: 360ms;
+  --button-sweep-enter-duration: 240ms;
+  --button-sweep-exit-duration: 460ms;
   --button-sweep-width: 180%;
   --button-sweep-height: 300%;
   --button-sweep-radius: 50%;
@@ -331,6 +344,16 @@ input[type='submit'] {
   z-index: 1;
   color: var(--color-text-inverse);
   mix-blend-mode: difference;
+}
+
+/* Center visible letter bounds instead of the font's extra vertical metrics.
+   Nested text spans cover icon/price buttons; decorative icons keep their boxes. */
+@supports (text-box-trim: trim-both) {
+  .button__label,
+  .button__label > :not([aria-hidden='true']) {
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+  }
 }
 
 @media (hover: hover) {
@@ -448,7 +471,7 @@ input[type='submit'] {
   ::view-transition-group(root) { animation: none; }
   ::view-transition-old(root),
   ::view-transition-new(root) {
-    animation-duration: var(--motion-duration-base);
+    animation-duration: var(--motion-duration-page);
     animation-timing-function: var(--motion-ease);
   }
 
@@ -456,7 +479,7 @@ input[type='submit'] {
   ::view-transition-group(storefront-logo),
   ::view-transition-group(storefront-switcher),
   ::view-transition-group(storefront-actions) {
-    animation-duration: var(--motion-duration-base);
+    animation-duration: var(--motion-duration-page);
     animation-timing-function: var(--motion-ease-ui);
     z-index: 1;
   }
@@ -467,7 +490,7 @@ input[type='submit'] {
   ::view-transition-old(storefront-logo), ::view-transition-new(storefront-logo),
   ::view-transition-old(storefront-switcher), ::view-transition-new(storefront-switcher),
   ::view-transition-old(storefront-actions), ::view-transition-new(storefront-actions) {
-    animation-duration: var(--motion-duration-base);
+    animation-duration: var(--motion-duration-page);
     animation-timing-function: var(--motion-ease-ui);
   }
   /* Keep menus out of the outgoing shell; named identity snapshots crossfade independently. */
@@ -1131,7 +1154,7 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 .hero__content {
   position: relative;
   z-index: 1;
-  max-width: 50rem;
+  max-width: var(--content-width-narrow);
   padding-block: clamp(3rem, 9vw, 7rem);
 }
 
@@ -2433,3 +2456,8 @@ body:has(.site-header[data-header-context='soda']) .offer-cards__heading {
 }
 
 .site-footer__youtube-icon { display: block; width: 1rem; height: 1rem; background: var(--color-text-inverse); mask: url('social-channel-youtube.svg') center / contain no-repeat; }
+
+.cart-drawer__close-icon { display: block; width: 1.5rem; height: 1.5rem; background: currentColor; mask: url("icon-x-close.svg") center / contain no-repeat; }
+
+/* Reading copy stays comfortable when its outer section uses a wider role. */
+.rich-text > .rte { max-width: var(--content-width-narrow); margin-inline: auto; }

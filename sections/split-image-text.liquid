@@ -1,3 +1,4 @@
+{% render 'section-width', section: section, default_width: 'editorial', frame: '.page-width', surface: '.split-image-text', compact: 'split' %}
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
@@ -18,7 +19,15 @@
     assign fallback_image = 'editorial-soda-banner.webp'
     assign fallback_width = 1600
     assign fallback_height = 948
-    assign image_sizes = '(min-width: 1200px) 1200px, calc(100vw - 2rem)'
+    capture image_sizes
+      render 'content-image-sizes', width: section.settings.content_width
+    endcapture
+  endif
+
+  if section.settings.content_width == 'narrow'
+    capture image_sizes
+      render 'content-image-sizes', width: 'narrow'
+    endcapture
   endif
 
   assign button_class = 'button'
@@ -71,6 +80,12 @@
       </div>
 
       <div class="split-image-text__content">
+        {% if section.settings.column_content == 'blocks' %}
+          {% content_for 'block', type: '_panel-left-column', id: 'left_column' %}
+          {% if section.settings.image_side == 'top' and section.settings.text_columns == 'two' %}
+            {% content_for 'block', type: '_panel-right-column', id: 'right_column' %}
+          {% endif %}
+        {% else %}
         <div class="split-image-text__content-inner">
           {%- if section.settings.show_heading and section.settings.heading != blank -%}
             <{{ heading_tag }} class="split-image-text__heading" data-scroll-motion-reveal>
@@ -84,14 +99,7 @@
 
           {%- if section.settings.show_list and section.blocks.size > 0 -%}
             <ul class="split-image-text__list" data-scroll-motion-reveal>
-              {%- for block in section.blocks -%}
-                {%- if block.settings.text != blank -%}
-                  <li class="split-image-text__list-item" {{ block.shopify_attributes }}>
-                    <span class="split-image-text__check" aria-hidden="true"></span>
-                    <span>{{ block.settings.text }}</span>
-                  </li>
-                {%- endif -%}
-              {%- endfor -%}
+              {% content_for 'blocks' %}
             </ul>
           {%- endif -%}
 
@@ -118,6 +126,7 @@
             {% if section.settings.second_text != blank %}<div class="split-image-text__subtext rte" data-scroll-motion-reveal>{{ section.settings.second_text }}</div>{% endif %}
           </div>
         {%- endif -%}
+        {% endif %}
       </div>
     </div>
   </section>
@@ -130,7 +139,7 @@
 
   .split-image-text {
     width: 100%;
-    max-width: 87.5rem;
+    max-width: var(--content-width-editorial);
     margin-inline: auto;
     min-height: var(--split-image-text-min-height);
     display: grid;
@@ -293,7 +302,7 @@
       transform: none;
     }
   }
-  .split-image-text--image-top { grid-template-columns: minmax(0, 1fr); min-height: 0; max-width: 75rem; }
+  .split-image-text--image-top { grid-template-columns: minmax(0, 1fr); min-height: 0; max-width: var(--content-width-editorial); }
   .split-image-text--image-top .split-image-text__media { min-height: var(--split-top-image-height); }
   .split-image-text--image-top .split-image-text__content { min-height: 0; align-items: start; }
   .split-image-text--image-top .split-image-text__content-inner { max-width: none; }
@@ -307,11 +316,32 @@
 {% schema %}
 {
   "name": "Image and text panel",
-  "max_blocks": 6,
+  "max_blocks": 30,
   "settings": [
     {
       "type": "header",
       "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "editorial",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
     },
     {
       "type": "select",
@@ -401,113 +431,106 @@
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "Columns"
+    },
+    {
+      "type": "select",
+      "id": "column_content",
+      "label": "Content source",
+      "options": [
+        {
+          "value": "blocks",
+          "label": "Column blocks"
+        },
+        {
+          "value": "legacy",
+          "label": "Existing section content"
+        }
+      ],
+      "default": "legacy",
+      "info": "New panels use column blocks. Existing section content remains available until it is moved into the columns."
+    },
+    {
+      "type": "header",
+      "content": "Existing content",
+      "visible_if": "{{ section.settings.column_content == 'legacy' }}"
     },
     {
       "type": "checkbox",
       "id": "show_heading",
       "label": "Show heading",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.column_content == 'legacy' }}"
     },
     {
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
       "default": "Add your split section heading",
-      "visible_if": "{{ section.settings.show_heading }}"
-    },
-    {
-      "type": "select",
-      "id": "heading_level",
-      "label": "Heading level",
-      "options": [
-        {
-          "value": "h2",
-          "label": "H2"
-        },
-        {
-          "value": "h3",
-          "label": "H3"
-        }
-      ],
-      "default": "h2",
-      "visible_if": "{{ section.settings.show_heading or section.settings.text_columns == 'two' and section.settings.image_side == 'top' }}"
+      "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_heading }}"
     },
     {
       "type": "checkbox",
       "id": "show_subtext",
       "label": "Show subtext",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.column_content == 'legacy' }}"
     },
     {
       "type": "richtext",
       "id": "subtext",
       "label": "Subtext",
       "default": "<p>Add supporting copy for this section.</p>",
-      "visible_if": "{{ section.settings.show_subtext }}"
+      "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_subtext }}"
     },
     {
       "type": "checkbox",
       "id": "show_list",
       "label": "Show tick list",
-      "default": true
-    },
-    {
-      "type": "select",
-      "id": "heading_font",
-      "label": "Heading font",
-      "default": "erode",
-      "options": [
-        {
-          "value": "erode",
-          "label": "Erode"
-        },
-        {
-          "value": "newake",
-          "label": "Newake"
-        }
-      ],
-      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+      "default": true,
+      "visible_if": "{{ section.settings.column_content == 'legacy' }}"
     },
     {
       "type": "header",
-      "content": "Second text column",
-      "visible_if": "{{ section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
+      "content": "Existing second column",
+      "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
     },
     {
       "type": "inline_richtext",
       "id": "second_heading",
       "label": "Second column heading",
-      "visible_if": "{{ section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
+      "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
     },
     {
       "type": "richtext",
       "id": "second_text",
       "label": "Second column text",
-      "visible_if": "{{ section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
+      "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.image_side == 'top' and section.settings.text_columns == 'two' }}"
     },
     {
       "type": "header",
-      "content": "Button"
+      "content": "Existing button",
+      "visible_if": "{{ section.settings.column_content == 'legacy' }}"
     },
     {
       "type": "checkbox",
       "id": "show_button",
       "label": "Show button",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.column_content == 'legacy' }}"
     },
     {
       "type": "text",
       "id": "button_label",
       "label": "Button label",
       "default": "Learn more",
-      "visible_if": "{{ section.settings.show_button }}"
+      "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_button }}"
     },
     {
       "type": "url",
       "id": "button_link",
       "label": "Button link",
-      "visible_if": "{{ section.settings.show_button }}"
+      "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_button }}"
     },
     {
       "type": "select",
@@ -528,7 +551,44 @@
         }
       ],
       "default": "automatic",
-      "visible_if": "{{ section.settings.show_button }}"
+      "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_button }}"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "Heading level",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
     },
     {
       "type": "header",
@@ -599,16 +659,13 @@
   ],
   "blocks": [
     {
-      "type": "item",
-      "name": "Tick item",
-      "settings": [
-        {
-          "type": "text",
-          "id": "text",
-          "label": "Text",
-          "default": "Add a benefit or key point"
-        }
-      ]
+      "type": "_panel-left-column"
+    },
+    {
+      "type": "_panel-right-column"
+    },
+    {
+      "type": "item"
     }
   ],
   "presets": [
@@ -617,19 +674,38 @@
       "category": "Brand storytelling",
       "settings": {
         "image_alt": "Sparklys team portrait",
-        "show_list": true,
-        "button_link": "#",
+        "column_content": "blocks",
         "section_background_mode": "transparent"
       },
       "blocks": [
         {
-          "type": "item"
+          "type": "_panel-left-column",
+          "id": "left_column",
+          "static": true,
+          "blocks": [
+            {
+              "type": "_panel-tick"
+            },
+            {
+              "type": "_panel-tick"
+            },
+            {
+              "type": "_panel-tick"
+            }
+          ]
         },
         {
-          "type": "item"
-        },
-        {
-          "type": "item"
+          "type": "_panel-right-column",
+          "id": "right_column",
+          "static": true,
+          "blocks": [
+            {
+              "type": "_panel-tick"
+            },
+            {
+              "type": "_panel-tick"
+            }
+          ]
         }
       ]
     }

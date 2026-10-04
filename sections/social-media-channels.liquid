@@ -1,7 +1,9 @@
+{% render 'section-width', section: section, default_width: 'editorial', frame: '.page-width', surface: '.social-channels', compact: 'three-columns', compact_grid: '.social-channels__list' %}
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
-<div class="social-channels section page-width" data-button-style="{{ section.settings.button_style }}">
+<div class="section page-width">
+<div class="social-channels" data-button-style="{{ section.settings.button_style }}">
   {%- if section.settings.heading != blank -%}<h2 class="social-channels__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
   <ul class="social-channels__list" role="list" aria-label="{{ 'social_channels.label' | t | escape }}">
     {%- assign channels = 'instagram,instagram_secondary,tiktok,linkedin,youtube,facebook' | split: ',' -%}
@@ -68,9 +70,10 @@
     {%- endfor -%}
   </ul>
 </div>
+</div>
 
 {% stylesheet %}
-  .social-channels { max-width: 75rem; }
+  .social-channels { max-width: var(--content-width-editorial); margin-inline: auto; }
   .social-channels__heading { margin: 0 0 2.5rem; font-size: var(--font-size-section); text-align: center; }
   .social-channels__list { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: 2rem 1.5rem; padding: 0; margin: 0; list-style: none; }
   .social-channels__item { min-width: 0; }
@@ -112,6 +115,31 @@
     ]
   },
   "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "editorial",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
     {
       "type": "header",
       "content": "Content"

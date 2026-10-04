@@ -1,0 +1,57 @@
+{%- comment -%}
+  Shared section container sizing. Selectors are code-owned, never merchant text.
+  frame: padded outer frame; surface: inner panel/content, with gutters on its parent.
+  Page keeps the existing outer-frame limit; narrower roles describe usable content.
+{%- endcomment -%}
+{%- liquid
+  assign width_choice = section.settings.content_width | default: default_width | default: 'page'
+  assign width_role = 'var(--content-width-page)'
+  if width_choice == 'narrow'
+    assign width_role = 'var(--content-width-narrow)'
+  elsif width_choice == 'editorial'
+    assign width_role = 'var(--content-width-editorial)'
+  endif
+-%}
+<style data-section-width="{{ width_choice }}" data-width-compact="{{ compact }}" data-width-grid="{{ compact_grid }}">
+  #shopify-section-{{ section.id }} { --section-content-width: {{ width_role }}; }
+  {%- if frame != blank %}
+    #shopify-section-{{ section.id }} {{ frame }} {
+      width: 100%;
+      max-width: min(var(--page-width), calc(var(--section-content-width) + 2 * var(--page-gutter)));
+      margin-inline: auto;
+    }
+  {%- endif %}
+  {%- if surface != blank %}
+    #shopify-section-{{ section.id }} {{ surface }} {
+      max-width: var(--section-content-width);
+      margin-inline: auto;
+    }
+  {%- endif %}
+  /* Compact layout */
+  {%- if width_choice == 'narrow' and compact != blank %}
+    {%- case compact %}
+      {%- when 'columns' %}
+        #shopify-section-{{ section.id }} :is(.editorial-layout, .editorial-text-image) { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+      {%- when 'split' %}
+        #shopify-section-{{ section.id }} .split-image-text { grid-template-columns: minmax(0, 1fr); }
+        #shopify-section-{{ section.id }} .split-image-text__media { min-height: 20rem; grid-column: 1; grid-row: auto; }
+        #shopify-section-{{ section.id }} .split-image-text__content { grid-column: 1; grid-row: auto; min-height: 0; }
+      {%- when 'collection-hero' %}
+        #shopify-section-{{ section.id }} .collection-hero__layout { grid-template-columns: minmax(0, 1fr); }
+      {%- when 'benefits' %}
+        #shopify-section-{{ section.id }} .usp-section__panel { aspect-ratio: auto; min-height: 0; }
+        #shopify-section-{{ section.id }} .usp-section__media { position: relative; aspect-ratio: 4 / 3; }
+        #shopify-section-{{ section.id }} .usp-section__content { width: 100%; padding: 2rem; }
+      {%- when 'subscription' %}
+        #shopify-section-{{ section.id }} .subscription__inner { padding-inline: 2rem; }
+      {%- when 'grid' %}
+        @media (min-width: 768px) {
+          #shopify-section-{{ section.id }} {{ compact_grid }} { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+      {%- when 'three-columns' %}
+        @media (min-width: 768px) {
+          #shopify-section-{{ section.id }} {{ compact_grid }} { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+    {%- endcase %}
+  {%- endif %}
+</style>

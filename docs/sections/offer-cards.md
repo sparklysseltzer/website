@@ -55,3 +55,13 @@ Erode casing: the brand-inherited Soda section heading preserves authored case u
 **Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
 
 Offer cards use the shared [panel shadow](../design-system.md#panel-shadows) on their outer rounded surface, with nested panel shadows suppressed.
+
+Shared motion controller (2026-10-02): media parallax targets are optional so Team can reuse card reveals without moving portraits. Existing offer-card media remains configured and animated. Keyboard focus forces the focused card's reveal to its visible end state; disconnection removes the focus listener along with scroll observers.
+
+Ananotes 116 completed (2026-10-02): reused all four existing hidden pages and assigned `retail` → `retail`, `gastro` → `gastro`, `events` → `events`, and `firmen` → `companies` through Admin GraphQL. All four templates were read back from development theme `199837745539` before assignment. Page content, handles and hidden status are preserved; no duplicate pages were created. Existing resource-based defaults activate as each page becomes available to the storefront. Hidden destinations deliberately remain non-interactive instead of producing broken links. Publishing those pages is outside this request.
+
+## Shared content width
+
+**Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Page**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).
+
+Heading casing (2026-10-04): the section heading preserves merchant-authored casing in every brand context, including Newake. No uppercase transform is applied; card titles and saved heading text are unchanged.

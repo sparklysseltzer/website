@@ -26,7 +26,7 @@ No section JavaScript or entrance animation is required for this static content.
 
 ## Structured data
 
-The shared renderer emits one server-rendered `WebPage` with canonical URL/ID, visible heading, optional visible intro description and active language. The `kontakt` template specializes this same entity to `ContactPage`; the contact form never adds a duplicate page entity. Less-than signs are escaped in JSON to prevent embedded markup closing the script. Both-hidden sections omit JSON-LD. Do not add a second Page intro or duplicate WebPage entity elsewhere in the same composition. Page SEO title/description settings remain independent.
+The shared renderer emits one server-rendered `WebPage` with canonical URL/ID, visible heading, optional visible intro description and active language. The `about` and `ueber-uns` templates specialize this entity to `AboutPage`. The `kontakt` template specializes this same entity to `ContactPage`; the contact form never adds a duplicate page entity. Less-than signs are escaped in JSON to prevent embedded markup closing the script. Both-hidden sections omit JSON-LD. Do not add a second Page intro or duplicate WebPage entity elsewhere in the same composition. Page SEO title/description settings remain independent.
 
 ## Verification
 
@@ -45,3 +45,7 @@ The **Heading font** group includes **Uppercase headings**, default false, with 
 ## Section background
 
 **Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+
+## Shared content width
+
+**Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Narrow**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).

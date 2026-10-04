@@ -1,3 +1,4 @@
+{% render 'section-width', section: section, default_width: 'narrow', frame: '.page-width', surface: '.editorial-faq-shell' %}
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% capture accordion_content %}{% content_for 'blocks' %}{% endcapture %}
 {% if accordion_content != blank or section.settings.heading != blank or section.settings.selected_faqs != blank or section.settings.faq_category != blank or request.design_mode %}
@@ -10,6 +11,31 @@
 {
   "name": "Accordeon",
   "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
     {
       "type": "header",
       "content": "Content"

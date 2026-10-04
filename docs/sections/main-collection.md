@@ -61,3 +61,7 @@ Shared card motion (Ananotes 158): artwork uses an 8px vertical lift over Fast d
 Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows); nested surfaces suppress the additional shadow. Existing layout, focus and motion behavior is preserved.
 
 Shadow rollout: catalog grids preserve their overflow clipping with a 2rem overflow-clip margin so edge-card shadows can paint. All-products, default and branded collections reuse the same card/grid styling.
+
+## Shared content width
+
+**Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Page**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).

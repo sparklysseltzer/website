@@ -1,4 +1,4 @@
-.editorial-shell, .editorial-layout { max-width: 75rem; margin-inline: auto; }
+.editorial-shell, .editorial-layout { max-width: var(--content-width-editorial); margin-inline: auto; }
 .editorial-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 22.5rem); gap: 2.5rem; align-items: start; }
 .editorial-layout > *, .editorial-column > *, .editorial-text-image > * { min-width: 0; }
 .editorial-column { display: grid; gap: 2rem; }
@@ -12,11 +12,13 @@
 .editorial-copy :is(h2,h3,h4,h5,h6) { margin-block: 1.5rem .75rem; }
 .editorial-copy img { max-width: 100%; height: auto; }
 .editorial-image { width: 100%; aspect-ratio: 1; overflow: hidden; border-radius: var(--radius-large); }
+.editorial-image--natural { aspect-ratio: auto; }
 .editorial-image--custom { aspect-ratio: auto; height: var(--editorial-image-height); }
 .editorial-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.editorial-image--natural img { height: auto; }
 .editorial-text-image { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: center; gap: 3.75rem; }
 .editorial-column .editorial-text-image, .accordion-item-content .editorial-text-image { gap: 2rem; }
-.editorial-faq-shell { max-width: 50rem; margin-inline: auto; }
+.editorial-faq-shell { max-width: var(--content-width-narrow); margin-inline: auto; }
 .editorial-faq .faq-list { margin-top: 0; }
 .editorial-faq .editorial-heading { margin-bottom: 1.5rem; }
 .editorial-editor-note { padding: 1rem; background: var(--color-surface-muted); font-size: var(--font-size-body); }
@@ -52,3 +54,19 @@ a.sidebar-box { transition: filter var(--motion-duration-fast) var(--motion-ease
 
 .accordion-item-content { display: grid; gap: 1.5rem; }
 .accordion-item-content > * { min-width: 0; }
+
+.editorial-chevron--external { mask-image: url('icon-link-external.svg'); transform: none; }
+
+/* Free-standing editorial images are content, not framed panels. */
+.editorial-image--plain { border-radius: 0; box-shadow: none; }
+.editorial-copy img { border-radius: 0; box-shadow: none; filter: none; }
+
+.editorial-copy :is(p, ul, ol) { max-width: var(--content-width-narrow); }
+
+/* The sidebar remains bounded by its own grid row, below the measured header. */
+@media (min-width: 56.25rem) {
+  .editorial-layout[data-sticky-sidebar][data-sidebar-measured] > [data-sticky-sidebar-column] {
+    position: sticky;
+    top: min(calc(var(--sticky-header-height, 8.5rem) + 1rem), calc(100svh - var(--editorial-sidebar-height) - 1rem));
+  }
+}

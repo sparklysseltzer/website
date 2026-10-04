@@ -95,6 +95,24 @@
     },
     {
       "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue.",
+      "visible_if": "{{ block.settings.show_heading or block.settings.text != blank }}"
+    },
+    {
+      "type": "select",
       "id": "heading_level",
       "label": "Heading level",
       "default": "h2",
@@ -115,24 +133,6 @@
       "id": "text",
       "label": "Text",
       "default": "<p>Add your content.</p>"
-    },
-    {
-      "type": "select",
-      "id": "heading_font",
-      "label": "Heading font",
-      "default": "erode",
-      "options": [
-        {
-          "value": "erode",
-          "label": "Erode"
-        },
-        {
-          "value": "newake",
-          "label": "Newake"
-        }
-      ],
-      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue.",
-      "visible_if": "{{ block.settings.show_heading or block.settings.text != blank }}"
     },
     {
       "type": "header",

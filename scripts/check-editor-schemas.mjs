@@ -86,6 +86,31 @@ for (const [path, contract] of Object.entries(contracts)) {
       }
     }
   }
+  // Explicitly reviewed section-local blocks share their owning section's mode state.
+  for (const [type, blockContract] of Object.entries(contract.blockContracts ?? {})) {
+    const block = schema.blocks?.find(candidate => candidate.type === type);
+    if (!block) { errors.push(`${path}: reviewed block ${type} is missing`); continue; }
+    let blockGroup;
+    const blockFields = {};
+    for (const field of block.settings ?? []) {
+      if (field.type === 'header') blockGroup = field.content;
+      if (field.id) blockFields[field.id] = { group: blockGroup ?? null, visible_if: field.visible_if ?? null };
+      if (['checkbox', 'select'].includes(field.type) && !blockContract.controls?.[field.id]) errors.push(`${path}: unaudited block control ${type}.${field.id}`);
+    }
+    try { assert.deepEqual(blockFields, blockContract.fields); }
+    catch { errors.push(`${path}: block ${type} grouping/visibility changed`); }
+    const blockDefaults = Object.fromEntries((block.settings ?? []).filter(field => field.id).map(field => [field.id, field.default]));
+    for (const scenario of blockContract.scenarios) {
+      const state = { ...defaults, ...blockDefaults, ...scenario.settings };
+      for (const [expectation, shouldShow] of [['visible', true], ['hidden', false]]) {
+        for (const id of scenario[expectation] ?? []) {
+          const field = block.settings.find(field => field.id === id);
+          if (!field || visible(field.visible_if, state) !== shouldShow) errors.push(`${path}: block ${type}: ${scenario.name}: ${id} must be ${expectation}`);
+        }
+      }
+    }
+  }
+
 }
 // New native blocks/sections must explicitly join the review contract. Existing sections
 // are listed as legacy, not silently described as fully audited.
