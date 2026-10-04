@@ -4,16 +4,110 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
 <title>Sparklys — Design system studio</title>
 <link rel="stylesheet" href="/assets/base.css"><link rel="stylesheet" href="/demos/design-system/social-channels.css"><link rel="stylesheet" href="/assets/forms.css"><link rel="stylesheet" href="/demos/design-system/demo.css">
+<link rel="stylesheet" href="/assets/hero-slider.css">
+<script src="/assets/hero-slider.js" defer></script>
+<link rel="stylesheet" href="/assets/content-slider.css"><script src="/assets/content-slider.js" defer></script>
 <script src="/assets/theme.js" defer></script><script src="/assets/forms.js" defer></script><script src="/demos/design-system/demo.js" defer></script>
 </head>
 <body>
-<header class="studio-header"><a href="#" class="studio-wordmark">SPARKLYS<span> / DESIGN STUDIO</span></a><span class="studio-tag">WORKING BASELINE · 01</span></header>
-<main>
-<div class="studio-intro"><div><p class="studio-eyebrow">Design system / Interactive study</p><h1>A good form.<br>A little more Sparklys.</h1></div><p>Rounded fields. Clear choices. Quiet motion.<br>Try every state, then tune the details below.</p></div>
+<a class="studio-skip" href="#StudioMain">Skip to preview</a>
+<header class="studio-header">
+<button class="studio-nav-toggle" id="StudioNavToggle" type="button" aria-controls="StudioSidebar" aria-expanded="true">Navigation</button>
+<a href="#Overview" class="studio-wordmark">SPARKLYS<span> / DESIGN STUDIO</span></a>
+<span class="studio-tag">LOCAL PLAYGROUND</span><button class="studio-nav-toggle" id="StudioInspectorToggle" type="button" aria-controls="StudioInspector" aria-expanded="true">Controls</button>
+</header>
+<aside class="studio-sidebar" id="StudioSidebar" aria-label="Studio navigation">
+<div class="studio-sidebar-top"><span>Explore the system</span><button type="button" id="StudioNavClose" aria-label="Close navigation">Close</button></div>
+<label class="studio-search-label" for="StudioSearch">Find a preview</label><input id="StudioSearch" class="studio-search" type="search" placeholder="Search previews…" autocomplete="off">
+<nav aria-label="Design system chapters">
+<a class="studio-nav-link" href="#Overview">Overview</a>
+<details class="studio-nav-group" open><summary>Typography</summary><div><a class="studio-nav-link" href="#Typography">Fonts & type scale</a></div></details>
+<details class="studio-nav-group" open><summary>Colors</summary><div><a class="studio-nav-link" href="#Colors">Palette & surfaces</a></div></details>
+<details class="studio-nav-group" open><summary>Layout</summary><div><a class="studio-nav-link" href="#Widths">Container widths</a></div></details>
+<details class="studio-nav-group" open><summary>Motion</summary><div><a class="studio-nav-link" href="#ButtonMotion">Button interactions</a></div></details>
+<details class="studio-nav-group" open><summary>Atoms</summary><div><a class="studio-nav-link" href="#Buttons">Buttons</a><a class="studio-nav-link" href="#FormPreview">Fields & choices</a></div></details>
+<details class="studio-nav-group" open><summary>Components</summary><div><a class="studio-nav-link" href="#SocialButtons">Social buttons</a></div></details>
+<details class="studio-nav-group" open><summary>Sections</summary><div><a class="studio-nav-link" href="#ContentSlider">Content Slider</a><a class="studio-nav-link" href="#AmbientLight">Hero & ambient light</a></div></details>
+</nav><p id="StudioSearchEmpty" class="studio-note" hidden>No matching previews.</p>
+<p class="studio-sidebar-note">Shared styles. Real components.<br>Preview changes stay local.</p></aside>
+<button class="studio-backdrop" id="StudioBackdrop" type="button" aria-label="Close navigation" hidden tabindex="-1"></button>
+<aside class="studio-inspector" id="StudioInspector" aria-label="Preview configuration">
+<div class="studio-sidebar-top"><span>Configuration</span><button type="button" id="StudioInspectorClose" aria-label="Close configuration">Close</button></div>
+<p class="studio-eyebrow" id="InspectorChapter">Design system</p><h2 id="InspectorTitle">Overview</h2>
+<div id="InspectorControls"></div><p id="InspectorEmpty" class="studio-note">This view documents the shared baseline. Choose an interactive preview to explore its controls.</p>
+<p class="studio-sidebar-note">Changes affect this preview only.<br>Shopify content stays unchanged.</p></aside>
+<div class="studio-workspace"><main id="StudioMain" tabindex="-1">
+<div class="studio-page-header"><p id="StudioBreadcrumb" class="studio-eyebrow">Design system / Overview</p><h1 id="StudioPageTitle">The Sparklys system.</h1></div>
+<section id="Overview" class="studio-panel" data-studio-page data-chapter="Design system" data-title="Overview">
+<p class="studio-lead">A home for the details that make Sparklys feel like Sparklys. Explore the foundations, test interactions, and compose the bigger pieces.</p>
+<div class="studio-overview-grid">
+<a class="studio-overview-card" href="#Typography"><span class="studio-eyebrow">01</span><strong>Typography</strong><span>Fonts, scale and rhythm.</span></a><a class="studio-overview-card" href="#Colors"><span class="studio-eyebrow">02</span><strong>Colors</strong><span>Palette, surfaces and contrast.</span></a><a class="studio-overview-card" href="#ButtonMotion"><span class="studio-eyebrow">03</span><strong>Motion</strong><span>Timing, easing and interaction.</span></a><a class="studio-overview-card" href="#Buttons"><span class="studio-eyebrow">04</span><strong>Atoms</strong><span>Buttons, fields and choices.</span></a><a class="studio-overview-card" href="#SocialButtons"><span class="studio-eyebrow">05</span><strong>Components</strong><span>Reusable groups of UI elements.</span></a><a class="studio-overview-card" href="#ContentSlider"><span class="studio-eyebrow">06</span><strong>Sections</strong><span>Full storefront compositions.</span></a></div></section>
+<section id="Typography" class="studio-panel" data-studio-page data-chapter="Typography" data-title="Fonts & type scale">
+<div class="studio-section-heading"><span>FONT FAMILIES</span><span>Shared storefront tokens</span></div>
+<div class="studio-font-samples"><div><span class="studio-eyebrow">Newake · display</span><p class="studio-font-newake">Refresh your everyday.</p></div><div><span class="studio-eyebrow">Erode · editorial</span><p class="studio-font-erode">A little more Sparklys.</p></div><div><span class="studio-eyebrow">Maison Neue · body & UI</span><p>Clear, approachable copy. Built for everyday reading.</p></div></div>
+<h2 class="studio-subheading">Type scale</h2><div class="studio-type-scale">
+<div><span>Hero<code>--font-size-hero</code></span><p style="font-size:var(--font-size-hero)">Sparklys</p></div><div><span>Display<code>--font-size-display</code></span><p style="font-size:var(--font-size-display)">Sparklys</p></div><div><span>Section<code>--font-size-section</code></span><p style="font-size:var(--font-size-section)">Sparklys</p></div><div><span>Card<code>--font-size-card</code></span><p style="font-size:var(--font-size-card)">Sparklys</p></div><div><span>Compact<code>--font-size-compact</code></span><p style="font-size:var(--font-size-compact)">Sparklys</p></div><div><span>Body<code>--font-size-body</code></span><p style="font-size:var(--font-size-body)">Sparklys</p></div><div><span>Small<code>--font-size-small</code></span><p style="font-size:var(--font-size-small)">Sparklys</p></div></div><p class="studio-note">Samples use the shared responsive scale. Erode preserves authored casing; each font keeps its shared leading.</p></section>
+<section id="Colors" class="studio-panel" data-studio-page data-chapter="Colors" data-title="Palette & surfaces"><p>These samples read the studio’s current shared tokens. Merchant colour settings remain owned by Shopify.</p><div class="studio-swatch-grid"><div class="studio-swatch"><span class="studio-swatch-color" style="background:var(--color-foreground)"></span><strong>Foreground</strong><code>--color-foreground</code></div><div class="studio-swatch"><span class="studio-swatch-color" style="background:var(--color-surface)"></span><strong>Surface</strong><code>--color-surface</code></div><div class="studio-swatch"><span class="studio-swatch-color" style="background:var(--color-surface-muted)"></span><strong>Muted surface</strong><code>--color-surface-muted</code></div><div class="studio-swatch"><span class="studio-swatch-color" style="background:var(--color-surface-warm)"></span><strong>Warm surface</strong><code>--color-surface-warm</code></div><div class="studio-swatch"><span class="studio-swatch-color" style="background:var(--color-accent)"></span><strong>Accent</strong><code>--color-accent</code></div><div class="studio-swatch"><span class="studio-swatch-color" style="background:var(--color-surface-hover)"></span><strong>Hover surface</strong><code>--color-surface-hover</code></div></div></section>
+<section id="Widths" class="studio-panel" data-studio-page data-chapter="Layout" data-title="Container widths">
+<p>Three shared sizes. Narrow and Editorial describe usable content; Page includes the outer gutters. Close the side panels to compare widths on a large screen.</p>
+<div class="studio-tuner"><label for="ContainerWidth">Content width<select id="ContainerWidth"><option value="narrow">Narrow — 800px</option><option value="editorial" selected>Editorial — 1400px</option><option value="page">Page — 1920px outer frame</option></select></label></div>
+<div class="studio-width-canvas"><div id="ContainerWidthPreview" class="studio-width-preview"><strong>Content container</strong><p>Shared gutters stay in place as the viewport becomes smaller.</p></div></div>
+<p class="studio-note">Reading columns and artwork may remain narrower within a section. Viewport bleed is a separate slider behavior.</p>
+</section>
+<section id="Buttons" class="studio-panel" data-studio-page data-chapter="Atoms" data-title="Buttons"><p>Shared sizes, hover treatment and keyboard focus.</p><div class="studio-button-examples"><a class="button" href="#ButtonMotion"><span class="button__label">Primary action</span></a><a class="button button--secondary" href="#ButtonMotion"><span class="button__label">Secondary action</span></a><button class="button" disabled><span class="button__label">Disabled</span></button></div><p class="studio-note">Explore enter/exit timing in <a href="#ButtonMotion">Motion → Button interactions</a>.</p></section>
+<section data-studio-page data-chapter="Sections" data-title="Content Slider" id="ContentSlider" class="studio-panel" aria-labelledby="ContentSliderDemoHeading">
+<div class="studio-section-heading"><span>CONTENT SLIDER</span><span>Crosslinks + benefits</span></div>
+<h2 id="ContentSliderDemoHeading">Two card layouts. One scrolling pattern.</h2>
+<p>Preview content only. In Shopify, add and reorder Card blocks and select the section’s Card layout.</p>
+<div class="studio-tuner"><label for="ContentSliderContainer">Content width<select id="ContentSliderContainer"><option value="narrow">Narrow — 800px</option><option value="editorial" selected>Editorial — 1400px</option><option value="page">Page width</option></select></label><label for="ContentSliderWidth">Slider width<select id="ContentSliderWidth"><option value="contained">Contained (default)</option><option value="viewport">Viewport bleed</option></select></label></div>
+<offer-cards-motion style="display: block" data-card-motion-horizontal><content-slider data-card-motion-section class="content-slider" data-layout="crosslinks" data-heading-font="newake" data-uppercase-cards><h2 class="content-slider__heading" data-card-motion-header id="DemoSliderHeading-crosslinks">Explore Sparklys</h2><ul class="content-slider__track" id="DemoSliderTrack-crosslinks" tabindex="0" aria-labelledby="DemoSliderHeading-crosslinks"><li class="content-slider__item"><a class="content-slider__card" data-card-motion-card href="#ContentSlider"><div class="content-slider__media"><img src="/assets/offer-retail.jpg" width="360" height="360" loading="lazy" alt=""></div><div class="content-slider__copy"><h3 class="content-slider__title">Our story</h3></div></a></li><li class="content-slider__item"><a class="content-slider__card" data-card-motion-card href="#ContentSlider"><div class="content-slider__media"><img src="/assets/offer-gastro.jpg" width="360" height="360" loading="lazy" alt=""></div><div class="content-slider__copy"><h3 class="content-slider__title">Team</h3></div></a></li><li class="content-slider__item"><a class="content-slider__card" data-card-motion-card href="#ContentSlider"><div class="content-slider__media"><img src="/assets/offer-events.jpg" width="360" height="360" loading="lazy" alt=""></div><div class="content-slider__copy"><h3 class="content-slider__title">Contact</h3></div></a></li><li class="content-slider__item"><a class="content-slider__card" data-card-motion-card href="#ContentSlider"><div class="content-slider__media"><img src="/assets/offer-companies.jpg" width="360" height="360" loading="lazy" alt=""></div><div class="content-slider__copy"><h3 class="content-slider__title">Journal</h3></div></a></li><li class="content-slider__item"><a class="content-slider__card" data-card-motion-card href="#ContentSlider"><div class="content-slider__media"><img src="/assets/offer-retail.jpg" width="360" height="360" loading="lazy" alt=""></div><div class="content-slider__copy"><h3 class="content-slider__title">FAQ</h3></div></a></li></ul><div class="content-slider__controls" hidden><button class="button button--secondary content-slider__arrow" type="button" data-direction="-1" aria-controls="DemoSliderTrack-crosslinks" aria-label="Previous cards"><span class="button__label content-slider__arrow-icon" aria-hidden="true"></span></button><button class="button button--secondary content-slider__arrow" type="button" data-direction="1" aria-controls="DemoSliderTrack-crosslinks" aria-label="Next cards"><span class="button__label content-slider__arrow-icon" aria-hidden="true"></span></button></div></content-slider></offer-cards-motion>
+<offer-cards-motion style="display: block" data-card-motion-horizontal><content-slider data-card-motion-section class="content-slider" data-layout="benefits" data-heading-font="erode"><h2 class="content-slider__heading" data-card-motion-header id="DemoSliderHeading-benefits">Illustrated benefits</h2><ul class="content-slider__track" id="DemoSliderTrack-benefits" tabindex="0" aria-labelledby="DemoSliderHeading-benefits"><li class="content-slider__item"><article class="content-slider__card" data-card-motion-card><div class="content-slider__media"><img src="/assets/soda-reason-leaf.svg" width="360" height="360" loading="lazy" alt=""></div><div class="content-slider__copy"><h3 class="content-slider__title">Your first benefit</h3><p class="content-slider__text">Add a short explanation that helps people understand this benefit. Choose an illustration, give it a clear title, and keep the details easy to read.</p></div></article></li><li class="content-slider__item"><article class="content-slider__card" data-card-motion-card><div class="content-slider__media"><img src="/assets/soda-reason-fiber.svg" width="360" height="360" loading="lazy" alt=""></div><div class="content-slider__copy"><h3 class="content-slider__title">Another good reason</h3><p class="content-slider__text">Add a short explanation that helps people understand this benefit. Choose an illustration, give it a clear title, and keep the details easy to read.</p></div></article></li><li class="content-slider__item"><article class="content-slider__card" data-card-motion-card><div class="content-slider__media"><img src="/assets/soda-reason-low-sugar.svg" width="360" height="360" loading="lazy" alt=""></div><div class="content-slider__copy"><h3 class="content-slider__title">A clear explanation</h3><p class="content-slider__text">Add a short explanation that helps people understand this benefit. Choose an illustration, give it a clear title, and keep the details easy to read.</p></div></article></li><li class="content-slider__item"><article class="content-slider__card" data-card-motion-card><div class="content-slider__media"><img src="/assets/water-icon.svg" width="360" height="360" loading="lazy" alt=""></div><div class="content-slider__copy"><h3 class="content-slider__title">Keep it simple</h3><p class="content-slider__text">Add a short explanation that helps people understand this benefit. Choose an illustration, give it a clear title, and keep the details easy to read.</p></div></article></li><li class="content-slider__item"><article class="content-slider__card" data-card-motion-card><div class="content-slider__media"><img src="/assets/soda-reason-leaf.svg" width="360" height="360" loading="lazy" alt=""></div><div class="content-slider__copy"><h3 class="content-slider__title">One more benefit</h3><p class="content-slider__text">Add a short explanation that helps people understand this benefit. Choose an illustration, give it a clear title, and keep the details easy to read.</p></div></article></li></ul><div class="content-slider__controls" hidden><button class="button button--secondary content-slider__arrow" type="button" data-direction="-1" aria-controls="DemoSliderTrack-benefits" aria-label="Previous cards"><span class="button__label content-slider__arrow-icon" aria-hidden="true"></span></button><button class="button button--secondary content-slider__arrow" type="button" data-direction="1" aria-controls="DemoSliderTrack-benefits" aria-label="Next cards"><span class="button__label content-slider__arrow-icon" aria-hidden="true"></span></button></div></content-slider></offer-cards-motion>
+</section>
 
-<nav class="studio-collections" aria-label="Studio collections"><a href="#SocialButtons">Social buttons</a><a href="#ButtonMotion">Button motion</a><a href="#FormPreview">Form fields</a></nav>
+<section data-studio-page data-chapter="Sections" data-title="Hero & ambient light" id="AmbientLight" class="studio-panel studio-ambient" aria-labelledby="AmbientHeading">
+  <div class="studio-section-heading"><span>AMBIENT LIGHT</span><span>Image + video</span></div>
+  <h2 id="AmbientHeading">Hero layout & ambient light.</h2>
+  <p>Try the 40% baseline, then find your sweet spot. This preview uses the storefront’s actual glow and slider. Changes stay in the studio.</p>
+  <form id="AmbientTuner" class="studio-tuner">
+    <label>Content width<select id="HeroWidth"><option value="page">Page width</option><option value="editorial">Editorial</option><option value="narrow">Narrow</option></select></label>
+    <label>Heading size<select id="HeroSize"><option value="display">Large</option><option value="section">Standard</option><option value="hero">Extra large</option></select></label>
+    <label>Heading alignment<select id="HeroAlignment"><option value="center">Center</option><option value="left">Left</option></select></label>
+    <label>Heading gap <output id="HeroGapValue">40px</output><input id="HeroGap" type="range" min="16" max="80" step="4" value="40"></label>
+    <label for="AmbientMedia">Preview media<select id="AmbientMedia" name="media"><option value="0">Image</option><option value="1">Video</option></select></label>
+    <label for="AmbientIntensity">Glow intensity <output id="AmbientValue" for="AmbientIntensity">40%</output><input id="AmbientIntensity" name="intensity" type="range" min="0" max="100" step="5" value="40"></label>
+    <label for="AmbientSpread">Glow spread <output id="AmbientSpreadValue">24px</output><input id="AmbientSpread" type="range" min="0" max="80" step="4" value="24"></label>
+    <label for="AmbientBlur">Glow softness <output id="AmbientBlurValue">40px</output><input id="AmbientBlur" type="range" min="16" max="120" step="4" value="40"></label>
+    <label class="form-choice"><input id="AmbientEnabled" name="enabled" type="checkbox" checked><span class="form-choice__indicator" aria-hidden="true"></span><span>Ambient light</span></label>
+    <button type="reset">Reset</button><button id="CopyAmbient" type="button">Copy settings</button>
+    <span id="AmbientStatus" role="status"></span>
+  </form>
+  <div class="studio-ambient__preview"><div class="hero-slider-shell">
+    <hero-slider id="AmbientPreview" data-heading-size="display" data-heading-font="newake" class="hero-slider hero-slider--page hero-slider--mobile-landscape" role="region" aria-roledescription="Slideshow" aria-label="Ambient light study" data-ambient="true" data-autoplay="false" data-duration="6000" style="--hero-ambient-opacity:.4">
+      <div class="hero-slider__stage">
+        <div class="hero-slider__slide" data-slide id="AmbientImage" role="group" aria-label="Image preview">
+          <div class="hero-slider__frame"><div class="hero-slider__media"><img src="/assets/editorial-soda-banner.webp" alt="Sparklys Soda picnic in the sunshine" width="1600" height="948" loading="lazy"></div></div>
+          <h2 class="hero-slider__heading">A glow from the image.</h2>
+        </div>
+        <div class="hero-slider__slide" data-slide id="AmbientVideo" role="group" aria-label="Video preview">
+          <div class="hero-slider__frame" data-ambient-poster="https://cdn.shopify.com/s/files/1/0412/5900/8164/files/preview_images/403bd5a0e38445f8bae7938b0c34712c.thumbnail.0000000000.jpg?width=128"><div class="hero-slider__media"><video muted loop playsinline preload="none" poster="https://cdn.shopify.com/s/files/1/0412/5900/8164/files/preview_images/403bd5a0e38445f8bae7938b0c34712c.thumbnail.0000000000.jpg?width=1000"><source src="https://cdn.shopify.com/videos/c/vp/403bd5a0e38445f8bae7938b0c34712c/403bd5a0e38445f8bae7938b0c34712c.SD-480p-1.5Mbps-96173994.mp4" type="video/mp4"></video></div></div>
+          <h2 class="hero-slider__heading">Colour that moves with the video.</h2>
+        </div>
+        <div class="hero-slider__controls" hidden>
+          <button type="button" class="hero-slider__arrow hero-slider__arrow--previous" data-direction="-1" aria-label="Previous slide"><span aria-hidden="true"></span></button>
+          <button type="button" class="hero-slider__arrow hero-slider__arrow--next" data-direction="1" aria-label="Next slide"><span aria-hidden="true"></span></button>
+          <div class="hero-slider__navigation">
+            <button type="button" class="hero-slider__indicator" data-slide-button="0" aria-controls="AmbientImage" aria-label="Image preview"><span class="hero-slider__track" aria-hidden="true"><span class="hero-slider__progress"></span></span></button>
+            <button type="button" class="hero-slider__indicator" data-slide-button="1" aria-controls="AmbientVideo" aria-label="Video preview"><span class="hero-slider__track" aria-hidden="true"><span class="hero-slider__progress"></span></span></button>
+          </div>
+        </div>
+      </div>
+      <span class="visually-hidden" data-status aria-live="polite" aria-atomic="true"></span>
+    </hero-slider></div>
+  </div>
+  <p class="studio-note">Hover over the media for arrows. Video keeps playing on hover. Reduced motion uses a still poster and static glow. Copy settings to keep your chosen intensity; this demo does not save theme settings.</p>
+</section>
 
-<section id="SocialButtons" class="studio-panel studio-social" aria-labelledby="SocialHeading">
+<section data-studio-page data-chapter="Components" data-title="Social buttons" id="SocialButtons" class="studio-panel studio-social" aria-labelledby="SocialHeading">
   <div class="studio-section-heading"><span>SOCIAL BUTTONS</span><span>Hover or Tab to compare</span></div>
   <h2 id="SocialHeading">Every channel. Three ways.</h2>
   <p>Brand colours, Outline and Solid use the storefront’s icons, circle geometry and smooth hover sweep. These are preview buttons; they do not open social profiles. Usernames are sample labels.</p>
@@ -43,14 +137,14 @@
   </ul></div></div>
 </section>
 
-<section id="ButtonMotion" class="studio-panel studio-motion" aria-labelledby="MotionHeading">
+<section data-studio-page data-chapter="Motion" data-title="Button interactions" id="ButtonMotion" class="studio-panel studio-motion" aria-labelledby="MotionHeading">
   <div class="studio-section-heading"><span>BUTTON MOTION LAB</span><span>Hover, Tab or replay</span></div>
   <h2 id="MotionHeading">Find the right flow.</h2>
   <p>Wide oval is the storefront baseline. Wave and the previous circle are comparison studies. Changes here stay in this preview.</p>
   <form id="MotionTuner" class="studio-tuner">
     <label>Shape<select name="shape"><option value="oval">Wide oval</option><option value="wave">Soft wave</option><option value="circle">Previous circle</option></select></label>
-    <label>Enter <output id="EnterValue">480 ms</output><input name="enter" type="range" min="200" max="1000" step="20" value="480"></label>
-    <label>Exit <output id="ExitValue">360 ms</output><input name="exit" type="range" min="200" max="1000" step="20" value="360"></label>
+    <label>Enter <output id="EnterValue">240 ms</output><input name="enter" type="range" min="200" max="1000" step="20" value="240"></label>
+    <label>Exit <output id="ExitValue">460 ms</output><input name="exit" type="range" min="200" max="1000" step="20" value="460"></label>
     <label>Width <output id="WidthValue">180%</output><input name="width" type="range" min="160" max="280" step="10" value="180"></label>
     <label>Easing<select name="easing"><option value="cubic-bezier(0.22, 0.61, 0.36, 1)">Gentle ease out</option><option value="cubic-bezier(0.4, 0, 0.2, 1)">Smooth ease in/out</option><option value="cubic-bezier(0.65, 0, 0.35, 1)">Previous easing</option><option value="linear">Linear</option></select></label>
     <label><input name="reduced" type="checkbox">Simulate reduced motion</label>
@@ -64,14 +158,17 @@
   <p id="MotionStatus" role="status">Try leaving midway through the hover, then returning.</p>
 </section>
 
+<div id="FormsPage" data-studio-page data-route="FormPreview" data-chapter="Atoms" data-title="Fields & choices">
 <aside class="studio-tuner" aria-label="Preview settings">
+<label>Form style <select id="FormStyle"><option value="inquiry" selected>Enquiry / contact</option><option value="commerce">Commerce / product selectors</option></select></label>
 <label>Field height <select id="TuneHeight"><option value="44">44 px</option><option value="48" selected>48 px</option><option value="52">52 px</option><option value="56">56 px</option></select></label>
-<label>Outline <select id="TuneBorder"><option value="2">2 px</option><option value="3" selected>3 px</option></select></label>
-<label>Inner spacing <select id="TunePadding"><option value="16">16 px</option><option value="20" selected>20 px</option><option value="24">24 px</option></select></label>
-<label>Choice size <select id="TuneChoice"><option value="24">24 px</option><option value="28">28 px</option><option value="30" selected>30 px</option></select></label>
+<label>Outline <select id="TuneBorder"><option value="2" selected>2 px</option><option value="3">3 px</option></select></label>
+<label>Inner spacing <select id="TunePadding"><option value="16" selected>16 px</option><option value="20">20 px</option><option value="24">24 px</option></select></label>
+<label>Choice size <select id="TuneChoice"><option value="24" selected>24 px</option><option value="28">28 px</option><option value="30">30 px</option></select></label>
 <button type="button" id="ResetTokens">Reset tuning</button><button type="button" id="CopyTokens">Copy tokens</button><span id="TuneStatus" role="status"></span>
 </aside>
-<div class="studio-grid" id="FormPreview">
+<p class="studio-note" id="FormStyleNote">Enquiry style for contact and editorial forms. Product variants, purchase options, cart and age-check controls keep the separate commerce style.</p>
+<div class="studio-grid form--inquiry" id="FormPreview">
 <section class="studio-panel"><div class="studio-section-heading"><span>01 / TEXT FIELDS</span><span>Try typing</span></div>
 <form id="ExampleForm" novalidate>
 <div class="form-field"><label class="form-field__label" for="FullName">Full name</label><input class="form-control" id="FullName" name="fullName" autocomplete="name" placeholder="Your name"></div>
@@ -114,5 +211,6 @@
 <div class="form-field"><label class="form-field__label" for="Focus">Keyboard focus</label><input class="form-control" id="Focus" placeholder="Tab here to see the ring"></div>
 </div></section>
 </div>
+</div>
 <footer class="studio-footer">The Sparklys design system playground. No submissions, subscriptions, or customer data are sent anywhere.<br>The reusable CSS and select behavior live separately from this local studio.</footer>
-</main></body></html>
+</main></div></body></html>

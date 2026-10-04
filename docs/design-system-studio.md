@@ -1,22 +1,8 @@
 # Design system studio
 
-The permanent, local design reference lives in `demos/design-system/`. It uses the actual theme assets and shared tokens so designers can review real controls instead of a separate mockup.
+The current workbench contract, navigation, previews and extension workflow live in [Design Studio](design-studio.md). This page retains the stable startup/isolation reference for existing links.
 
-The forms collection, social buttons and Button Motion Lab are available. The motion lab was added on 2026-09-14; broader expansion remains deferred and is tracked as [TASK-012](tasks.md#task-012--extend-the-design-system-studio).
-
-## Open it
-
-From the repository root, run `npm run studio`, then open http://127.0.0.1:9293. Stop it with Ctrl+C. It runs independently of Shopify and needs no store credentials. A designer with a repository checkout and Node 22 or newer can run the same command locally. The localhost link only works on the computer running the server; it is not a public sharing link.
-
-## Review and tune
-
-Forms are the first working collection: fields, dropdowns, radio buttons, checkboxes, validation and disabled states. The controls at the top change preview tokens; Copy tokens exports the proposed values for review. Changes currently last only for the page session. Approved values should be applied to the shared source and reviewed before storefront adoption.
-
-The Button Motion Lab at `/#ButtonMotion` uses actual shared buttons, including secondary, small, disabled, full-width and multiline examples. Tune shape (oval, experimental wave, previous circle), entry/exit duration, width and easing; replay both directions or simulate reduced motion. Copy settings exports the proposal, without modifying source files or Shopify. Width applies to oval/wave; wave and circle are studio-only prototypes. System reduced motion also applies. Small buttons on coarse pointers retain their accessible fade fallback.
-
-The Social Buttons collection at `/#SocialButtons` compares Brand colours (default), Outline and Solid for both Instagram accounts, TikTok, LinkedIn, YouTube and Facebook. All six slots appear as local preview buttons with sample labels, including the unconfigured YouTube channel; they never navigate or read store data. Hovering the icon or label and keyboard focus use the storefront sweep. The loopback server extracts the exact `{% stylesheet %}` block from `sections/social-media-channels.liquid` into a CSS response; icons and base button styles are real theme assets, so there is no duplicated palette or motion implementation. Studio-only rules reset the preview button shell and let its whole label trigger hover. Phone layouts and system reduced motion use the same section rules.
-
-Keep new collections in this studio. Future additions can cover typography/colors/spacing/radii, icons, cards, and additional motion examples. Show real shared components wherever possible, include phone and desktop layouts, and identify prototypes clearly. This is the extension roadmap; those additional collections beyond forms and button motion are not implemented yet.
+Run `npm run studio` and open http://127.0.0.1:9293. Stop with Ctrl+C. It is a local buildless workbench, separate from Shopify and requiring no store credentials. A checkout and Node 22+ are sufficient. The localhost URL is not a public sharing link. Preview controls change local proposals only, not source files or Shopify settings.
 
 ## Isolation
 
@@ -27,5 +13,3 @@ Keep new collections in this studio. Future additions can cover typography/color
 - Do not publish this studio as part of the storefront. Any future remote designer preview needs separate, access-controlled hosting.
 
 The reusable form primitives remain in `assets/forms.css` and `assets/forms.js`. Their adoption contract is documented in [forms.md](forms.md); studio-only layout and tuning code stay under `demos/design-system/`.
-
-Social buttons verification (2026-10-02): headless desktop (1440px) and phone (390px) visual checks covered all three styles and 18 buttons. The CSS response matched the source section exactly. Verified keyboard focus, intermediate sweep frames, reduced motion and no overflow at 320px. Repository gates and studio JavaScript syntax checks passed. Test browser closed.
