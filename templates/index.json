@@ -10,19 +10,30 @@
 {
   "sections": {
     "hero": {
-      "type": "hero",
+      "type": "hero-slider",
       "settings": {
-        "heading_font": "erode",
-        "eyebrow": "Sparklys Switzerland",
-        "heading": "Prickelnd anders.",
-        "text": "<p>Natürlicher Seltzer aus der Schweiz.</p>",
-        "button_label": "Produkte entdecken",
-        "button_link": "",
-        "background": "#e6d783",
-        "foreground": "#172019",
-        "overlay": 20,
+        "selection_mode": "all",
+        "slides": [],
+        "content_width": "page",
+        "height_mode": "natural",
+        "mobile_shape": "portrait",
+        "heading_font": "newake",
+        "heading_uppercase": false,
+        "heading_size": "section",
+        "heading_alignment": "center",
+        "heading_gap": 24,
+        "heading_level": "h1",
+        "accessible_label": "Sparklys",
+        "ambient_light": true,
+        "ambient_intensity": 40,
+        "ambient_spread": 24,
+        "ambient_blur": 40,
+        "autoplay": true,
+        "duration": 6,
         "hide_on_mobile": false,
-        "hide_on_desktop": false
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": "#f5f5f5"
       }
     },
     "product_overview_teaser_fk8jcV": {
@@ -101,13 +112,27 @@
       ],
       "name": "Product overview",
       "settings": {
-        "heading": "Our drinks",
-        "all_products_label": "All products",
+        "content_width": "page",
+        "heading": "Unsere Drinks",
+        "all_products_label": "Alle Produkte",
         "all_products_link": "",
         "soda_link": "",
         "hard_seltzer_link": "",
         "hide_on_mobile": false,
-        "hide_on_desktop": false
+        "hide_on_desktop": false,
+        "section_background_mode": "original",
+        "section_background": ""
+      }
+    },
+    "brand_statement_nXGcaq": {
+      "type": "brand-statement",
+      "name": "Brand statement",
+      "settings": {
+        "content_width": "narrow",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": "#f5f5f5"
       }
     },
     "subscription_kJjHrt": {
@@ -142,6 +167,7 @@
       ],
       "name": "Subscription — Soda",
       "settings": {
+        "content_width": "editorial",
         "variant": "soda",
         "image_alt": "",
         "show_logo": false,
@@ -160,7 +186,9 @@
         "minimum_height": 630,
         "minimum_height_mobile": 680,
         "hide_on_mobile": false,
-        "hide_on_desktop": false
+        "hide_on_desktop": false,
+        "section_background_mode": "original",
+        "section_background": ""
       }
     },
     "offer_cards_RwxyQ4": {
@@ -227,19 +255,116 @@
       ],
       "name": "Offer cards",
       "settings": {
-        "content_source": "local",
+        "content_width": "page",
+        "content_source": "global",
         "show_heading": true,
         "heading": "Unser Angebot",
         "show_intro": true,
         "intro": "<p>Mit unseren zwei Produkten Sparklys Soda und Sparklys Hard Seltzer decken wir eine breite Palette an Einsatzmöglichkeiten ab. Ob in Kantinen mit Sparklys Soda, an Events mit Sparklys Hard Seltzer oder im Detailhandel im Regal: Sparklys passt in unterschiedlichste Verkaufssituationen.</p>",
         "hide_on_mobile": false,
-        "hide_on_desktop": false
+        "hide_on_desktop": false,
+        "section_background_mode": "original",
+        "section_background": ""
+      }
+    },
+    "content_slider_iK9Hqz": {
+      "type": "content-slider",
+      "blocks": {
+        "card_LVLUnR": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/sparklys-hard-seltzer-mobil-bar-events.jpg",
+            "title": "Geschichte",
+            "text": "",
+            "link": "shopify://pages/ueber-uns",
+            "background_color": "",
+            "blend_with_background": false
+          }
+        },
+        "card_yxUFLM": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/sparklys_hard_seltzer_gift_card_500.jpg",
+            "title": "Gutscheine",
+            "text": "",
+            "link": "shopify://products/digitale-sparklys-geschenkkarte",
+            "background_color": "#F5D2A2",
+            "blend_with_background": true
+          }
+        },
+        "card_p7qAJn": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Sparklys-Team-Foto-Sparlys-Soda-Sparklys-Hard-Seltzer.jpg",
+            "title": "Team",
+            "text": "",
+            "link": "shopify://pages/team",
+            "background_color": "",
+            "blend_with_background": false
+          }
+        },
+        "card_WKdwVM": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/holunder-on-the-loose-05-an-model-accessoire-tasche-sparklys-hard-seltzer.jpg",
+            "title": "Presse & Medien",
+            "text": "",
+            "link": "shopify://pages/press-media",
+            "background_color": "#D5D5D5",
+            "blend_with_background": true
+          }
+        },
+        "card_KpRYmz": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/team-cannette-sparklys-mascot.webp",
+            "title": "Blog",
+            "text": "",
+            "link": "shopify://blogs/news",
+            "background_color": "",
+            "blend_with_background": false
+          }
+        },
+        "card_JEnyRT": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/team-gian-huber-sparklys-retail.webp",
+            "title": "Kontakt",
+            "text": "",
+            "link": "shopify://pages/kontakt",
+            "background_color": "#2b5d17",
+            "blend_with_background": false
+          }
+        }
+      },
+      "block_order": [
+        "card_LVLUnR",
+        "card_yxUFLM",
+        "card_p7qAJn",
+        "card_WKdwVM",
+        "card_KpRYmz",
+        "card_JEnyRT"
+      ],
+      "name": "Content Slider — Crosslinks",
+      "settings": {
+        "content_width": "page",
+        "card_layout": "crosslinks",
+        "width_mode": "viewport",
+        "show_heading": true,
+        "heading": "Erfahre mehr über Sparklys",
+        "heading_font": "newake",
+        "uppercase_cards": true,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
       }
     },
     "text_image_Y6Nkd6": {
       "type": "text-image",
       "name": "Text and image",
       "settings": {
+        "content_width": "editorial",
         "image_side": "left",
         "image": "shopify://shop_images/Sparklys-Team-Foto-Sparlys-Soda-Sparklys-Hard-Seltzer.jpg",
         "image_alt": "Sparklys Team Foto",
@@ -248,23 +373,27 @@
         "mobile_image_height": 360,
         "show_heading": true,
         "heading": "Erfahre mehr über Sparklys und unsere Geschichte",
+        "heading_font": "erode",
         "heading_level": "h2",
         "text": "<p>Wie alles begann und wer hinter Sparklys Soda und Sparklys Hard Seltzer steckt kannst du hier erfahren.</p>",
-        "heading_font": "erode",
         "show_button": true,
         "button_label": "Sparklys kennenlernen",
         "button_link": "shopify://pages/ueber-uns",
         "button_style": "dark",
         "hide_on_mobile": false,
-        "hide_on_desktop": false
+        "hide_on_desktop": false,
+        "section_background_mode": "original",
+        "section_background": ""
       }
     }
   },
   "order": [
     "hero",
     "product_overview_teaser_fk8jcV",
+    "brand_statement_nXGcaq",
     "subscription_kJjHrt",
     "offer_cards_RwxyQ4",
+    "content_slider_iK9Hqz",
     "text_image_Y6Nkd6"
   ]
 }

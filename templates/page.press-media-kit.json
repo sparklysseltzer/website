@@ -1,0 +1,106 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "intro": {
+      "type": "page-intro",
+      "settings": {
+        "heading_font": "erode",
+        "uppercase_heading": false,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "original",
+        "section_background": ""
+      }
+    },
+    "media_kit": {
+      "type": "rich-text",
+      "settings": {
+        "heading_font": "erode",
+        "eyebrow": "",
+        "heading": "Media Kit Download",
+        "text": "<p>In unserem Press & Media Kit findest du Logos, Produkt- und Stimmungsbilder sowie Beschreibungen und Textvorlagen für deine Berichterstattung über Sparklys.</p>",
+        "button_label": "Mediakit abrufen",
+        "button_link": "https://drive.google.com/drive/folders/1szH35JApPI-kUnc_DjUWcmp3wsP06pFH?usp=sharing",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
+      }
+    },
+    "logos": {
+      "type": "press-marquee",
+      "settings": {
+        "heading_font": "erode",
+        "publications": [
+          "20min",
+          "watson",
+          "rheintaler-bote",
+          "nzz",
+          "le-temps",
+          "fm1today",
+          "swissdrinks",
+          "rheintaler-online-magazin",
+          "rheintal24"
+        ],
+        "heading": "",
+        "show_logo_boxes": false,
+        "duration": 32,
+        "direction": "normal",
+        "pause_on_interaction": true,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
+      }
+    },
+    "coverage": {
+      "type": "press-articles",
+      "settings": {
+        "heading": "Sparklys in der Presse",
+        "heading_font": "erode",
+        "publications": [
+          "20min",
+          "fm1today",
+          "nzz",
+          "rheintaler-online-magazin",
+          "le-temps",
+          "rheintaler-bote",
+          "rheintal24"
+        ],
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": "#FFFFFF"
+      }
+    },
+    "contact": {
+      "type": "press-form",
+      "settings": {
+        "heading": "Anfrage für Medienschaffende",
+        "heading_font": "erode",
+        "enable_newsletter": true,
+        "klaviyo_site_id": "Vv6a6f",
+        "klaviyo_list_id": "TwzfPb",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": "#FFFFFF"
+      }
+    }
+  },
+  "order": [
+    "intro",
+    "media_kit",
+    "logos",
+    "coverage",
+    "contact"
+  ]
+}

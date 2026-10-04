@@ -1,0 +1,313 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page-intro",
+      "settings": {
+        "content_width": "narrow",
+        "heading_font": "erode",
+        "uppercase_heading": false,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "original",
+        "section_background": ""
+      }
+    },
+    "poster_H4EJXa": {
+      "type": "poster",
+      "blocks": {
+        "item_3dNHYK": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        },
+        "item_ymaEpM": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        },
+        "item_t3ex73": {
+          "type": "item",
+          "settings": {
+            "text": "Add a benefit or key point"
+          }
+        }
+      },
+      "block_order": [
+        "item_3dNHYK",
+        "item_ymaEpM",
+        "item_t3ex73"
+      ],
+      "name": "Poster",
+      "settings": {
+        "content_width": "editorial",
+        "layout_mode": "image_only",
+        "image": "shopify://shop_images/billboard-03-sparklys-hard-seltzer.jpg",
+        "mobile_image": "shopify://shop_images/billboard-08-sparklys-hard-seltzer.jpg",
+        "image_alt": "Sparklys cans on a cart",
+        "content_position": "right",
+        "show_heading": true,
+        "heading": "Add your poster heading",
+        "heading_level": "h2",
+        "show_subtext": true,
+        "subtext": "<p>Add supporting copy for this poster.</p>",
+        "heading_font": "erode",
+        "show_button": true,
+        "button_label": "Learn more",
+        "button_link": "#",
+        "button_style": "automatic",
+        "poster_text_color": "#ffffff",
+        "overlay_strength": 55,
+        "overlay_color": "#000000",
+        "minimum_height": 430,
+        "minimum_height_mobile": 380,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
+      }
+    },
+    "story": {
+      "type": "two-column",
+      "blocks": {
+        "content": {
+          "type": "_editorial-main",
+          "static": true,
+          "settings": {},
+          "blocks": {
+            "beginnings": {
+              "type": "editorial-text",
+              "settings": {
+                "show_heading": true,
+                "heading": "Wie alles begann",
+                "heading_level": "h2",
+                "text": "<p>Die Geschichte von Sparklys führt uns zurück in den Frühling 2019, auf eine Reise durch die USA. Zwei Studenten genossen nach dem Surfen den hawaiianischen Sonnenuntergang, da kam ein Ehepaar zu ihnen und bot ihnen ein ominöses Getränk an. Das Auftreten der Dose war schwer einzuordnen; dem Anschein nach enthielt das Getränk Alkohol, doch das Erscheinungsbild erinnerte vielmehr an ein Sportgetränk. Die beiden erkundigten sich bei dem Paar: Es handelte sich um ein “Hard Seltzer”, ein mit Alkohol und Aromen versetztes Mineralwasser. “Perfekt für junge und aktive Menschen wie ihr!”, meinte das Paar augenzwinkernd.</p><p>Die beiden Studenten waren fasziniert von dem Getränk. In derselben Nacht vertieften sie sich noch in die Recherche bezüglich der Marktsituation ausserhalb der USA und speziell in der Schweiz und fanden nichts! Keine Verkaufszahlen, keine Importeure, nicht einmal ein Presseartikel war zu finden…</p>",
+                "heading_font": "erode"
+              },
+              "blocks": {}
+            },
+            "alternative": {
+              "type": "editorial-text",
+              "settings": {
+                "show_heading": true,
+                "heading": "Hard Seltzer als Bier-Alternative?",
+                "heading_level": "h2",
+                "text": "<p>Auch auf dem kalifornischen Festland fiel ihnen die Präsenz des Getränks auf; an Musikfestivals und auch an Studentenparties wurde mehrheitlich Hard Seltzer anstelle von Bier getrunken. Für die beiden Studenten ein sehr aussergewöhnlicher und spannender Wandel der Trinkkultur, der bisher völlig an der kleinen Schweiz vorbeigezogen war.</p><p>Noch vor der Reise zurück in die Schweiz kontaktierten sie ihren Freund, seines Zeichens Designer, da es ihnen beinahe so wichtig war wie der Inhalt der Dose, und sie erzählten ihm von der Idee ein neues Getränk für den Schweizer Markt zu kreieren. Schon während der Rückreise bestellten sie verschiedenste Aromen und Zutaten in die Schweiz, um keine Zeit zu verlieren.</p><p>Zurück in der Heimat und nun zu dritt konnten sie direkt loslegen. Erste Drinks wurden in der Küche gemischt. Über 100 verschiedene Geschmäcker und Variationen des Getränks wurden getestet. Das Team machte erstmals Experimente mit Zitronensäure und mit ausserplanmässigen Folgen. Nach einer “Misch-Session” an einem Abend im Sommer 2019 verspürte einer von ihnen starke Bauchschmerzen. Sein Blinddarm entzündete sich, welcher am Morgen darauf operativ entfernt werden musste. Alles, um einen Getränke-Trend in die Schweiz zu bringen. Daher kann niemand behaupten, dass keine Opfer gebracht wurden.</p>",
+                "heading_font": "erode"
+              },
+              "blocks": {}
+            },
+            "prototype": {
+              "type": "editorial-text",
+              "settings": {
+                "show_heading": true,
+                "heading": "Das erste Rezept und ein&nbsp;Prototyp",
+                "heading_level": "h2",
+                "text": "<p>Am Ende des Sommers 2019 lag erstmals ein Rezept vor, welches allen schmeckte (und zu keinen Folgeschäden führte). Ein kleiner Lohnabfüller wurde ausfindig gemacht, um Prototypen in einer Mindestmenge abfüllen zu können. Nach langer Suche und vielen Abklärungen erklärte sich eine Firma bereit 2000 Dosen mit Papieretikett abzufüllen. Die Prototypen wurden im Februar 2020 produziert und zusammen mit einem Feedback-Formular an Freunde und Familie verteilt. Die Reaktionen waren eindeutig und die Idee fand auch hier Anklang.</p>",
+                "heading_font": "erode"
+              },
+              "blocks": {}
+            },
+            "polaroids": {
+              "type": "editorial-image",
+              "settings": {
+                "image": "shopify://shop_images/sparklys-story-polaroids.png",
+                "image_alt": "Polaroids aus den Anfängen von Sparklys: Hawaii, Mischversuche in der Küche und die ersten Prototypen.",
+                "image_height_mode": "natural",
+                "image_height": 520,
+                "mobile_image_height": 360
+              },
+              "blocks": {}
+            },
+            "founding": {
+              "type": "editorial-text",
+              "settings": {
+                "show_heading": true,
+                "heading": "Die Gründung",
+                "heading_level": "h2",
+                "text": "<p>Der Prototyp begeisterte einen befreundeten Web- und Digital-Profi so sehr, dass unser Core-Team nochmals erweitert wurde. Das Team trat daraufhin in Kontakt mit potentiellen Produktionspartnern und verfeinerte in Zusammenarbeit mit Experten die geheime Sparklys-Formel zum besten Hard Seltzer der Welt, dem flüssigen Gold der Neo-Alchemisten und dem originalen Zeitgeist. Im Sommer 2020 wurde die Firma schliesslich als GmbH offiziell gegründet und im September darauf fand die erste professionelle Abfüllung statt. Sparklys Hard Seltzer war geboren und hier, um zu bleiben. Bereits im Dezember konnte das Unternehmen in eine Aktiengesellschaft umgewandelt werden.</p>",
+                "heading_font": "erode"
+              },
+              "blocks": {}
+            },
+            "huber": {
+              "type": "editorial-text",
+              "settings": {
+                "show_heading": true,
+                "heading": "Mehr Köpfe, gleicher Durst",
+                "heading_level": "h2",
+                "text": "<p>Und weil eine gute Geschichte nicht nach den ersten Kapiteln aufhört, wuchs nach 2022 auch unser Core-Team weiter. Mit den Brüdern Gian und Thibault Huber kamen zwei weitere Köpfe dazu, die lieber anpacken als lange zuschauen.</p><p>Auch Lars Gubser wurde Partner bei Sparklys. Als unser Eventmanager weiss er, dass zwischen «Wir sollten mal etwas machen» und einem gelungenen Event ziemlich viel Organisation steckt. Gut also, wenn der Partyarchitekt nicht nur die nächste Veranstaltung mitplant, sondern auch das nächste Kapitel der Firma.</p>",
+                "heading_font": "erode"
+              },
+              "blocks": {}
+            },
+            "editorial_text_AMeYdU": {
+              "type": "editorial-text",
+              "settings": {
+                "show_heading": true,
+                "heading": "Die Story? Noch lange nicht fertig.",
+                "heading_level": "h2",
+                "text": "<p>Aus den ersten Mischversuchen in der Küche ist ein Team mit ganz unterschiedlichen Talenten geworden. Und neben Hard Seltzer gehört heute auch Sparklys Soda dazu. Mit oder ohne Alkohol: Wir haben noch einiges vor. Was genau? Das schreiben wir lieber ins nächste Kapitel, wenn es so weit ist. Bis dahin: Dose auf, neugierig bleiben.</p>",
+                "heading_font": "erode"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "beginnings",
+            "alternative",
+            "prototype",
+            "polaroids",
+            "founding",
+            "huber",
+            "editorial_text_AMeYdU"
+          ]
+        },
+        "sidebar": {
+          "type": "_editorial-sidebar",
+          "static": true,
+          "settings": {},
+          "blocks": {
+            "soda": {
+              "type": "sidebar-box",
+              "settings": {
+                "artwork": "soda",
+                "override_layout": "preset",
+                "override_position": "preset",
+                "heading": "",
+                "show_heading": false,
+                "override_font": "preset",
+                "override_text_color": "",
+                "override_overlay_color": "",
+                "show_button": true,
+                "button_label": "Soda entdecken",
+                "button_link": "shopify://collections/soda",
+                "override_button_style": "preset",
+                "layout": "compact",
+                "soda_text_color": "#000000",
+                "soda_overlay_strength": 0,
+                "soda_overlay_color": "#83afd4",
+                "seltzer_text_color": "#000000",
+                "seltzer_overlay_strength": 0,
+                "seltzer_overlay_color": "#f2e3c3",
+                "reminder_heading_font": "erode",
+                "reminder_content_position": "top",
+                "reminder_text_color": "#000000",
+                "reminder_overlay_strength": 0,
+                "reminder_overlay_color": "#dad6d1",
+                "reminder_minimum_height": 460,
+                "reminder_button_style": "dark",
+                "subscription_heading_font": "erode",
+                "subscription_content_position": "bottom",
+                "subscription_text_color": "#ffffff",
+                "subscription_overlay_strength": 0,
+                "subscription_overlay_color": "#000000",
+                "subscription_minimum_height": 520,
+                "subscription_button_style": "light"
+              },
+              "blocks": {}
+            },
+            "seltzer": {
+              "type": "sidebar-box",
+              "settings": {
+                "artwork": "seltzer",
+                "override_layout": "preset",
+                "override_position": "preset",
+                "heading": "",
+                "show_heading": false,
+                "override_font": "preset",
+                "override_text_color": "",
+                "override_overlay_color": "",
+                "show_button": true,
+                "button_label": "Hard Seltzer entdecken",
+                "button_link": "shopify://collections/hard-seltzer",
+                "override_button_style": "preset",
+                "layout": "compact",
+                "soda_text_color": "#000000",
+                "soda_overlay_strength": 0,
+                "soda_overlay_color": "#83afd4",
+                "seltzer_text_color": "#000000",
+                "seltzer_overlay_strength": 0,
+                "seltzer_overlay_color": "#f2e3c3",
+                "reminder_heading_font": "erode",
+                "reminder_content_position": "top",
+                "reminder_text_color": "#000000",
+                "reminder_overlay_strength": 0,
+                "reminder_overlay_color": "#dad6d1",
+                "reminder_minimum_height": 460,
+                "reminder_button_style": "dark",
+                "subscription_heading_font": "erode",
+                "subscription_content_position": "bottom",
+                "subscription_text_color": "#ffffff",
+                "subscription_overlay_strength": 0,
+                "subscription_overlay_color": "#000000",
+                "subscription_minimum_height": 520,
+                "subscription_button_style": "light"
+              },
+              "blocks": {}
+            },
+            "team": {
+              "type": "link-box",
+              "settings": {
+                "title": "Die Köpfe hinter Sparklys",
+                "link": "shopify://pages/team",
+                "background": "#dddbd2",
+                "text_color": "#000000"
+              },
+              "blocks": {}
+            },
+            "faq": {
+              "type": "link-box",
+              "settings": {
+                "title": "Noch Fragen?",
+                "link": "shopify://pages/faq",
+                "background": "#dddbd2",
+                "text_color": "#000000"
+              },
+              "blocks": {}
+            },
+            "contact": {
+              "type": "link-box",
+              "settings": {
+                "title": "Schreib uns",
+                "link": "shopify://pages/kontakt",
+                "background": "#dddbd2",
+                "text_color": "#000000"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "soda",
+            "seltzer",
+            "team",
+            "faq",
+            "contact"
+          ]
+        }
+      },
+      "settings": {
+        "content_width": "editorial",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "poster_H4EJXa",
+    "story"
+  ]
+}

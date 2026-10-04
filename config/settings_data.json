@@ -46,11 +46,18 @@
     "grain_intensity": 30,
     "border_radius_small": 16,
     "border_radius_large": 32,
+    "cart_recommendation_products": [
+      "holunder-on-the-loose-tote-bag",
+      "hoodie-nutrition-facts",
+      "professional-can-opener-2000"
+    ],
     "logo_width": 150,
     "sections": {
       "cart-drawer": {
         "type": "cart-drawer",
-        "settings": {}
+        "settings": {
+          "heading_font": "erode"
+        }
       }
     },
     "content_for_index": [],

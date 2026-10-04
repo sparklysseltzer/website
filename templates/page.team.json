@@ -13,52 +13,46 @@
       "type": "page-intro",
       "settings": {
         "heading_font": "erode",
+        "uppercase_heading": false,
         "hide_on_mobile": false,
-        "hide_on_desktop": false
+        "hide_on_desktop": false,
+        "section_background_mode": "original",
+        "section_background": ""
       }
     },
-    "two_column_eRhbaA": {
-      "type": "two-column",
-      "blocks": {
-        "content": {
-          "type": "_editorial-main",
-          "static": true,
-          "settings": {},
-          "blocks": {}
-        },
-        "sidebar": {
-          "type": "_editorial-sidebar",
-          "static": true,
-          "settings": {},
-          "blocks": {}
-        }
-      },
-      "name": "2 column",
+    "team_video": {
+      "type": "video",
       "settings": {
-        "hide_on_mobile": false,
-        "hide_on_desktop": false
-      }
-    },
-    "faq_C7wfCz": {
-      "type": "faq",
-      "name": "FAQ",
-      "settings": {
-        "heading_font": "erode",
-        "selected_faqs": [],
-        "faq_category": "",
         "heading": "",
-        "show_footer": true,
-        "footer_text": "",
-        "footer_link_label": "",
-        "footer_link": "#",
+        "heading_font": "erode",
+        "introduction": "",
+        "video": "shopify://files/videos/sparklys-team-swipe.mp4",
+        "content_width": "editorial",
+        "autoplay_video": true,
         "hide_on_mobile": false,
-        "hide_on_desktop": false
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
+      }
+    },
+    "team": {
+      "type": "team",
+      "settings": {
+        "selection_mode": "all",
+        "people": [],
+        "heading": "",
+        "heading_font": "erode",
+        "introduction": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
       }
     }
   },
   "order": [
     "intro",
-    "two_column_eRhbaA",
-    "faq_C7wfCz"
+    "team_video",
+    "team"
   ]
 }

@@ -26,7 +26,7 @@
       "settings": {
         "heading": "Follow us!",
         "heading_font": "erode",
-        "button_style": "brand",
+        "button_style": "solid",
         "instagram_hidden": false,
         "instagram_url": "",
         "instagram_username": "",
