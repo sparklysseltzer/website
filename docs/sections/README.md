@@ -2,7 +2,7 @@
 
 This directory documents every Liquid section in `sections/`. Keep implementation details here; keep cross-cutting rules in [Architecture](../architecture.md), commerce requirements in [Commerce](../commerce.md), and capability state in [Status](../status.md).
 
-Last reconciled with the repository: 2026-10-02. The tables below cover all 36 Liquid sections; variants and presets do not count as separate sections.
+Last reconciled with the repository: 2026-10-04. The tables below cover all 46 Liquid sections; variants and presets do not count as separate sections.
 
 ## Shared contracts
 
@@ -21,14 +21,21 @@ All sections follow the [design system](../design-system.md), [asset-delivery ru
 | Section | Add-section category | Role |
 | --- | --- | --- |
 | [Page intro](page-intro.md) | Brand storytelling | Page-owned label, H1 and introduction with decorative Arc |
+| [Video](video.md) | Brand storytelling | Shopify video with shared Narrow, Editorial and Page widths |
+| [Team](team.md) | Trust & information | Metaobject-driven person cards, curated groups or the full team |
 | [Social Media Channels](social-media-channels.md) | Trust & information | Circular social links with two Instagram accounts and editable channel URLs/usernames |
 | [Contact form](contact-form.md) | Trust & information | Native contact enquiries with optional, separately configured Klaviyo email signup |
+| [Press form](press-form.md) | Trust & information | Independently editable media enquiries with shared native submission and newsletter behavior |
+| [Hero slider](hero-slider.md) | Brand storytelling | Ordered shared Slides entries with image/video media and timed progress indicators |
 | [Hero](hero.md) | Brand storytelling | Full-width heading, optional image, copy, and action |
+| [Content Slider](content-slider.md) | Brand storytelling | Editor-owned card blocks for crosslinks or illustrated benefits |
+| [Brand statement](brand-statement.md) | Brand storytelling | Centered brand prose with inline artwork and a staggered blur reveal |
 | [Rich text](rich-text.md) | Brand storytelling | Narrow editorial copy and optional action |
 | [Two-column layout](two-column.md) | Brand storytelling | Nested editorial content and repeatable sidebar/link boxes |
 | [Text and image](text-image.md) | Brand storytelling | Open image/copy composition with matching mobile reading order |
 | [Accordeon](faq-accordion.md) | Trust & information | Custom text/image accordion with optional FAQs, also available inside Two-column layout |
 | [Poster](poster.md) | Brand storytelling | Full-image editorial poster with overlaid content |
+| [Poster Slideshow](poster-slideshow.md) | Brand storytelling | Local image/video slide blocks with Poster sizing and Hero transitions |
 | [Subscription](subscription.md) | Brand storytelling | Soda/Hard Seltzer subscription poster with benefits, subscribe action and sign-in link |
 | [Image and text panel](split-image-text.md) | Brand storytelling | Side-by-side editorial image and content panel |
 | [Product benefits](usp-section.md) | Brand storytelling | Context-aware Soda or Hard Seltzer image, copy, and five Soda / six Hard Seltzer USP items |
@@ -41,6 +48,8 @@ All sections follow the [design system](../design-system.md), [asset-delivery ru
 | [Featured collection](featured-collection.md) | Products & offers | Configured collection preview using the shared product card |
 | [Product overview](product-overview-teaser.md) | Products & offers | Four-card Soda and Hard Seltzer editorial product navigation |
 | [Offer cards](offer-cards.md) | Products & offers | Local or globally synchronized audience/use-case cards |
+| [Press marquee](press-marquee.md) | Trust & partners | Shared marquee driven by Press entries |
+| [Press articles](press-articles.md) | Trust & information | Selected publications and their ordered article links |
 | [Merchant marquee](logo-marquee.md) | Trust & partners | Metaobject-driven merchant-logo loop |
 
 ## Resource sections
@@ -81,3 +90,7 @@ FAQ sections suppress their JSON-LD when both hide settings are enabled; with on
 All content/resource sections and Footer use the [shared canvas color contract](../design-system.md#section-backgrounds), with **Section background** as the final group after Visibility, with Default / Transparent / Custom Color. New add-section presets start transparent; existing placements preserve their saved or brand-derived defaults. Header and Cart drawer retain their specialized shell surfaces. Enclosed panel/card colors are separate from the full-width canvas; never expose two controls for the same surface.
 
 Canvas verification (2026-09-28): temporary development templates exercised all 23 reusable non-hero presets plus three Collection hero variants and Page intro. Checked Transparent, Custom Color (clear, white, gray, orange and alpha), and Default restoration at 390px/1440px. Product benefits and Subscription retained their Soda/Seltzer panel colors; comparison cards retained their own surfaces. The existing Hard Seltzer PDP kept its `#e1e1df` page field, black footer and 24px header blur. Script-blocked phone rendering and keyboard skip navigation passed. Native Shopify renders missing and explicitly cleared colors identically; the approved three-choice mode handles that distinction. Schema dependency contracts cover all 32 affected sections. Temporary fixtures and the isolated test browser were removed.
+
+## Content widths
+
+Suitable content and grid sections use the three-role [container width contract](../design-system.md#container-widths). The owning section documents record defaults. Full-width backgrounds, internal reading/artwork limits and Content Slider viewport bleed remain independent. Shell/commerce and fixed-composition exceptions are documented in the shared contract.

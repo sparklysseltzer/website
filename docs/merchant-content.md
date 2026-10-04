@@ -155,3 +155,11 @@ Hard Seltzer PDP canvas (2026-09-28): `custom.soda_background_color` is set to `
 ## Central social destinations
 
 Primary Instagram, TikTok, LinkedIn, YouTube and Facebook are Shopify Brand social links, read directly by `snippets/social-channel-url.liquid`. The additional Soda Instagram account is the pinned Shop URL metafield **Instagram — Sparklys Soda**, `custom.instagram_soda`, provisioned and populated via Admin API on 2026-10-02. Edit its store value in Shopify’s store metafields. It is independent of theme settings and survives theme changes. Both Footer and Social Media Channels consume these sources; local section link overrides remain optional. No hardcoded channel URL backups remain. Missing links are hidden, so centrally removing a URL removes its automatic storefront link. YouTube remains unconfigured until the merchant provides the account.
+
+## Team
+
+Maintain people under Content → Metaobjects → **Team**. Portraits reference existing Shopify Files; profiles, roles, descriptions and contact destinations are shared across every Team section. Active/Draft controls global visibility, Display order controls the automatic grid, and the section’s Show control chooses One member, Selected members or All members. The shared picker supplies the first entry or ordered group; All members ignores it. Video is maintained in a separate Video section. Preserve **Real person = false** for Canette and other fictional mascots. See [Team](sections/team.md) for fields, migration and rendering limits.
+
+## Press
+
+Maintain publication Name, Logo, Link and ordered Articles under Content → Metaobjects → **Press**. Add/select **Press article** entries (Title + URL) from the Articles list, then reorder them there. Section selections independently curate logo and article views; no duplicated article copy is stored in templates. Both definitions use Active/Draft and translation capabilities. The initial import preserves nine original publication logos and seven original articles; Watson/Swiss Drinks have no invented articles or destination. See [Press articles](sections/press-articles.md) for provisioning and limits.

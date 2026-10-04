@@ -1,6 +1,6 @@
 # Architecture
 
-Last reconciled with the repository on 2026-09-06.
+Last reconciled with the repository on 2026-10-04.
 
 ## System boundary
 
@@ -45,10 +45,11 @@ JSON templates own page composition. A section owns its markup, section-level se
 
 Each section instance stores its own settings and blocks in the JSON template that contains it. Alternate templates can therefore reuse the same Liquid section with different content. Do not duplicate a section merely to create a content variant.
 
-Three explicit shared-content patterns exist:
+Shared-content patterns include:
 
 - `logo-marquee` reads an ordered merchant collection built from reusable Merchant metaobjects.
 - `offer-cards` can use local template blocks or the canonical global offer-teaser metaobject while retaining local presentation settings.
+- Team, Press and Slides use store-level metaobjects; their owning section documents describe selection, references and provisioning. These are shared store records, not per-theme development copies.
 - `faq` reads reusable FAQ entries directly, through an ordered FAQ Category, or from both sources with duplicate removal; `main-faq` exposes the complete active library with client-side search and filtering.
 
 See [Section reference](sections/README.md), [Merchant content](merchant-content.md), and [Shared section content](shared-section-content.md) for the detailed contracts. Section-specific implementation notes belong in the corresponding file under `docs/sections/`, not in this architecture overview.
@@ -152,7 +153,7 @@ Do not use `transition: all`, scroll locking, or delayed one-shot scroll reveals
 
 JavaScript is progressive enhancement and loads deferred. Core navigation, product submission, cart editing, and checkout entry remain server-rendered and usable without it.
 
-Current custom elements/controllers are:
+Representative custom elements/controllers include:
 
 | Component | Ownership |
 | --- | --- |
@@ -161,8 +162,13 @@ Current custom elements/controllers are:
 | `header-corporate-menu` | Enhanced dismissal for native header disclosures |
 | Header scroll-intent controller | Desktop restoration/hiding of the black switcher bar |
 | `newsletter-form` | In-place rendering of Shopify's native form response |
-| `offer-cards-motion` | Reversible card reveal, media parallax, and hover zoom |
-| `product-overview-motion` | Reversible Product Overview reveal and artwork parallax |
+| `offer-cards-motion` | Reversible Offer/Team card reveal; optional media parallax for Offer cards |
+| `product-overview-motion` | Reversible Product Overview reveal, artwork parallax and responsive badge sizing |
+| `hero-slider` | Shared image/video carousel, progress controls and bounded ambient sampling; media-only mode for Poster Slideshow |
+| `content-slider` | Native horizontal scrolling, pointer drag and eased card settling |
+| `brand-statement` | Reversible word and inline-artwork reveals |
+| `section-video` | Hosted media playback with click/tap toggling and shared width controls |
+| `two-column-layout` | Optional sticky-sidebar height measurement |
 | `poster-motion` | Reversible Poster reveal and media parallax |
 | `usp-section-motion` | Reversible USP panel/content reveals, item staggering, and media parallax |
 | `faq-section-motion` | Reversible FAQ heading, controls, item, and closing-link reveals |

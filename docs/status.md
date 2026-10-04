@@ -1,6 +1,6 @@
 # Implementation status
 
-This is the current capability map, not a promise of production readiness. Reconciled with local code and owning contracts on 2026-09-28. Remote provisioning dates elsewhere are historical records; this audit did not revalidate every store setting or provider integration.
+This is the current capability map, not a promise of production readiness. Reconciled with local code and owning contracts on 2026-10-04. Remote provisioning dates elsewhere are historical records; this audit did not revalidate every store setting or provider integration.
 
 ## Implemented in the current theme
 
@@ -18,6 +18,8 @@ This is the current capability map, not a promise of production readiness. Recon
 - Guarded local development preview and shared-theme release workflows, protected editor-owned content, direct Shopify Admin API client, schema contracts, asset budgets, typography checks and commerce regression tests.
 - Collection filtering, shared catalog cards, branded/neutral collection heroes and collection overview are implemented. CollectionPage/ItemList markup uses real resources; merchant compositions and resource template assignments require separate review.
 - News teaser, paginated blog listing and article detail share responsive cards. Detail includes accessible sharing/copy, related posts and Shopify Article markup; lists emit ItemList. See the owning section contracts for verification limits.
+
+Team page addition (2026-10-02): reusable Team section and merchant-owned Team metaobjects support single/selected/all-active cards, responsive contacts and an independently placeable Shopify-hosted Video section with shared width presets. Nine active entries and two drafts were copied from the published theme, with existing portraits and contact data preserved. Development template only; see [Team](sections/team.md).
 
 ## Known incomplete capabilities
 
@@ -39,7 +41,7 @@ This is the launch-readiness list. Separately scoped feature proposals live in t
 | Customer accounts and apps | Audit Shopify account entry/portal behavior and installed app blocks/embeds end to end. |
 | Analytics and consent | Define provider inventory, event ownership, consent requirements and duplicate-event checks. |
 | Accessibility and performance | Complete enlarged-text/zoom reflow, full-site accessibility and stable browser regression coverage. Lighthouse CI is not configured. |
-| Design Studio | Local forms reference and adjustable Button Motion Lab; broader expansion is deferred in the [feature backlog](tasks.md). |
+| Design Studio | Three-pane workbench, navigation/search and several real component previews are implemented; maintain parity as new components are added. See [Design Studio](design-studio.md). |
 
 ## Recommended next sequence
 
@@ -49,3 +51,22 @@ This is the launch-readiness list. Separately scoped feature proposals live in t
 4. Close the approved SEO and consent gaps, then add repeatable browser/performance coverage.
 
 The shared `website/main` theme remains unpublished unless explicitly authorized. Store data, app permissions and theme publication have separate scopes; a code commit is not a deployment or publishing action.
+
+About page (2026-10-02): development `page.ueber-uns` composes the published origin story, original polaroid collage and merchant-authorized Huber/Lars continuation in Two-column layout, with relevant sidebar navigation and brand promotions. Page intro emits AboutPage. Live page assignment and published theme remain unchanged.
+
+Press page (2026-10-02): development `page.press-media-kit` reuses shared intro, rich text, marquee, link boxes, editorial photographs and the independent Press form. Press/Press article metaobjects centralize publisher logos and repeatable article links, with a reusable selected-publication article section and ItemList data. Published theme untouched.
+
+Press form separation (2026-10-02): Press and Contact now have independent section schemas and field markup, sharing enquiry CSS and the native-contact/newsletter controller. The development Press template was migrated from its latest saved content with all settings and section identity preserved. Both currently expose the same field inventory; future media-specific fields belong only to Press. No shared/live deployment.
+
+Hero slider (2026-10-02): shared Slides metaobjects, ordered per-placement selection, responsive image/video media, progress navigation and media-hover-paused autoplay. Development homepage fixture only; no shared/live deployment. See [Hero slider](sections/hero-slider.md).
+
+## Current editorial tooling and follow-ups
+
+- Consolidated content widths: Narrow 800px, Editorial 1400px and Page 1920px outer frame, with controls on suitable sections. Two-column layout offers an optional sticky sidebar.
+- Native nested Image and text panel columns contain independent tick blocks. Existing flat content remains compatible; a reviewed migration script creates separate output files, without remote writes.
+- Content Slider supports local crosslink/benefit blocks, drag settling, card background/blending and optional viewport bleed. Brand statement uses reversible word-level blur reveal.
+- Hero slider uses viewport-height composition only in landscape; portrait stacks 16:9 media and title naturally. Separate Poster Slideshow uses image/video blocks and Poster height controls.
+- Product overview now has the consolidated 1200px responsive composition; its owning document records the current artwork and badge proportions.
+- Native Contact and Press fields share enquiry styling, separate from PDP variant selectors. PDP dynamic money formatting combines storefront language with market country; this does not activate new markets.
+- The reported intermittent scroll-reveal disappearance has not been reproduced or fixed. In the user tab inspected on 2026-10-04, cards were present and visible without reloading; capture the failing state before attributing a cause.
+- The [content transfer controller plan](content-transfer-controller-plan.md) covers Dev ↔ website/main only, with explicit template/all-content scope and code-only defaults. Implementation is pending; store records stay shared and the live theme is excluded.

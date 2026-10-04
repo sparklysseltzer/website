@@ -204,3 +204,37 @@ Older 116 remains acknowledged: existing hidden target pages were found via read
 ## 2026-10-02 — Contact required-fields note
 
 Resolved Ananotes 162 (`1790882123315-5dvjzxud8`): removed the standalone required-fields explanation, retaining individual labels, asterisks and all four native required constraints. Verified 390px/1440px rendering and no horizontal overflow. Full repository, JavaScript, JSON and whitespace checks passed. Browser closed. Older 75 (wording review) and 116 (store assignments/publication) remain acknowledged under their existing scope decisions.
+
+## Remaining notes 75 and 116 — 2026-10-02
+
+- 75: finalized the cart-first age introduction in English/German with explicit online-shop policy wording and the configured age placeholder. The broad retail age-16 assertion is omitted. Verified rendered German copy in the existing dialog at desktop and 390px with no overflow; no document data or checkout submission used.
+- 116: verified all four template files on the development theme and assigned existing hidden Retail, Gastronomie, Events and Firmen pages to `retail`, `gastro`, `events`, `companies` respectively through Admin GraphQL. Backed up prior records outside Git and verified assignments/hidden status by read-back. Default resource links already exist; the homepage correctly renders non-linked cards while destinations remain hidden. No duplicate pages or publication.
+- Repository checks, JavaScript syntax, header-aware JSON parsing and whitespace checks passed. Isolated browser closed. No shared/live theme deployment.
+
+## Press article logos — 2026-10-02
+
+Resolved note 163 (`1790931135010-5cf8t9f8d`): publisher logos now appear on the left inside each article Link box, replacing separate publication headings. Article titles, source URLs, accessible new-tab behavior and ItemList data remain intact. Verified desktop and phone rendering, 320px overflow, loaded logos and keyboard focus. Full checks passed; test browser closed. No store content edits or publication.
+
+## Notes 164–166 — 2026-10-02
+
+164: external press article links use the official Untitled UI external-link icon; internal cards retain chevrons. 165: wide-desktop packaging label uses cap/alphabetic text-box trimming for visible centering, with phone styling unchanged. 166: Contact/Press newsletter choices center checkbox and label without the previous top offset. Verified desktop/phone, exact annotation viewport geometry, icon orientation, keyboard ring and no overflow. All quality gates passed; isolated browsers closed. No store data, template content, submission or publishing changes.
+
+## Notes 167–171 — 2026-10-04
+
+- 167: drawer close uses the existing Untitled UI X mask, centered geometrically in the 44px control/32px circle instead of a font glyph.
+- 168: quantity step updates restore the initiating plus/minus button after Ajax replacement, preserving keyboard focus without forcing the number-field caret. Direct numeric edits retain their input target; a now-disabled decrement falls back to a usable control.
+- 169: standalone editorial Image blocks and inline rich-text images have no default rounding/shadow. Explicit image-and-text panels retain their surface treatment.
+- 170: mobile Soda/Hard Seltzer collection heroes place cans first, then copy, shop button and benefits. Desktop copy/art columns remain intact.
+- 171: standalone Text and image uses the shared reversible poster-motion surface/text reveal, with static reduced-motion and no-JavaScript fallbacks. Embedded instances remain static.
+
+Verified in isolated headless Chromium at 390px and 1440px: centered close geometry and screenshot, real isolated-cart quantity 1→2→1 with button focus instead of a caret, visible keyboard focus, both mobile collection orders and desktop columns, unframed About image, intermediate/settled scroll animation and reduced-motion cancellation. Script-blocked homepage keeps content/action visible and mobile collection order remains intact. No checkout or customer data used. Full repository, JS syntax, JSON and whitespace gates pass. All task browsers closed; no shared/live deployment.
+
+## 2026-10-04 — Content Slider, navigation scrollbar and Soda badge
+
+- Ananotes 172 (`1791145621067-x91ehnl3s`): viewport-bleed cards now settle inside shared page gutters after Next/drag, preserving the initial container inset. Verified second-card left edge at 16px on 338px phone and 32px on 1600px desktop, plus a 32px trailing gutter at the end.
+- Ananotes 173 (`1791148008616-s6ivdtsiy`): hid navigation-card horizontal scrollbar without disabling native overflow or the focusable region. Verified the open desktop Shop panel and scrollbar styles; touch/trackpad behavior remains native.
+- Ananotes 174 (`1791148102774-to4gx1956`): separated rotating Soda badge state from gallery hover/manual-stop state. Browser checks confirmed motion continues after interaction and across its 40-second iteration boundary. Regression tests cover hover/manual stop, offscreen, hidden-tab and reduced-motion suspension/resume. Gallery autoplay rules are preserved.
+
+Only the local development theme was updated. Test browser closed; no records deleted. Resolution status is stored through the Ananotes MCP bridge after checks pass.
+
+Ananotes 175 (`1791149627139-b3ghm5eia`): added the existing reversible card reveal to Content Slider with bounded horizontal stagger and stationary geometry. Studio fixtures share the wrapper. Verified intermediate, complete and reverse states, keyboard-focus reveal, phone layout and reduced-motion cancellation; no overflow. No schema or saved content changes.

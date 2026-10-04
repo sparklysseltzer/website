@@ -65,3 +65,7 @@ Historical completion notes moved out of the active backlog on 2026-09-28. These
 - Status: Completed.
 - Added: 2026-08-16.
 - Approved and completed: 2026-08-16.
+
+## TASK-012 — Design Studio expansion (2026-10-04)
+
+The user subsequently approved and implemented the three-pane workbench, two-level navigation/search and Typography, Colors, Layout, Motion, Atoms, Components and Sections chapters. Real forms, social buttons, button motion, ambient Hero and Content Slider previews use storefront assets. This supersedes the earlier deferred status. Future preview parity remains ongoing maintenance; see [current contract](../design-studio.md).

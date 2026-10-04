@@ -72,7 +72,7 @@ Configuration and store backups were saved outside this repository under `~/Libr
 
 Verification on 2026-09-06: the registered native host completed a protocol roundtrip; the fork's MCP runtime started and exposed eight tools; `codex mcp get ananotes-local` confirmed the fork command. Browser-to-store synchronization of a new Ananotes note still needs to be observed after reconnecting the extension. An existing note in the shared store alone is not proof of that sync.
 
-After changing the registration, reopen Ananotes and reconnect its bridge (reload the extension if it retains an old connection), then start a fresh Codex session to discover `ananotes-local`. Read pages with `onui_list_pages` and retrieve notes with `onui_get_annotations` using the exact returned URL. Check a newly created Ananotes note to verify end-to-end sync.
+After changing the registration, reopen Ananotes and reconnect its bridge (reload the extension if it retains an old connection), then start a fresh Codex session to discover `ananotes-local`. Start with `onui_get_open_annotations` scoped to this project host/port, follow pagination, and retrieve only actionable records with `onui_get_annotation`. Use `onui_list_pages` for discovery when the page is unknown. Check a newly created Ananotes note to verify end-to-end sync.
 
 If connection fails, check the installed extension ID against `allowed_origins`, the fork build and Node paths, and the wrapper's executable permission. Rebuilding or moving the fork or upgrading Node may require updating both commands. Avoid blindly running the inherited `setup:mcp`: it reinstalls upstream origins and the old client registration name. Its full doctor also expects upstream registrations; use targeted runtime/roundtrip checks and inspect the Ananotes origin directly.
 
@@ -297,3 +297,13 @@ Template cleanup must cover both the checkout and the remote development theme: 
 ### Missing development theme — 2026-09-28
 
 Shopify no longer listed the former development theme `199384498563`; the pinned-role guard correctly refused startup. A replacement development theme `199837745539` was created for the authorized local preview recovery. Its downloaded contents contained only an empty `config/settings_schema.json`, so the first upload deliberately initialized that fresh theme from local development files. Both preview and content-sync scripts now pin the new ID and retain role checks and full JSON preflight comparisons for subsequent starts. The shared editorial and live themes were not changed.
+
+Team provisioning (2026-10-02): app version `content-api-team` adds `write_metaobject_definitions` for the explicitly approved Team definition. Merchant installation approval and granted read/write definition scopes were verified through the Admin API. `write_metaobjects` alone permits entry updates but cannot create merchant-owned definitions. `scripts/setup-team.mjs` defaults to a read-only import plan and preserves existing entries. The existing team video was migrated using staged uploads plus `fileCreate`, because the Webflow video URL was not accepted directly.
+
+## Design Studio workbench
+
+Run `npm run studio` for the local three-pane design workbench at `http://127.0.0.1:9293/`: chapter tree, live preview, and configuration inspector. Existing preview hashes remain supported. See [Design Studio](design-studio.md) for its navigation structure, panel behavior and extension contract.
+
+## Planned theme content controller
+
+The user requested a [controller implementation plan](content-transfer-controller-plan.md) for Dev ↔ unpublished `website/main`, including selected page/collection/product templates. Store records remain shared and the live theme is excluded. This is a plan, not implementation or transfer authorization. Current code-only defaults and protected-content rules remain unchanged.

@@ -13,16 +13,6 @@ Open, separately scoped feature proposals only. Launch verification belongs in [
 
 Structured-data retrofit work is maintained in the separate [Structured-data task list](structured-data-tasks.md). Every unchecked item there follows the same pending-approval rule as this inbox.
 
-### TASK-012 — Extend the design system studio
-
-- Preserve the existing local form studio as the foundation for a broader designer reference and tuning suite.
-- Add collections for typography, colors, spacing and radii; buttons and icons; cards; and shared motion examples with replay and reduced-motion comparisons.
-- Reuse actual theme tokens and components, show relevant states at phone and desktop sizes, and support reviewing proposed token adjustments with the designer.
-- Keep the studio separate from the storefront, excluded from Shopify uploads and indexing. Startup and isolation details: [Design system studio](design-system-studio.md).
-- Status: Deferred for future work at Sandro's request; no expansion is being implemented now.
-- Added: 2026-09-09.
-
-
 ### TASK-009 — Validate demand before building back-in-stock notifications
 
 - Add a lightweight out-of-stock interest “trapdoor” before committing to a complete notification feature. Its only initial purpose is to measure whether visitors want to buy the unavailable product.
@@ -72,4 +62,4 @@ None.
 
 ## Maintenance
 
-Last reconciled with local code and documented implementation records on 2026-09-28. The Admin API connection and local MRZ baseline are implemented and are no longer next-step tasks. See [Development](development.md#admin-api-connection) and [the age-check contract](age-verification-plan.md).
+Last reconciled with local code and documented implementation records on 2026-10-04. The Admin API connection and local MRZ baseline are implemented and are no longer next-step tasks. See [Development](development.md#admin-api-connection) and [the age-check contract](age-verification-plan.md).
