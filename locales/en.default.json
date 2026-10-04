@@ -662,5 +662,22 @@
   "social_channels": {
     "label": "Social media channels",
     "new_tab": "(opens in a new tab)"
+  },
+  "team": {
+    "linkedin": "View {{ name }} on LinkedIn",
+    "instagram": "View {{ name }} on Instagram",
+    "phone": "Call {{ name }}",
+    "email": "Email {{ name }}"
+  },
+  "video": {
+    "play": "Play video",
+    "pause": "Pause video"
+  },
+  "press": {
+    "form_heading": "Press enquiries",
+    "logos_label": "Featured in the press",
+    "logos_empty": "Select Press entries to display their logos.",
+    "articles_label": "In the press",
+    "articles_empty": "Select Press entries with active articles to display here."
   }
 }

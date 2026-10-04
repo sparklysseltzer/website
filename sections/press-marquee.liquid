@@ -3,12 +3,10 @@
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 {{ 'logo-marquee.css' | asset_url | stylesheet_tag }}
-{% render 'logo-marquee-content', section: section, merchants: section.settings.merchant_collection.merchants.value %}
-
-
+{% render 'logo-marquee-content', section: section, merchants: section.settings.publications, card_style: 'transparent', label_key: 'press.logos_label', empty_key: 'press.logos_empty' %}
 {% schema %}
 {
-  "name": "Merchant marquee",
+  "name": "Press marquee",
   "settings": [
     {
       "type": "header",
@@ -54,13 +52,16 @@
           "label": "Newake"
         }
       ],
-      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue.",
+      "visible_if": "{{ section.settings.heading != blank }}"
     },
     {
-      "type": "metaobject",
-      "id": "merchant_collection",
-      "label": "Merchant Collection",
-      "metaobject_type": "merchant_collection"
+      "type": "metaobject_list",
+      "id": "publications",
+      "label": "Press entries",
+      "metaobject_type": "press",
+      "limit": 50,
+      "info": "Select publications and arrange their logos in your preferred order."
     },
     {
       "type": "text",
@@ -76,7 +77,7 @@
       "type": "checkbox",
       "id": "show_logo_boxes",
       "label": "Show logo boxes",
-      "default": true,
+      "default": false,
       "info": "Show rounded panels and soft shadows behind the logos. Turn off for logos only."
     },
     {
@@ -159,28 +160,6 @@
       "info": "Default keeps the section’s existing colors. Transparent shows the page background."
     },
     {
-      "type": "select",
-      "id": "background_style",
-      "label": "Background treatment",
-      "options": [
-        {
-          "value": "gray",
-          "label": "Gray section with white cards"
-        },
-        {
-          "value": "transparent",
-          "label": "Fully transparent"
-        },
-        {
-          "value": "white",
-          "label": "Fully white"
-        }
-      ],
-      "default": "gray",
-      "visible_if": "{{ section.settings.background_style == '__retired__' }}",
-      "info": "Retained for previously saved sections. Use Color below."
-    },
-    {
       "type": "color",
       "id": "section_background",
       "label": "Color",
@@ -190,10 +169,9 @@
   ],
   "presets": [
     {
-      "name": "Merchant marquee",
+      "name": "Press marquee",
       "category": "Trust & partners",
       "settings": {
-        "background_style": "transparent",
         "section_background_mode": "transparent"
       }
     }

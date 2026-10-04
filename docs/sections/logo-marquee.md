@@ -29,7 +29,7 @@ The animation is CSS-only. Reduced-motion mode disables the loop and exposes the
 
 ## Operational state
 
-The `merchant` and `merchant_collection` definitions exist on the connected store. The homepage development instance currently selects the `online-shops` collection; Merchant entries remain store-owned content.
+The `merchant` and `merchant_collection` definitions exist on the connected store. The development Soda and Seltzer templates select the `soda-handler` and `seltzer-handler` collections; Merchant entries remain store-owned content.
 
 ## Typography roles
 
@@ -57,3 +57,17 @@ Casing verification (2026-09-28): shared font-choice checks at 1440px/390px rend
 The old `background_style` ID remains hidden compatibility storage, preserving saved gray/white/transparent treatments and logo-card colors. Only the shared background group edits the canvas. New presets select transparent legacy card treatment as well; Default restores its saved treatment.
 
 Panel-shadow rollout (2026-10-01): Logo tiles use the shared panel shadow. The viewport reserves vertical shadow gutters with compensating margins, preserving row placement and continuous scrolling. See the [shared contract](../design-system.md#panel-shadows).
+
+## Shared Press rendering — 2026-10-02
+
+Markup/motion now live in `snippets/logo-marquee-content.liquid` and `assets/logo-marquee.css`, consumed by both Merchant marquee and [Press marquee](press-marquee.md). Merchant section schema, IDs, selected collection, ordering, defaults and behavior are unchanged. The shared renderer accepts a list with `name`, `url`, `logo` fields and caller-specific empty/landmark translations; it has no hidden data lookup or page logic. Only its owning sections load the stylesheet. SVG publisher logos reuse the same responsive Shopify image path.
+
+## Logo boxes — 2026-10-02
+
+**Appearance → Show logo boxes** independently controls rounded logo panels and their shared shadow. Merchant marquee defaults on to preserve existing treatments; Press marquee defaults off. Off removes tile background, radius and shadow, while retaining logo dimensions, spacing, link targets and visible keyboard focus. On retains the existing tile color treatment, including transparent legacy treatments. Section background, motion and resource selection remain independent; the checkbox enables no additional fields. Both on/off modes are registered in the editor contracts. Saved IDs and content are preserved.
+
+Verified desktop Press default renders transparent tiles with no shadow; 390px screenshot confirms logos only and no overflow. Merchant Soda template retains boxed tiles by default. Browser-only class toggles verified both shared CSS treatments (including no shadow/background in unboxed Merchant mode) and retained a 3px keyboard ring; no saved content was changed for testing. Editor schema contracts and full repository checks pass. Test browser closed.
+
+## Shared content width
+
+**Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Page**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).

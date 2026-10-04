@@ -1,0 +1,211 @@
+{% render 'section-width', section: section, default_width: 'page', frame: '.page-width', compact: 'grid', compact_grid: '.team__grid:not(:has(> .team-card:only-of-type))' %}
+{% render 'section-background', section: section, color: section.settings.section_background %}
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{% render 'section-visibility', section: section %}
+{{ 'team.css' | asset_url | stylesheet_tag }}
+<offer-cards-motion class="team-motion">
+<div class="team section page-width" data-card-motion-section>
+  {%- if section.settings.heading != blank or section.settings.introduction != blank -%}
+    <div class="team__intro" data-card-motion-header>
+      {% if section.settings.heading != blank %}<h2>{{ section.settings.heading | escape }}</h2>{% endif %}
+      {% if section.settings.introduction != blank %}<div class="rte">{{ section.settings.introduction }}</div>{% endif %}
+    </div>
+  {%- endif -%}
+  {%- capture cards -%}
+    {%- if section.settings.selection_mode == 'single' -%}
+      {%- assign person = section.settings.people | first -%}
+      {%- if person != blank -%}{% render 'team-card', person: person, section: section %}{%- endif -%}
+    {%- elsif section.settings.selection_mode == 'selected' or section.settings.selection_mode == blank and section.settings.people != blank -%}
+      {%- for person in section.settings.people -%}{% render 'team-card', person: person, section: section %}{%- endfor -%}
+    {%- else -%}
+      {%- paginate shop.metaobjects.team.values by 250 -%}
+        {%- capture order_keys -%}
+          {%- for person in shop.metaobjects.team.values -%}
+            {{- person.sort_order.value | default: 999999 | plus: 1000000 -}}:{{- person.system.handle -}}|
+          {%- endfor -%}
+        {%- endcapture -%}
+        {%- assign order_keys = order_keys | split: '|' | sort -%}
+        {%- for order_key in order_keys -%}
+          {%- assign handle = order_key | split: ':' | last -%}
+          {%- assign person = shop.metaobjects.team[handle] -%}
+          {% render 'team-card', person: person, section: section %}
+        {%- endfor -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+  {%- endcapture -%}
+  {%- if cards != blank -%}<div class="team__grid" data-card-motion-grid>{{ cards }}</div>
+  {%- elsif request.design_mode -%}<p>Create active Team entries in Content → Metaobjects, or select team members in this section.</p>{%- endif -%}
+</div>
+</offer-cards-motion>
+{% schema %}
+{
+  "name": "Team",
+  "tag": "section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Team members"
+    },
+    {
+      "type": "select",
+      "id": "selection_mode",
+      "label": "Show",
+      "default": "all",
+      "options": [
+        {
+          "value": "single",
+          "label": "One member"
+        },
+        {
+          "value": "selected",
+          "label": "Selected members"
+        },
+        {
+          "value": "all",
+          "label": "All members"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Choose a member below. Only the first selected entry appears.",
+      "visible_if": "{{ section.settings.selection_mode == 'single' }}"
+    },
+    {
+      "type": "paragraph",
+      "content": "Choose the members below and drag them into the desired order.",
+      "visible_if": "{{ section.settings.selection_mode == 'selected' }}"
+    },
+    {
+      "type": "paragraph",
+      "content": "Shows every active Team entry in Display order. The saved selection below is not used.",
+      "visible_if": "{{ section.settings.selection_mode == 'all' }}"
+    },
+    {
+      "type": "metaobject_list",
+      "id": "people",
+      "label": "Team members",
+      "metaobject_type": "team",
+      "limit": 50,
+      "info": "One member uses the first selection. Selected members uses your chosen order. All members ignores this selection."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "page",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to the section heading and names on cards."
+    },
+    {
+      "type": "richtext",
+      "id": "introduction",
+      "label": "Introduction"
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Team",
+      "category": "Trust & information",
+      "settings": {
+        "section_background_mode": "transparent"
+      }
+    }
+  ]
+}
+{% endschema %}

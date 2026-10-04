@@ -1,0 +1,131 @@
+{%- liquid
+  assign marquee_heading = section.settings.heading
+  assign marquee_style = section.settings.background_style | default: card_style | default: 'gray'
+
+  assign merchant_count = merchants | size
+  assign show_visual_preview = false
+  assign repeat_count = 4
+
+  if request.visual_preview_mode and merchant_count == 0
+    assign show_visual_preview = true
+  endif
+
+  if merchant_count == 1
+    assign repeat_count = 20
+  elsif merchant_count == 2
+    assign repeat_count = 10
+  elsif merchant_count < 5
+    assign repeat_count = 6
+  endif
+-%}
+
+{%- if merchant_count > 0 or request.design_mode or show_visual_preview -%}
+  <section data-section-background
+    class="logo-marquee logo-marquee--{{ marquee_style }}{% if section.settings.show_logo_boxes == false %} logo-marquee--unboxed{% endif %}{% if marquee_heading != blank %} logo-marquee--with-heading{% endif %}"
+    style="--logo-marquee-duration: {{ section.settings.duration }}s; --logo-marquee-direction: {{ section.settings.direction }};"
+    aria-labelledby="LogoMarquee-{{ section.id }}"
+  >
+    <h2
+      class="{% if marquee_heading != blank %}logo-marquee__heading{% else %}visually-hidden{% endif %}"
+      id="LogoMarquee-{{ section.id }}"
+    >
+      {%- if marquee_heading != blank -%}
+        {{ marquee_heading }}
+      {%- else -%}
+        {{ label_key | default: 'sections.logo_marquee.label' | t }}
+      {%- endif -%}
+    </h2>
+
+    {%- if merchant_count > 0 -%}
+      <div
+        class="logo-marquee__viewport{% if section.settings.pause_on_interaction %} logo-marquee__viewport--pausable{% endif %}"
+      >
+        <div class="logo-marquee__track">
+          {%- for repetition in (1..repeat_count) -%}
+            <ul
+              class="logo-marquee__list"
+              {% unless forloop.first %}
+                aria-hidden="true"
+              {% endunless %}
+            >
+              {%- for merchant in merchants -%}
+                {%- liquid
+                  assign merchant_name = merchant.name.value
+                  assign merchant_url = merchant.url.value
+                  assign merchant_logo = merchant.logo.value
+                  assign is_duplicate = true
+
+                  if repetition == 1
+                    assign is_duplicate = false
+                  endif
+                -%}
+                <li class="logo-marquee__item">
+                  {%- if merchant_url != blank -%}
+                    <a
+                      class="logo-marquee__tile"
+                      href="{{ merchant_url }}"
+                      aria-label="{{ merchant_name | escape }}"
+                      {% if is_duplicate %}tabindex="-1"{% endif %}
+                    >
+                  {%- else -%}
+                    <div class="logo-marquee__tile">
+                  {%- endif -%}
+
+                    {%- if merchant_logo != blank -%}
+                      {%- if merchant_logo.media_type == 'image' -%}
+                        {{
+                          merchant_logo
+                          | image_url: width: 410
+                          | image_tag:
+                            widths: '205, 410',
+                            sizes: '(min-width: 48rem) 205px, 172px',
+                            loading: 'lazy',
+                            alt: merchant_name,
+                            class: 'logo-marquee__image'
+                        }}
+                      {%- elsif merchant_logo.url != blank -%}
+                        <img
+                          class="logo-marquee__image"
+                          src="{{ merchant_logo.url }}"
+                          alt="{{ merchant_name | escape }}"
+                          loading="lazy"
+                          width="205"
+                          height="100"
+                        >
+                      {%- endif -%}
+                    {%- else -%}
+                      <span class="logo-marquee__fallback">{{ merchant_name }}</span>
+                    {%- endif -%}
+
+                  {%- if merchant_url != blank -%}
+                    </a>
+                  {%- else -%}
+                    </div>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- elsif show_visual_preview -%}
+      <div class="logo-marquee__viewport" aria-hidden="true">
+        <div class="logo-marquee__track logo-marquee__track--preview">
+          <ul class="logo-marquee__list logo-marquee__list--preview">
+            {%- for preview_index in (1..6) -%}
+              <li class="logo-marquee__item">
+                <div class="logo-marquee__tile">
+                  <span class="logo-marquee__preview-logo">Logo {{ preview_index }}</span>
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    {%- elsif request.design_mode -%}
+      <div class="logo-marquee__empty page-width">
+        {{ empty_key | default: 'sections.logo_marquee.empty' | t }}
+      </div>
+    {%- endif -%}
+  </section>
+{%- endif -%}

@@ -1,0 +1,181 @@
+{% render 'section-width', section: section, default_width: 'narrow', frame: '.page-width', surface: '.press-articles' %}
+{% render 'section-background', section: section, color: section.settings.section_background %}
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{% render 'section-visibility', section: section %}
+{{ 'editorial-content.css' | asset_url | stylesheet_tag }}
+{{ 'press-articles.css' | asset_url | stylesheet_tag }}
+{%- assign item_count = 0 -%}
+{%- capture groups -%}
+  {%- for publication in section.settings.publications -%}
+    {%- capture links -%}
+      {%- for article in publication.articles.value -%}
+        {%- if article.title.value != blank and article.url.value != blank -%}
+          {%- assign item_count = item_count | plus: 1 -%}
+          <li>{% render 'link-box', title: article.title.value, link: article.url.value, external: true, logo: publication.logo.value, logo_alt: publication.name.value %}</li>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- if links != blank -%}
+      <div class="press-articles__publication">
+        <ul class="press-articles__links">{{ links }}</ul>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- if item_count > 0 -%}
+  <div class="section page-width">
+    <div class="press-articles">
+      <h2{% if section.settings.heading == blank %} class="visually-hidden"{% endif %}>{{ section.settings.heading | default: '' | escape }}{% if section.settings.heading == blank %}{{ 'press.articles_label' | t }}{% endif %}</h2>
+      {{ groups }}
+    </div>
+  </div>
+  {%- unless section.settings.hide_on_mobile and section.settings.hide_on_desktop -%}
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"ItemList","@id":{{ canonical_url | append: '#press-' | append: section.id | json }},"numberOfItems":{{ item_count }},"itemListElement":[
+      {%- assign position = 0 -%}
+      {%- for publication in section.settings.publications -%}
+        {%- for article in publication.articles.value -%}
+          {%- if article.title.value != blank and article.url.value != blank -%}
+            {% if position > 0 %},{% endif %}{%- assign position = position | plus: 1 -%}
+            {"@type":"ListItem","position":{{ position }},"name":{{ article.title.value | json | replace: '<', '\u003c' }},"url":{{ article.url.value | json | replace: '<', '\u003c' }}}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endfor -%}]}
+    </script>
+  {%- endunless -%}
+{%- elsif request.design_mode -%}
+  <div class="section page-width">{{ 'press.articles_empty' | t }}</div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Press articles",
+  "tag": "section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "In the press"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to the section title."
+    },
+    {
+      "type": "metaobject_list",
+      "id": "publications",
+      "label": "Press entries",
+      "metaobject_type": "press",
+      "limit": 50,
+      "info": "Shows every active article from the selected publications, in the order saved in each Press entry. Publications without articles are omitted."
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Press articles",
+      "category": "Trust & information",
+      "settings": {
+        "section_background_mode": "transparent"
+      }
+    }
+  ]
+}
+{% endschema %}

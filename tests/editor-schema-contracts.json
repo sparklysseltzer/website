@@ -3775,6 +3775,14 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "show_logo_boxes": {
+        "group": "Appearance",
+        "visible_if": null
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -3784,7 +3792,9 @@
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "background_style": "Hidden compatibility storage only; the original gray/white/transparent selection remains readable for older placements. Color is the single current canvas control.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "show_logo_boxes": "Independent logo-panel toggle; no dependent fields. Section background and motion remain separate.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -3977,9 +3987,56 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Logo boxes on",
+        "settings": {
+          "show_logo_boxes": true
+        },
+        "visible": [
+          "show_logo_boxes"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Logo boxes off",
+        "settings": {
+          "show_logo_boxes": false
+        },
+        "visible": [
+          "show_logo_boxes"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "98790f7a6965ef17c1564c9b93ba556af173b61c94d4cd2efdfa70b1f8fe45a3"
+    "schemaHash": "35bd720d3826314d9f2d2617885bbf0e71a4a0571095e14d9f143dd58b547aaf"
   },
   "sections/main-404.liquid": {
     "fields": {
@@ -6844,7 +6901,7 @@
     "schemaHash": "58d93cdd8ca362a37d96166b02378c347efd24c52dcad78ed0c4195c8245dee7"
   },
   "sections/contact-form.liquid": {
-    "schemaHash": "98b70d0a518f2ed17dc04c7f145a42f8b35e02d3943765c7d73ab979fb50892a",
+    "schemaHash": "13fe7fac7c79a0c3993ca20fa8f35533e6288c35cb5fbec3507cbb8ad7c0b5b1",
     "fields": {
       "heading": {
         "group": "Content",
@@ -6881,6 +6938,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
@@ -6888,7 +6949,8 @@
       "hide_on_mobile": "Independent breakpoint visibility, no dependent fields.",
       "hide_on_desktop": "Independent breakpoint visibility, no dependent fields.",
       "section_background_mode": "Only Custom Color enables the section_background picker. Default and Transparent hide it.",
-      "enable_newsletter": "Enables both public Klaviyo configuration fields; each has visible_if. Storefront opt-in requires both IDs. Checkbox starts unchecked and email-only."
+      "enable_newsletter": "Enables both public Klaviyo configuration fields; each has visible_if. Storefront opt-in requires both IDs. Checkbox starts unchecked and email-only.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -6967,6 +7029,33 @@
         "visible": [
           "heading",
           "heading_font"
+        ]
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
         ]
       }
     ]
@@ -7645,5 +7734,687 @@
       }
     ],
     "schemaHash": "489d5928161321a74978d384c0a55e538c7282c6286d6cdeae9aa73cfeafd4b6"
+  },
+  "sections/team.liquid": {
+    "schemaHash": "51d47500cbd547cbf6ded84b946278cc6567a210a446b00888cd0253f7b5245a",
+    "fields": {
+      "selection_mode": {
+        "group": "Team members",
+        "visible_if": null
+      },
+      "people": {
+        "group": "Team members",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "introduction": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "selection_mode": "Single renders the first selected entry; selected renders the ordered list; all renders active entries. Native metaobject_list cannot use visible_if, so one shared picker remains visible with conditional mode guidance.",
+      "heading_font": "Applies to card names even without a section heading.",
+      "hide_on_mobile": "Independent breakpoint visibility.",
+      "hide_on_desktop": "Independent breakpoint visibility.",
+      "section_background_mode": "Custom exposes Color.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
+    },
+    "scenarios": [
+      {
+        "name": "single",
+        "settings": {
+          "selection_mode": "single"
+        },
+        "visible": [
+          "selection_mode",
+          "people",
+          "heading_font"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "selected",
+        "settings": {
+          "selection_mode": "selected"
+        },
+        "visible": [
+          "selection_mode",
+          "people",
+          "heading_font"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "all",
+        "settings": {
+          "selection_mode": "all"
+        },
+        "visible": [
+          "selection_mode",
+          "people",
+          "heading_font"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Custom background",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
+      }
+    ]
+  },
+  "sections/video.liquid": {
+    "schemaHash": "dad27056b758df7ba2dd8136f170dec2cfedde4f0e8072dbcbc9f3e3e9862f2c",
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading != blank or section.settings.introduction != blank }}"
+      },
+      "introduction": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "video": {
+        "group": "Video",
+        "visible_if": null
+      },
+      "content_width": {
+        "group": "Video",
+        "visible_if": "{{ section.settings.video != blank }}"
+      },
+      "autoplay_video": {
+        "group": "Video",
+        "visible_if": "{{ section.settings.video != blank }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Shown when heading or introduction exists.",
+      "content_width": "Uses shared narrow/editorial widths or the full page container; only relevant with video.",
+      "autoplay_video": "Only relevant with video. Reduced motion and native pause remain authoritative.",
+      "hide_on_mobile": "Independent breakpoint visibility.",
+      "hide_on_desktop": "Independent breakpoint visibility.",
+      "section_background_mode": "Custom exposes Color."
+    },
+    "scenarios": [
+      {
+        "name": "No video or text",
+        "settings": {},
+        "hidden": [
+          "content_width",
+          "autoplay_video",
+          "heading_font",
+          "section_background"
+        ]
+      },
+      {
+        "name": "narrow",
+        "settings": {
+          "video": "video",
+          "content_width": "narrow",
+          "heading": "Heading"
+        },
+        "visible": [
+          "content_width",
+          "autoplay_video",
+          "heading_font"
+        ]
+      },
+      {
+        "name": "editorial",
+        "settings": {
+          "video": "video",
+          "content_width": "editorial",
+          "heading": "Heading"
+        },
+        "visible": [
+          "content_width",
+          "autoplay_video",
+          "heading_font"
+        ]
+      },
+      {
+        "name": "page",
+        "settings": {
+          "video": "video",
+          "content_width": "page",
+          "heading": "Heading"
+        },
+        "visible": [
+          "content_width",
+          "autoplay_video",
+          "heading_font"
+        ]
+      },
+      {
+        "name": "Introduction only",
+        "settings": {
+          "introduction": "Text"
+        },
+        "visible": [
+          "heading_font"
+        ]
+      },
+      {
+        "name": "Custom background",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background"
+        ]
+      }
+    ]
+  },
+  "sections/press-articles.liquid": {
+    "schemaHash": "e6140717ec6e1b642a3cc6138648d0b69b0dd649d55da0e6c39838c734e67bd1",
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "publications": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "heading_font": "Styles the section title, including its accessible fallback when blank.",
+      "hide_on_mobile": "Independent breakpoint visibility.",
+      "hide_on_desktop": "Independent breakpoint visibility.",
+      "section_background_mode": "Custom alone exposes Color.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
+    },
+    "scenarios": [
+      {
+        "name": "Selected entries",
+        "settings": {
+          "publications": [
+            "20min"
+          ],
+          "heading": "Press"
+        },
+        "visible": [
+          "publications",
+          "heading_font"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Empty selection",
+        "settings": {},
+        "visible": [
+          "publications"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Custom background",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
+      }
+    ]
+  },
+  "sections/press-form.liquid": {
+    "schemaHash": "347f7a41174c6dda4d855dfd7b5b66951f9642386cf73a9887c965af28e326ec",
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Appearance",
+        "visible_if": null
+      },
+      "enable_newsletter": {
+        "group": "Newsletter",
+        "visible_if": null
+      },
+      "klaviyo_site_id": {
+        "group": "Newsletter",
+        "visible_if": "{{ section.settings.enable_newsletter }}"
+      },
+      "klaviyo_list_id": {
+        "group": "Newsletter",
+        "visible_if": "{{ section.settings.enable_newsletter }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "heading_font": "Erode/Newake only changes heading presentation; no dependent controls. Both preserve authored casing.",
+      "hide_on_mobile": "Independent breakpoint visibility, no dependent fields.",
+      "hide_on_desktop": "Independent breakpoint visibility, no dependent fields.",
+      "section_background_mode": "Only Custom Color enables the section_background picker. Default and Transparent hide it.",
+      "enable_newsletter": "Enables both public Klaviyo configuration fields; each has visible_if. Storefront opt-in requires both IDs. Checkbox starts unchecked and email-only.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
+    },
+    "scenarios": [
+      {
+        "name": "Default canvas",
+        "settings": {},
+        "visible": [
+          "heading",
+          "heading_font",
+          "hide_on_mobile",
+          "hide_on_desktop",
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Transparent canvas",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Custom canvas",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Newake with both breakpoints hidden",
+        "settings": {
+          "heading_font": "newake",
+          "hide_on_mobile": true,
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "heading_font",
+          "hide_on_mobile",
+          "hide_on_desktop"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Newsletter enabled",
+        "settings": {
+          "enable_newsletter": true
+        },
+        "visible": [
+          "klaviyo_site_id",
+          "klaviyo_list_id"
+        ]
+      },
+      {
+        "name": "Newsletter disabled",
+        "settings": {
+          "enable_newsletter": false
+        },
+        "hidden": [
+          "klaviyo_site_id",
+          "klaviyo_list_id"
+        ]
+      },
+      {
+        "name": "Custom heading",
+        "settings": {
+          "heading": "Get in touch"
+        },
+        "visible": [
+          "heading",
+          "heading_font"
+        ]
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
+      }
+    ]
+  },
+  "sections/press-marquee.liquid": {
+    "schemaHash": "428d4e4628da8f0987ca7e2b3a1655f3ba6b1ab591d6ea260292e42162e858e1",
+    "fields": {
+      "heading_font": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading != blank }}"
+      },
+      "publications": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "duration": {
+        "group": "Motion",
+        "visible_if": null
+      },
+      "direction": {
+        "group": "Motion",
+        "visible_if": null
+      },
+      "pause_on_interaction": {
+        "group": "Motion",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "show_logo_boxes": {
+        "group": "Appearance",
+        "visible_if": null
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "heading_font": "Styles the optional marquee heading; hidden when blank.",
+      "direction": "Changes loop direction; no dependent inputs.",
+      "pause_on_interaction": "Controls hover/focus pause; no dependent inputs.",
+      "hide_on_mobile": "Independent breakpoint visibility.",
+      "hide_on_desktop": "Independent breakpoint visibility.",
+      "section_background_mode": "Custom alone exposes Color.",
+      "show_logo_boxes": "Independent logo-panel toggle; no dependent fields. Section background and motion remain separate.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
+    },
+    "scenarios": [
+      {
+        "name": "Selected entries",
+        "settings": {
+          "publications": [
+            "20min"
+          ],
+          "heading": "Press"
+        },
+        "visible": [
+          "publications",
+          "heading_font"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Empty selection",
+        "settings": {},
+        "visible": [
+          "publications"
+        ],
+        "hidden": [
+          "section_background",
+          "heading_font"
+        ]
+      },
+      {
+        "name": "Custom background",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Reverse and pause disabled",
+        "settings": {
+          "direction": "reverse",
+          "pause_on_interaction": false
+        },
+        "visible": [
+          "direction",
+          "pause_on_interaction"
+        ]
+      },
+      {
+        "name": "Logo boxes on",
+        "settings": {
+          "show_logo_boxes": true
+        },
+        "visible": [
+          "show_logo_boxes"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Logo boxes off",
+        "settings": {
+          "show_logo_boxes": false
+        },
+        "visible": [
+          "show_logo_boxes"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
+      }
+    ]
   }
 }

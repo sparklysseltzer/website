@@ -1,0 +1,159 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{% render 'section-visibility', section: section %}
+{{ 'section-video.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.video != blank -%}<script src="{{ 'section-video.js' | asset_url }}" defer></script>{%- endif -%}
+<div class="section page-width">
+  {%- if section.settings.heading != blank or section.settings.introduction != blank -%}
+    <div class="video-section__intro">
+      {% if section.settings.heading != blank %}<h2>{{ section.settings.heading | escape }}</h2>{% endif %}
+      {% if section.settings.introduction != blank %}<div class="rte">{{ section.settings.introduction }}</div>{% endif %}
+    </div>
+  {%- endif -%}
+  {%- if section.settings.video != blank -%}
+    <section-video class="video-section__panel video-section__panel--{{ section.settings.content_width }}"{% if section.settings.autoplay_video %} data-autoplay{% endif %}>
+      {{ section.settings.video | video_tag: image_size: '1600x', controls: false, autoplay: false, loop: true, muted: true, playsinline: true, preload: 'none' }}
+      <button class="video-section__toggle" type="button" hidden aria-label="{{ 'video.play' | t | escape }}" data-play-label="{{ 'video.play' | t | escape }}" data-pause-label="{{ 'video.pause' | t | escape }}"></button>
+    </section-video>
+  {%- elsif request.design_mode -%}<p>Select a video to display here.</p>{%- endif -%}
+</div>
+{% schema %}
+{
+  "name": "Video",
+  "tag": "section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to the heading and introduction.",
+      "visible_if": "{{ section.settings.heading != blank or section.settings.introduction != blank }}"
+    },
+    {
+      "type": "richtext",
+      "id": "introduction",
+      "label": "Introduction"
+    },
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "editorial",
+      "visible_if": "{{ section.settings.video != blank }}",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay_video",
+      "label": "Play automatically",
+      "default": true,
+      "visible_if": "{{ section.settings.video != blank }}",
+      "info": "Starts muted when visible. Visitors can pause it; reduced motion keeps it paused."
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video",
+      "category": "Brand storytelling",
+      "settings": {
+        "section_background_mode": "transparent"
+      }
+    }
+  ]
+}
+{% endschema %}

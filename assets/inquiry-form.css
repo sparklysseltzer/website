@@ -1,0 +1,26 @@
+.contact-section { padding-inline: var(--page-gutter); }
+  .contact-section :is(.form-control, .contact-section__errors, .contact-section__confirmation) { scroll-margin-block-start: calc(var(--sticky-header-height, 8.5rem) + 2rem); }
+  .contact-section__inner { max-width: 50rem; margin-inline: auto; }
+  sparklys-contact { display: block; }
+  .contact-section__newsletter { margin-top: 1.5rem; }
+  .contact-section__newsletter-hint { font-size: var(--font-size-small); }
+  .contact-section__newsletter-result { margin-bottom: 2rem; }
+  .contact-section__newsletter-result[hidden], .contact-section__newsletter-result [hidden], .contact-section__newsletter-hint[hidden] { display: none; }
+  .contact-section__newsletter-result p { margin-bottom: 1rem; }
+  .contact-section__heading { margin: 0 0 2rem; font-size: var(--font-size-section); text-align: left; text-wrap: balance; }
+  .contact-section__required { margin: 0 0 1.5rem; font-size: var(--font-size-small); color: var(--color-text-secondary); }
+  .contact-section__fields { display: grid; gap: 1.5rem; }
+  .contact-section__optional { text-transform: none; font-family: var(--font-body); }
+  .contact-section__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 1.5rem; }
+  .contact-section__actions .button { margin-left: auto; }
+  .contact-section__privacy { display: inline-flex; align-items: center; min-height: 2.75rem; font-size: var(--font-size-small); }
+  .contact-section__errors { margin-bottom: 1.5rem; padding: 1.25rem; border-radius: var(--radius-small); color: var(--color-error-text); background: var(--color-error-surface); }
+  .contact-section__errors p { margin: 0; }
+  .contact-section__errors ul { margin-bottom: 0; }
+  .contact-section__confirmation { padding: 2rem; border-radius: var(--radius-large); background: var(--color-surface); text-align: center; }
+  .contact-section__confirmation h3 { margin: 0; font-size: var(--font-size-card); }
+  .contact-section__confirmation p { margin: 1.25rem 0 2rem; }
+  @media (min-width: 48rem) {
+    .contact-section__fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .contact-section__message { grid-column: 1 / -1; }
+  }

@@ -662,5 +662,22 @@
   "social_channels": {
     "label": "Social-Media-Kanäle",
     "new_tab": "(öffnet in einem neuen Tab)"
+  },
+  "team": {
+    "linkedin": "{{ name }} auf LinkedIn ansehen",
+    "instagram": "{{ name }} auf Instagram ansehen",
+    "phone": "{{ name }} anrufen",
+    "email": "E-Mail an {{ name }}"
+  },
+  "video": {
+    "play": "Video abspielen",
+    "pause": "Video pausieren"
+  },
+  "press": {
+    "form_heading": "Anfrage für Medienschaffende",
+    "logos_label": "Bekannt aus der Presse",
+    "logos_empty": "Wähle Press-Einträge aus, um ihre Logos anzuzeigen.",
+    "articles_label": "Sparklys in der Presse",
+    "articles_empty": "Wähle Press-Einträge mit aktiven Artikeln aus."
   }
 }

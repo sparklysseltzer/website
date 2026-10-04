@@ -1,6 +1,6 @@
 # Form control baseline
 
-Status: opt-in baseline for review, 2026-09-09. Cart coupon fields and the age-check document selector now adopt the baseline. Other storefront fields, newsletter compositions, quantity controls and MRZ artwork have not been migrated. The design system studio is at `http://127.0.0.1:9293`; start it with `npm run studio`. Keep `demos/design-system/` as the permanent local reference; reusable implementation lives in `assets/forms.css` and `assets/forms.js`.
+Status: two opt-in styles, updated 2026-10-02. Cart coupon fields and the age-check document selector now adopt the baseline. Other storefront fields, newsletter compositions, quantity controls and MRZ artwork have not been migrated. The design system studio is at `http://127.0.0.1:9293`; start it with `npm run studio`. Keep `demos/design-system/` as the permanent local reference; reusable implementation lives in `assets/forms.css` and `assets/forms.js`.
 
 ## Design sources
 
@@ -80,3 +80,19 @@ Verification: theme checks and existing tests pass; headless Chromium verified 3
 Field values, dropdown triggers and options use the shared regular field-family/weight roles; uppercase labels retain their emphasis. Button and quantity outlines share the 3px control outline token.
 
 PDP adoption (2026-09-11): packaging and delivery frequency use `sparklys-select` with native select fallbacks; purchase choices use shared radio cards; quantity uses the shared outlined capsule. The actual Add submitter owns Ajax loading/focus, even with a separately associated native variant-update button.
+
+## Enquiry forms — 2026-10-02
+
+[Approved form reference](https://www.figma.com/design/wU2QCDnknQPBZd4hacOOjq/Sparklys-Web?node-id=11621-54200) defines the contact/editorial family. Add `form--inquiry` to the owning form or region; reuse the same field, native select, progressive dropdown and choice markup. Contact form opts in, including its Press page placement. The style must not be placed on `body`, a global page shell or a mixed commerce container.
+
+- White field surfaces, 2px warm-gray borders (`#c9c4b9`), Small-radius corners (16px default), 16px horizontal padding, 48px minimum height and 8px label gap.
+- Sentence-case, flush-left Maison Neue labels use the shared UI role, as do field values. Textarea minimum is 120px with the same Small radius. No section-specific font sizes are introduced.
+- Placeholder/help text uses warm muted `#786e5b` at full opacity for readable contrast, rather than the reference's 40% opacity. Labels always remain visible.
+- Dropdown triggers inherit the same border/surface/corners; popup corners match and options use Compact radius. The reference has no open-dropdown state, so the existing keyboard, selection, animation and native fallback contracts remain authoritative.
+- Choices reuse existing native semantics/check artwork with 24px indicators and a 44px label target. Error colors, immediate keyboard rings, subtle pointer focus, disabled/read-only distinctions and reduced-motion behavior remain shared. Labels transition their error color with Fast timing.
+
+This changes control styling only: it does not import the reference's event fields, duplicate labels, centered heading, divider or Next action into the Contact form. Its existing left-aligned editable H2 and native submission remain intact. No new static artwork is needed for these controls; chevrons/checks/errors reuse existing shared assets.
+
+The older pill/3px style remains the commerce baseline. PDP variants, selling plans, purchase choices, cart coupon inputs, age verification, article-share controls and footer newsletter styling are unchanged. The studio's Form style switch defaults to Enquiry and can preview Commerce independently; Reset restores the selected family's tokens. Copied tuning is scoped to that family instead of `:root`.
+
+Verification (2026-10-02): headless Chromium confirmed Contact's 2px warm border/16px corners at 1440px and 390px, sentence-case labels, no horizontal overflow, pointer outline style `none` and the keyboard ring. Studio keyboard dropdown selection updates the native value and closes; enquiry/commerce switching restores each family's geometry. Required-email feedback is visible in the studio. Reduced motion leaves no dropdown animations. With scripts blocked, the 48px native select retains the enquiry style and Contact's four required fields prevent empty submission and focus First name. No enquiry/subscription was sent. Real Soda PDP variant/plan controls remain 3px black pills at desktop and phone widths. Full repository, JavaScript syntax, JSON and whitespace checks passed; isolated browser closed.

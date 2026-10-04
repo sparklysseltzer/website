@@ -1,0 +1,10 @@
+.press-articles { max-width: var(--content-width-narrow); margin-inline: auto; }
+.press-articles > h2 { font-size: var(--font-size-section); margin: 0 0 2rem; }
+.press-articles__publication + .press-articles__publication { margin-top: .75rem; }
+.press-articles__links { display: grid; gap: .75rem; list-style: none; margin: 0; padding: 0; }
+.press-articles__links .editorial-link-box { --link-box-background: var(--color-surface); --link-box-color: var(--color-foreground); }
+.press-articles__links .editorial-link-box .editorial-link-box__label { min-width: 0; overflow-wrap: anywhere; }
+
+.press-articles__links .editorial-link-box__label { flex: 1; }
+.press-articles__links .editorial-link-box__logo { flex: 0 0 5rem; display: grid; place-items: center; }
+.press-articles__links .editorial-link-box__logo img { display: block; width: 100%; height: 3rem; object-fit: contain; }

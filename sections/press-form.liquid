@@ -2,7 +2,7 @@
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
-{%- assign form_id = 'ContactForm-' | append: section.id -%}
+{%- assign form_id = 'PressForm-' | append: section.id -%}
 {%- liquid
   assign newsletter_ready = false
   if section.settings.enable_newsletter and section.settings.klaviyo_site_id != blank and section.settings.klaviyo_list_id != blank
@@ -12,9 +12,9 @@
 {{ 'inquiry-form.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'contact-form.js' | asset_url }}" defer="defer"></script>
 <sparklys-contact data-site-id="{{ section.settings.klaviyo_site_id | escape }}" data-list-id="{{ section.settings.klaviyo_list_id | escape }}" data-newsletter-pending="{{ 'contact.newsletter_pending' | t | escape }}" data-newsletter-success="{{ 'contact.newsletter_success' | t | escape }}" data-newsletter-error="{{ 'contact.newsletter_error' | t | escape }}">
-<section class="contact-section section form--inquiry" aria-labelledby="ContactHeading-{{ section.id }}">
+<section class="contact-section section form--inquiry" aria-labelledby="PressHeading-{{ section.id }}">
   <div class="contact-section__inner">
-    <h2 class="contact-section__heading" id="ContactHeading-{{ section.id }}">{% if section.settings.heading != blank %}{{ section.settings.heading | escape }}{% else %}{{ 'contact.heading' | t }}{% endif %}</h2>
+    <h2 class="contact-section__heading" id="PressHeading-{{ section.id }}">{% if section.settings.heading != blank %}{{ section.settings.heading | escape }}{% else %}{{ 'press.form_heading' | t }}{% endif %}</h2>
     {% form 'contact', id: form_id, class: 'contact-section__form' %}
       {%- if form.posted_successfully? -%}
         <div class="contact-section__confirmation" data-contact-success tabindex="-1" autofocus>
@@ -96,7 +96,7 @@
 
 {% schema %}
 {
-  "name": "Contact form",
+  "name": "Press form",
   "limit": 1,
   "enabled_on": {
     "templates": [
@@ -240,7 +240,7 @@
   ],
   "presets": [
     {
-      "name": "Contact form",
+      "name": "Press form",
       "category": "Trust & information",
       "settings": {
         "section_background_mode": "transparent"

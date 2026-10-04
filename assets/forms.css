@@ -81,3 +81,28 @@ sparklys-select[data-placement='above'] .form-select__menu { top: auto; bottom: 
   .form-choice input[type='checkbox']:is(:checked, :indeterminate) + .form-choice__indicator { forced-color-adjust: none; background: Highlight; border-color: Highlight; }
   .form-choice input[type='checkbox']:is(:checked, :indeterminate) + .form-choice__indicator::after { background: HighlightText; }
 }
+
+/* Editorial enquiries opt in explicitly; commerce controls retain the baseline above. */
+.form--inquiry {
+  --form-control-border-width: 2px;
+  --form-control-radius: var(--radius-small);
+  --form-control-radius-multiline: var(--radius-small);
+  --form-control-padding-inline: 1rem;
+  --form-control-border: #c9c4b9;
+  --form-control-muted: #786e5b;
+  --form-control-surface: var(--color-surface);
+  --form-choice-size: 1.5rem;
+}
+.form--inquiry .form-field__label,
+.form--inquiry .form-field > legend {
+  padding-inline: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-ui);
+  text-transform: none;
+}
+.form--inquiry :is(.form-field__hint, .form-field__error) { padding-inline: 0; }
+.form--inquiry textarea.form-control { min-height: 7.5rem; }
+.form--inquiry .form-select__menu { border-radius: var(--form-control-radius); }
+.form--inquiry .form-select__option { border-radius: var(--radius-compact); }
+.form--inquiry .form-field__label { transition: color var(--motion-duration-fast) var(--motion-ease); }
+@media (prefers-reduced-motion: reduce) { .form--inquiry .form-field__label { transition: none; } }

@@ -1,0 +1,67 @@
+{%- liquid
+  assign portrait = person.portrait.value
+  assign person_name = person.name.value
+  assign card_name = person.display_name.value | default: person_name
+  assign heading_tag = 'h3'
+  if section.settings.heading == blank
+    assign heading_tag = 'h2'
+  endif
+-%}
+<article class="team-card" data-card-motion-card aria-labelledby="TeamName-{{ section.id }}-{{ person.system.handle }}">
+  {%- if portrait != blank -%}
+    {{ portrait | image_url: width: 1200 | image_tag: class: 'team-card__image', widths: '360, 540, 720, 900, 1200', sizes: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw', loading: 'lazy', alt: person_name }}
+  {%- endif -%}
+  <div class="team-card__details">
+    {%- if person.description.value != blank -%}<p>{{ person.description.value | escape | newline_to_br }}</p>{%- endif -%}
+    <div class="team-card__contacts">
+      {%- assign contacts = 'linkedin,instagram,phone,email' | split: ',' -%}
+      {%- for kind in contacts -%}
+        {%- liquid
+          assign destination = person[kind].value | strip
+          assign valid = false
+          assign icon = 'social-channel-' | append: kind | append: '.svg'
+          assign label_key = 'team.' | append: kind
+          if kind == 'phone' and destination != blank
+            assign destination = destination | prepend: 'tel:'
+            assign icon = 'icon-team-phone.svg'
+            assign valid = true
+          elsif kind == 'email' and destination != blank
+            assign destination = destination | prepend: 'mailto:'
+            assign icon = 'icon-team-mail.svg'
+            assign valid = true
+          else
+            assign prefix = destination | slice: 0, 8
+            if prefix == 'https://'
+              assign valid = true
+            endif
+          endif
+        -%}
+        {%- if valid -%}
+          <a class="button button--inverse team-card__contact" href="{{ destination | escape }}"{% if kind == 'linkedin' or kind == 'instagram' %} target="_blank" rel="noopener noreferrer"{% endif %}>
+            <span class="button__label team-card__icon" style="--team-icon: url('{{ icon | asset_url }}');" aria-hidden="true"></span>
+            <span class="visually-hidden">{{ label_key | t: name: person_name }}{% if kind == 'linkedin' or kind == 'instagram' %} {{ 'social_channels.new_tab' | t }}{% endif %}</span>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+  <div class="team-card__identity">
+    {%- if person.role.value != blank -%}<p class="team-card__role">{{ person.role.value | escape }}</p>{%- endif -%}
+    <{{ heading_tag }} class="team-card__name" id="TeamName-{{ section.id }}-{{ person.system.handle }}">{{ card_name | escape | newline_to_br }}</{{ heading_tag }}>
+  </div>
+</article>
+{%- unless section.settings.hide_on_mobile and section.settings.hide_on_desktop -%}
+  {%- if person.is_person.value == true -%}
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"Person",
+      "@id":{{ shop.url | append: '#team-' | append: person.system.handle | json | replace: '<', '\u003c' }},
+      "name":{{ person_name | json | replace: '<', '\u003c' }}
+      {%- if person.role.value != blank -%},"jobTitle":{{ person.role.value | json | replace: '<', '\u003c' }}{%- endif -%}
+      {%- if person.description.value != blank -%},"description":{{ person.description.value | json | replace: '<', '\u003c' }}{%- endif -%}
+      {%- if portrait != blank -%},"image":{{ portrait | image_url: width: 1200 | prepend: 'https:' | json }}{%- endif -%}
+      {%- if person.email.value != blank -%},"email":{{ person.email.value | json | replace: '<', '\u003c' }}{%- endif -%}
+      {%- if person.phone.value != blank -%},"telephone":{{ person.phone.value | json | replace: '<', '\u003c' }}{%- endif -%}
+      {%- if person.linkedin.value != blank or person.instagram.value != blank -%},"sameAs":[{% if person.linkedin.value != blank %}{{ person.linkedin.value | json }}{% if person.instagram.value != blank %},{% endif %}{% endif %}{% if person.instagram.value != blank %}{{ person.instagram.value | json }}{% endif %}]{%- endif -%}}
+    </script>
+  {%- endif -%}
+{%- endunless -%}
