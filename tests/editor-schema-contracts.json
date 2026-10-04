@@ -5524,12 +5524,17 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
       }
     },
     "controls": {
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
-      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent."
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
     },
     "scenarios": [
       {
@@ -5606,9 +5611,36 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
       }
     ],
-    "schemaHash": "d679e52c24033bd25ae9fc3f3f1cc385e543b56a25574bae5145b037c7c8b8ac"
+    "schemaHash": "bf4cd99f0ed5342eed44d4e6c5659d03bc17a188badb80db74c2abc6a5ded35b"
   },
   "sections/rich-text.liquid": {
     "fields": {

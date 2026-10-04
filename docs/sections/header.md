@@ -209,3 +209,9 @@ Keep the backdrop filter on `.shopify-section-header`, the same element that own
 Verified with a browser-only black/white stripe probe before/after at 1440px and 390px: sharp stripes behind the header become blurred, including the active cutout. Both Soda and Hard Seltzer pass the updated single-blur, cutout, resize and lifecycle checks after initial tab transitions settle. Brand navigation and reduced-motion blur were checked; repository checks pass. Temporary probes and test browsers were removed.
 
 Corporate-menu stacking: the world switcher is explicitly positioned at header-local z-index 4, above main-bar controls and navigation panels. Its view-transition group also paints above logo/actions snapshots. A popover's internal z-index cannot escape the switcher's snapshot-created stacking context; preserve the ordering on the parent rather than increasing the popover number. Verified on Soda and General desktop headers by screenshot and hit-testing the first menu link where it overlaps Store finder; keyboard Escape closes and returns focus to the summary. Phone keeps the switcher hidden without overflow.
+
+## Ambient hero backdrop
+
+When the first main section contains an enabled ambient hero slider, `hero-slider.css` reduces the existing translucent header surface to 80% opacity (the glass wrapper when enabled, otherwise only the main bar) so its glow can show beneath the navigation. Existing backdrop blur and z-index preserve foreground legibility and menu layering. The hero bleeds beyond its content wrapper; horizontal containment happens at the viewport without a new scroll ancestor. Pages without a leading ambient hero retain the default glass surface.
+
+Ananotes 173 (2026-10-04): navigation-card scrollbars are visually hidden with standard and WebKit rules. Horizontal overflow, native touch/trackpad scrolling and the focusable region remain available.

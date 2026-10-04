@@ -1,3 +1,4 @@
+{% render 'section-width', section: section, default_width: 'page', frame: '.page-width', compact: 'grid', compact_grid: '.product-overview__grid' %}
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {%- liquid
@@ -283,7 +284,7 @@
     font-size: var(--font-size-section);
     font-weight: 400;
     line-height: var(--line-height-heading);
-    text-transform: uppercase;
+    text-transform: none;
   }
 
   .product-overview__navigation {
@@ -548,70 +549,56 @@
     }
   }
 
-  @media (max-width: 74.999rem) {
+  @media (max-width: 1200px) {
+    .product-overview__navigation { display: none; }
     .product-overview__header {
-      align-items: flex-start;
-      flex-direction: column;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
     }
-
-    .product-overview__navigation {
+    .product-overview__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+    .product-overview-card {
       width: 100%;
-      padding-bottom: 0.25rem;
-      flex-wrap: wrap;
-      justify-content: flex-start;
+      aspect-ratio: 335 / 480;
+      min-height: 15rem;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      --product-card-collision-lift: 0rem;
     }
-
-    .product-overview__navigation-link {
-      flex: 0 0 auto;
-    }
-
-    .product-overview__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (max-width: 74.999rem) {
-    .product-overview-card { aspect-ratio: 1 / 1.15; --product-card-collision-lift: 0rem; }
-    .product-overview-card__media { inset: -10% 0 36%; }
-    .product-overview-card__content { padding: .75rem; justify-content: center; }
-    .product-overview-card__identity { width: 100%; text-align: center; }
-    .product-overview-card__brand { margin-inline: auto; margin-bottom: .25rem; object-position: center; }
-    .product-overview-card__brand--soda { width: 34cqi; }
-    .product-overview-card__brand--seltzer { width: 48cqi; margin-bottom: -.25rem; }
-    .product-overview-card__flavor-logo { width: 65cqi; margin-inline: auto; }
+    .product-overview-card__media { position: relative; inset: auto; min-height: 0; margin-bottom: .5rem; }
+    .product-overview-card__artwork { width: min(var(--product-card-image-width), calc(90cqh * var(--product-card-image-aspect))); }
+    .product-overview-card__content { margin-top: 0; padding: 0 .75rem .75rem; justify-content: space-between; }
+    .product-overview-card__identity { width: 100%; text-align: left; }
+    .product-overview-card__brand { margin-inline: 0; margin-bottom: .5rem; object-position: left center; }
+    .product-overview-card__brand--soda { width: min(28cqi, 6.5rem); }
+    .product-overview-card__brand--seltzer { width: min(35cqi, 7.5rem); margin-bottom: -.25rem; }
+    .product-overview-card__flavor-logo { width: min(58cqi, 13rem); margin-inline: 0; }
+    .product-overview-card--soda .product-overview-card__title { font-size: min(15.5cqi, 3.875rem); }
     .product-overview-card__arrow { display: none; }
-    .product-overview-card__badge { top: .5rem; right: .5rem; padding: .375rem .5rem; font-size: var(--font-size-small); }
+    .product-overview-card--hard_seltzer .product-overview-card__media { padding-top: 1rem; }
+    .product-overview-card__badge {
+      top: .5rem;
+      right: .5rem;
+      transform: scale(var(--product-card-badge-scale, .7));
+      transform-origin: top right;
+    }
   }
 
-  @media (max-width: 47.999rem) {
-
-    .product-overview__navigation-link {
-      padding: 0.5rem 0.5rem 0.5rem 1rem;
-
+  @media (750px < width <= 1200px) {
+    .product-overview-card__badge {
+      top: clamp(.5rem, calc(5.333vw - 32px), 1rem);
+      right: clamp(.5rem, calc(5.333vw - 32px), 1rem);
     }
+  }
 
-    .product-overview__navigation-logo {
-      width: 5.5rem;
-      height: 2.5rem;
-    }
-
-    .product-overview__navigation-logo--seltzer {
-      width: 7.5rem;
-    }
-
-    .product-overview__navigation-arrow {
-      width: 2.75rem;
-      height: 2.75rem;
-    }
-
-    .product-overview-card__arrow {
-      width: 3rem;
-      height: 3rem;
-    }
-
-    .product-overview__grid { gap: .75rem; }
-    .product-overview-card--soda .product-overview-card__title { font-size: var(--font-size-compact); }
-
+  @media (width < 320px) {
+    .product-overview__grid { grid-template-columns: minmax(0, 1fr); }
   }
 
 {% endstylesheet %}
@@ -622,6 +609,31 @@
   "name": "Product overview",
   "max_blocks": 4,
   "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "page",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
     {
       "type": "header",
       "content": "Content"

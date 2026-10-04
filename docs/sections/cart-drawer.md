@@ -359,3 +359,5 @@ Ananotes 153 (2026-09-16): the drawer title is a fixed Newake UI composition, ma
 Ananotes 155–156 (2026-09-28): the shared empty-cart quote uses Erode regular italic (400). The cart icon/title gap is .875rem, while the existing Newake optical offset remains intact. Both changes apply at phone and desktop sizes.
 
 Verification: 1440px and 390px rendered the real Erode italic font at 400, a 14px icon/title gap and no page overflow. The Newake title remains optically aligned. Escape completed the close transition and restored focus to the header cart link.
+
+Ananotes 167–168 (2026-10-04): the drawer close control uses the existing Untitled UI `icon-x-close.svg` as a centered 24px mask inside its unchanged 44px button/32px circle, replacing the font-dependent multiplication glyph. Quantity step actions preserve the corresponding plus/minus button as the focus target across Ajax section replacement, rather than focusing the number input and showing a caret. Direct number entry still restores input focus.

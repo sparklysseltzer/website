@@ -550,7 +550,7 @@
     "help_image_alt": "Swiss ID example with five numbered highlights. The matching fields are listed below.",
     "title": "A quick age check",
     "close": "Close age check",
-    "intro": "Your cart contains alcohol, and protecting young people matters to us! We therefore sell alcohol online only to people aged {{ age }} or older. Please confirm your age with your identity card or passport.",
+    "intro": "Your cart contains alcohol, and protecting young people matters to us! Our online shop policy is clear: we sell alcohol only to people aged {{ age }} or older. Please confirm your age with your identity card or passport.",
     "document": "Choose your ID",
     "ch_id": "Switzerland — ID card",
     "ch_passport": "Switzerland — passport",

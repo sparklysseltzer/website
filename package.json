@@ -4,7 +4,8 @@
   "private": true,
   "description": "Custom Shopify Online Store 2.0 theme for Sparklys Switzerland",
   "scripts": {
-    "check": "shopify theme check --fail-level error && npm run check:editor && npm run check:assets && npm run check:typography && npm run check:cart && npm run check:age && npm run check:content-sync && npm run check:contact",
+    "check": "shopify theme check --fail-level error && npm run check:editor && npm run check:assets && npm run check:typography && npm run check:cart && npm run check:age && npm run check:content-sync && npm run check:contact && npm run check:money && npm run check:panel && npm run check:product-motion",
+    "check:money": "node --test tests/product-money.test.mjs",
     "check:contact": "node --test tests/contact-newsletter.test.mjs",
     "check:typography": "node scripts/check-typography.mjs",
     "check:assets": "node scripts/check-assets.mjs",
@@ -21,7 +22,9 @@
     "studio": "node demos/design-system/server.mjs",
     "sync:dev-content": "node scripts/sync-dev-content.mjs",
     "check:content-sync": "node --test tests/sync-dev-content.test.mjs",
-    "check:editor": "node --test tests/editor-schema-check.test.mjs && node scripts/check-editor-schemas.mjs"
+    "check:editor": "node --test tests/editor-schema-check.test.mjs && node scripts/check-editor-schemas.mjs",
+    "check:panel": "node --test tests/panel-columns.test.mjs",
+    "check:product-motion": "node --test tests/product-motion.test.mjs"
   },
   "engines": {
     "node": ">=22"

@@ -95,8 +95,9 @@
     stopGalleryMotion() { this.galleryStopped = true; this.syncGalleryMotion(); }
     syncGalleryMotion() {
       clearTimeout(this.galleryTimer);
-      const running = this.inView && !this.galleryHovered && !this.galleryStopped && !document.hidden && !reduced();
-      this.toggleAttribute('data-badge-running', Boolean(running));
+      const visibleMotion = this.inView && !document.hidden && !reduced();
+      this.toggleAttribute('data-badge-running', Boolean(visibleMotion));
+      const running = visibleMotion && !this.galleryHovered && !this.galleryStopped;
       // Do not advance away from video/model content; its own controls remain authoritative.
       if (running && this.slides.length > 1 && this.slides[this.slideIndex()]?.dataset.mediaType === 'image') {
         this.galleryTimer = setTimeout(() => {
@@ -105,7 +106,13 @@
         }, 6000);
       }
     }
-    money(amount) { return new Intl.NumberFormat(this.dataset.locale, { style: 'currency', currency: this.dataset.currency, currencyDisplay: 'code' }).format(amount / 100); }
+    money(amount) {
+      // Language alone (e.g. de) does not identify the shopper's regional format.
+      const locale = this.dataset.country
+        ? new Intl.Locale(this.dataset.locale, { region: this.dataset.country }).toString()
+        : this.dataset.locale;
+      return new Intl.NumberFormat(locale, { style: 'currency', currency: this.dataset.currency, currencyDisplay: 'code' }).format(amount / 100);
+    }
     syncVariant(updateUrl) {
       this.variant = this.data.variants.find(variant => String(variant.id) === this.variantSelect.value);
       if (!this.variant) return;

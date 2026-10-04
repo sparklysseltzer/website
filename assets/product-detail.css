@@ -161,3 +161,11 @@
 .pdp-subscription-details { display: flow-root; }
 .pdp-subscription-details > [data-plan-content] { padding-top: .75rem; }
 .pdp-subscription-details .pdp-plan-field { margin-top: 0; }
+
+/* Center the visible packaging label at wide desktop sizes. */
+@media (min-width: 90rem) {
+  .pdp-packaging .form-select__trigger > span {
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+  }
+}

@@ -61,3 +61,7 @@ Keep the local MRZ check for now. See the proposed [international document cover
 ## Field feedback refinement — 2026-09-11
 
 `fieldStates` provides presentation-only syntax/calendar/checksum feedback; `validate` remains the sole full local age-check decision. Dependent edits invalidate previously green checksum fields. Field messages are generic and use warning styles; accessible labels and help retain their meanings. No additional document values are stored or sent. The requested broad “available and permitted from 16” clause remains pending: [Swiss customs](https://www.bazg.admin.ch/de/spirituosen-handelsverbote) distinguishes beverage categories. The shop-policy introduction is updated without that legal generalization.
+
+## Introduction wording — 2026-10-02
+
+Ananotes 75 uses the requested cart-first introduction and explicitly identifies the configured minimum age as the online-shop policy. English and German retain the `age` placeholder and the identity-card/passport instruction. The broad retail age-16 assertion is omitted; this copy does not change eligibility, validation or checkout behavior.

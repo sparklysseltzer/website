@@ -293,3 +293,5 @@ Essential-function exception: this section stays available at every breakpoint a
 **Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
 
 Ananotes 155 (2026-09-28): the empty-cart quotation now uses the actual regular-weight italic file from the merchant’s Erode package, shared with the drawer. No heading weights change.
+
+Ananotes 168: shared quantity updates restore focus to the initiating step button after section replacement. Manual numeric edits retain input focus; pointer step clicks no longer force a blinking text caret.

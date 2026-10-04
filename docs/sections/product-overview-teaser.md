@@ -26,66 +26,32 @@ The section owns a heading and optional All Products, Soda, and Hard Seltzer des
 - Maracuja and Holunder render their exported script-logo SVGs while retaining the merchant title in a visually hidden semantic `h3`.
 - Soda line breaks are flavor-specific: `Yuzu &` / `Ginger`, and `Blueberry` / `& Pomelo`.
 
-## Responsive collision contract
+## Responsive composition
 
-The card itself is the inline-size container. Brand marks, Soda title size, flavor SVG width, and round card arrows scale from container-query units rather than viewport width. Narrow cards lift the complete artwork, floor shadow, and image glow together by up to 32px. This prevents can/logo and title/arrow collisions while preserving a minimum 12px horizontal control gap. Every can remains on one shared visual floor at each breakpoint.
+At widths above 1200px, four cards share one row with the original 335:575 composition, section heading and category-navigation pills. At 1200px and below, two cards share each row; below 320px, cards stack one per row. The compact section heading is visually hidden but remains an H2 in the accessibility tree. Category navigation is hidden entirely at these compact widths. Whole-card product links remain available.
 
-The current content bottom padding is 40px. Soda title line-height is `0.75`. Hard Seltzer logo and flavor SVG boxes overlap by 4px to form one compact lockup.
+Compact cards use 335:480 proportions with a 15rem minimum height and 100% of their grid track. A flexible media row sits above a natural-height identity row, separated by 0.5rem. The identity is left aligned. Cans use up to 90% of media-row height, retaining merchant width/offset settings and Soda 90% / Hard Seltzer 105% artwork scale. Seltzer media reserves 1rem at the top for the alcohol badge. These rules replace the earlier short centered tablet cards and prevent logo/can collisions without shrinking normal UI text.
 
-## Navigation and motion
+Soda flavour lettering is approved artwork typography: compact layouts use `min(15.5cqi, 3.875rem)`, matching the wide composition rather than ordinary body/Compact text. Soda and Seltzer brand marks use 28% and 35% of card width, capped at 6.5rem and 7.5rem. Seltzer flavour SVGs use 58%, capped at 13rem. Decorative card arrows are omitted in the compact layout. Section headings preserve authored casing in all brand contexts; the section retains its `heading-font-legacy` typography contract.
 
-The three top navigation pills use equal top/right/bottom padding around their arrow circles. Desktop renders four cards in one row. Below 1200px the four cards form a two-column grid, including phones. Navigation pills wrap instead of scrolling. There are no horizontal scrollers in this section.
+The alcohol badge retains its original Label font and 0.625rem/0.75rem padding. A ResizeObserver scales the entire badge between 70% and 100% relative to a 335px card; it runs independently of reduced motion and disconnects with the section. No-JavaScript compact fallback is 70%. Top/right inset is 8px through 750px, grows smoothly to 16px around 900px, and remains 16px through 1200px. Wide desktop retains its original 12px inset and unscaled badge. The can overlaps only a small lower edge of the compact badge.
 
-`product-overview-motion` reuses the Offer cards scroll-scrub/parallax engine. Links, headings, badges, logos, and complete static cards remain available without JavaScript and in reduced-motion mode.
+## Navigation, motion and fallbacks
 
-## Maintenance notes
+Blank card links resolve the canonical product through `all_products`; explicit links remain authoritative. Category links fall back to their corresponding collection and the all-products route. No collection query or new product entity is implied by the section; destination products own their Product structured data.
 
-Starter assets are assigned automatically from the canonical block identity, with block order as the fallback for newly created preset blocks; merchants never select them in the Theme Editor. A merchant-selected image replaces the corresponding can cutout but retains the card lighting/shadow system. The retained width and translation controls position complete transparent can artwork and are intentionally not crop controls. When starter exports change, update intrinsic dimensions and verify alpha bounds, shadow contact, shared floor, responsive collisions from 390px through 1600px, keyboard focus, reduced motion, and no-JavaScript rendering.
+`product-overview-motion` reuses the Offer cards reversible scroll reveal/parallax engine. Keyboard focus reveals the focused card. Complete static cards, headings and native links remain usable without JavaScript and under reduced motion. The intermittent report of missing scroll-reveal sections remains unconfirmed: the existing user tab showed all cards when inspected, without reload; no fix has been claimed for that report.
 
-## Typography roles
+## Assets and styling
 
-Section heading; UI navigation pills; label badges. Approved artwork-like flavor titles retain their existing container-responsive exception and collision contract.
+Fallback assets follow canonical block identity, with block order as fallback for new presets. Selected images replace the can cutout while retaining light/shadow composition. These are transparent-artwork positioning controls, not crop controls. Hard Seltzer can assets are the merchant-supplied 385×1000 lossless WebP conversions, with original script SVG logos; no generated pixels or additional crops.
 
-## Shared color settings
+The shared floor-shadow primitive owns brand positions, strength and colours. Seltzer uses 145% width, 3% horizontal offset, a 98.7% floor and contact translation derived from the SVG geometry. Cards use shared radii and panel shadows. Brand palettes, backgrounds and type roles follow the [design system](../design-system.md); flavour artwork is the documented type-size exception.
 
-Shared neutral UI colors now resolve through **Theme settings → Colors**, following the [color contract](../design-system.md#theme-color-settings). This supersedes fixed neutral hex values in earlier frame descriptions. Primary text, inverse text, gray/cream surfaces and hover states use global roles; product artwork, deliberate product-world accents and explicit section color overrides remain local. No schema/data-source, motion or structured-data behavior changes.
+## Editor and content ownership
 
-## Brand-world palettes
+Layout → Content width selects Narrow (800px), Editorial (1400px) or Page (1920px outer frame), default Page. Visibility controls hide the section by breakpoint. Section background is Default, Transparent or Custom Color, with the picker visible only for Custom Color. New presets start transparent. These controls preserve saved IDs and do not migrate merchant content.
 
-Colors now follow the [brand-world palette contract](../design-system.md#theme-color-settings). Explicit Soda/Seltzer sections and cards select their own palette on mixed pages; the header/footer inherit page context, and both cart surfaces always use General. Shared accent/status roles and explicit artwork/section overrides remain unchanged. Notice copy resolves through its world’s Notice text setting.
+## Verification
 
-## Breakpoint visibility
-
-Exposes **Hide on mobile** and **Hide on desktop**, both defaulting off. See the [shared visibility contract](README.md#breakpoint-visibility) for ranges, editor behavior and limitations.
-
-## Preserved typography
-
-This section opts out of the general editorial heading-font feature through its Shopify wrapper class `heading-font-legacy`. Its original type families, weights, tracking and line heights remain authoritative. Existing variant-based type selection and pre-existing font controls (where present) are preserved; no new global font selector is added.
-
-## Ananotes artwork and destinations (2026-09-15)
-
-Blank card links resolve the canonical product through `all_products`; explicit links remain authoritative. Category links fall back to the corresponding collection and all-products route. Can artwork now layers above the alcohol badge during hover.
-
-Maracuja/Holunder can cutouts were re-exported from Figma nodes `10938:86556` and `10938:86602` (408×1011, WebP quality 90). Complete transparent script logos come from `10938:86583` and `10938:86629`; retained asset filenames preserve existing references. Only the target artwork group is retained, excluding ancestor canvas backgrounds. Collection cards and heroes share these assets and their updated intrinsic dimensions.
-
-## Can/shadow floor calibration (2026-09-15)
-
-The shared floor-shadow primitive owns brand positions, 0.6 brightness and flavour colours. On 2026-09-15 the merchant supplied tightly trimmed `sparklys-hard-seltzer-{maracuja,holunder}-single-can-01.png` replacements from Downloads (both 385×1000). They replace the two existing theme WebP assets using lossless conversion at original resolution; no generated pixels or additional crop. Intrinsic dimensions are updated across Product Overview, collection cards/paired artwork and Collection hero.
-
-The former 1.5% downward compensation for transparent margins is removed from normal and hover placement. The Seltzer shadow now anchors at the merchant-calibrated floor (`top: 98.7%`) and translates upward by 48.577% of its own height, placing the SVG ellipse centre (`16.5163 / 34`) at that floor independently of can aspect ratio. Shared 145% width, 3% horizontal offset, colour/brightness and the approved 105% can scale remain unchanged. Navigation continues using merchant teaser/featured images rather than these theme fallbacks.
-
-Shared-shadow QA: inspected real Product Overview and collection cards at 1440px/390px, plus a browser-only navigation card fixture using the shared catalog markup. Verified one global strength override changes all rendered shadow instances, the masks load from local theme assets, and reduced-motion keyboard focus keeps the artwork static. Full checks, final Theme Check and JavaScript syntax pass; JSON validates after removing Shopify generated comment headers. Browser closed.
-
-Trimmed-asset QA: inspected Product Overview at 1600px/390px and the collection hero/grid at 1440px; confirmed 385×1000 intrinsic dimensions in rendered collection images and responsive containment at 390px. Script-blocked phone rendering retains the can/floor composition. Full checks, theme.js syntax and diff whitespace pass; all 34 JSON files validate after removing existing Shopify generated comment headers. No merchant image fields or saved template settings were changed. Test browser closed.
-
-The merchant then supplied larger 385×1000 versions of both trimmed exports. These replace the initial 189×492 files losslessly, with intrinsic dimensions updated in every shared consumer. The bottom-edge shadow calibration remains unchanged.
-
-Merchant refinement: the shared `--can-shadow-seltzer-top` is 98.7%; the existing mask contact translation remains unchanged. This lifts the floor slightly into the can base across all shared Seltzer shadow applications.
-
-Ananotes 152 (2026-09-16): compact two-column cards use a 1:1.15 aspect ratio, centered brand/flavour lockups and a shorter media area while retaining shared can shadows and merchant artwork adjustments. Phone Soda lettering selects the existing Compact role. The decorative card arrow is omitted in the compact composition; the whole card remains a large native link. Desktop four-column artwork remains unchanged. Responsive image sizes now match the two-column layout.
-
-## Section background
-
-**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
-
-Panel-shadow rollout (2026-10-01): Overview cards use the shared panel shadow without changing artwork or hover motion. See the [shared contract](../design-system.md#panel-shadows).
+Latest responsive checks covered 319/320/390/750/900/1200/1201/1440px: correct grid boundaries, contained labels, small positive can/logo gaps, badge scaling/insets and preserved wide layout. The hidden heading remained in the accessibility tree; mobile screenshots were inspected. Repository gates, JavaScript syntax, JSON parsing and whitespace validation passed. Test browsers were closed. This is representative coverage, not certification of every merchant artwork offset or enlarged-text combination.
