@@ -27,7 +27,7 @@ if (!customElements.get('brand-statement')) {
         ], { duration: 1000, easing, fill: 'both' });
         animation.pause();
         animation.currentTime = 0;
-        return { element, animation };
+        return { element, animation, art };
       });
       this.render();
       window.addEventListener('scroll', this.schedule, { passive: true });
@@ -44,9 +44,18 @@ if (!customElements.get('brand-statement')) {
       // offsetTop/Left describe untransformed layout, preventing animation feedback.
       // Each line clears before it reaches the middle of the reading viewport.
       for (const item of this.items) {
-        const stagger = (item.element.offsetLeft / width) * height * .04;
+        // Artwork anchors have zero height at the baseline; time them from a
+        // neighboring word on the same wrapped line, not from that lower anchor.
+        let timingElement = item.element;
+        if (item.art) {
+          const baseline = item.element.offsetTop;
+          const words = [...item.element.parentElement.querySelectorAll('.brand-statement__word')];
+          const sameLine = words.filter(word => word.offsetTop <= baseline && word.offsetTop + word.offsetHeight >= baseline);
+          timingElement = sameLine.sort((a, b) => Math.abs(a.offsetLeft - item.element.offsetLeft) - Math.abs(b.offsetLeft - item.element.offsetLeft))[0] || item.element.previousElementSibling || item.element;
+        }
+        const stagger = (timingElement.offsetLeft / width) * height * .04;
         const progress = Math.min(1, Math.max(0,
-          (height * .94 - top - item.element.offsetTop - stagger) / (height * .32)
+          (height * .94 - top - timingElement.offsetTop - stagger) / (height * .32)
         ));
         if (progress !== item.progress) {
           item.animation.currentTime = progress * 1000;

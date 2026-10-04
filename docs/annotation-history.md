@@ -238,3 +238,5 @@ Verified in isolated headless Chromium at 390px and 1440px: centered close geome
 Only the local development theme was updated. Test browser closed; no records deleted. Resolution status is stored through the Ananotes MCP bridge after checks pass.
 
 Ananotes 175 (`1791149627139-b3ghm5eia`): added the existing reversible card reveal to Content Slider with bounded horizontal stagger and stationary geometry. Studio fixtures share the wrapper. Verified intermediate, complete and reverse states, keyboard-focus reveal, phone layout and reduced-motion cancellation; no overflow. No schema or saved content changes.
+
+Ananotes 176 (2026-10-04): corrected badge timing to use the nearest word on the same wrapped line instead of its zero-height baseline anchor. At 1600px and 390px, all three badges matched their neighboring text opacity exactly at intermediate scroll positions in both directions, with no overflow. Full checks passed; isolated browser closed.

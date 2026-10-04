@@ -12,7 +12,7 @@ Decorative inline artwork uses a white cross on a red disc (derived from the bun
 
 ## Motion and resilience
 
-Every word and inline artwork scrubs directly with its own vertical position. Reveal starts around 94% of viewport height and finishes around 62%, with a small left-to-right offset (up to 4% of viewport height). Scrolling down clears/fades in; scrolling up reverses the same blur/opacity/lift and artwork rotation/scale. Paused Web Animations use shared entrance easing and a normalized 1000-unit timeline, not a timed playback. Blur remains bounded to individual words/artwork (8px).
+Every word scrubs directly with its vertical position. Inline artwork shares the timing of the nearest word on its wrapped line; its zero-height baseline anchor is never treated as a text-top coordinate. Reveal starts around 94% of viewport height and finishes around 62%, with a small left-to-right offset (up to 4% of viewport height). Scrolling down clears/fades in; scrolling up reverses the same blur/opacity/lift and artwork rotation/scale. Paused Web Animations use shared entrance easing and a normalized 1000-unit timeline, not a timed playback. Blur remains bounded to individual words/artwork (8px).
 
 All targets are initialized together, including later paragraphs below the viewport. Their positions are applied synchronously before paint; no paragraph is left clear and then hidden by a later intersection trigger. Word positions use untransformed layout offsets inside the positioned section, avoiding feedback from animated transforms. Scroll work is coalesced into one requested frame, with no continuous loop; unchanged progress does not rewrite animations. ResizeObserver, window resize and pageshow reconcile wrapping, font/layout changes and restored scroll positions.
 
@@ -49,3 +49,5 @@ Text size reduced to the shared Section role (36–60px) at merchant request; in
 ## Shared content width
 
 **Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Narrow**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).
+
+Ananotes 176 (2026-10-04): corrected badge timing to use the nearest word on the same wrapped line instead of its zero-height baseline anchor. At 1600px and 390px, all three badges matched their neighboring text opacity exactly at intermediate scroll positions in both directions, with no overflow. Full checks passed; isolated browser closed.
