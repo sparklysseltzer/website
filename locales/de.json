@@ -679,5 +679,19 @@
     "logos_empty": "Wähle Press-Einträge aus, um ihre Logos anzuzeigen.",
     "articles_label": "Sparklys in der Presse",
     "articles_empty": "Wähle Press-Einträge mit aktiven Artikeln aus."
+  },
+  "hero_slider": {
+    "carousel": "Slideshow",
+    "slide": "Slide",
+    "go_to": "Slide {{ number }} anzeigen",
+    "pause": "Slideshow und Video pausieren",
+    "play": "Slideshow und Video abspielen",
+    "previous": "Vorheriger Slide",
+    "next": "Nächster Slide"
+  },
+  "content_slider": {
+    "label": "Inhaltskarten",
+    "previous": "Vorherige Karten",
+    "next": "Nächste Karten"
   }
 }

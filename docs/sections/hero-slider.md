@@ -1,0 +1,75 @@
+# Hero slider
+
+Source: `sections/hero-slider.liquid`, `assets/hero-slider.css`, `assets/hero-slider.js`.
+
+## Purpose and placement
+
+Reusable media-led introduction, based on frame `11621:56047`. A rounded image/video panel sits above its centered headline. Fully rounded progress bars select slides. Bare left/right arrows appear over the media on hover or keyboard focus; there is no separate CTA or pause/play button. The development homepage uses this section; the original Hero remains available for existing placements. Other homepage content is preserved from the latest development-theme pull.
+
+## Shared data: Slides
+
+Merchant-owned metaobject type `slides`, definition name **Slides**, managed in Content → Metaobjects. Public storefront read, publishable and translatable. Draft entries do not appear on the storefront.
+
+| Field | Type | Contract |
+| --- | --- | --- |
+| Name | Single-line text, required | Internal selection label |
+| Media | File reference, required | One image **or** video; validated to Image/Video |
+| Headline | Multi-line text, required | Visible below media; authored line breaks preserved |
+| Link | URL, optional | Media and headline destination; page, product, collection or external URL |
+
+No separate media-type selector is necessary: Shopify's file picker selects either supported type. A shared entry update affects every slider referencing it. Links are editorial URLs, not inferred products; translations may supply localized URLs. Each placement chooses All or Selected; selected mode is the default so existing campaigns remain unchanged. All mode automatically includes active public entries in Shopify’s default order, up to the Liquid pagination maximum of 250. Larger libraries require Selected mode; custom ordering also uses Selected. `scripts/setup-slides.mjs` defaults to a read-only plan, creates missing definitions/entries only with `--apply`, backs up existing records, and refuses incompatible existing schemas. Starter entries reuse existing store media; no assets are silently uploaded.
+
+## Editor controls and dependencies
+
+- **Slides:** Show all slides / Show selected slides (default). Selected uses the existing ordered native picker, up to six entries. All ignores the saved selection and reads the public Slides library. Shopify rejects `visible_if` on `metaobject_list` (confirmed by ValidSchema); the picker must remain visible in both modes, labelled Selected slides with explicit help. This is a platform exception to conditional visibility, not a hidden header workaround.
+- **Layout:** Narrow / Editorial / Page width uses shared content widths; Page width (120rem / 1920px including shared side gutters) is the default and the development homepage selection; Media always stays 16:9. In landscape viewports, the enhanced section fills the viewport below the header; equal top, middle and bottom spaces center the media and headline. Media width shrinks as needed to fit the available height. The old height_mode and mobile_shape IDs are retained for saved-content compatibility, ignored by rendering and hidden in every mode with intentionally contradictory visibility conditions.
+- **Headings:** Erode/Newake; Uppercase appears only for Newake. First slide heading chooses H1 or H2, all subsequent headings use H2. Use H1 for the main page introduction only. Slideshow label names the region for assistive technology. Heading alignment selects Left or Center (default), with no dependent fields. It aligns text within the existing centered heading container, leaving media placement unchanged. Heading size selects shared Section / Display / Hero roles (Large/Display default). Space above heading is 16–80px, default 40px, capped at 6vw on smaller screens.
+- **Appearance:** Ambient light (on by default) reveals Glow intensity (0–100%, default 40%), Glow spread (0–80px, default 24px) and Glow softness (16–120px blur, default 40px). Off/zero creates no glow canvases or sampling tasks. This is a per-placement presentation control, not shared slide content.
+- **Playback:** automatic switching; Time per slide appears only when enabled (4–15 seconds, six by default). The same duration applies to image and video slides; short videos loop, long videos advance at that duration. Videos are muted ambient editorial media, with no native player controls.
+- Shared Visibility and Section background groups; custom color appears only for Custom Color.
+
+The section contract covers every select/checkbox and dependent field. Media/headline/link are central content, not duplicated section fields or blocks. Shopify metaobject forms do not need conditional media fields because there is one polymorphic file picker.
+
+## Rendering and motion
+
+Shopify responsive image URLs preserve the saved focal point. First media is eager/high-priority only in the first two sections; later images are lazy. Videos use Shopify sources and a preview poster, `preload=none`, muted/inline playback. Missing media leaves a neutral placeholder, while an empty selection renders only an administrative message in the editor. No bundled fallback photo.
+
+Media has one rounded clip, one-pixel overscan and shared panel shadow, with no dark backing. Heading defaults to the shared Display role and font-specific line height/casing. No custom typography scales. Media crossfades and text fades/rises by .75rem with shared Slow (360ms) motion; rapid selection interrupts smoothly. All slides reserve the maximum headline height, avoiding layout jumps.
+
+The slide timer pauses during mouse hover over media or controls and resumes from its elapsed position on leaving. Headline hover and keyboard focus do not pause it. Manual slide selection restarts the selected slide’s duration. Video playback and its glow are independent of that timer: they continue on hover and keyboard focus, even when automatic slide switching is disabled. Inactive video pauses and resets; offscreen/hidden-tab/editor states suspend playback. Reduced motion uses static video posters and disables slide autoplay/transitions. There is no pause/play control, as requested. Native custom-element lifecycle cleans listeners, observers and callbacks on section removal/reload.
+
+Indicators have 44px-minimum hit targets, `aria-current`, named destinations and a decorative progress fill. Keyboard arrows/Home/End move among indicators. Manual selection announces the slide; automatic switching does not repeatedly announce. Inactive slides become inert/hidden from assistive technology. Each active destination has one keyboard link in its headline; the media repeats it as a pointer target. No JavaScript: all slides and links stack in source order; videos retain static posters and control buttons stay hidden.
+
+## SEO and limitations
+
+Slide headlines/links are server-rendered. This is a promotional presentation, not a separate typed content entity: it does not emit Product/Offer/VideoObject claims or duplicate the destination's structured data. No honest VideoObject publication date is available from these fields. Existing page-level structured data remains authoritative.
+
+## Ambient rendering budget
+
+The native helper in `hero-slider.js` lazily adds a decorative, aria-hidden 64×36 canvas behind each visited slide’s single rounded media clip. Images draw once per source/crop; ResizeObserver updates the cover crop and Shopify percentage focal point when geometry changes. No full-resolution duplicate image or video player is created. Video posters use a low-priority, 128px Shopify thumbnail only when their glow is needed.
+
+Active playing video is sampled no faster than every 125ms (at most 8Hz): a timeout requests one decoded video frame where `requestVideoFrameCallback` is available; other browsers use a throttled ready-state/current-time check. Frame colours blend at 35% over the preceding sample to soften changes. Sampling stops on pause, waiting, ended, inactive slide, offscreen, hidden tab, reduced motion and removal. Reduced motion draws the static poster even if previously animated. Failed canvas/decoder drawing omits the decoration without affecting media/links. No pixel readback, data URL export or cross-origin pixel access is required.
+
+The small raster extends 24px beyond the panel by default (spread capped at 6vw) with 40px blur (halved on phones) and modest saturation; opacity remains 40%. Spread and softness are adjustable within bounded ranges. Larger blur increases compositing cost without increasing sampling frequency or canvas resolution. It crossfades with its slide and fades in using shared Slow motion, disabled for reduced motion. This adds GPU/compositing work; the small sample buffer is not a promise of zero rendering cost. No third-party ambient dependency, global animation loop or second video decoder.
+
+The [design studio](http://127.0.0.1:9293/#AmbientLight) runs the same stylesheet/custom element with Image/Video, 0–100% intensity, spread, softness, enabled, shared width, heading size/gap, reset and copy-settings controls. Changes are local preview values, not store writes. The demo uses the existing bundled Soda image and Shopify-hosted Team video (480p); no video download occurs before selecting it.
+
+Icons: reuse the existing Untitled UI Line `icon-arrow-left.svg`, mirrored for Next, preserving its 24px viewBox and 2-unit stroke. Arrow icons are 48px (twice the original size). Transparent side targets span the entire media height, with width clamped between 64px and 120px at 10% of the media. Progress indicators sit above them. Arrows reveal on mouse hover/keyboard focus and remain visible on touch devices; no circular background.
+
+## Current layout and verification
+
+Landscape measurement fits 16:9 media plus the tallest headline into the viewport below the measured header. Top, media/title and bottom spacing are equal, subject to the configured minimum gap; unusually short screens or long text can grow beyond the viewport. ResizeObserver responds to section/headline/header changes. Narrow, Editorial and Page widths use shared roles, with responsive CDN size hints.
+
+Portrait behavior is described below. Earlier experiments with stretched media, universal full-height sections and uninterrupted hover autoplay are superseded; current behavior is defined by the controls/rendering contract above.
+
+Representative headless checks covered phone, portrait tablet and desktop: stable slide height, keyboard indicators, full-height 48px-icon arrows, timer pause on media hover with continuing video, inactive/offscreen suspension, reduced motion and no-JavaScript source-order content. Ambient sampling checks recorded no more than 8 draws per second and confirmed cleanup on disconnect; these are local JavaScript measurements, not physical iOS/Safari GPU benchmarks. Studio uses the same renderer and controls. Full repository gates, syntax/JSON validation and whitespace checks passed; test browsers closed. Theme Editor picker workflows and physical cross-browser playback remain follow-up coverage.
+
+## Shared media-only engine
+
+Poster Slideshow reuses this custom element with `data-media-only`, skipping headline/viewport measurement and retaining Poster height controls. Its local block selection, keyboard-focus pause and reduced-motion native video controls are scoped to that mode. Hero’s metaobject data source and viewport composition are unchanged. See [Poster Slideshow](poster-slideshow.md).
+
+## Portrait stacking — 2026-10-04
+
+Viewport-height composition applies only in landscape (`width > height`). Portrait and square viewports use natural stacking: full available container width, 16:9 media, configured responsive heading gap, then the title and following page sections. No extra equal-space padding or viewport-height reservation is applied. The tallest slide still determines the stage height so switching does not shift following content. Rotation/resize clears stale landscape measurement variables and restores measurement when returning to landscape. Studio inherits the same shared implementation. Poster Slideshow is explicitly excluded and retains its own height controls. No editor schema or saved content changes are needed.
+
+Verified on the development homepage at 390×844 and 820×1180: portrait media retains 16:9, stage heights follow content (293px and 493px), no extra slide padding or horizontal overflow. At 1920×1080 landscape retains its measured 883px stage. Returning to portrait clears the measurement; all three slide selections retain identical stage heights. iPad screenshot inspected, browser console clear, test browser closed. Full checks, JavaScript syntax, JSON parsing and whitespace checks passed.

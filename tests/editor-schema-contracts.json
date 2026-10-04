@@ -8416,5 +8416,866 @@
         ]
       }
     ]
+  },
+  "sections/hero-slider.liquid": {
+    "schemaHash": "e28e6676992549cc0876b48edaf0ae0ec943733b3f2496926dba1584bdf49b78",
+    "fields": {
+      "slides": {
+        "group": "Slides",
+        "visible_if": null
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
+      "mobile_shape": {
+        "group": "Layout",
+        "visible_if": "{{ section.settings.height_mode == 'natural' and section.settings.height_mode == 'viewport' }}"
+      },
+      "heading_font": {
+        "group": "Headings",
+        "visible_if": null
+      },
+      "heading_uppercase": {
+        "group": "Headings",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
+      "heading_level": {
+        "group": "Headings",
+        "visible_if": null
+      },
+      "accessible_label": {
+        "group": "Headings",
+        "visible_if": null
+      },
+      "ambient_light": {
+        "group": "Appearance",
+        "visible_if": null
+      },
+      "ambient_intensity": {
+        "group": "Appearance",
+        "visible_if": "{{ section.settings.ambient_light }}"
+      },
+      "autoplay": {
+        "group": "Playback",
+        "visible_if": null
+      },
+      "duration": {
+        "group": "Playback",
+        "visible_if": "{{ section.settings.autoplay }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "height_mode": {
+        "group": "Layout",
+        "visible_if": "{{ section.settings.height_mode == 'natural' and section.settings.height_mode == 'viewport' }}"
+      },
+      "heading_size": {
+        "group": "Headings",
+        "visible_if": null
+      },
+      "heading_gap": {
+        "group": "Headings",
+        "visible_if": null
+      },
+      "selection_mode": {
+        "group": "Slides",
+        "visible_if": null
+      },
+      "ambient_spread": {
+        "group": "Appearance",
+        "visible_if": "{{ section.settings.ambient_light }}"
+      },
+      "ambient_blur": {
+        "group": "Appearance",
+        "visible_if": "{{ section.settings.ambient_light }}"
+      },
+      "heading_alignment": {
+        "group": "Headings",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "content_width": "Selects one of three shared width roles; no dependent fields.",
+      "mobile_shape": "Compatibility-only saved ID. Intentionally contradictory visibility condition hides this retired aspect-ratio control in every mode; rendering ignores it.",
+      "heading_font": "Only Newake enables the dependent uppercase checkbox.",
+      "heading_uppercase": "Only affects Newake casing; no other dependent fields.",
+      "heading_level": "First slide H1 or H2; all later slides H2, no dependent fields.",
+      "autoplay": "Enables duration; all media and destination fields remain relevant for manual navigation.",
+      "hide_on_mobile": "Shared responsive visibility; no dependent fields.",
+      "hide_on_desktop": "Shared responsive visibility; no dependent fields.",
+      "section_background_mode": "Only Custom Color enables the color picker.",
+      "ambient_light": "Enables decorative media glow; intensity, spread and softness appear only when enabled. No central content dependencies.",
+      "height_mode": "Retired compatibility-only ID, hidden in all modes by contradictory condition. Rendering always uses content height.",
+      "heading_size": "Selects shared Section, Display or Hero typography; no dependent fields.",
+      "selection_mode": "All reads active public Slides entries (up to 250); Selected uses the ordered picker. Shopify rejects visible_if for metaobject_list: picker remains visible, explicitly labelled as selected-only; documented platform exception.",
+      "heading_alignment": "Aligns headline text Left or Center within the existing heading container; independent of font, size and slide selection with no dependent fields."
+    },
+    "scenarios": [
+      {
+        "name": "Default Newake autoplay",
+        "settings": {},
+        "visible": [
+          "slides",
+          "heading_uppercase",
+          "duration"
+        ],
+        "hidden": [
+          "section_background",
+          "height_mode"
+        ]
+      },
+      {
+        "name": "Erode manual",
+        "settings": {
+          "heading_font": "erode",
+          "autoplay": false
+        },
+        "visible": [
+          "slides",
+          "heading_level"
+        ],
+        "hidden": [
+          "heading_uppercase",
+          "duration",
+          "section_background",
+          "height_mode"
+        ]
+      },
+      {
+        "name": "Custom canvas narrow landscape",
+        "settings": {
+          "section_background_mode": "custom",
+          "content_width": "narrow",
+          "mobile_shape": "landscape"
+        },
+        "visible": [
+          "section_background",
+          "slides"
+        ],
+        "hidden": [
+          "height_mode"
+        ]
+      },
+      {
+        "name": "Ambient enabled",
+        "settings": {
+          "ambient_light": true
+        },
+        "visible": [
+          "ambient_intensity",
+          "ambient_spread",
+          "ambient_blur"
+        ],
+        "hidden": [
+          "height_mode"
+        ]
+      },
+      {
+        "name": "Ambient disabled",
+        "settings": {
+          "ambient_light": false
+        },
+        "visible": [
+          "slides",
+          "autoplay"
+        ],
+        "hidden": [
+          "ambient_intensity",
+          "height_mode",
+          "ambient_spread",
+          "ambient_blur"
+        ]
+      },
+      {
+        "name": "Viewport layout",
+        "settings": {},
+        "visible": [
+          "heading_size",
+          "heading_gap"
+        ],
+        "hidden": [
+          "mobile_shape",
+          "height_mode"
+        ]
+      },
+      {
+        "name": "Natural media layout",
+        "settings": {
+          "height_mode": "natural"
+        },
+        "visible": [
+          "heading_size",
+          "heading_gap"
+        ],
+        "hidden": [
+          "mobile_shape",
+          "height_mode"
+        ]
+      },
+      {
+        "name": "All slides",
+        "settings": {
+          "selection_mode": "all"
+        },
+        "visible": [
+          "selection_mode",
+          "slides"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Selected slides",
+        "settings": {
+          "selection_mode": "selected"
+        },
+        "visible": [
+          "selection_mode",
+          "slides"
+        ]
+      },
+      {
+        "name": "Centered headline default",
+        "settings": {},
+        "visible": [
+          "heading_alignment"
+        ]
+      },
+      {
+        "name": "Left aligned headline",
+        "settings": {
+          "heading_alignment": "left"
+        },
+        "visible": [
+          "heading_alignment",
+          "heading_size",
+          "heading_gap"
+        ]
+      }
+    ]
+  },
+  "sections/poster-slideshow.liquid": {
+    "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
+      "minimum_height": {
+        "group": "Size",
+        "visible_if": null
+      },
+      "minimum_height_mobile": {
+        "group": "Size",
+        "visible_if": null
+      },
+      "autoplay": {
+        "group": "Playback",
+        "visible_if": null
+      },
+      "duration": {
+        "group": "Playback",
+        "visible_if": "{{ section.settings.autoplay }}"
+      },
+      "ambient_light": {
+        "group": "Ambient light",
+        "visible_if": null
+      },
+      "ambient_intensity": {
+        "group": "Ambient light",
+        "visible_if": "{{ section.settings.ambient_light }}"
+      },
+      "ambient_spread": {
+        "group": "Ambient light",
+        "visible_if": "{{ section.settings.ambient_light }}"
+      },
+      "ambient_blur": {
+        "group": "Ambient light",
+        "visible_if": "{{ section.settings.ambient_light }}"
+      },
+      "accessible_label": {
+        "group": "Accessibility",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      }
+    },
+    "controls": {
+      "content_width": "Shared Narrow/Editorial/Page container; no dependent fields.",
+      "autoplay": "Reveals time per slide. Hover/focus pauses switching; videos continue.",
+      "ambient_light": "Reveals intensity, spread and softness for optional shared glow.",
+      "hide_on_mobile": "Responsive visibility only; no dependent fields.",
+      "hide_on_desktop": "Responsive visibility only; no dependent fields.",
+      "section_background_mode": "Custom exposes the canvas color; other modes hide it."
+    },
+    "scenarios": [
+      {
+        "name": "Width narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width",
+          "minimum_height",
+          "minimum_height_mobile"
+        ]
+      },
+      {
+        "name": "Width editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width",
+          "minimum_height",
+          "minimum_height_mobile"
+        ]
+      },
+      {
+        "name": "Width page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width",
+          "minimum_height",
+          "minimum_height_mobile"
+        ]
+      },
+      {
+        "name": "autoplay: False",
+        "settings": {
+          "autoplay": false
+        },
+        "hidden": [
+          "duration"
+        ]
+      },
+      {
+        "name": "autoplay: True",
+        "settings": {
+          "autoplay": true
+        },
+        "visible": [
+          "duration"
+        ]
+      },
+      {
+        "name": "ambient_light: False",
+        "settings": {
+          "ambient_light": false
+        },
+        "hidden": [
+          "ambient_intensity",
+          "ambient_spread",
+          "ambient_blur"
+        ]
+      },
+      {
+        "name": "ambient_light: True",
+        "settings": {
+          "ambient_light": true
+        },
+        "visible": [
+          "ambient_intensity",
+          "ambient_spread",
+          "ambient_blur"
+        ]
+      },
+      {
+        "name": "Background original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Background transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Background custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background"
+        ]
+      }
+    ],
+    "blockContracts": {
+      "slide": {
+        "fields": {
+          "media_type": {
+            "group": "Media",
+            "visible_if": null
+          },
+          "image": {
+            "group": "Media",
+            "visible_if": "{{ block.settings.media_type == 'image' }}"
+          },
+          "mobile_image": {
+            "group": "Media",
+            "visible_if": "{{ block.settings.media_type == 'image' }}"
+          },
+          "video": {
+            "group": "Media",
+            "visible_if": "{{ block.settings.media_type == 'video' }}"
+          },
+          "alt_text": {
+            "group": "Media",
+            "visible_if": null
+          }
+        },
+        "controls": {
+          "media_type": "Image exposes desktop/mobile image pickers; Video exposes the hosted-video picker. Media description stays available for either."
+        },
+        "scenarios": [
+          {
+            "name": "Image",
+            "settings": {
+              "media_type": "image"
+            },
+            "visible": [
+              "image",
+              "mobile_image",
+              "alt_text"
+            ],
+            "hidden": [
+              "video"
+            ]
+          },
+          {
+            "name": "Video",
+            "settings": {
+              "media_type": "video"
+            },
+            "visible": [
+              "video",
+              "alt_text"
+            ],
+            "hidden": [
+              "image",
+              "mobile_image"
+            ]
+          }
+        ]
+      }
+    },
+    "schemaHash": "11e8f7c8fd68601644fedeef07b30da169159748a73ef43b6e821fa5d9cf7882"
+  },
+  "sections/content-slider.liquid": {
+    "fields": {
+      "card_layout": {
+        "group": "Layout",
+        "visible_if": null
+      },
+      "width_mode": {
+        "group": "Layout",
+        "visible_if": null
+      },
+      "show_heading": {
+        "group": "Heading",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Heading",
+        "visible_if": "{{ section.settings.show_heading }}"
+      },
+      "heading_font": {
+        "group": "Typography",
+        "visible_if": null
+      },
+      "uppercase_cards": {
+        "group": "Typography",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "hide_on_mobile": "Responsive visibility; no additional input fields.",
+      "hide_on_desktop": "Responsive visibility; no additional input fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "card_layout": "Crosslinks shows image/link in every card; Benefits shows illustration/short text. Switching preserves both sets of saved values.",
+      "show_heading": "Shows heading content and controls h2/h3 hierarchy.",
+      "heading_font": "Uses shared font mapping; only Newake enables uppercase card titles.",
+      "uppercase_cards": "Uppercases card titles only when Newake is selected; Erode always preserves authored case.",
+      "width_mode": "Contained is the default. Viewport bleed expands only the track, keeps its initial content alignment, and uses viewport-edge snapping. No dependent settings.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
+    },
+    "scenarios": [
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Heading hidden",
+        "settings": {
+          "show_heading": false
+        },
+        "hidden": [
+          "heading"
+        ]
+      },
+      {
+        "name": "Heading shown",
+        "settings": {
+          "show_heading": true
+        },
+        "visible": [
+          "heading"
+        ]
+      },
+      {
+        "name": "Newake",
+        "settings": {
+          "heading_font": "newake"
+        },
+        "visible": [
+          "uppercase_cards"
+        ]
+      },
+      {
+        "name": "Erode",
+        "settings": {
+          "heading_font": "erode"
+        },
+        "hidden": [
+          "uppercase_cards"
+        ]
+      },
+      {
+        "name": "Contained width",
+        "settings": {
+          "width_mode": "contained"
+        },
+        "visible": [
+          "width_mode",
+          "card_layout"
+        ]
+      },
+      {
+        "name": "Viewport bleed width",
+        "settings": {
+          "width_mode": "viewport"
+        },
+        "visible": [
+          "width_mode",
+          "card_layout"
+        ]
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
+      }
+    ],
+    "blockContracts": {
+      "card": {
+        "fields": {
+          "image": {
+            "group": "Media",
+            "visible_if": "{{ section.settings.card_layout == 'crosslinks' }}"
+          },
+          "illustration": {
+            "group": "Media",
+            "visible_if": "{{ section.settings.card_layout == 'benefits' }}"
+          },
+          "title": {
+            "group": "Content",
+            "visible_if": null
+          },
+          "text": {
+            "group": "Content",
+            "visible_if": "{{ section.settings.card_layout == 'benefits' }}"
+          },
+          "link": {
+            "group": "Content",
+            "visible_if": "{{ section.settings.card_layout == 'crosslinks' }}"
+          },
+          "background_color": {
+            "group": "Appearance",
+            "visible_if": null
+          },
+          "blend_with_background": {
+            "group": "Appearance",
+            "visible_if": null
+          }
+        },
+        "controls": {
+          "blend_with_background": "Opt-in Multiply blending for the active media in either layout. No dependent fields; works with a custom card color or the shared default. Text and overlay remain unblended."
+        },
+        "scenarios": [
+          {
+            "name": "Crosslinks",
+            "settings": {
+              "card_layout": "crosslinks"
+            },
+            "visible": [
+              "image",
+              "title",
+              "link",
+              "background_color",
+              "blend_with_background"
+            ],
+            "hidden": [
+              "illustration",
+              "text"
+            ]
+          },
+          {
+            "name": "Benefits",
+            "settings": {
+              "card_layout": "benefits"
+            },
+            "visible": [
+              "illustration",
+              "title",
+              "text",
+              "background_color",
+              "blend_with_background"
+            ],
+            "hidden": [
+              "image",
+              "link"
+            ]
+          },
+          {
+            "name": "Image blend disabled",
+            "settings": {
+              "card_layout": "crosslinks",
+              "blend_with_background": false
+            },
+            "visible": [
+              "background_color",
+              "blend_with_background",
+              "image"
+            ],
+            "hidden": [
+              "illustration",
+              "text"
+            ]
+          },
+          {
+            "name": "Image blend enabled",
+            "settings": {
+              "card_layout": "crosslinks",
+              "blend_with_background": true
+            },
+            "visible": [
+              "background_color",
+              "blend_with_background",
+              "image"
+            ],
+            "hidden": [
+              "illustration",
+              "text"
+            ]
+          }
+        ]
+      }
+    },
+    "schemaHash": "d5fbe5f845d7dbdd13c731764be0724f20bc1f29db5f3794e7983e808515c6ab"
+  },
+  "sections/brand-statement.liquid": {
+    "fields": {
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      }
+    },
+    "controls": {
+      "hide_on_mobile": "Responsive visibility; no additional input fields.",
+      "hide_on_desktop": "Responsive visibility; no additional input fields.",
+      "section_background_mode": "Default preserves saved/brand-derived canvas appearance; Transparent overrides it without recoloring internal artwork; Custom Color reveals the only canvas picker and treats Clear as transparent. New presets choose Transparent.",
+      "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent."
+    },
+    "scenarios": [
+      {
+        "name": "Section background: original",
+        "settings": {
+          "section_background_mode": "original"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: transparent",
+        "settings": {
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Section background: custom",
+        "settings": {
+          "section_background_mode": "custom"
+        },
+        "visible": [
+          "section_background_mode",
+          "section_background"
+        ],
+        "hidden": []
+      },
+      {
+        "name": "Content width: narrow",
+        "settings": {
+          "content_width": "narrow"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: editorial",
+        "settings": {
+          "content_width": "editorial"
+        },
+        "visible": [
+          "content_width"
+        ]
+      },
+      {
+        "name": "Content width: page",
+        "settings": {
+          "content_width": "page"
+        },
+        "visible": [
+          "content_width"
+        ]
+      }
+    ],
+    "schemaHash": "bbc421ea2c19842c07be3b2863637568fc16c2cf4e9a00de81dc01ef71fda7a0"
   }
 }

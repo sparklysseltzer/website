@@ -1,0 +1,396 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
+{% render 'heading-font', choice: section.settings.heading_font, uppercase: section.settings.heading_uppercase, section_id: section.id %}
+{% render 'section-visibility', section: section %}
+{{ 'hero-slider.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'hero-slider.js' | asset_url }}" defer></script>
+{%- paginate shop.metaobjects.slides.values by 250 -%}
+{%- liquid
+  capture slide_sizes
+    render 'content-image-sizes', width: section.settings.content_width
+  endcapture
+  assign slides = section.settings.slides
+  if section.settings.selection_mode == 'all'
+    assign slides = shop.metaobjects.slides.values
+  endif
+-%}
+{%- if slides.size > 0 -%}
+  <div class="section page-width hero-slider-shell">
+    <hero-slider data-heading-alignment="{{ section.settings.heading_alignment }}" data-heading-size="{{ section.settings.heading_size }}" class="hero-slider hero-slider--{{ section.settings.content_width }} hero-slider--mobile-{{ section.settings.mobile_shape }}" role="region" aria-roledescription="{{ 'hero_slider.carousel' | t | escape }}" aria-label="{{ section.settings.accessible_label | default: shop.name | escape }}" data-ambient="{% if section.settings.ambient_light and section.settings.ambient_intensity > 0 %}true{% else %}false{% endif %}" style="--hero-ambient-spread: {{ section.settings.ambient_spread }}px; --hero-ambient-blur: {{ section.settings.ambient_blur }}px; --hero-heading-gap: {{ section.settings.heading_gap }}px; --hero-ambient-opacity: {{ section.settings.ambient_intensity | divided_by: 100.0 }}" data-autoplay="{{ section.settings.autoplay }}" data-duration="{{ section.settings.duration | times: 1000 }}">
+      <div class="hero-slider__stage">
+        {%- for slide in slides -%}
+          {%- liquid
+            assign slide_heading = slide.headline.value | default: shop.name
+            assign image_alt = slide.media.value.alt | default: slide_heading
+            assign heading_tag = 'h2'
+            if forloop.first and section.settings.heading_level == 'h1'
+              assign heading_tag = 'h1'
+            endif
+            assign loading = 'lazy'
+            assign priority = 'auto'
+            if forloop.first and section.index <= 2
+              assign loading = 'eager'
+              assign priority = 'high'
+            endif
+          -%}
+          <div id="HeroSlide-{{ section.id }}-{{ slide.system.id }}" class="hero-slider__slide" data-slide role="group" aria-roledescription="{{ 'hero_slider.slide' | t | escape }}" aria-label="{{ forloop.index }} / {{ slides.size }}">
+            <div class="hero-slider__frame"{% if slide.media.value.media_type == 'video' %} data-ambient-poster="{{ slide.media.value.preview_image | image_url: width: 128 }}"{% endif %}>
+            <div class="hero-slider__media">
+              {%- if slide.media.value.media_type == 'video' -%}
+                {{ slide.media.value | video_tag: image_size: '1800x', controls: false, autoplay: false, muted: true, loop: true, playsinline: true, preload: 'none' }}
+              {%- elsif slide.media.value != blank -%}
+                {{ slide.media.value | image_url: width: 2400 | image_tag: widths: '480, 750, 1100, 1500, 1800, 2400', sizes: slide_sizes, loading: loading, fetchpriority: priority, alt: image_alt }}
+              {%- else -%}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-slider__placeholder' }}
+              {%- endif -%}
+              {%- if slide.link.value != blank -%}<a class="hero-slider__media-link" href="{{ slide.link.value }}" aria-label="{{ slide_heading | escape }}" tabindex="-1" aria-hidden="true"></a>{%- endif -%}
+            </div>
+            </div>
+            <{{ heading_tag }} class="hero-slider__heading">
+              {%- if slide.link.value != blank -%}<a href="{{ slide.link.value }}">{{ slide_heading | escape | newline_to_br }}</a>{%- else -%}{{ slide_heading | escape | newline_to_br }}{%- endif -%}
+            </{{ heading_tag }}>
+          </div>
+        {%- endfor -%}
+        <div class="hero-slider__controls" hidden>
+          <button type="button" class="hero-slider__arrow hero-slider__arrow--previous" data-direction="-1" aria-label="{{ 'hero_slider.previous' | t | escape }}"><span aria-hidden="true"></span></button>
+          <button type="button" class="hero-slider__arrow hero-slider__arrow--next" data-direction="1" aria-label="{{ 'hero_slider.next' | t | escape }}"><span aria-hidden="true"></span></button>
+          <div class="hero-slider__navigation">
+            {%- if slides.size > 1 -%}
+              {%- for slide in slides -%}
+                <button type="button" class="hero-slider__indicator" data-slide-button="{{ forloop.index0 }}" aria-controls="HeroSlide-{{ section.id }}-{{ slide.system.id }}" aria-label="{{ 'hero_slider.go_to' | t: number: forloop.index | escape }}: {{ slide.headline.value | default: shop.name | escape }}"><span class="hero-slider__track" aria-hidden="true"><span class="hero-slider__progress"></span></span></button>
+              {%- endfor -%}
+            {%- endif -%}
+
+          </div>
+        </div>
+      </div>
+      <span class="visually-hidden" data-status aria-live="polite" aria-atomic="true"></span>
+    </hero-slider>
+  </div>
+{%- elsif request.design_mode -%}<div class="section page-width">Create active Slides entries, or choose slides in this section.</div>{%- endif -%}
+{%- endpaginate -%}
+{% schema %}
+{
+  "name": "Hero slider",
+  "tag": "section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Slides"
+    },
+    {
+      "type": "select",
+      "id": "selection_mode",
+      "label": "Show",
+      "default": "selected",
+      "options": [
+        {
+          "value": "all",
+          "label": "Show all slides"
+        },
+        {
+          "value": "selected",
+          "label": "Show selected slides"
+        }
+      ],
+      "info": "All slides includes up to 250 active entries in Shopify’s default order. Choose selected slides to control the order."
+    },
+    {
+      "type": "metaobject_list",
+      "id": "slides",
+      "label": "Selected slides",
+      "metaobject_type": "slides",
+      "limit": 6,
+      "info": "Used only with Show selected slides. Select and reorder entries. Shopify keeps this picker visible in both modes."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "page",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
+    {
+      "type": "select",
+      "id": "height_mode",
+      "label": "Section height",
+      "default": "natural",
+      "options": [
+        {
+          "value": "viewport",
+          "label": "At least first viewport"
+        },
+        {
+          "value": "natural",
+          "label": "Content height"
+        }
+      ],
+      "info": "Retained for saved-setting compatibility. The section now always follows its content height.",
+      "visible_if": "{{ section.settings.height_mode == 'natural' and section.settings.height_mode == 'viewport' }}"
+    },
+    {
+      "type": "select",
+      "id": "mobile_shape",
+      "label": "Mobile media shape",
+      "default": "portrait",
+      "options": [
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape"
+        }
+      ],
+      "visible_if": "{{ section.settings.height_mode == 'natural' and section.settings.height_mode == 'viewport' }}",
+      "info": "Retained for saved-setting compatibility. Media now uses 16:9 at every breakpoint."
+    },
+    {
+      "type": "header",
+      "content": "Headings"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "newake",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "heading_uppercase",
+      "label": "Uppercase",
+      "default": false,
+      "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "display",
+      "options": [
+        {
+          "value": "section",
+          "label": "Standard"
+        },
+        {
+          "value": "display",
+          "label": "Large"
+        },
+        {
+          "value": "hero",
+          "label": "Extra large"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "heading_gap",
+      "label": "Space above heading",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40,
+      "info": "Spacing reduces on smaller screens."
+    },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "First slide heading",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Page title (H1)"
+        },
+        {
+          "value": "h2",
+          "label": "Section heading (H2)"
+        }
+      ],
+      "info": "Use H1 only when this is the page’s main introduction. Other slides use H2."
+    },
+    {
+      "type": "text",
+      "id": "accessible_label",
+      "label": "Slideshow label",
+      "default": "Sparklys",
+      "info": "Describes this slideshow to screen reader users."
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "checkbox",
+      "id": "ambient_light",
+      "label": "Ambient light",
+      "default": true,
+      "info": "Adds a soft glow from the media’s colours. Video glow pauses with playback."
+    },
+    {
+      "type": "range",
+      "id": "ambient_intensity",
+      "label": "Glow intensity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 40,
+      "visible_if": "{{ section.settings.ambient_light }}"
+    },
+    {
+      "type": "range",
+      "id": "ambient_spread",
+      "label": "Glow spread",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ section.settings.ambient_light }}",
+      "info": "Extends the glow beyond the media. Reduced on smaller screens."
+    },
+    {
+      "type": "range",
+      "id": "ambient_blur",
+      "label": "Glow softness",
+      "min": 16,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40,
+      "visible_if": "{{ section.settings.ambient_light }}",
+      "info": "Higher values create a longer, softer fade. Halved on phones."
+    },
+    {
+      "type": "header",
+      "content": "Playback"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Switch slides automatically",
+      "default": true,
+      "info": "Pauses slide switching while hovering the media or controls, but not the headline. Videos keep playing. Offscreen, hidden tabs and reduced motion pause automatic playback."
+    },
+    {
+      "type": "range",
+      "id": "duration",
+      "label": "Time per slide",
+      "min": 4,
+      "max": 15,
+      "step": 1,
+      "unit": "s",
+      "default": 6,
+      "visible_if": "{{ section.settings.autoplay }}",
+      "info": "Applies to images and videos. Short videos loop during this time."
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero slider",
+      "category": "Brand storytelling",
+      "settings": {
+        "section_background_mode": "transparent"
+      }
+    }
+  ]
+}
+{% endschema %}

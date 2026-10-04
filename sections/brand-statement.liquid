@@ -1,0 +1,103 @@
+{% render 'section-width', section: section, default_width: 'narrow', frame: '.page-width', surface: 'brand-statement' %}
+{% render 'section-background', section: section, color: section.settings.section_background %}
+{% render 'section-visibility', section: section %}
+{{ 'brand-statement.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'brand-statement.js' | asset_url }}" defer="defer"></script>
+<div class="section page-width">
+  <brand-statement class="brand-statement" lang="de">
+    <p>{% render 'brand-statement-words', text: 'Sparklys ist die' %}<br> {% render 'brand-statement-words', text: 'Schweizer' %} <span class="brand-statement__art brand-statement__art--swiss" aria-hidden="true"><span class="brand-statement__art-inner"><img src="{{ 'brand-statement-swiss.svg' | asset_url }}" width="30" height="30" alt="" loading="lazy"></span></span> {% render 'brand-statement-words', text: 'Getränkemarke mit Better-for-You-Ansatz.' %}</p>
+    <p>{% render 'brand-statement-words', text: 'Leichtere Alternativen zu klassischen Getränken' %} <span class="brand-statement__art brand-statement__art--cans" aria-hidden="true"><span class="brand-statement__art-inner"><img src="{{ 'product-overview-soda-yuzu.webp' | asset_url }}" width="72" height="100" alt="" loading="lazy"><img src="{{ 'product-overview-seltzer-holunder.webp' | asset_url }}" width="72" height="100" alt="" loading="lazy"></span></span>{% render 'brand-statement-words', text: ', für alle, die bewusster geniessen wollen.' %}</p>
+    <p>{% render 'brand-statement-words', text: 'Modern, erfrischend' %} <span class="brand-statement__art brand-statement__art--fresh" aria-hidden="true"><span class="brand-statement__art-inner"><img src="{{ 'soda-reason-leaf.svg' | asset_url }}" width="170" height="166" alt="" loading="lazy"></span></span> {% render 'brand-statement-words', text: 'und unkompliziert.' %}</p>
+  </brand-statement>
+</div>
+{% schema %}
+{
+  "name": "Brand statement",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
+    {
+      "type": "paragraph",
+      "content": "A fixed brand statement with animated inline artwork. Text and artwork are maintained together in the theme."
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand statement",
+      "category": "Brand storytelling",
+      "settings": {
+        "section_background_mode": "transparent"
+      }
+    }
+  ]
+}
+{% endschema %}

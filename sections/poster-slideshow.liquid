@@ -1,0 +1,324 @@
+{% render 'section-width', section: section, default_width: 'editorial', frame: '.page-width', surface: '.poster-slideshow' %}
+{% render 'section-background', section: section, color: section.settings.section_background %}
+{% render 'section-visibility', section: section %}
+{{ 'component-poster.css' | asset_url | stylesheet_tag }}
+{{ 'hero-slider.css' | asset_url | stylesheet_tag }}
+{{ 'poster-slideshow.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'hero-slider.js' | asset_url }}" defer></script>
+{% capture poster_sizes %}{% render 'content-image-sizes', width: section.settings.content_width %}{% endcapture %}
+{% if section.blocks.size > 0 %}
+  <div class="section page-width">
+    <hero-slider class="hero-slider poster-slideshow" data-media-only role="region" aria-roledescription="{{ 'hero_slider.carousel' | t | escape }}" aria-label="{{ section.settings.accessible_label | escape }}" data-autoplay="{{ section.settings.autoplay }}" data-duration="{{ section.settings.duration | times: 1000 }}" data-ambient="{% if section.settings.ambient_light and section.settings.ambient_intensity > 0 %}true{% else %}false{% endif %}" style="--poster-min-height-desktop: {{ section.settings.minimum_height }}px; --poster-min-height-mobile: {{ section.settings.minimum_height_mobile }}px; --hero-ambient-spread: {{ section.settings.ambient_spread }}px; --hero-ambient-blur: {{ section.settings.ambient_blur }}px; --hero-ambient-opacity: {{ section.settings.ambient_intensity | divided_by: 100.0 }};">
+      <div class="hero-slider__stage">
+        {% for block in section.blocks %}
+          {% liquid
+            assign slide_image = block.settings.image
+            assign mobile_image = block.settings.mobile_image
+            assign image_alt = block.settings.alt_text | default: slide_image.alt
+            assign desktop_focal = slide_image.presentation.focal_point | default: '50% 50%'
+            assign mobile_focal = mobile_image.presentation.focal_point | default: desktop_focal
+          %}
+          <div id="PosterSlide-{{ section.id }}-{{ block.id }}" class="hero-slider__slide" data-slide role="group" aria-roledescription="{{ 'hero_slider.slide' | t | escape }}" aria-label="{{ forloop.index }} / {{ section.blocks.size }}{% if block.settings.alt_text != blank %}: {{ block.settings.alt_text | escape }}{% endif %}" {{ block.shopify_attributes }}>
+            <div class="hero-slider__frame"{% if block.settings.media_type == 'video' and block.settings.video != blank %} data-ambient-poster="{{ block.settings.video.preview_image | image_url: width: 128 }}"{% endif %}>
+              <div class="hero-slider__media poster poster--poster poster--image-only poster-slideshow__media" style="--poster-desktop-focal-point: {{ desktop_focal }}; --poster-mobile-focal-point: {{ mobile_focal }};">
+                {% if block.settings.media_type == 'video' %}
+                  {% if block.settings.video != blank %}
+                    {{ block.settings.video | video_tag: image_size: '1800x', controls: true, autoplay: false, muted: true, loop: true, playsinline: true, preload: 'none' }}
+                  {% else %}
+                    {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-slider__placeholder' }}
+                  {% endif %}
+                {% else %}
+                  <picture>
+                    {% if mobile_image != blank %}<source media="(max-width: 47.999rem)" srcset="{{ mobile_image | image_url: width: 480 }} 480w, {{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w" sizes="calc(100vw - 2rem)" width="{{ mobile_image.width }}" height="{{ mobile_image.height }}">{% endif %}
+                    {% if slide_image != blank %}
+                      {{ slide_image | image_url: width: 2400 | image_tag: widths: '480, 750, 1100, 1500, 2000, 2400', sizes: poster_sizes, loading: 'lazy', alt: image_alt }}
+                    {% else %}
+                      <img src="{{ 'poster-subscription.webp' | asset_url }}" alt="{{ image_alt | escape }}" width="1632" height="686" loading="lazy">
+                    {% endif %}
+                  </picture>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        <div class="hero-slider__controls" hidden>
+          <button type="button" class="hero-slider__arrow hero-slider__arrow--previous" data-direction="-1" aria-label="{{ 'hero_slider.previous' | t | escape }}"><span aria-hidden="true"></span></button>
+          <button type="button" class="hero-slider__arrow hero-slider__arrow--next" data-direction="1" aria-label="{{ 'hero_slider.next' | t | escape }}"><span aria-hidden="true"></span></button>
+          <div class="hero-slider__navigation">
+            {% for block in section.blocks %}
+              <button type="button" class="hero-slider__indicator" data-slide-button="{{ forloop.index0 }}" aria-controls="PosterSlide-{{ section.id }}-{{ block.id }}" aria-label="{{ 'hero_slider.go_to' | t: number: forloop.index | escape }}"><span class="hero-slider__track" aria-hidden="true"><span class="hero-slider__progress"></span></span></button>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <span class="visually-hidden" data-status aria-live="polite" aria-atomic="true"></span>
+    </hero-slider>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Poster Slideshow",
+  "tag": "section",
+  "max_blocks": 12,
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "editorial",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
+    {
+      "type": "header",
+      "content": "Size"
+    },
+    {
+      "type": "range",
+      "id": "minimum_height",
+      "min": 420,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop minimum height",
+      "default": 630
+    },
+    {
+      "type": "range",
+      "id": "minimum_height_mobile",
+      "min": 120,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile minimum height",
+      "default": 540
+    },
+    {
+      "type": "header",
+      "content": "Playback"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Switch slides automatically",
+      "default": true,
+      "info": "Pauses slide switching while hovering or using the controls. Videos keep playing. Offscreen, hidden tabs and reduced motion pause playback."
+    },
+    {
+      "type": "range",
+      "id": "duration",
+      "label": "Time per slide",
+      "min": 4,
+      "max": 15,
+      "step": 1,
+      "unit": "s",
+      "default": 6,
+      "visible_if": "{{ section.settings.autoplay }}",
+      "info": "Applies to images and videos. Short videos loop during this time."
+    },
+    {
+      "type": "header",
+      "content": "Ambient light"
+    },
+    {
+      "type": "checkbox",
+      "id": "ambient_light",
+      "label": "Ambient light",
+      "default": true,
+      "info": "Adds a soft glow from the media\u2019s colours. Video glow pauses with playback."
+    },
+    {
+      "type": "range",
+      "id": "ambient_intensity",
+      "label": "Glow intensity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 40,
+      "visible_if": "{{ section.settings.ambient_light }}"
+    },
+    {
+      "type": "range",
+      "id": "ambient_spread",
+      "label": "Glow spread",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ section.settings.ambient_light }}",
+      "info": "Extends the glow beyond the media. Reduced on smaller screens."
+    },
+    {
+      "type": "range",
+      "id": "ambient_blur",
+      "label": "Glow softness",
+      "min": 16,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40,
+      "visible_if": "{{ section.settings.ambient_light }}",
+      "info": "Higher values create a longer, softer fade. Halved on phones."
+    },
+    {
+      "type": "header",
+      "content": "Accessibility"
+    },
+    {
+      "type": "text",
+      "id": "accessible_label",
+      "label": "Slideshow label",
+      "default": "Poster slideshow",
+      "info": "Describes this slideshow to screen readers."
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false,
+      "info": "Applies below 768px. Hidden sections remain selectable in the editor."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false,
+      "info": "Includes tablets at 768px and above. Enable both options to hide on every screen."
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ],
+      "info": "Default keeps the section\u2019s existing colors. Transparent shows the page background."
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Media"
+        },
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "Media type",
+          "default": "image",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Set the crop focal point in the image editor.",
+          "visible_if": "{{ block.settings.media_type == 'image' }}"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image",
+          "info": "Optional image for small screens.",
+          "visible_if": "{{ block.settings.media_type == 'image' }}"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "Shopify-hosted video. Plays muted and loops.",
+          "visible_if": "{{ block.settings.media_type == 'video' }}"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Media description",
+          "info": "Describe meaningful content for accessibility. Leave empty for a decorative image."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Poster Slideshow",
+      "category": "Brand storytelling",
+      "settings": {
+        "section_background_mode": "transparent"
+      },
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

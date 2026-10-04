@@ -679,5 +679,19 @@
     "logos_empty": "Select Press entries to display their logos.",
     "articles_label": "In the press",
     "articles_empty": "Select Press entries with active articles to display here."
+  },
+  "hero_slider": {
+    "carousel": "Slideshow",
+    "slide": "Slide",
+    "go_to": "Show slide {{ number }}",
+    "pause": "Pause slideshow and video",
+    "play": "Play slideshow and video",
+    "previous": "Previous slide",
+    "next": "Next slide"
+  },
+  "content_slider": {
+    "label": "Content cards",
+    "previous": "Previous cards",
+    "next": "Next cards"
   }
 }

@@ -1,0 +1,85 @@
+content-slider { display: block; min-width: 0; width: 100%; max-width: var(--content-width-editorial); margin-inline: auto; }
+.content-slider__heading { max-width: var(--content-width-editorial); margin: 0 0 2.25rem; font-size: var(--font-size-section); }
+.content-slider__track {
+  display: flex;
+  gap: 1.25rem;
+  list-style: none;
+  margin: -1rem;
+  padding: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1rem;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+}
+.content-slider__item { flex: 0 0 min(82vw, calc(100% - 1.5rem), 22.5rem); min-width: 0; display: flex; scroll-snap-align: start; }
+.content-slider__card {
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 31.25rem;
+  padding: 1.5rem 1.25rem;
+  gap: 1.875rem;
+  color: var(--color-foreground);
+  background: var(--content-slider-card-background, var(--color-surface-muted));
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-panel);
+  text-decoration: none;
+  overflow: hidden;
+}
+.content-slider__media { flex: 1; min-height: 12rem; overflow: hidden; border-radius: var(--radius-small); }
+.content-slider__media img { display: block; width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; transition: transform var(--motion-duration-slow) var(--motion-ease); }
+.content-slider__title { margin: 0; font-size: var(--font-size-card); text-align: center; overflow-wrap: anywhere; }
+.content-slider[data-uppercase-cards] .content-slider__title { --heading-choice-case: uppercase; }
+.content-slider__text { margin: .75rem 0 0; font-size: var(--font-size-body); line-height: var(--line-height-body); overflow-wrap: anywhere; }
+.content-slider[data-layout='benefits'] .content-slider__item { flex-basis: min(82vw, calc(100% - 1.5rem), 20rem); }
+.content-slider[data-layout='benefits'] .content-slider__card { background: var(--content-slider-card-background, var(--color-surface-warm)); padding-top: 3.375rem; }
+.content-slider[data-layout='benefits'] .content-slider__media { flex: none; width: 7rem; height: 6.25rem; min-height: 0; margin-inline: auto; overflow: visible; border-radius: 0; }
+.content-slider[data-layout='benefits'] .content-slider__media img { aspect-ratio: auto; object-fit: contain; }
+.content-slider[data-layout='benefits'] .content-slider__title { text-align: left; }
+.content-slider__controls { display: flex; justify-content: flex-end; gap: .75rem; margin-top: 1.5rem; }
+.content-slider__controls[hidden] { display: none; }
+.content-slider__arrow.button { width: 4.5rem; height: 4.5rem; min-height: 44px; padding: 0; border-radius: 50%; --button-background: var(--color-surface-muted); --button-border-color: transparent; }
+.content-slider[data-layout='benefits'] .content-slider__arrow { --button-background: var(--color-surface-warm); }
+.content-slider__arrow-icon { width: 2rem; height: 2rem; background: currentColor; mask: url('icon-arrow-left.svg') center / contain no-repeat; }
+.content-slider__arrow[data-direction='1'] .content-slider__arrow-icon { transform: rotate(180deg); }
+.content-slider__arrow[aria-disabled='true'] { opacity: .35; cursor: default; }
+.content-slider__arrow { transition: opacity var(--motion-duration-base) var(--motion-ease-ui); }
+.content-slider__card:focus-visible .content-slider__media img { transform: scale(1.04); }
+@media (hover: hover) { a.content-slider__card:hover .content-slider__media img { transform: scale(1.04); } }
+@media (max-width: 767px) { .content-slider__arrow.button { width: 3rem; height: 3rem; } }
+@media (prefers-reduced-motion: reduce) { .content-slider__media img, .content-slider__arrow { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .content-slider__card:is(:hover, :focus-visible) .content-slider__media img { transform: none; } }
+
+@media (pointer: fine) {
+  .content-slider__track[data-draggable], .content-slider__track[data-draggable] .content-slider__card { cursor: grab; }
+  .content-slider__track[data-dragging], .content-slider__track[data-dragging] .content-slider__card { cursor: grabbing; }
+}
+.content-slider__track:is([data-dragging], [data-settling]) { scroll-snap-type: none; scroll-behavior: auto; }
+.content-slider__track[data-dragging] { user-select: none; }
+
+.content-slider__track::-webkit-scrollbar { display: none; }
+
+.content-slider[data-layout='crosslinks'] .content-slider__card { position: relative; justify-content: flex-end; color: var(--color-text-inverse); }
+.content-slider[data-layout='crosslinks'] .content-slider__media { position: absolute; inset: -1px; min-height: 0; border-radius: 0; }
+.content-slider[data-layout='crosslinks'] .content-slider__media img { aspect-ratio: auto; }
+.content-slider[data-layout='crosslinks'] .content-slider__card::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgb(0 0 0 / 85%), rgb(0 0 0 / 45%) 35%, transparent 75%); pointer-events: none; }
+.content-slider[data-layout='crosslinks'] .content-slider__copy { position: relative; z-index: 2; }
+.content-slider[data-layout='crosslinks'] .content-slider__title { color: var(--color-text-inverse); }
+
+/* Keep the heading/controls contained; only the scrollport reaches the viewport. */
+.content-slider[data-width-mode='viewport'] .content-slider__track {
+  width: var(--slider-viewport-width, 100vw);
+  margin-inline: calc(-1 * var(--slider-viewport-inset, (100vw - 100%) / 2)) 0;
+  padding-inline: var(--slider-viewport-inset, calc((100vw - 100%) / 2)) var(--page-gutter);
+  scroll-padding-inline: var(--page-gutter);
+  scroll-snap-type: none;
+}
+.content-slider[data-width-mode='viewport'][data-viewport-ready] .content-slider__track:not([data-dragging], [data-settling]) { scroll-snap-type: x mandatory; }
+.content-slider[data-width-mode='viewport'] .content-slider__item:first-child {
+  scroll-margin-inline-start: max(0px, calc(var(--slider-viewport-inset, (100vw - 100%) / 2) - var(--page-gutter)));
+}
+
+/* Blend the media layer only; isolate it from adjacent cards and the canvas. */
+.content-slider__media[data-blend-with-background] { mix-blend-mode: multiply; }

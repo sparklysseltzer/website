@@ -1,0 +1,324 @@
+{% render 'section-width', section: section, default_width: 'editorial', frame: '.page-width', surface: 'content-slider' %}
+{% render 'section-background', section: section, color: section.settings.section_background %}
+{% render 'section-visibility', section: section %}
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{{ 'content-slider.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'content-slider.js' | asset_url }}" defer="defer"></script>
+<offer-cards-motion style="display: block" data-card-motion-horizontal>
+<div class="section page-width" data-card-motion-section>
+  <content-slider class="content-slider" data-width-mode="{{ section.settings.width_mode | default: 'contained' }}" data-layout="{{ section.settings.card_layout }}"{% if section.settings.heading_font == 'newake' and section.settings.uppercase_cards %} data-uppercase-cards{% endif %}>
+    {% if section.settings.show_heading and section.settings.heading != blank %}
+      <h2 class="content-slider__heading" data-card-motion-header id="ContentSliderHeading-{{ section.id }}">{{ section.settings.heading }}</h2>
+    {% endif %}
+    <ul class="content-slider__track" id="ContentSliderTrack-{{ section.id }}" tabindex="0" {% if section.settings.show_heading and section.settings.heading != blank %}aria-labelledby="ContentSliderHeading-{{ section.id }}"{% else %}aria-label="{{ 'content_slider.label' | t }}"{% endif %}>
+      {% for block in section.blocks %}
+        {% liquid
+          assign linked = false
+          if section.settings.card_layout == 'crosslinks' and block.settings.link != blank and block.settings.title != blank
+            assign linked = true
+          endif
+          assign media = block.settings.image
+          if section.settings.card_layout == 'benefits'
+            assign media = block.settings.illustration
+          endif
+          assign title_tag = 'h2'
+          if section.settings.show_heading and section.settings.heading != blank
+            assign title_tag = 'h3'
+          endif
+        %}
+        <li class="content-slider__item"{% if block.settings.background_color != blank %} style="--content-slider-card-background: {{ block.settings.background_color }};"{% endif %} {{ block.shopify_attributes }}>
+          {% if linked %}<a class="content-slider__card" data-card-motion-card href="{{ block.settings.link }}">{% else %}<article class="content-slider__card" data-card-motion-card>{% endif %}
+            <div class="content-slider__media"{% if block.settings.blend_with_background %} data-blend-with-background{% endif %}>
+              {% if media != blank %}
+                {{ media | image_url: width: 900 | image_tag: widths: '240, 360, 540, 720, 900', sizes: '(max-width: 767px) 82vw, 360px', loading: 'lazy' }}
+              {% endif %}
+            </div>
+            <div class="content-slider__copy">
+              {% if block.settings.title != blank %}<{{ title_tag }} class="content-slider__title">{{ block.settings.title | escape }}</{{ title_tag }}>{% endif %}
+              {% if section.settings.card_layout == 'benefits' and block.settings.text != blank %}<p class="content-slider__text">{{ block.settings.text | escape | newline_to_br }}</p>{% endif %}
+            </div>
+          {% if linked %}</a>{% else %}</article>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+    <div class="content-slider__controls" hidden>
+      <button type="button" class="button button--secondary content-slider__arrow" data-direction="-1" aria-controls="ContentSliderTrack-{{ section.id }}" aria-label="{{ 'content_slider.previous' | t }}"><span class="button__label content-slider__arrow-icon" aria-hidden="true"></span></button>
+      <button type="button" class="button button--secondary content-slider__arrow" data-direction="1" aria-controls="ContentSliderTrack-{{ section.id }}" aria-label="{{ 'content_slider.next' | t }}"><span class="button__label content-slider__arrow-icon" aria-hidden="true"></span></button>
+    </div>
+  </content-slider>
+</div>
+</offer-cards-motion>
+{% schema %}
+{
+  "name": "Content Slider",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "editorial",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
+    {
+      "type": "select",
+      "id": "card_layout",
+      "label": "Card layout",
+      "default": "crosslinks",
+      "options": [
+        {
+          "value": "crosslinks",
+          "label": "Crosslinks"
+        },
+        {
+          "value": "benefits",
+          "label": "Benefits"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width_mode",
+      "label": "Slider width",
+      "default": "contained",
+      "options": [
+        {
+          "value": "contained",
+          "label": "Contained"
+        },
+        {
+          "value": "viewport",
+          "label": "Viewport bleed"
+        }
+      ],
+      "info": "Viewport bleed starts at the content edge and lets cards scroll across the full screen."
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Discover more",
+      "visible_if": "{{ section.settings.show_heading }}"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "newake",
+      "options": [
+        {
+          "value": "newake",
+          "label": "Newake"
+        },
+        {
+          "value": "erode",
+          "label": "Erode"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_cards",
+      "label": "Uppercase card titles",
+      "default": true,
+      "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "original",
+      "options": [
+        {
+          "value": "original",
+          "label": "Default"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Color"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Color",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Media"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Set the crop focal point in the image editor.",
+          "visible_if": "{{ section.settings.card_layout == 'crosslinks' }}"
+        },
+        {
+          "type": "image_picker",
+          "id": "illustration",
+          "label": "Illustration",
+          "info": "Use artwork with a transparent background. The complete illustration is shown.",
+          "visible_if": "{{ section.settings.card_layout == 'benefits' }}"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Card title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Short text",
+          "visible_if": "{{ section.settings.card_layout == 'benefits' }}"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "visible_if": "{{ section.settings.card_layout == 'crosslinks' }}"
+        },
+        {
+          "type": "header",
+          "content": "Appearance"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "info": "Leave empty to use the default. Full-cover images appear above this color."
+        },
+        {
+          "type": "checkbox",
+          "id": "blend_with_background",
+          "label": "Blend with background",
+          "default": false,
+          "info": "Blends white image backgrounds into the card color. May also darken colors in the image."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Content Slider — Crosslinks",
+      "category": "Brand storytelling",
+      "settings": {
+        "card_layout": "crosslinks",
+        "section_background_mode": "transparent"
+      },
+      "blocks": [
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        }
+      ]
+    },
+    {
+      "name": "Content Slider — Benefits",
+      "category": "Brand storytelling",
+      "settings": {
+        "card_layout": "benefits",
+        "heading_font": "erode",
+        "section_background_mode": "transparent"
+      },
+      "blocks": [
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

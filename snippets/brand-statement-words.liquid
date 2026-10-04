@@ -1,0 +1,4 @@
+{%- assign words = text | split: ' ' -%}
+{%- for word in words -%}
+  <span class="brand-statement__word">{{ word | escape }}</span>{% unless forloop.last %} {% endunless %}
+{%- endfor -%}

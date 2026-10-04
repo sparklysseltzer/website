@@ -208,7 +208,7 @@ class CartDrawer extends HTMLElement {
       this.showQuantity(this.quantityEdit.key, this.quantityEdit.quantity);
       return;
     }
-    this.updateForm(input.form, input);
+    this.updateForm(input.form, control);
   }
 
   async readDiscountCart() {
@@ -639,6 +639,7 @@ class CartDrawer extends HTMLElement {
     if (this.busy || (!removeKey && !form.reportValidity())) return;
     const surfaceName = form.closest('[data-cart-surface]').dataset.cartSurface;
     const focusLine = focusTarget?.closest('[data-cart-line]');
+    const focusStep = focusTarget?.dataset.cartStep;
     const focusKey = focusLine?.dataset.cartLine;
     const focusMotionKey = focusLine?.dataset.cartMotionKey;
     const wasOpen = this.dialog.open;
@@ -682,7 +683,7 @@ class CartDrawer extends HTMLElement {
     const lines = [...surface.querySelectorAll('[data-cart-line]')];
     const matchingLine = lines.find((line) => line.dataset.cartLine === focusKey) ||
       (focusMotionKey && lines.find((line) => line.dataset.cartMotionKey === focusMotionKey));
-    const target = matchingLine?.querySelector('input') || surface.querySelector('[data-cart-focus], a, button');
+    const target = (focusStep ? matchingLine?.querySelector(`[data-cart-step="${CSS.escape(focusStep)}"]:not(:disabled)`) : matchingLine?.querySelector('input')) || surface.querySelector('[data-cart-focus], a, button');
     target?.focus({ preventScroll: true });
   }
 
@@ -945,12 +946,17 @@ class OfferCardsMotion extends HTMLElement {
     this.handleScroll = this.handleScroll.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.renderFrame = this.renderFrame.bind(this);
+    this.handleFocus = () => {
+      if (this.revealAnimations?.length) this.updateTargetProgress(true);
+    };
+    this.addEventListener('focusin', this.handleFocus);
 
     this.motionPreference.addEventListener('change', this.handleMotionPreference);
     this.handleMotionPreference();
   }
 
   disconnectedCallback() {
+    this.removeEventListener('focusin', this.handleFocus);
     this.motionPreference?.removeEventListener('change', this.handleMotionPreference);
     this.teardownMotion();
   }
@@ -990,6 +996,7 @@ class OfferCardsMotion extends HTMLElement {
 
     this.parallaxAnimations = this.cards.map((card) => {
       const media = card.querySelector('[data-card-motion-media], .offer-card__media');
+      if (!media) return null;
       const animation = media.animate(
         [
           { transform: 'translate3d(0, -4%, 0)' },
@@ -1033,7 +1040,7 @@ class OfferCardsMotion extends HTMLElement {
     if (this.frameRequest) window.cancelAnimationFrame(this.frameRequest);
 
     this.revealAnimations?.forEach((animation) => animation.cancel());
-    this.parallaxAnimations?.forEach((animation) => animation.cancel());
+    this.parallaxAnimations?.forEach((animation) => animation?.cancel());
     this.revealAnimations = [];
     this.parallaxAnimations = [];
     this.frameRequest = null;
@@ -1062,9 +1069,12 @@ class OfferCardsMotion extends HTMLElement {
 
     this.targetHeaderProgress = this.rangeProgress(sectionProgress, 0, 0.4);
     this.targetCardProgresses = this.cards.map((card, cardIndex) => {
-      const cardBounds = card.getBoundingClientRect();
+      if (card.contains(document.activeElement)) return 1;
+      // Horizontal rows measure the stationary item, not its animated child.
+      const horizontal = this.hasAttribute('data-card-motion-horizontal');
+      const cardBounds = (horizontal ? card.parentElement : card).getBoundingClientRect();
       const cardProgress = this.clamp((revealStart - cardBounds.top) / revealDistance);
-      const columnIndex = cardIndex % columnCount;
+      const columnIndex = horizontal ? Math.min(cardIndex, 3) : cardIndex % columnCount;
       const stagger = columnIndex * 0.06;
 
       return this.rangeProgress(cardProgress, stagger, 0.78 + stagger);
@@ -1170,7 +1180,23 @@ if (!customElements.get('offer-cards-motion')) {
   customElements.define('offer-cards-motion', OfferCardsMotion);
 }
 
-class ProductOverviewMotion extends OfferCardsMotion {}
+class ProductOverviewMotion extends OfferCardsMotion {
+  connectedCallback() {
+    super.connectedCallback();
+    // Scale the complete badge, preserving its original label/padding proportions.
+    this.badgeSizeObserver = new ResizeObserver(entries => {
+      for (const { target, contentRect } of entries) {
+        target.style.setProperty('--product-card-badge-scale', Math.min(1, Math.max(.7, contentRect.width / 335)).toFixed(3));
+      }
+    });
+    this.querySelectorAll('.product-overview-card:has(.product-overview-card__badge)').forEach(card => this.badgeSizeObserver.observe(card));
+  }
+
+  disconnectedCallback() {
+    this.badgeSizeObserver?.disconnect();
+    super.disconnectedCallback();
+  }
+}
 
 if (!customElements.get('product-overview-motion')) {
   customElements.define('product-overview-motion', ProductOverviewMotion);
