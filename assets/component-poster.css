@@ -131,6 +131,9 @@
     margin-top: 1rem;
   }
 
+  /* Artwork-backed actions remain opaque through both interaction states. */
+  .poster .button { --button-background: var(--color-surface); }
+
   .poster__button-label {
     display: inline-flex;
     gap: 0.625rem;
@@ -141,7 +144,9 @@
     width: 1rem;
     height: 1rem;
     flex: 0 0 auto;
-    filter: invert(1);
+    background: currentColor;
+    mask: url("icon-arrow-left.svg") center / contain no-repeat;
+    transform: rotate(180deg);
   }
 
   .poster--poster .poster__media {

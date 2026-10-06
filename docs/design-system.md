@@ -149,7 +149,7 @@ Verify both directions, rapid repeated actions, interrupted transitions, error r
 
 ### Page navigation transitions
 
-Native cross-document view transitions progressively enhance same-origin navigation through CSS in `base.css`. The root snapshots retain the browser’s complementary crossfade, using the dedicated page duration (`--motion-duration-page`, 400ms) and the shared easing. The header shell and its logo, world switcher and utility actions use separate, stable snapshot names. Geometry interpolates over the same page duration with UI easing, while changed identity snapshots crossfade. The logo has a consistent reserved box per breakpoint so different brand proportions do not stretch the artwork or move the surrounding layout. The backdrop blur belongs on the outer named header wrapper, never inside its snapshot boundary: a descendant filter cannot sample the page through that boundary. The incoming shell stays opaque; the outgoing shell (including the main mega menu) is omitted. Current navigation selection must be initialized at its final appearance, never faded from zero on every document load. Changed brand identity, cart state and responsive geometry remain the destination document’s truth; this is visual continuity, not persisted DOM or scroll-intent state.
+Native cross-document view transitions progressively enhance same-origin navigation through CSS in `base.css`. The outgoing root snapshot remains opaque while the incoming snapshot fades over it using normal blending, the dedicated page duration (`--motion-duration-page`, 400ms), and the shared easing. Explicit animation names replace the browser’s additive blend animation, avoiding an uncovered canvas or additive brightness pulse. Header identity snapshots retain their own crossfades. The header shell and its logo, world switcher and utility actions use separate, stable snapshot names. Geometry interpolates over the same page duration with UI easing, while changed identity snapshots crossfade. The logo has a consistent reserved box per breakpoint so different brand proportions do not stretch the artwork or move the surrounding layout. The backdrop blur belongs on the outer named header wrapper, never inside its snapshot boundary: a descendant filter cannot sample the page through that boundary. The incoming shell stays opaque; the outgoing shell (including the main mega menu) is omitted. Current navigation selection must be initialized at its final appearance, never faded from zero on every document load. Changed brand identity, cart state and responsive geometry remain the destination document’s truth; this is visual continuity, not persisted DOM or scroll-intent state.
 
 Only visitors with no reduced-motion preference opt in. Unsupported browsers, nonparticipating destinations, external navigation and reduced motion use normal page loads. There is no click interception, navigation delay, JavaScript router or transition polyfill. Native navigation, history, anchors and forms retain browser behavior. The transition overlay does not intercept pointer input. Header menus from the departing page are not retained in its incoming snapshot.
 
@@ -286,7 +286,7 @@ The opt-in [form styles](forms.md) separate commerce controls (pill fields, 3px 
 
 ## Control outlines and field text — 2026-09-09
 
-`--control-outline-width: 3px` is the shared permanent outline for regular/small buttons and cart quantity capsules, and the source for `--form-control-border-width`. Focus rings remain a separate accessibility role. Borderless icon actions retain their composition.
+`--control-outline-width: 3px` is the shared permanent outline for regular/small buttons and cart quantity capsules, and the source for `--form-control-border-width`. Focus rings remain a separate accessibility role. Borderless icon actions and filled circular arrows and Brand colours social controls use zero border width and no border-overlay pseudo-element. Their hover fill reaches the outer edge; intentionally outlined and embedded-input buttons retain their documented rings.
 
 Normal input, textarea and native/enhanced dropdown values and options use `--field-font-family: var(--font-body)` and `--field-font-weight: 400`. Do not inherit bold label/container styling into editable values. Labels and button text may retain their existing emphasis. Document artwork keeps its scoped Courier family and regular weight. The local studio consumes the same tokens.
 
@@ -310,7 +310,7 @@ Plain page and native policy H1s, plus editorial Page intro H1s, select the shar
 
 ### Content-to-footer spacing
 
-`#MainContent` adds bottom padding using the shared `--section-padding-block` role (32–64px), so every page has a consistent buffer before the footer even when its final section has no outer spacing. This belongs to the page content and uses its background. Existing section padding remains internal to each composition; footer padding remains internal to the footer. No responsive visibility, motion, semantics or commerce behavior changes.
+There is no additional global gap before the footer. The last section’s own padding supplies the spacing; the footer keeps its internal padding. MainContent and section wrappers add no extra footer buffer. Any placement that genuinely needs more room should handle it as a local composition exception.
 
 ## Page background ownership — 2026-09-12
 
@@ -320,7 +320,7 @@ The document background is separate from brand section palettes. `layout/theme.l
 - Homepage and all collection pages (including Soda, Hard Seltzer and unclassified collections): `#FFFFFF`.
 - Every product page: existing `custom.soda_background_color`, falling back to `#FFFFFF` regardless of product world.
 
-The root canvas and PDP section consume this same role. Transparent content and the main-content bottom buffer reveal it, so product colors extend beyond the top section. Existing palette background setting IDs/values remain intact, now labeled **Section background** to clarify their scope. Explicit section/card backgrounds, gallery gradients and intentional surfaces retain their own colors. This supersedes previous statements that brand palette background settings control the page canvas. No new metafield or saved-setting migration is needed.
+The root canvas and PDP section consume this same role. Transparent content reveals it, so product colors extend beyond the top section. Existing palette background setting IDs/values remain intact, now labeled **Section background** to clarify their scope. Explicit section/card backgrounds, gallery gradients and intentional surfaces retain their own colors. This supersedes previous statements that brand palette background settings control the page canvas. No new metafield or saved-setting migration is needed.
 
 ## Erode heading casing
 
@@ -396,13 +396,30 @@ Ananotes September 16: the cart drawer title always uses the central Newake head
 
 Every content/resource section and Footer exposes one **Section background** group at the end of its settings. Header and Cart drawer are intentional shell exceptions: the header retains its shared glass/cutout treatment and the modal retains its commerce surface. Never add a second control for a canvas that already has one; Hero reuses `background`. Merchant marquee's previous `background_style` remains hidden compatibility storage, not another editing option.
 
-The group offers **Default / Transparent / Custom Color**. Only Custom Color exposes the native picker; clearing it means transparent. New add-section presets select Transparent, showing the page background. Existing placements without a saved mode use Default, preserving their existing colors and product-world defaults. This explicit distinction is necessary: Shopify returns the same empty string for a missing color setting and an explicitly cleared picker, so blank alone cannot distinguish old content from a request for transparency. The merchant approved this three-choice control on 2026-09-28.
+The group offers **Transparent / Colored**. Colored reveals a **Surface** dropdown; only **Custom color** exposes the existing color picker. All named options emit CSS variable references rather than copied hex values, so changing Theme settings immediately updates their sections. World-relative roles follow the inherited page world; explicitly named Soda/beige options always use the Soda roles. Text and internal panel colors do not automatically invert.
 
-A chosen color covers the complete Shopify section wrapper, including side gutters. White, gray, arbitrary colors and alpha values use the same picker. Hero retains its original yellow as a rendering fallback only in Default, so its reused picker has no schema default and can be cleared. Resource sections without presets already have transparent outer canvases; Footer retains its existing dark surface in Default.
+| Surface | CSS role |
+| --- | --- |
+| Page background | `--color-page-background` |
+| Brand background | `--color-background` |
+| Surface (white) | `--color-surface` |
+| Muted surface (light gray) | `--color-surface-muted` |
+| Supporting surface | `--color-surface-warm` |
+| Surface beige | `--color-soda-surface-warm` |
+| Soda background (beige) | `--color-soda-background` |
+| Gray | `--color-surface-hover` |
+| Dark gray | `--color-inverse-hover` |
+| Dark surface (charcoal) | `--color-surface-inverse` |
+| Foreground (black) | `--color-foreground` |
+
+The separate `surface_colors` native palette experiment was removed because it duplicated the established global color settings. Existing picker IDs and values remain. The new surface setting defaults to Custom for compatibility with saved custom backgrounds; new add-section presets choose Surface. Transparent ignores both fields. Clear in Custom means transparent. No saved settings or templates are migrated.
+
+A chosen color covers the complete Shopify section wrapper, including side gutters. White, gray, arbitrary colors and alpha values use the same picker. Hero retains its original yellow as a rendering fallback only in legacy Default mode, so its reused picker has no schema default and can be cleared. Resource sections without presets already have transparent outer canvases; Footer retains its existing dark surface in legacy Default mode.
 
 `snippets/section-background.liquid` paints the wrapper once. Only explicitly marked outer canvas elements (`data-section-background`, or Page intro's scoped surface selector) become transparent under an override. Do not reset all descendants or paint translucent color twice. Internal cards, enclosed panels, product/gallery backgrounds, photographs, brand artwork and image overlays keep their own colors. In particular, Subscription and Product benefits preserve their branded panels; Collection hero keeps its decorative atmosphere and selected imagery. This is a canvas setting, not an automatic recoloring/contrast system. Editors must select colors that keep existing text readable.
 
-Preserve existing setting IDs, brand choices, templates and saved values. Put defaults for new placements in presets, not a migration of merchant content. Register schema groups and visible/hidden modes in the editor contracts. A native shared color palette is a separate possible future migration, not part of this change.
+Preserve existing setting IDs, brand choices, templates and saved values. Put defaults for new placements in presets, not a migration of merchant content. Register schema groups and visible/hidden modes in the editor contracts. Legacy original/white/beige renderer cases remain compatibility-only and are not selectable. Shopify may normalize retired saved options when editing. The surface dropdown and picker dependencies are covered by editor contracts.
+
 
 ## Panel shadows
 
@@ -461,3 +478,39 @@ Internal paragraph, caption, single-person card, artwork and form-control limits
 Width verification (2026-10-04): checked 11 available storefront routes at 390px and 2200px in all three widths using browser-only style probes built from the shared renderer; 66 route/mode checks had no document overflow. Section Rendering API fixtures added 204 mode checks across 34 section types; data-dependent empty states were not represented as populated visual verification. Observed real Editorial surfaces at 1400px inside 1464px frames, Narrow surfaces at 800px, and Page frames at 1920px. Visually reviewed the Narrow split-panel composition. Script-blocked Kontakt retained readable content, 358px form width, keyboard focus indication and Erode authored casing on phone. Studio controls bind to the shared roles. Automated editor contracts cover all options; these checks do not claim manual authenticated Theme Editor interaction.
 
 Product Overview responsive flavour artwork (2026-10-04): within the existing approved flavour-lettering exception, Soda lockups use `min(15.5cqi, 3.875rem)` at 1200px and below, matching their desktop proportion instead of the ordinary Compact text role. This applies only to the two-line flavour artwork, not section headings or body text. Brand and script-logo artwork scale proportionally with capped dimensions; see the owning section contract.
+
+### Circular arrow effects
+
+`button--round-arrow` shares the standard oval sweep with Content Slider, Offer Cards and Product Overview. This unifies interaction only: preserve each composition's existing circle/icon sizes, surface color and shadow. CSS properties `--round-arrow-size`, `--round-arrow-icon-size`, `--round-arrow-background`, `--round-arrow-mask` and `--round-arrow-rotation` carry those existing visual choices. Content Slider defaults remain 72px desktop/48px phone with 32px icons; Offer Cards retain white 48px circles/16px icons; Product Overview retains white 60px navigation circles and its responsive 48–60px card circles, both with 16px icons. Its compact-layout arrows remain hidden.
+
+Decorative arrows stay aria-hidden inside a single card/navigation link; parent hover/focus activates the same sweep. Native slider buttons keep labels and disabled-boundary behavior. Shared reduced-motion rules remove transition time.
+
+### Motion compositing budget
+
+Avoid repeated backdrop blur on badges over moving card media; Offer Cards use static translucent tag surfaces. Content Slider's paused scroll-scrubbed fades may request `will-change: transform, opacity` only for viewport-adjacent cards, with lifecycle/offscreen/reduced-motion cleanup. Preserve isolated blending inside the card and never promote the whole page or every offscreen slide permanently. Profile raster work and main-thread costs separately; fewer raster tasks alone do not establish smoother rendering on every device.
+
+### Edge-to-edge filled circles
+
+Round arrow buttons, header Cart/Account circles and Brand colours social buttons use no permanent border, transparent border gutter or inset outline overlay. Their background and oval hover/focus sweep fill the complete circle, with the existing outer dimensions and centered icons preserved. Setting the border color to transparent is insufficient: the actual border width must be zero, and the shared `::after` border overlay is suppressed. Explicit Outline variants and monochrome Solid social buttons retain their border. Solid keeps the dark outline visible while its black fill sweeps to white; its border-overlay pseudo-element stays above the sweep. Keyboard focus rings remain separate, visible accessibility indicators and must not be removed.
+
+### Checkbox selected states
+
+Shared checkboxes remain unfilled when checked or mixed: preserve the field surface/border and display a bold foreground tick or minus. Do not invert the entire box to a dark fill. Reuse the checkbox-only bold derivative of the Untitled UI check path; other check icons keep their original stroke. Keep native semantics, disabled treatment, keyboard focus, smooth mark transitions, reduced motion and Canvas/CanvasText forced-color contrast.
+
+Blog lead excerpt (2026-10-05): merchant-requested responsive role selection uses Compact from 768px and Body below, reusing both shared roles unchanged. This emphasizes the desktop lead card while retaining compact mobile reading density.
+
+## Large buttons
+
+`.button--large` adds the shared Large size: `--button-height-large: 4rem` (64px minimum), `--button-padding-large: 1rem 1.75rem`, and Compact text (18–20px). It supports primary and secondary treatments, icons, disabled state and multiline content, retaining the shared border, pill, Bubble Sweep, keyboard focus and reduced-motion behavior. Large is a reusable emphasis option, not a viewport-dependent override. Small and Regular stay unchanged. Blog load-more is the first application; Design Studio → Buttons compares all three sizes and the icon composition.
+
+Transparent button default (2026-10-05): Shared buttons now start transparent and sweep to black on hover or keyboard focus. This applies to regular, small, large, legacy secondary, embedded and round-arrow buttons. `button--white` is an explicit white-fill option, demonstrated in Studio but not applied to storefront exceptions yet. Labels use explicit foreground/inverse colors with shared Base transitions instead of difference blending, which cannot reliably produce dark labels on an isolated transparent surface. Disabled and reduced-motion behavior remain. Existing inverse-border placements retain their contrast border; image/card exceptions will be reviewed separately.
+
+Button hierarchy correction (2026-10-05): primary `.button` retains a solid black resting surface and white label. Its black fill moves away during hover/focus to reveal the actual underlying surface, with a dark label. Secondary `.button--secondary` starts transparent with dark text and sweeps to black with white text. Explicit `.button--white` provides white-to-black secondary behavior. The fill lives in the animated pseudo-element, so transparency is real rather than a matching flat color. Coarse-pointer Small buttons use the same state mapping via opacity. This supersedes the all-transparent resting-state review above; Studio compares both hierarchies on a warm surface.
+
+Round-arrow exception (2026-10-05): `.button--round-arrow` retains its original opaque surface through `--round-arrow-background` (Muted fallback, white on article cards, Warm on benefit sliders). Its black hover/focus fill and inverse icon remain. Primary/secondary transparency changes apply to pill actions, not these round card/navigation cues.
+
+Poster button exception (2026-10-05): Poster actions keep an opaque shared Surface backing throughout the sweep. Dark/primary actions render black to white; light/secondary actions render white to black. The exception is scoped to the shared Poster component, including embedded and collection-directory placements. Existing automatic style selection, contrast borders, focus and reduced-motion behavior remain.
+
+Shared surface verification (2026-10-06): editor contracts cover Transparent and every Colored surface option across all 44 sections, including custom-picker visibility. Local Liquid rendering verified all 11 CSS mappings and saved custom fallbacks. Headless 390px/1440px fixtures confirmed that changing the shared Surface variable updates the section canvas while internal cards stay white, without overflow. Full repository checks passed. Authenticated Theme Editor interaction was not visually verified.
+
+Page-flash mitigation (2026-10-06): replaced the root additive crossfade with an opaque outgoing snapshot and normally blended incoming fade. The intermittent Chrome report was not conclusively reproduced. Headless Chromium checked Kontakt/Home navigation recordings at 1440px, plus Maracuja/Holunder/Kontakt at 390px. A paused unchanged Kontakt snapshot at the final frame differed from the settled page by less than 0.025 average channel levels out of 255. Reduced-motion opt-out, keyboard focus and phone overflow checks passed; all test browsers closed. Full repository gates passed. Confirmation in the reporting Chrome session remains necessary; no claim that the separate late-loading product-image artifact is fixed.

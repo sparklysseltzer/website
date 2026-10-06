@@ -37,13 +37,12 @@ select.form-control { appearance: none; padding-right: 3.25rem; background-image
 .form-choice { display: flex; align-items: center; gap: .75rem; position: relative; min-height: 2.75rem; width: fit-content; cursor: pointer; font-size: var(--font-size-ui); line-height: var(--line-height-body-compact); }
 .form-choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .form-choice__indicator { display: grid; place-items: center; width: var(--form-choice-size); height: var(--form-choice-size); flex-shrink: 0; border: var(--form-control-border-width) solid var(--form-control-border); background: var(--form-control-surface); border-radius: var(--form-choice-radius); transition: background-color var(--motion-duration-fast) var(--motion-ease), border-color var(--motion-duration-fast) var(--motion-ease); }
-.form-choice input[type='checkbox']:is(:checked, :indeterminate) + .form-choice__indicator { background: var(--form-control-text); }
-.form-choice input[type='checkbox'] + .form-choice__indicator::after { width: min(1.5rem, calc(var(--form-choice-size) - 2 * var(--form-control-border-width))); height: min(1.5rem, calc(var(--form-choice-size) - 2 * var(--form-control-border-width))); background: var(--form-control-surface); }
+.form-choice input[type='checkbox'] + .form-choice__indicator::after { width: min(1.5rem, calc(var(--form-choice-size) - 2 * var(--form-control-border-width))); height: min(1.5rem, calc(var(--form-choice-size) - 2 * var(--form-control-border-width))); background: var(--form-control-text); mask-image: url('icon-check-bold.svg'); }
 .form-choice input[type='radio'] + .form-choice__indicator { border-radius: 50%; }
 .form-choice__indicator::after { content: ''; width: 1.125rem; height: 1.125rem; opacity: 0; transform: scale(.75); background: var(--form-control-text); mask: url('icon-check.svg') center / contain no-repeat; transition: opacity var(--motion-duration-fast) var(--motion-ease), transform var(--motion-duration-fast) var(--motion-ease); }
 .form-choice input[type='radio'] + .form-choice__indicator::after { width: var(--form-choice-dot-size); height: var(--form-choice-dot-size); border-radius: 50%; mask: none; }
 .form-choice input:checked + .form-choice__indicator::after, .form-choice input[type='checkbox']:indeterminate + .form-choice__indicator::after { opacity: 1; transform: scale(1); }
-.form-choice input[type='checkbox']:indeterminate + .form-choice__indicator::after { height: 3px; mask: none; }
+.form-choice input[type='checkbox']:indeterminate + .form-choice__indicator::after { width: calc(var(--form-choice-size) * .5); height: 3px; mask: none; }
 .form-choice input[aria-invalid='true'] + .form-choice__indicator { border-color: var(--form-control-error); }
 .form-choice--card { width: 100%; border: var(--form-control-border-width) solid var(--color-notice-text); border-radius: var(--radius-small); padding: .875rem .75rem; transition: border-color var(--motion-duration-fast) var(--motion-ease), background-color var(--motion-duration-fast) var(--motion-ease); }
 .form-choice--card:has(input:checked) { border-color: var(--form-control-border); }
@@ -78,8 +77,8 @@ sparklys-select:has(.form-select__menu:not([hidden])) { z-index: 20; }
 sparklys-select[data-placement='above'] .form-select__menu { top: auto; bottom: 0; padding: .375rem .375rem calc(var(--form-control-height) + .25rem); }
 
 @media (forced-colors: active) {
-  .form-choice input[type='checkbox']:is(:checked, :indeterminate) + .form-choice__indicator { forced-color-adjust: none; background: Highlight; border-color: Highlight; }
-  .form-choice input[type='checkbox']:is(:checked, :indeterminate) + .form-choice__indicator::after { background: HighlightText; }
+  .form-choice input[type='checkbox']:is(:checked, :indeterminate) + .form-choice__indicator { forced-color-adjust: none; background: Canvas; border-color: CanvasText; }
+  .form-choice input[type='checkbox']:is(:checked, :indeterminate) + .form-choice__indicator::after { background: CanvasText; }
 }
 
 /* Editorial enquiries opt in explicitly; commerce controls retain the baseline above. */

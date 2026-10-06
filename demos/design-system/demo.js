@@ -262,3 +262,22 @@ for (const [control, selector] of [['ContainerWidth', '#ContainerWidthPreview'],
     });
   });
 }
+
+// Read actual specimen styles so reference values track the shared stylesheet.
+(() => {
+  const samples = document.getElementById('HeadingReferenceSamples');
+  const font = document.getElementById('HeadingReferenceFont');
+  if (!samples || !font) return;
+  const measure = () => {
+    samples.querySelectorAll('[data-heading-reference]').forEach((heading) => {
+      const style = getComputedStyle(heading);
+      const px = (value) => `${Number.parseFloat(value).toFixed(1).replace(/\.0$/, '')}px`;
+      heading.closest('.studio-heading-row').querySelector('[data-heading-metrics]').textContent =
+        `Now: ${px(style.fontSize)} / ${px(style.lineHeight)} line height · Margins: ${px(style.marginTop)} top, ${px(style.marginBottom)} bottom`;
+    });
+  };
+  font.addEventListener('change', () => { samples.dataset.headingFont = font.value; measure(); });
+  new ResizeObserver(measure).observe(samples);
+  document.fonts.ready.then(measure);
+  measure();
+})();

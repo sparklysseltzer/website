@@ -10,8 +10,10 @@
   --content-width-page: calc(var(--page-width) - 2 * var(--page-gutter));
   --button-height-regular: 3rem;
   --button-height-small: 2rem;
+  --button-height-large: 4rem;
   --button-padding-regular: .75rem 1.35rem;
   --button-padding-small: .375rem .625rem;
+  --button-padding-large: 1rem 1.75rem;
   --radius-scale: 1;
   --radius-small: calc(var(--radius-small-base, 16px) * var(--radius-scale));
   --radius-large: calc(var(--radius-large-base, 30px) * var(--radius-scale));
@@ -249,10 +251,6 @@ input[type='submit'] {
   padding-block: var(--section-padding-block);
 }
 
-#MainContent {
-  padding-bottom: var(--section-padding-block);
-}
-
 .stack {
   display: grid;
   gap: var(--stack-space, 1.5rem);
@@ -281,10 +279,15 @@ input[type='submit'] {
   max-width: 100%;
   min-width: 0;
   font-size: var(--font-size-ui);
-  --button-background: var(--color-foreground);
+  --button-background: transparent;
   --button-border-color: var(--color-foreground);
   --button-color: var(--color-text-inverse);
-  --button-sweep-background: var(--color-surface);
+  --button-active-color: var(--color-foreground);
+  --button-sweep-rest: -66.667%;
+  --button-sweep-active: -133.334%;
+  --button-fill-rest: 1;
+  --button-fill-active: 0;
+  --button-sweep-background: var(--color-foreground);
   --button-sweep-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --button-sweep-enter-duration: 240ms;
   --button-sweep-exit-duration: 460ms;
@@ -321,7 +324,7 @@ input[type='submit'] {
   background: var(--button-sweep-background);
   content: '';
   pointer-events: none;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, var(--button-sweep-rest));
   transition: transform var(--button-sweep-exit-duration) var(--button-sweep-ease);
 }
 
@@ -342,8 +345,8 @@ input[type='submit'] {
 .button__label {
   position: relative;
   z-index: 1;
-  color: var(--color-text-inverse);
-  mix-blend-mode: difference;
+  color: var(--button-color);
+  transition: color var(--motion-duration-base) var(--motion-ease-ui);
 }
 
 /* Center visible letter bounds instead of the font's extra vertical metrics.
@@ -358,22 +361,40 @@ input[type='submit'] {
 
 @media (hover: hover) {
   .button:not(:disabled, [aria-disabled='true']):hover::before {
-    transform: translate(-50%, -66.667%);
+    transform: translate(-50%, var(--button-sweep-active));
     transition-duration: var(--button-sweep-enter-duration);
   }
 
 }
 
 .button:not(:disabled, [aria-disabled='true']):focus-visible::before {
-  transform: translate(-50%, -66.667%);
+  transform: translate(-50%, var(--button-sweep-active));
   transition-duration: var(--button-sweep-enter-duration);
 }
 
-.button--secondary {
-  --button-background: var(--color-surface);
+/* Secondary reveals the surface at rest and fills on interaction. */
+.button--secondary,
+.button--white {
+  --button-active-color: var(--color-text-inverse);
+  --button-sweep-rest: 0%;
+  --button-sweep-active: -66.667%;
+  --button-fill-rest: 0;
+  --button-fill-active: 1;
+  --button-background: transparent;
   --button-border-color: var(--color-foreground);
   --button-color: var(--color-foreground);
   --button-sweep-background: var(--color-foreground);
+}
+
+.button:not(:disabled, [aria-disabled='true']):focus-visible .button__label,
+a:focus-visible .button .button__label { color: var(--button-active-color); }
+@media (hover: hover) {
+  .button:not(:disabled, [aria-disabled='true']):hover .button__label,
+  a:hover .button .button__label { color: var(--button-active-color); }
+}
+.button.button--white { --button-background: var(--color-surface); }
+@media (prefers-reduced-motion: reduce) {
+  .button__label { transition: none; }
 }
 
 .button:disabled,
@@ -412,8 +433,8 @@ input[type='submit'] {
 .text-link__label {
   position: relative;
   z-index: 1;
-  color: var(--color-text-inverse);
-  mix-blend-mode: difference;
+  color: var(--button-color);
+  transition: color var(--motion-duration-base) var(--motion-ease-ui);
 }
 
 .text-link:focus-visible::before {
@@ -469,10 +490,15 @@ input[type='submit'] {
 
   ::view-transition { pointer-events: none; }
   ::view-transition-group(root) { animation: none; }
-  ::view-transition-old(root),
+  /* Keep an opaque outgoing snapshot under the incoming page. Avoid the UA's
+     additive blend and two fading layers exposing the canvas during handoff. */
+  ::view-transition-old(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
   ::view-transition-new(root) {
-    animation-duration: var(--motion-duration-page);
-    animation-timing-function: var(--motion-ease);
+    animation: page-snapshot-enter var(--motion-duration-page) var(--motion-ease) both;
+    mix-blend-mode: normal;
   }
 
   ::view-transition-group(storefront-header),
@@ -496,6 +522,11 @@ input[type='submit'] {
   /* Keep menus out of the outgoing shell; named identity snapshots crossfade independently. */
   ::view-transition-old(storefront-header) { display: none; }
   ::view-transition-new(storefront-header) { animation: none; mix-blend-mode: normal; }
+}
+
+@keyframes page-snapshot-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -996,14 +1027,18 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   flex: 0 0 2.875rem;
   place-items: center;
   border-radius: 50%;
-  background: rgb(0 0 0 / 5%);
   text-decoration: none;
-  transition: background-color var(--motion-duration-fast) var(--motion-ease);
 }
 
-.site-header__action > img {
-  transition: filter var(--motion-duration-fast) var(--motion-ease);
+.site-header__action-surface {
+  --round-arrow-size: 2.875rem;
+  --round-arrow-background: color-mix(in srgb, var(--color-foreground) 5%, var(--color-surface));
 }
+.site-header__action-label { display: flex; align-items: center; justify-content: center; }
+.site-header__action-icon { display: block; filter: invert(0); transition: filter var(--motion-duration-base) var(--motion-ease-ui); }
+.site-header__action:focus-visible .site-header__action-icon { filter: invert(1); }
+@media (hover: hover) { .site-header__action:hover .site-header__action-icon { filter: invert(1); } }
+@media (prefers-reduced-motion: reduce) { .site-header__action-icon { transition: none; } }
 
 .site-header__action-icon--account {
   width: 13.6702px;
@@ -1013,24 +1048,6 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 .site-header__action-icon--cart {
   width: 16.5865px;
   height: 16.67px;
-}
-
-.site-header__action:focus-visible {
-  background-color: var(--color-foreground);
-}
-
-.site-header__action:focus-visible > img {
-  filter: invert(1);
-}
-
-@media (hover: hover) {
-  .site-header__action:hover {
-    background-color: var(--color-foreground);
-  }
-
-  .site-header__action:hover > img {
-    filter: invert(1);
-  }
 }
 
 .site-header__cart-count {
@@ -1432,10 +1449,6 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
 .site-footer__newsletter-shell:has([aria-invalid='true']) { border-color: var(--color-error-text); }
 
 .site-footer__newsletter-button {
-  --button-background: var(--color-foreground);
-  --button-color: var(--color-text-inverse);
-  --button-sweep-background: var(--color-surface);
-
   min-height: 2.75rem;
   padding-inline: 1.5rem;
   flex: 0 0 auto;
@@ -2085,12 +2098,13 @@ a.site-header__brand-tab:not(.site-header__brand-tab--active):focus-visible::aft
   .cart-recommendations__heading { color: var(--color-text-inverse); }
 }
 
+.button--large { min-height: var(--button-height-large); padding: var(--button-padding-large); font-size: var(--font-size-compact); }
 .button--small { min-height: var(--button-height-small); padding: var(--button-padding-small); font-size: var(--font-size-small); }
 @media (pointer: coarse) {
   .button--small { overflow: visible; }
   /* Keep the expanded touch target without letting the sweep escape the pill. */
-  .button.button--small::before { inset: 0; width: auto; height: auto; border-radius: inherit; transform: none; opacity: 0; transition-property: opacity; }
-  .button.button--small:not(:disabled, [aria-disabled='true']):is(:hover, :focus-visible)::before { opacity: 1; }
+  .button.button--small::before { inset: 0; width: auto; height: auto; border-radius: inherit; transform: none; opacity: var(--button-fill-rest); transition-property: opacity; }
+  .button.button--small:not(:disabled, [aria-disabled='true']):is(:hover, :focus-visible)::before { opacity: var(--button-fill-active); }
   .button--small::after { content: ''; position: absolute; inset: -.375rem 0; min-width: 2.75rem; border-radius: inherit; }
 }
 .cart-recommendation__variants { display: flex; flex-wrap: wrap; gap: .25rem; padding: 0; border: 0; margin: 0; min-width: 0; }
@@ -2461,3 +2475,36 @@ body:has(.site-header[data-header-context='soda']) .offer-cards__heading {
 
 /* Reading copy stays comfortable when its outer section uses a wider role. */
 .rich-text > .rte { max-width: var(--content-width-narrow); margin-inline: auto; }
+
+/* Shared circular arrows: actual controls or decorative cues inside one link. */
+.button.button--round-arrow {
+  --button-color: var(--color-foreground);
+  --button-active-color: var(--color-text-inverse);
+  --button-sweep-rest: 0%;
+  --button-sweep-active: -66.667%;
+  --button-fill-rest: 0;
+  --button-fill-active: 1;
+  width: var(--round-arrow-size, 4.5rem);
+  height: var(--round-arrow-size, 4.5rem);
+  min-height: 44px;
+  flex: 0 0 auto;
+  padding: 0;
+  border-radius: 50%;
+  --button-background: var(--round-arrow-background, var(--color-surface-muted));
+  --button-border-color: transparent;
+  border: 0;
+}
+.button.button--round-arrow::after { content: none; }
+.button__arrow { display: block; width: var(--round-arrow-icon-size, 2rem); height: var(--round-arrow-icon-size, 2rem); background: currentColor; mask: var(--round-arrow-mask, url('icon-arrow-left.svg')) center / contain no-repeat; }
+.button__arrow--next { transform: rotate(var(--round-arrow-rotation, 180deg)); }
+a:focus-visible .button--round-arrow::before {
+  transform: translate(-50%, var(--button-sweep-active));
+  transition-duration: var(--button-sweep-enter-duration);
+}
+@media (hover: hover) {
+  a:hover .button--round-arrow::before {
+    transform: translate(-50%, var(--button-sweep-active));
+    transition-duration: var(--button-sweep-enter-duration);
+  }
+}
+@media (max-width: 767px) { .button.button--round-arrow { width: var(--round-arrow-size, 3rem); height: var(--round-arrow-size, 3rem); } }
