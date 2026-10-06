@@ -22,4 +22,3 @@
 .blog-panel-variant--black { background: var(--color-foreground); }
 .blog-panel-variant--charcoal { background: var(--color-inverse-hover); color: var(--color-text-inverse); }
 @media (prefers-reduced-motion: reduce) { .blog-panel-variant--tiles a, .blog-panel-variant--minimal a, .blog-panel-variant--circles a::before { transition: none; } }
-
