@@ -1,9 +1,9 @@
-{% render 'section-width', section: section, default_width: 'page', surface: '.logo-marquee__viewport' %}
+{% render 'section-width', section: section, default_width: 'page', frame: '.logo-marquee__heading' %}
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 {{ 'logo-marquee.css' | asset_url | stylesheet_tag }}
-{% render 'logo-marquee-content', section: section, merchants: section.settings.merchant_collection.merchants.value %}
+{% render 'logo-marquee-content', section: section, merchants: section.settings.merchant_collection.merchants.value, link_logos: section.settings.link_logos, full_bleed: true %}
 
 
 {% schema %}

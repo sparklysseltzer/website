@@ -6,8 +6,22 @@
 <section class="section page-width collection-directory">
   <h1 class="page-title">{{ 'collections.general.title' | t }}</h1>
   {% paginate collections by 50 %}
+    {%- liquid
+      assign priority_handles = 'soda,hard-seltzer,clothing,accessories' | split: ','
+      assign ordered_collections = '' | split: ','
+      for handle in priority_handles
+        assign matching_collections = collections | where: 'handle', handle
+        assign ordered_collections = ordered_collections | concat: matching_collections
+      endfor
+      for collection in collections
+        unless priority_handles contains collection.handle
+          assign additional_collection = collections | where: 'handle', collection.handle
+          assign ordered_collections = ordered_collections | concat: additional_collection
+        endunless
+      endfor
+    -%}
     <div class="collection-directory__posters">
-      {% for collection in collections %}
+      {% for collection in ordered_collections %}
         {% render 'poster-content', collection_resource: collection, embedded: true %}
       {% endfor %}
     </div>
@@ -24,7 +38,7 @@
         "mainEntity": {
           "@type": "ItemList",
           "itemListElement": [
-            {% for collection in collections %}
+            {% for collection in ordered_collections %}
               {"@type":"ListItem","position":{{ paginate.current_offset | plus: forloop.index }},"name":{{ collection.title | json }},"url":{{ request.origin | append: collection.url | json }}}{% unless forloop.last %},{% endunless %}
             {% endfor %}
           ]

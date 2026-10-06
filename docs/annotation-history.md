@@ -240,3 +240,11 @@ Only the local development theme was updated. Test browser closed; no records de
 Ananotes 175 (`1791149627139-b3ghm5eia`): added the existing reversible card reveal to Content Slider with bounded horizontal stagger and stationary geometry. Studio fixtures share the wrapper. Verified intermediate, complete and reverse states, keyboard-focus reveal, phone layout and reduced-motion cancellation; no overflow. No schema or saved content changes.
 
 Ananotes 176 (2026-10-04): corrected badge timing to use the nearest word on the same wrapped line instead of its zero-height baseline anchor. At 1600px and 390px, all three badges matched their neighboring text opacity exactly at intermediate scroll positions in both directions, with no overflow. Full checks passed; isolated browser closed.
+
+## Design Studio note 1 — 2026-10-05
+
+Resolved `1791041936134-i5edxlua3` for port 9293: shared checkboxes retain their white field surface when checked/mixed, with a bold black tick or minus instead of a filled box. Added a checkbox-only bold derivative of the existing Untitled UI check path; radio/dropdown icons remain intact. Verified checked/mixed/disabled rendering in the Studio, native Space transition from mixed to checked, focus and 390px overflow. Repository checks passed; test browser closed.
+
+## 2026-10-06: Ananotes 177–180
+
+Removed Product Overview top padding only at its existing compact breakpoint (1200px and below), removed Offer Card arrow decorations while preserving native whole-card links when destinations are available, added shared Merchant/Press scroll reveals, and moved Versus staggering onto the individual cards. Hidden offer destination pages remain unpublished and intentionally non-interactive. Verified 390/900/1440px geometry, zero compact versus 64px wide overview top padding, no removed arrows, five distinct intermediate card animation timings, fully visible settled/reduced-motion cards, independent moving marquee track and 390px full viewport width. Script-blocked comparison/marquee content stayed visible; the native comparison scroller received keyboard focus. Full repository checks passed, and the isolated browser was closed.

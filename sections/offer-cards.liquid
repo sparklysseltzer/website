@@ -134,9 +134,6 @@
             {%- if card_title != blank -%}
               <h3 class="offer-card__title">{{ card_title }}</h3>
             {%- endif -%}
-            <span class="offer-card__arrow" aria-hidden="true">
-              <img src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="16" height="16">
-            </span>
           </div>
 
           {%- if card_subtitle != blank -%}
@@ -288,24 +285,6 @@
     overflow-wrap: anywhere;
   }
 
-  .offer-card__arrow {
-    width: 3rem;
-    height: 3rem;
-    margin-left: auto;
-    display: inline-flex;
-    flex: 0 0 auto;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-surface);
-    border-radius: 50%;
-    box-shadow: 0 0.125rem 0.1875rem rgb(0 0 0 / 10%);
-  }
-
-  .offer-card__arrow img {
-    width: 1rem;
-    height: 1rem;
-  }
-
   .offer-card__subtitle {
     display: none;
     margin: 0.5rem 0 0;
@@ -328,7 +307,7 @@
     font-size: var(--font-size-label);
     line-height: var(--line-height-solid);
     white-space: nowrap;
-    backdrop-filter: blur(0.9375rem);
+    /* Static translucent tint avoids filtering the moving image per tag. */
   }
 
   @media (min-width: 48rem) {

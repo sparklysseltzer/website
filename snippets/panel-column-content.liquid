@@ -18,9 +18,9 @@
   {% endif %}
   {% if options.show_button and options.button_label != blank %}
     <div class="split-image-text__action" data-scroll-motion-reveal>
-      <a class="{{ button_class }}" href="{{ button_link }}">
+      <a class="{{ button_class }}" href="{{ button_link }}"{% render 'link-target', new_tab: options.button_new_tab %}>
         <span class="button__label split-image-text__button-label">
-          <span>{{ options.button_label | escape }}</span>
+          <span>{{ options.button_label | escape }}{% if options.button_new_tab %}<span class="visually-hidden"> {{ 'social_channels.new_tab' | t }}</span>{% endif %}</span>
           <img class="split-image-text__button-icon" src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="16" height="16">
         </span>
       </a>

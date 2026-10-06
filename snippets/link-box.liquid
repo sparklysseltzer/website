@@ -1,3 +1,4 @@
+{% if options.open_new_tab %}{% assign external = true %}{% endif %}
 {% assign title = title | default: options.title %}
 {% assign link = link | default: options.link %}
 {% if title != blank %}

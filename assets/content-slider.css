@@ -40,15 +40,12 @@ content-slider { display: block; min-width: 0; width: 100%; max-width: var(--con
 .content-slider[data-layout='benefits'] .content-slider__title { text-align: left; }
 .content-slider__controls { display: flex; justify-content: flex-end; gap: .75rem; margin-top: 1.5rem; }
 .content-slider__controls[hidden] { display: none; }
-.content-slider__arrow.button { width: 4.5rem; height: 4.5rem; min-height: 44px; padding: 0; border-radius: 50%; --button-background: var(--color-surface-muted); --button-border-color: transparent; }
-.content-slider[data-layout='benefits'] .content-slider__arrow { --button-background: var(--color-surface-warm); }
-.content-slider__arrow-icon { width: 2rem; height: 2rem; background: currentColor; mask: url('icon-arrow-left.svg') center / contain no-repeat; }
+.content-slider[data-layout='benefits'] .content-slider__arrow { --round-arrow-background: var(--color-surface-warm); }
 .content-slider__arrow[data-direction='1'] .content-slider__arrow-icon { transform: rotate(180deg); }
 .content-slider__arrow[aria-disabled='true'] { opacity: .35; cursor: default; }
 .content-slider__arrow { transition: opacity var(--motion-duration-base) var(--motion-ease-ui); }
 .content-slider__card:focus-visible .content-slider__media img { transform: scale(1.04); }
 @media (hover: hover) { a.content-slider__card:hover .content-slider__media img { transform: scale(1.04); } }
-@media (max-width: 767px) { .content-slider__arrow.button { width: 3rem; height: 3rem; } }
 @media (prefers-reduced-motion: reduce) { .content-slider__media img, .content-slider__arrow { transition: none; } }
 @media (prefers-reduced-motion: reduce) { .content-slider__card:is(:hover, :focus-visible) .content-slider__media img { transform: none; } }
 
@@ -83,3 +80,7 @@ content-slider { display: block; min-width: 0; width: 100%; max-width: var(--con
 
 /* Blend the media layer only; isolate it from adjacent cards and the canvas. */
 .content-slider__media[data-blend-with-background] { mix-blend-mode: multiply; }
+
+/* Only viewport-adjacent cards get a temporary compositor hint. The controller
+   removes it offscreen, on disconnect and when reduced motion is enabled. */
+.content-slider__card[data-reveal-layer] { will-change: transform, opacity; }

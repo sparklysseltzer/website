@@ -157,16 +157,10 @@
 
             {%- if show_button and button_label != blank -%}
               <div class="poster__action" data-poster-reveal>
-                <a class="{{ button_class }}" href="{{ button_link }}">
+                <a class="{{ button_class }}" href="{{ button_link }}"{% render 'link-target', new_tab: options.button_new_tab %}>
                   <span class="button__label poster__button-label">
-                    <span>{{ button_label }}</span>
-                    <img
-                      class="poster__button-icon"
-                      src="{{ 'arrow-right.svg' | asset_url }}"
-                      alt=""
-                      width="16"
-                      height="16"
-                    >
+                    <span>{{ button_label }}{% if options.button_new_tab %}<span class="visually-hidden"> {{ 'social_channels.new_tab' | t }}</span>{% endif %}</span>
+                    <span class="poster__button-icon" aria-hidden="true"></span>
                   </span>
                 </a>
               </div>

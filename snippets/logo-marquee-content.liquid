@@ -2,6 +2,14 @@
   assign marquee_heading = section.settings.heading
   assign marquee_style = section.settings.background_style | default: card_style | default: 'gray'
 
+  assign box_surface = 'var(--color-surface)'
+  case section.settings.logo_box_surface
+    when 'transparent'
+      assign box_surface = 'transparent'
+    when 'soda_beige'
+      assign box_surface = 'var(--color-soda-surface-warm)'
+  endcase
+
   assign merchant_count = merchants | size
   assign show_visual_preview = false
   assign repeat_count = 4
@@ -20,14 +28,16 @@
 -%}
 
 {%- if merchant_count > 0 or request.design_mode or show_visual_preview -%}
-  <section data-section-background
-    class="logo-marquee logo-marquee--{{ marquee_style }}{% if section.settings.show_logo_boxes == false %} logo-marquee--unboxed{% endif %}{% if marquee_heading != blank %} logo-marquee--with-heading{% endif %}"
-    style="--logo-marquee-duration: {{ section.settings.duration }}s; --logo-marquee-direction: {{ section.settings.direction }};"
+  <editorial-section-motion>
+  <section data-section-background data-scroll-motion-section data-scroll-motion-surface
+    class="logo-marquee logo-marquee--{{ marquee_style }}{% if full_bleed %} logo-marquee--full-bleed{% endif %}{% if section.settings.show_logo_boxes == false %} logo-marquee--unboxed{% endif %}{% if marquee_heading != blank %} logo-marquee--with-heading{% endif %}"
+    style="--logo-box-surface: {{ box_surface }}; --logo-marquee-duration: {{ section.settings.duration }}s; --logo-marquee-direction: {{ section.settings.direction }};"
     aria-labelledby="LogoMarquee-{{ section.id }}"
   >
     <h2
       class="{% if marquee_heading != blank %}logo-marquee__heading{% else %}visually-hidden{% endif %}"
       id="LogoMarquee-{{ section.id }}"
+      {% if marquee_heading != blank %}data-scroll-motion-reveal{% endif %}
     >
       {%- if marquee_heading != blank -%}
         {{ marquee_heading }}
@@ -38,6 +48,7 @@
 
     {%- if merchant_count > 0 -%}
       <div
+        data-scroll-motion-reveal
         class="logo-marquee__viewport{% if section.settings.pause_on_interaction %} logo-marquee__viewport--pausable{% endif %}"
       >
         <div class="logo-marquee__track">
@@ -52,6 +63,9 @@
                 {%- liquid
                   assign merchant_name = merchant.name.value
                   assign merchant_url = merchant.url.value
+                  if link_logos == false
+                    assign merchant_url = ''
+                  endif
                   assign merchant_logo = merchant.logo.value
                   assign is_duplicate = true
 
@@ -128,4 +142,5 @@
       </div>
     {%- endif -%}
   </section>
+  </editorial-section-motion>
 {%- endif -%}

@@ -80,15 +80,17 @@
   .social-channels__link { display: flex; flex-direction: column; align-items: center; color: var(--color-foreground); text-align: center; text-decoration: none; border-radius: var(--radius-small); }
   .social-channels__circle.button { width: min(100%, 7rem); aspect-ratio: 1; min-height: 0; padding: 0; border-radius: 50%; }
   .social-channels__icon { display: block; width: 2.75rem; height: 2.75rem; background: currentColor; mask: var(--social-channel-icon) center / contain no-repeat; }
-  /* Brand artwork keeps white marks; difference blending would distort these colours. */
+  /* Keep saved modes and border choices while reviewing transparent fills. */
+  .social-channels[data-button-style="brand"] .social-channels__circle { border: 0; }
+  .social-channels[data-button-style="brand"] .social-channels__circle::after { content: none; }
+  /* All button modes currently share the transparent-to-black treatment. */
   .social-channels[data-button-style="brand"] .social-channels__circle {
-    --button-background: var(--social-channel-gradient);
+    --button-background: transparent;
     --button-border-color: transparent;
-    --button-sweep-background: rgb(0 0 0 / 18%);
+    --button-sweep-background: var(--color-foreground);
     background-origin: border-box;
     background-repeat: no-repeat;
   }
-  .social-channels[data-button-style="brand"] .social-channels__icon { color: #fff; mix-blend-mode: normal; }
   .social-channels__item[data-social-platform="instagram"] { --social-channel-gradient: radial-gradient(circle at 22% 105%, #ffd36b 0%, #f9913d 23%, #e53969 48%, #b52eb8 72%, #6548cf 100%); }
   .social-channels__item[data-social-platform="tiktok"] { --social-channel-gradient: linear-gradient(135deg, #17666b 0%, #151b25 38%, #211725 65%, #9c284c 100%); }
   .social-channels__item[data-social-platform="linkedin"] { --social-channel-gradient: linear-gradient(145deg, #1686c0 0%, #0a66a3 55%, #064a7a 100%); }
@@ -97,8 +99,8 @@
   .social-channels__platform { margin-top: 1rem; font-family: var(--font-body-strong); font-size: var(--font-size-body); }
   .social-channels__username { margin-top: .25rem; font-size: var(--font-size-small); color: var(--color-text-secondary); overflow-wrap: anywhere; max-width: 100%; }
   .social-channels__link--unconfigured { opacity: .45; }
-  .social-channels__link:focus-visible .button::before { transform: translate(-50%, -66.667%); transition-duration: var(--button-sweep-enter-duration); }
-  @media (hover: hover) { a.social-channels__link:hover .button::before { transform: translate(-50%, -66.667%); transition-duration: var(--button-sweep-enter-duration); } }
+  .social-channels__link:focus-visible .button::before { transform: translate(-50%, var(--button-sweep-active)); transition-duration: var(--button-sweep-enter-duration); }
+  @media (hover: hover) { a.social-channels__link:hover .button::before { transform: translate(-50%, var(--button-sweep-active)); transition-duration: var(--button-sweep-enter-duration); } }
   @media (max-width: 47.999rem) { .social-channels__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.75rem 1rem; } }
   @media (max-width: 22rem) { .social-channels__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (prefers-reduced-motion: reduce) { .social-channels__link .button::before { transition: none; } }

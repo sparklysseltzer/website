@@ -1,4 +1,8 @@
 {% liquid
+  assign open_new_tab = false
+  if options.show_button != false and options.button_new_tab
+    assign open_new_tab = true
+  endif
   assign box_layout = 'compact'
   assign box_heading_font = 'erode'
   assign box_content_position = 'bottom'
@@ -97,7 +101,7 @@
   assign opacity = box_overlay_strength | divided_by: 100.0
   assign overlay = box_overlay_color | color_modify: 'alpha', opacity
 %}
-<{{ tag }} {% if tag == 'a' %}href="{{ link }}" aria-label="{{ label | escape }}"{% endif %}
+<{{ tag }} {% if tag == 'a' %}href="{{ link }}"{% render 'link-target', new_tab: open_new_tab %} aria-label="{{ label | escape }}{% if open_new_tab %} {{ 'social_channels.new_tab' | t | escape }}{% endif %}"{% endif %}
   class="sidebar-box sidebar-box--{{ box_layout }} sidebar-box--{{ options.artwork }} sidebar-box--{{ box_content_position }} sidebar-box--button-{{ box_button_style }}"
   data-heading-font="{{ box_heading_font }}"
   style="--sidebar-box-height: {{ box_minimum_height }}px; --sidebar-box-text: {{ box_text_color }}; --sidebar-box-overlay: {{ overlay }};">
@@ -111,7 +115,7 @@
     {% if box_layout == 'compact' %}
       {% if options.show_button != false %}<span class="sidebar-box__action"><span>{{ label | escape }}</span><span class="sidebar-box__arrow" aria-hidden="true"><span class="editorial-chevron"></span></span></span>{% endif %}
     {% else %}
-      {% if options.show_button != false and link != blank %}<a class="button{% if box_button_style == 'light' %} button--secondary{% endif %}" href="{{ link }}"><span class="button__label">{{ label | escape }}</span></a>{% endif %}
+      {% if options.show_button != false and link != blank %}<a class="button{% if box_button_style == 'light' %} button--secondary{% endif %}" href="{{ link }}"{% render 'link-target', new_tab: open_new_tab %}><span class="button__label">{{ label | escape }}{% if open_new_tab %}<span class="visually-hidden"> {{ 'social_channels.new_tab' | t }}</span>{% endif %}</span></a>{% endif %}
     {% endif %}
   </div>
  </{{ tag }}>

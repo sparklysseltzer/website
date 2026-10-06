@@ -9,6 +9,7 @@ if (!customElements.get('brand-statement')) {
           this.render();
         });
       };
+      this.onLayout = () => { this.geometryDirty = true; this.schedule(); };
       this.onPreference = () => {
         this.teardown();
         if (!this.preference.matches) this.setup();
@@ -29,33 +30,45 @@ if (!customElements.get('brand-statement')) {
         animation.currentTime = 0;
         return { element, animation, art };
       });
+      this.geometryDirty = true;
       this.render();
       window.addEventListener('scroll', this.schedule, { passive: true });
-      window.addEventListener('resize', this.schedule);
-      window.addEventListener('pageshow', this.schedule);
-      this.resizeObserver = new ResizeObserver(this.schedule);
+      window.addEventListener('resize', this.onLayout);
+      window.addEventListener('pageshow', this.onLayout);
+      document.fonts?.addEventListener('loadingdone', this.onLayout);
+      this.resizeObserver = new ResizeObserver(this.onLayout);
       this.resizeObserver.observe(this);
+    }
+    measure() {
+      const width = this.clientWidth || 1;
+      // Read wrapping geometry together, only when layout changes. Never mix
+      // per-word offset reads with animation writes on every scroll frame.
+      const words = this.items.filter(item => !item.art).map(item => ({
+        element: item.element, top: item.element.offsetTop,
+        bottom: item.element.offsetTop + item.element.offsetHeight, left: item.element.offsetLeft
+      }));
+      for (const item of this.items) {
+        let top = item.element.offsetTop;
+        let left = item.element.offsetLeft;
+        if (item.art) {
+          const sameLine = words.filter(word => word.element.parentElement === item.element.parentElement && word.top <= top && word.bottom >= top);
+          const neighbor = sameLine.reduce((nearest, word) => !nearest || Math.abs(word.left - left) < Math.abs(nearest.left - left) ? word : nearest, null);
+          if (neighbor) { top = neighbor.top; left = neighbor.left; }
+        }
+        item.top = top;
+        item.stagger = left / width * .04;
+      }
+      this.geometryDirty = false;
     }
     render() {
       if (!this.items) return;
+      if (this.geometryDirty) this.measure();
       const top = this.getBoundingClientRect().top;
       const height = window.innerHeight;
-      const width = this.clientWidth || 1;
-      // offsetTop/Left describe untransformed layout, preventing animation feedback.
-      // Each line clears before it reaches the middle of the reading viewport.
       for (const item of this.items) {
-        // Artwork anchors have zero height at the baseline; time them from a
-        // neighboring word on the same wrapped line, not from that lower anchor.
-        let timingElement = item.element;
-        if (item.art) {
-          const baseline = item.element.offsetTop;
-          const words = [...item.element.parentElement.querySelectorAll('.brand-statement__word')];
-          const sameLine = words.filter(word => word.offsetTop <= baseline && word.offsetTop + word.offsetHeight >= baseline);
-          timingElement = sameLine.sort((a, b) => Math.abs(a.offsetLeft - item.element.offsetLeft) - Math.abs(b.offsetLeft - item.element.offsetLeft))[0] || item.element.previousElementSibling || item.element;
-        }
-        const stagger = (timingElement.offsetLeft / width) * height * .04;
+        const stagger = item.stagger * height;
         const progress = Math.min(1, Math.max(0,
-          (height * .94 - top - timingElement.offsetTop - stagger) / (height * .32)
+          (height * .94 - top - item.top - stagger) / (height * .32)
         ));
         if (progress !== item.progress) {
           item.animation.currentTime = progress * 1000;
@@ -65,8 +78,9 @@ if (!customElements.get('brand-statement')) {
     }
     teardown() {
       window.removeEventListener('scroll', this.schedule);
-      window.removeEventListener('resize', this.schedule);
-      window.removeEventListener('pageshow', this.schedule);
+      window.removeEventListener('resize', this.onLayout);
+      window.removeEventListener('pageshow', this.onLayout);
+      document.fonts?.removeEventListener('loadingdone', this.onLayout);
       this.resizeObserver?.disconnect();
       cancelAnimationFrame(this.frame);
       this.frame = null;

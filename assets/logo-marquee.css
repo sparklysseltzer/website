@@ -161,3 +161,9 @@
 }
 
 .logo-marquee__viewport { width: calc(100% - 2 * var(--page-gutter)); margin-inline: auto; }
+.logo-marquee--full-bleed .logo-marquee__viewport { width: 100%; max-width: none; }
+
+/* Box surface is independent of the outer canvas and legacy background modes. */
+.logo-marquee:not(.logo-marquee--unboxed) .logo-marquee__tile {
+  background: var(--logo-box-surface, var(--color-surface));
+}

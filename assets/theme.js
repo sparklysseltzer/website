@@ -1008,6 +1008,17 @@ class OfferCardsMotion extends HTMLElement {
       return animation;
     });
 
+    // Keep blended card layers only near the viewport.
+    if (this.hasAttribute('data-card-motion-horizontal')) {
+      this.layerObserver = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          const card = entry.target.querySelector('[data-card-motion-card]');
+          card?.toggleAttribute('data-reveal-layer', entry.isIntersecting);
+        }
+      }, { rootMargin: '100% 100px' });
+      this.cards.forEach(card => this.layerObserver.observe(card.parentElement));
+    }
+
     this.currentHeaderProgress = null;
     this.currentCardProgresses = null;
     this.currentParallaxProgresses = null;
@@ -1036,6 +1047,8 @@ class OfferCardsMotion extends HTMLElement {
     window.removeEventListener('scroll', this.handleScroll);
     window.removeEventListener('resize', this.handleResize);
     this.viewportObserver?.disconnect();
+    this.layerObserver?.disconnect();
+    this.cards?.forEach(card => card.removeAttribute('data-reveal-layer'));
 
     if (this.frameRequest) window.cancelAnimationFrame(this.frameRequest);
 
@@ -1079,7 +1092,8 @@ class OfferCardsMotion extends HTMLElement {
 
       return this.rangeProgress(cardProgress, stagger, 0.78 + stagger);
     });
-    this.targetParallaxProgresses = this.cards.map((card) => {
+    this.targetParallaxProgresses = this.cards.map((card, index) => {
+      if (!this.parallaxAnimations[index]) return 0;
       const cardBounds = card.getBoundingClientRect();
       return this.clamp(
         (viewportHeight - cardBounds.top) / (viewportHeight + cardBounds.height),
@@ -1164,7 +1178,7 @@ class OfferCardsMotion extends HTMLElement {
   }
 
   setAnimationProgress(animation, progress) {
-    if (animation) animation.currentTime = progress * 1000;
+    if (animation && animation.currentTime !== progress * 1000) animation.currentTime = progress * 1000;
   }
 
   rangeProgress(progress, start, end) {

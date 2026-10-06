@@ -10,13 +10,12 @@ collection-catalog, collection-hero-motion { display: block; }
 .catalog-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; overflow: clip; overflow-clip-margin: 2rem; }
 .collection-hero { position: relative; overflow: hidden; background: var(--color-surface-warm); }
 .collection-hero--soda { background: #b8def2 url('collection-hero-sky.webp') center / cover; }
-.collection-hero--seltzer { background: linear-gradient(0deg, #fff 0%, transparent 70%), linear-gradient(110deg, #ffb331 25%, #ffd55e 48%, #207637 85%); }
+.collection-hero--seltzer { background: var(--color-surface); }
 .collection-hero__background { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .collection-hero__layout { position: relative; display: grid; gap: 2rem; align-items: center; padding-block: var(--section-padding-block); }
 .collection-hero__copy { text-align: center; display: grid; gap: 1.25rem; justify-items: center; }
 .collection-hero__eyebrow, .collection-hero__text { margin: 0; font-size: var(--font-size-body); }
 .collection-hero__copy h1 { margin: 0; max-width: 11ch; font-size: var(--font-size-display); }
-.collection-hero--default .collection-hero__copy h1 { max-width: 20ch; }
 .collection-hero__text { max-width: 32rem; line-height: var(--line-height-body-compact); }
 .collection-hero__usps { display: flex; flex-wrap: wrap; justify-content: center; align-items: start; gap: .75rem; width: 100%; }
 .collection-hero__usps .usp-section__item { flex: 0 1 5rem; }
@@ -27,7 +26,7 @@ collection-catalog, collection-hero-motion { display: block; }
 .collection-hero__can + .collection-hero__can { left: 45%; top: 7%; transform: rotate(14deg); }
 .collection-hero__can img { width: 100%; height: 100%; object-fit: contain; }
 @media(min-width:600px) { .catalog-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
-@media(min-width:990px) { .catalog-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } .collection-hero__layout { grid-template-columns: minmax(0, 44fr) minmax(0, 56fr); min-height: 40rem; gap: 2rem; } .collection-hero--default .collection-hero__layout { grid-template-columns: 1fr; min-height: 20rem; } }
+@media(min-width:990px) { .catalog-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } .collection-hero__layout { grid-template-columns: minmax(0, 44fr) minmax(0, 56fr); min-height: 40rem; gap: 2rem; } }
 @media(hover:hover) { .collection-filter:not([aria-current]):hover { background: var(--color-surface-hover); } }
 @media(prefers-reduced-motion:reduce) { .collection-filter, .collection-filter img { transition: none; } }
 .collection-hero__copy h1 { font-family: var(--heading-choice-family); font-weight: var(--heading-choice-weight); line-height: var(--heading-choice-leading); letter-spacing: var(--heading-choice-tracking); }
@@ -41,9 +40,18 @@ collection-catalog, collection-hero-motion { display: block; }
 .collection-filters { margin-bottom: 2rem; }
 .collection-hero__glow { position: absolute; width: 80%; height: 130%; top: -30%; left: -30%; border-radius: 50%; background: radial-gradient(ellipse, rgb(227 246 255 / 80%), rgb(227 246 255 / 0) 68%); }
 .collection-hero__glow--two { left: 50%; top: 20%; background: radial-gradient(ellipse, rgb(255 255 255 / 75%), rgb(255 255 255 / 0) 68%); }
-.collection-hero--seltzer .collection-hero__glow--one { background: radial-gradient(ellipse, #ff9d00, rgb(255 157 0 / 0) 68%); }
-.collection-hero--seltzer .collection-hero__glow--two { background: radial-gradient(ellipse, rgb(78 164 29 / 75%), rgb(78 164 29 / 0) 68%); top: -40%; }
-.collection-hero--seltzer .collection-hero__atmosphere::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, #fff, transparent 65%); }
+.collection-hero--seltzer .collection-hero__atmosphere:not(:has(.collection-hero__background)) {
+  /* Brand artwork belongs to the atmosphere, independent of the canvas override. */
+  background:
+    radial-gradient(ellipse 34% 60% at 43% -6%, rgb(227 120 12 / 78%) 0%, rgb(239 143 18 / 48%) 32%, rgb(239 143 18 / 0) 76%),
+    radial-gradient(ellipse 58% 100% at 102% 0%, #155d32 0%, rgb(28 111 42 / 90%) 32%, rgb(28 111 42 / 0) 74%),
+    radial-gradient(ellipse 48% 85% at 66% 20%, #a3c94f 0%, rgb(163 201 79 / 0) 76%),
+    radial-gradient(ellipse 78% 110% at 12% 12%, #ffa51f 0%, #ffbd46 34%, rgb(255 189 70 / 0) 78%),
+    linear-gradient(110deg, #ffd38a, #eee9b7 55%, #c8dca2);
+}
+.collection-hero--seltzer .collection-hero__glow--one { background: radial-gradient(ellipse, rgb(255 153 0 / 65%), rgb(255 153 0 / 0) 70%); }
+.collection-hero--seltzer .collection-hero__glow--two { background: radial-gradient(ellipse, rgb(112 178 39 / 40%), rgb(112 178 39 / 0) 70%); top: -40%; }
+.collection-hero--seltzer .collection-hero__atmosphere::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgb(255 255 255 / 0) 30%, rgb(255 255 255 / 18%) 52%, rgb(255 255 255 / 82%) 82%, #fff 100%); }
 #CollectionProducts { scroll-margin-top: 8rem; }
 .collection-filter[data-filter='hard-seltzer'] img { filter: invert(1); }
 .collection-filter[data-filter='hard-seltzer'][aria-current] img { filter: none; }
@@ -72,3 +80,18 @@ collection-catalog, collection-hero-motion { display: block; }
   .collection-hero__art { order: -1; width: 100%; }
   .collection-hero__usps { order: 2; }
 }
+
+/* Neutral collections share the default page intro, including its reading width. */
+.collection-hero--default.page-intro { background: linear-gradient(var(--color-surface), transparent); }
+.collection-hero__intro.page-width { padding: 0; }
+.collection-hero__intro .page-intro__heading {
+  font-family: var(--heading-choice-family);
+  font-weight: var(--heading-choice-weight);
+  line-height: var(--heading-choice-leading);
+  letter-spacing: var(--heading-choice-tracking);
+  text-transform: var(--heading-choice-case);
+}
+.collection-hero__intro .page-intro__text > :first-child { margin-top: 0; }
+.collection-hero__intro .page-intro__text > :last-child { margin-bottom: 0; }
+.collection-hero__intro .page-intro__content > :is(.button, .collection-hero__usps) { margin-top: 1.25rem; }
+.collection-hero__intro > .collection-hero__art { max-width: var(--content-width-narrow); margin: 2rem auto 0; }

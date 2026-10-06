@@ -186,6 +186,8 @@
           </span>
         {%- endif -%}
         <span class="site-header__action" aria-hidden="true">
+          <span class="button button--secondary button--round-arrow site-header__action-surface" aria-hidden="true">
+            <span class="button__label site-header__action-label">
           <img
             class="site-header__action-icon site-header__action-icon--account"
             src="{{ 'icon-account.svg' | asset_url }}"
@@ -193,8 +195,12 @@
             height="15"
             alt=""
           >
+            </span>
+          </span>
         </span>
         <a class="site-header__action site-header__cart" data-cart-open href="{{ routes.cart_url }}">
+          <span class="button button--secondary button--round-arrow site-header__action-surface" aria-hidden="true">
+            <span class="button__label site-header__action-label">
           <img
             class="site-header__action-icon site-header__action-icon--cart"
             src="{{ 'icon-cart.svg' | asset_url }}"
@@ -202,6 +208,8 @@
             height="17"
             alt=""
           >
+            </span>
+          </span>
           <span class="visually-hidden">{{ 'sections.header.cart' | t }}</span>
           {%- if cart.item_count > 0 -%}
             <span class="site-header__cart-count" data-cart-count aria-hidden="true">{{ cart.item_count }}</span>

@@ -42,8 +42,8 @@
       {% endfor %}
     </ul>
     <div class="content-slider__controls" hidden>
-      <button type="button" class="button button--secondary content-slider__arrow" data-direction="-1" aria-controls="ContentSliderTrack-{{ section.id }}" aria-label="{{ 'content_slider.previous' | t }}"><span class="button__label content-slider__arrow-icon" aria-hidden="true"></span></button>
-      <button type="button" class="button button--secondary content-slider__arrow" data-direction="1" aria-controls="ContentSliderTrack-{{ section.id }}" aria-label="{{ 'content_slider.next' | t }}"><span class="button__label content-slider__arrow-icon" aria-hidden="true"></span></button>
+      <button type="button" class="button button--secondary button--round-arrow content-slider__arrow" data-direction="-1" aria-controls="ContentSliderTrack-{{ section.id }}" aria-label="{{ 'content_slider.previous' | t }}"><span class="button__label button__arrow content-slider__arrow-icon" aria-hidden="true"></span></button>
+      <button type="button" class="button button--secondary button--round-arrow content-slider__arrow" data-direction="1" aria-controls="ContentSliderTrack-{{ section.id }}" aria-label="{{ 'content_slider.next' | t }}"><span class="button__label button__arrow content-slider__arrow-icon" aria-hidden="true"></span></button>
     </div>
   </content-slider>
 </div>

@@ -105,9 +105,9 @@
 
           {%- if section.settings.show_button and section.settings.button_label != blank -%}
             <div class="split-image-text__action" data-scroll-motion-reveal>
-              <a class="{{ button_class }}" href="{{ button_link }}">
+              <a class="{{ button_class }}" href="{{ button_link }}"{% render 'link-target', new_tab: section.settings.button_new_tab %}>
                 <span class="button__label split-image-text__button-label">
-                  <span>{{ section.settings.button_label }}</span>
+                  <span>{{ section.settings.button_label }}{% if section.settings.button_new_tab %}<span class="visually-hidden"> {{ 'social_channels.new_tab' | t }}</span>{% endif %}</span>
                   <img
                     class="split-image-text__button-icon"
                     src="{{ 'arrow-right.svg' | asset_url }}"

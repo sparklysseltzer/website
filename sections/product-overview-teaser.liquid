@@ -14,13 +14,12 @@
         <h2 class="product-overview__heading">{{ section.settings.heading }}</h2>
       {%- endif -%}
 
+      {%- if section.settings.show_navigation != false -%}
       <nav class="product-overview__navigation" aria-label="{{ 'sections.product_overview.navigation' | t }}">
         {%- if section.settings.all_products_label != blank and all_products_link != blank -%}
           <a class="product-overview__navigation-link" href="{{ all_products_link }}">
             <span>{{ section.settings.all_products_label }}</span>
-            <span class="product-overview__navigation-arrow" aria-hidden="true">
-              <img src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="16" height="16">
-            </span>
+            <span class="product-overview__navigation-arrow button button--secondary button--round-arrow" aria-hidden="true"><span class="button__label button__arrow button__arrow--next"></span></span>
           </a>
         {%- endif -%}
 
@@ -33,9 +32,7 @@
               width="406"
               height="195"
             >
-            <span class="product-overview__navigation-arrow" aria-hidden="true">
-              <img src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="16" height="16">
-            </span>
+            <span class="product-overview__navigation-arrow button button--secondary button--round-arrow" aria-hidden="true"><span class="button__label button__arrow button__arrow--next"></span></span>
           </a>
         {%- endif -%}
 
@@ -48,12 +45,11 @@
               width="205"
               height="56"
             >
-            <span class="product-overview__navigation-arrow" aria-hidden="true">
-              <img src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="16" height="16">
-            </span>
+            <span class="product-overview__navigation-arrow button button--secondary button--round-arrow" aria-hidden="true"><span class="button__label button__arrow button__arrow--next"></span></span>
           </a>
         {%- endif -%}
       </nav>
+      {%- endif -%}
     </div>
 
     <div class="product-overview__grid" data-card-motion-grid>
@@ -248,9 +244,7 @@
             </div>
 
             {%- if card_url != blank -%}
-              <span class="product-overview-card__arrow" aria-hidden="true">
-                <img src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="16" height="16">
-              </span>
+              <span class="product-overview-card__arrow button button--secondary button--round-arrow" aria-hidden="true"><span class="button__label button__arrow button__arrow--next"></span></span>
             {%- endif -%}
           </div>
         {%- if card_url != blank -%}
@@ -319,25 +313,18 @@
     filter: invert(1);
   }
 
+
   .product-overview__navigation-arrow,
   .product-overview-card__arrow {
-    width: 3.75rem;
-    height: 3.75rem;
-    display: inline-flex;
-    flex: 0 0 auto;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: var(--color-surface);
+    --round-arrow-size: 3.75rem;
+    --round-arrow-icon-size: 1rem;
+    --round-arrow-mask: url("arrow-right.svg");
+    --round-arrow-rotation: 0deg;
+    --round-arrow-background: var(--color-surface);
     box-shadow: 0 2px 3px rgb(0 0 0 / 10%);
   }
 
-  .product-overview__navigation-arrow img,
-  .product-overview-card__arrow img {
-    width: 1rem;
-    height: 1rem;
-    transition: transform var(--motion-duration-base) var(--motion-ease);
-  }
+  .product-overview-card__arrow { --round-arrow-size: clamp(3rem, 16.25cqi, 3.75rem); }
 
   .product-overview__grid {
     display: grid;
@@ -527,10 +514,6 @@
     height: auto;
   }
 
-  .product-overview-card__arrow {
-    width: clamp(3rem, 16.25cqi, 3.75rem);
-    height: clamp(3rem, 16.25cqi, 3.75rem);
-  }
 
   .product-overview-card:focus-visible,
   .product-overview__navigation-link:focus-visible {
@@ -543,13 +526,10 @@
       transform: translate3d(var(--product-card-image-x), var(--product-card-image-y), 0) scale(1.07);
     }
 
-    .product-overview-card:hover .product-overview-card__arrow img,
-    .product-overview__navigation-link:hover .product-overview__navigation-arrow img {
-      transform: translateX(0.2rem);
-    }
   }
 
   @media (max-width: 1200px) {
+    .product-overview { padding-top: 0; }
     .product-overview__navigation { display: none; }
     .product-overview__header {
       position: absolute;

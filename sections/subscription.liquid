@@ -126,7 +126,7 @@
             {%- if section.settings.show_button or section.settings.show_account -%}
               <div class="subscription__actions" data-scroll-motion-reveal>
                 {%- if section.settings.show_button -%}
-                  <a class="button{% if variant == 'seltzer' %} button--secondary{% endif %}" href="{{ button_url }}"><span class="button__label">{{ button_label | escape }}</span></a>
+                  <a class="button{% if variant == 'seltzer' %} button--secondary button--inverse{% endif %}" href="{{ button_url }}"><span class="button__label">{{ button_label | escape }}</span></a>
                 {%- endif -%}
                 {%- if section.settings.show_account -%}
                   <div class="subscription__account">
@@ -161,7 +161,6 @@
   .subscription__logo { display: block; width: 12.75rem; height: auto; margin-bottom: 1.25rem; }
   .subscription--soda .subscription__logo { width: 9.6875rem; margin-bottom: .5rem; }
   .subscription__heading { margin: 0; font-family: var(--font-heading-default); font-weight: 400; line-height: var(--line-height-heading); font-size: var(--font-size-display); overflow-wrap: anywhere; }
-  .subscription--seltzer .subscription__heading { width: max-content; white-space: nowrap; }
   .subscription--heading-seltzer .subscription__heading { text-transform: uppercase; }
   .subscription--heading-soda .subscription__heading { font-family: var(--font-heading-soda); font-weight: 700; }
   .subscription__intro, .subscription__benefits, .subscription__account { font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 400; line-height: var(--line-height-body-compact); }
@@ -171,7 +170,7 @@
   .subscription__benefits li { display: flex; align-items: flex-start; gap: .75rem; }
   .subscription__benefits img { width: 1.25rem; height: 1.25rem; margin-top: .06em; flex: 0 0 auto; }
   .subscription__actions { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; }
-  .subscription__actions .button { padding-inline: 2.25rem; }
+  .subscription__actions .button { --button-background: var(--color-surface); padding-inline: 2.25rem; }
   .subscription__account p { margin: 0; }
   .subscription__account .text-link { position: relative; display: inline-flex; align-items: center; text-decoration: underline; text-underline-offset: .15em; }
   /* Extend the hit area, not the visible line box, to preserve the compact pair. */
@@ -189,7 +188,6 @@
   @media (max-width: 47.999rem) {
     .subscription__inner { min-height: var(--subscription-mobile-height); align-items: flex-end; padding: 15rem 1.5rem 2rem; }
     .subscription__content { width: 100%; gap: 1.25rem; }
-    .subscription--seltzer .subscription__heading { margin-inline: -.875rem; }
     .subscription__logo { width: 10rem; margin-bottom: .875rem; }
     .subscription--soda .subscription__logo { width: 8rem; }
     .subscription__media { --subscription-current-focal: 65% 0%; }

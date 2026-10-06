@@ -48,19 +48,23 @@
     assign second = 'product-overview-seltzer-holunder.webp'
   endif
 -%}
+{% if variant == 'default' %}{{ 'page-content.css' | asset_url | stylesheet_tag }}{% endif %}
 {% render 'heading-font', choice: font, section_id: section.id %}
-<collection-hero-motion data-section-background class="collection-hero collection-hero--{{ variant }}" data-heading-font="{{ font }}"{% if section.settings.animate %} data-animate{% endif %}>
+<collection-hero-motion data-section-background class="collection-hero collection-hero--{{ variant }}{% if variant == 'default' %} page-intro page-intro--editorial{% endif %}" data-heading-font="{{ font }}"{% if section.settings.animate %} data-animate{% endif %}>
+  {% if variant == 'default' and section.settings.background_image == blank %}
+    <img class="page-intro__art" src="{{ 'page-intro-arc.svg' | asset_url }}" width="1200" height="279" alt="" aria-hidden="true">
+  {% endif %}
   <div class="collection-hero__atmosphere" aria-hidden="true">
     {% if section.settings.background_image %}{{ section.settings.background_image | image_url: width: 2400 | image_tag: widths: '750, 1200, 1800, 2400', sizes: '100vw', class: 'collection-hero__background', loading: 'eager', alt: '' }}{% else %}
       {% if variant == 'soda' %}<div class="collection-hero__clouds" data-clouds></div>{% endif %}
       {% if variant != 'default' %}<div class="collection-hero__glow collection-hero__glow--one" data-glow></div><div class="collection-hero__glow collection-hero__glow--two" data-glow></div>{% endif %}
     {% endif %}
   </div>
-  <div class="page-width collection-hero__layout">
-    <div class="collection-hero__copy">
-      {% if section.settings.eyebrow != blank %}<p class="collection-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% elsif variant != 'default' %}<p class="collection-hero__eyebrow">Sparklys™ {{ collection.title | escape }}</p>{% endif %}
-      <h1>{{ heading | escape }}</h1>
-      {% if intro != blank %}<div class="rte collection-hero__text">{{ intro }}</div>{% endif %}
+  <div class="page-width {% if variant == 'default' %}collection-hero__intro{% else %}collection-hero__layout{% endif %}">
+    <div class="{% if variant == 'default' %}page-intro__content{% else %}collection-hero__copy{% endif %}">
+      {% if section.settings.eyebrow != blank %}<p class="{% if variant == 'default' %}page-intro__label{% else %}collection-hero__eyebrow{% endif %}">{{ section.settings.eyebrow | escape }}</p>{% elsif variant != 'default' %}<p class="collection-hero__eyebrow">Sparklys™ {{ collection.title | escape }}</p>{% endif %}
+      <h1{% if variant == 'default' %} class="page-intro__heading"{% endif %}>{{ heading | escape }}</h1>
+      {% if intro != blank %}<div class="rte {% if variant == 'default' %}page-intro__text{% else %}collection-hero__text{% endif %}">{{ intro }}</div>{% endif %}
       {% if section.settings.show_button %}<a class="button" href="#CollectionProducts"><span class="button__label">{{ section.settings.button_label | escape }}{% if section.settings.button_label == blank %}{{ 'collections.hero.shop' | t }}{% endif %}</span></a>{% endif %}
       {% if variant != 'default' or set != blank %}
         <div class="collection-hero__usps usp-items" role="list">

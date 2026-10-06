@@ -64,9 +64,9 @@
         {%- endfor -%}
       </div>
 
-      {%- if button_label != blank -%}
+      {%- if section.settings.show_button != false and button_label != blank -%}
         <div class="seltzer-awards__action" data-scroll-motion-reveal>
-          <a class="button" href="{{ button_link }}">{{ button_label }}</a>
+          <a class="button" href="{{ button_link }}"><span class="button__label">{{ button_label }}</span></a>
         </div>
       {%- endif -%}
     </div>

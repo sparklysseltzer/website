@@ -99,6 +99,7 @@
         </div>
 
         <div class="usp-section__content">
+          <div class="usp-section__body">
           <div class="usp-section__copy">
             {%- if usp_heading != blank -%}
               <h2 class="usp-section__heading" data-scroll-motion-reveal>{{ usp_heading | newline_to_br }}</h2>
@@ -142,6 +143,7 @@
               {% render 'usp-items', usp_variant: usp_variant, usp_set: usp_set, item_class: 'usp-section__item' %}
             {%- endif -%}
           </div>
+          </div>
           {% if section.blocks.size == 0 %}{% render 'usp-footnote', usp_set: usp_set, usp_variant: usp_variant, class: 'usp-section__footnote' %}{% endif %}
         </div>
       </div>
@@ -166,6 +168,8 @@
 
   .usp-section__panel {
     position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
     width: 100%;
     max-width: var(--content-width-editorial);
     aspect-ratio: 1400 / 630;
@@ -211,14 +215,29 @@
     position: relative;
     z-index: 1;
     width: 50%;
-    min-height: 100%;
-    padding: clamp(2rem, 2.5vw, 2.5rem) 7.142857% clamp(2rem, 2.5vw, 2.5rem) clamp(1.25rem, 2vw, 1.875rem);
+    min-height: 0;
+    padding: clamp(2rem, 2.5vw, 2.5rem) 7.142857% 1.25rem clamp(1.25rem, 2vw, 1.875rem);
     margin-left: auto;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 1fr auto;
     gap: clamp(1rem, 1.25vw, 1.25rem);
-    justify-content: center;
   }
+
+  .usp-section__body {
+    align-self: center;
+    display: grid;
+    gap: clamp(1rem, 1.25vw, 1.25rem);
+  }
+
+  .usp-section__content:not(:has(.usp-section__footnote)) { grid-template-rows: 1fr; }
+
+  .usp-section__footnote {
+    margin: 0;
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-body);
+  }
+
+  .usp-section__footnote :is(p, div) { margin-block: 0; }
 
   .usp-section__copy {
     display: grid;
