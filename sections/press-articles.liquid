@@ -143,29 +143,83 @@
       "type": "select",
       "id": "section_background_mode",
       "label": "Background",
-      "default": "original",
+      "default": "transparent",
       "options": [
-        {
-          "value": "original",
-          "label": "Default"
-        },
         {
           "value": "transparent",
           "label": "Transparent"
         },
         {
           "value": "custom",
-          "label": "Custom Color"
+          "label": "Colored"
         }
       ],
-      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+      "info": "Colored lets you choose a shared surface or a custom color."
+    },
+    {
+      "type": "select",
+      "id": "section_background_surface",
+      "label": "Surface",
+      "default": "custom",
+      "options": [
+        {
+          "value": "page",
+          "label": "Page background"
+        },
+        {
+          "value": "background",
+          "label": "Brand background"
+        },
+        {
+          "value": "surface",
+          "label": "Surface (white)"
+        },
+        {
+          "value": "muted",
+          "label": "Muted surface (light gray)"
+        },
+        {
+          "value": "warm",
+          "label": "Supporting surface"
+        },
+        {
+          "value": "beige",
+          "label": "Surface beige"
+        },
+        {
+          "value": "soda",
+          "label": "Soda background (beige)"
+        },
+        {
+          "value": "gray",
+          "label": "Gray"
+        },
+        {
+          "value": "dark_gray",
+          "label": "Dark gray"
+        },
+        {
+          "value": "inverse",
+          "label": "Dark surface (charcoal)"
+        },
+        {
+          "value": "black",
+          "label": "Foreground (black)"
+        },
+        {
+          "value": "custom",
+          "label": "Custom color"
+        }
+      ],
+      "info": "Shared surfaces follow Theme settings colors. Custom color applies only to this section.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
     },
     {
       "type": "color",
       "id": "section_background",
-      "label": "Color",
-      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
-      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      "label": "Custom color",
+      "info": "Used only for Custom color. Clear shows the page background. Text, panels and cards keep their own colors.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
     }
   ],
   "presets": [
@@ -173,7 +227,8 @@
       "name": "Press articles",
       "category": "Trust & information",
       "settings": {
-        "section_background_mode": "transparent"
+        "section_background_mode": "transparent",
+        "section_background_surface": "surface"
       }
     }
   ]

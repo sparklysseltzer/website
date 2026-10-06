@@ -215,3 +215,7 @@ Corporate-menu stacking: the world switcher is explicitly positioned at header-l
 When the first main section contains an enabled ambient hero slider, `hero-slider.css` reduces the existing translucent header surface to 80% opacity (the glass wrapper when enabled, otherwise only the main bar) so its glow can show beneath the navigation. Existing backdrop blur and z-index preserve foreground legibility and menu layering. The hero bleeds beyond its content wrapper; horizontal containment happens at the viewport without a new scroll ancestor. Pages without a leading ambient hero retain the default glass surface.
 
 Ananotes 173 (2026-10-04): navigation-card scrollbars are visually hidden with standard and WebKit rules. Horizontal overflow, native touch/trackpad scrolling and the focusable region remain available.
+
+## Header action fill
+
+Cart and account circles use the shared borderless oval sweep through an inner `site-header__action-surface`. Existing 46px circles, icon dimensions and pale neutral appearance remain. The circle uses an opaque 5% foreground/surface mix so difference-blended icons stay dark at rest and light under the sweep. The inner surface clips the sweep; the outer action stays unclipped so the cart-count badge can overlap normally. The cart remains a localized link with drawer enhancement and keyboard focus. The account remains the existing aria-hidden placeholder; this styling does not enable account navigation. Reduced motion uses the shared button fallback.

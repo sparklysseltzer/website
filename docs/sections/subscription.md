@@ -51,9 +51,9 @@ Shared neutral UI colors now resolve through **Theme settings → Colors**, foll
 
 Colors now follow the [brand-world palette contract](../design-system.md#theme-color-settings). Explicit Soda/Seltzer sections and cards select their own palette on mixed pages; the header/footer inherit page context, and both cart surfaces always use General. Shared accent/status roles and explicit artwork/section overrides remain unchanged. Notice copy resolves through its world’s Notice text setting.
 
-## Ananotes correction — single-line Seltzer heading
+## Heading wrapping
 
-The Hard Seltzer heading uses its natural content width and no wrapping, so “Subscription” extends beyond the narrower body-copy column on desktop. On phones its inline margins reclaim 14px of the existing panel padding on each side, keeping the 44px shared display role inside the panel at 320px. No font size or line-height exception is introduced. The Soda heading is unchanged. Longer merchant-supplied Seltzer headings must be checked against the available panel width because this heading intentionally stays on one line.
+Both worlds wrap headings within the content column using the shared Display role and `overflow-wrap: anywhere`. The former Seltzer-only max-content/nowrap rule and mobile negative margins were removed on 2026-10-06 so long merchant headings remain inside the panel. Font sizes and font-specific line heights remain shared and unchanged.
 
 ## Breakpoint visibility
 
@@ -67,7 +67,7 @@ Editor naming (2026-09-12): **Subscription**; presets: **Subscription — Soda**
 
 ## Section background
 
-**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+**Section background** is the final group: Transparent or Colored. Colored shows Surface; only Custom color shows the picker. Clear means transparent. New/default placements start transparent. Saved color fields remain intact; retired Default modes are compatibility-only. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
 
 Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows); nested surfaces suppress the additional shadow. Existing layout, focus and motion behavior is preserved.
 
@@ -76,3 +76,7 @@ Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows
 **Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Editorial**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).
 
 Full-width selected media uses the shared `content-image-sizes` hint for Narrow/Editorial/Page, so a wider selection is not capped to the old source size. Split media retains its side-by-side hint except in stacked/Narrow layouts.
+
+Artwork-button correction (2026-10-06): Subscribe actions keep an opaque shared Surface backing throughout the animation. Soda uses black with white text at rest and white with dark text on hover/focus. Hard Seltzer uses white with dark text at rest and black with white text on hover/focus, plus the shared inverse outline to retain the boundary against dark artwork. Existing labels, destinations, toggles and account-link styling remain unchanged.
+
+Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes the Surface dropdown bound to existing shared CSS/theme color roles; only Custom color exposes the original picker. Schema default Custom preserves existing saved colors; new add-section presets select Surface. No saved content is migrated. Internal text/card colors do not auto-invert. See [Section backgrounds](../design-system.md#section-backgrounds).

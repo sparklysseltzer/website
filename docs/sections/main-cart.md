@@ -290,8 +290,10 @@ Essential-function exception: this section stays available at every breakpoint a
 
 ## Section background
 
-**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+**Section background** is the final group: Transparent or Colored. Colored shows Surface; only Custom color shows the picker. Clear means transparent. New/default placements start transparent. Saved color fields remain intact; retired Default modes are compatibility-only. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
 
 Ananotes 155 (2026-09-28): the empty-cart quotation now uses the actual regular-weight italic file from the merchant’s Erode package, shared with the drawer. No heading weights change.
 
 Ananotes 168: shared quantity updates restore focus to the initiating step button after section replacement. Manual numeric edits retain input focus; pointer step clicks no longer force a blinking text caret.
+
+Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes the Surface dropdown bound to existing shared CSS/theme color roles; only Custom color exposes the original picker. Schema default Custom preserves existing saved colors; new add-section presets select Surface. No saved content is migrated. Internal text/card colors do not auto-invert. See [Section backgrounds](../design-system.md#section-backgrounds).

@@ -56,7 +56,7 @@ Editor naming (2026-09-12): **Image and text panel**. Display names only; intern
 
 ## Section background
 
-**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+**Section background** is the final group: Transparent or Colored. Colored shows Surface; only Custom color shows the picker. Clear means transparent. New/default placements start transparent. Saved color fields remain intact; retired Default modes are compatibility-only. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
 
 Rounded surfaces use the shared [panel shadow](../design-system.md#panel-shadows); nested surfaces suppress the additional shadow. Existing layout, focus and motion behavior is preserved.
 
@@ -81,3 +81,9 @@ The original section-setting IDs remain available under **Content source → Exi
 Read-only inventory on 2026-10-04 found no instances in the current development theme and two legacy instances in the shared draft (home and About templates). Migration candidates were generated from fresh CLI downloads outside the repository; shared/live templates remain untouched. Before a future shared release, rerun against current editor-owned content and review the same protected-file merge as any saved-content migration. The compatibility path keeps those instances usable in the meantime.
 
 Nested-column verification: actual Shopify section rendering produced two native column roots for Top/Two and one for Top/One, Left and Right. At 1440px the two tracks were equal; at 390px they stacked without horizontal overflow. Computed Erode casing remained `none`. Schema cases cover independent column controls and hide the legacy fields in Column blocks mode. Migration tests passed for both shared-draft candidates. No shared/live templates were written.
+
+## Per-action new-tab option (2026-10-05)
+
+**Open in new tab** follows the destination field and defaults off, preserving existing navigation. Existing content shows the option only in legacy content mode with Show button enabled. Each native left/right column owns the same option behind its own Show button toggle. Enabled links render native `target="_blank"` and `rel="noopener noreferrer"` and reuse the translated screen-reader new-tab announcement. No JavaScript is required. Existing IDs and saved content are preserved; the checkbox enables no further fields. Editor contracts cover enabled, disabled and inactive-content states.
+
+Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes the Surface dropdown bound to existing shared CSS/theme color roles; only Custom color exposes the original picker. Schema default Custom preserves existing saved colors; new add-section presets select Surface. No saved content is migrated. Internal text/card colors do not auto-invert. See [Section backgrounds](../design-system.md#section-backgrounds).

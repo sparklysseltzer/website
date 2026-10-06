@@ -6,7 +6,7 @@ Introduces branded and neutral collection pages. The all-products resource suppr
 
 ## Content and editor contract
 
-Automatic uses the existing `brand-context` resolver and `custom.brand_variant`; no new product-world classification. Soda uses Erode and the sky treatment; Hard Seltzer uses Newake and warm/green color fields. General collections use an Erode title, collection description and neutral surface. Explicit heading font choices affect headings only. Brand defaults translate approved Figma text through English/German locales; merchant heading, intro and label overrides remain translatable theme content.
+Automatic uses the existing `brand-context` resolver and `custom.brand_variant`; no new product-world classification. Soda uses Erode and the sky treatment; Hard Seltzer uses Newake and warm/green color fields. General collections use the default page intro design: centered Erode Display heading, shared narrow reading width, page-intro spacing, white-to-transparent canvas and the subtle Sparklys arc. The shared `page-content.css` classes supply the same responsive composition as Page; collection title/description and editor overrides remain authoritative. A custom background image replaces the arc. Optional shop action, benefits and product artwork remain available below the introduction. Explicit heading font choices affect headings only. Brand defaults translate approved Figma text through English/German locales; merchant heading, intro and label overrides remain translatable theme content.
 
 Groups follow Design, Content, Artwork, Action, Visibility and Section background. The shop label appears only when its action is enabled; the action targets the real catalog anchor. Image pickers remain useful additive overrides in all worlds, including a neutral collection with custom artwork. Empty pickers select bundled brand artwork; there are no crop controls or duplicate brand metafields. Both images use contain; background images use cover and Shopify focal points. Default neutral collections have no decorative cans.
 
@@ -28,7 +28,7 @@ Only transforms animate: independent cans follow overlapping horizontal/vertical
 
 ## Layout, typography and structured data
 
-Phone stacks artwork, copy, shop action and benefits; the benefits use a three-column grid with wrapping labels. Desktop uses a 44/56 copy/art split. Hero heading uses Display, copy Body, benefit labels Label, footnotes and motion controls Small. Font-specific line heights remain shared. The hero introduces no separate entity; the accompanying catalog owns CollectionPage/ItemList JSON-LD. Claims and footnotes stay visible, including with JS disabled.
+Branded heroes: phone stacks artwork, copy, shop action and benefits; the benefits use a three-column grid with wrapping labels. Desktop uses a 44/56 copy/art split. Hero heading uses Display, copy Body, benefit labels Label, footnotes and motion controls Small. Font-specific line heights remain shared. The hero introduces no separate entity; the accompanying catalog owns CollectionPage/ItemList JSON-LD. Claims and footnotes stay visible, including with JS disabled.
 
 Motion verification (2026-09-15): desktop idle transforms advance between sampled frames; pointer response eases toward the cursor and returns near neutral after leaving. Pause freezes the can transform exactly; reduced motion clears transforms and hides the control. Phone idle motion remains active with no horizontal overflow. Shared checks and JavaScript syntax validation pass.
 
@@ -44,10 +44,18 @@ Ananotes 149: the Soda hero with Erode uses a named composition exception, `--so
 
 ## Section background
 
-**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+**Section background** is the final group: Transparent or Colored. Colored shows Surface; only Custom color shows the picker. Clear means transparent. New/default placements start transparent. Saved color fields remain intact; retired Default modes are compatibility-only. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
 
 Ananotes 170 (2026-10-04): below 990px, both Soda and Hard Seltzer show decorative cans first, followed by heading/introduction, the shop action, and benefits last. The copy wrapper uses display:contents so these share one grid. The action precedes benefits in source order; desktop CSS restores the original copy/benefits/action composition beside artwork. Artwork stays aria-hidden; no duplicated controls or content.
 
 ## Shared content width
 
 **Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Page**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).
+
+Neutral hero alignment (2026-10-05): only General Sparklys (including Automatic resolving to default) uses the page intro treatment. Soda and Hard Seltzer retain their branded layouts and motion. No schema IDs, saved template content or store data changed. CollectionPage/ItemList remains catalog-owned; no page-specific WebPage JSON-LD is added. Content width controls the outer frame; neutral copy retains the shared 800px reading limit.
+
+Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes the Surface dropdown bound to existing shared CSS/theme color roles; only Custom color exposes the original picker. Schema default Custom preserves existing saved colors; new add-section presets select Surface. No saved content is migrated. Internal text/card colors do not auto-invert. See [Section backgrounds](../design-system.md#section-backgrounds).
+
+Seltzer atmosphere refinement (2026-10-06): orange, lime and deep-green overlapping radial fields now live on the decorative atmosphere rather than the outer canvas, so Transparent section backgrounds cannot remove the main artwork. The top-right field is deep green, the left field richer orange, and one staged white bottom fade keeps the lower content transition soft. Existing low-amplitude animated glows remain transform-only. No blend modes or animated filters are added. Custom background images replace the gradient stack; Soda sky is unchanged. This is a CSS approximation of the supplied side-by-side Figma reference, not an exact export.
+
+Top-edge color refinement: a soft darker-orange radial field centered at 43% horizontally and just above the top edge adds warmth left of centre, feathering into the green without a hard boundary. Existing motion and bottom fade are unchanged.

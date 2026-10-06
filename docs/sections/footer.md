@@ -27,7 +27,7 @@ Payment marks and Store Finder remain non-interactive artwork. German and Englis
 
 ## Known gaps
 
-Verify Shopify-to-Klaviyo list routing and opt-in behavior operationally. Replace placeholder footer-menu destinations. Connect Store Finder and verify payment gateway coverage separately.
+Verify Shopify-to-Klaviyo list routing and opt-in behavior operationally. Remaining placeholder destinations are Store finder, Digestive Health, Ingredients and Sustainability. Connect Store Finder and verify payment gateway coverage separately.
 
 ## Typography roles
 
@@ -79,7 +79,7 @@ Verified at 390px, 1024px and 1440px: correct four-card hierarchy, aligned logos
 
 ## Content-to-footer spacing
 
-The layout’s `#MainContent` supplies an outer bottom buffer using the same `--section-padding-block` token as ordinary sections (32–64px). This works across all templates and brand contexts without changing footer internals or saved settings. See the design-system spacing contract.
+No extra global buffer is added before the footer. The final section’s own padding supplies the spacing, and footer padding remains internal. Placement-specific exceptions can be handled individually.
 
 ## Heading font selection
 
@@ -93,8 +93,19 @@ Ananotes 128: the embedded button also retains a foreground inner ring above the
 
 ## Section background
 
-**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+**Section background** is the final group: Transparent or Colored. Colored shows Surface; only Custom color shows the picker. Clear means transparent. New/default placements start transparent. Saved color fields remain intact; retired Default modes are compatibility-only. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
 
 Panel-shadow rollout (2026-10-01): Rounded footer navigation cards use the shared panel shadow; its subtle black tone remains intentionally barely visible on the dark footer. See the [shared contract](../design-system.md#panel-shadows).
 
 Central social sources (2026-10-02): Social Media Channels and Footer read identical store-owned destinations. The Soda footer retains its separate Instagram account; its TikTok and Facebook now use the shared Brand destinations rather than the old hardcoded Soda URLs. Existing Instagram/TikTok/LinkedIn/Facebook artwork is preserved; optional YouTube reuses the local social-channel mask. No saved footer settings, menus or template content changed.
+
+Global footer gap removed (2026-10-06): the additional spacer, background-continuation helper and script include are removed. Ordinary section padding now owns the boundary; no per-page spacer or runtime observer remains.
+
+Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes the Surface dropdown bound to existing shared CSS/theme color roles; only Custom color exposes the original picker. Schema default Custom preserves existing saved colors; new add-section presets select Surface. No saved content is migrated. Internal text/card colors do not auto-invert. See [Section backgrounds](../design-system.md#section-backgrounds).
+
+
+## Navigation destination audit (2026-10-06)
+
+Updated the store-owned General, Soda and Hard Seltzer footer menus through the Admin GraphQL API under explicit merchant authorization. Connected 39 existing child items to native Shopify resource references: named flavour products, Clothing/Accessories collections, the published shared subscription page, News blog, FAQ, About us (also Our Story), Team, Press & Media and Contact. Preserved menu/item IDs, labels, hierarchy and order. The existing header navigation corroborates the shared subscription and Our Story destinations.
+
+Store finder, Digestive Health and Ingredients remain unchanged because no clear usable destination was established. Sustainability remains unchanged because its matching page is unpublished. Structural card headings remain non-linked. The shared Legal Nav already references the five correct ShopPolicy resources and was retained; unrelated menus and the empty legacy footer menu were not changed. Social links retain their central Brand/metafield ownership. No theme deployment, page publication or saved theme-content replacement was involved.

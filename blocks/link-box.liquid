@@ -20,6 +20,13 @@
       "label": "Link"
     },
     {
+      "type": "checkbox",
+      "id": "open_new_tab",
+      "label": "Open in new tab",
+      "default": false,
+      "visible_if": "{{ block.settings.title != blank and block.settings.link != blank }}"
+    },
+    {
       "type": "header",
       "content": "Appearance"
     },

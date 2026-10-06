@@ -8,8 +8,36 @@
   case section.settings.section_background_mode
     when 'transparent'
       assign canvas_color = 'transparent'
+    when 'white'
+      assign canvas_color = '#ffffff'
+    when 'beige'
+      assign canvas_color = 'var(--color-soda-surface-warm)'
     when 'custom'
       assign canvas_color = color | default: 'transparent'
+      case section.settings.section_background_surface
+        when 'page'
+          assign canvas_color = 'var(--color-page-background)'
+        when 'background'
+          assign canvas_color = 'var(--color-background)'
+        when 'surface'
+          assign canvas_color = 'var(--color-surface)'
+        when 'muted'
+          assign canvas_color = 'var(--color-surface-muted)'
+        when 'warm'
+          assign canvas_color = 'var(--color-surface-warm)'
+        when 'beige'
+          assign canvas_color = 'var(--color-soda-surface-warm)'
+        when 'soda'
+          assign canvas_color = 'var(--color-soda-background)'
+        when 'gray'
+          assign canvas_color = 'var(--color-surface-hover)'
+        when 'dark_gray'
+          assign canvas_color = 'var(--color-inverse-hover)'
+        when 'inverse'
+          assign canvas_color = 'var(--color-surface-inverse)'
+        when 'black'
+          assign canvas_color = 'var(--color-foreground)'
+      endcase
     else
       assign canvas_color = color | default: original_color
   endcase

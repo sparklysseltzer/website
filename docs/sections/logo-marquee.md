@@ -53,7 +53,7 @@ Casing verification (2026-09-28): shared font-choice checks at 1440px/390px rend
 
 ## Section background
 
-**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+**Section background** is the final group: Transparent or Colored. Colored shows Surface; only Custom color shows the picker. Clear means transparent. New/default placements start transparent. Saved color fields remain intact; retired Default modes are compatibility-only. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
 The old `background_style` ID remains hidden compatibility storage, preserving saved gray/white/transparent treatments and logo-card colors. Only the shared background group edits the canvas. New presets select transparent legacy card treatment as well; Default restores its saved treatment.
 
 Panel-shadow rollout (2026-10-01): Logo tiles use the shared panel shadow. The viewport reserves vertical shadow gutters with compensating margins, preserving row placement and continuous scrolling. See the [shared contract](../design-system.md#panel-shadows).
@@ -64,10 +64,27 @@ Markup/motion now live in `snippets/logo-marquee-content.liquid` and `assets/log
 
 ## Logo boxes — 2026-10-02
 
-**Appearance → Show logo boxes** independently controls rounded logo panels and their shared shadow. Merchant marquee defaults on to preserve existing treatments; Press marquee defaults off. Off removes tile background, radius and shadow, while retaining logo dimensions, spacing, link targets and visible keyboard focus. On retains the existing tile color treatment, including transparent legacy treatments. Section background, motion and resource selection remain independent; the checkbox enables no additional fields. Both on/off modes are registered in the editor contracts. Saved IDs and content are preserved.
+**Appearance → Show logo boxes** independently controls rounded logo panels and their shared shadow. Merchant and Press marquees both default off for new placements. Existing saved choices remain authoritative. Off removes tile background, radius and shadow, while retaining logo dimensions, spacing, link targets and visible keyboard focus. On retains the existing tile color treatment, including transparent legacy treatments. Section background, motion and resource selection remain independent; the checkbox enables no additional fields. Both on/off modes are registered in the editor contracts. Saved IDs and content are preserved.
 
 Verified desktop Press default renders transparent tiles with no shadow; 390px screenshot confirms logos only and no overflow. Merchant Soda template retains boxed tiles by default. Browser-only class toggles verified both shared CSS treatments (including no shadow/background in unboxed Merchant mode) and retained a 3px keyboard ring; no saved content was changed for testing. Editor schema contracts and full repository checks pass. Test browser closed.
 
 ## Shared content width
 
 **Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Page**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).
+
+Press-only rendering options (2026-10-05): the shared renderer accepts `link_logos: false` to omit anchors and `full_bleed: true` to remove viewport gutters. Merchant callers omit both and retain their current links, sizing and keyboard navigation.
+
+Default refinement (2026-10-06): Show logo boxes now defaults off for Merchant marquee. The setting ID and both on/off rendering modes remain unchanged; no saved section settings are rewritten.
+
+Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes the Surface dropdown bound to existing shared CSS/theme color roles; only Custom color exposes the original picker. Schema default Custom preserves existing saved colors; new add-section presets select Surface. No saved content is migrated. Internal text/card colors do not auto-invert. See [Section backgrounds](../design-system.md#section-backgrounds).
+
+## Shared marquee controls (2026-10-06)
+
+Both Merchant and Press use the same renderer, full-viewport track, and appearance settings. **Link logos** defaults off; enabled entries with a URL become links, while missing URLs remain noninteractive. Duplicate links remain outside keyboard order and repeated lists stay aria-hidden. Source metaobjects and stored URLs are untouched. **Show logo boxes** defaults off and exposes **Box surface** only when enabled: Transparent, White (`--color-surface`) or Soda beige (`--color-soda-surface-warm`). White is the box default. The shared roles follow Theme settings; the unboxed treatment always removes background, radius and shadow. Canvas color remains independent. This supersedes legacy card/background coupling and Press-only noninteractive behavior above.
+
+**Heading width** and **Heading font** appear only for a populated heading; width no longer constrains the logo track. Existing setting IDs are preserved. Resource controls remain separate per section, while these presentation contracts are identical. Links and decorative panels introduce no new Schema.org entity; existing data ownership remains unchanged.
+
+Verification: live development Merchant (Soda template view) and Press tracks span 0–390px and 0–1440px with zero default logo links and no document overflow. Shared Liquid fixtures cover all 12 combinations of link/box state and box surface, including missing URLs and duplicate tab exclusion. Browser surface probes confirmed transparent, white and beige, live inheritance when the Soda surface variable changes, and the unboxed override. Reduced motion stops the loop and hides duplicates. Schema contracts and full checks pass; browser closed.
+
+
+Ananotes 179 (2026-10-06): the shared Merchant/Press renderer now uses the existing editorial scroll-reveal controller for the section, heading and viewport. The inner track keeps its independent CSS loop and pause behavior. Reduced motion and no JavaScript retain static visible content; the loop itself continues without JavaScript unless reduced motion is requested.

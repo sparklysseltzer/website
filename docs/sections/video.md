@@ -21,3 +21,5 @@ Control-free verification: headless 1440px and 390px development preview confirm
 ## Width consolidation
 
 The existing `content_width` setting retains its ID, default and visibility. Editorial now uses the shared 1400px role; Narrow remains 800px and Page retains the 1920px outer frame with gutters. No saved values are migrated.
+
+Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes the Surface dropdown bound to existing shared CSS/theme color roles; only Custom color exposes the original picker. Schema default Custom preserves existing saved colors; new add-section presets select Surface. No saved content is migrated. Internal text/card colors do not auto-invert. See [Section backgrounds](../design-system.md#section-backgrounds).

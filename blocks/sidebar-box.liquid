@@ -77,7 +77,7 @@
       "type": "number",
       "id": "override_height",
       "label": "Minimum height",
-      "info": "Leave empty to use the preset. Custom values are limited to 120\u20131000 px."
+      "info": "Leave empty to use the preset. Custom values are limited to 120–1000 px."
     },
     {
       "type": "header",
@@ -145,7 +145,7 @@
       "type": "number",
       "id": "override_overlay_strength",
       "label": "Overlay strength",
-      "info": "Leave empty to use the preset. Enter 0\u2013100 (%); 0 removes the additional overlay."
+      "info": "Leave empty to use the preset. Enter 0–100 (%); 0 removes the additional overlay."
     },
     {
       "type": "header",
@@ -166,6 +166,13 @@
       "type": "url",
       "id": "button_link",
       "label": "Destination"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_new_tab",
+      "label": "Open in new tab",
+      "default": false,
+      "visible_if": "{{ block.settings.show_button }}"
     },
     {
       "type": "select",
@@ -278,7 +285,7 @@
       "type": "image_picker",
       "id": "reminder_image",
       "label": "Image",
-      "info": "Set the crop focal point in Shopify\u2019s image editor.",
+      "info": "Set the crop focal point in Shopify’s image editor.",
       "visible_if": "{{ block.settings.artwork == blank }}"
     },
     {
@@ -373,7 +380,7 @@
       "type": "image_picker",
       "id": "subscription_image",
       "label": "Image",
-      "info": "Set the crop focal point in Shopify\u2019s image editor.",
+      "info": "Set the crop focal point in Shopify’s image editor.",
       "visible_if": "{{ block.settings.artwork == blank }}"
     },
     {

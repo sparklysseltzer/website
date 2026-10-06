@@ -17,7 +17,7 @@
     {
       "type": "select",
       "id": "content_width",
-      "label": "Content width",
+      "label": "Heading width",
       "default": "page",
       "options": [
         {
@@ -33,7 +33,8 @@
           "label": "Page width"
         }
       ],
-      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+      "info": "Controls the optional heading. Logos always extend to the edges of the screen.",
+      "visible_if": "{{ section.settings.heading != blank }}"
     },
     {
       "type": "header",
@@ -54,7 +55,8 @@
           "label": "Newake"
         }
       ],
-      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue.",
+      "visible_if": "{{ section.settings.heading != blank }}"
     },
     {
       "type": "metaobject",
@@ -74,10 +76,39 @@
     },
     {
       "type": "checkbox",
+      "id": "link_logos",
+      "label": "Link logos",
+      "default": false,
+      "info": "Link each logo when its entry has a URL."
+    },
+    {
+      "type": "checkbox",
       "id": "show_logo_boxes",
       "label": "Show logo boxes",
-      "default": true,
+      "default": false,
       "info": "Show rounded panels and soft shadows behind the logos. Turn off for logos only."
+    },
+    {
+      "type": "select",
+      "id": "logo_box_surface",
+      "label": "Box surface",
+      "default": "white",
+      "options": [
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "soda_beige",
+          "label": "Soda beige"
+        }
+      ],
+      "visible_if": "{{ section.settings.show_logo_boxes }}",
+      "info": "Uses shared theme surface colors."
     },
     {
       "type": "header",
@@ -141,22 +172,18 @@
       "type": "select",
       "id": "section_background_mode",
       "label": "Background",
-      "default": "original",
+      "default": "transparent",
       "options": [
-        {
-          "value": "original",
-          "label": "Default"
-        },
         {
           "value": "transparent",
           "label": "Transparent"
         },
         {
           "value": "custom",
-          "label": "Custom Color"
+          "label": "Colored"
         }
       ],
-      "info": "Default keeps the section’s existing colors. Transparent shows the page background."
+      "info": "Colored lets you choose a shared surface or a custom color."
     },
     {
       "type": "select",
@@ -181,11 +208,69 @@
       "info": "Retained for previously saved sections. Use Color below."
     },
     {
+      "type": "select",
+      "id": "section_background_surface",
+      "label": "Surface",
+      "default": "custom",
+      "options": [
+        {
+          "value": "page",
+          "label": "Page background"
+        },
+        {
+          "value": "background",
+          "label": "Brand background"
+        },
+        {
+          "value": "surface",
+          "label": "Surface (white)"
+        },
+        {
+          "value": "muted",
+          "label": "Muted surface (light gray)"
+        },
+        {
+          "value": "warm",
+          "label": "Supporting surface"
+        },
+        {
+          "value": "beige",
+          "label": "Surface beige"
+        },
+        {
+          "value": "soda",
+          "label": "Soda background (beige)"
+        },
+        {
+          "value": "gray",
+          "label": "Gray"
+        },
+        {
+          "value": "dark_gray",
+          "label": "Dark gray"
+        },
+        {
+          "value": "inverse",
+          "label": "Dark surface (charcoal)"
+        },
+        {
+          "value": "black",
+          "label": "Foreground (black)"
+        },
+        {
+          "value": "custom",
+          "label": "Custom color"
+        }
+      ],
+      "info": "Shared surfaces follow Theme settings colors. Custom color applies only to this section.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    },
+    {
       "type": "color",
       "id": "section_background",
-      "label": "Color",
-      "info": "Clear the color to show the page background. Panel, card and image colors are separate.",
-      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      "label": "Custom color",
+      "info": "Used only for Custom color. Clear shows the page background. Text, panels and cards keep their own colors.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
     }
   ],
   "presets": [
@@ -194,7 +279,8 @@
       "category": "Trust & partners",
       "settings": {
         "background_style": "transparent",
-        "section_background_mode": "transparent"
+        "section_background_mode": "transparent",
+        "section_background_surface": "surface"
       }
     }
   ]

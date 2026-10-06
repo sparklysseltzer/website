@@ -38,7 +38,7 @@ Preset: Contact form, Trust & information, Page templates only, maximum one per 
 | Appearance: Heading font, Erode/Newake | No dependent fields; shared heading tokens and authored casing |
 | Newsletter: Offer newsletter signup | Public site ID and newsletter list ID, each conditionally visible |
 | Visibility: Hide on mobile / Hide on desktop | No dependent fields; independent shared breakpoint visibility |
-| Section background: Default / Transparent / Custom Color | Color picker only for Custom Color; clear means transparent |
+| Section background: Default / Transparent / White / Surface beige / Custom color | Color picker only for Custom Color; clear means transparent |
 
 Both-hidden form configurations are editorial visibility choices, not access control. Keep an accessible contact route when hiding the form. Native Page intro remains independent. New placements start with a transparent canvas. No destructive IDs or legacy fingerprint changes.
 
@@ -80,3 +80,5 @@ Ananotes 166 (2026-10-02): removed newsletter-specific top alignment and indicat
 ## Shared content width
 
 **Layout → Content width** selects Narrow (800px), Editorial (1400px), or Page width (1920px outer frame); default: **Narrow**. No dependent settings. The shared `section-width` renderer constrains the section frame/surface while preserving mobile gutters, full-width canvas backgrounds, internal reading/artwork limits, and embedded block sizing. Existing IDs and saved content are unchanged. See [Container widths](../design-system.md#container-widths).
+
+Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes the Surface dropdown bound to existing shared CSS/theme color roles; only Custom color exposes the original picker. Schema default Custom preserves existing saved colors; new add-section presets select Surface. No saved content is migrated. Internal text/card colors do not auto-invert. See [Section backgrounds](../design-system.md#section-backgrounds).

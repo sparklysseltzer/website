@@ -88,7 +88,7 @@ Verified in headless Chromium at 2074px and 390px: zero relative label/tick drif
 
 ## Section background
 
-**Section background** is the final group: Default, Transparent, or Custom Color. Only Custom Color shows the picker; Clear means transparent. New add-section presets start transparent; existing saved placements retain their original appearance until a color is chosen. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
+**Section background** is the final group: Transparent or Colored. Colored shows Surface; only Custom color shows the picker. Clear means transparent. New/default placements start transparent. Saved color fields remain intact; retired Default modes are compatibility-only. The full-width canvas follows the [shared background contract](../design-system.md#section-backgrounds); internal panels, cards and image overlays retain their separate settings and product-world defaults. No saved templates or store data are migrated.
 
 ## Ananotes 159–160 — purchase and gallery continuity
 
@@ -106,3 +106,9 @@ Regional money formatting (2026-10-02): dynamic PDP prices combine `request.loca
 Verified development output reads language `de` / country `CH` and displays `CHF 29.40` / subscription `CHF 24.99`. Changing the actual variant to 24-pack updates to `CHF 58.80` / `CHF 49.98` and the matching add-button total. Phone has no overflow; test browser closed. Full checks include the four regional-format regression tests. Germany was tested in the formatter only, not enabled or exercised as a live market.
 
 Ananotes 174 (2026-10-04): decoupled badge rotation from the gallery interaction-stop flag. Offscreen, hidden-tab and reduced-motion suspension remain; manual image selection does not stop the ring.
+
+Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes the Surface dropdown bound to existing shared CSS/theme color roles; only Custom color exposes the original picker. Schema default Custom preserves existing saved colors; new add-section presets select Surface. No saved content is migrated. Internal text/card colors do not auto-invert. See [Section backgrounds](../design-system.md#section-backgrounds).
+
+Flavour-navigation startup stability (2026-10-06): server markup starts descriptions collapsed. Before the deferred custom element upgrades, CSS reserves the 44px disclosure-button space; JavaScript still measures overflow and preserves explicit expansion. The no-JavaScript document exposes the complete description without a mask. Maracuja/Holunder artwork shares a 320:124 box with contained intrinsic proportions, preventing image decoding from changing the identity height. No transition duration or commerce state changes.
+
+Startup verification: at 1440px, blocking and then loading the product script kept Maracuja description height at 140px (96px text plus 44px action), with `aria-expanded=false`; expansion reached 280.5px text height. Both flavour logo boxes stayed 124px. Holunder remained collapsed at 390px with no overflow. A blocked-script/no-js CSS probe exposed the full description without masking. Full checks passed; isolated browser closed. Global navigation duration remains 400ms.
