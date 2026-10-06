@@ -67,9 +67,11 @@
       {% if intro != blank %}<div class="rte {% if variant == 'default' %}page-intro__text{% else %}collection-hero__text{% endif %}">{{ intro }}</div>{% endif %}
       {% if section.settings.show_button %}<a class="button" href="#CollectionProducts"><span class="button__label">{{ section.settings.button_label | escape }}{% if section.settings.button_label == blank %}{{ 'collections.hero.shop' | t }}{% endif %}</span></a>{% endif %}
       {% if variant != 'default' or set != blank %}
-        <div class="collection-hero__usps usp-items" role="list">
-          {% render 'featured-usp', featured: featured, class: 'collection-hero__featured', loading: 'eager' %}
-          {% render 'usp-items', usp_set: set, usp_variant: variant %}
+        <div class="collection-hero__usps">
+          <div class="collection-hero__usp-grid usp-items" role="list">
+            {% render 'featured-usp', featured: featured, class: 'collection-hero__featured', loading: 'eager' %}
+            {% render 'usp-items', usp_set: set, usp_variant: variant, inline_labels: true %}
+          </div>
         </div>
       {% endif %}
     </div>
