@@ -67,7 +67,7 @@ html:not(.no-js) pdp-description:not(:defined) { padding-bottom: 2.75rem; }
 .pdp-buy-row { display: flex; flex-wrap: wrap; gap: .75rem; }
 .pdp-quantity { background: var(--color-surface); }
 .pdp-quantity button:not([hidden]) { display: block; }
-.pdp-add { flex: 1; background: var(--color-foreground); color: var(--color-text-inverse); min-width: 12rem; }
+.pdp-add { flex: 1; min-width: 12rem; }
 .pdp-add .button__label { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .25rem; }
 .pdp-add img { width: 1.5rem; height: 1.5rem; margin-right: .25rem; }
 .pdp-shipping { display: flex; gap: .75rem; padding: 1rem; border-radius: var(--radius-small); background: var(--color-surface-warm); font-size: var(--font-size-small); }
