@@ -109,12 +109,8 @@
       "type": "select",
       "id": "override_font",
       "label": "Heading font",
-      "default": "preset",
+      "default": "erode",
       "options": [
-        {
-          "value": "preset",
-          "label": "Use preset"
-        },
         {
           "value": "erode",
           "label": "Erode"
@@ -124,6 +120,14 @@
           "label": "Newake"
         }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ block.settings.override_font == 'newake' }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     },
     {
       "type": "header",

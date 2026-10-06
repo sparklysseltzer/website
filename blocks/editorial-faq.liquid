@@ -1,7 +1,7 @@
 {% capture accordion_content %}{% content_for 'blocks' %}{% endcapture %}
 {% if accordion_content != blank or block.settings.heading != blank or block.settings.selected_faqs != blank or block.settings.faq_category != blank or request.design_mode %}
 {% assign faq_scope = section.id | append: '-' | append: block.id %}
-<div {{ block.shopify_attributes }} data-heading-font="{{ block.settings.heading_font }}">{% render 'faq-list-content', options: block.settings, scope: faq_scope, accordion_content: accordion_content %}</div>
+<div {{ block.shopify_attributes }} data-heading-font="{{ block.settings.heading_font }}" data-heading-uppercase="{{ block.settings.uppercase_heading }}">{% render 'faq-list-content', options: block.settings, scope: faq_scope, accordion_content: accordion_content %}</div>
 {% endif %}
 {% schema %}
 {
@@ -33,6 +33,14 @@
         }
       ],
       "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ block.settings.heading_font == 'newake' }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     },
     {
       "type": "header",

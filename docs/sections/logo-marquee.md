@@ -88,3 +88,7 @@ Verification: live development Merchant (Soda template view) and Press tracks sp
 
 
 Ananotes 179 (2026-10-06): the shared Merchant/Press renderer now uses the existing editorial scroll-reveal controller for the section, heading and viewport. The inner track keeps its independent CSS loop and pause behavior. Reduced motion and no JavaScript retain static visible content; the loop itself continues without JavaScript unless reduced motion is requested.
+
+## Shared heading casing
+
+**Heading font** uses the standard two-choice Erode/Newake segmented control. **Uppercase headings** appears immediately after it only for explicit Newake and follows the font control's content visibility. On uppercases semantic headings (including rich text); off preserves authored case. Erode ignores saved uppercase. Legacy saved Automatic values remain rendering compatibility only; the editor offers Erode and Newake. See the [heading control standard](../design-system.md#editorial-heading-font-selection). Font/casing schema scenarios are registered; no saved template content or structured data changes.

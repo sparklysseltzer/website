@@ -36,3 +36,7 @@ Verification: live development Merchant (Soda template view) and Press tracks sp
 
 
 Shared marquee scroll reveal (2026-10-06): uses the same editorial controller as Merchant marquee while keeping the independent logo loop. Reduced-motion and no-JavaScript content remains visible.
+
+## Shared heading casing
+
+**Heading font** uses the standard two-choice Erode/Newake segmented control. **Uppercase headings** appears immediately after it only for explicit Newake and follows the font control's content visibility. On uppercases semantic headings (including rich text); off preserves authored case. Erode ignores saved uppercase. Legacy saved Automatic values remain rendering compatibility only; the editor offers Erode and Newake. See the [heading control standard](../design-system.md#editorial-heading-font-selection). Font/casing schema scenarios are registered; no saved template content or structured data changes.

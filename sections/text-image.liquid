@@ -1,6 +1,6 @@
 {% render 'section-width', section: section, default_width: 'editorial', frame: '.page-width', surface: '.editorial-shell', compact: 'columns' %}
 {% render 'section-background', section: section, color: section.settings.section_background %}
-{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id, uppercase: section.settings.uppercase_heading %}
 {% render 'section-visibility', section: section %}
 {{ 'editorial-content.css' | asset_url | stylesheet_tag }}
 <poster-motion><div class="section page-width" data-scroll-motion-section><div class="editorial-shell" data-scroll-motion-surface>{% render 'text-image-content', options: section.settings, motion: true %}</div></div></poster-motion>
@@ -136,6 +136,14 @@
       ],
       "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue.",
       "visible_if": "{{ section.settings.show_heading or section.settings.text != blank }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.show_heading or section.settings.text != blank }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     },
     {
       "type": "select",

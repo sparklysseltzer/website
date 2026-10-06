@@ -112,6 +112,14 @@
       "visible_if": "{{ block.settings.show_heading or block.settings.text != blank }}"
     },
     {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ block.settings.heading_font == 'newake' and block.settings.show_heading or block.settings.text != blank }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
+    },
+    {
       "type": "select",
       "id": "heading_level",
       "label": "Heading level",

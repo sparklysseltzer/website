@@ -49,8 +49,8 @@
   endif
 -%}
 {% if variant == 'default' %}{{ 'page-content.css' | asset_url | stylesheet_tag }}{% endif %}
-{% render 'heading-font', choice: font, section_id: section.id %}
-<collection-hero-motion data-section-background class="collection-hero collection-hero--{{ variant }}{% if variant == 'default' %} page-intro page-intro--editorial{% endif %}" data-heading-font="{{ font }}"{% if section.settings.animate %} data-animate{% endif %}>
+{% render 'heading-font', choice: font, section_id: section.id, uppercase: section.settings.uppercase_heading %}
+<collection-hero-motion data-section-background class="collection-hero collection-hero--{{ variant }}{% if variant == 'default' %} page-intro page-intro--editorial{% endif %}" data-heading-font="{{ font }}" data-heading-uppercase="{% if section.settings.heading_font == 'newake' %}{{ section.settings.uppercase_heading }}{% else %}false{% endif %}"{% if section.settings.animate %} data-animate{% endif %}>
   {% if variant == 'default' and section.settings.background_image == blank %}
     <img class="page-intro__art" src="{{ 'page-intro-arc.svg' | asset_url }}" width="1200" height="279" alt="" aria-hidden="true">
   {% endif %}
@@ -178,12 +178,8 @@
       "type": "select",
       "id": "heading_font",
       "label": "Heading font",
-      "default": "automatic",
+      "default": "erode",
       "options": [
-        {
-          "value": "automatic",
-          "label": "Automatic — product world"
-        },
         {
           "value": "erode",
           "label": "Erode"
@@ -193,6 +189,14 @@
           "label": "Newake"
         }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ section.settings.heading_font == 'newake' }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     },
     {
       "type": "header",

@@ -1,4 +1,4 @@
-{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id, uppercase: section.settings.uppercase_heading %}
 {% comment %}Always expose shared cart controls to the editor, including empty-cart previews. No separate section values.{% endcomment %}
 {% if request.design_mode %}
   <template data-cart-editor-settings
@@ -21,7 +21,9 @@
   </dialog>
 </cart-drawer>
 {% schema %}
-{"name":"Cart drawer","settings":[
+{
+  "name": "Cart drawer",
+  "settings": [
     {
       "type": "select",
       "id": "heading_font",
@@ -38,5 +40,15 @@
         }
       ],
       "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
-    }]}
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ section.settings.heading_font == 'newake' }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
+    }
+  ]
+}
 {% endschema %}

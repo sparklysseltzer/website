@@ -1,12 +1,12 @@
 {% render 'section-width', section: section, default_width: 'editorial', frame: '.page-width', surface: 'content-slider' %}
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
-{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id, uppercase: section.settings.uppercase_cards %}
 {{ 'content-slider.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'content-slider.js' | asset_url }}" defer="defer"></script>
 <offer-cards-motion style="display: block" data-card-motion-horizontal>
 <div class="section page-width" data-card-motion-section>
-  <content-slider class="content-slider" data-width-mode="{{ section.settings.width_mode | default: 'contained' }}" data-layout="{{ section.settings.card_layout }}"{% if section.settings.heading_font == 'newake' and section.settings.uppercase_cards %} data-uppercase-cards{% endif %}>
+  <content-slider class="content-slider" data-width-mode="{{ section.settings.width_mode | default: 'contained' }}" data-layout="{{ section.settings.card_layout }}">
     {% if section.settings.show_heading and section.settings.heading != blank %}
       <h2 class="content-slider__heading" data-card-motion-header id="ContentSliderHeading-{{ section.id }}">{{ section.settings.heading }}</h2>
     {% endif %}
@@ -139,21 +139,22 @@
       "default": "newake",
       "options": [
         {
-          "value": "newake",
-          "label": "Newake"
-        },
-        {
           "value": "erode",
           "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
         }
       ]
     },
     {
       "type": "checkbox",
       "id": "uppercase_cards",
-      "label": "Uppercase card titles",
+      "label": "Uppercase headings",
       "default": true,
-      "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      "visible_if": "{{ section.settings.heading_font == 'newake' }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     },
     {
       "type": "header",

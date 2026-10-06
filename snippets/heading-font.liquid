@@ -9,7 +9,7 @@
     {% if chosen_font == 'newake' %}
       --heading-choice-family: var(--font-heading-default);
       --heading-choice-weight: 400;
-      --heading-choice-case: {% if choice == 'newake' and uppercase %}uppercase{% else %}initial{% endif %};
+      --heading-choice-case: {% if uppercase %}uppercase{% else %}none{% endif %};
       --heading-choice-leading: var(--line-height-heading-newake);
       --heading-choice-tracking: var(--letter-spacing-heading-newake);
       --heading-choice-optical-offset: var(--font-optical-offset-newake);

@@ -63,6 +63,9 @@
     assign needs_media_overlay = true
   endif
 -%}
+{% assign heading_uppercase = false %}
+{% if section.settings.heading_font == 'default' %}{% assign heading_uppercase = section.settings.uppercase_heading %}{% endif %}
+{% render 'heading-font', choice: heading_font, section_id: section.id, uppercase: heading_uppercase %}
 
 {{ 'product-usps.css' | asset_url | stylesheet_tag }}
 {%- if should_render -%}
@@ -158,6 +161,14 @@
 {%- endif -%}
 
 {% stylesheet %}
+  .usp-section :is(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--heading-choice-family);
+    font-weight: var(--heading-choice-weight);
+    line-height: var(--heading-choice-leading);
+    letter-spacing: var(--heading-choice-tracking);
+    text-transform: var(--heading-choice-case, none) !important;
+  }
+
   usp-section-motion {
     display: block;
   }
@@ -430,22 +441,26 @@
     {
       "type": "select",
       "id": "heading_font",
-      "label": "Heading typeface",
+      "label": "Heading font",
       "options": [
         {
-          "value": "automatic",
-          "label": "Automatic — content variant"
+          "value": "soda",
+          "label": "Erode"
         },
         {
           "value": "default",
-          "label": "Sparklys / Hard Seltzer — Newake"
-        },
-        {
-          "value": "soda",
-          "label": "Sparklys Soda — Erode"
+          "label": "Newake"
         }
       ],
-      "default": "automatic"
+      "default": "soda"
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ section.settings.heading_font == 'default' }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     },
     {
       "type": "header",

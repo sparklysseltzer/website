@@ -4,6 +4,7 @@ import { mkdtempSync, cpSync, mkdirSync, readFileSync, writeFileSync, rmSync } f
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 
 function checkMutation(mutate, expected) {
   const directory = mkdtempSync(join(tmpdir(), 'sparklys-editor-contract-'));
@@ -37,9 +38,16 @@ test('a new control requires a dependency audit', () => {
   }), /unaudited control new_mode/);
 });
 test('changing an older schema requires moving it out of the legacy baseline', () => {
-  checkMutation(directory => changeSchema(directory, 'sections/cart-drawer.liquid', schema => {
+  checkMutation(directory => {
+    const schema = { name: 'Legacy fixture', settings: [] };
+    const path = 'sections/legacy-fixture.liquid';
+    const legacyPath = join(directory, 'tests/editor-schema-legacy.json');
+    const legacy = JSON.parse(readFileSync(legacyPath, 'utf8'));
+    legacy[path] = createHash('sha256').update(JSON.stringify(schema)).digest('hex');
+    writeFileSync(legacyPath, JSON.stringify(legacy));
     schema.settings.push({ type: 'text', id: 'unreviewed', label: 'Unreviewed' });
-  }), /new or changed legacy schema needs an editor contract/);
+    writeFileSync(join(directory, path), `{% schema %}${JSON.stringify(schema)}{% endschema %}`);
+  }, /new or changed legacy schema needs an editor contract/);
 });
 test('a new section cannot bypass the editor contract inventory', () => {
   checkMutation(directory => writeFileSync(join(directory, 'sections/unreviewed.liquid'), '{% schema %}{"name":"Unreviewed","settings":[]}{% endschema %}'), /unreviewed.liquid: new or changed legacy schema/);
@@ -49,4 +57,16 @@ test('content slider card fields follow the selected layout', () => {
   checkMutation(directory => changeSchema(directory, 'sections/content-slider.liquid', schema => {
     schema.blocks[0].settings.find(field => field.id === 'link').visible_if = "{{ section.settings.card_layout == 'benefits' }}";
   }), /block card: Crosslinks: link must be visible/);
+});
+
+test('every font selector requires the shared uppercase control', () => {
+  checkMutation(directory => changeSchema(directory, 'sections/main-product.liquid', schema => {
+    schema.settings = schema.settings.filter(field => field.id !== 'uppercase_heading');
+  }), /requires an adjacent Uppercase headings checkbox/);
+});
+
+test('uppercase must also hide when heading content is hidden', () => {
+  checkMutation(directory => changeSchema(directory, 'sections/text-image.liquid', schema => {
+    schema.settings.find(field => field.id === 'uppercase_heading').visible_if = "{{ section.settings.heading_font == 'newake' }}";
+  }), /uppercase visibility must follow explicit Newake and heading content/);
 });

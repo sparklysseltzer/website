@@ -1,5 +1,5 @@
 {{ 'component-poster.css' | asset_url | stylesheet_tag }}
-<div data-heading-font="{{ block.settings.heading_font | default: 'erode' }}">
+<div data-heading-font="{{ block.settings.heading_font | default: 'erode' }}" data-heading-uppercase="{{ block.settings.uppercase_heading }}">
 {% capture list_content %}{% content_for 'blocks' %}{% endcapture %}
 {% render 'poster-content', options: block.settings, embedded: true, list_content: list_content %}
 </div>
@@ -136,6 +136,14 @@
       ],
       "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue.",
       "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ block.settings.heading_font == 'newake' and block.settings.layout_mode == 'with_content' }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     },
     {
       "type": "header",

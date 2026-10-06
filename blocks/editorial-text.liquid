@@ -1,4 +1,4 @@
-<div class="editorial-text" data-heading-font="{{ block.settings.heading_font }}">{% render 'editorial-copy', options: block.settings %}</div>
+<div class="editorial-text" data-heading-font="{{ block.settings.heading_font }}" data-heading-uppercase="{{ block.settings.uppercase_heading }}">{% render 'editorial-copy', options: block.settings %}</div>
 {% schema %}
 {
   "name": "Text",
@@ -59,6 +59,14 @@
       ],
       "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue.",
       "visible_if": "{{ block.settings.show_heading or block.settings.text != blank }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ block.settings.heading_font == 'newake' and block.settings.show_heading or block.settings.text != blank }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     }
   ],
   "presets": [

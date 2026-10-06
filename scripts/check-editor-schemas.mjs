@@ -59,6 +59,34 @@ function visible(expression, settings) {
   return evaluate(expression.replace(/^{{\s*|\s*}}$/g, ''));
 }
 
+// Every active font picker shares the same editor-facing casing contract.
+// Sidebar per-design fields are retired compatibility storage, not active pickers.
+for (const [path, schema] of schemas) {
+  const settings = schema.settings ?? [];
+  for (const font of settings.filter(field => field.options?.some(option => option.value === 'newake' || /Newake/.test(option.label)))) {
+    if (path === 'blocks/sidebar-box.liquid' && ['reminder_heading_font', 'subscription_heading_font'].includes(font.id)) continue;
+    const next = settings[settings.indexOf(font) + 1];
+    const prefix = `${path}: ${font.id} heading standard`;
+    if (font.type !== 'select' || font.label !== 'Heading font') errors.push(`${prefix}: use the Heading font segmented control`);
+    if (next?.type !== 'checkbox' || next.label !== 'Uppercase headings') {
+      errors.push(`${prefix}: requires an adjacent Uppercase headings checkbox`);
+      continue;
+    }
+    const scope = path.startsWith('blocks/') ? 'block' : 'section';
+    const explicitFonts = font.options.filter(option => ['Erode', 'Newake'].includes(option.label));
+    if (font.options.length !== 2 || font.options.some(option => option.group) || explicitFonts.map(option => option.label).join(',') !== 'Erode,Newake') {
+      errors.push(`${prefix}: use exactly two ungrouped options: Erode then Newake`);
+      continue;
+    }
+    const newake = font.options.find(option => option.label === 'Newake').value;
+    const parent = font.visible_if?.replace(/^{{\s*|\s*}}$/g, '').trim();
+    const expression = `{{ ${scope}.settings.${font.id} == '${newake}'${parent ? ` and ${parent}` : ''} }}`;
+    if (next.visible_if !== expression) errors.push(`${prefix}: uppercase visibility must follow explicit Newake and heading content`);
+    if (next.info !== 'Applies to Newake headings only. Erode always keeps the original capitalization.') errors.push(`${prefix}: use the shared uppercase help text`);
+    if (next.default !== (path === 'sections/content-slider.liquid')) errors.push(`${prefix}: preserve the standard casing default`);
+  }
+}
+
 for (const [path, contract] of Object.entries(contracts)) {
   const schema = schemas.get(path);
   if (!schema) { errors.push(`${path}: registered schema is missing`); continue; }

@@ -103,7 +103,7 @@
 %}
 <{{ tag }} {% if tag == 'a' %}href="{{ link }}"{% render 'link-target', new_tab: open_new_tab %} aria-label="{{ label | escape }}{% if open_new_tab %} {{ 'social_channels.new_tab' | t | escape }}{% endif %}"{% endif %}
   class="sidebar-box sidebar-box--{{ box_layout }} sidebar-box--{{ options.artwork }} sidebar-box--{{ box_content_position }} sidebar-box--button-{{ box_button_style }}"
-  data-heading-font="{{ box_heading_font }}"
+  data-heading-font="{{ box_heading_font }}" data-heading-uppercase="{% if options.override_font == 'newake' %}{{ options.uppercase_heading }}{% else %}false{% endif %}"
   style="--sidebar-box-height: {{ box_minimum_height }}px; --sidebar-box-text: {{ box_text_color }}; --sidebar-box-overlay: {{ overlay }};">
   <div class="sidebar-box__media">
     {% if box_image != blank %}{{ box_image | image_url: width: 900 | image_tag: widths: '360, 600, 900', sizes: '(min-width: 900px) 360px, calc(100vw - 2rem)', loading: 'lazy', alt: box_image.alt }}

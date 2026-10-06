@@ -1,6 +1,10 @@
 {
   "sections/text-image.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "image_side": {
         "group": "Layout",
         "visible_if": null
@@ -33,6 +37,14 @@
         "group": "Content",
         "visible_if": "{{ section.settings.show_heading }}"
       },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.show_heading or section.settings.text != blank }}"
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.show_heading or section.settings.text != blank }}"
+      },
       "heading_level": {
         "group": "Content",
         "visible_if": "{{ section.settings.show_heading }}"
@@ -40,10 +52,6 @@
       "text": {
         "group": "Content",
         "visible_if": null
-      },
-      "heading_font": {
-        "group": "Content",
-        "visible_if": "{{ section.settings.show_heading or section.settings.text != blank }}"
       },
       "show_button": {
         "group": "Button",
@@ -54,6 +62,10 @@
         "visible_if": "{{ section.settings.show_button }}"
       },
       "button_link": {
+        "group": "Button",
+        "visible_if": "{{ section.settings.show_button }}"
+      },
+      "button_new_tab": {
         "group": "Button",
         "visible_if": "{{ section.settings.show_button }}"
       },
@@ -73,21 +85,13 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
-      "button_new_tab": {
-        "group": "Button",
-        "visible_if": "{{ section.settings.show_button }}"
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
@@ -95,7 +99,7 @@
       "image_height_mode": "Custom reveals desktop and mobile heights.",
       "show_heading": "Controls heading content and semantic level. Font remains relevant for rich-text headings.",
       "heading_level": "Changes the semantic heading tag; no further dependent settings.",
-      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "show_button": "Controls the action fields and rendered action.",
       "button_style": "Changes button appearance; no dependent controls.",
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
@@ -103,7 +107,8 @@
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
       "button_new_tab": "Opens only this active editorial action in a new tab. Defaults off; no dependent fields. Hidden whenever the action is disabled or its content mode is inactive.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -409,9 +414,62 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "show_heading": true,
+          "text": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "show_heading": true,
+          "text": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "show_heading": true,
+          "text": "Preview heading",
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: no heading content",
+        "settings": {
+          "show_heading": false,
+          "text": "",
+          "heading_font": "newake"
+        },
+        "hidden": [
+          "heading_font",
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "eda9fcd720e83464fee56cdede540a7db06218258d28d2ebeb9e06673ee2d281"
+    "schemaHash": "c68808bee6de7c55dfb50914b317dc23de384fe2dea53591015e58ad69e6a72b"
   },
   "sections/two-column.liquid": {
     "fields": {
@@ -678,6 +736,10 @@
   },
   "sections/faq-accordion.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading": {
         "group": "Content",
         "visible_if": null
@@ -685,6 +747,10 @@
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "faq_category": {
         "group": "Optional FAQs",
@@ -706,26 +772,23 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
       "hide_on_desktop": "Responsive visibility; no additional input fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -920,9 +983,44 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "991889ee8e4148e74a3dead5428bb388c4d753a192c9f9bdad493f3201ea2d09"
+    "schemaHash": "9315a8ee7f3ab9269fc25d22574ec8ad50352502df83d3aa31f49e7a994b8f10"
   },
   "sections/split-image-text.liquid": {
     "fields": {
@@ -1002,6 +1100,10 @@
         "group": "Existing button",
         "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_button }}"
       },
+      "button_new_tab": {
+        "group": "Existing button",
+        "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_button }}"
+      },
       "button_style": {
         "group": "Existing button",
         "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_button }}"
@@ -1013,6 +1115,10 @@
       "heading_font": {
         "group": "Typography",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Typography",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "panel_color": {
         "group": "Appearance",
@@ -1034,17 +1140,13 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "button_new_tab": {
-        "group": "Existing button",
-        "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_button }}"
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
@@ -1054,7 +1156,7 @@
       "heading_level": "Shared H2/H3 choice applies to both columns in either source mode.",
       "show_subtext": "Compatibility-only existing section content control; hidden in Column blocks mode. Original dependent content/button fields keep their own conditions.",
       "show_list": "Compatibility-only existing section content control; hidden in Column blocks mode. Original dependent content/button fields keep their own conditions.",
-      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "show_button": "Compatibility-only existing section content control; hidden in Column blocks mode. Original dependent content/button fields keep their own conditions.",
       "button_style": "Compatibility-only existing section content control; hidden in Column blocks mode. Original dependent content/button fields keep their own conditions.",
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
@@ -1063,7 +1165,8 @@
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
       "column_content": "New presets use Column blocks with static Left/Right groups. Existing section content preserves prior saved instances until explicitly migrated; it reveals the original content/button fields. No content is copied at render time.",
       "button_new_tab": "Opens only this active editorial action in a new tab. Defaults off; no dependent fields. Hidden whenever the action is disabled or its content mode is inactive.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -1416,12 +1519,51 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "878a8b9b3c81c34b8498f33ae89870921fb9f2620476cb5944c49206cd820428"
+    "schemaHash": "840440e9f6bb5cc7d6b0621b96eab28d5980e0989f5db158125b01c9f8c9b32e"
   },
   "sections/poster.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "layout_mode": {
         "group": "Layout",
         "visible_if": null
@@ -1466,6 +1608,10 @@
         "group": "Content",
         "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
       },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.layout_mode == 'with_content' }}"
+      },
       "show_button": {
         "group": "Button",
         "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
@@ -1475,6 +1621,10 @@
         "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_button }}"
       },
       "button_link": {
+        "group": "Button",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_button }}"
+      },
+      "button_new_tab": {
         "group": "Button",
         "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_button }}"
       },
@@ -1514,21 +1664,13 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
-      "button_new_tab": {
-        "group": "Button",
-        "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_button }}"
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
@@ -1537,7 +1679,7 @@
       "show_heading": "Controls heading content and semantic level. Font remains relevant for rich-text headings.",
       "heading_level": "Changes the semantic heading tag; no further dependent settings.",
       "show_subtext": "Controls supporting rich text.",
-      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "show_button": "Controls the action fields and rendered action.",
       "button_style": "Changes button appearance; no dependent controls.",
       "hide_on_mobile": "Responsive visibility; no additional input fields.",
@@ -1545,7 +1687,8 @@
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
       "button_new_tab": "Opens only this active editorial action in a new tab. Defaults off; no dependent fields. Hidden whenever the action is disabled or its content mode is inactive.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -1842,9 +1985,58 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "layout_mode": "with_content",
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "layout_mode": "with_content",
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "layout_mode": "with_content",
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: no heading content",
+        "settings": {
+          "layout_mode": "image_only",
+          "heading_font": "newake"
+        },
+        "hidden": [
+          "heading_font",
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "9a890d4736ebb2aa0f04b6d32faefaf6714cd4619ee1b90d4e929c821eb6a0e2"
+    "schemaHash": "9a891a9286f59af68a7b70184be4bfde934acdbd188164f9a94f86fcbe955336"
   },
   "blocks/editorial-faq.liquid": {
     "fields": {
@@ -1856,6 +2048,10 @@
         "group": "Content",
         "visible_if": null
       },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.heading_font == 'newake' }}"
+      },
       "faq_category": {
         "group": "Optional FAQs",
         "visible_if": null
@@ -1866,10 +2062,47 @@
       }
     },
     "controls": {
-      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected."
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
-    "scenarios": [],
-    "schemaHash": "e75d28a4fc9df9cbde44b505caaed577c5a39fd96dfe4dff6398ee88265698bd"
+    "scenarios": [
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      }
+    ],
+    "schemaHash": "e9a79fb72495038a6e8d87f05d788b37046cc5557a00691b962b7e93adf26a73"
   },
   "blocks/sidebar-box.liquid": {
     "fields": {
@@ -1905,6 +2138,10 @@
         "group": "Content",
         "visible_if": null
       },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.override_font == 'newake' }}"
+      },
       "override_text_color": {
         "group": "Appearance",
         "visible_if": null
@@ -1928,6 +2165,10 @@
       "button_link": {
         "group": "Action",
         "visible_if": null
+      },
+      "button_new_tab": {
+        "group": "Action",
+        "visible_if": "{{ block.settings.show_button }}"
       },
       "override_button_style": {
         "group": "Action",
@@ -2032,10 +2273,6 @@
       "subscription_button_style": {
         "group": "Saved design values",
         "visible_if": "{{ block.settings.artwork == blank }}"
-      },
-      "button_new_tab": {
-        "group": "Action",
-        "visible_if": "{{ block.settings.show_button }}"
       }
     },
     "controls": {
@@ -2043,7 +2280,7 @@
       "override_layout": "Preset or override changes rendering; all customization controls remain visible by merchant request.",
       "override_position": "Preset or override changes rendering; all customization controls remain visible by merchant request.",
       "show_heading": "Preset or override changes rendering; all customization controls remain visible by merchant request.",
-      "override_font": "Preset or override changes rendering; all customization controls remain visible by merchant request.",
+      "override_font": "Two-choice Erode/Newake segmented control. Uppercase headings appears only for Newake and follows this control’s content visibility. Legacy stored automatic/preset values remain render-only compatibility.",
       "show_button": "Preset or override changes rendering; all customization controls remain visible by merchant request.",
       "override_button_style": "Preset or override changes rendering; all customization controls remain visible by merchant request.",
       "layout": "Compatibility value retained for existing saved blocks; superseded by the visible override.",
@@ -2053,7 +2290,8 @@
       "subscription_heading_font": "Compatibility value retained for existing saved blocks; superseded by the visible override.",
       "subscription_content_position": "Compatibility value retained for existing saved blocks; superseded by the visible override.",
       "subscription_button_style": "Compatibility value retained for existing saved blocks; superseded by the visible override.",
-      "button_new_tab": "Opens only this active editorial action in a new tab. Defaults off; no dependent fields. Hidden whenever the action is disabled or its content mode is inactive."
+      "button_new_tab": "Opens only this active editorial action in a new tab. Defaults off; no dependent fields. Hidden whenever the action is disabled or its content mode is inactive.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -2297,9 +2535,54 @@
         "hidden": [
           "button_new_tab"
         ]
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "override_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "override_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "override_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "override_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "override_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "override_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: preset hides uppercase",
+        "settings": {
+          "override_font": "preset",
+          "uppercase_heading": true
+        },
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "5fb37a75fe44e5284ebb0d843cfe6237218b003a53182d83b54f8984fe84ae0d"
+    "schemaHash": "7821940f77039a0eab6f3a5914db4555053158fc534a9f55b76e08a1865e4721"
   },
   "blocks/link-box.liquid": {
     "fields": {
@@ -2385,12 +2668,17 @@
       "heading_font": {
         "group": "Content",
         "visible_if": "{{ block.settings.show_heading or block.settings.text != blank }}"
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.heading_font == 'newake' and block.settings.show_heading or block.settings.text != blank }}"
       }
     },
     "controls": {
       "show_heading": "Controls heading content and semantic level. Font remains relevant for rich-text headings.",
       "heading_level": "Changes the semantic heading tag; no further dependent settings.",
-      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected."
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -2407,9 +2695,62 @@
           "text",
           "heading_font"
         ]
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "show_heading": true,
+          "text": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "show_heading": true,
+          "text": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "show_heading": true,
+          "text": "Preview heading",
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: no heading content",
+        "settings": {
+          "show_heading": false,
+          "text": "",
+          "heading_font": "newake"
+        },
+        "hidden": [
+          "heading_font",
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "57b9929df474e072df3180e9f63dcceb2549e33eced31cbd51b7f49c7dec926f"
+    "schemaHash": "35878a07f505864d014338abddd4bcc20d3dc24d3d9046b7856b3a74484bf2ee"
   },
   "blocks/editorial-text-image.liquid": {
     "fields": {
@@ -2445,6 +2786,14 @@
         "group": "Content",
         "visible_if": "{{ block.settings.show_heading }}"
       },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.show_heading or block.settings.text != blank }}"
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.heading_font == 'newake' and block.settings.show_heading or block.settings.text != blank }}"
+      },
       "heading_level": {
         "group": "Content",
         "visible_if": "{{ block.settings.show_heading }}"
@@ -2452,10 +2801,6 @@
       "text": {
         "group": "Content",
         "visible_if": null
-      },
-      "heading_font": {
-        "group": "Content",
-        "visible_if": "{{ block.settings.show_heading or block.settings.text != blank }}"
       },
       "show_button": {
         "group": "Button",
@@ -2469,11 +2814,11 @@
         "group": "Button",
         "visible_if": "{{ block.settings.show_button }}"
       },
-      "button_style": {
+      "button_new_tab": {
         "group": "Button",
         "visible_if": "{{ block.settings.show_button }}"
       },
-      "button_new_tab": {
+      "button_style": {
         "group": "Button",
         "visible_if": "{{ block.settings.show_button }}"
       }
@@ -2483,10 +2828,11 @@
       "image_height_mode": "Custom reveals desktop and mobile heights.",
       "show_heading": "Controls heading content and semantic level. Font remains relevant for rich-text headings.",
       "heading_level": "Changes the semantic heading tag; no further dependent settings.",
-      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "show_button": "Controls the action fields and rendered action.",
       "button_style": "Changes button appearance; no dependent controls.",
-      "button_new_tab": "Opens only this active editorial action in a new tab. Defaults off; no dependent fields. Hidden whenever the action is disabled or its content mode is inactive."
+      "button_new_tab": "Opens only this active editorial action in a new tab. Defaults off; no dependent fields. Hidden whenever the action is disabled or its content mode is inactive.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -2599,9 +2945,62 @@
         "hidden": [
           "button_new_tab"
         ]
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "show_heading": true,
+          "text": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "show_heading": true,
+          "text": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "show_heading": true,
+          "text": "Preview heading",
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: no heading content",
+        "settings": {
+          "show_heading": false,
+          "text": "",
+          "heading_font": "newake"
+        },
+        "hidden": [
+          "heading_font",
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "689a746bdfb30fc52632146967d09828188932a1e8d5ce4d6de2e04419eb592b"
+    "schemaHash": "457c3e012093a13c7610c179bd5942ab9518c9905a5a1bade8c6ac5d3c097564"
   },
   "blocks/_editorial-sidebar.liquid": {
     "fields": {},
@@ -2737,6 +3136,10 @@
         "group": "Content",
         "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
       },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ block.settings.heading_font == 'newake' and block.settings.layout_mode == 'with_content' }}"
+      },
       "show_button": {
         "group": "Button",
         "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
@@ -2746,6 +3149,10 @@
         "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_button }}"
       },
       "button_link": {
+        "group": "Button",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_button }}"
+      },
+      "button_new_tab": {
         "group": "Button",
         "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_button }}"
       },
@@ -2772,10 +3179,6 @@
       "minimum_height_mobile": {
         "group": "Size",
         "visible_if": null
-      },
-      "button_new_tab": {
-        "group": "Button",
-        "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_button }}"
       }
     },
     "controls": {
@@ -2784,10 +3187,11 @@
       "show_heading": "Controls heading content and semantic level. Font remains relevant for rich-text headings.",
       "heading_level": "Changes the semantic heading tag; no further dependent settings.",
       "show_subtext": "Controls supporting rich text.",
-      "heading_font": "Changes heading typography, including rich-text headings; body font is unaffected.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "show_button": "Controls the action fields and rendered action.",
       "button_style": "Changes button appearance; no dependent controls.",
-      "button_new_tab": "Opens only this active editorial action in a new tab. Defaults off; no dependent fields. Hidden whenever the action is disabled or its content mode is inactive."
+      "button_new_tab": "Opens only this active editorial action in a new tab. Defaults off; no dependent fields. Hidden whenever the action is disabled or its content mode is inactive.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -2891,9 +3295,58 @@
         "hidden": [
           "button_new_tab"
         ]
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "layout_mode": "with_content",
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "layout_mode": "with_content",
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "layout_mode": "with_content",
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: no heading content",
+        "settings": {
+          "layout_mode": "image_only",
+          "heading_font": "newake"
+        },
+        "hidden": [
+          "heading_font",
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "9a7d13f7d1b2e4e28170835f00bbe0ab538cc7a82f669f7efca6a0a83011bb52"
+    "schemaHash": "3a2140215eb406cbcd8858bb4f6036b8a6f6dc1f14fa212640881b03efba5817"
   },
   "sections/hard-seltzer-awards.liquid": {
     "fields": {
@@ -3186,6 +3639,10 @@
   },
   "sections/main-collection.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "header_in_hero": {
         "group": "Content",
         "visible_if": null
@@ -3193,6 +3650,10 @@
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "show_header": {
         "group": "Content",
@@ -3222,21 +3683,17 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Selects heading typography without changing body text.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "show_header": "Use only without a separate Collection hero; controls the collection title and description.",
       "show_filters": "Enables collection navigation on collections/all only; the resource context selects applicability.",
       "hide_on_mobile": "Hides the section below 768px; no dependent fields.",
@@ -3244,7 +3701,8 @@
       "header_in_hero": "Delegates the collection H1 to the separate hero. All-products always supplies its own H1.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -3463,12 +3921,51 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "24cf5cd6dec6a7d31f87e3bb8a94f1d7250d07c1414e0c16c86082042a309967"
+    "schemaHash": "6bb59d9fabf58525efd4b1897f7d36fb7f6d4b1484118e6c6ed8c699b67d304f"
   },
   "sections/collection-hero.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "variant": {
         "group": "Design",
         "visible_if": null
@@ -3492,6 +3989,10 @@
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "background_image": {
         "group": "Artwork",
@@ -3525,29 +4026,26 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
       "variant": "Selects automatic or explicit world design. Image pickers remain additive overrides for every design.",
       "animate": "Enables decorative motion; reduced-motion preferences always win.",
-      "heading_font": "Selects heading typography without changing body text.",
+      "heading_font": "Two-choice Erode/Newake segmented control. Uppercase headings appears only for Newake and follows this control’s content visibility. Legacy stored automatic/preset values remain render-only compatibility.",
       "show_button": "Shows the in-page shop action and its label control.",
       "hide_on_mobile": "Hides the section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the section from 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -3820,9 +4318,54 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: automatic hides uppercase",
+        "settings": {
+          "heading_font": "automatic",
+          "uppercase_heading": true
+        },
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "1e8275c097083d11a0845bc6d97f6127b4dc1bdc217b914b944097d6b4fee0b0"
+    "schemaHash": "5d691ce786883c571ac986d3918ecd27fd13dfa432678109413ea376d0358c68"
   },
   "sections/header.liquid": {
     "fields": {
@@ -3865,9 +4408,17 @@
   },
   "sections/main-blog.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "articles_per_page": {
         "group": "Content",
@@ -3885,24 +4436,17 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": {
-        "affects": [],
-        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
-      },
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": {
         "affects": [],
         "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
@@ -3913,7 +4457,8 @@
       },
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -4118,15 +4663,58 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "0ba20bf4f692a05b5e4577a27686e01c1d6b797d00866a49ce342af983441f2e"
+    "schemaHash": "53829a38c071db849fa874f4c28db96c15de935a170d09717479e2f356eae0d7"
   },
   "sections/main-article.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "hide_on_mobile": {
         "group": "Visibility",
@@ -4140,24 +4728,17 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": {
-        "affects": [],
-        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
-      },
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": {
         "affects": [],
         "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
@@ -4168,7 +4749,8 @@
       },
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -4372,12 +4954,51 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "e1eef5ceccaef7c1cf805565e3d480251c5afe83014026f2f61f8a45635c4ce9"
+    "schemaHash": "c7b2b58d67dfc2c2c51d97273d6859f7aefe21e94ba058699fae90ea498edd19"
   },
   "sections/blog-teaser.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading": {
         "group": "Content",
         "visible_if": null
@@ -4385,6 +5006,10 @@
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "post_limit": {
         "group": "Content",
@@ -4418,24 +5043,17 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": {
-        "affects": [],
-        "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
-      },
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "show_excerpt": {
         "affects": [],
         "reason": "Controls heading font, optional article content/action, or shared breakpoint visibility; other content controls remain independent."
@@ -4460,7 +5078,8 @@
       },
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -4686,21 +5305,68 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "e1bc2fab1e933a7f85fbe0a8548d1fd563d041d69ed47136075bc7695b78d932"
+    "schemaHash": "38da0055e06295aed2a4e36a3d280a3a0469ac156f52a954f285b25dfbae3441"
   },
   "sections/faq.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "selected_faqs": {
         "group": "Content",
         "visible_if": null
       },
       "faq_category": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "question_count": {
         "group": "Content",
         "visible_if": null
       },
@@ -4736,32 +5402,25 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       },
-      "question_count": {
-        "group": "Content",
-        "visible_if": null
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "show_footer": "Enables closing copy, link label and destination; all three fields depend on this toggle.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
       "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
-      "question_count": "Caps the combined valid, deduplicated category-first list at 3, 5, 8 or All. No dependent fields; HTML and FAQPage share the same selected entries. Defaults to All."
+      "question_count": "Caps the combined valid, deduplicated category-first list at 3, 5, 8 or All. No dependent fields; HTML and FAQPage share the same selected entries. Defaults to All.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -5087,15 +5746,58 @@
           "faq_category",
           "selected_faqs"
         ]
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "b5520e415d27855211450bdbfc599d539ecd639eadc4ddffa45e86c2f6e35b0e"
+    "schemaHash": "cf97a0b2a3ed664d322f63eee554a6074ddfbad7a3caf6a4976b42456902532d"
   },
   "sections/featured-collection.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "heading": {
         "group": "Content",
@@ -5121,26 +5823,23 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -5395,15 +6094,54 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "2bba28730706c931b1b84953abb536a82341670b57ae06d0d51a8b174d3890c0"
+    "schemaHash": "2d2f608f51487c52180e7c08f633becd12c3b762b3f9746184a1638aa86d44d8"
   },
   "sections/footer.liquid": {
     "fields": {
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "menu": {
         "group": "Navigation",
@@ -5433,21 +6171,22 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -5675,9 +6414,44 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "84d6bd8c3b4f424e47cc296f2dca17c5a9eb0bc0169cf2efa0396b9e65346619"
+    "schemaHash": "2843643a51ecb80ccd0501e93137552da8e44ec89bd6b09a1399abebb69b48f5"
   },
   "sections/hard-seltzer-ingredients.liquid": {
     "fields": {
@@ -5928,6 +6702,10 @@
   },
   "sections/hero.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "image": {
         "group": "Image",
         "visible_if": null
@@ -5947,6 +6725,10 @@
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "text": {
         "group": "Content",
@@ -5976,26 +6758,23 @@
         "group": "Section background",
         "visible_if": null
       },
-      "background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -6268,9 +7047,44 @@
           "background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "b58c1fb9ba59be918ba231b597a1e798d0882302a6922632417611f24890664e"
+    "schemaHash": "1b8b2f5d4ca783ec74715af17d5c0aa2a0530de612892264e2d3b8509d124dab"
   },
   "sections/logo-marquee.liquid": {
     "fields": {
@@ -6281,6 +7095,10 @@
       "heading_font": {
         "group": "Content",
         "visible_if": "{{ section.settings.heading != blank }}"
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.heading != blank }}"
       },
       "merchant_collection": {
         "group": "Content",
@@ -6340,7 +7158,7 @@
       }
     },
     "controls": {
-      "heading_font": "Controls only the optional heading; visible with a nonblank heading.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "direction": "Selects marquee direction; duration and pause are meaningful for either direction.",
       "pause_on_interaction": "Pauses the marquee for pointer hover and keyboard focus; no additional fields.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
@@ -6351,7 +7169,8 @@
       "content_width": "Controls only the optional heading; visible with a nonblank heading. Track always fills the viewport.",
       "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
       "link_logos": "Enables URLs already stored on entries; no dependent fields. Off renders every logo as noninteractive. Defaults off for both marquees.",
-      "logo_box_surface": "Selects Transparent, shared Surface white or Soda supporting beige; visible only with logo boxes enabled. No dependent fields."
+      "logo_box_surface": "Selects Transparent, shared Surface white or Soda supporting beige; visible only with logo boxes enabled. No dependent fields.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -6792,9 +7611,58 @@
           "heading_font",
           "content_width"
         ]
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading": "Preview heading",
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: no heading content",
+        "settings": {
+          "heading": "",
+          "heading_font": "newake"
+        },
+        "hidden": [
+          "heading_font",
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "1b58d2cac7451cfa68c4fe30aa93f7947b37155090816b424d97f18c05163c10"
+    "schemaHash": "dfdf69a966f844b4ef9d9b21aff978a44e9d17aff3bf7f98c85b3032625b8ed8"
   },
   "sections/main-404.liquid": {
     "fields": {
@@ -6802,6 +7670,10 @@
         "group": "Content",
         "visible_if": null
       },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
       "hide_on_mobile": {
         "group": "Visibility",
         "visible_if": null
@@ -6814,21 +7686,22 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -7056,9 +7929,44 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "9ddbbe34ef3002a3b79a37a8db0dce8c507f756e72846c91b785a3d3cd22c5b1"
+    "schemaHash": "39505a7c0b55c87ed9adffe1b3b7670daff4440df2f638d75a218e918b71b998"
   },
   "sections/main-cart.liquid": {
     "fields": {
@@ -7066,23 +7974,28 @@
         "group": "Content",
         "visible_if": null
       },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
       "section_background_mode": {
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -7270,15 +8183,58 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "2a7d0dbc24825103b6d7fd3b60eff9469cc8a34ef16ffa8cfcecdc5ceb3a84d9"
+    "schemaHash": "ee7e12f812e1f4de25f979e8870104fb0ffad20da62cb213d6436567918be4c7"
   },
   "sections/main-faq.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "hide_on_mobile": {
         "group": "Visibility",
@@ -7292,26 +8248,23 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -7566,15 +8519,58 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "6c375a4d1c47a6246910555a073cabd77ae299e0e4e57f2cbeadae807fd3dcbd"
+    "schemaHash": "55a2ea3a80cd4aca647ce7f169e172679ddc345780e0dd5c21bf979bf1ffc94a"
   },
   "sections/main-list-collections.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "hide_on_mobile": {
         "group": "Visibility",
@@ -7588,26 +8584,23 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -7862,12 +8855,51 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "db783906167a9d678f1484b715beb88f8944de1d944f7082296b4689045c54a3"
+    "schemaHash": "ecb601883b48b917f448081e2f47d40d8655a9be13a9fb787e915cc9463ecdd3"
   },
   "sections/main-page.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading_font": {
         "group": "Heading font",
         "visible_if": null
@@ -7888,25 +8920,21 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Erode/Newake chooses shared heading tokens. Only Newake exposes uppercase_heading; switching to Erode ignores a retained uppercase value.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
-      "uppercase_heading": "Visible only when heading_font is newake. No dependent fields; affects heading casing via CSS only, never stored text.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
       "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
     },
@@ -8193,6 +9221,41 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
     "schemaHash": "ef6aa036a2bdf8a4654b5c20635644a2ddc760409e13d0226f67cff9f7dc776a"
@@ -8203,6 +9266,10 @@
         "group": "Content",
         "visible_if": null
       },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
       "show_vendor": {
         "group": "Content",
         "visible_if": null
@@ -8211,20 +9278,21 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "show_vendor": "Shows the actual product vendor; there is no separate vendor editor field.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -8432,15 +9500,58 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "9ae8be0b808ed97375f5e0e801126d98d18891c6ed7a14d824135efd6a64eaf7"
+    "schemaHash": "2d8063c3e8b488491ddda080a409bde0a948e0afe0b41093401796d13e99dd9b"
   },
   "sections/main-search.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "hide_on_mobile": {
         "group": "Visibility",
@@ -8454,26 +9565,23 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -8728,9 +9836,44 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "c9e27bc3a870cb8736d0a5be925dec4a02c348e98b6c6e6be9afa77062acb0aa"
+    "schemaHash": "4090b162e67fa4245b34fe6458f58ab323755b8d1b139f064f62554592dcb2e5"
   },
   "sections/offer-cards.liquid": {
     "fields": {
@@ -9140,6 +10283,10 @@
   },
   "sections/page-intro.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading_font": {
         "group": "Heading font",
         "visible_if": null
@@ -9160,25 +10307,21 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Erode/Newake chooses shared heading tokens. Only Newake exposes uppercase_heading; switching to Erode ignores a retained uppercase value.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
-      "uppercase_heading": "Visible only when heading_font is newake. No dependent fields; affects heading casing via CSS only, never stored text.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
       "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
     },
@@ -9465,6 +10608,41 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
     "schemaHash": "b65648d6725bdefeac03f9dc00c4c83951d8501ee7cb550447b3aa7702dbdc3c"
@@ -9794,9 +10972,17 @@
   },
   "sections/rich-text.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "eyebrow": {
         "group": "Content",
@@ -9818,6 +11004,10 @@
         "group": "Content",
         "visible_if": null
       },
+      "button_new_tab": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.button_label != blank and section.settings.button_link != blank }}"
+      },
       "hide_on_mobile": {
         "group": "Visibility",
         "visible_if": null
@@ -9830,31 +11020,24 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
-      "button_new_tab": {
-        "group": "Content",
-        "visible_if": "{{ section.settings.button_label != blank and section.settings.button_link != blank }}"
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
       "button_new_tab": "Opens only this active editorial action in a new tab. Defaults off; no dependent fields. Hidden whenever the action is disabled or its content mode is inactive.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -10142,9 +11325,44 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "2bcf8ce731c319358c05f7fdcbdd8e0407cc30190f9aaf920035140a3648fe3e"
+    "schemaHash": "543d877b9183fe8bdd21bee57d8177925317c18d6c8f8694b32e5ae945f18585"
   },
   "sections/soda-ingredients.liquid": {
     "fields": {
@@ -10698,6 +11916,10 @@
   },
   "sections/subscription.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "variant": {
         "group": "Product world",
         "visible_if": null
@@ -10729,6 +11951,10 @@
       "heading_font": {
         "group": "Content",
         "visible_if": "{{ section.settings.show_heading }}"
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'seltzer' and section.settings.show_heading }}"
       },
       "show_intro": {
         "group": "Content",
@@ -10786,24 +12012,20 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
       "variant": "Chooses the existing product-world content and artwork. Additive image/text overrides remain useful for every world; Versus footnote applies only to Soda.",
       "show_logo": "Controls the variant-owned logo without a separate logo picker.",
       "show_heading": "Enables heading content; heading fields depend on this toggle. Offer cards also require Local source for local copy.",
-      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "heading_font": "Two-choice Erode/Newake segmented control. Uppercase headings appears only for Newake and follows this control’s content visibility. Legacy stored automatic/preset values remain render-only compatibility.",
       "show_intro": "Enables introduction; its copy depends on this toggle. Offer cards also require Local source for local copy.",
       "show_button": "Enables action label and destination; both fields depend on this toggle.",
       "show_account": "Enables subscriber prompt, link label and destination; all three depend on this toggle.",
@@ -10811,7 +12033,8 @@
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -11226,12 +12449,76 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "show_heading": true,
+          "heading_font": "seltzer",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "show_heading": true,
+          "heading_font": "seltzer",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "show_heading": true,
+          "heading_font": "soda",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: automatic hides uppercase",
+        "settings": {
+          "show_heading": true,
+          "heading_font": "automatic",
+          "uppercase_heading": true
+        },
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: no heading content",
+        "settings": {
+          "show_heading": false,
+          "heading_font": "seltzer"
+        },
+        "hidden": [
+          "heading_font",
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "fc08f7e63ddde811306e3fd1b4b71e1f00f63809da0e5a86501147a3e17f7de7"
+    "schemaHash": "ecc894fb01ec8e6aef71dc243319d49c388598f534b0591f5a0e11f28692c348"
   },
   "sections/usp-section.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "variant": {
         "group": "Content",
         "visible_if": null
@@ -11251,6 +12538,10 @@
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'default' }}"
       },
       "color_mode": {
         "group": "Panel colors",
@@ -11276,28 +12567,25 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
       "variant": "Chooses the existing product-world content and artwork. Additive image/text overrides remain useful for every world; Versus footnote applies only to Soda.",
-      "heading_font": "Selects semantic heading typography, including rich-text headings; no dependent content fields. Existing automatic brand choices remain intact.",
+      "heading_font": "Two-choice Erode/Newake segmented control. Uppercase headings appears only for Newake and follows this control’s content visibility. Legacy stored automatic/preset values remain render-only compatibility.",
       "color_mode": "Automatic keeps the product-world panel palette; Custom exposes panel and text colors. The outer section canvas is independent.",
       "hide_on_mobile": "Hides the complete section below 768px; no dependent fields.",
       "hide_on_desktop": "Hides the complete section at or above 768px; no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -11617,9 +12905,54 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "default",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "default",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "soda",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: automatic hides uppercase",
+        "settings": {
+          "heading_font": "automatic",
+          "uppercase_heading": true
+        },
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ],
-    "schemaHash": "b72a62d24c299432d23037d5fa5868661afb300b9626e70256b8e678fd040a72"
+    "schemaHash": "8dd3b38b402b1a44585f3559e4c2914b5aa21422a0796d60eb820a2894026ae1"
   },
   "sections/versus.liquid": {
     "fields": {
@@ -11937,8 +13270,12 @@
     "schemaHash": "9c8805f708a5f22858e7d33d41235ec2568bb4c27257ec41e9411d8ef11793f3"
   },
   "sections/contact-form.liquid": {
-    "schemaHash": "e0292469324906f2ce0146a8b1280e3317bb8b0e29e730a2f77cbf5a69f45397",
+    "schemaHash": "294cb6d3fcf09a802506de4eba920a18d20d5310adcc0368d3590e589b0fd2a0",
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading": {
         "group": "Content",
         "visible_if": null
@@ -11946,6 +13283,10 @@
       "heading_font": {
         "group": "Appearance",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Appearance",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "enable_newsletter": {
         "group": "Newsletter",
@@ -11971,27 +13312,24 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Erode/Newake only changes heading presentation; no dependent controls. Both preserve authored casing.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Independent breakpoint visibility, no dependent fields.",
       "hide_on_desktop": "Independent breakpoint visibility, no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "enable_newsletter": "Enables both public Klaviyo configuration fields; each has visible_if. Storefront opt-in requires both IDs. Checkbox starts unchecked and email-only.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -12246,12 +13584,51 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ]
   },
   "sections/social-media-channels.liquid": {
-    "schemaHash": "818876b8bd0824bb0cd3785f34b53e937cae099cb93b28ceb25e1019f8856c75",
+    "schemaHash": "50109303828e5330b82085eb70f3f4159421c654b3e808f7a1aa222acf83dcdd",
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading": {
         "group": "Content",
         "visible_if": null
@@ -12260,8 +13637,16 @@
         "group": "Content",
         "visible_if": "{{ section.settings.heading != blank }}"
       },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.heading != blank }}"
+      },
       "button_style": {
         "group": "Content",
+        "visible_if": null
+      },
+      "instagram_hidden": {
+        "group": "Instagram — primary",
         "visible_if": null
       },
       "instagram_url": {
@@ -12272,6 +13657,10 @@
         "group": "Instagram — primary",
         "visible_if": "{{ section.settings.instagram_hidden == false }}"
       },
+      "instagram_secondary_hidden": {
+        "group": "Instagram — second channel",
+        "visible_if": null
+      },
       "instagram_secondary_url": {
         "group": "Instagram — second channel",
         "visible_if": "{{ section.settings.instagram_secondary_hidden == false }}"
@@ -12279,6 +13668,10 @@
       "instagram_secondary_username": {
         "group": "Instagram — second channel",
         "visible_if": "{{ section.settings.instagram_secondary_hidden == false }}"
+      },
+      "tiktok_hidden": {
+        "group": "TikTok",
+        "visible_if": null
       },
       "tiktok_url": {
         "group": "TikTok",
@@ -12288,6 +13681,10 @@
         "group": "TikTok",
         "visible_if": "{{ section.settings.tiktok_hidden == false }}"
       },
+      "linkedin_hidden": {
+        "group": "LinkedIn",
+        "visible_if": null
+      },
       "linkedin_url": {
         "group": "LinkedIn",
         "visible_if": "{{ section.settings.linkedin_hidden == false }}"
@@ -12296,6 +13693,10 @@
         "group": "LinkedIn",
         "visible_if": "{{ section.settings.linkedin_hidden == false }}"
       },
+      "youtube_hidden": {
+        "group": "YouTube",
+        "visible_if": null
+      },
       "youtube_url": {
         "group": "YouTube",
         "visible_if": "{{ section.settings.youtube_hidden == false }}"
@@ -12303,6 +13704,10 @@
       "youtube_username": {
         "group": "YouTube",
         "visible_if": "{{ section.settings.youtube_hidden == false }}"
+      },
+      "facebook_hidden": {
+        "group": "Facebook",
+        "visible_if": null
       },
       "facebook_url": {
         "group": "Facebook",
@@ -12324,45 +13729,17 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "instagram_hidden": {
-        "group": "Instagram — primary",
-        "visible_if": null
-      },
-      "instagram_secondary_hidden": {
-        "group": "Instagram — second channel",
-        "visible_if": null
-      },
-      "tiktok_hidden": {
-        "group": "TikTok",
-        "visible_if": null
-      },
-      "linkedin_hidden": {
-        "group": "LinkedIn",
-        "visible_if": null
-      },
-      "youtube_hidden": {
-        "group": "YouTube",
-        "visible_if": null
-      },
-      "facebook_hidden": {
-        "group": "Facebook",
-        "visible_if": null
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Changes optional heading typography; visible only when a heading is entered.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "button_style": "Brand colours (default), Outline or Solid use the same circular control and shared sweep; no dependent fields.",
       "hide_on_mobile": "Independent shared breakpoint visibility; no dependent fields.",
       "hide_on_desktop": "Independent shared breakpoint visibility; no dependent fields.",
@@ -12374,7 +13751,8 @@
       "youtube_hidden": "Hides this channel in this section only; link and username controls appear only when the channel is visible. Stored values and central sources are preserved.",
       "facebook_hidden": "Hides this channel in this section only; link and username controls appear only when the channel is visible. Stored values and central sources are preserved.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -12784,6 +14162,55 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading": "Preview heading",
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: no heading content",
+        "settings": {
+          "heading": "",
+          "heading_font": "newake"
+        },
+        "hidden": [
+          "heading_font",
+          "uppercase_heading"
+        ]
       }
     ]
   },
@@ -13148,7 +14575,7 @@
     "schemaHash": "489d5928161321a74978d384c0a55e538c7282c6286d6cdeae9aa73cfeafd4b6"
   },
   "sections/team.liquid": {
-    "schemaHash": "d0422d05088aa12070a411223c254e154984ba0388a5d28df443fbe50c479163",
+    "schemaHash": "c3aaeb57150da0f8ebf8b822e4c1b33de55b77798cf76191402268af4e24d340",
     "fields": {
       "selection_mode": {
         "group": "Team members",
@@ -13158,6 +14585,10 @@
         "group": "Team members",
         "visible_if": null
       },
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading": {
         "group": "Content",
         "visible_if": null
@@ -13165,6 +14596,10 @@
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "introduction": {
         "group": "Content",
@@ -13182,27 +14617,24 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
       "selection_mode": "Single renders the first selected entry; selected renders the ordered list; all renders active entries. Native metaobject_list cannot use visible_if, so one shared picker remains visible with conditional mode guidance.",
-      "heading_font": "Applies to card names even without a section heading.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Independent breakpoint visibility.",
       "hide_on_desktop": "Independent breakpoint visibility.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -13439,11 +14871,46 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ]
   },
   "sections/video.liquid": {
-    "schemaHash": "a7fa1ee36bab43dc54eead1876c974116b533bed2aa06df3f75c1e77165c9fae",
+    "schemaHash": "5190fb7e648114d6e83f28d2b9dcd3d957ed843afc18abcb54d5b82a4b05bab5",
     "fields": {
       "heading": {
         "group": "Content",
@@ -13452,6 +14919,10 @@
       "heading_font": {
         "group": "Content",
         "visible_if": "{{ section.settings.heading != blank or section.settings.introduction != blank }}"
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.heading != blank or section.settings.introduction != blank }}"
       },
       "introduction": {
         "group": "Content",
@@ -13481,23 +14952,24 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Shown when heading or introduction exists.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "content_width": "Uses shared narrow/editorial widths or the full page container; only relevant with video.",
       "autoplay_video": "Only relevant with video. Reduced motion and native pause remain authoritative.",
       "hide_on_mobile": "Independent breakpoint visibility.",
       "hide_on_desktop": "Independent breakpoint visibility.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -13723,12 +15195,69 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading": "Preview heading",
+          "introduction": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading": "Preview heading",
+          "introduction": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading": "Preview heading",
+          "introduction": "Preview heading",
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: no heading content",
+        "settings": {
+          "heading": "",
+          "introduction": "",
+          "heading_font": "newake"
+        },
+        "hidden": [
+          "heading_font",
+          "uppercase_heading"
+        ]
       }
     ]
   },
   "sections/press-articles.liquid": {
-    "schemaHash": "289ed6ef57d6f6c39ae559ba59b89c76beb9a0fc7d0acb367a45c737350e38a0",
+    "schemaHash": "b5eb4fddf9cfaf1619c73b48d2c0af0694c032a71b287af660b76e7281fed124",
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading": {
         "group": "Content",
         "visible_if": null
@@ -13736,6 +15265,10 @@
       "heading_font": {
         "group": "Content",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "publications": {
         "group": "Content",
@@ -13753,26 +15286,23 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Styles the section title, including its accessible fallback when blank.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Independent breakpoint visibility.",
       "hide_on_desktop": "Independent breakpoint visibility.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -13993,12 +15523,51 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ]
   },
   "sections/press-form.liquid": {
-    "schemaHash": "f52e32a8bd6b3b0f3467552b75a19b9ae8d699d01d66204519de88d69dda8457",
+    "schemaHash": "f530bb6105586234afd7c9c2f5793a67d8ae027566ca2362ff9d821454fd2fab",
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading": {
         "group": "Content",
         "visible_if": null
@@ -14006,6 +15575,10 @@
       "heading_font": {
         "group": "Appearance",
         "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Appearance",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "enable_newsletter": {
         "group": "Newsletter",
@@ -14031,27 +15604,24 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
-      "heading_font": "Erode/Newake only changes heading presentation; no dependent controls. Both preserve authored casing.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "hide_on_mobile": "Independent breakpoint visibility, no dependent fields.",
       "hide_on_desktop": "Independent breakpoint visibility, no dependent fields.",
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "enable_newsletter": "Enables both public Klaviyo configuration fields; each has visible_if. Storefront opt-in requires both IDs. Checkbox starts unchecked and email-only.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -14306,11 +15876,46 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
       }
     ]
   },
   "sections/press-marquee.liquid": {
-    "schemaHash": "20fdab4df37216101565974d95665685b5847809eeea23c9021d87d8ca9a2c9b",
+    "schemaHash": "8784bd479ad30dbd3d85a9abda04a4f498b206c1a398041212789dca1272b53a",
     "fields": {
       "content_width": {
         "group": "Layout",
@@ -14319,6 +15924,10 @@
       "heading_font": {
         "group": "Content",
         "visible_if": "{{ section.settings.heading != blank }}"
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.heading != blank }}"
       },
       "publications": {
         "group": "Content",
@@ -14374,7 +15983,7 @@
       }
     },
     "controls": {
-      "heading_font": "Controls only the optional heading; visible with a nonblank heading.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
       "direction": "Changes loop direction; no dependent inputs.",
       "pause_on_interaction": "Controls hover/focus pause; no dependent inputs.",
       "hide_on_mobile": "Independent breakpoint visibility.",
@@ -14384,7 +15993,8 @@
       "content_width": "Controls only the optional heading; visible with a nonblank heading. Track always fills the viewport.",
       "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
       "link_logos": "Enables URLs already stored on entries; no dependent fields. Off renders every logo as noninteractive. Defaults off for both marquees.",
-      "logo_box_surface": "Selects Transparent, shared Surface white or Soda supporting beige; visible only with logo boxes enabled. No dependent fields."
+      "logo_box_surface": "Selects Transparent, shared Surface white or Soda supporting beige; visible only with logo boxes enabled. No dependent fields.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
     },
     "scenarios": [
       {
@@ -14708,12 +16318,65 @@
           "heading_font",
           "content_width"
         ]
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading": "Preview heading",
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading": "Preview heading",
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: no heading content",
+        "settings": {
+          "heading": "",
+          "heading_font": "newake"
+        },
+        "hidden": [
+          "heading_font",
+          "uppercase_heading"
+        ]
       }
     ]
   },
   "sections/hero-slider.liquid": {
-    "schemaHash": "4d573c4eb62c16bb89d2a88c0fa717e21b1a42b2c984bbaa68278a63e021b471",
+    "schemaHash": "bb6b6b05f9c6a96e13c335aa7a4df9a0aabe054bea57de9552b473ab771f84b2",
     "fields": {
+      "selection_mode": {
+        "group": "Slides",
+        "visible_if": null
+      },
       "slides": {
         "group": "Slides",
         "visible_if": null
@@ -14721,6 +16384,10 @@
       "content_width": {
         "group": "Layout",
         "visible_if": null
+      },
+      "height_mode": {
+        "group": "Layout",
+        "visible_if": "{{ section.settings.height_mode == 'natural' and section.settings.height_mode == 'viewport' }}"
       },
       "mobile_shape": {
         "group": "Layout",
@@ -14733,6 +16400,18 @@
       "heading_uppercase": {
         "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
+      "heading_size": {
+        "group": "Headings",
+        "visible_if": null
+      },
+      "heading_alignment": {
+        "group": "Headings",
+        "visible_if": null
+      },
+      "heading_gap": {
+        "group": "Headings",
+        "visible_if": null
       },
       "heading_level": {
         "group": "Headings",
@@ -14747,6 +16426,14 @@
         "visible_if": null
       },
       "ambient_intensity": {
+        "group": "Appearance",
+        "visible_if": "{{ section.settings.ambient_light }}"
+      },
+      "ambient_spread": {
+        "group": "Appearance",
+        "visible_if": "{{ section.settings.ambient_light }}"
+      },
+      "ambient_blur": {
         "group": "Appearance",
         "visible_if": "{{ section.settings.ambient_light }}"
       },
@@ -14770,48 +16457,20 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "height_mode": {
-        "group": "Layout",
-        "visible_if": "{{ section.settings.height_mode == 'natural' and section.settings.height_mode == 'viewport' }}"
-      },
-      "heading_size": {
-        "group": "Headings",
-        "visible_if": null
-      },
-      "heading_gap": {
-        "group": "Headings",
-        "visible_if": null
-      },
-      "selection_mode": {
-        "group": "Slides",
-        "visible_if": null
-      },
-      "ambient_spread": {
-        "group": "Appearance",
-        "visible_if": "{{ section.settings.ambient_light }}"
-      },
-      "ambient_blur": {
-        "group": "Appearance",
-        "visible_if": "{{ section.settings.ambient_light }}"
-      },
-      "heading_alignment": {
-        "group": "Headings",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
       "content_width": "Selects one of three shared width roles; no dependent fields.",
       "mobile_shape": "Compatibility-only saved ID. Intentionally contradictory visibility condition hides this retired aspect-ratio control in every mode; rendering ignores it.",
-      "heading_font": "Only Newake enables the dependent uppercase checkbox.",
-      "heading_uppercase": "Only affects Newake casing; no other dependent fields.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
+      "heading_uppercase": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields.",
       "heading_level": "First slide H1 or H2; all later slides H2, no dependent fields.",
       "autoplay": "Enables duration; all media and destination fields remain relevant for manual navigation.",
       "hide_on_mobile": "Shared responsive visibility; no dependent fields.",
@@ -15115,6 +16774,41 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "heading_uppercase": false
+        },
+        "visible": [
+          "heading_font",
+          "heading_uppercase"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "heading_uppercase": true
+        },
+        "visible": [
+          "heading_font",
+          "heading_uppercase"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "heading_uppercase": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "heading_uppercase"
+        ]
       }
     ]
   },
@@ -15494,6 +17188,10 @@
   },
   "sections/content-slider.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "card_layout": {
         "group": "Layout",
         "visible_if": null
@@ -15530,17 +17228,13 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
@@ -15549,8 +17243,8 @@
       "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
       "card_layout": "Crosslinks shows image/link in every card; Benefits shows illustration/short text. Switching preserves both sets of saved values.",
       "show_heading": "Shows heading content and controls h2/h3 hierarchy.",
-      "heading_font": "Uses shared font mapping; only Newake enables uppercase card titles.",
-      "uppercase_cards": "Uppercases card titles only when Newake is selected; Erode always preserves authored case.",
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
+      "uppercase_cards": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields.",
       "width_mode": "Contained is the default. Viewport bleed expands only the track, keeps its initial content alignment, and uses viewport-edge snapping. No dependent settings.",
       "content_width": "Shared container width; no dependent fields. Narrow uses 800px, Editorial 1400px, Page the 1920px outer frame. Internal text/artwork limits remain independent.",
       "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
@@ -15804,6 +17498,41 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_cards": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_cards"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_cards": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_cards"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_cards": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_cards"
+        ]
       }
     ],
     "blockContracts": {
@@ -15911,7 +17640,7 @@
         ]
       }
     },
-    "schemaHash": "bf13d9f1b3a9454c5df35c93b9b8f9befdbce435da54402073a813595bfbe02f"
+    "schemaHash": "4ef319761b38939ded682fd98ada7c875c69d271d739947f663c197d3cac3706"
   },
   "sections/brand-statement.liquid": {
     "fields": {
@@ -16143,5 +17872,59 @@
       }
     ],
     "schemaHash": "731b27a75a000cae6a5ccf447f4b0ca8747b9174ea46df8a8f181abd532e73eb"
+  },
+  "sections/cart-drawer.liquid": {
+    "fields": {
+      "heading_font": {
+        "group": null,
+        "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": null,
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects heading typography. Uppercase headings is available only for the explicit Newake choice and follows this control’s content visibility.",
+      "uppercase_heading": "On uppercases semantic Newake headings including rich-text headings; off preserves authored case. Hidden and ignored for Erode and automatic/preset choices. No dependent fields."
+    },
+    "scenarios": [
+      {
+        "name": "Heading casing: Newake authored",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": false
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Newake uppercase",
+        "settings": {
+          "heading_font": "newake",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font",
+          "uppercase_heading"
+        ]
+      },
+      {
+        "name": "Heading casing: Erode ignores saved uppercase",
+        "settings": {
+          "heading_font": "erode",
+          "uppercase_heading": true
+        },
+        "visible": [
+          "heading_font"
+        ],
+        "hidden": [
+          "uppercase_heading"
+        ]
+      }
+    ],
+    "schemaHash": "34a8c449b28a3468044ccbcee723af7e727fb54cb391f6909c4cbb8d6b03552c"
   }
 }

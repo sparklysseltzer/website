@@ -121,3 +121,7 @@ Before handoff, run the gate and inspect the affected rendered modes at mobile/d
 ## Erode heading casing
 
 Erode headings must preserve authored casing: no uppercase or capitalize styling, including section titles, rich-text headings and merchandising compositions. Switch casing with the shared font-choice contract. Never lowercase/capitalize merchant copy programmatically to compensate, since that damages names and acronyms. Newake and Maison Neue retain their own approved treatments. Audit actual computed font and text-transform at phone/desktop sizes when changing typography.
+
+## Heading font and uppercase controls
+
+Whenever a section or block offers Erode/Newake, use the shared two-choice **Heading font** segmented control (Erode / Newake, short ungrouped `select` options) and adjacent **Uppercase headings** checkbox. Show the checkbox only for explicit Newake, respecting the font selector's content visibility. Off preserves authored case; Erode always ignores saved uppercase. Use the shared section/block rendering contract, preserve existing setting IDs, and cover all modes in the editor schema gate. See `docs/design-system.md#editorial-heading-font-selection`.

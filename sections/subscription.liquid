@@ -56,6 +56,9 @@
     assign fallback_height = 575
   endif
 -%}
+{% assign heading_uppercase = false %}
+{% if section.settings.heading_font == 'seltzer' %}{% assign heading_uppercase = section.settings.uppercase_heading %}{% endif %}
+{% render 'heading-font', choice: heading_font, section_id: section.id, uppercase: heading_uppercase %}
 
 {%- if variant == 'soda' or variant == 'seltzer' -%}
   <poster-motion>
@@ -146,6 +149,14 @@
 {%- endif -%}
 
 {% stylesheet %}
+  .subscription :is(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--heading-choice-family);
+    font-weight: var(--heading-choice-weight);
+    line-height: var(--heading-choice-leading);
+    letter-spacing: var(--heading-choice-tracking);
+    text-transform: var(--heading-choice-case, none) !important;
+  }
+
   .subscription { position: relative; max-width: var(--content-width-editorial); margin-inline: auto; overflow: hidden; border-radius: var(--radius-large); background: var(--color-foreground); color: var(--color-text-inverse); }
   .subscription--soda { background: #8cd0ff; color: var(--color-foreground); }
   .subscription__media { position: absolute; inset: 0; overflow: hidden; --subscription-current-focal: var(--subscription-focal); }
@@ -304,12 +315,8 @@
       "type": "select",
       "id": "heading_font",
       "label": "Heading font",
-      "default": "automatic",
+      "default": "soda",
       "options": [
-        {
-          "value": "automatic",
-          "label": "Automatic"
-        },
         {
           "value": "soda",
           "label": "Erode"
@@ -320,6 +327,14 @@
         }
       ],
       "visible_if": "{{ section.settings.show_heading }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ section.settings.heading_font == 'seltzer' and section.settings.show_heading }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     },
     {
       "type": "checkbox",

@@ -2392,7 +2392,7 @@ input, select, textarea { font-family: var(--field-font-family); font-weight: va
   --heading-choice-tracking: var(--letter-spacing-heading-erode);
   --heading-choice-optical-offset: 0em;
 }
-[data-heading-font='newake'], [data-heading-font='seltzer'], .site-footer__card-heading, .cart-drawer__header h2 {
+[data-heading-font='newake'], [data-heading-font='seltzer'], .site-footer__card-heading {
   --heading-choice-family: var(--font-heading-default);
   --heading-choice-weight: 400;
   --heading-choice-case: initial;
@@ -2400,6 +2400,9 @@ input, select, textarea { font-family: var(--field-font-family); font-weight: va
   --heading-choice-tracking: var(--letter-spacing-heading-newake);
   --heading-choice-optical-offset: var(--font-optical-offset-newake);
 }
+/* A block's own heading choice must also reset inherited uppercase. */
+[data-heading-font][data-heading-uppercase] { --heading-choice-case: none; }
+[data-heading-font='newake'][data-heading-uppercase='true'] { --heading-choice-case: uppercase; }
 :is(h1, h2, h3, h4, h5, h6):not(:where(.heading-font-legacy *)) {
   text-transform: var(--heading-choice-case, var(--heading-original-case, none)) !important;
   font-family: var(--heading-choice-family) !important;

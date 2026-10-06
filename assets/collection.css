@@ -95,3 +95,5 @@ collection-catalog, collection-hero-motion { display: block; }
 .collection-hero__intro .page-intro__text > :last-child { margin-bottom: 0; }
 .collection-hero__intro .page-intro__content > :is(.button, .collection-hero__usps) { margin-top: 1.25rem; }
 .collection-hero__intro > .collection-hero__art { max-width: var(--content-width-narrow); margin: 2rem auto 0; }
+
+.collection-hero :is(h1, h2, h3, h4, h5, h6) { text-transform: var(--heading-choice-case, none) !important; }
