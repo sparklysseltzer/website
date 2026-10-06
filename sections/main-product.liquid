@@ -21,6 +21,10 @@
   endif
   assign display_price = initial_allocation.price | default: selected.price
   assign usp_set = brand_collection.metafields.custom.usp_set.value
+  assign featured_usp = blank
+  if brand == 'soda'
+    assign featured_usp = brand_collection.metafields.custom.featured_usp.value
+  endif
   assign flavours = brand_collection.metafields.custom.flavour_products.value | default: brand_collection.products
   assign title = product.title | remove_first: 'Sparklys Soda ' | remove_first: 'Sparklys Hard Seltzer '
   assign form_id = 'ProductBuy-' | append: section.id
@@ -123,7 +127,14 @@
           {% endif %}
         {% endfor %}
       </div>
-      {% if brand_collection != blank %}<div class="pdp-usps"><div class="usp-items" role="list">{% render 'usp-items', usp_variant: brand, usp_set: usp_set %}</div></div>{% endif %}
+      {% if brand_collection != blank %}
+        <div class="pdp-usps">
+          <div class="usp-items{% if featured_usp != blank %} pdp-usps__items--featured{% endif %}" role="list">
+            {% render 'featured-usp', featured: featured_usp, class: 'pdp-usps__featured', loading: 'lazy' %}
+            {% render 'usp-items', usp_variant: brand, usp_set: usp_set %}
+          </div>
+        </div>
+      {% endif %}
       {% if product.selling_plan_groups.size > 0 %}{% render 'product-benefits' %}{% endif %}
       {% render 'usp-footnote', usp_set: usp_set, usp_variant: brand, class: 'pdp-footnote' %}
     </div>

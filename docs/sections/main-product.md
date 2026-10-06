@@ -116,6 +116,10 @@ Startup verification: at 1440px, blocking and then loading the product script ke
 
 Add-to-cart fill correction (2026-10-06): removed the PDP-specific solid background and foreground overrides. The purchase button now inherits the shared primary button treatment: black fill and white label/icon at rest, then the black layer sweeps away to the transparent surface with dark text on hover or keyboard focus. Size, disabled state, price updates and native form submission are unchanged.
 
+## Featured Soda benefit
+
+Soda PDPs read the canonical Soda collection's optional `custom.featured_usp` and render it before `custom.usp_set` in the white benefits panel. The shared `featured-usp` snippet preserves the collection hero's merchant image, stable SVG fallback and accessible caption. The badge remains separate from the ordinary list because it is standalone, larger artwork. Blank references add no badge or empty cell. At a panel content width of 32rem or more, all six benefits share a row with a wider badge column; narrower panels use three columns. Hard Seltzer retains its existing regular set. No settings, store records or template assignments change. Existing Product structured data remains authoritative; this artwork adds no separate entity.
+
 ## Shared heading casing
 
 **Heading font** uses the standard two-choice Erode/Newake segmented control. **Uppercase headings** appears immediately after it only for explicit Newake and follows the font control's content visibility. On uppercases semantic headings (including rich text); off preserves authored case. Erode ignores saved uppercase. Legacy saved Automatic values remain rendering compatibility only; the editor offers Erode and Newake. See the [heading control standard](../design-system.md#editorial-heading-font-selection). Font/casing schema scenarios are registered; no saved template content or structured data changes.

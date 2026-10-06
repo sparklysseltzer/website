@@ -12,7 +12,7 @@ Groups follow Design, Content, Artwork, Action, Visibility and Section backgroun
 
 ## Shared benefits
 
-The collection's existing `custom.usp_set` supplies ordered USP captions, icons and footnote through the shared snippets. The complete stored set is respected (currently six Hard Seltzer benefits, although the older Figma hero depicts five). `custom.featured_usp` is an optional reference to an existing `usp_item`, presented larger before that set. Soda now references `soda-no-added-sugar`. This does not insert the extra badge into every PDP or Product benefits section. Edit shared text/icons in the referenced metaobject; do not substitute locale text for populated source values.
+The collection's existing `custom.usp_set` supplies ordered USP captions, icons and footnote through the shared snippets. The complete stored set is respected (currently six Hard Seltzer benefits, although the older Figma hero depicts five). `custom.featured_usp` is an optional reference to an existing `usp_item`, presented larger before that set. Soda now references `soda-no-added-sugar`. The Soda PDP also renders this reference through the shared `featured-usp` snippet; standalone Product benefits sections continue to use the regular USP set. Edit shared text/icons in the referenced metaobject; do not substitute locale text for populated source values.
 
 The new badge has the intentionally English artwork caption “No added sugar”, as provided in Figma. Its complete vector export was uploaded to Shopify Files and linked to the metaobject on 2026-09-15. Existing German-source/English-translation ownership remains unchanged.
 

@@ -68,7 +68,7 @@
       {% if section.settings.show_button %}<a class="button" href="#CollectionProducts"><span class="button__label">{{ section.settings.button_label | escape }}{% if section.settings.button_label == blank %}{{ 'collections.hero.shop' | t }}{% endif %}</span></a>{% endif %}
       {% if variant != 'default' or set != blank %}
         <div class="collection-hero__usps usp-items" role="list">
-          {% if featured != blank %}<div class="collection-hero__featured" role="listitem">{% if featured.icon.value %}{{ featured.icon.value | image_url: width: 320 | image_tag: widths: '160, 320', sizes: '112px', loading: 'eager', alt: featured.caption.value }}{% elsif featured.system.handle == 'soda-no-added-sugar' %}<img src="{{ 'usp-soda-no-added-sugar.svg' | asset_url }}" width="135" height="110" alt="{{ featured.caption.value | escape }}">{% else %}<p>{{ featured.caption.value | escape }}</p>{% endif %}</div>{% endif %}
+          {% render 'featured-usp', featured: featured, class: 'collection-hero__featured', loading: 'eager' %}
           {% render 'usp-items', usp_set: set, usp_variant: variant %}
         </div>
       {% endif %}

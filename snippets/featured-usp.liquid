@@ -1,0 +1,12 @@
+{%- comment -%}Shared collection-owned featured benefit artwork.{%- endcomment -%}
+{%- if featured != blank -%}
+  <div class="{{ class }}" role="listitem">
+    {%- if featured.icon.value -%}
+      {{ featured.icon.value | image_url: width: 320 | image_tag: widths: '160, 320', sizes: '112px', loading: loading, alt: featured.caption.value }}
+    {%- elsif featured.system.handle == 'soda-no-added-sugar' -%}
+      <img src="{{ 'usp-soda-no-added-sugar.svg' | asset_url }}" width="135" height="110" loading="{{ loading }}" alt="{{ featured.caption.value | escape }}">
+    {%- else -%}
+      <p class="usp-section__label">{{ featured.caption.value | escape }}</p>
+    {%- endif -%}
+  </div>
+{%- endif -%}
