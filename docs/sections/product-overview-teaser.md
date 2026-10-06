@@ -40,7 +40,7 @@ The alcohol badge retains its original Label font and 0.625rem/0.75rem padding. 
 
 Blank card links resolve the canonical product through `all_products`; explicit links remain authoritative. Category links fall back to their corresponding collection and the all-products route. No collection query or new product entity is implied by the section; destination products own their Product structured data.
 
-`product-overview-motion` reuses the Offer cards reversible scroll reveal/parallax engine. Keyboard focus reveals the focused card. Complete static cards, headings and native links remain usable without JavaScript and under reduced motion. The intermittent report of missing scroll-reveal sections remains unconfirmed: the existing user tab showed all cards when inspected, without reload; no fix has been claimed for that report.
+`product-overview-motion` reuses the Offer cards reversible scroll movement/parallax engine, but its navigation heading and cards remain fully opaque at every timeline position. Keyboard focus reveals the focused card. Complete static cards, headings and native links remain usable without JavaScript and under reduced motion. The intermittent report of missing scroll-reveal sections remains unconfirmed: the existing user tab showed all cards when inspected, without reload; no fix has been claimed for that report.
 
 ## Assets and styling
 
@@ -70,3 +70,6 @@ Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes 
 
 
 Ananotes 177 (2026-10-06): remove only the top section padding at 1200px and below, matching the existing hidden-heading/navigation breakpoint. Desktop and bottom spacing are unchanged.
+
+
+Visibility safeguard (2026-10-06): a repeated draft-preview report showed invisible but clickable product navigation. The exact stuck browser state was not reproduced in isolation. Product Overview now overrides only the shared reveal opacity, keeping it at 1 from start to end, so even stale/zero scroll progress cannot hide these primary navigation links. Translation, stagger timing, media parallax, focus behavior and reduced-motion cleanup remain; Offer Cards retain their own fade.

@@ -981,7 +981,7 @@ class OfferCardsMotion extends HTMLElement {
     this.revealAnimations = revealTargets.map((target) => {
       const animation = target.animate(
         [
-          { opacity: 0, transform: 'translate3d(0, 3rem, 0)' },
+          { opacity: this.localName === 'product-overview-motion' ? 1 : 0, transform: 'translate3d(0, 3rem, 0)' },
           { opacity: 1, transform: 'translate3d(0, 0, 0)' },
         ],
         {
