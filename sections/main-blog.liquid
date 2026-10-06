@@ -1,19 +1,39 @@
-{% render 'section-width', section: section, default_width: 'page', frame: '.page-width', compact: 'grid', compact_grid: '.blog-grid' %}
+{% render 'section-width', section: section, default_width: 'page', compact: 'grid', compact_grid: '.blog-grid' %}
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'heading-font', choice: section.settings.heading_font, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 {{ 'blog.css' | asset_url | stylesheet_tag }}
-<section class="section page-width blog-page">
-  <header class="blog-page__header"><p>{{ 'blogs.general.label' | t }}</p><h1>{{ blog.title | escape }}</h1></header>
+{{ 'page-content.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'blog-list.js' | asset_url }}" defer="defer"></script>
+
+<header class="page-intro page-intro--editorial blog-page__intro">
+  <img class="page-intro__art" src="{{ 'page-intro-arc.svg' | asset_url }}" width="1200" height="279" alt="" aria-hidden="true">
+  <div class="page-intro__content"><p class="page-intro__label">{{ 'blogs.general.eyebrow' | t }}</p><h1 class="page-intro__heading">{{ 'blogs.general.title' | t }}</h1></div>
+</header>
+<blog-list class="section page-width blog-page" data-section-id="{{ section.id }}" data-loaded-label="{{ 'blogs.general.loaded' | t }}" data-error-label="{{ 'blogs.general.load_error' | t }}">
+  {% capture sidebar_links %}
+    {% for sidebar_post in blog.articles offset: 1 limit: 49 %}<li{% if forloop.index > 8 %} hidden{% endif %}><a href="{{ sidebar_post.url }}"><span>{{ sidebar_post.title | escape }}</span></a></li>{% endfor %}
+  {% endcapture %}
   {% paginate blog.articles by section.settings.articles_per_page %}
-    <div class="blog-grid">
-      {% for post in blog.articles %}{% render 'article-card', card_article: post, heading_tag: 'h2', show_date: true, show_excerpt: true %}
+    <div class="blog-grid blog-grid--listing" data-blog-grid>
+      {% for post in blog.articles %}
+        {% assign featured = false %}{% if forloop.first and paginate.current_page == 1 %}{% assign featured = true %}{% endif %}
+        {% render 'article-card', card_article: post, heading_tag: 'h2', show_excerpt: true, featured: featured %}
+        {% if featured %}
+          <aside class="blog-sidebar" data-heading-font="newake" aria-labelledby="BlogSidebar-{{ section.id }}">
+            <h2 id="BlogSidebar-{{ section.id }}">{{ 'blogs.general.sidebar' | t }}</h2>
+            <ul>{{ sidebar_links }}</ul>
+          </aside>
+        {% endif %}
       {% else %}<p>{{ 'blogs.general.empty' | t }}</p>{% endfor %}
     </div>
-    {% render 'pagination', paginate: paginate %}
+    <div class="blog-load-more">
+      {% if paginate.next %}<a class="button button--secondary button--large" href="{{ paginate.next.url }}" data-blog-more><span class="button__label"><span class="blog-load-more__icon" aria-hidden="true"></span><span>{{ 'blogs.general.load_more' | t }}</span></span></a>{% endif %}
+      <p class="visually-hidden" role="status" data-blog-status></p>
+    </div>
     {% render 'article-list-schema', posts: blog.articles, count: section.settings.articles_per_page, offset: paginate.current_offset, section: section %}
   {% endpaginate %}
-</section>
+</blog-list>
 
 {% schema %}
 {

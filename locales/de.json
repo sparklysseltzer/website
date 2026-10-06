@@ -367,7 +367,7 @@
         "item_5": "Swiss made"
       },
       "seltzer": {
-        "heading": "Hallo Welt",
+        "heading": "Original Zeitgeist",
         "text": "Ein Drink, der leicht bleibt – auch wenn’s laut wird. Kaum Zucker, klarer Geschmack und 5% Alkohol, die genau richtig sind. Sparklys Hard Seltzer macht jede Runde erfrischender.",
         "item_1": "Perfect alc. vol.",
         "item_2": "Kalorien-reduziert*",
@@ -456,16 +456,24 @@
   },
   "blogs": {
     "article": {
-      "back_to_blog": "Zurück zu {{ title }}"
+      "back_to_blog": "Zurück zum Blog"
     },
     "general": {
       "label": "Sparklys Journal",
+      "title": "The Sparklys Blog",
+      "eyebrow": "News",
       "posts": "Blogbeiträge",
       "view": "Blog anzeigen",
       "empty": "Noch keine Beiträge.",
-      "more": "Weitere Beiträge"
+      "more": "Weitere Beiträge",
+      "sidebar": "Beliebte Beiträge",
+      "load_more": "Mehr laden",
+      "loaded": "Weitere Beiträge geladen.",
+      "load_error": "Die Beiträge konnten nicht geladen werden. Bitte versuche es erneut."
     },
     "share": {
+      "dialog_title": "Beitrag teilen",
+      "close": "Teilen schliessen",
       "title": "Teilen",
       "email": "E-Mail",
       "copy": "Link kopieren",

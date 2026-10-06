@@ -2,14 +2,23 @@
 {%- assign share_title = article.title | url_encode -%}
 <article-share data-url="{{ canonical_url | escape }}" data-copied="{{ 'blogs.share.copied' | t | escape }}">
   <details class="article-share">
-    <summary class="button button--secondary"><span class="button__label">{{ 'blogs.share.title' | t }}</span></summary>
+    <summary class="button button--secondary"><span class="button__label article-action-label"><span class="article-action-icon article-action-icon--share" aria-hidden="true"></span><span>{{ 'blogs.share.title' | t }}</span></span></summary>
     <div class="article-share__panel">
-      <a href="https://wa.me/?text={{ share_title }}%20{{ share_url }}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" rel="noopener noreferrer">Facebook</a>
-      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="mailto:?subject={{ share_title }}&amp;body={{ share_url }}">{{ 'blogs.share.email' | t }}</a>
-      <button type="button" data-copy hidden>{{ 'blogs.share.copy' | t }}</button>
+      <div class="article-share__channels">
+        <a href="https://wa.me/?text={{ share_title }}%20{{ share_url }}" target="_blank" rel="noopener noreferrer">WhatsApp<span class="article-action-icon article-action-icon--next" aria-hidden="true"></span></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" rel="noopener noreferrer">Facebook<span class="article-action-icon article-action-icon--next" aria-hidden="true"></span></a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url }}" target="_blank" rel="noopener noreferrer">LinkedIn<span class="article-action-icon article-action-icon--next" aria-hidden="true"></span></a>
+        <a href="mailto:?subject={{ share_title }}&amp;body={{ share_url }}">{{ 'blogs.share.email' | t }}<span class="article-action-icon article-action-icon--next" aria-hidden="true"></span></a>
+      </div>
       <label class="form-field"><span class="form-field__label">{{ 'blogs.share.link' | t }}</span><input class="form-control" readonly value="{{ canonical_url | escape }}" type="url"></label>
+      <button class="button button--secondary article-share__copy" type="button" data-copy hidden><span class="button__label article-action-label"><span class="article-action-icon article-action-icon--copy" aria-hidden="true"></span><span>{{ 'blogs.share.copy' | t }}</span></span></button>
     </div>
   </details>
+  <dialog class="article-share__dialog" id="ArticleShare-{{ section.id }}" aria-labelledby="ArticleShareTitle-{{ section.id }}" aria-describedby="ArticleShareDescription-{{ section.id }}">
+    <div class="article-share__sheet">
+      <div class="article-share__heading"><h2 id="ArticleShareTitle-{{ section.id }}">{{ 'blogs.share.dialog_title' | t }}</h2><button class="article-share__close" type="button" data-close aria-label="{{ 'blogs.share.close' | t }}"><span class="article-action-icon article-action-icon--close" aria-hidden="true"></span></button></div>
+      <p class="article-share__description" id="ArticleShareDescription-{{ section.id }}">{{ article.title | escape }}</p>
+      <div data-share-content></div>
+    </div>
+  </dialog>
 </article-share>

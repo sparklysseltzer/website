@@ -4,24 +4,29 @@
 {% render 'section-visibility', section: section %}
 {{ 'blog.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'article-share.js' | asset_url }}" defer="defer"></script>
-<article class="section page-width article-detail">
-  <header class="article-detail__header">
-    <a class="button button--secondary" href="{{ blog.url }}"><span class="button__label">{{ 'blogs.article.back_to_blog' | t: title: blog.title }}</span></a>
-    <h1>{{ article.title | escape }}</h1>
-    <p class="article-detail__meta"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'date' }}</time>{% if article.author != blank %} · {{ article.author | escape }}{% endif %}</p>
-    {% if article.excerpt != blank %}<div class="rte">{{ article.excerpt }}</div>{% endif %}
+{{ 'page-content.css' | asset_url | stylesheet_tag }}
+<article class="article-detail">
+  <header class="page-intro page-intro--editorial">
+    <img class="page-intro__art" src="{{ 'page-intro-arc.svg' | asset_url }}" width="1200" height="279" alt="" aria-hidden="true">
+    <div class="page-intro__content">
+      <h1 class="page-intro__heading">{{ article.title | escape }}</h1>
+      <p class="article-detail__meta"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'date' }}</time></p>
+      {% if article.excerpt != blank %}<div class="article-detail__excerpt rte">{{ article.excerpt }}</div>{% endif %}
+    </div>
   </header>
+  <div class="section page-width article-detail__content">
   {% if article.image %}{{ article.image | image_url: width: 1800 | image_tag: widths: '480, 750, 1100, 1400, 1800', sizes: '(min-width: 1280px) 1280px, 100vw', loading: 'eager', class: 'article-detail__image', alt: article.image.alt }}{% endif %}
   <div class="article-detail__body rte">{{ article.content }}</div>
   <footer class="article-detail__footer">
-    <a class="button button--secondary" href="{{ blog.url }}"><span class="button__label">{{ 'blogs.article.back_to_blog' | t: title: blog.title }}</span></a>
+    <a class="button button--secondary" href="{{ blog.url }}"><span class="button__label article-action-label"><span class="article-action-icon article-action-icon--back" aria-hidden="true"></span><span>{{ 'blogs.article.back_to_blog' | t }}</span></span></a>
     {% render 'article-share', article: article %}
   </footer>
+  </div>
 </article>
 {% if blog.articles_count > 1 %}
 <section class="section page-width article-related">
   <div class="blog-heading-row"><h2>{{ 'blogs.general.more' | t }}</h2></div>
-  <div class="blog-grid">{% assign related_count = 0 %}{% for post in blog.articles limit: 4 %}{% unless post.id == article.id %}{% render 'article-card', card_article: post, show_excerpt: true, show_date: true %}{% assign related_count = related_count | plus: 1 %}{% if related_count == 3 %}{% break %}{% endif %}{% endunless %}{% endfor %}</div>
+  <div class="blog-grid">{% assign related_count = 0 %}{% for post in blog.articles limit: 4 %}{% unless post.id == article.id %}{% render 'article-card', card_article: post, show_excerpt: true, show_date: false %}{% assign related_count = related_count | plus: 1 %}{% if related_count == 3 %}{% break %}{% endif %}{% endunless %}{% endfor %}</div>
 </section>
 {% endif %}
 {% unless section.settings.hide_on_mobile and section.settings.hide_on_desktop %}<script type="application/ld+json">{{ article | structured_data }}</script>{% endunless %}

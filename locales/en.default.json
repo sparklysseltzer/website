@@ -456,16 +456,24 @@
   },
   "blogs": {
     "article": {
-      "back_to_blog": "Back to {{ title }}"
+      "back_to_blog": "Back to blog"
     },
     "general": {
       "label": "Sparklys Journal",
+      "title": "The Sparklys Blog",
+      "eyebrow": "News",
       "posts": "Blog posts",
       "view": "View blog",
       "empty": "No posts yet.",
-      "more": "More stories"
+      "more": "More stories",
+      "sidebar": "Popular posts",
+      "load_more": "Load more",
+      "loaded": "More posts loaded.",
+      "load_error": "Posts could not be loaded. Please try again."
     },
     "share": {
+      "dialog_title": "Share this post",
+      "close": "Close sharing options",
       "title": "Share",
       "email": "Email",
       "copy": "Copy link",

@@ -1,0 +1,25 @@
+/* Preview-only surface and link treatments, shared by Studio and development controls. */
+.blog-panel-variant--gray { background: var(--color-general-surface-muted, #eeeeee); }
+.blog-panel-variant--beige { background: var(--color-soda-surface-warm, #faf8f2); }
+.blog-panel-variant--black { background: var(--color-general-surface-inverse, #000); color: var(--color-text-inverse); }
+.blog-panel-variant--left a::after { order: -1; }
+.blog-panel-variant--tiles li + li, .blog-panel-variant--minimal li + li { border: 0; }
+.blog-panel-variant--tiles li + li { margin-top: .5rem; }
+.blog-panel-variant--tiles a { padding: 1rem; border-radius: var(--radius-small); background: var(--color-surface); }
+.blog-panel-variant--tiles a, .blog-panel-variant--minimal a { transition: background-color var(--motion-duration-base) var(--motion-ease); }
+.blog-panel-variant--circles a { position: relative; padding-right: 3rem; }
+.blog-panel-variant--circles a::after { position: absolute; right: .75rem; width: 1rem; height: 1rem; }
+.blog-panel-variant--circles a::before { content: ''; position: absolute; right: 0; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: color-mix(in srgb, currentColor 12%, transparent); transition: background-color var(--motion-duration-base) var(--motion-ease); }
+.blog-panel-variant--circles a:focus-visible::before { background: color-mix(in srgb, currentColor 25%, transparent); }
+.blog-panel-variant--minimal a { padding: 1rem; margin-inline: -1rem; border-radius: var(--radius-small); }
+.blog-panel-variant--minimal a::after { content: none; }
+.blog-panel-variant--tiles a:focus-visible, .blog-panel-variant--minimal a:focus-visible { background: color-mix(in srgb, var(--color-foreground) 7%, var(--color-surface)); }
+@media (hover: hover) {
+  .blog-panel-variant--circles a:hover::before { background: color-mix(in srgb, currentColor 25%, transparent); }
+  .blog-panel-variant--tiles a:hover, .blog-panel-variant--minimal a:hover { background: color-mix(in srgb, var(--color-foreground) 7%, var(--color-surface)); }
+}
+
+.blog-panel-variant--black { background: var(--color-foreground); }
+.blog-panel-variant--charcoal { background: var(--color-inverse-hover); color: var(--color-text-inverse); }
+@media (prefers-reduced-motion: reduce) { .blog-panel-variant--tiles a, .blog-panel-variant--minimal a, .blog-panel-variant--circles a::before { transition: none; } }
+
