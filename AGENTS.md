@@ -38,6 +38,9 @@ Temporary action notifications must use the shared toast service and `docs/desig
 
 ## Product and language
 
+- Do not use en dashes or em dashes as sentence punctuation in Sparklys copy or proposed copy in conversation. Use full stops, commas or colons instead; never substitute a spaced hyphen. See `docs/product.md#copy-punctuation`.
+
+
 - This repository is the custom native Shopify Online Store 2.0 theme for Sparklys Switzerland.
 - English is the source language and default theme locale. This does not set Shopify’s primary content language: merchant-owned product, collection, page, section and metaobject source values follow the store’s actual primary language (currently German), with English registered through Shopify translations. Keep technical definition names and field labels English. Never replace populated merchant text by matching starter strings in Liquid; see `docs/merchant-content.md#language-ownership`. German is a required storefront translation. French and Italian are likely additions for the Swiss market. Put reusable customer-facing UI in locale files rather than hardcoding it in Liquid.
 - Always author code, identifiers, comments, tests, commits, technical documentation, Shopify definition names and field labels, Theme Editor schema names/labels/help text, and other administrative interfaces in English. Author reusable storefront UI in English in `locales/en.default.json`, then translate it in `locales/de.json` and later locale files. Never use German as the source for technical, administrative, or reusable theme content.

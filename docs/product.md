@@ -34,6 +34,10 @@ We chose a custom native Shopify theme because it provides:
 - Production-quality code even during prototyping so successful work can continue into launch.
 - Shopify-hosted checkout and platform-native commerce behavior wherever possible.
 
+## Copy punctuation
+
+Do not use en dashes or em dashes as sentence punctuation in Sparklys copy, including headings, descriptions, SEO text and proposed copy in conversation. Use full stops, commas or colons, or rewrite the sentence. Do not substitute a spaced hyphen for a dash. Ordinary hyphens within compound words remain valid. This is an explicit merchant preference confirmed on 2026-10-05.
+
 ## Current scope
 
 The theme covers the global shell, reusable editorial modules, and native Shopify resource pages. The development homepage is a working composition with merchant-entered test content, not final launch copy. See [Implementation status](status.md) for supported capabilities and production gaps, and the [Section reference](sections/README.md) for module contracts. JSON templates own current page composition.

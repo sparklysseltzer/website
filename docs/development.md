@@ -307,3 +307,9 @@ Run `npm run studio` for the local three-pane design workbench at `http://127.0.
 ## Planned theme content controller
 
 The user requested a [controller implementation plan](content-transfer-controller-plan.md) for Dev ↔ unpublished `website/main`, including selected page/collection/product templates. Store records remain shared and the live theme is excluded. This is a plan, not implementation or transfer authorization. Current code-only defaults and protected-content rules remain unchanged.
+
+### Explicit content replacement review
+
+Ordinary pushes still reject any protected content difference. For an explicitly authorized, reviewed content replacement only, `SPARKLYS_CONTENT_REVIEW` may point to a local JSON review outside Git. It must contain `target: "sparklysseltzer/website:refs/heads/main"`, `authorization: "explicit-content-replacement"`, exact `remoteCommit` and `localCommit`, and an ordered `files` array covering every protected change with `path`, `before` and `after` values from `git ls-tree` at those commits. Missing files have an empty tree entry. The hook checks every value and still requires fast-forward ancestry. Any later local commit or remote editor commit invalidates the review. Never generate this review without current specific user authorization, a remote backup and an inspected content diff; it is not a standing release exception. Keep the guard installed and do not bypass hooks.
+
+2026-10-06: the merchant explicitly requested all accumulated development changes, theme content and newly created page templates to replace content in unpublished `website/main`. This is a task-specific replacement authorization, not permission to publish or a change to future content-preserving defaults. The remote theme and development content were downloaded before preparing the release; local development content matched the downloaded dev snapshot, except its system gift-card template, which is not a newly authored development page.
