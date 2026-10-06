@@ -12,6 +12,7 @@
     "intro": {
       "type": "page-intro",
       "settings": {
+        "content_width": "narrow",
         "heading_font": "erode",
         "uppercase_heading": false,
         "hide_on_mobile": false,
@@ -20,15 +21,30 @@
         "section_background": ""
       }
     },
-    "media_kit": {
-      "type": "rich-text",
+    "poster_3ceXCU": {
+      "type": "poster",
+      "name": "Poster",
       "settings": {
-        "heading_font": "erode",
-        "eyebrow": "",
+        "content_width": "editorial",
+        "layout_mode": "with_content",
+        "image": "shopify://shop_images/sparklys-hard-seltzer-video-poster.jpg",
+        "image_alt": "Sparklys cans on a cart",
+        "content_position": "center",
+        "show_heading": true,
         "heading": "Media Kit Download",
-        "text": "<p>In unserem Press & Media Kit findest du Logos, Produkt- und Stimmungsbilder sowie Beschreibungen und Textvorlagen für deine Berichterstattung über Sparklys.</p>",
+        "heading_level": "h2",
+        "show_subtext": true,
+        "subtext": "<p>In unserem Press & Media Kit findest du Logos, Produkt- und Stimmungsbilder sowie Beschreibungen und Textvorlagen für deine Berichterstattung über Sparklys.</p>",
+        "heading_font": "newake",
+        "show_button": true,
         "button_label": "Mediakit abrufen",
         "button_link": "https://drive.google.com/drive/folders/1szH35JApPI-kUnc_DjUWcmp3wsP06pFH?usp=sharing",
+        "button_style": "automatic",
+        "poster_text_color": "#ffffff",
+        "overlay_strength": 40,
+        "overlay_color": "#030607",
+        "minimum_height": 480,
+        "minimum_height_mobile": 390,
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
@@ -38,6 +54,7 @@
     "logos": {
       "type": "press-marquee",
       "settings": {
+        "content_width": "page",
         "heading_font": "erode",
         "publications": [
           "20min",
@@ -64,6 +81,7 @@
     "coverage": {
       "type": "press-articles",
       "settings": {
+        "content_width": "narrow",
         "heading": "Sparklys in der Presse",
         "heading_font": "erode",
         "publications": [
@@ -78,17 +96,107 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
-        "section_background": "#FFFFFF"
+        "section_background": "#ffffff"
       }
     },
     "contact": {
       "type": "press-form",
       "settings": {
+        "content_width": "narrow",
         "heading": "Anfrage für Medienschaffende",
         "heading_font": "erode",
         "enable_newsletter": true,
         "klaviyo_site_id": "Vv6a6f",
         "klaviyo_list_id": "TwzfPb",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": "#ffffff"
+      }
+    },
+    "product_overview_teaser_eFQCNM": {
+      "type": "product-overview-teaser",
+      "blocks": {
+        "product_7iEtRn": {
+          "type": "product",
+          "settings": {
+            "title": "Yuzu & Ginger",
+            "link": "",
+            "brand": "soda",
+            "show_alcohol_badge": false,
+            "background": "#ff9d00",
+            "background_end": "#ffeda3",
+            "accent": "#000000",
+            "image_glow": "#ffbf3c",
+            "image_width": 82,
+            "image_offset_x": 0,
+            "image_offset_y": 0
+          }
+        },
+        "product_nGVBmb": {
+          "type": "product",
+          "settings": {
+            "title": "Blueberry & Pomelo",
+            "link": "",
+            "brand": "soda",
+            "show_alcohol_badge": false,
+            "background": "#00519a",
+            "background_end": "#65d3f4",
+            "accent": "#000000",
+            "image_glow": "#2885c2",
+            "image_width": 82,
+            "image_offset_x": 0,
+            "image_offset_y": 0
+          }
+        },
+        "product_3RhzjN": {
+          "type": "product",
+          "settings": {
+            "title": "Maracuja",
+            "link": "",
+            "brand": "hard_seltzer",
+            "show_alcohol_badge": true,
+            "background": "#ff9d00",
+            "background_end": "#ffeda3",
+            "accent": "#ef9a00",
+            "image_glow": "#ffbf3c",
+            "image_width": 40,
+            "image_offset_x": 0,
+            "image_offset_y": 0
+          }
+        },
+        "product_VdNdDY": {
+          "type": "product",
+          "settings": {
+            "title": "Holunder",
+            "link": "",
+            "brand": "hard_seltzer",
+            "show_alcohol_badge": true,
+            "background": "#009e52",
+            "background_end": "#88f688",
+            "accent": "#1eb445",
+            "image_glow": "#36c16a",
+            "image_width": 40,
+            "image_offset_x": 0,
+            "image_offset_y": 0
+          }
+        }
+      },
+      "block_order": [
+        "product_7iEtRn",
+        "product_nGVBmb",
+        "product_3RhzjN",
+        "product_VdNdDY"
+      ],
+      "name": "Product overview",
+      "settings": {
+        "content_width": "page",
+        "heading": "Zu unseren Getränken",
+        "show_navigation": false,
+        "all_products_label": "Alle Produkte",
+        "all_products_link": "",
+        "soda_link": "",
+        "hard_seltzer_link": "",
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
@@ -98,9 +206,10 @@
   },
   "order": [
     "intro",
-    "media_kit",
+    "poster_3ceXCU",
     "logos",
     "coverage",
-    "contact"
+    "contact",
+    "product_overview_teaser_eFQCNM"
   ]
 }

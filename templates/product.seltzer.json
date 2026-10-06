@@ -1,11 +1,311 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-product",
       "settings": {
-        "show_vendor": false
+        "heading_font": "erode",
+        "show_vendor": false,
+        "section_background_mode": "original",
+        "section_background": ""
+      }
+    },
+    "hard_seltzer_ingredients_tGYBbg": {
+      "type": "hard-seltzer-ingredients",
+      "blocks": {
+        "ingredient_WfqCFX": {
+          "type": "ingredient",
+          "settings": {
+            "text": ""
+          }
+        },
+        "ingredient_CytPtn": {
+          "type": "ingredient",
+          "settings": {
+            "text": ""
+          }
+        },
+        "ingredient_9Kr6dj": {
+          "type": "ingredient",
+          "settings": {
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_WfqCFX",
+        "ingredient_CytPtn",
+        "ingredient_9Kr6dj"
+      ],
+      "name": "Hard Seltzer ingredients",
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
+      }
+    },
+    "usp_section_WVhpbU": {
+      "type": "usp-section",
+      "name": "Product benefits — Hard Seltzer",
+      "settings": {
+        "content_width": "editorial",
+        "variant": "seltzer",
+        "heading": "",
+        "text": "",
+        "heading_font": "automatic",
+        "color_mode": "automatic",
+        "background": "#69bdf7",
+        "text_color": "#000000",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "custom",
+        "section_background": ""
+      }
+    },
+    "logo_marquee_gGA4TK": {
+      "type": "logo-marquee",
+      "name": "Merchant marquee",
+      "settings": {
+        "content_width": "page",
+        "heading_font": "newake",
+        "merchant_collection": "seltzer-handler",
+        "heading": "Jetzt erhältlich in deiner Nähe",
+        "show_logo_boxes": false,
+        "duration": 32,
+        "direction": "normal",
+        "pause_on_interaction": true,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "custom",
+        "background_style": "transparent",
+        "section_background": ""
+      }
+    },
+    "hard_seltzer_awards_6L6Vyf": {
+      "type": "hard-seltzer-awards",
+      "blocks": {
+        "award_CcKzWc": {
+          "type": "award",
+          "settings": {
+            "alt": ""
+          }
+        },
+        "award_tgdUhC": {
+          "type": "award",
+          "settings": {
+            "alt": ""
+          }
+        },
+        "award_itwFnx": {
+          "type": "award",
+          "settings": {
+            "alt": ""
+          }
+        }
+      },
+      "block_order": [
+        "award_CcKzWc",
+        "award_tgdUhC",
+        "award_itwFnx"
+      ],
+      "name": "Hard Seltzer awards",
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "show_button": false,
+        "button_label": "test",
+        "button_link": "shopify://pages/press-media",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "original",
+        "section_background": ""
+      }
+    },
+    "versus_R9y4RH": {
+      "type": "versus",
+      "blocks": {
+        "item_MQiiad": {
+          "type": "item",
+          "settings": {
+            "featured": true,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_9dyEwX": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_bUewTG": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_FP3CjE": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_7Wj3hg": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_MQiiad",
+        "item_9dyEwX",
+        "item_bUewTG",
+        "item_FP3CjE",
+        "item_7Wj3hg"
+      ],
+      "name": "Product comparison — Hard Seltzer",
+      "settings": {
+        "content_width": "editorial",
+        "variant": "seltzer",
+        "heading": "",
+        "comparison_basis": "",
+        "disclaimer": "",
+        "footnote": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
+      }
+    },
+    "faq_Mthhip": {
+      "type": "faq",
+      "name": "FAQ with categories",
+      "settings": {
+        "content_width": "narrow",
+        "heading_font": "newake",
+        "selected_faqs": [],
+        "faq_category": "hard-seltzer",
+        "heading": "",
+        "show_footer": true,
+        "footer_text": "",
+        "footer_link_label": "",
+        "footer_link": "#",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
+      }
+    },
+    "subscription_RyRCEz": {
+      "type": "subscription",
+      "blocks": {
+        "benefit_NYR98E": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "discount",
+            "text": ""
+          }
+        },
+        "benefit_CJhwRz": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "shipping",
+            "text": ""
+          }
+        },
+        "benefit_fGxRB9": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "flexibility",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "benefit_NYR98E",
+        "benefit_CJhwRz",
+        "benefit_fGxRB9"
+      ],
+      "name": "Subscription — Hard Seltzer",
+      "settings": {
+        "content_width": "editorial",
+        "variant": "seltzer",
+        "image_alt": "",
+        "show_logo": true,
+        "show_heading": true,
+        "heading": "Abonnieren",
+        "heading_font": "automatic",
+        "show_intro": true,
+        "intro": "",
+        "show_button": true,
+        "button_label": "",
+        "button_link": "shopify://pages/sparklys-abo-modell",
+        "show_account": true,
+        "account_prompt": "",
+        "account_label": "",
+        "account_link": "",
+        "minimum_height": 630,
+        "minimum_height_mobile": 680,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background": ""
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "hard_seltzer_ingredients_tGYBbg",
+    "usp_section_WVhpbU",
+    "logo_marquee_gGA4TK",
+    "hard_seltzer_awards_6L6Vyf",
+    "versus_R9y4RH",
+    "faq_Mthhip",
+    "subscription_RyRCEz"
+  ]
 }

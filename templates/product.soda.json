@@ -1,11 +1,353 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-product",
       "settings": {
-        "show_vendor": false
+        "heading_font": "erode",
+        "show_vendor": false,
+        "section_background_mode": "transparent",
+        "section_background_surface": "custom",
+        "section_background": ""
+      }
+    },
+    "usp_section_f4rwRV": {
+      "type": "usp-section",
+      "name": "Product benefits — Soda",
+      "settings": {
+        "content_width": "editorial",
+        "variant": "soda",
+        "heading": "",
+        "text": "",
+        "heading_font": "automatic",
+        "color_mode": "automatic",
+        "background": "#69bdf7",
+        "text_color": "#000000",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background_surface": "surface",
+        "section_background": ""
+      }
+    },
+    "logo_marquee_iANa6W": {
+      "type": "logo-marquee",
+      "name": "Merchant marquee",
+      "settings": {
+        "content_width": "page",
+        "heading_font": "erode",
+        "merchant_collection": "soda-handler",
+        "heading": "Jetzt erhältlich in deiner Nähe",
+        "show_logo_boxes": false,
+        "duration": 32,
+        "direction": "normal",
+        "pause_on_interaction": true,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "background_style": "transparent",
+        "section_background_surface": "surface",
+        "section_background": ""
+      }
+    },
+    "soda_three_reasons_e6pNhH": {
+      "type": "soda-three-reasons",
+      "blocks": {
+        "reason_ypbPW3": {
+          "type": "reason",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "reason_DUDkcn": {
+          "type": "reason",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "reason_8KYKAH": {
+          "type": "reason",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "reason_ypbPW3",
+        "reason_DUDkcn",
+        "reason_8KYKAH"
+      ],
+      "name": "Soda — Three reasons",
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "link_label": "",
+        "link": "",
+        "footnote": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background_surface": "surface",
+        "section_background": ""
+      }
+    },
+    "soda_ingredients_c9aQK4": {
+      "type": "soda-ingredients",
+      "blocks": {
+        "ingredient_8hjgEJ": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_xURGjW": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_nUVdF7": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_VaFiDc": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_BdMtP8": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        },
+        "ingredient_PcEJNJ": {
+          "type": "ingredient",
+          "settings": {
+            "title": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_8hjgEJ",
+        "ingredient_xURGjW",
+        "ingredient_nUVdF7",
+        "ingredient_VaFiDc",
+        "ingredient_BdMtP8",
+        "ingredient_PcEJNJ"
+      ],
+      "name": "Soda ingredients",
+      "settings": {
+        "content_width": "editorial",
+        "heading": "",
+        "intro": "",
+        "link_label": "",
+        "link": "",
+        "footnote": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background_surface": "surface",
+        "section_background": ""
+      }
+    },
+    "versus_jYTDYA": {
+      "type": "versus",
+      "blocks": {
+        "item_fBbBHa": {
+          "type": "item",
+          "settings": {
+            "featured": true,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_9wYNLR": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_JCdi8U": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_kFdRPJ": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        },
+        "item_GEPF79": {
+          "type": "item",
+          "settings": {
+            "featured": false,
+            "title": "",
+            "value_1": "",
+            "value_2": "",
+            "value_3": "",
+            "value_4": "",
+            "value_5": "",
+            "value_6": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_fBbBHa",
+        "item_9wYNLR",
+        "item_JCdi8U",
+        "item_kFdRPJ",
+        "item_GEPF79"
+      ],
+      "name": "Product comparison — Soda",
+      "settings": {
+        "content_width": "editorial",
+        "variant": "soda",
+        "heading": "",
+        "comparison_basis": "",
+        "disclaimer": "",
+        "footnote": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background_surface": "surface",
+        "section_background": ""
+      }
+    },
+    "subscription_qBa3M6": {
+      "type": "subscription",
+      "blocks": {
+        "benefit_qX77Q3": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "discount",
+            "text": ""
+          }
+        },
+        "benefit_jNpkbW": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "shipping",
+            "text": ""
+          }
+        },
+        "benefit_AMntGT": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "flexibility",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "benefit_qX77Q3",
+        "benefit_jNpkbW",
+        "benefit_AMntGT"
+      ],
+      "name": "Subscription — Soda",
+      "settings": {
+        "content_width": "editorial",
+        "variant": "soda",
+        "image_alt": "",
+        "show_logo": false,
+        "show_heading": true,
+        "heading": "Sparklys Abonnieren",
+        "heading_font": "automatic",
+        "show_intro": true,
+        "intro": "",
+        "show_button": true,
+        "button_label": "",
+        "button_link": "shopify://pages/sparklys-abo-modell",
+        "show_account": true,
+        "account_prompt": "",
+        "account_label": "",
+        "account_link": "",
+        "minimum_height": 630,
+        "minimum_height_mobile": 680,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background_surface": "surface",
+        "section_background": ""
+      }
+    },
+    "faq_FRtzXK": {
+      "type": "faq",
+      "name": "FAQ with categories",
+      "settings": {
+        "content_width": "narrow",
+        "heading_font": "erode",
+        "selected_faqs": [],
+        "faq_category": "soda",
+        "heading": "",
+        "show_footer": true,
+        "footer_text": "",
+        "footer_link_label": "",
+        "footer_link": "#",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background_surface": "surface",
+        "section_background": ""
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "usp_section_f4rwRV",
+    "logo_marquee_iANa6W",
+    "soda_three_reasons_e6pNhH",
+    "soda_ingredients_c9aQK4",
+    "versus_jYTDYA",
+    "subscription_qBa3M6",
+    "faq_FRtzXK"
+  ]
 }
