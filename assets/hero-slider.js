@@ -1,5 +1,12 @@
 (() => {
   if (customElements.get('hero-slider')) return;
+  // Shopify may optimize CSS millisecond tokens to seconds on hosted themes.
+  const motionMilliseconds = (style, name, fallback) => {
+    const token = style.getPropertyValue(name).trim();
+    const value = Number.parseFloat(token);
+    if (!Number.isFinite(value) || value < 0) return fallback;
+    return value * (token.endsWith('ms') ? 1 : token.endsWith('s') ? 1000 : 1);
+  };
   // Decorative only: no pixel readback, media cloning or full-resolution blur raster.
   class AmbientLight {
     constructor(frame) {
@@ -258,7 +265,7 @@
       const action = slide.querySelector('.hero-slider__action');
       const paging = this.querySelector('.hero-slider__paging');
       const style = getComputedStyle(this);
-      const duration = (name, fallback) => parseFloat(style.getPropertyValue(name)) || fallback;
+      const duration = (name, fallback) => motionMilliseconds(style, name, fallback);
       const textTime = duration('--motion-duration-slow', 360);
       const panelTime = textTime * 3;
       const controlsTime = duration('--motion-duration-base', 260);
@@ -376,7 +383,7 @@
       const incoming = this.slides[this.index].querySelector('.hero-slider__media');
       if (!incoming) return;
       const style = getComputedStyle(this);
-      const duration = (parseFloat(style.getPropertyValue('--motion-duration-slow')) || 360) * 3;
+      const duration = motionMilliseconds(style, '--motion-duration-slow', 360) * 3;
       const easing = style.getPropertyValue('--motion-ease-ui').trim() || 'ease';
       // Stretch the sideways entrance oval vertically for a gentler leading curve.
       // Keep its size fixed, with the leading edge starting outside the panel.
