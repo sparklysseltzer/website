@@ -110,12 +110,12 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     const panel = details.querySelector(':scope > div');
     if (panel) panel.inert = !open;
   }
-  animate(node, frames, kind = 'base', done) {
+  animate(node, frames, kind = 'base', done, timing = {}) {
     this.effects.get(node)?.cancel();
     if (this.reduced.matches) { done?.(); return; }
     const styles = getComputedStyle(this);
     const duration = parseFloat(styles.getPropertyValue(`--motion-duration-${kind}`)) || 260;
-    const animation = node.animate(frames, { duration, easing: styles.getPropertyValue('--motion-ease').trim() || 'ease-out', fill: 'both' });
+    const animation = node.animate(frames, { duration, easing: styles.getPropertyValue('--motion-ease').trim() || 'ease-out', fill: 'both', ...timing });
     this.effects.set(node, animation);
     animation.finished.then(() => {
       if (this.effects.get(node) !== animation) return;
@@ -135,11 +135,15 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     panel.inert = !open;
     if (immediate || this.reduced.matches) { this.state(details, open); return; }
     details.open = true;
+    const desktopCategory = !this.mobile && details.hasAttribute('data-nav-category');
+    // Cards own desktop category entry; do not multiply their fade by a panel fade.
+    if (desktopCategory && open) return;
     const accordion = this.mobile && details.hasAttribute('data-nav-category');
     const frames = accordion
       ? [{ height: `${height}px`, opacity, overflow: 'hidden' }, { height: `${open ? panel.scrollHeight : 0}px`, opacity: open ? 1 : 0, overflow: 'hidden' }]
+      : desktopCategory ? [{ opacity }, { opacity: 0 }]
       : [{ opacity, transform }, { opacity: open ? 1 : 0, transform: `translateY(${open ? 0 : -6}px)` }];
-    this.animate(panel, frames, accordion ? 'base' : 'slow', () => { if (!open) { details.open = false; if (details.hasAttribute('data-nav-category')) this.clearLeaving(panel); } });
+    this.animate(panel, frames, desktopCategory ? 'fast' : accordion ? 'base' : 'slow', () => { if (!open) { details.open = false; if (details.hasAttribute('data-nav-category')) this.clearLeaving(panel); } });
   }
   selectRoot(root) {
     if (this.root === root) { this.closeRoot(false); return; }
@@ -197,10 +201,11 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     if (current === category && !this.mobile) return;
     const panel = root.querySelector(':scope > .navigation-panel');
     const fromHeight = panel.getBoundingClientRect().height;
+    const incoming = category.querySelector(':scope > .navigation-content');
+    const paintedOpacity = category.open ? Number(getComputedStyle(incoming).opacity) : 0;
     if (!this.mobile) {
       // Only the incoming category determines grid height. The outgoing content fades
       // at its painted position without holding the grid open until its fade completes.
-      const incoming = category.querySelector(':scope > .navigation-content');
       this.clearLeaving(incoming);
       if (current) {
         const outgoing = current.querySelector(':scope > .navigation-content');
@@ -210,15 +215,30 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     }
     if (current) this.transition(current, false);
     root.selectedCategory = current === category ? null : category;
-    if (root.selectedCategory) { this.transition(category, true); this.reveal(category); }
+    if (root.selectedCategory) { this.transition(category, true); this.reveal(category, !this.mobile, paintedOpacity); }
     this.updateScrollers();
     this.easePanelHeight(panel, fromHeight);
   }
-  reveal(owner) {
+  reveal(owner, categoryChange = false, paintedOpacity = 0) {
     if (this.reduced.matches) return;
-    [...owner.querySelectorAll('.navigation-cards > *')].filter(card => !card.closest('[inert]')).forEach((card, index) => {
-      const delay = Math.min(index * 40, 160);
-      this.animate(card, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: delay / (360 + delay) }, { opacity: 1, offset: 1 }], 'slow');
+    const cards = [...owner.querySelectorAll('.navigation-cards > *')].filter(card => !card.closest('[inert]'));
+    if (categoryChange) {
+      const heading = owner.querySelector('.navigation-content__heading');
+      this.animate(heading, [{ opacity: Number(getComputedStyle(heading).opacity) * paintedOpacity }, { opacity: 1 }], 'slow');
+    }
+    cards.forEach((card, index) => {
+      if (categoryChange) {
+        // Real delays preserve the full fade duration for every card. On reversal,
+        // continue from the combined painted card/panel opacity without waiting.
+        const opacity = Number(getComputedStyle(card).opacity) * paintedOpacity;
+        this.animate(card, [{ opacity }, { opacity: 1 }], 'navigation', undefined, {
+          delay: opacity > 0 ? 0 : 80 + Math.min(index * 70, 210),
+          easing: getComputedStyle(this).getPropertyValue('--motion-ease-ui').trim(),
+        });
+      } else {
+        const delay = Math.min(index * 40, 160);
+        this.animate(card, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: delay / (360 + delay) }, { opacity: 1, offset: 1 }], 'slow');
+      }
     });
   }
   click(event) {

@@ -145,3 +145,8 @@ header-navigation:not([data-enhanced]) .navigation-trigger[data-current] img, .n
 /* Native scrolling remains available without a visible scrollbar. */
 .navigation-cards { scrollbar-width: none; }
 .navigation-cards::-webkit-scrollbar { display: none; }
+
+/* Reserve the same product-card frame; longer labels borrow room from the media. */
+.navigation-card--product .catalog-card__link { height: 21.25rem; }
+.navigation-card--product .catalog-card__media { flex-shrink: 1; min-height: 0; }
+.navigation-card--product .catalog-card__content { flex-shrink: 0; }
