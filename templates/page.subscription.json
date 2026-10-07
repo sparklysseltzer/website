@@ -1,10 +1,24 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "subscription-intro",
       "settings": {
         "heading": "Sparklys Soda im Abo",
+        "text": "",
         "heading_font": "erode",
+        "uppercase_heading": false,
+        "image_alt": "",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
         "section_background_mode": "custom",
         "section_background_surface": "custom",
         "section_background": "#d5e8ff"
@@ -15,6 +29,7 @@
       "settings": {
         "product": "sparklys-soda-variety-pack",
         "heading_font": "erode",
+        "uppercase_heading": false,
         "section_background_mode": "custom",
         "section_background_surface": "custom",
         "section_background": "#d5e8ff"
@@ -29,6 +44,7 @@
         "heading": "",
         "text": "",
         "heading_font": "soda",
+        "uppercase_heading": false,
         "color_mode": "automatic",
         "background": "#69bdf7",
         "text_color": "#000000",
@@ -45,9 +61,12 @@
       "settings": {
         "content_width": "page",
         "heading_font": "erode",
+        "uppercase_heading": false,
         "merchant_collection": "soda-handler",
         "heading": "Jetzt erhältlich in deiner Nähe",
+        "link_logos": false,
         "show_logo_boxes": false,
+        "logo_box_surface": "white",
         "duration": 32,
         "direction": "normal",
         "pause_on_interaction": true,
@@ -302,6 +321,7 @@
         "show_heading": true,
         "heading": "Sparklys Abonnieren",
         "heading_font": "seltzer",
+        "uppercase_heading": true,
         "show_intro": true,
         "intro": "",
         "show_button": true,
@@ -317,8 +337,7 @@
         "hide_on_desktop": false,
         "section_background_mode": "custom",
         "section_background_surface": "custom",
-        "section_background": "#d5e8ff",
-        "uppercase_heading": true
+        "section_background": "#d5e8ff"
       }
     },
     "faq_FRtzXK": {
@@ -327,8 +346,10 @@
       "settings": {
         "content_width": "narrow",
         "heading_font": "erode",
+        "uppercase_heading": false,
         "selected_faqs": [],
         "faq_category": "soda",
+        "question_count": "all",
         "heading": "",
         "show_footer": true,
         "footer_text": "",
