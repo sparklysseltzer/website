@@ -28,6 +28,7 @@
         "heading_level": "h1",
         "accessible_label": "Sparklys",
         "show_indicators": false,
+        "oval_transition": true,
         "ambient_light": false,
         "ambient_intensity": 50,
         "ambient_spread": 28,
