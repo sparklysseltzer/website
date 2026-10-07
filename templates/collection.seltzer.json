@@ -327,7 +327,7 @@
         "uppercase_heading": false,
         "color_mode": "automatic",
         "background": "#641067",
-        "text_color": "#FFFFFF",
+        "text_color": "#ffffff",
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
@@ -347,10 +347,10 @@
               "type": "editorial-text",
               "settings": {
                 "show_heading": true,
-                "heading": "Discover Sparklys Hard Seltzer",
+                "heading": "Entdecke Sparklys Hard Seltzer",
                 "heading_level": "h2",
-                "text": "<p>Explore our drinks, compare flavours and find your favourites. Each product page has more information about the available packs and ingredients.</p><p>This is preview copy for the collection’s editorial introduction. Replace it with your approved collection story before launch.</p>",
-                "heading_font": "erode",
+                "text": "<p>Maracuja oder Holunderblüte: Beide sind zuckerarm, ohne Süssstoffe und gut gekühlt am besten. Leg dir einfach beide in den Warenkorb, dann musst du dich nicht entscheiden.</p>",
+                "heading_font": "newake",
                 "uppercase_heading": false
               },
               "blocks": {}
@@ -365,8 +365,51 @@
           "static": true,
           "settings": {},
           "blocks": {
+            "sidebar_box_NyUpFe": {
+              "type": "sidebar-box",
+              "name": "Hard Seltzer promotion",
+              "settings": {
+                "artwork": "seltzer",
+                "override_layout": "preset",
+                "override_position": "preset",
+                "heading": "",
+                "show_heading": true,
+                "override_font": "erode",
+                "uppercase_heading": false,
+                "override_text_color": "",
+                "override_overlay_color": "",
+                "show_button": true,
+                "button_label": "",
+                "button_link": "",
+                "button_new_tab": false,
+                "override_button_style": "preset",
+                "layout": "compact",
+                "soda_text_color": "#000000",
+                "soda_overlay_strength": 0,
+                "soda_overlay_color": "#83afd4",
+                "seltzer_text_color": "#000000",
+                "seltzer_overlay_strength": 0,
+                "seltzer_overlay_color": "#f2e3c3",
+                "reminder_heading_font": "erode",
+                "reminder_content_position": "top",
+                "reminder_text_color": "#000000",
+                "reminder_overlay_strength": 0,
+                "reminder_overlay_color": "#dad6d1",
+                "reminder_minimum_height": 460,
+                "reminder_button_style": "dark",
+                "subscription_heading_font": "erode",
+                "subscription_content_position": "bottom",
+                "subscription_text_color": "#ffffff",
+                "subscription_overlay_strength": 0,
+                "subscription_overlay_color": "#000000",
+                "subscription_minimum_height": 520,
+                "subscription_button_style": "light"
+              },
+              "blocks": {}
+            },
             "soda": {
               "type": "link-box",
+              "disabled": true,
               "settings": {
                 "title": "Explore Soda",
                 "link": "shopify://collections/soda",
@@ -378,6 +421,7 @@
             },
             "seltzer": {
               "type": "link-box",
+              "disabled": true,
               "settings": {
                 "title": "Explore Hard Seltzer",
                 "link": "shopify://collections/hard-seltzer",
@@ -389,6 +433,7 @@
             }
           },
           "block_order": [
+            "sidebar_box_NyUpFe",
             "soda",
             "seltzer"
           ]

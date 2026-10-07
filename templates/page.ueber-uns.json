@@ -18,6 +18,7 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "original",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -62,9 +63,11 @@
         "show_subtext": true,
         "subtext": "<p>Add supporting copy for this poster.</p>",
         "heading_font": "erode",
+        "uppercase_heading": false,
         "show_button": true,
         "button_label": "Learn more",
         "button_link": "#",
+        "button_new_tab": false,
         "button_style": "automatic",
         "poster_text_color": "#ffffff",
         "overlay_strength": 55,
@@ -74,6 +77,7 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -91,8 +95,9 @@
                 "show_heading": true,
                 "heading": "Wie alles begann",
                 "heading_level": "h2",
-                "text": "<p>Die Geschichte von Sparklys führt uns zurück in den Frühling 2019, auf eine Reise durch die USA. Zwei Studenten genossen nach dem Surfen den hawaiianischen Sonnenuntergang, da kam ein Ehepaar zu ihnen und bot ihnen ein ominöses Getränk an. Das Auftreten der Dose war schwer einzuordnen; dem Anschein nach enthielt das Getränk Alkohol, doch das Erscheinungsbild erinnerte vielmehr an ein Sportgetränk. Die beiden erkundigten sich bei dem Paar: Es handelte sich um ein “Hard Seltzer”, ein mit Alkohol und Aromen versetztes Mineralwasser. “Perfekt für junge und aktive Menschen wie ihr!”, meinte das Paar augenzwinkernd.</p><p>Die beiden Studenten waren fasziniert von dem Getränk. In derselben Nacht vertieften sie sich noch in die Recherche bezüglich der Marktsituation ausserhalb der USA und speziell in der Schweiz und fanden nichts! Keine Verkaufszahlen, keine Importeure, nicht einmal ein Presseartikel war zu finden…</p>",
-                "heading_font": "erode"
+                "text": "<p>Frühling 2019, Hawaii. Zwei Studenten sassen nach dem Surfen am Strand, als ihnen ein Ehepaar eine Dose in die Hand drückte. Sie sah aus wie ein Sportgetränk, enthielt aber Alkohol: ein Hard Seltzer. «Perfekt für junge und aktive Menschen wie ihr!», meinte das Paar augenzwinkernd. Noch in derselben Nacht suchten die beiden nach dem Schweizer Markt für Hard Seltzer und fanden: nichts. Keine Verkaufszahlen, keine Importeure, nicht einmal einen Presseartikel.</p>",
+                "heading_font": "erode",
+                "uppercase_heading": false
               },
               "blocks": {}
             },
@@ -100,21 +105,11 @@
               "type": "editorial-text",
               "settings": {
                 "show_heading": true,
-                "heading": "Hard Seltzer als Bier-Alternative?",
+                "heading": "Vom Prototyp zur Getränkefirma",
                 "heading_level": "h2",
-                "text": "<p>Auch auf dem kalifornischen Festland fiel ihnen die Präsenz des Getränks auf; an Musikfestivals und auch an Studentenparties wurde mehrheitlich Hard Seltzer anstelle von Bier getrunken. Für die beiden Studenten ein sehr aussergewöhnlicher und spannender Wandel der Trinkkultur, der bisher völlig an der kleinen Schweiz vorbeigezogen war.</p><p>Noch vor der Reise zurück in die Schweiz kontaktierten sie ihren Freund, seines Zeichens Designer, da es ihnen beinahe so wichtig war wie der Inhalt der Dose, und sie erzählten ihm von der Idee ein neues Getränk für den Schweizer Markt zu kreieren. Schon während der Rückreise bestellten sie verschiedenste Aromen und Zutaten in die Schweiz, um keine Zeit zu verlieren.</p><p>Zurück in der Heimat und nun zu dritt konnten sie direkt loslegen. Erste Drinks wurden in der Küche gemischt. Über 100 verschiedene Geschmäcker und Variationen des Getränks wurden getestet. Das Team machte erstmals Experimente mit Zitronensäure und mit ausserplanmässigen Folgen. Nach einer “Misch-Session” an einem Abend im Sommer 2019 verspürte einer von ihnen starke Bauchschmerzen. Sein Blinddarm entzündete sich, welcher am Morgen darauf operativ entfernt werden musste. Alles, um einen Getränke-Trend in die Schweiz zu bringen. Daher kann niemand behaupten, dass keine Opfer gebracht wurden.</p>",
-                "heading_font": "erode"
-              },
-              "blocks": {}
-            },
-            "prototype": {
-              "type": "editorial-text",
-              "settings": {
-                "show_heading": true,
-                "heading": "Das erste Rezept und ein&nbsp;Prototyp",
-                "heading_level": "h2",
-                "text": "<p>Am Ende des Sommers 2019 lag erstmals ein Rezept vor, welches allen schmeckte (und zu keinen Folgeschäden führte). Ein kleiner Lohnabfüller wurde ausfindig gemacht, um Prototypen in einer Mindestmenge abfüllen zu können. Nach langer Suche und vielen Abklärungen erklärte sich eine Firma bereit 2000 Dosen mit Papieretikett abzufüllen. Die Prototypen wurden im Februar 2020 produziert und zusammen mit einem Feedback-Formular an Freunde und Familie verteilt. Die Reaktionen waren eindeutig und die Idee fand auch hier Anklang.</p>",
-                "heading_font": "erode"
+                "text": "<p>Zurück in der Schweiz holten sie einen befreundeten Designer dazu, denn die Dose war ihnen fast so wichtig wie ihr Inhalt. Ende Sommer 2019 stand ein Rezept, das allen schmeckte. Im Februar 2020 füllte ein kleiner Lohnabfüller 2000 Prototypen mit Papieretikett ab, Freunde und Familie gaben Feedback, und die Reaktionen waren eindeutig.</p><p>Der Prototyp machte die Runde und überzeugte genau die Richtigen. Ein befreundeter Web- und Digitalprofi war so begeistert, dass er sich kurzerhand selbst ins Team holte. Im Sommer 2020 folgte die Gründung der GmbH, im September die erste professionelle Abfüllung, im Dezember die Umwandlung in eine AG. Sparklys Hard Seltzer war geboren und hier, um zu bleiben.</p><p></p>",
+                "heading_font": "erode",
+                "uppercase_heading": false
               },
               "blocks": {}
             },
@@ -129,36 +124,39 @@
               },
               "blocks": {}
             },
+            "editorial_text_HpVr6r": {
+              "type": "editorial-text",
+              "settings": {
+                "show_heading": true,
+                "heading": "",
+                "heading_level": "h2",
+                "text": "<p></p><p>Wo Sparklys Hard Seltzer hingehört, war für uns als junge Unternehmer schnell klar: Sonne, eine tanzende Menge und eiskalte Dosen. Mit unserem Dosen-Anhänger, der inzwischen selbst Kultstatus hat, zogen wir Sommer für Sommer durch die Schweiz. Wir wollten nicht von Plakaten herab überzeugen, sondern direkt vor Ort, eine Dose nach der anderen.</p><p>Ein Jahr später stiessen zwei Brüder dazu, um unser Team komplett zu machen. Dahinter steckt bis heute unsere Philosophie: Wir holen lieber die richtigen Leute rein, als Aufgaben rauszugeben. Marke, Design, Web, Zahlen, Verkauf und Events entstehen im eigenen Team. So steckt in jeder Dose, jedem Post und jedem Anruf ein Stück Sparklys.</p>",
+                "heading_font": "erode",
+                "uppercase_heading": false
+              },
+              "blocks": {}
+            },
+            "prototype": {
+              "type": "editorial-text",
+              "settings": {
+                "show_heading": true,
+                "heading": "Älter werden, aber nicht langweilig",
+                "heading_level": "h2",
+                "text": "<p>Mit Sparklys wurden auch wir älter. Nicht alt, aber älter. Zu den Partys kamen Bürotage, Trainings und Sonntagnachmittage, und immer öfter stellte sich eine Frage: Wieso können wir nicht auch am Tag durch Sparklys geniessen? Wir wollten ein Gegenstück zu unserem Seltzer. Genauso frisch, genauso eigen, nur eben ohne Prozente. Und eines wussten wir nach diesen Jahren sicher: Getränke machen, das können wir. Und das wollen wir.</p>",
+                "heading_font": "erode",
+                "uppercase_heading": false
+              },
+              "blocks": {}
+            },
             "founding": {
               "type": "editorial-text",
               "settings": {
                 "show_heading": true,
-                "heading": "Die Gründung",
+                "heading": "Zurück an den Mischtisch",
                 "heading_level": "h2",
-                "text": "<p>Der Prototyp begeisterte einen befreundeten Web- und Digital-Profi so sehr, dass unser Core-Team nochmals erweitert wurde. Das Team trat daraufhin in Kontakt mit potentiellen Produktionspartnern und verfeinerte in Zusammenarbeit mit Experten die geheime Sparklys-Formel zum besten Hard Seltzer der Welt, dem flüssigen Gold der Neo-Alchemisten und dem originalen Zeitgeist. Im Sommer 2020 wurde die Firma schliesslich als GmbH offiziell gegründet und im September darauf fand die erste professionelle Abfüllung statt. Sparklys Hard Seltzer war geboren und hier, um zu bleiben. Bereits im Dezember konnte das Unternehmen in eine Aktiengesellschaft umgewandelt werden.</p>",
-                "heading_font": "erode"
-              },
-              "blocks": {}
-            },
-            "huber": {
-              "type": "editorial-text",
-              "settings": {
-                "show_heading": true,
-                "heading": "Mehr Köpfe, gleicher Durst",
-                "heading_level": "h2",
-                "text": "<p>Und weil eine gute Geschichte nicht nach den ersten Kapiteln aufhört, wuchs nach 2022 auch unser Core-Team weiter. Mit den Brüdern Gian und Thibault Huber kamen zwei weitere Köpfe dazu, die lieber anpacken als lange zuschauen.</p><p>Auch Lars Gubser wurde Partner bei Sparklys. Als unser Eventmanager weiss er, dass zwischen «Wir sollten mal etwas machen» und einem gelungenen Event ziemlich viel Organisation steckt. Gut also, wenn der Partyarchitekt nicht nur die nächste Veranstaltung mitplant, sondern auch das nächste Kapitel der Firma.</p>",
-                "heading_font": "erode"
-              },
-              "blocks": {}
-            },
-            "editorial_text_AMeYdU": {
-              "type": "editorial-text",
-              "settings": {
-                "show_heading": true,
-                "heading": "Die Story? Noch lange nicht fertig.",
-                "heading_level": "h2",
-                "text": "<p>Aus den ersten Mischversuchen in der Küche ist ein Team mit ganz unterschiedlichen Talenten geworden. Und neben Hard Seltzer gehört heute auch Sparklys Soda dazu. Mit oder ohne Alkohol: Wir haben noch einiges vor. Was genau? Das schreiben wir lieber ins nächste Kapitel, wenn es so weit ist. Bis dahin: Dose auf, neugierig bleiben.</p>",
-                "heading_font": "erode"
+                "text": "<p>2024 standen wir wieder am Mischtisch. Das Ziel war klar: zuckerarm, ohne Süssstoffe, mit Geschmack, der nach mehr als nur Süsse schmeckt. Daraus wurden Yuzu & Ginger und Blueberry & Pomelo. 2025 lief die erste Abfüllung bei der Brauerei Locher in Appenzell, hergestellt mit Säntiswasser. Sparklys Soda war da und präsentierte die Marke Sparklys in ganz neuem Licht.<br/>Begleite eine Gruppe Freunde auf ihre Reise durch die Schweizer Getränkewelt.&nbsp;<br/>Wir haben noch vieles vor.</p>",
+                "heading_font": "erode",
+                "uppercase_heading": false
               },
               "blocks": {}
             }
@@ -166,11 +164,10 @@
           "block_order": [
             "beginnings",
             "alternative",
-            "prototype",
             "polaroids",
-            "founding",
-            "huber",
-            "editorial_text_AMeYdU"
+            "editorial_text_HpVr6r",
+            "prototype",
+            "founding"
           ]
         },
         "sidebar": {
@@ -187,11 +184,13 @@
                 "heading": "",
                 "show_heading": false,
                 "override_font": "preset",
+                "uppercase_heading": false,
                 "override_text_color": "",
                 "override_overlay_color": "",
                 "show_button": true,
                 "button_label": "Soda entdecken",
                 "button_link": "shopify://collections/soda",
+                "button_new_tab": false,
                 "override_button_style": "preset",
                 "layout": "compact",
                 "soda_text_color": "#000000",
@@ -226,11 +225,13 @@
                 "heading": "",
                 "show_heading": false,
                 "override_font": "preset",
+                "uppercase_heading": false,
                 "override_text_color": "",
                 "override_overlay_color": "",
                 "show_button": true,
                 "button_label": "Hard Seltzer entdecken",
                 "button_link": "shopify://collections/hard-seltzer",
+                "button_new_tab": false,
                 "override_button_style": "preset",
                 "layout": "compact",
                 "soda_text_color": "#000000",
@@ -261,6 +262,7 @@
               "settings": {
                 "title": "Die Köpfe hinter Sparklys",
                 "link": "shopify://pages/team",
+                "open_new_tab": false,
                 "background": "#dddbd2",
                 "text_color": "#000000"
               },
@@ -271,6 +273,7 @@
               "settings": {
                 "title": "Noch Fragen?",
                 "link": "shopify://pages/faq",
+                "open_new_tab": false,
                 "background": "#dddbd2",
                 "text_color": "#000000"
               },
@@ -281,6 +284,7 @@
               "settings": {
                 "title": "Schreib uns",
                 "link": "shopify://pages/kontakt",
+                "open_new_tab": false,
                 "background": "#dddbd2",
                 "text_color": "#000000"
               },
@@ -298,9 +302,11 @@
       },
       "settings": {
         "content_width": "editorial",
+        "sticky_sidebar": false,
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     }

@@ -13,8 +13,10 @@
       "type": "main-product",
       "settings": {
         "heading_font": "erode",
+        "uppercase_heading": false,
         "show_vendor": false,
         "section_background_mode": "original",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -52,6 +54,7 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -63,13 +66,15 @@
         "variant": "seltzer",
         "heading": "",
         "text": "",
-        "heading_font": "automatic",
+        "heading_font": "default",
+        "uppercase_heading": true,
         "color_mode": "automatic",
         "background": "#69bdf7",
         "text_color": "#000000",
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "custom",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -79,9 +84,12 @@
       "settings": {
         "content_width": "page",
         "heading_font": "newake",
+        "uppercase_heading": false,
         "merchant_collection": "seltzer-handler",
         "heading": "Jetzt erhältlich in deiner Nähe",
+        "link_logos": false,
         "show_logo_boxes": false,
+        "logo_box_surface": "white",
         "duration": 32,
         "direction": "normal",
         "pause_on_interaction": true,
@@ -89,6 +97,7 @@
         "hide_on_desktop": false,
         "section_background_mode": "custom",
         "background_style": "transparent",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -129,6 +138,7 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "original",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -219,6 +229,7 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -228,8 +239,10 @@
       "settings": {
         "content_width": "narrow",
         "heading_font": "newake",
+        "uppercase_heading": false,
         "selected_faqs": [],
         "faq_category": "hard-seltzer",
+        "question_count": "all",
         "heading": "",
         "show_footer": true,
         "footer_text": "",
@@ -238,6 +251,7 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -280,6 +294,7 @@
         "show_heading": true,
         "heading": "Abonnieren",
         "heading_font": "automatic",
+        "uppercase_heading": false,
         "show_intro": true,
         "intro": "",
         "show_button": true,
@@ -294,6 +309,7 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     }

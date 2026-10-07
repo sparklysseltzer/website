@@ -12,8 +12,11 @@
     "hero": {
       "type": "hero-slider",
       "settings": {
-        "selection_mode": "all",
-        "slides": [],
+        "selection_mode": "selected",
+        "slides": [
+          "sparklys-soda-slider",
+          "sparklys-hard-seltzer-slider"
+        ],
         "content_width": "page",
         "height_mode": "natural",
         "mobile_shape": "portrait",
@@ -25,17 +28,17 @@
         "heading_level": "h1",
         "accessible_label": "Sparklys",
         "show_indicators": false,
-        "ambient_light": true,
+        "ambient_light": false,
         "ambient_intensity": 50,
         "ambient_spread": 28,
         "ambient_blur": 72,
         "autoplay": true,
-        "duration": 6,
+        "duration": 10,
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
         "section_background_surface": "custom",
-        "section_background": "#6DB6DB"
+        "section_background": "#6db6db"
       }
     },
     "product_overview_teaser_fk8jcV": {
