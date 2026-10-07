@@ -25,7 +25,7 @@
         "heading_level": "h1",
         "accessible_label": "Sparklys",
         "show_indicators": false,
-        "ambient_light": true,
+        "ambient_light": false,
         "ambient_intensity": 50,
         "ambient_spread": 28,
         "ambient_blur": 72,
@@ -35,7 +35,7 @@
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
         "section_background_surface": "custom",
-        "section_background": "#6DB6DB"
+        "section_background": "#6db6db"
       }
     },
     "product_overview_teaser_fk8jcV": {
