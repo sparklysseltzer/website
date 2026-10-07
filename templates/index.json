@@ -26,15 +26,16 @@
         "accessible_label": "Sparklys",
         "show_indicators": false,
         "ambient_light": true,
-        "ambient_intensity": 40,
-        "ambient_spread": 24,
-        "ambient_blur": 40,
+        "ambient_intensity": 50,
+        "ambient_spread": 28,
+        "ambient_blur": 72,
         "autoplay": true,
         "duration": 6,
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
-        "section_background": "#f5f5f5"
+        "section_background_surface": "custom",
+        "section_background": "#6DB6DB"
       }
     },
     "product_overview_teaser_fk8jcV": {
@@ -115,6 +116,7 @@
       "settings": {
         "content_width": "page",
         "heading": "Unsere Drinks",
+        "show_navigation": true,
         "all_products_label": "Alle Produkte",
         "all_products_link": "",
         "soda_link": "",
@@ -122,6 +124,7 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "original",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -133,6 +136,7 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
+        "section_background_surface": "custom",
         "section_background": "#f5f5f5"
       }
     },
@@ -175,6 +179,7 @@
         "show_heading": true,
         "heading": "Sparklys Abonnieren",
         "heading_font": "seltzer",
+        "uppercase_heading": false,
         "show_intro": true,
         "intro": "",
         "show_button": true,
@@ -189,6 +194,7 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "original",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -265,6 +271,7 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "original",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -289,7 +296,7 @@
             "title": "Gutscheine",
             "text": "",
             "link": "shopify://products/digitale-sparklys-geschenkkarte",
-            "background_color": "#F5D2A2",
+            "background_color": "#f5d2a2",
             "blend_with_background": true
           }
         },
@@ -311,7 +318,7 @@
             "title": "Presse & Medien",
             "text": "",
             "link": "shopify://pages/press-media",
-            "background_color": "#D5D5D5",
+            "background_color": "#d5d5d5",
             "blend_with_background": true
           }
         },
@@ -358,6 +365,7 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -375,15 +383,18 @@
         "show_heading": true,
         "heading": "Erfahre mehr über Sparklys und unsere Geschichte",
         "heading_font": "erode",
+        "uppercase_heading": false,
         "heading_level": "h2",
         "text": "<p>Wie alles begann und wer hinter Sparklys Soda und Sparklys Hard Seltzer steckt kannst du hier erfahren.</p>",
         "show_button": true,
         "button_label": "Sparklys kennenlernen",
         "button_link": "shopify://pages/ueber-uns",
+        "button_new_tab": false,
         "button_style": "dark",
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "original",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     }

@@ -57,7 +57,7 @@
         "heading": "Jetzt erhältlich in deiner Nähe",
         "link_logos": false,
         "show_logo_boxes": false,
-        "logo_box_surface": "white",
+        "logo_box_surface": "soda_beige",
         "duration": 32,
         "direction": "normal",
         "pause_on_interaction": true,
@@ -65,7 +65,7 @@
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
         "background_style": "gray",
-        "section_background_surface": "custom",
+        "section_background_surface": "soda",
         "section_background": ""
       }
     },
@@ -442,44 +442,64 @@
           "static": true,
           "settings": {},
           "blocks": {
-            "soda": {
-              "type": "link-box",
-              "settings": {
-                "title": "Explore Soda",
-                "link": "shopify://collections/soda",
-                "open_new_tab": false,
-                "background": "#dddbd2",
-                "text_color": "#000000"
-              },
-              "blocks": {}
-            },
-            "seltzer": {
-              "type": "link-box",
-              "settings": {
-                "title": "Explore Hard Seltzer",
-                "link": "shopify://collections/hard-seltzer",
-                "open_new_tab": false,
-                "background": "#dddbd2",
-                "text_color": "#000000"
-              },
-              "blocks": {}
-            },
-            "sidebar_box_CjR7km": {
+            "sidebar_box_86U9hQ": {
               "type": "sidebar-box",
-              "name": "Maracuja buy reminder",
+              "name": "Soda promotion",
               "settings": {
-                "artwork": "reminder",
+                "artwork": "soda",
                 "override_layout": "preset",
                 "override_position": "preset",
-                "heading": "Reminder to try our Hard Seltzer :)",
+                "heading": "",
                 "show_heading": true,
-                "override_font": "newake",
+                "override_font": "erode",
                 "uppercase_heading": false,
                 "override_text_color": "",
                 "override_overlay_color": "",
                 "show_button": true,
                 "button_label": "",
-                "button_link": "",
+                "button_link": "shopify://products/sparklys-soda-yuzu-ginger",
+                "button_new_tab": false,
+                "override_button_style": "preset",
+                "layout": "compact",
+                "soda_text_color": "#000000",
+                "soda_overlay_strength": 0,
+                "soda_overlay_color": "#83afd4",
+                "seltzer_text_color": "#000000",
+                "seltzer_overlay_strength": 0,
+                "seltzer_overlay_color": "#f2e3c3",
+                "reminder_heading_font": "erode",
+                "reminder_content_position": "top",
+                "reminder_text_color": "#000000",
+                "reminder_overlay_strength": 0,
+                "reminder_overlay_color": "#dad6d1",
+                "reminder_minimum_height": 460,
+                "reminder_button_style": "dark",
+                "subscription_heading_font": "erode",
+                "subscription_content_position": "bottom",
+                "subscription_text_color": "#ffffff",
+                "subscription_overlay_strength": 0,
+                "subscription_overlay_color": "#000000",
+                "subscription_minimum_height": 520,
+                "subscription_button_style": "light"
+              },
+              "blocks": {}
+            },
+            "sidebar_box_eGJjdi": {
+              "type": "sidebar-box",
+              "name": "Hard Seltzer promotion",
+              "settings": {
+                "artwork": "seltzer",
+                "override_layout": "preset",
+                "override_position": "preset",
+                "heading": "",
+                "show_heading": true,
+                "override_font": "erode",
+                "uppercase_heading": false,
+                "override_text_color": "",
+                "override_overlay_color": "",
+                "show_button": true,
+                "button_label": "",
+                "button_link": "shopify://products/sparklys-hard-seltzer-holunder",
                 "button_new_tab": false,
                 "override_button_style": "preset",
                 "layout": "compact",
@@ -508,9 +528,8 @@
             }
           },
           "block_order": [
-            "soda",
-            "seltzer",
-            "sidebar_box_CjR7km"
+            "sidebar_box_86U9hQ",
+            "sidebar_box_eGJjdi"
           ]
         }
       },

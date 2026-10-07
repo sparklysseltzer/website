@@ -56,16 +56,16 @@
         "merchant_collection": "seltzer-handler",
         "heading": "Jetzt erhältlich in deiner Nähe",
         "link_logos": false,
-        "show_logo_boxes": false,
+        "show_logo_boxes": true,
         "logo_box_surface": "white",
         "duration": 32,
         "direction": "normal",
         "pause_on_interaction": true,
         "hide_on_mobile": false,
         "hide_on_desktop": false,
-        "section_background_mode": "transparent",
+        "section_background_mode": "custom",
         "background_style": "gray",
-        "section_background_surface": "custom",
+        "section_background_surface": "muted",
         "section_background": ""
       }
     },
@@ -192,8 +192,8 @@
         "footnote": "",
         "hide_on_mobile": false,
         "hide_on_desktop": false,
-        "section_background_mode": "transparent",
-        "section_background_surface": "surface",
+        "section_background_mode": "custom",
+        "section_background_surface": "muted",
         "section_background": ""
       }
     },
@@ -290,7 +290,7 @@
         "minimum_height_mobile": 680,
         "hide_on_mobile": false,
         "hide_on_desktop": false,
-        "section_background_mode": "custom",
+        "section_background_mode": "transparent",
         "section_background_surface": "muted",
         "section_background": ""
       }
@@ -326,11 +326,11 @@
         "heading_font": "automatic",
         "uppercase_heading": false,
         "color_mode": "automatic",
-        "background": "#69bdf7",
-        "text_color": "#000000",
+        "background": "#641067",
+        "text_color": "#FFFFFF",
         "hide_on_mobile": false,
         "hide_on_desktop": false,
-        "section_background_mode": "custom",
+        "section_background_mode": "transparent",
         "section_background_surface": "muted",
         "section_background": ""
       }
@@ -399,7 +399,7 @@
         "sticky_sidebar": false,
         "hide_on_mobile": false,
         "hide_on_desktop": false,
-        "section_background_mode": "custom",
+        "section_background_mode": "transparent",
         "section_background_surface": "muted",
         "section_background": ""
       }

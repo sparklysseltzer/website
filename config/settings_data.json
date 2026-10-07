@@ -49,14 +49,16 @@
     "cart_recommendation_products": [
       "holunder-on-the-loose-tote-bag",
       "hoodie-nutrition-facts",
-      "professional-can-opener-2000"
+      "professional-can-opener-2000",
+      "maracuja-on-the-loose-tote-bag"
     ],
     "logo_width": 150,
     "sections": {
       "cart-drawer": {
         "type": "cart-drawer",
         "settings": {
-          "heading_font": "erode"
+          "heading_font": "erode",
+          "uppercase_heading": false
         }
       }
     },
