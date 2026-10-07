@@ -26,7 +26,29 @@
     assign brand_collection = collections['hard-seltzer']
   endif
   assign selected = product.selected_or_first_available_variant
+  if subscription_only and product.selected_variant == blank
+    for candidate in product.variants
+      assign pack_count = candidate.option1 | plus: 0
+      if pack_count == 24 and candidate.available and candidate.selling_plan_allocations.size > 0
+        assign selected = candidate
+        break
+      endif
+    endfor
+  endif
   assign initial_allocation = selected.selected_selling_plan_allocation
+  if subscription_only and initial_allocation == blank
+    for allocation in selected.selling_plan_allocations
+      for option in allocation.selling_plan.options
+        if option.value == 'Deliver every 4 weeks' or option.value == 'Zustellung alle 4 Wochen'
+          assign initial_allocation = allocation
+          break
+        endif
+      endfor
+      if initial_allocation != blank
+        break
+      endif
+    endfor
+  endif
   if requires_plan and initial_allocation == blank
     assign initial_allocation = selected.selling_plan_allocations | first
   endif
@@ -58,7 +80,17 @@
         <nav class="pdp-flavours" aria-label="{{ 'products.pdp.flavour' | t }}"><div>
           {% for flavour in flavours %}
             {% assign flavour_variant = flavour.selected_or_first_available_variant %}
+            {% if subscription_only %}
+              {% for candidate in flavour.variants %}
+                {% if candidate.option1 == selected.option1 and candidate.available and candidate.selling_plan_allocations.size > 0 %}{% assign flavour_variant = candidate %}{% break %}{% endif %}
+              {% endfor %}
+            {% endif %}
             {% assign flavour_allocation = flavour_variant.selling_plan_allocations | first %}
+            {% if subscription_only %}
+              {% for allocation in flavour_variant.selling_plan_allocations %}
+                {% if allocation.selling_plan.id == initial_allocation.selling_plan.id %}{% assign flavour_allocation = allocation %}{% break %}{% endif %}
+              {% endfor %}
+            {% endif %}
             {% if subscription_only and flavour_allocation == blank %}{% continue %}{% endif %}
             {% capture flavour_url %}{% if subscription_only %}{{ flavour.url }}?view=subscription&variant={{ flavour_variant.id }}&selling_plan={{ flavour_allocation.selling_plan.id }}#subscription-product{% else %}{{ flavour.url }}{% endif %}{% endcapture %}
             <a data-flavour="{{ flavour.handle }}" href="{{ flavour_url }}" aria-label="{{ flavour.title | escape }}" title="{{ flavour.title | escape }}" {% if flavour.id == product.id %}aria-current="page"{% endif %}>

@@ -163,7 +163,7 @@
       this.toggleAttribute('data-has-navigation', this.slides.length > 1);
       this.buttons.forEach((button, index) => button.addEventListener('click', () => this.show(index, true), options));
       this.querySelectorAll('[data-direction]').forEach(button => button.addEventListener('click', () => {
-        this.show((this.index + Number(button.dataset.direction) + this.slides.length) % this.slides.length, true);
+        this.show((this.index + Number(button.dataset.direction) + this.slides.length) % this.slides.length, true, Number(button.dataset.direction));
       }, options));
       const updateHover = target => {
         const hovered = Boolean(target?.closest?.('.hero-slider__frame, .hero-slider__controls, .hero-slider__paging, .hero-slider__action'));
@@ -184,7 +184,7 @@
         if (event.key === 'Home') next = 0;
         if (event.key === 'End') next = this.buttons.length - 1;
         if (next === undefined) return;
-        event.preventDefault(); this.buttons[next].focus(); this.show(next, true);
+        event.preventDefault(); this.buttons[next].focus(); this.show(next, true, event.key === 'ArrowLeft' ? -1 : event.key === 'ArrowRight' ? 1 : Math.sign(next - current));
       }, options);
       if (this.hasAttribute('data-media-only')) {
         this.querySelectorAll('video').forEach(video => { video.controls = false; });
@@ -209,6 +209,7 @@
       document.addEventListener('visibilitychange', () => this.sync(), options);
       this.motion.addEventListener('change', () => {
         if (this.motion.matches && this.introAnimations) this.finishIntro();
+        if (this.motion.matches) this.finishSlideTransition();
         if (this.hasAttribute('data-media-only') && this.motion.matches) this.querySelectorAll('video').forEach(video => video.pause());
         this.sync();
       }, options);
@@ -364,9 +365,49 @@
       const captionGap = parseFloat(getComputedStyle(captions[0]).rowGap) || 0;
       set('--hero-paging-top', width * 9 / 16 + (portrait ? gap : space * 2) + (compact ? headings[this.index].offsetHeight + captionGap : 0));
     }
-    show(index, announce = false) {
+    finishSlideTransition() {
+      const transition = this.slideTransition;
+      this.slideTransition = null;
+      transition?.animations.forEach(animation => animation.cancel());
+      this.slides?.forEach(slide => slide.classList.remove('is-leaving'));
+      this.removeAttribute('data-transitioning');
+    }
+    transitionSlide(previous, direction) {
+      const incoming = this.slides[this.index].querySelector('.hero-slider__media');
+      if (!incoming) return;
+      const style = getComputedStyle(this);
+      const duration = (parseFloat(style.getPropertyValue('--motion-duration-slow')) || 360) * 3;
+      const easing = style.getPropertyValue('--motion-ease-ui').trim() || 'ease';
+      // Stretch the sideways entrance oval vertically for a gentler leading curve.
+      // Keep its size fixed, with the leading edge starting outside the panel.
+      const from = direction < 0 ? 250 : -150;
+      const to = direction < 0 ? 100 : 0;
+      this.slides[previous].classList.add('is-leaving');
+      this.setAttribute('data-transitioning', '');
+      const animation = incoming.animate([
+        { clipPath: `ellipse(150% 150% at ${from}% 50%)` },
+        { clipPath: `ellipse(150% 150% at ${to}% 50%)` }
+      ], { duration, easing, fill: 'both' });
+      const animations = [animation];
+      const artwork = incoming.querySelector('img, video');
+      if (artwork) animations.push(artwork.animate([
+        { transform: 'scale(1.045)' }, { transform: 'scale(1)' }
+      ], { duration, easing, fill: 'both' }));
+      const transition = { animations };
+      this.slideTransition = transition;
+      animation.finished.then(() => {
+        if (this.slideTransition === transition) {
+          this.finishSlideTransition();
+          this.sync();
+        }
+      }).catch(() => {});
+    }
+    show(index, announce = false, direction = Math.sign(index - this.index)) {
       if (index === this.index && this.hasAttribute('data-ready')) return;
       if (this.introAnimations) this.finishIntro();
+      const previous = this.index;
+      const animate = this.hasAttribute('data-ready') && this.dataset.ovalTransition === 'true' && !this.motion.matches;
+      this.finishSlideTransition();
       this.index = index;
       this.elapsed = 0;
       this.slides.forEach((slide, i) => {
@@ -377,6 +418,7 @@
         const video = slide.querySelector('video');
         if (video && !active) { video.pause(); video.currentTime = 0; }
       });
+      if (animate) this.transitionSlide(previous, direction);
       this.buttons.forEach((button, i) => {
         if (i === index) button.setAttribute('aria-current', 'true');
         else button.removeAttribute('aria-current');
@@ -414,14 +456,14 @@
       }
       this.paint();
       const entering = this.dataset.captionLayout === 'split' && !this.hasAttribute('data-intro-complete');
-      if (!entering && !this.hovered && !this.focusPaused && !videoPaused && this.autoplay && this.slides.length > 1 && !this.motion.matches) {
+      if (!entering && !this.slideTransition && !this.hovered && !this.focusPaused && !videoPaused && this.autoplay && this.slides.length > 1 && !this.motion.matches) {
         this.frame = requestAnimationFrame(time => this.tick(time));
       }
     }
     tick(time) {
       if (this.lastTime !== null) this.elapsed += time - this.lastTime;
       this.lastTime = time;
-      if (this.elapsed >= this.duration) { this.show((this.index + 1) % this.slides.length); return; }
+      if (this.elapsed >= this.duration) { this.show((this.index + 1) % this.slides.length, false, 1); return; }
       this.paint();
       this.frame = requestAnimationFrame(next => this.tick(next));
     }
@@ -432,6 +474,7 @@
       });
     }
     disconnectedCallback() {
+      this.finishSlideTransition();
       this.introAnimations?.forEach(animation => animation.cancel());
       this.introAnimations = null;
       clearTimeout(this.startupTimer);

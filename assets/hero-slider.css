@@ -196,3 +196,8 @@ body:has(#MainContent > .shopify-section:first-child hero-slider[data-ambient='t
 /* The first-panel sweep must never expose another slide behind its curved edge. */
 .hero-slider[data-caption-layout='split'][data-ready]:not([data-intro-complete]) .hero-slider__slide { transition: none; }
 .hero-slider[data-caption-layout='split'][data-ready]:not([data-intro-complete]) .hero-slider__slide:not(.is-active) { visibility: hidden; opacity: 0; }
+
+/* Keep one inert outgoing panel behind the directional oval reveal. */
+.hero-slider[data-oval-transition='true'][data-ready] .hero-slider__slide { transition: none; }
+.hero-slider[data-transitioning] .hero-slider__slide.is-leaving { opacity: 1; z-index: 0; pointer-events: none; }
+.hero-slider[data-transitioning] .hero-slider__slide.is-active { z-index: 1; }

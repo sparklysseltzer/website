@@ -36,7 +36,7 @@
 -%}
 {%- if slides.size > 0 -%}
   <div class="section page-width hero-slider-shell" data-color-mode="{{ section.settings.section_background_mode }}">
-    <hero-slider data-caption-layout="split" data-show-indicators="{{ section.settings.show_indicators }}" data-heading-font="{{ section.settings.heading_font }}" data-heading-alignment="{{ section.settings.heading_alignment }}" data-heading-size="{{ section.settings.heading_size }}" class="hero-slider hero-slider--{{ section.settings.content_width }} hero-slider--mobile-{{ section.settings.mobile_shape }}" role="region" aria-roledescription="{{ 'hero_slider.carousel' | t | escape }}" aria-label="{{ section.settings.accessible_label | default: shop.name | escape }}" data-ambient="{% if section.settings.ambient_light and section.settings.ambient_intensity > 0 %}true{% else %}false{% endif %}" style="--hero-ambient-spread: {{ section.settings.ambient_spread }}px; --hero-ambient-blur: {{ section.settings.ambient_blur }}px; --hero-heading-gap: {{ section.settings.heading_gap }}px; --hero-ambient-opacity: {{ section.settings.ambient_intensity | divided_by: 100.0 }}" data-autoplay="{{ section.settings.autoplay }}" data-duration="{{ section.settings.duration | times: 1000 }}">
+    <hero-slider data-caption-layout="split" data-oval-transition="{{ section.settings.oval_transition }}" data-show-indicators="{{ section.settings.show_indicators }}" data-heading-font="{{ section.settings.heading_font }}" data-heading-alignment="{{ section.settings.heading_alignment }}" data-heading-size="{{ section.settings.heading_size }}" class="hero-slider hero-slider--{{ section.settings.content_width }} hero-slider--mobile-{{ section.settings.mobile_shape }}" role="region" aria-roledescription="{{ 'hero_slider.carousel' | t | escape }}" aria-label="{{ section.settings.accessible_label | default: shop.name | escape }}" data-ambient="{% if section.settings.ambient_light and section.settings.ambient_intensity > 0 %}true{% else %}false{% endif %}" style="--hero-ambient-spread: {{ section.settings.ambient_spread }}px; --hero-ambient-blur: {{ section.settings.ambient_blur }}px; --hero-heading-gap: {{ section.settings.heading_gap }}px; --hero-ambient-opacity: {{ section.settings.ambient_intensity | divided_by: 100.0 }}" data-autoplay="{{ section.settings.autoplay }}" data-duration="{{ section.settings.duration | times: 1000 }}">
       <div class="hero-slider__stage">
         {%- for slide in slides -%}
           {%- liquid
@@ -356,6 +356,13 @@
     {
       "type": "header",
       "content": "Playback"
+    },
+    {
+      "type": "checkbox",
+      "id": "oval_transition",
+      "label": "Oval slide transition",
+      "default": true,
+      "info": "Reveals slides with an oval sweep, moving right for Next and left for Previous. Off uses a fade. Reduced motion skips the effect."
     },
     {
       "type": "checkbox",

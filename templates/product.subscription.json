@@ -13,7 +13,7 @@
     "subscription_product": {
       "type": "subscription-product",
       "settings": {
-        "product": "sparklys-soda-blueberry-pomelo",
+        "product": "sparklys-soda-variety-pack",
         "heading_font": "erode",
         "section_background_mode": "custom",
         "section_background_surface": "custom",

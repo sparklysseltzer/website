@@ -153,3 +153,5 @@ Ananotes 195–196: a selected subscription gives the shipping hint the shared S
 ## Flat subscription model (2026-10-08)
 
 All six subscription products and their assigned variants share 2, 4, 6, 8 and 12-week billing/delivery intervals with 15% off. The localized badge says “Save 15%” / “Spare 15%”. Shared benefit source content and English translations describe the same rule. `product-plan-label` removes only the recognized trailing Shopify discount clause, preserving the frequency; the native/enhanced selectors and cart rows reuse it. Authoritative prices and plan IDs still come from allocations. Existing subscriber contracts were not changed.
+
+Subscription-only default selection is documented in [Subscription product](subscription-product.md#default-selection-2026-10-08). The ordinary PDP retains Shopify’s selected/first available variant and one-time purchase behavior.

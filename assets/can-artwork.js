@@ -24,17 +24,21 @@ class CanArtwork extends HTMLElement {
       context.drawImage(image, 0, 0, width, height);
       const pixels = context.getImageData(0, 0, width, height).data;
       let left = width, top = height, right = -1, bottom = -1;
+      let hasTransparency = false;
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
           // Ignore nearly transparent antialiasing and baked diffuse shadows.
-          if (pixels[(y * width + x) * 4 + 3] < 128) continue;
+          if (pixels[(y * width + x) * 4 + 3] < 128) {
+            hasTransparency = true;
+            continue;
+          }
           left = Math.min(left, x); right = Math.max(right, x);
           top = Math.min(top, y); bottom = Math.max(bottom, y);
         }
       }
       if (right < left || bottom < top) return;
-      // Full-frame photography retains its own lighting and original containment.
-      if (left === 0 && top === 0 && right === width - 1 && bottom === height - 1) return;
+      // Tight cutouts can touch every edge. Only opaque images keep their own lighting.
+      if (!hasTransparency) return;
       const boundsWidth = right - left + 1;
       const boundsHeight = bottom - top + 1;
       this.style.setProperty('--can-aspect', boundsWidth / boundsHeight);

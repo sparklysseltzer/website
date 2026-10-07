@@ -16394,7 +16394,7 @@
     ]
   },
   "sections/hero-slider.liquid": {
-    "schemaHash": "34fe0d2b9f7039a8b8b4486ef0857edb5fc8f559834dc4d2eedc46fc1cad539f",
+    "schemaHash": "91b045225f12330025fed64a61811aad5d4d3782d32c757fea15007addd57871",
     "fields": {
       "selection_mode": {
         "group": "Slides",
@@ -16491,6 +16491,10 @@
       "show_indicators": {
         "group": "Appearance",
         "visible_if": null
+      },
+      "oval_transition": {
+        "group": "Playback",
+        "visible_if": null
       }
     },
     "controls": {
@@ -16509,7 +16513,8 @@
       "selection_mode": "All reads active public Slides entries (up to 250); Selected uses the ordered picker. Shopify rejects visible_if for metaobject_list: picker remains visible, explicitly labelled as selected-only; documented platform exception.",
       "heading_alignment": "Aligns headline text Left (default) or Center within the caption copy column; independent of font, size and slide selection, with no dependent fields.",
       "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
-      "show_indicators": "Shows or hides the progress-bar navigation independently of autoplay and slide selection. Previous/next buttons remain visible when multiple slides exist. No dependent fields."
+      "show_indicators": "Shows or hides the progress-bar navigation independently of autoplay and slide selection. Previous/next buttons remain visible when multiple slides exist. No dependent fields.",
+      "oval_transition": "Selects directional fixed-size oval sweeps or the existing fade. Independent of autoplay, indicators and ambient light; no dependent fields. Reduced motion skips animation."
     },
     "scenarios": [
       {
@@ -16888,6 +16893,34 @@
         "hidden": [
           "section_background_surface",
           "section_background"
+        ]
+      },
+      {
+        "name": "Oval transitions enabled",
+        "settings": {
+          "oval_transition": true
+        },
+        "visible": [
+          "oval_transition",
+          "autoplay"
+        ],
+        "hidden": [
+          "height_mode"
+        ]
+      },
+      {
+        "name": "Oval transitions disabled with manual playback",
+        "settings": {
+          "oval_transition": false,
+          "autoplay": false
+        },
+        "visible": [
+          "oval_transition",
+          "autoplay"
+        ],
+        "hidden": [
+          "duration",
+          "height_mode"
         ]
       }
     ]

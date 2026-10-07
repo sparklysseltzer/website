@@ -1,7 +1,7 @@
 {%- liquid
   assign featured_product = section.settings.product
   if featured_product == blank
-    assign featured_product = all_products['sparklys-soda-blueberry-pomelo']
+    assign featured_product = all_products['sparklys-soda-variety-pack']
   endif
   if request.page_type == 'product'
     assign featured_product = product

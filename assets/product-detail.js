@@ -16,6 +16,8 @@
       this.data = JSON.parse(this.querySelector('[data-product-data]').textContent);
       this.variantSelect = this.querySelector('[data-variant-select]');
       this.planSelect = this.querySelector('[data-plan-select]');
+      this.initialVariant = this.variantSelect.value;
+      this.initialPlan = this.planSelect.value;
       this.purchaseType = this.planSelect.value || this.data.requiresPlan ? 'subscription' : 'once';
       this.quantity = this.querySelector('[name="quantity"]');
       this.buyForm = this.querySelector('product-form form');
@@ -73,10 +75,10 @@
       window.addEventListener('popstate', () => {
         const params = new URL(location.href).searchParams;
         this.purchaseType = params.has('selling_plan') || this.data.requiresPlan ? 'subscription' : 'once';
-        this.variantSelect.value = params.get('variant') || this.data.variants[0].id;
+        this.variantSelect.value = params.get('variant') || this.initialVariant;
         this.syncVariant(false);
         this.variantSelect.closest('sparklys-select')?.sync?.();
-        const requestedPlan = params.get('selling_plan');
+        const requestedPlan = params.get('selling_plan') || this.initialPlan;
         if (this.variant.allocations.some(plan => String(plan.id) === requestedPlan)) this.planSelect.value = requestedPlan;
         this.planSelect.closest('sparklys-select')?.sync?.();
         this.syncPrice(false);
