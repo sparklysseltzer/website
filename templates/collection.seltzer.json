@@ -20,6 +20,8 @@
         "text": "",
         "heading_font": "newake",
         "uppercase_heading": true,
+        "first_image": "shopify://shop_images/product-overview-seltzer-maracuja.png",
+        "second_image": "shopify://shop_images/product-overview-seltzer-holunder.png",
         "show_button": true,
         "button_label": "",
         "hide_on_mobile": false,
