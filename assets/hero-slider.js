@@ -285,7 +285,10 @@
       ], panelTime, 0, sweepEase || easing);
       animate(heading, rise, textTime, captionDelay);
       if (action) action.inert = true;
-      animate(action, rise, textTime, captionDelay + stagger);
+      animate(action, [
+        { opacity: 0, transform: 'translate3d(0, 8px, 0)' },
+        { opacity: 1, transform: 'translate3d(0, 0, 0)' }
+      ], textTime, captionDelay + stagger);
       if (paging && !paging.hidden) {
         paging.inert = true;
         animate(paging, [{ opacity: 0 }, { opacity: 1 }], controlsTime, captionDelay + stagger * (action ? 2 : 1));
@@ -378,6 +381,12 @@
       transition?.animations.forEach(animation => animation.cancel());
       this.slides?.forEach(slide => slide.classList.remove('is-leaving'));
       this.removeAttribute('data-transitioning');
+      // Reset only after the outgoing panel is hidden, including interrupted sweeps.
+      const outgoing = transition && this.slides[transition.previous]?.querySelector('video');
+      if (outgoing && transition.previous !== this.index) {
+        outgoing.pause();
+        outgoing.currentTime = 0;
+      }
     }
     transitionSlide(previous, direction) {
       const incoming = this.slides[this.index].querySelector('.hero-slider__media');
@@ -400,7 +409,7 @@
       if (artwork) animations.push(artwork.animate([
         { transform: 'scale(1.045)' }, { transform: 'scale(1)' }
       ], { duration, easing, fill: 'both' }));
-      const transition = { animations };
+      const transition = { animations, previous };
       this.slideTransition = transition;
       animation.finished.then(() => {
         if (this.slideTransition === transition) {
@@ -423,7 +432,7 @@
         slide.inert = !active;
         slide.setAttribute('aria-hidden', String(!active));
         const video = slide.querySelector('video');
-        if (video && !active) { video.pause(); video.currentTime = 0; }
+        if (video && !active && !(animate && i === previous)) { video.pause(); video.currentTime = 0; }
       });
       if (animate) this.transitionSlide(previous, direction);
       this.buttons.forEach((button, i) => {
@@ -448,7 +457,8 @@
           // Reduced-motion visitors can choose native playback without autoplay.
           if (this.motion.matches && !suspended && i === this.index) return;
         }
-        if (i !== this.index || videoPaused) video.pause();
+        const visibleDuringSweep = i === this.slideTransition?.previous;
+        if ((i !== this.index && !visibleDuringSweep) || videoPaused) video.pause();
         else video.play().catch(() => {});
       });
       if (this.dataset.ambient === 'true') {

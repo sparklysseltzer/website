@@ -146,14 +146,16 @@ body:has(#MainContent > .shopify-section:first-child hero-slider[data-ambient='t
 .hero-slider__caption { position: relative; z-index: 1; display: grid; gap: 1rem; margin-top: min(var(--hero-heading-gap, 40px), 6vw); min-width: 0; }
 .hero-slider[data-caption-layout='split'] .hero-slider__caption .hero-slider__heading { margin: 0; max-width: 62.5rem; text-align: left; }
 .hero-slider[data-caption-layout='split'][data-heading-alignment='center'] .hero-slider__caption .hero-slider__heading { margin-inline: auto; text-align: center; }
-.hero-slider__action { display: flex; align-items: flex-start; min-width: 0; }
+/* Retain the button's paint layer when entrance animations are released. */
+.hero-slider__action { display: flex; align-items: flex-start; min-width: 0; transform: translate3d(0, 0, 0); }
 .hero-slider__action .button { text-align: left; }
 .hero-slider__action-icon { --round-arrow-icon-size: 1.5rem; flex: none; }
 .hero-slider__paging:not([hidden]) { position: absolute; top: var(--hero-paging-top, 0px); right: calc((100% - var(--hero-layout-width, 100%)) / 2); z-index: 2; display: flex; gap: .75rem; }
 .hero-slider__paging .button { --round-arrow-size: 4.5rem; --round-arrow-icon-size: 2rem; cursor: pointer; }
 .hero-slider[data-caption-layout='split'][data-ready] .hero-slider__caption { width: var(--hero-layout-width, 100%); max-width: 100%; justify-self: center; align-self: start; margin: 0; opacity: 0; transform: translateY(.75rem); transition: opacity var(--motion-duration-slow) var(--motion-ease), transform var(--motion-duration-slow) var(--motion-ease); }
 .hero-slider[data-caption-layout='split'][data-ready][data-has-navigation] .hero-slider__caption { padding-inline-end: calc(var(--hero-paging-width) + var(--hero-paging-gap)); min-height: 4.5rem; }
-.hero-slider[data-caption-layout='split'][data-ready] .is-active .hero-slider__caption { opacity: 1; transform: none; }
+/* Keep the caption composited through both caption and media completion. */
+.hero-slider[data-caption-layout='split'][data-ready] .is-active .hero-slider__caption { opacity: 1; transform: translate3d(0, 0, 0); }
 .hero-slider[data-caption-layout='split'][data-ready] .hero-slider__heading { opacity: 1; transform: none; transition: none; align-self: start; }
 @media (width >= 768px) {
   .hero-slider[data-caption-layout='split'][data-ready][data-has-navigation][data-heading-font='newake'] .hero-slider__heading { translate: 0 var(--font-optical-offset-newake); }
