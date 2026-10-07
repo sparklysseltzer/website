@@ -107,7 +107,7 @@
                 "show_heading": true,
                 "heading": "Vom Prototyp zur Getränkefirma",
                 "heading_level": "h2",
-                "text": "<p>Zurück in der Schweiz holten sie einen befreundeten Designer dazu, denn die Dose war ihnen fast so wichtig wie ihr Inhalt. Ende Sommer 2019 stand ein Rezept, das allen schmeckte. Im Februar 2020 füllte ein kleiner Lohnabfüller 2000 Prototypen mit Papieretikett ab, Freunde und Familie gaben Feedback, und die Reaktionen waren eindeutig.</p><p>Der Prototyp machte die Runde und überzeugte genau die Richtigen. Ein befreundeter Web- und Digitalprofi war so begeistert, dass er sich kurzerhand selbst ins Team holte. Im Sommer 2020 folgte die Gründung der GmbH, im September die erste professionelle Abfüllung, im Dezember die Umwandlung in eine AG. Sparklys Hard Seltzer war geboren und hier, um zu bleiben.</p>",
+                "text": "<p>Zurück in der Schweiz holten sie einen befreundeten Designer dazu, denn die Dose war ihnen fast so wichtig wie ihr Inhalt. Ende Sommer 2019 stand ein Rezept, das allen schmeckte. Im Februar 2020 füllte ein kleiner Lohnabfüller 2000 Prototypen mit Papieretikett ab, Freunde und Familie gaben Feedback, und die Reaktionen waren eindeutig.</p><p>Der Prototyp machte die Runde und überzeugte genau die Richtigen. Ein befreundeter Web- und Digitalprofi war so begeistert, dass er sich kurzerhand selbst ins Team holte. Im Sommer 2020 folgte die Gründung der GmbH, im September die erste professionelle Abfüllung, im Dezember die Umwandlung in eine AG. Sparklys Hard Seltzer war geboren und hier, um zu bleiben.</p><p></p>",
                 "heading_font": "erode",
                 "uppercase_heading": false
               },
@@ -124,13 +124,25 @@
               },
               "blocks": {}
             },
-            "prototype": {
+            "editorial_text_HpVr6r": {
               "type": "editorial-text",
               "settings": {
                 "show_heading": true,
                 "heading": "",
                 "heading_level": "h2",
-                "text": "<p>Wo Sparklys hingehört, war für uns als junge Unternehmer schnell klar: Sonne, eine tanzende Menge und eiskalte Dosen. Mit unserem Dosen-Anhänger, der inzwischen selbst Kultstatus hat, zogen wir Sommer für Sommer durch die Schweiz. Wir wollten nicht von Plakaten herab überzeugen, sondern direkt vor Ort, eine Dose nach der anderen.<br/>Ein Jahr später stiessen zwei Brüder dazu, um unser Team komplett zu machen. Dahinter steckt bis heute unsere Philosophie: Wir holen lieber die richtigen Leute rein, als Aufgaben rauszugeben. Marke, Design, Web, Zahlen, Verkauf und Events entstehen im eigenen Team. So steckt in jeder Dose, jedem Post und jedem Anruf ein Stück Sparklys.</p>",
+                "text": "<p></p><p>Wo Sparklys Hard Seltzer hingehört, war für uns als junge Unternehmer schnell klar: Sonne, eine tanzende Menge und eiskalte Dosen. Mit unserem Dosen-Anhänger, der inzwischen selbst Kultstatus hat, zogen wir Sommer für Sommer durch die Schweiz. Wir wollten nicht von Plakaten herab überzeugen, sondern direkt vor Ort, eine Dose nach der anderen.</p><p>Ein Jahr später stiessen zwei Brüder dazu, um unser Team komplett zu machen. Dahinter steckt bis heute unsere Philosophie: Wir holen lieber die richtigen Leute rein, als Aufgaben rauszugeben. Marke, Design, Web, Zahlen, Verkauf und Events entstehen im eigenen Team. So steckt in jeder Dose, jedem Post und jedem Anruf ein Stück Sparklys.</p>",
+                "heading_font": "erode",
+                "uppercase_heading": false
+              },
+              "blocks": {}
+            },
+            "prototype": {
+              "type": "editorial-text",
+              "settings": {
+                "show_heading": true,
+                "heading": "Älter werden, aber nicht langweilig",
+                "heading_level": "h2",
+                "text": "<p>Mit Sparklys wurden auch wir älter. Nicht alt, aber älter. Zu den Partys kamen Bürotage, Trainings und Sonntagnachmittage, und immer öfter stellte sich eine Frage: Wieso können wir nicht auch am Tag durch Sparklys geniessen? Wir wollten ein Gegenstück zu unserem Seltzer. Genauso frisch, genauso eigen, nur eben ohne Prozente. Und eines wussten wir nach diesen Jahren sicher: Getränke machen, das können wir. Und das wollen wir.</p>",
                 "heading_font": "erode",
                 "uppercase_heading": false
               },
@@ -140,21 +152,9 @@
               "type": "editorial-text",
               "settings": {
                 "show_heading": true,
-                "heading": "Älter werden, aber nicht langweilig",
-                "heading_level": "h2",
-                "text": "<p>Mit Sparklys wurden auch wir älter. Nicht alt, aber älter. Zu den Partys kamen Bürotage, Trainings und Sonntagnachmittage, und immer öfter stellte sich eine Frage: Wie können wir auch tagsüber Sparklys geniessen? Wir wollten ein Gegenstück zu unserem Seltzer. Genauso frisch, genauso eigen, nur eben ohne die Prozente. Und eines wussten wir nach den Jahren sicher: Getränke machen, das können wir. Und das wollen wir.</p>",
-                "heading_font": "erode",
-                "uppercase_heading": false
-              },
-              "blocks": {}
-            },
-            "huber": {
-              "type": "editorial-text",
-              "settings": {
-                "show_heading": true,
                 "heading": "Zurück an den Mischtisch",
                 "heading_level": "h2",
-                "text": "<p>2024 standen wir wieder am Mischtisch. Das Ziel war klar: zuckerarm, ohne Süssstoffe, mit Geschmack, der nach mehr als nur Süsse schmeckt. Daraus wurden Yuzu & Ginger und Blueberry & Pomelo. 2025 lief die erste Abfüllung bei der Brauerei Locher in Appenzell, hergestellt mit Säntiswasser. Sparklys Soda war da, unser Lieblings-Spassgetränk.<br/></p><p>Falls du mehr und aktuelles von uns sehen willst, folge uns auf unseren Social Media Kanälen.</p>",
+                "text": "<p>2024 standen wir wieder am Mischtisch. Das Ziel war klar: zuckerarm, ohne Süssstoffe, mit Geschmack, der nach mehr als nur Süsse schmeckt. Daraus wurden Yuzu & Ginger und Blueberry & Pomelo. 2025 lief die erste Abfüllung bei der Brauerei Locher in Appenzell, hergestellt mit Säntiswasser. Sparklys Soda war da und präsentierte die Marke Sparklys in ganz neuem Licht.<br/>Begleite eine Gruppe Freunde auf ihre Reise durch die Schweizer Getränkewelt.&nbsp;<br/>Wir haben noch vieles vor.</p>",
                 "heading_font": "erode",
                 "uppercase_heading": false
               },
@@ -165,9 +165,9 @@
             "beginnings",
             "alternative",
             "polaroids",
+            "editorial_text_HpVr6r",
             "prototype",
-            "founding",
-            "huber"
+            "founding"
           ]
         },
         "sidebar": {
