@@ -11,7 +11,8 @@ const fields = [
   { key: 'name', name: 'Name', type: 'single_line_text_field', required: true, description: 'Internal name used when selecting slides.' },
   { key: 'media', name: 'Media', type: 'file_reference', required: true, description: 'Choose one image or video. Videos play muted.', validations: [{ name: 'file_type_options', value: '["Image","Video"]' }] },
   { key: 'headline', name: 'Headline', type: 'multi_line_text_field', required: true, description: 'Displayed below the media. Line breaks are preserved.' },
-  { key: 'link', name: 'Link', type: 'url', description: 'Optional destination URL for the media and headline: a page, product, collection or external website.' },
+  { key: 'link', name: 'Link', type: 'url', description: 'Optional destination URL for the media and button: a page, product, collection or external website.' },
+  { key: 'button_label', name: 'Button label', type: 'single_line_text_field', description: 'Optional action label. Leave blank to use the storefront’s translated Learn more label. The button uses Link.' },
 ];
 const before = await api(`{ shop{myshopifyDomain} currentAppInstallation{accessScopes{handle}}
  metaobjectDefinitionByType(type:"slides"){id name fieldDefinitions{key type{name} required validations{name value}}}
@@ -24,10 +25,12 @@ for (const entry of source) {
 }
 if (before.metaobjectDefinitionByType) for (const field of fields) {
   const actual = before.metaobjectDefinitionByType.fieldDefinitions.find(f => f.key === field.key);
+  if (!actual && field.key === 'button_label') continue;
   if (!actual || actual.type.name !== field.type || actual.required !== Boolean(field.required)) throw Error(`Existing definition differs at ${field.key}`);
   for (const validation of field.validations || []) if (!actual.validations.some(v => v.name === validation.name && v.value === validation.value)) throw Error(`Existing validation differs at ${field.key}`);
 }
-console.log(JSON.stringify({ definition: before.metaobjectDefinitionByType ? 'Preserve Slides' : 'Create Slides', entries: source.filter(e => !before.metaobjects.nodes.some(x => x.handle === e.handle)).map(e => e.name) }));
+const additions = before.metaobjectDefinitionByType ? fields.filter(field => field.key === 'button_label' && !before.metaobjectDefinitionByType.fieldDefinitions.some(actual => actual.key === field.key)) : [];
+console.log(JSON.stringify({ definition: before.metaobjectDefinitionByType ? 'Preserve Slides' : 'Create Slides', addFields: additions.map(field => field.key), entries: source.filter(e => !before.metaobjects.nodes.some(x => x.handle === e.handle)).map(e => e.name) }));
 if (!process.argv.includes('--apply')) process.exit(0);
 const backup = join(homedir(), 'Library/Application Support/Sparklys/store-backups', `slides-${Date.now()}`);
 await mkdir(backup, { recursive: true, mode: 0o700 });
@@ -43,6 +46,12 @@ if (!before.metaobjectDefinitionByType) {
   } }), 'metaobjectDefinitionCreate');
   console.log(`Created Slides: ${result.metaobjectDefinition.id}`);
 }
+if (additions.length) {
+  unwrap(await api(`mutation($id:ID!,$definition:MetaobjectDefinitionUpdateInput!){metaobjectDefinitionUpdate(id:$id,definition:$definition){metaobjectDefinition{id} userErrors{field message}}}`, {
+    id: before.metaobjectDefinitionByType.id,
+    definition: { fieldDefinitions: additions.map(create => ({ create })) },
+  }), 'metaobjectDefinitionUpdate');
+}
 for (const entry of source) {
   if (before.metaobjects.nodes.some(x => x.handle === entry.handle)) continue;
   const values = Object.entries(entry).filter(([key, value]) => key !== 'handle' && value).map(([key, value]) => ({ key, value }));
@@ -53,5 +62,6 @@ for (const entry of source) {
   console.log(`Verified ${result.metaobject.handle}`);
 }
 const verified = await api(`{metaobjectDefinitionByType(type:"slides"){id name fieldDefinitions{key type{name}}}}`);
+for (const field of fields) if (!verified.metaobjectDefinitionByType.fieldDefinitions.some(actual => actual.key === field.key && actual.type.name === field.type)) throw Error(`Field verification failed: ${field.key}`);
 console.log(JSON.stringify(verified));
 console.log(`Backup: ${backup}`);

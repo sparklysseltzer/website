@@ -19,6 +19,7 @@ All ordinary typography uses `--font-size-*` roles defined in `assets/base.css`.
 | small | 13 → 14px | Footnotes, metadata, secondary status |
 | compact | 18 → 20px | FAQ questions, comparison/product names, footer card headings |
 | card | 26 → 32px | Editorial card headings |
+| title | 30 → 45px | Supporting editorial titles below prominent media, including the homepage hero caption |
 | section | 36 → 60px | Standard section headings, product titles |
 | display | 44 → 76px | USP, Subscription, Hard Seltzer Ingredients/Awards headings |
 | hero | 48 → 104px | Hero and general page titles |
@@ -316,8 +317,8 @@ There is no additional global gap before the footer. The last section’s own pa
 
 The document background is separate from brand section palettes. `layout/theme.liquid` resolves one `--color-page-background` and the matching `theme-color` metadata server-side:
 
-- Default, including ordinary pages, policies, cart and search: `#F2F0E9`.
-- Homepage and all collection pages (including Soda, Hard Seltzer and unclassified collections): `#FFFFFF`.
+- Default, including ordinary pages, policies and search: `#F2F0E9`.
+- Homepage, cart and all collection pages (including Soda, Hard Seltzer and unclassified collections): `#FFFFFF`.
 - Every product page: existing `custom.soda_background_color`, falling back to `#FFFFFF` regardless of product world.
 
 The root canvas and PDP section consume this same role. Transparent content reveals it, so product colors extend beyond the top section. Existing palette background setting IDs/values remain intact, now labeled **Section background** to clarify their scope. Explicit section/card backgrounds, gallery gradients and intentional surfaces retain their own colors. This supersedes previous statements that brand palette background settings control the page canvas. No new metafield or saved-setting migration is needed.
@@ -407,7 +408,7 @@ Ananotes September 16: the cart drawer title always uses the central Newake head
 
 Every content/resource section and Footer exposes one **Section background** group at the end of its settings. Header and Cart drawer are intentional shell exceptions: the header retains its shared glass/cutout treatment and the modal retains its commerce surface. Never add a second control for a canvas that already has one; Hero reuses `background`. Merchant marquee's previous `background_style` remains hidden compatibility storage, not another editing option.
 
-The group offers **Transparent / Colored**. Colored reveals a **Surface** dropdown; only **Custom color** exposes the existing color picker. All named options emit CSS variable references rather than copied hex values, so changing Theme settings immediately updates their sections. World-relative roles follow the inherited page world; explicitly named Soda/beige options always use the Soda roles. Text and internal panel colors do not automatically invert.
+The group offers **Transparent / Colored**. Colored reveals a **Surface** dropdown; only **Custom color** exposes the existing color picker. All named options emit CSS variable references rather than copied hex values, so changing Theme settings immediately updates their sections. World-relative roles follow the inherited page world; explicitly named Soda/beige options always use the Soda roles. Text and internal panel colors do not automatically invert. Hero slider additionally offers an explicit Dark mode in the same Background control: it pairs the foreground black role used by the top header bar with inverse caption and button treatments and hides the surface/custom picker. Other sections retain their existing choices.
 
 | Surface | CSS role |
 | --- | --- |
@@ -529,3 +530,5 @@ Page-flash mitigation (2026-10-06): replaced the root additive crossfade with an
 ## Standalone text links
 
 Use `.text-link` and `.text-link__label` for standalone text actions. Preserve inherited text colour on hover/focus; no background sweep, inversion or blend mode. A decorative trailing arrow (existing Untitled UI `icon-arrow-left.svg`, rotated right) fades in and moves 4px while the label moves 2px, using Fast/200ms and UI easing. Reserve arrow space at rest to avoid layout shifts; multiline labels wrap within the remaining width. Keyboard focus shares the cue and retains its outline. Reduced motion reveals the arrow immediately with no translation. Inline prose links retain their existing underline; button, navigation-pill and card treatments remain separate. Preview light, dark/footer and long-label examples in Design Studio → Atoms → Text links (`#TextLinks`).
+
+Subscription button edge correction (Ananotes 186, 2026-10-07): its deliberately light photo-overlay backing is clipped to the padding box. The permanent outline overlay overlaps the inner rounded clip by one pixel, covering the antialiased light seam against the dark sweep without changing the button's outer dimensions or animation. Compact Sidebar box arrows now reuse the shared round-arrow sweep at their existing 36px decorative size; the enclosing card remains the accessible touch target.

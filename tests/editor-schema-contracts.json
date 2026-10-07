@@ -16371,7 +16371,7 @@
     ]
   },
   "sections/hero-slider.liquid": {
-    "schemaHash": "bb6b6b05f9c6a96e13c335aa7a4df9a0aabe054bea57de9552b473ab771f84b2",
+    "schemaHash": "34fe0d2b9f7039a8b8b4486ef0857edb5fc8f559834dc4d2eedc46fc1cad539f",
     "fields": {
       "selection_mode": {
         "group": "Slides",
@@ -16464,6 +16464,10 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
+      },
+      "show_indicators": {
+        "group": "Appearance",
+        "visible_if": null
       }
     },
     "controls": {
@@ -16475,13 +16479,14 @@
       "autoplay": "Enables duration; all media and destination fields remain relevant for manual navigation.",
       "hide_on_mobile": "Shared responsive visibility; no dependent fields.",
       "hide_on_desktop": "Shared responsive visibility; no dependent fields.",
-      "section_background_mode": "Transparent hides both surface and custom color fields. Colored exposes Surface; the picker also requires Custom color. Stored mode IDs remain unchanged.",
+      "section_background_mode": "Transparent and Dark mode hide Surface and Custom color. Dark mode uses the shared foreground black canvas matching the top header bar and inverse heading/button colors. Colored enables Surface; Custom color also enables the picker. Existing IDs/defaults and saved values remain unchanged.",
       "ambient_light": "Enables decorative media glow; intensity, spread and softness appear only when enabled. No central content dependencies.",
-      "height_mode": "Retired compatibility-only ID, hidden in all modes by contradictory condition. Rendering always uses content height.",
-      "heading_size": "Selects shared Section, Display or Hero typography; no dependent fields.",
+      "height_mode": "Retired saved ID, hidden in all modes by contradictory condition. Landscape fills the available viewport; portrait uses natural stacking.",
+      "heading_size": "Selects shared Title, Section, Display or Hero typography; no dependent fields. Small uses Title (30–45px); existing options and Large default remain unchanged.",
       "selection_mode": "All reads active public Slides entries (up to 250); Selected uses the ordered picker. Shopify rejects visible_if for metaobject_list: picker remains visible, explicitly labelled as selected-only; documented platform exception.",
-      "heading_alignment": "Aligns headline text Left or Center within the existing heading container; independent of font, size and slide selection with no dependent fields.",
-      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface."
+      "heading_alignment": "Aligns headline text Left (default) or Center within the caption copy column; independent of font, size and slide selection, with no dependent fields.",
+      "section_background_surface": "Shared options bind CSS roles to global theme colors. Custom color alone exposes section_background. Schema default Custom preserves existing saved colors; new add-section presets select Surface.",
+      "show_indicators": "Shows or hides the progress-bar navigation independently of autoplay and slide selection. Previous/next buttons remain visible when multiple slides exist. No dependent fields."
     },
     "scenarios": [
       {
@@ -16592,7 +16597,7 @@
         ]
       },
       {
-        "name": "Centered headline default",
+        "name": "Left aligned headline default",
         "settings": {},
         "visible": [
           "heading_alignment"
@@ -16808,6 +16813,58 @@
         ],
         "hidden": [
           "heading_uppercase"
+        ]
+      },
+      {
+        "name": "Centered headline",
+        "settings": {
+          "heading_alignment": "center"
+        },
+        "visible": [
+          "heading_alignment",
+          "heading_size",
+          "heading_gap"
+        ]
+      },
+      {
+        "name": "Indicators hidden, manual slides",
+        "settings": {
+          "show_indicators": false,
+          "autoplay": false
+        },
+        "visible": [
+          "show_indicators",
+          "slides"
+        ],
+        "hidden": [
+          "duration"
+        ]
+      },
+      {
+        "name": "Indicators visible, automatic slides",
+        "settings": {
+          "show_indicators": true,
+          "autoplay": true
+        },
+        "visible": [
+          "show_indicators",
+          "slides",
+          "duration"
+        ]
+      },
+      {
+        "name": "Dark mode hides saved custom surface controls",
+        "settings": {
+          "section_background_mode": "dark",
+          "section_background_surface": "custom",
+          "section_background": "#ffffff"
+        },
+        "visible": [
+          "section_background_mode"
+        ],
+        "hidden": [
+          "section_background_surface",
+          "section_background"
         ]
       }
     ]

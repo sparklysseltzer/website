@@ -41,12 +41,15 @@
     endif
   endif
   if variant == 'soda'
+    assign shop_product = all_products['sparklys-soda-variety-pack']
     assign first = 'product-overview-soda-blueberry.webp'
     assign second = 'product-overview-soda-yuzu.webp'
   elsif variant == 'seltzer'
+    assign shop_product = all_products['sparklys-hard-seltzer-maracuja']
     assign first = 'product-overview-seltzer-maracuja.webp'
     assign second = 'product-overview-seltzer-holunder.webp'
   endif
+  assign shop_url = shop_product.url | default: '#CollectionProducts'
 -%}
 {% if variant == 'default' %}{{ 'page-content.css' | asset_url | stylesheet_tag }}{% endif %}
 {% render 'heading-font', choice: font, section_id: section.id, uppercase: section.settings.uppercase_heading %}
@@ -65,7 +68,7 @@
       {% if section.settings.eyebrow != blank %}<p class="{% if variant == 'default' %}page-intro__label{% else %}collection-hero__eyebrow{% endif %}">{{ section.settings.eyebrow | escape }}</p>{% elsif variant != 'default' %}<p class="collection-hero__eyebrow">Sparklys™ {{ collection.title | escape }}</p>{% endif %}
       <h1{% if variant == 'default' %} class="page-intro__heading"{% endif %}>{{ heading | escape }}</h1>
       {% if intro != blank %}<div class="rte {% if variant == 'default' %}page-intro__text{% else %}collection-hero__text{% endif %}">{{ intro }}</div>{% endif %}
-      {% if section.settings.show_button %}<a class="button" href="#CollectionProducts"><span class="button__label">{{ section.settings.button_label | escape }}{% if section.settings.button_label == blank %}{{ 'collections.hero.shop' | t }}{% endif %}</span></a>{% endif %}
+      {% if section.settings.show_button %}<a class="button" href="{{ shop_url }}"><span class="button__label">{{ section.settings.button_label | escape }}{% if section.settings.button_label == blank %}{{ 'collections.hero.shop' | t }}{% endif %}</span></a>{% endif %}
       {% if variant != 'default' or set != blank %}
         <div class="collection-hero__usps">
           <div class="collection-hero__usp-grid usp-items" role="list">

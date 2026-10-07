@@ -188,7 +188,7 @@ Shared UI colors are merchant-editable through Shared, General Sparklys, Soda an
 
 ### Page canvas
 
-Page background is resolved centrally in `layout/theme.liquid`, independently of brand heading/menu context and section palette surfaces. The default is `#F2F0E9`; homepage and all collections use white. Products use existing `custom.soda_background_color` or white when empty. Root canvas, PDP background and browser theme-color agree. See the design-system page-background contract.
+Page background is resolved centrally in `layout/theme.liquid`, independently of brand heading/menu context and section palette surfaces. The default is `#F2F0E9`; homepage, cart and all collections use white. Products use existing `custom.soda_background_color` or white when empty. Root canvas, PDP background and browser theme-color agree. See the design-system page-background contract.
 
 ### Section and block naming
 

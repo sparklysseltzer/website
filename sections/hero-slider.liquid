@@ -1,4 +1,8 @@
-{% render 'section-background', section: section, color: section.settings.section_background %}
+{%- if section.settings.section_background_mode == 'dark' -%}
+  {% render 'section-background', section: section, color: 'var(--color-foreground)' %}
+{%- else -%}
+  {% render 'section-background', section: section, color: section.settings.section_background %}
+{%- endif -%}
 {% render 'heading-font', choice: section.settings.heading_font, uppercase: section.settings.heading_uppercase, section_id: section.id %}
 {% render 'section-visibility', section: section %}
 {{ 'hero-slider.css' | asset_url | stylesheet_tag }}
@@ -14,8 +18,8 @@
   endif
 -%}
 {%- if slides.size > 0 -%}
-  <div class="section page-width hero-slider-shell">
-    <hero-slider data-heading-alignment="{{ section.settings.heading_alignment }}" data-heading-size="{{ section.settings.heading_size }}" class="hero-slider hero-slider--{{ section.settings.content_width }} hero-slider--mobile-{{ section.settings.mobile_shape }}" role="region" aria-roledescription="{{ 'hero_slider.carousel' | t | escape }}" aria-label="{{ section.settings.accessible_label | default: shop.name | escape }}" data-ambient="{% if section.settings.ambient_light and section.settings.ambient_intensity > 0 %}true{% else %}false{% endif %}" style="--hero-ambient-spread: {{ section.settings.ambient_spread }}px; --hero-ambient-blur: {{ section.settings.ambient_blur }}px; --hero-heading-gap: {{ section.settings.heading_gap }}px; --hero-ambient-opacity: {{ section.settings.ambient_intensity | divided_by: 100.0 }}" data-autoplay="{{ section.settings.autoplay }}" data-duration="{{ section.settings.duration | times: 1000 }}">
+  <div class="section page-width hero-slider-shell" data-color-mode="{{ section.settings.section_background_mode }}">
+    <hero-slider data-caption-layout="split" data-show-indicators="{{ section.settings.show_indicators }}" data-heading-font="{{ section.settings.heading_font }}" data-heading-alignment="{{ section.settings.heading_alignment }}" data-heading-size="{{ section.settings.heading_size }}" class="hero-slider hero-slider--{{ section.settings.content_width }} hero-slider--mobile-{{ section.settings.mobile_shape }}" role="region" aria-roledescription="{{ 'hero_slider.carousel' | t | escape }}" aria-label="{{ section.settings.accessible_label | default: shop.name | escape }}" data-ambient="{% if section.settings.ambient_light and section.settings.ambient_intensity > 0 %}true{% else %}false{% endif %}" style="--hero-ambient-spread: {{ section.settings.ambient_spread }}px; --hero-ambient-blur: {{ section.settings.ambient_blur }}px; --hero-heading-gap: {{ section.settings.heading_gap }}px; --hero-ambient-opacity: {{ section.settings.ambient_intensity | divided_by: 100.0 }}" data-autoplay="{{ section.settings.autoplay }}" data-duration="{{ section.settings.duration | times: 1000 }}">
       <div class="hero-slider__stage">
         {%- for slide in slides -%}
           {%- liquid
@@ -45,14 +49,17 @@
               {%- if slide.link.value != blank -%}<a class="hero-slider__media-link" href="{{ slide.link.value }}" aria-label="{{ slide_heading | escape }}" tabindex="-1" aria-hidden="true"></a>{%- endif -%}
             </div>
             </div>
-            <{{ heading_tag }} class="hero-slider__heading">
-              {%- if slide.link.value != blank -%}<a href="{{ slide.link.value }}">{{ slide_heading | escape | newline_to_br }}</a>{%- else -%}{{ slide_heading | escape | newline_to_br }}{%- endif -%}
-            </{{ heading_tag }}>
+            <div class="hero-slider__caption">
+              <{{ heading_tag }} class="hero-slider__heading">{{ slide_heading | escape | newline_to_br }}</{{ heading_tag }}>
+              {%- if slide.link.value != blank -%}
+                <div class="hero-slider__action">
+                  <a class="button" href="{{ slide.link.value }}"><span class="button__label">{% if slide.button_label.value != blank %}{{ slide.button_label.value | escape }}{% else %}{{ 'hero_slider.button_label' | t }}{% endif %}</span><span class="button__label" aria-hidden="true"><span class="hero-slider__action-icon button__arrow button__arrow--next"></span></span></a>
+                </div>
+              {%- endif -%}
+            </div>
           </div>
         {%- endfor -%}
         <div class="hero-slider__controls" hidden>
-          <button type="button" class="hero-slider__arrow hero-slider__arrow--previous" data-direction="-1" aria-label="{{ 'hero_slider.previous' | t | escape }}"><span aria-hidden="true"></span></button>
-          <button type="button" class="hero-slider__arrow hero-slider__arrow--next" data-direction="1" aria-label="{{ 'hero_slider.next' | t | escape }}"><span aria-hidden="true"></span></button>
           <div class="hero-slider__navigation">
             {%- if slides.size > 1 -%}
               {%- for slide in slides -%}
@@ -61,6 +68,10 @@
             {%- endif -%}
 
           </div>
+        </div>
+        <div class="hero-slider__paging" hidden>
+          <button type="button" class="button button--round-arrow" data-direction="-1" aria-label="{{ 'hero_slider.previous' | t | escape }}"><span class="button__label" aria-hidden="true"><span class="button__arrow"></span></span></button>
+          <button type="button" class="button button--round-arrow" data-direction="1" aria-label="{{ 'hero_slider.next' | t | escape }}"><span class="button__label" aria-hidden="true"><span class="button__arrow button__arrow--next"></span></span></button>
         </div>
       </div>
       <span class="visually-hidden" data-status aria-live="polite" aria-atomic="true"></span>
@@ -148,7 +159,7 @@
           "label": "Content height"
         }
       ],
-      "info": "Retained for saved-setting compatibility. The section now always follows its content height.",
+      "info": "Retained for saved-setting compatibility. Landscape fills the available viewport; portrait follows content height.",
       "visible_if": "{{ section.settings.height_mode == 'natural' and section.settings.height_mode == 'viewport' }}"
     },
     {
@@ -204,6 +215,10 @@
       "default": "display",
       "options": [
         {
+          "value": "title",
+          "label": "Small"
+        },
+        {
           "value": "section",
           "label": "Standard"
         },
@@ -221,7 +236,7 @@
       "type": "select",
       "id": "heading_alignment",
       "label": "Heading alignment",
-      "default": "center",
+      "default": "left",
       "options": [
         {
           "value": "left",
@@ -274,6 +289,13 @@
     },
     {
       "type": "checkbox",
+      "id": "show_indicators",
+      "label": "Show slide indicators",
+      "default": false,
+      "info": "Shows progress bars over the media. Previous and next buttons remain available."
+    },
+    {
+      "type": "checkbox",
       "id": "ambient_light",
       "label": "Ambient light",
       "default": true,
@@ -323,7 +345,7 @@
       "id": "autoplay",
       "label": "Switch slides automatically",
       "default": true,
-      "info": "Pauses slide switching while hovering the media or controls, but not the headline. Videos keep playing. Offscreen, hidden tabs and reduced motion pause automatic playback."
+      "info": "Pauses slide switching while hovering the media or controls, or the action button, but not the headline. Videos keep playing. Offscreen, hidden tabs and reduced motion pause automatic playback."
     },
     {
       "type": "range",
@@ -370,9 +392,13 @@
         {
           "value": "custom",
           "label": "Colored"
+        },
+        {
+          "value": "dark",
+          "label": "Dark mode"
         }
       ],
-      "info": "Colored lets you choose a shared surface or a custom color."
+      "info": "Colored lets you choose a surface or custom color. Dark mode uses black with light text and inverted buttons."
     },
     {
       "type": "select",

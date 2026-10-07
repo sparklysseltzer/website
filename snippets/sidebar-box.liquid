@@ -113,7 +113,7 @@
   <div class="sidebar-box__content">
     {% if options.show_heading != false and heading != blank %}<h3 class="sidebar-box__heading">{{ heading }}</h3>{% endif %}
     {% if box_layout == 'compact' %}
-      {% if options.show_button != false %}<span class="sidebar-box__action"><span>{{ label | escape }}</span><span class="sidebar-box__arrow" aria-hidden="true"><span class="editorial-chevron"></span></span></span>{% endif %}
+      {% if options.show_button != false %}<span class="sidebar-box__action"><span>{{ label | escape }}</span><span class="sidebar-box__arrow button button--round-arrow" aria-hidden="true"><span class="button__label"><span class="editorial-chevron"></span></span></span></span>{% endif %}
     {% else %}
       {% if options.show_button != false and link != blank %}<a class="button{% if box_button_style == 'light' %} button--secondary{% endif %}" href="{{ link }}"{% render 'link-target', new_tab: open_new_tab %}><span class="button__label">{{ label | escape }}{% if open_new_tab %}<span class="visually-hidden"> {{ 'social_channels.new_tab' | t }}</span>{% endif %}</span></a>{% endif %}
     {% endif %}

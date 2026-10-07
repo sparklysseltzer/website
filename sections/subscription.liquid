@@ -180,10 +180,14 @@
   .subscription__benefits { display: grid; gap: .625rem; margin: 0; padding: 0 0 0 .3125rem; list-style: none; }
   .subscription__benefits li { display: flex; align-items: flex-start; gap: .75rem; }
   .subscription__benefits img { width: 1.25rem; height: 1.25rem; margin-top: .06em; flex: 0 0 auto; }
-  .subscription__actions { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; }
-  .subscription__actions .button { --button-background: var(--color-surface); padding-inline: 2.25rem; }
+  .subscription__actions { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; max-width: 100%; }
+  .subscription__actions .button { --button-background: var(--color-surface); padding-inline: 2.25rem; background-clip: padding-box; }
+  /* Overlap the rounded clip by one pixel so the light backing cannot form a seam. */
+  .subscription__actions .button::after { box-shadow: inset 0 0 0 1px var(--button-border-color); }
+  .subscription__account { flex: 0 0 auto; width: max-content; max-width: 100%; }
   .subscription__account p { margin: 0; }
-  .subscription__account .text-link { position: relative; display: inline-flex; align-items: center; text-decoration: none; }
+  /* Include the shared link's negative inline margins in its available width. */
+  .subscription__account .text-link { position: relative; display: inline-flex; align-items: center; width: max-content; max-width: calc(100% + .5rem); text-decoration: none; }
   /* Extend the hit area, not the visible line box, to preserve the compact pair. */
   .subscription__account .text-link::after { content: ''; position: absolute; inset-inline: 0; top: 50%; height: max(100%, 2.75rem); transform: translateY(-50%); }
   @media (max-width: 84rem) { .subscription__inner { padding-inline: clamp(1.5rem, 5vw, 4rem); } }

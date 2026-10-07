@@ -248,3 +248,17 @@ Resolved `1791041936134-i5edxlua3` for port 9293: shared checkboxes retain their
 ## 2026-10-06: Ananotes 177–180
 
 Removed Product Overview top padding only at its existing compact breakpoint (1200px and below), removed Offer Card arrow decorations while preserving native whole-card links when destinations are available, added shared Merchant/Press scroll reveals, and moved Versus staggering onto the individual cards. Hidden offer destination pages remain unpublished and intentionally non-interactive. Verified 390/900/1440px geometry, zero compact versus 64px wide overview top padding, no removed arrows, five distinct intermediate card animation timings, fully visible settled/reduced-motion cards, independent moving marquee track and 390px full viewport width. Script-blocked comparison/marquee content stayed visible; the native comparison scroller received keyboard focus. Full repository checks passed, and the isolated browser was closed.
+
+## 2026-10-07: Ananotes 182–186
+
+- 182 (`1791396985797-ws8qd6soj`): Hard Seltzer hero shop action resolves Maracuja's Shopify product URL.
+- 183 (`1791397992265-kny5unebp`): Soda hero shop action resolves Soda Variety Pack's Shopify product URL. Both retain the catalog anchor when their product is unavailable to Liquid.
+- 184 (`1791398667977-6whfqcpjx`): compact Sidebar box circles reuse the shared round-arrow sweep and keyboard/reduced-motion behavior, preserving 36px decorative geometry and whole-card links.
+- 185 (`1791398833898-vn9jcikco`): Subscription account layout includes the shared link's negative inline margins, keeping the default sign-in label on one line while allowing the account pair to wrap below the button on phones.
+- 186 (`1791398902789-qstca6qpx`): Subscription buttons clip the light backing and overlap the inner outline by one pixel to cover the light seam around the dark fill. The shared sweep and existing surface colors remain.
+
+Verified three annotated routes at 320, 390, 1440 and 2389px: correct hero URLs, single-line default account labels, 48px actions and no horizontal overflow. Inspected phone/desktop screenshots, shared sweep intermediate and reversal states, reduced-motion results and keyboard focus. Both hero destinations were reached with JavaScript disabled at phone and desktop widths. Theme Check (154 files), editor contracts (61 schemas), asset/typography and repository tests passed; JavaScript syntax, header-aware JSON parsing and whitespace checks passed. Raw jq rejects Shopify's existing generated comment headers; parsing after removing only those headers in memory passed for all 31 JSON files. Existing merchant template edits were preserved. The approved development watcher synced code only; no shared/live deployment. Test browser closed before handoff.
+
+## 2026-10-07: Ananotes 187
+
+Resolved `1791399972579-neeqdhg65`: the cart page now uses white in the central document-background resolver and matching theme-color metadata. Existing panels and editor-owned content remain unchanged. Headless empty-cart screenshots at 390px and 1440px confirmed the white canvas and no horizontal overflow. Full repository checks, JavaScript syntax, header-aware JSON parsing and whitespace validation passed. Raw jq rejected only the existing Shopify-generated comment headers; all 31 JSON files parsed after removing those headers in memory. The isolated test browser was closed. Development preview only; no shared/live deployment.

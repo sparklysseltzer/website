@@ -699,6 +699,7 @@
     "articles_empty": "Wähle Press-Einträge mit aktiven Artikeln aus."
   },
   "hero_slider": {
+    "button_label": "Mehr erfahren",
     "carousel": "Slideshow",
     "slide": "Slide",
     "go_to": "Slide {{ number }} anzeigen",

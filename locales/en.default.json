@@ -699,6 +699,7 @@
     "articles_empty": "Select Press entries with active articles to display here."
   },
   "hero_slider": {
+    "button_label": "Learn more",
     "carousel": "Slideshow",
     "slide": "Slide",
     "go_to": "Show slide {{ number }}",

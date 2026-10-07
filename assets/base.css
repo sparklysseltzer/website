@@ -28,6 +28,7 @@
   --font-size-panel-name: clamp(2rem, calc(1rem + 10cqi), 4rem);
   --font-size-panel-info: clamp(1rem, calc(.75rem + 1.25cqi), 1.25rem);
   --font-size-card: clamp(1.625rem, calc(1.485714rem + .571429vw), 2rem);
+  --font-size-title: clamp(1.875rem, calc(1.526786rem + 1.428571vw), 2.8125rem);
   --font-size-section: clamp(2.25rem, calc(1.692857rem + 2.285714vw), 3.75rem);
   --font-size-display: clamp(2.75rem, calc(2.007143rem + 3.047619vw), 4.75rem);
   --font-size-hero: clamp(3rem, calc(1.7rem + 5.333333vw), 6.5rem);

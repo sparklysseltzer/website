@@ -152,13 +152,16 @@
       this.focusPaused = false;
       this.visible = false;
       this.editorPaused = Boolean(window.Shopify?.designMode);
-      this.querySelector('.hero-slider__controls').hidden = this.slides.length < 2;
+      this.querySelector('.hero-slider__controls').hidden = this.slides.length < 2 || this.dataset.showIndicators === 'false';
+      const paging = this.querySelector('.hero-slider__paging');
+      if (paging) paging.hidden = this.slides.length < 2;
+      this.toggleAttribute('data-has-navigation', this.slides.length > 1);
       this.buttons.forEach((button, index) => button.addEventListener('click', () => this.show(index, true), options));
       this.querySelectorAll('[data-direction]').forEach(button => button.addEventListener('click', () => {
         this.show((this.index + Number(button.dataset.direction) + this.slides.length) % this.slides.length, true);
       }, options));
       const updateHover = target => {
-        const hovered = Boolean(target?.closest?.('.hero-slider__frame, .hero-slider__controls'));
+        const hovered = Boolean(target?.closest?.('.hero-slider__frame, .hero-slider__controls, .hero-slider__paging, .hero-slider__action'));
         if (hovered !== this.hovered) { this.hovered = hovered; this.sync(); }
       };
       this.addEventListener('pointerover', event => {
@@ -190,6 +193,14 @@
           if (!this.contains(event.relatedTarget)) { this.focusPaused = false; this.sync(); }
         }, options);
       }
+      if (this.dataset.captionLayout === 'split') {
+        const updateFocus = target => {
+          this.focusPaused = Boolean(target?.closest?.('.hero-slider__action, .hero-slider__paging'));
+          this.sync();
+        };
+        this.addEventListener('focusin', event => updateFocus(event.target), options);
+        this.addEventListener('focusout', event => updateFocus(this.contains(event.relatedTarget) ? event.relatedTarget : null), options);
+      }
       document.addEventListener('visibilitychange', () => this.sync(), options);
       this.motion.addEventListener('change', () => {
         if (this.hasAttribute('data-media-only') && this.motion.matches) this.querySelectorAll('video').forEach(video => video.pause());
@@ -209,6 +220,7 @@
       this.layoutObserver = new ResizeObserver(scheduleLayout);
       this.layoutObserver.observe(this);
       this.querySelectorAll('.hero-slider__heading').forEach(heading => this.layoutObserver.observe(heading));
+      this.querySelectorAll('.hero-slider__caption').forEach(caption => this.layoutObserver.observe(caption));
       const header = document.querySelector('.shopify-section-header');
       if (header) this.layoutObserver.observe(header);
       window.addEventListener('resize', scheduleLayout, options);
@@ -218,6 +230,7 @@
       if (!this.isConnected) return;
       // Poster Slideshow owns its media-only height through the Poster size roles.
       if (this.hasAttribute('data-media-only')) return;
+      if (this.dataset.captionLayout === 'split') { this.layoutCaption(); return; }
       // Portrait layouts use natural media/title stacking, including after rotation.
       if (matchMedia('(orientation: portrait)').matches) {
         for (const key of ['height', 'width', 'space', 'heading']) this.style.removeProperty(`--hero-layout-${key}`);
@@ -239,6 +252,49 @@
         if (this.style.getPropertyValue(`--hero-layout-${key}`) !== next) this.style.setProperty(`--hero-layout-${key}`, next);
       }
     }
+    layoutCaption() {
+      const portrait = matchMedia('(orientation: portrait)').matches;
+      const compact = matchMedia('(width < 768px)').matches;
+      const style = getComputedStyle(this);
+      const shell = this.closest('.hero-slider-shell');
+      const shellStyle = shell && getComputedStyle(shell);
+      const padding = shellStyle ? parseFloat(shellStyle.paddingTop) + parseFloat(shellStyle.paddingBottom) : 0;
+      const header = parseFloat(style.getPropertyValue('--sticky-header-height')) || 0;
+      const gap = Math.min(parseFloat(style.getPropertyValue('--hero-heading-gap')) || 40, innerWidth * .06);
+      const captions = this.slides.map(slide => slide.querySelector('.hero-slider__caption'));
+      const headings = this.slides.map(slide => slide.querySelector('.hero-slider__heading'));
+      // Short landscape screens must scroll instead of squeezing the caption
+      // into a few characters beside the persistent arrow controls.
+      const rootSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      const minimumWidth = Math.min(this.clientWidth, rootSize * (compact ? 22 : 48));
+      const set = (key, value) => {
+        const next = `${value.toFixed(3)}px`;
+        if (this.style.getPropertyValue(key) !== next) this.style.setProperty(key, next);
+      };
+      let width = this.clientWidth;
+      let captionHeight = 0;
+      let height = 0;
+      // Fit monotonically from the available width, accounting for text wrapping
+      // and the CTA. This avoids alternating between two widths at a line break.
+      for (let pass = 0; pass < 8; pass += 1) {
+        set('--hero-layout-width', width);
+        captionHeight = Math.max(...captions.map(caption => caption.offsetHeight));
+        height = Math.max(innerHeight - header - padding, captionHeight + minimumWidth * 9 / 16 + gap * 3);
+        const fitted = Math.min(width, (height - captionHeight - gap * 3) * 16 / 9);
+        if (portrait || Math.abs(width - fitted) < .5) break;
+        width = fitted;
+      }
+      const space = portrait ? gap : (height - captionHeight - width * 9 / 16) / 3;
+      if (portrait) {
+        for (const key of ['height', 'space', 'heading']) this.style.removeProperty(`--hero-layout-${key}`);
+      } else {
+        set('--hero-layout-height', height);
+        set('--hero-layout-space', space);
+        set('--hero-layout-heading', captionHeight);
+      }
+      const captionGap = parseFloat(getComputedStyle(captions[0]).rowGap) || 0;
+      set('--hero-paging-top', width * 9 / 16 + (portrait ? gap : space * 2) + (compact ? headings[this.index].offsetHeight + captionGap : 0));
+    }
     show(index, announce = false) {
       if (index === this.index && this.hasAttribute('data-ready')) return;
       this.index = index;
@@ -256,6 +312,7 @@
         else button.removeAttribute('aria-current');
       });
       if (announce) this.status.textContent = this.buttons[index]?.getAttribute('aria-label') || '';
+      if (this.hasAttribute('data-ready') && this.dataset.captionLayout === 'split') this.layoutCaption();
       this.sync();
     }
     sync() {
