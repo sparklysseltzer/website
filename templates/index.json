@@ -12,8 +12,11 @@
     "hero": {
       "type": "hero-slider",
       "settings": {
-        "selection_mode": "all",
-        "slides": [],
+        "selection_mode": "selected",
+        "slides": [
+          "sparklys-soda-slider",
+          "sparklys-hard-seltzer-slider"
+        ],
         "content_width": "page",
         "height_mode": "natural",
         "mobile_shape": "portrait",
