@@ -185,7 +185,7 @@
             <img src="{{ 'icon-location-pin.svg' | asset_url }}" width="12" height="14" alt="">
           </span>
         {%- endif -%}
-        <span class="site-header__action" aria-hidden="true">
+        <a class="site-header__action site-header__account" href="{{ routes.account_url }}">
           <span class="button button--secondary button--round-arrow site-header__action-surface" aria-hidden="true">
             <span class="button__label site-header__action-label">
           <img
@@ -197,7 +197,8 @@
           >
             </span>
           </span>
-        </span>
+          <span class="visually-hidden">{{ 'sections.header.account' | t }}</span>
+        </a>
         <a class="site-header__action site-header__cart" data-cart-open href="{{ routes.cart_url }}">
           <span class="button button--secondary button--round-arrow site-header__action-surface" aria-hidden="true">
             <span class="button__label site-header__action-label">

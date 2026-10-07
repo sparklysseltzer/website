@@ -58,6 +58,7 @@
       }
     },
     "header": {
+      "account": "Kundenkonto",
       "open_menu": "Menü öffnen",
       "navigation": "Hauptnavigation",
       "utility_navigation": "Zusätzliche Navigation",

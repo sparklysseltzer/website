@@ -58,6 +58,7 @@
       }
     },
     "header": {
+      "account": "Account",
       "open_menu": "Open menu",
       "navigation": "Main navigation",
       "utility_navigation": "Utility navigation",

@@ -21,7 +21,7 @@ Pages and Products explicitly select their context through the existing `custom.
 - The black product-world switcher stays in normal flow; the white main bar is sticky.
 - Desktop product tabs show the active context with concave joins and texture only inactive hover/focus states.
 - Corporate Nav supports leaf links plus two nested disclosure levels through native `details`/`summary`.
-- The white bar renders the context-specific logo/menu, Store Finder, a non-interactive account preview, and a locale-aware cart link/count. The global cart-drawer controller enhances this link to open a native modal and refreshes the count after cart changes; without JavaScript it remains a normal cart destination.
+- The white bar renders the context-specific logo/menu, Store Finder, a locale-aware customer account link, and a locale-aware cart link/count. The global cart-drawer controller enhances this link to open a native modal and refreshes the count after cart changes; without JavaScript it remains a normal cart destination.
 - Main navigation uses native three-level disclosures, enhanced into desktop category panels and a mobile modal sheet.
 
 ## Progressive enhancement and accessibility
@@ -30,7 +30,7 @@ Pages and Products explicitly select their context through the existing `custom.
 
 ## Known gaps
 
-The account circle is still a visual preview. Final menu hierarchy, imagery, destinations and published-language QA remain; the local mega-menu implementation and fixture verification are described below. See [Architecture](../architecture.md) for the shared context-routing contract.
+Final menu hierarchy, imagery, destinations and published-language QA remain; the local mega-menu implementation and fixture verification are described below. See [Architecture](../architecture.md) for the shared context-routing contract.
 
 ## Typography roles
 
@@ -218,4 +218,10 @@ Ananotes 173 (2026-10-04): navigation-card scrollbars are visually hidden with s
 
 ## Header action fill
 
-Cart and account circles use the shared borderless oval sweep through an inner `site-header__action-surface`. Existing 46px circles, icon dimensions and pale neutral appearance remain. The circle uses an opaque 5% foreground/surface mix so difference-blended icons stay dark at rest and light under the sweep. The inner surface clips the sweep; the outer action stays unclipped so the cart-count badge can overlap normally. The cart remains a localized link with drawer enhancement and keyboard focus. The account remains the existing aria-hidden placeholder; this styling does not enable account navigation. Reduced motion uses the shared button fallback.
+Cart and account circles use the shared borderless oval sweep through an inner `site-header__action-surface`. Existing 46px circles, icon dimensions and pale neutral appearance remain. The circle uses an opaque 5% foreground/surface mix so difference-blended icons stay dark at rest and light under the sweep. The inner surface clips the sweep; the outer action stays unclipped so the cart-count badge can overlap normally. The cart remains a localized link with drawer enhancement and keyboard focus. The account is a native, keyboard-accessible link to `routes.account_url`, with a localized accessible name. Reduced motion uses the shared button fallback.
+
+## Customer account entry
+
+The account icon links to Shopify's `routes.account_url` in the same tab on desktop and mobile. Shopify owns authentication and the hosted account destination; no custom login page or JavaScript interception is required. The existing circle and hover/focus treatment remain. The decorative inner surface stays aria-hidden; the anchor receives a localized Account / Kundenkonto screen-reader label. This implements account entry only, not an audit of signed-in account features or subscription-provider management. See [Shopify sign-in routes](https://shopify.dev/docs/storefronts/themes/sign-in).
+
+Account-entry verification: the rendered German link is named Kundenkonto and has a 46px target on desktop and phone. Keyboard activation follows the native link. The public `https://sparklys.ch/account` route reaches Shopify's Sparklys-branded German sign-in page with its email field; no credentials were entered. The localhost Shopify CLI proxy rewrites the hosted redirect to a local `/41259008164/account` path and returns 404. This is a development-proxy limitation; the theme retains Shopify's native route rather than hardcoding an authentication URL. Signed-in account flows remain unaudited.
