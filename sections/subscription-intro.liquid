@@ -1,0 +1,193 @@
+{% render 'section-background', section: section, color: section.settings.section_background %}
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id, uppercase: section.settings.uppercase_heading %}
+{% render 'section-visibility', section: section %}
+{{ 'subscription-page.css' | asset_url | stylesheet_tag }}
+<section class="subscription-intro section" data-section-background>
+  <div class="subscription-intro__inner">
+    <div class="subscription-intro__copy">
+      <h1>{{ section.settings.heading | default: page.title }}</h1>
+      <div class="rte">{% if section.settings.text != blank %}{{ section.settings.text }}{% else %}<p>{{ 'sections.subscription.soda.intro' | t }}</p>{% endif %}</div>
+      <ul class="subscription-intro__benefits">
+        {% assign colors = 'yellow,green,blue' | split: ',' %}
+        {% assign benefits = 'summary_savings,summary_shipping,summary_flexibility' | split: ',' %}
+        {% for benefit in benefits %}{% assign benefit_key = 'products.pdp.' | append: benefit %}<li><img src="{{ 'subscription-check-' | append: colors[forloop.index0] | append: '.svg' | asset_url }}" width="20" height="20" alt=""><span>{{ benefit_key | t }}</span></li>{% endfor %}
+      </ul>
+      <div class="subscription-intro__actions">
+        <a class="button" href="#subscription-product"><span class="button__label">{{ 'sections.subscription.button_label' | t }}</span></a>
+        <div><p>{{ 'sections.subscription.account_prompt' | t }}</p><a class="text-link" href="{{ routes.account_login_url }}"><span class="text-link__label">{{ 'sections.subscription.account_label' | t }}</span></a></div>
+      </div>
+    </div>
+    <div class="subscription-intro__image{% if section.settings.image == blank %} subscription-intro__image--original{% endif %}">
+      {% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 1400 | image_tag: widths: '400, 700, 1000, 1400', sizes: '(min-width: 900px) 40vw, 100vw', loading: 'eager', alt: section.settings.image_alt }}{% else %}<img src="{{ 'subscription-intro-soda.webp' | asset_url }}" width="683" height="1024" alt="{{ section.settings.image_alt | escape }}" fetchpriority="high">{% endif %}
+    </div>
+  </div>
+</section>
+{% unless section.settings.hide_on_mobile and section.settings.hide_on_desktop %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":{{ section.settings.heading | default: page.title | strip_html | json }},"url":{{ canonical_url | json }}}</script>{% endunless %}
+{% schema %}
+{
+  "name": "Subscription intro",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Introduction"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ section.settings.heading_font == 'newake' }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alternative text"
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "select",
+      "id": "section_background_mode",
+      "label": "Background",
+      "default": "transparent",
+      "options": [
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        },
+        {
+          "value": "custom",
+          "label": "Colored"
+        }
+      ],
+      "info": "Colored lets you choose a shared surface or a custom color."
+    },
+    {
+      "type": "select",
+      "id": "section_background_surface",
+      "label": "Surface",
+      "default": "custom",
+      "options": [
+        {
+          "value": "page",
+          "label": "Page background"
+        },
+        {
+          "value": "background",
+          "label": "Brand background"
+        },
+        {
+          "value": "surface",
+          "label": "Surface (white)"
+        },
+        {
+          "value": "muted",
+          "label": "Muted surface (light gray)"
+        },
+        {
+          "value": "warm",
+          "label": "Supporting surface"
+        },
+        {
+          "value": "beige",
+          "label": "Surface beige"
+        },
+        {
+          "value": "soda",
+          "label": "Soda background (beige)"
+        },
+        {
+          "value": "gray",
+          "label": "Gray"
+        },
+        {
+          "value": "dark_gray",
+          "label": "Dark gray"
+        },
+        {
+          "value": "inverse",
+          "label": "Dark surface (charcoal)"
+        },
+        {
+          "value": "black",
+          "label": "Foreground (black)"
+        },
+        {
+          "value": "custom",
+          "label": "Custom color"
+        }
+      ],
+      "info": "Shared surfaces follow Theme settings colors. Custom color applies only to this section.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Custom color",
+      "info": "Used only for Custom color. Clear shows the page background. Text, panels and cards keep their own colors.",
+      "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Subscription intro",
+      "category": "Brand storytelling"
+    }
+  ]
+}
+{% endschema %}

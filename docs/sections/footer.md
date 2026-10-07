@@ -115,3 +115,13 @@ Store finder, Digestive Health and Ingredients remain unchanged because no clear
 **Heading font** uses the standard two-choice Erode/Newake segmented control. **Uppercase headings** appears immediately after it only for explicit Newake and follows the font control's content visibility. On uppercases semantic headings (including rich text); off preserves authored case. Erode ignores saved uppercase. Legacy saved Automatic values remain rendering compatibility only; the editor offers Erode and Newake. See the [heading control standard](../design-system.md#editorial-heading-font-selection). Font/casing schema scenarios are registered; no saved template content or structured data changes.
 
 Footer navigation and legal links use the shared trailing-arrow text-link treatment. Labels and arrows inherit their resting colour throughout hover/focus, preserving contrast on the dark footer. The former white sweep and legal-label colour override are removed.
+
+## Ananotes 188–191 (2026-10-07)
+
+Removed the extra product-to-subscription link gap in brand cards; every list row follows the same shared gap. Standalone text links now reserve arrow width as a nonshrinking flex item and center it with the label, avoiding absolute positioning and negative horizontal margin sizing that overlapped legal text. Existing hover/focus motion, inherited colors, labels and URLs remain unchanged. Verified all footer links at 390px/1623px: no overflow, aligned arrow/label boxes, at least 4px settled hover clearance, and no extra subscription-row margin.
+
+## Shared Store Finder visibility (2026-10-07)
+
+The Header's **Hide Store Finder** checkbox governs the footer badge and Store Finder destinations, including the saved legacy `store-finder` placeholder. Hidden list rows leave no empty gap. Unchecking restores the original links/artwork without recreating menu entries. The footer has no duplicate control; saved menus, resources and translations are unchanged. See [Header](header.md#store-finder-visibility-2026-10-07) for scope, compatibility and verification.
+
+Ananotes 194: legal links use a simple animated underline instead of the standalone action arrow. Hover and keyboard focus grow a 1px line using Fast/UI motion; reduced motion settles immediately. Labels stay stationary, native policy links and visible keyboard outlines remain. Intermediate hover frames and phone/desktop geometry were checked.

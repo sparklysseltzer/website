@@ -68,3 +68,5 @@ Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes 
 
 
 Ananotes 180 (2026-10-06): individual comparison cards now receive the shared staggered scroll reveal instead of animating the entire horizontal scroller as one item. Heading, basis and notes keep their existing reveal; card ordering, native horizontal scrolling, reduced-motion and no-JavaScript content remain intact.
+
+Footnote readability (Ananotes 197 and follow-up, 2026-10-08): dedicated notes now use the [shared footnote contrast treatment](../design-system.md#footnote-contrast-ananotes-197-and-follow-up), replacing the low-contrast Notice/muted color. USP panels retain their own inherited foreground, while open notes follow the canvas. Copy, typography roles and layout are unchanged.

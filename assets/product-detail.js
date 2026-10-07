@@ -165,8 +165,22 @@
       const terms = plan ? [...plan.adjustments.slice(1).map(item => this.money(item.price)), ...(plan.remaining > 0 ? [this.dataset.chargeLabel.replace('[amount]', this.money(plan.checkoutCharge)), this.dataset.balanceLabel.replace('[amount]', this.money(plan.remaining))] : [])].join(' · ') : '';
       crossfade(this.querySelector('[data-plan-terms]'), terms);
       this.togglePlanField(Boolean(plan || this.data.requiresPlan));
+      const shipping = this.querySelector('[data-product-shipping]');
+      if (shipping && shipping.dataset.subscription !== String(Boolean(plan))) {
+        const height = shipping.getBoundingClientRect().height;
+        shipping.getAnimations().forEach(animation => animation.cancel());
+        shipping.dataset.subscription = String(Boolean(plan));
+        shipping.querySelectorAll('[data-shipping-copy]').forEach(node => crossfade(node, plan ? node.dataset.subscription : node.dataset.once));
+        const nextHeight = shipping.getBoundingClientRect().height;
+        if (!reduced() && height !== nextHeight) shipping.animate([{ height: `${height}px` }, { height: `${nextHeight}px` }], timing(shipping));
+      }
       if (updateUrl) {
-        const url = new URL(location.href); url.searchParams.set('variant', this.variant.id);
+        const url = new URL(location.href);
+        if (this.hasAttribute('data-subscription-view')) {
+          url.pathname = new URL(this.dataset.url, location.origin).pathname;
+          url.searchParams.set('view', 'subscription');
+        }
+        url.searchParams.set('variant', this.variant.id);
         if (plan) url.searchParams.set('selling_plan', plan.id); else url.searchParams.delete('selling_plan');
         history.replaceState({}, '', url);
       }

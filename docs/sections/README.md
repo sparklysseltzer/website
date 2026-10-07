@@ -2,7 +2,7 @@
 
 This directory documents every Liquid section in `sections/`. Keep implementation details here; keep cross-cutting rules in [Architecture](../architecture.md), commerce requirements in [Commerce](../commerce.md), and capability state in [Status](../status.md).
 
-Last reconciled with the repository: 2026-10-04. The tables below cover all 46 Liquid sections; variants and presets do not count as separate sections.
+Last reconciled with the repository: 2026-10-08. The tables below cover all 48 Liquid sections; variants and presets do not count as separate sections.
 
 ## Shared contracts
 
@@ -36,6 +36,7 @@ All sections follow the [design system](../design-system.md), [asset-delivery ru
 | [Accordeon](faq-accordion.md) | Trust & information | Custom text/image accordion with optional FAQs, also available inside Two-column layout |
 | [Poster](poster.md) | Brand storytelling | Full-image editorial poster with overlaid content |
 | [Poster Slideshow](poster-slideshow.md) | Brand storytelling | Local image/video slide blocks with Poster sizing and Hero transitions |
+| [Subscription intro](subscription-intro.md) | Brand storytelling | Split subscription landing introduction, benefits and actions |
 | [Subscription](subscription.md) | Brand storytelling | Soda/Hard Seltzer subscription poster with benefits, subscribe action and sign-in link |
 | [Image and text panel](split-image-text.md) | Brand storytelling | Side-by-side editorial image and content panel |
 | [Product benefits](usp-section.md) | Brand storytelling | Context-aware Soda or Hard Seltzer image, copy, and five Soda / six Hard Seltzer USP items |
@@ -56,6 +57,7 @@ All sections follow the [design system](../design-system.md), [asset-delivery ru
 
 | Section | Template |
 | --- | --- |
+| [Subscription product](subscription-product.md) | `page.subscription.json`, alternate `product.subscription.json` view |
 | [Product](main-product.md) | `product*.json` |
 | [Collection hero](collection-hero.md) | `collection*.json` |
 | [Collection](main-collection.md) | `collection*.json` |
@@ -81,7 +83,7 @@ Every non-essential section exposes **Visibility → Hide on mobile / Hide on de
 
 In the Theme Editor, a hidden section's children are replaced visually by an English administrative placeholder at the affected width. Its wrapper and sidebar entry remain selectable; switch off the relevant setting to edit the full content. This deliberately identifies a configured hidden section rather than presenting it as storefront content. No editor JavaScript is needed, including after section reloads.
 
-Essential-function exceptions: Header, Main product, Main cart and Cart drawer do not expose these settings, preserving navigation, purchase forms and the shared modal/age-check host. All other current sections, including the footer and resource content sections, use the same contract. Future sections must adopt the controls and renderer unless an essential-function exception is documented here.
+Essential-function exceptions: Header, Main product, Subscription product, Main cart and Cart drawer do not expose these settings, preserving navigation, purchase forms and the shared modal/age-check host. All other current sections, including the footer and resource content sections, use the same contract. Future sections must adopt the controls and renderer unless an essential-function exception is documented here.
 
 FAQ sections suppress their JSON-LD when both hide settings are enabled; with one enabled, their content remains accessible at the other viewport. No new structured-data entity is introduced by visibility controls. Hidden duplicate editorial copies should not carry independent conflicting content.
 
@@ -94,3 +96,5 @@ Canvas verification (2026-09-28): temporary development templates exercised all 
 ## Content widths
 
 Suitable content and grid sections use the three-role [container width contract](../design-system.md#container-widths). The owning section documents record defaults. Full-width backgrounds, internal reading/artwork limits and Content Slider viewport bleed remain independent. Shell/commerce and fixed-composition exceptions are documented in the shared contract.
+
+Dedicated footnotes share the [contrast contract](../design-system.md#footnote-contrast-ananotes-197-and-follow-up). The section-background renderer supplies canvas-aware footnote ink and strength without changing other text or card colors. Enclosed USP panels retain their internal ink.

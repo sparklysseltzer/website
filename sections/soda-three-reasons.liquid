@@ -70,7 +70,7 @@
           assign footnote = 'sections.soda_three_reasons.footnote' | t
         endif
       -%}
-      {%- if footnote != blank -%}<p class="soda-reasons__footnote" data-scroll-motion-reveal>{{ footnote }}</p>{%- endif -%}
+      {%- if footnote != blank -%}<p class="soda-reasons__footnote footnote" data-scroll-motion-reveal>{{ footnote }}</p>{%- endif -%}
     </div>
   </section>
 </editorial-section-motion>
@@ -94,7 +94,7 @@
   .soda-reasons__leaf { display: block; width: 10.59rem; height: auto; }
 .soda-reasons__item h3 { margin: .1875rem 0 .75rem; font-family: var(--font-heading-soda); font-size: var(--font-size-card); font-weight: 700; line-height: var(--line-height-heading); letter-spacing: -.03em; }
   .soda-reasons__item p { margin: 0; color: var(--color-editorial-muted); font-size: var(--font-size-body); line-height: var(--line-height-body-compact); }
-  .soda-reasons__footnote { max-width: 37.5rem; margin: 1.25rem auto 0; color: var(--color-text-muted); font-size: var(--font-size-small); line-height: var(--line-height-body-compact); }
+  .soda-reasons__footnote { max-width: 37.5rem; margin: 1.25rem auto 0;  font-size: var(--font-size-small); line-height: var(--line-height-body-compact); }
   @media (max-width: 749px) {
     .soda-reasons__grid { grid-template-columns: 1fr; gap: 3rem; }
     .soda-reasons__item { max-width: 20rem; margin-inline: auto; }

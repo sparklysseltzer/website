@@ -10,7 +10,7 @@
   {% if menu_link.links != blank %}
     <ul class="site-footer__menu">
       {% for link in menu_link.links %}
-        <li><a class="text-link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}><span class="text-link__label">{{ link.title | escape }}</span></a></li>
+        <li{% if link.handle == 'store-finder' %} data-store-finder{% endif %}><a class="text-link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}><span class="text-link__label">{{ link.title | escape }}</span></a></li>
       {% endfor %}
     </ul>
   {% endif %}

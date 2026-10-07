@@ -1,6 +1,6 @@
 # Main product
 
-Source: `sections/main-product.liquid`; scoped enhancement: `assets/product-detail.js`; styles: `assets/product-detail.css`.
+Source: `sections/main-product.liquid`; shared renderer: `snippets/product-detail.liquid`; scoped enhancement: `assets/product-detail.js`; styles: `assets/product-detail.css`.
 
 Templates: existing `product.json`, `product.soda.json` and `product.seltzer.json`. One section implements the complete first product section. Lower editorial sections remain merchant-composed; this change does not replace template JSON.
 
@@ -15,14 +15,14 @@ The central `brand-context` resolver supplies Soda, Hard Seltzer or neutral pres
 - Soda uses shared Display typography and Erode; ordinary titles use the Section role. Maracuja/Holunder reuse the exact existing SVG flavour lockups as artwork, with the complete title accessible in the h1. Newake standalone headings do not receive a blind optical offset.
 - The canonical brand collection's `custom.flavour_products` ordered product list supplies cross-links. Collection products remain a fallback. Packaging controls select variants of the current product. Known flavours reuse exact SVG fruit artwork; new products fall back to their teaser/featured image.
 - `custom.usp_set` on the brand collection supplies the shared USP items and footnote. Soda has five, Hard Seltzer six. See [Product benefits](usp-section.md).
-- `subscription_benefits` entry `standard` supplies the illustrated disclosure; the compact purchase summary uses theme locale UI. Defaults say **up to 15%**; actual savings follow the selected selling plan. See [Merchant content](../merchant-content.md).
-- Shipping reads the existing threshold, flat rate and qualifying-product theme settings, the CH/LI + CHF gate, and Shopify's shipping-policy URL. No unconfirmed subscription-free-shipping exception is introduced. `payment-icons` is shared with the footer.
+- `subscription_benefits` entry `standard` supplies the illustrated disclosure; the compact purchase summary uses theme locale UI. Defaults say **15% on every subscription order**; actual prices follow the selected selling plan. See [Merchant content](../merchant-content.md).
+- Shipping reads the existing threshold, flat rate and qualifying-product theme settings, the CH/LI + CHF gate, and Shopify's shipping-policy URL. Subscriptions use the merchant-confirmed free-shipping exception described below. `payment-icons` is shared with the footer.
 
 ## Purchase behavior
 
 The native Shopify buy form submits the selected variant ID, quantity and `selling_plan`. A separately associated GET form reloads the selected variant without JavaScript. The native plan dropdown includes one-time purchase when permitted. Required-plan products select their first available allocation.
 
-JavaScript synchronizes variant price, compare-at price, availability, quantity minimum/increment/maximum, assigned media, plan allocations and URL parameters. Packaging changes preserve a compatible plan, or select the new variant's first allocation when subscription was selected. The quantity total updates in the add button. One-time/subscription radios enhance the native selector; Shopify supplies the five current frequencies and their real 15%/10% prices.
+JavaScript synchronizes variant price, compare-at price, availability, quantity minimum/increment/maximum, assigned media, plan allocations and URL parameters. Packaging changes preserve a compatible plan, or select the new variant's first allocation when subscription was selected. The quantity total updates in the add button. One-time/subscription radios enhance the native selector; Shopify supplies five delivery frequencies (2, 4, 6, 8 and 12 weeks), each with a real 15% discount.
 
 The existing shared cart controller handles additions, errors, stock warnings and success notifications. `ProductForm` uses the actual submitter, so the native variant-update button cannot become the Ajax loading/focus target. Cart rows retain selling-plan identity and prices during quantity edits.
 
@@ -54,7 +54,7 @@ Essential-function exception: this section stays available at every breakpoint a
 
 Desktop identity and purchase controls share a sticky column. A ResizeObserver updates its offset so tall purchase content can scroll far enough to expose the add button; mobile retains identity, gallery, purchase and supporting content order. Description truncation measures after fonts load and on resize in every brand world.
 
-Subscription frequency sits inside the compact subscription panel before its centered Figma tick list. Original/current prices appear together in that panel; the redundant price row is hidden only for enhanced plan products. Native fallback and products without plans retain their price row, plan select and product form. The summary uses localized approved Figma copy (up to 15%, Swiss free shipping, swap/skip/cancel), independently of long-form merchant benefit descriptions; this does not change Shopify shipping rules.
+Subscription frequency sits inside the compact subscription panel before its centered Figma tick list. Original/current prices appear together in that panel; the redundant price row is hidden only for enhanced plan products. Native fallback and products without plans retain their price row, plan select and product form. The summary uses localized approved Figma copy (15%, Swiss free shipping, swap/skip/cancel), independently of long-form merchant benefit descriptions; this does not change Shopify shipping rules.
 
 Flavour artwork uses its individual Figma proportions; Soda variety uses the exact two exported composite layers. The Seltzer text ring fills its badge bounds. Fine-pointer gallery arrows fade in on hover or focus; touch arrows remain visible. Duplicate brand logos are removed, and the add button reuses the header cart glyph. Shared payment assets have transparent ancestor canvases and fill the PDP row. Shipping omits trailing zero decimals only for whole amounts and has no extra policy link; fractional rates remain exact.
 
@@ -123,3 +123,33 @@ Soda PDPs read the canonical Soda collection's optional `custom.featured_usp` an
 ## Shared heading casing
 
 **Heading font** uses the standard two-choice Erode/Newake segmented control. **Uppercase headings** appears immediately after it only for explicit Newake and follows the font control's content visibility. On uppercases semantic headings (including rich text); off preserves authored case. Erode ignores saved uppercase. Legacy saved Automatic values remain rendering compatibility only; the editor offers Erode and Newake. See the [heading control standard](../design-system.md#editorial-heading-font-selection). Font/casing schema scenarios are registered; no saved template content or structured data changes.
+
+## Single published variant
+
+The packaging dropdown and native update-options button appear only when Liquid exposes more than one published variant. Sold-out published variants still count. A single meaningful variant title renders as plain text beside quantity, without a field border, fill, arrow or focus stop. It uses the shared UI size (16px on phones, 17px on desktop) and the quantity field font, vertically centered in the purchase row with natural wrapping. A sole default variant omits the packaging detail entirely. A hidden variant input preserves the existing enhancement contract; the native add-to-cart form retains its separate authoritative variant ID. Prices, quantity rules, subscriptions and product structured data remain Shopify-driven.
+
+Verified at 390px and 1440px using Maracuja (one named pack), Can Opener (default variant) and Yuzu (multiple packs). Static packaging uses the 16px/17px UI size beside the 14px/15px quantity value, with matching vertical centers and no overflow. Quantity changes work; multi-pack changes update the variant form payload; one-pack subscription retains its selling-plan ID. Script-disabled rendering preserves the correct variant ID and editable quantity in all three modes. Existing server-rendered structured data is unchanged. Full repository gates, syntax, header-aware JSON and whitespace checks passed.
+
+## Subscription shipping policy (2026-10-07)
+
+For CH/LI in CHF, selecting a real selling-plan allocation replaces the threshold/rate hint with free subscription shipping on every delivery, without a minimum order. Initial plan URLs and required-plan defaults render the same hint in Liquid. Enhanced purchase/variant changes crossfade only changed copy and ease any resulting height change using shared motion tokens; reduced motion settles immediately. Returning to one-time purchase restores the ordinary threshold/rate and eligible-product text. A disabled threshold does not disable the subscription entitlement; unsupported destinations/currencies retain neutral checkout guidance.
+
+English and German transactional copy and blank benefit fallbacks are localized. The shared `subscription_benefits/standard` German `shipping_text` was updated through Admin GraphQL after backing up its prior fields outside the repository. Its existing English merchant translation remains the generic rates-shown-for-your-order text: the connected app lacks translation permissions, so the theme does not override the populated translation. No discount percentages, plan frequencies or theme content JSON were changed. Product JSON-LD remains Shopify's real product/offer data; this conditional order-level shipping policy does not introduce a separate entity or an unconditional free-shipping claim on one-time offers.
+
+Verification: phone (390px) and desktop (1440px) purchase-type switches, subscription URL initial rendering, English/German hint text and no horizontal overflow passed. Sampled 22 transition frames: copy opacity eased from 0.35 to 1 without a height jump; reduced motion created no animations. With scripts disabled, subscription and one-time URLs rendered their correct hints, and a subscription cart retained free shipping. All repository gates and JavaScript syntax checks passed. All 31 JSON files passed jq after stripping only Shopify-generated leading comment headers in memory; the raw required jq command rejects those pre-existing headers. The isolated headless browser was closed.
+
+## Ananotes 193 (2026-10-07)
+
+Add to cart retains an opaque shared Surface backing under its existing black oval sweep, producing black-to-white hover/keyboard-focus feedback instead of exposing the product canvas. Outline, label/icon contrast, dimensions, disabled state, native submission and reduced motion remain unchanged. Verified the white backing and no overflow at 390px/1440px and visually inspected the settled hover state.
+
+## Shared subscription landing renderer
+
+The section delegates its existing rendering to `product-detail` without changing its schema, section IDs or ordinary PDP behavior. The [Subscription product](subscription-product.md) section passes an explicit subscription-only mode to the same renderer, reusing commerce controls rather than maintaining a separate purchase implementation. Only that mode changes the heading level, native flavour/variant routes, required-plan presentation, description/marketing visibility and static purchase positioning.
+
+Footnote readability (Ananotes 197 and follow-up, 2026-10-08): dedicated notes now use the [shared footnote contrast treatment](../design-system.md#footnote-contrast-ananotes-197-and-follow-up), replacing the low-contrast Notice/muted color. USP panels retain their own inherited foreground, while open notes follow the canvas. Copy, typography roles and layout are unchanged.
+
+Ananotes 195–196: a selected subscription gives the shipping hint the shared Success surface/text colors; one-time purchase restores its Warm surface. Base transitions preserve smooth changes, with immediate reduced-motion states. Both initial Liquid plans and enhanced plan changes use the same attribute-based styling. Shared dropdown labels now receive optical trimming at every viewport. Phone/desktop rendering, keyboard plan selection and one-time/subscription color switching were verified.
+
+## Flat subscription model (2026-10-08)
+
+All six subscription products and their assigned variants share 2, 4, 6, 8 and 12-week billing/delivery intervals with 15% off. The localized badge says “Save 15%” / “Spare 15%”. Shared benefit source content and English translations describe the same rule. `product-plan-label` removes only the recognized trailing Shopify discount clause, preserving the frequency; the native/enhanced selectors and cart rows reuse it. Authoritative prices and plan IDs still come from allocations. Existing subscriber contracts were not changed.

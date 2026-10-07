@@ -1,11 +1,30 @@
-{% render 'product-detail', product: product, section: section %}
+{%- liquid
+  assign featured_product = section.settings.product
+  if featured_product == blank
+    assign featured_product = all_products['sparklys-soda-blueberry-pomelo']
+  endif
+  if request.page_type == 'product'
+    assign featured_product = product
+  endif
+-%}
+<div id="subscription-product" class="subscription-product">
+  {% if featured_product != blank and featured_product.selling_plan_groups.size > 0 %}
+    {% render 'product-detail', product: featured_product, section: section, subscription_only: true %}
+  {% elsif request.design_mode %}<p>Select a product with subscription plans.</p>{% endif %}
+</div>
 {% schema %}
 {
-  "name": "Product",
+  "name": "Subscription product",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "Product"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Starting product",
+      "info": "Choose a Soda product with subscription plans. Flavours follow the Soda collection."
     },
     {
       "type": "select",
@@ -31,12 +50,6 @@
       "default": false,
       "visible_if": "{{ section.settings.heading_font == 'newake' }}",
       "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
-    },
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "label": "Show vendor",
-      "default": false
     },
     {
       "type": "header",
@@ -123,11 +136,6 @@
       "label": "Custom color",
       "info": "Used only for Custom color. Clear shows the page background. Text, panels and cards keep their own colors.",
       "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "@app"
     }
   ]
 }

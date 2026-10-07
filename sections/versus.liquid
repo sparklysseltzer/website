@@ -194,7 +194,7 @@
         </div>
       </div>
 
-      <div class="versus__notes" data-scroll-motion-reveal>
+      <div class="versus__notes footnote" data-scroll-motion-reveal>
         {%- if disclaimer != blank -%}<p>{{ disclaimer }}</p>{%- endif -%}
         {%- if variant == 'soda' and footnote != blank -%}<p>{{ footnote }}</p>{%- endif -%}
       </div>
@@ -256,7 +256,7 @@
   .versus__fact--boolean dd img { width: 1.4rem; height: 1.4rem; }
   .versus__fact dd strong { font-family: var(--font-body-strong); font-weight: 700; }
   .versus--soda .versus__card--featured .versus__fact:nth-child(-n+5), .versus--seltzer .versus__card--featured .versus__fact:nth-child(-n+2) { color: #006c38; background: rgb(35 199 120 / .1); }
-  .versus__notes { margin: 1.25rem auto 0; color: var(--color-notice-text); font-size: var(--font-size-small); line-height: var(--line-height-body-compact); text-align: center; }
+  .versus__notes { margin: 1.25rem auto 0;  font-size: var(--font-size-small); line-height: var(--line-height-body-compact); text-align: center; }
   .versus__notes p { margin: .25rem 0; }
   @media (min-width: 750px) {
     .versus__card { order: var(--desktop-order); }

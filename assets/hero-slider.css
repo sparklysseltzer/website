@@ -38,6 +38,9 @@
 
 /* A small decorative raster behind the single, sharp media clip. */
 .hero-slider__frame { position: relative; isolation: isolate; }
+/* Keep the standard panel smoke outside the animated media clip. */
+.hero-slider[data-ambient='false'] .hero-slider__frame { border-radius: var(--radius-large); box-shadow: var(--shadow-panel); }
+.hero-slider[data-ambient='false'] .hero-slider__media { box-shadow: none; }
 .hero-slider__ambient {
   --ambient-spread: min(var(--hero-ambient-spread, 24px), 6vw);
   position: absolute;
@@ -146,7 +149,7 @@ body:has(#MainContent > .shopify-section:first-child hero-slider[data-ambient='t
 .hero-slider__action { display: flex; align-items: flex-start; min-width: 0; }
 .hero-slider__action .button { text-align: left; }
 .hero-slider__action-icon { --round-arrow-icon-size: 1.5rem; flex: none; }
-.hero-slider__paging:not([hidden]) { position: absolute; top: var(--hero-paging-top, 0px); right: calc((100% - var(--hero-layout-width, 100%)) / 2); z-index: 2; display: flex; gap: .75rem; transition: top var(--motion-duration-slow) var(--motion-ease); }
+.hero-slider__paging:not([hidden]) { position: absolute; top: var(--hero-paging-top, 0px); right: calc((100% - var(--hero-layout-width, 100%)) / 2); z-index: 2; display: flex; gap: .75rem; }
 .hero-slider__paging .button { --round-arrow-size: 4.5rem; --round-arrow-icon-size: 2rem; cursor: pointer; }
 .hero-slider[data-caption-layout='split'][data-ready] .hero-slider__caption { width: var(--hero-layout-width, 100%); max-width: 100%; justify-self: center; align-self: start; margin: 0; opacity: 0; transform: translateY(.75rem); transition: opacity var(--motion-duration-slow) var(--motion-ease), transform var(--motion-duration-slow) var(--motion-ease); }
 .hero-slider[data-caption-layout='split'][data-ready][data-has-navigation] .hero-slider__caption { padding-inline-end: calc(var(--hero-paging-width) + var(--hero-paging-gap)); min-height: 4.5rem; }
@@ -181,3 +184,15 @@ body:has(#MainContent > .shopify-section:first-child hero-slider[data-ambient='t
   --button-sweep-background: var(--color-text-inverse);
   --round-arrow-background: var(--color-inverse-hover);
 }
+
+/* Initial placement is immediate. Only later caption changes move the paging row. */
+.hero-slider[data-caption-layout='split'][data-intro-complete] .hero-slider__paging:not([hidden]) { transition: top var(--motion-duration-slow) var(--motion-ease); }
+/* Keep media crossfades, but never paint outgoing and incoming copy together. */
+.hero-slider[data-caption-layout='split'][data-ready] .hero-slider__slide:not(.is-active) .hero-slider__caption { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-slider[data-caption-layout='split'][data-intro-complete] .hero-slider__paging:not([hidden]) { transition: none; }
+}
+
+/* The first-panel sweep must never expose another slide behind its curved edge. */
+.hero-slider[data-caption-layout='split'][data-ready]:not([data-intro-complete]) .hero-slider__slide { transition: none; }
+.hero-slider[data-caption-layout='split'][data-ready]:not([data-intro-complete]) .hero-slider__slide:not(.is-active) { visibility: hidden; opacity: 0; }

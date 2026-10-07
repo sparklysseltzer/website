@@ -70,7 +70,7 @@ The former main-navigation gap is implemented in `header-navigation.js` / `.css`
 
 ### Schema review
 
-General → Default navigation; Utility navigation → Corporate navigation / Store finder page; Soda and Hard Seltzer → their existing Navigation pickers. There are no checkbox/select modes or conditional fields. All pickers remain additive and visible; a blank world menu retains the General fallback. Header Link image blocks were removed at merchant request; images belong to the linked resources. No per-category product pickers, animation settings or duplicate resource titles. The header schema is now in the reviewed editor registry; its frozen legacy record is not changed.
+General → Default navigation; Utility navigation → Corporate navigation / Store finder page; Soda and Hard Seltzer → their existing Navigation pickers. The Store Finder visibility checkbox is documented below; menu selectors remain additive. All pickers remain additive and visible; a blank world menu retains the General fallback. Header Link image blocks were removed at merchant request; images belong to the linked resources. No per-category product pickers, animation settings or duplicate resource titles. The header schema is now in the reviewed editor registry; its frozen legacy record is not changed.
 
 ### Hierarchy and imagery
 
@@ -229,3 +229,15 @@ Account-entry verification: the rendered German link is named Kundenkonto and ha
 Product navigation cards reserve a shared 21.25rem frame. Media can shrink slightly to accommodate longer labels such as Hard Seltzer Variety Pack, while labels retain their natural height. This removes the previous roughly 3px Soda/Seltzer panel-height difference without changing catalog cards outside navigation.
 
 Category-motion verification: headless 1440px desktop showed all four Shop category panels at 484px with 340px product cards. At an intermediate Seltzer entry frame, card opacity progressed left to right (0.178, 0.0001, 0). Rapid Soda/Seltzer reversals settled with one active category, inactive content inert and no leftover animations. Reduced motion settled immediately; the 390px mobile dialog retained category selection and had no document overflow. Repository checks, JavaScript syntax and JSON validation passed.
+
+## Ananotes 192 (2026-10-07)
+
+Desktop category changes use one composition timing, `--motion-duration-navigation-content: 640ms`, with shared UI easing. Outgoing content fades for 320ms, then the incoming heading/cards fade for 320ms, avoiding overlapping labels. Panel height eases over the full composition. Cards start alongside the heading with a 40ms stagger capped at 120ms; interrupted fades retain their painted opacity and skip their delay. The outgoing absolute layer spans the complete category grid so its painted position does not gain an extra column offset. The separate 480ms navigation highlight and native/mobile accordion contracts remain unchanged. Verified real category changes and rapid reversal: outgoing panels become closed/inert and release absolute positioning, while only the final category stays active. Reduced motion still settles synchronously.
+
+## Store Finder visibility (2026-10-07)
+
+Header → Utility navigation → **Hide Store Finder** (`hide_store_finder`) defaults to true at merchant request. Enabled hides the dedicated desktop link/fallback, mobile utility link, footer badge and matching header/footer page links. Disabled restores their existing rendering. The existing `store_finder_page` ID and blank `haendler` fallback are preserved. The Page picker remains visible with explanatory help because Shopify does not support conditional visibility for this resource picker. No other field depends on the checkbox.
+
+The Header emits one global CSS visibility rule, allowing its section-owned control to govern the separately rendered footer without duplicate settings or client-side initialization. Hidden elements use `display: none`, removing layout space, keyboard targets and accessibility content with or without JavaScript. Matching uses the selected localized page URL and the localized canonical `haendler` destination. The existing footer placeholder with the legacy `store-finder` link handle is explicitly marked because its destination is only `#`; this compatibility marker does not guess other links from translated display text. Saved menu data, page selection and section IDs remain unchanged. This hides navigation, not access to the page URL, and creates no new structured entity.
+
+Schema modes were reviewed and added to the editor contract. Headless phone/desktop checks covered General, Soda and Seltzer headers/footers, including the opened mobile menu; no visible Store Finder or overflow remained. Disabling only the emitted stylesheet in browser fixtures restored the existing elements in all six route/viewport cases. No authenticated Theme Editor interaction was performed.

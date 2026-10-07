@@ -87,7 +87,7 @@ html:has(.navigation-dialog[open]) { overflow: hidden; }
 }
 
 /* Navigation highlight follows input only; no overshoot or persistent current-page fill. */
-header-navigation { --motion-duration-navigation: 480ms; }
+header-navigation { --motion-duration-navigation: 480ms; --motion-duration-navigation-content: 640ms; }
 
 /* The rail continues through the panel gutter to the viewport edge. */
 @media (min-width: 64rem) {

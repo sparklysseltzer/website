@@ -4388,23 +4388,46 @@
       "seltzer_menu": {
         "group": "Hard Seltzer",
         "visible_if": null
+      },
+      "hide_store_finder": {
+        "group": "Utility navigation",
+        "visible_if": null
       }
     },
-    "controls": {},
+    "controls": {
+      "hide_store_finder": "Hides the dedicated Store Finder header/mobile links, footer badge and matching footer destinations without deleting saved menus. The existing Page picker retains its value and remains visible because Shopify does not support conditional visibility on Page pickers."
+    },
     "scenarios": [
       {
-        "name": "All menu pickers are additive; no mode controls",
-        "settings": {},
+        "name": "Store Finder hidden",
+        "settings": {
+          "hide_store_finder": true
+        },
         "visible": [
           "menu",
           "corporate_menu",
+          "hide_store_finder",
+          "store_finder_page",
+          "soda_menu",
+          "seltzer_menu"
+        ]
+      },
+      {
+        "name": "Store Finder visible",
+        "settings": {
+          "hide_store_finder": false
+        },
+        "visible": [
+          "menu",
+          "corporate_menu",
+          "hide_store_finder",
           "store_finder_page",
           "soda_menu",
           "seltzer_menu"
         ]
       }
     ],
-    "schemaHash": "5352ccfb306a7125da120ddc5ed5f2c44cf735015e33670d7ce29a47e94d352a"
+    "schemaHash": "ac4f831573bf28cf2f5a0ca0a982653c5a9808ce8a39c849f3bf124942b05bea"
   },
   "sections/main-blog.liquid": {
     "fields": {
@@ -17983,5 +18006,207 @@
       }
     ],
     "schemaHash": "34a8c449b28a3468044ccbcee723af7e727fb54cb391f6909c4cbb8d6b03552c"
+  },
+  "sections/subscription-intro.liquid": {
+    "fields": {
+      "heading": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "text": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Content",
+        "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Content",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
+      "image": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "image_alt": {
+        "group": "Image",
+        "visible_if": null
+      },
+      "hide_on_mobile": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "hide_on_desktop": {
+        "group": "Visibility",
+        "visible_if": null
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background_surface": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects heading family; Uppercase headings applies only to Newake.",
+      "uppercase_heading": "Preserves authored casing unless Newake uppercase is enabled.",
+      "hide_on_mobile": "Hides this editorial intro at the selected breakpoint; no dependent fields.",
+      "hide_on_desktop": "Hides this editorial intro at the selected breakpoint; no dependent fields.",
+      "section_background_mode": "Colored enables Surface; Custom color enables the color picker.",
+      "section_background_surface": "Colored enables Surface; Custom color enables the color picker."
+    },
+    "scenarios": [
+      {
+        "name": "Erode transparent",
+        "settings": {
+          "heading_font": "erode",
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "heading_font",
+          "section_background_mode"
+        ],
+        "hidden": [
+          "uppercase_heading",
+          "section_background_surface",
+          "section_background"
+        ]
+      },
+      {
+        "name": "Newake colored custom",
+        "settings": {
+          "heading_font": "newake",
+          "section_background_mode": "custom",
+          "section_background_surface": "custom"
+        },
+        "visible": [
+          "uppercase_heading",
+          "section_background_surface",
+          "section_background"
+        ]
+      },
+      {
+        "name": "Shared surface",
+        "settings": {
+          "section_background_mode": "custom",
+          "section_background_surface": "surface"
+        },
+        "visible": [
+          "section_background_surface"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      },
+      {
+        "name": "Hidden editorial intro",
+        "settings": {
+          "hide_on_mobile": true,
+          "hide_on_desktop": true
+        },
+        "visible": [
+          "hide_on_mobile",
+          "hide_on_desktop"
+        ]
+      },
+      {
+        "name": "Visible editorial intro",
+        "settings": {
+          "hide_on_mobile": false,
+          "hide_on_desktop": false
+        },
+        "visible": [
+          "hide_on_mobile",
+          "hide_on_desktop"
+        ]
+      }
+    ],
+    "schemaHash": "ad5a433e446890f400015fcd2929ea2fde23edb3c63e9e1701c29c71e2ce3293"
+  },
+  "sections/subscription-product.liquid": {
+    "fields": {
+      "product": {
+        "group": "Product",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Product",
+        "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Product",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
+      "section_background_mode": {
+        "group": "Section background",
+        "visible_if": null
+      },
+      "section_background_surface": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
+      }
+    },
+    "controls": {
+      "heading_font": "Selects heading family; Uppercase headings applies only to Newake.",
+      "uppercase_heading": "Preserves authored casing unless Newake uppercase is enabled.",
+      "section_background_mode": "Colored enables Surface; Custom color enables the color picker.",
+      "section_background_surface": "Colored enables Surface; Custom color enables the color picker."
+    },
+    "scenarios": [
+      {
+        "name": "Erode transparent",
+        "settings": {
+          "heading_font": "erode",
+          "section_background_mode": "transparent"
+        },
+        "visible": [
+          "heading_font",
+          "section_background_mode"
+        ],
+        "hidden": [
+          "uppercase_heading",
+          "section_background_surface",
+          "section_background"
+        ]
+      },
+      {
+        "name": "Newake colored custom",
+        "settings": {
+          "heading_font": "newake",
+          "section_background_mode": "custom",
+          "section_background_surface": "custom"
+        },
+        "visible": [
+          "uppercase_heading",
+          "section_background_surface",
+          "section_background"
+        ]
+      },
+      {
+        "name": "Shared surface",
+        "settings": {
+          "section_background_mode": "custom",
+          "section_background_surface": "surface"
+        },
+        "visible": [
+          "section_background_surface"
+        ],
+        "hidden": [
+          "section_background"
+        ]
+      }
+    ],
+    "schemaHash": "ac766a1f0dfd220b19d70010abea663f74668e64af05d02fe86e16c652b036cc"
   }
 }

@@ -80,7 +80,7 @@
           assign footnote = 'sections.soda_ingredients.footnote' | t
         endif
       -%}
-      {%- if footnote != blank -%}<p class="soda-ingredients__footnote" data-scroll-motion-reveal>{{ footnote }}</p>{%- endif -%}
+      {%- if footnote != blank -%}<p class="soda-ingredients__footnote footnote" data-scroll-motion-reveal>{{ footnote }}</p>{%- endif -%}
     </div>
   </section>
 </editorial-section-motion>
@@ -98,7 +98,7 @@
   .soda-ingredients__media img { width: 100%; height: 100%; object-fit: cover; }
 .soda-ingredients__item h3 { min-height: 2em; margin: 1.25rem 0 .75rem; font-family: var(--font-heading-soda); font-size: var(--font-size-card); font-weight: 700; line-height: var(--line-height-heading); letter-spacing: -.03em; overflow-wrap: anywhere; }
   .soda-ingredients__item p { margin: 0; color: var(--color-editorial-muted); font-size: var(--font-size-body); line-height: var(--line-height-body-compact); }
-  .soda-ingredients__footnote { max-width: 37.5rem; margin: 1.875rem auto 0; color: var(--color-notice-text); font-size: var(--font-size-small); line-height: var(--line-height-body-compact); }
+  .soda-ingredients__footnote { max-width: 37.5rem; margin: 1.875rem auto 0;  font-size: var(--font-size-small); line-height: var(--line-height-body-compact); }
   @media (max-width: 989px) { .soda-ingredients__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 2.5rem; } }
   @media (max-width: 549px) { .soda-ingredients__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 {% endstylesheet %}

@@ -9,7 +9,11 @@
   if cart.item_count > 0
     assign qualified_product = true
   endif
+  assign has_subscription = false
   for item in cart.items
+    if item.selling_plan_allocation != blank
+      assign has_subscription = true
+    endif
     assign item_qualifies = false
     if settings.free_shipping_products != blank
       for product in settings.free_shipping_products
@@ -23,7 +27,6 @@
     endif
     unless item_qualifies
       assign qualified_product = false
-      break
     endunless
   endfor
   assign remaining = threshold | minus: cart.total_price | at_least: 0
@@ -31,13 +34,17 @@
   if threshold > 0
     assign progress = cart.total_price | times: 100.0 | divided_by: threshold | at_most: 100 | at_least: 0
   endif
-  if qualified_product
+  assign shipping_rules_enabled = false
+  if threshold > 0 or has_subscription
+    assign shipping_rules_enabled = true
+  endif
+  if qualified_product or has_subscription
     assign remaining = 0
     assign progress = 100
   endif
 -%}
 {%- if mode == 'totals' -%}
-  {%- if supported_destination and cart.currency.iso_code == 'CHF' and threshold > 0 -%}
+  {%- if supported_destination and cart.currency.iso_code == 'CHF' and shipping_rules_enabled -%}
     {%- liquid
       assign shipping_amount = settings.flat_shipping_rate | default: 9 | times: 100 | round | at_least: 0
       if remaining == 0 or cart.requires_shipping == false
@@ -51,11 +58,13 @@
     <p class="cart-totals__total"><span class="cart-totals__label"><strong>{{ 'cart.label.total' | t }}</strong>{% if cart.taxes_included %} <span class="cart-totals__tax">{{ 'cart.general.tax_included_short' | t }}</span>{% endif %}</span><strong>{% render 'cart-money', amount: cart.total_price %}</strong></p>
     <p class="cart-tax">{% if cart.taxes_included %}{{ 'cart.general.taxes_included' | t }}{% else %}{{ 'cart.general.taxes_and_shipping' | t }}{% endif %}</p>
   {%- endif -%}
-{%- elsif supported_destination and cart.currency.iso_code == 'CHF' and threshold > 0 -%}
+{%- elsif supported_destination and cart.currency.iso_code == 'CHF' and shipping_rules_enabled -%}
   <div class="cart-shipping cart-shipping--progress{% if remaining == 0 and cart.item_count > 0 %} cart-shipping--qualified{% endif %}">
     <p id="CartShipping-{{ surface }}" class="cart-shipping__message">
       <span aria-hidden="true">📦</span>
-      {% if remaining == 0 and cart.item_count > 0 %}
+      {% if has_subscription %}
+        {{ 'cart.general.shipping_subscription' | t }} <span aria-hidden="true">🥳</span>
+      {% elsif remaining == 0 and cart.item_count > 0 %}
         {{ 'cart.general.shipping_qualified' | t }} <span aria-hidden="true">🥳</span>
       {%- else -%}
         {%- assign remaining_whole = remaining | divided_by: 100.0 | ceil -%}

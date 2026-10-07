@@ -1,15 +1,15 @@
 {%- liquid
   assign label = plan.name
+  assign parts = label | split: ', '
+  assign discount = parts | last
+  if parts.size > 1 and discount contains '%'
+    if discount contains 'Rabatt' or discount contains 'off'
+      assign suffix = ', ' | append: discount
+      assign label = label | remove_last: suffix
+    endif
+  endif
   if request.locale.iso_code == 'de'
     assign label = label | replace: 'Zustellung', 'Lieferung'
-    assign parts = label | split: ', '
-    assign discount = parts | last
-    if parts.size > 1 and discount contains 'Rabatt'
-      assign suffix = ', ' | append: discount
-      assign frequency = label | remove: suffix
-      assign discount = discount | replace: ' %', '%'
-      assign label = frequency | append: ' (' | append: discount | append: ')'
-    endif
   endif
   if plain
     echo label

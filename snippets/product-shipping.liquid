@@ -7,6 +7,10 @@
   endif
   assign threshold = settings.free_shipping_threshold | default: 50 | times: 100 | round
   assign rate = settings.flat_shipping_rate | default: 9 | times: 100 | round | at_least: 0
+  assign subscription_selected = false
+  if allocation != blank
+    assign subscription_selected = true
+  endif
   assign qualifies = false
   if settings.free_shipping_products != blank
     for qualifying_product in settings.free_shipping_products
@@ -26,11 +30,13 @@
 -%}
 <div class="pdp-shipping">
   <img src="{{ 'icon-pdp-truck.svg' | asset_url }}" alt="" width="24" height="24">
-  <div>
-    {% if supported_destination and threshold > 0 %}
-      <p>{{ 'products.pdp.shipping_threshold' | t: amount: threshold_money }}</p>
-      <p>{{ 'products.pdp.shipping_rate' | t: amount: rate_money }}</p>
-      {% if qualifies %}<p>{{ 'products.pdp.shipping_product' | t }}</p>{% endif %}
+  <div{% if supported_destination %} data-product-shipping data-subscription="{{ subscription_selected }}" aria-live="polite"{% endif %}>
+    {% if supported_destination %}
+      {%- capture standard_heading -%}{% if threshold > 0 %}{{ 'products.pdp.shipping_threshold' | t: amount: threshold_money }}{% else %}{{ 'cart.general.shipping_notice' | t }}{% endif %}{%- endcapture -%}
+      {%- capture standard_detail -%}{% if threshold > 0 %}{{ 'products.pdp.shipping_rate' | t: amount: rate_money }}{% endif %}{%- endcapture -%}
+      <p data-shipping-copy data-once="{{ standard_heading | escape }}" data-subscription="{{ 'products.pdp.shipping_subscription' | t | escape }}">{% if subscription_selected %}{{ 'products.pdp.shipping_subscription' | t }}{% else %}{{ standard_heading }}{% endif %}</p>
+      <p data-shipping-copy data-once="{{ standard_detail | escape }}" data-subscription="{{ 'products.pdp.shipping_subscription_detail' | t | escape }}">{% if subscription_selected %}{{ 'products.pdp.shipping_subscription_detail' | t }}{% else %}{{ standard_detail }}{% endif %}</p>
+      {% if qualifies and threshold > 0 %}<p data-shipping-copy data-once="{{ 'products.pdp.shipping_product' | t | escape }}" data-subscription="">{% unless subscription_selected %}{{ 'products.pdp.shipping_product' | t }}{% endunless %}</p>{% endif %}
     {% else %}<p>{{ 'cart.general.shipping_notice' | t }}</p>{% endif %}
   </div>
 </div>

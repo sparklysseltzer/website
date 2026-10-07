@@ -55,6 +55,7 @@ select.form-control { appearance: none; padding-right: 3.25rem; background-image
 /* A native select supplies the value and no-JS fallback. The enhanced popup follows Figma. */
 sparklys-select { display: block; position: relative; min-width: 0; }
 .form-select__trigger { position: relative; z-index: 11; display: flex; align-items: center; justify-content: space-between; gap: .75rem; text-align: left; font-family: var(--field-font-family); font-weight: var(--field-font-weight); cursor: pointer; }
+.form-select__trigger > span { text-box-trim: trim-both; text-box-edge: cap alphabetic; }
 .form-select__trigger::after { content: ''; width: 1.5rem; height: 1.5rem; flex-shrink: 0; background: currentColor; mask: url('icon-form-chevron-down.svg') center / contain no-repeat; transition: transform var(--motion-duration-fast) var(--motion-ease); }
 .form-select__trigger[aria-expanded='true']::after { transform: rotate(180deg); }
 .form-select__menu { position: absolute; z-index: 10; top: 0; left: 0; width: 100%; padding: calc(var(--form-control-height) + .25rem) .375rem .375rem; border: var(--form-control-border-width) solid var(--form-control-border); border-radius: calc(var(--form-control-height) / 2); background: var(--form-control-surface); box-shadow: 0 .5rem 1.5rem rgb(0 0 0 / 8%); }

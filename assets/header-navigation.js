@@ -143,7 +143,7 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
       ? [{ height: `${height}px`, opacity, overflow: 'hidden' }, { height: `${open ? panel.scrollHeight : 0}px`, opacity: open ? 1 : 0, overflow: 'hidden' }]
       : desktopCategory ? [{ opacity }, { opacity: 0 }]
       : [{ opacity, transform }, { opacity: open ? 1 : 0, transform: `translateY(${open ? 0 : -6}px)` }];
-    this.animate(panel, frames, desktopCategory ? 'fast' : accordion ? 'base' : 'slow', () => { if (!open) { details.open = false; if (details.hasAttribute('data-nav-category')) this.clearLeaving(panel); } });
+    this.animate(panel, frames, desktopCategory ? 'navigation-content' : accordion ? 'base' : 'slow', () => { if (!open) { details.open = false; if (details.hasAttribute('data-nav-category')) this.clearLeaving(panel); } }, desktopCategory ? { duration: parseFloat(getComputedStyle(this).getPropertyValue('--motion-duration-navigation-content')) / 2, easing: getComputedStyle(this).getPropertyValue('--motion-ease-ui').trim() } : {});
   }
   selectRoot(root) {
     if (this.root === root) { this.closeRoot(false); return; }
@@ -184,8 +184,8 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     if (this.reduced.matches || !paintedHeight || Math.abs(paintedHeight - toHeight) < 1) return;
     const tokens = getComputedStyle(this);
     const animation = panel.animate([{ height: `${paintedHeight}px` }, { height: `${toHeight}px` }], {
-      duration: parseFloat(tokens.getPropertyValue('--motion-duration-base')),
-      easing: tokens.getPropertyValue('--motion-ease').trim(),
+      duration: parseFloat(tokens.getPropertyValue('--motion-duration-navigation-content')),
+      easing: tokens.getPropertyValue('--motion-ease-ui').trim(),
     });
     this.heightEffects.set(panel, animation);
     animation.finished.then(() => {
@@ -193,7 +193,7 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     }).catch(() => {});
   }
   clearLeaving(content) {
-    for (const property of ['position', 'left', 'top', 'width']) content.style.removeProperty(property);
+    for (const property of ['position', 'left', 'top', 'width', 'grid-column']) content.style.removeProperty(property);
   }
   selectCategory(category) {
     const root = category.closest('[data-nav-root]');
@@ -210,7 +210,7 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
       if (current) {
         const outgoing = current.querySelector(':scope > .navigation-content');
         const rect = outgoing.getBoundingClientRect(), origin = outgoing.parentElement.parentElement.getBoundingClientRect();
-        Object.assign(outgoing.style, { position: 'absolute', left: `${rect.left - origin.left}px`, top: `${rect.top - origin.top}px`, width: `${rect.width}px` });
+        Object.assign(outgoing.style, { position: 'absolute', gridColumn: '1 / -1', left: `${rect.left - origin.left}px`, top: `${rect.top - origin.top}px`, width: `${rect.width}px` });
       }
     }
     if (current) this.transition(current, false);
@@ -222,17 +222,19 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
   reveal(owner, categoryChange = false, paintedOpacity = 0) {
     if (this.reduced.matches) return;
     const cards = [...owner.querySelectorAll('.navigation-cards > *')].filter(card => !card.closest('[inert]'));
+    const phaseDuration = parseFloat(getComputedStyle(this).getPropertyValue('--motion-duration-navigation-content')) / 2;
     if (categoryChange) {
       const heading = owner.querySelector('.navigation-content__heading');
-      this.animate(heading, [{ opacity: Number(getComputedStyle(heading).opacity) * paintedOpacity }, { opacity: 1 }], 'slow');
+      this.animate(heading, [{ opacity: Number(getComputedStyle(heading).opacity) * paintedOpacity }, { opacity: 1 }], 'navigation-content', undefined, { duration: phaseDuration, delay: paintedOpacity > 0 ? 0 : phaseDuration, easing: getComputedStyle(this).getPropertyValue('--motion-ease-ui').trim() });
     }
     cards.forEach((card, index) => {
       if (categoryChange) {
         // Real delays preserve the full fade duration for every card. On reversal,
         // continue from the combined painted card/panel opacity without waiting.
         const opacity = Number(getComputedStyle(card).opacity) * paintedOpacity;
-        this.animate(card, [{ opacity }, { opacity: 1 }], 'navigation', undefined, {
-          delay: opacity > 0 ? 0 : 80 + Math.min(index * 70, 210),
+        this.animate(card, [{ opacity }, { opacity: 1 }], 'navigation-content', undefined, {
+          duration: phaseDuration,
+          delay: opacity > 0 ? 0 : phaseDuration + Math.min(index * 40, 120),
           easing: getComputedStyle(this).getPropertyValue('--motion-ease-ui').trim(),
         });
       } else {

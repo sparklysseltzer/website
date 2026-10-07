@@ -1,0 +1,70 @@
+{% comment %}Resolve the canvas to soft black/white footnote ink without changing other section text.{% endcomment %}
+{%- liquid
+  assign page_surface = '#f2f0e9'
+  case request.page_type
+    when 'product'
+      assign page_surface = product.metafields.custom.soda_background_color.value | default: '#ffffff'
+    when 'index', 'cart', 'collection', 'list-collections'
+      assign page_surface = '#ffffff'
+  endcase
+  assign surface = canvas
+  if surface contains 'var('
+    assign role = surface | remove: 'var(--color-' | remove: ')'
+    assign key = role | replace: '-', '_' | prepend: 'color_'
+    assign surface = settings[key]
+    if surface == blank
+      capture world
+        render 'brand-context', soda_collection: collections['soda'], seltzer_collection: collections['hard-seltzer']
+      endcapture
+      assign world = world | strip | replace: 'default', 'general'
+      if section.settings.variant == 'soda' or section.settings.variant == 'seltzer'
+        assign world = section.settings.variant
+      endif
+      assign key = role | replace: '-', '_' | prepend: '_' | prepend: world | prepend: 'color_'
+      assign surface = settings[key]
+    endif
+    if surface == blank
+      case role
+        when 'surface-inverse'
+          assign surface = '#191919'
+        when 'foreground'
+          assign surface = '#000000'
+        when 'inverse-hover'
+          assign surface = '#4d4d4d'
+        else
+          assign surface = '#ffffff'
+      endcase
+    endif
+  endif
+  if role == 'page-background'
+    assign surface = page_surface
+  endif
+  if surface == blank or surface == 'transparent'
+    assign surface = page_surface
+  endif
+  assign alpha = surface | color_extract: 'alpha'
+  if alpha < 1
+    assign backdrop = page_surface
+    assign weight = alpha | times: 100
+    assign opaque_surface = surface | color_modify: 'alpha', 1
+    assign surface = opaque_surface | color_mix: backdrop, weight
+  endif
+  assign black_contrast = surface | color_contrast: '#000000'
+  assign white_contrast = surface | color_contrast: '#ffffff'
+  assign ink = '#000000'
+  if white_contrast > black_contrast
+    assign ink = '#ffffff'
+  endif
+  assign strength = 70
+  assign painted = ink | color_mix: surface, strength
+  assign contrast = painted | color_contrast: surface
+  if contrast < 4.5
+    assign strength = 85
+    assign painted = ink | color_mix: surface, strength
+    assign contrast = painted | color_contrast: surface
+    if contrast < 4.5
+      assign strength = 100
+    endif
+  endif
+-%}
+--footnote-ink: {{ ink }}; --footnote-strength: {{ strength }}%;

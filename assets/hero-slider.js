@@ -137,6 +137,11 @@
       cancelAnimationFrame(this.layoutFrame);
       cancelAnimationFrame(this.frame);
       this.removeAttribute('data-ready');
+      this.introAnimations?.forEach(animation => animation.cancel());
+      this.introAnimations = null;
+      this.removeAttribute('data-intro-complete');
+      this.removeAttribute('data-layout-ready');
+      clearTimeout(this.startupTimer);
       this.abort = new AbortController();
       const options = { signal: this.abort.signal };
       this.slides = [...this.querySelectorAll('[data-slide]')];
@@ -203,6 +208,7 @@
       }
       document.addEventListener('visibilitychange', () => this.sync(), options);
       this.motion.addEventListener('change', () => {
+        if (this.motion.matches && this.introAnimations) this.finishIntro();
         if (this.hasAttribute('data-media-only') && this.motion.matches) this.querySelectorAll('video').forEach(video => video.pause());
         this.sync();
       }, options);
@@ -225,6 +231,68 @@
       if (header) this.layoutObserver.observe(header);
       window.addEventListener('resize', scheduleLayout, options);
       this.layout();
+      if (this.dataset.captionLayout === 'split') {
+        const signal = this.abort.signal;
+        // Font metrics affect caption wrapping and therefore the fitted media width.
+        // Bound startup so a failed font request cannot hide otherwise usable content.
+        const timeout = new Promise(resolve => { this.startupTimer = setTimeout(resolve, 2500); });
+        Promise.race([document.fonts.ready, timeout]).then(() => {
+          clearTimeout(this.startupTimer);
+          if (signal.aborted || !this.isConnected) return;
+          requestAnimationFrame(() => {
+            if (signal.aborted || !this.isConnected) return;
+            this.layout();
+            this.startIntro();
+            this.setAttribute('data-layout-ready', '');
+            this.sync();
+          });
+        });
+      }
+    }
+    startIntro() {
+      if (this.motion.matches || window.Shopify?.designMode) { this.finishIntro(); return; }
+      const slide = this.slides[this.index];
+      const media = slide.querySelector('.hero-slider__media');
+      const heading = slide.querySelector('.hero-slider__heading');
+      const action = slide.querySelector('.hero-slider__action');
+      const paging = this.querySelector('.hero-slider__paging');
+      const style = getComputedStyle(this);
+      const duration = (name, fallback) => parseFloat(style.getPropertyValue(name)) || fallback;
+      const textTime = duration('--motion-duration-slow', 360);
+      const panelTime = textTime * 3;
+      const controlsTime = duration('--motion-duration-base', 260);
+      const captionDelay = duration('--motion-duration-fast', 200);
+      const stagger = captionDelay * .3;
+      const easing = style.getPropertyValue('--motion-ease').trim() || 'ease';
+      const animations = [];
+      const animate = (element, frames, time, delay = 0, curve = easing) => {
+        if (element) animations.push(element.animate(frames, { duration: time, delay, easing: curve, fill: 'both' }));
+      };
+      const rise = [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }];
+      // Match the shared button sweep's 180% × 300% oval, moving downward.
+      const sweepEase = style.getPropertyValue('--motion-ease-ui').trim();
+      animate(media, [
+        { clipPath: 'ellipse(90% 150% at 50% -150%)' },
+        { clipPath: 'ellipse(90% 150% at 50% 0%)' }
+      ], panelTime, 0, sweepEase || easing);
+      animate(heading, rise, textTime, captionDelay);
+      if (action) action.inert = true;
+      animate(action, rise, textTime, captionDelay + stagger);
+      if (paging && !paging.hidden) {
+        paging.inert = true;
+        animate(paging, [{ opacity: 0 }, { opacity: 1 }], controlsTime, captionDelay + stagger * (action ? 2 : 1));
+      }
+      this.introAnimations = animations;
+      Promise.all(animations.map(animation => animation.finished)).then(() => {
+        if (this.isConnected && this.introAnimations === animations) this.finishIntro();
+      }).catch(() => {});
+    }
+    finishIntro() {
+      this.introAnimations?.forEach(animation => animation.cancel());
+      this.introAnimations = null;
+      this.querySelectorAll('.hero-slider__action, .hero-slider__paging').forEach(element => { element.inert = false; });
+      this.setAttribute('data-intro-complete', '');
+      this.sync();
     }
     layout() {
       if (!this.isConnected) return;
@@ -259,7 +327,8 @@
       const shell = this.closest('.hero-slider-shell');
       const shellStyle = shell && getComputedStyle(shell);
       const padding = shellStyle ? parseFloat(shellStyle.paddingTop) + parseFloat(shellStyle.paddingBottom) : 0;
-      const header = parseFloat(style.getPropertyValue('--sticky-header-height')) || 0;
+      const header = document.querySelector('.shopify-section-header')?.getBoundingClientRect().height
+        || parseFloat(style.getPropertyValue('--sticky-header-height')) || 0;
       const gap = Math.min(parseFloat(style.getPropertyValue('--hero-heading-gap')) || 40, innerWidth * .06);
       const captions = this.slides.map(slide => slide.querySelector('.hero-slider__caption'));
       const headings = this.slides.map(slide => slide.querySelector('.hero-slider__heading'));
@@ -297,6 +366,7 @@
     }
     show(index, announce = false) {
       if (index === this.index && this.hasAttribute('data-ready')) return;
+      if (this.introAnimations) this.finishIntro();
       this.index = index;
       this.elapsed = 0;
       this.slides.forEach((slide, i) => {
@@ -318,7 +388,8 @@
     sync() {
       cancelAnimationFrame(this.frame);
       this.lastTime = null;
-      const suspended = !this.visible || document.hidden || this.editorPaused;
+      const startup = this.dataset.captionLayout === 'split' && !this.hasAttribute('data-layout-ready');
+      const suspended = startup || !this.visible || document.hidden || this.editorPaused;
       const videoPaused = suspended || this.motion.matches;
       this.slides.forEach((slide, i) => {
         const video = slide.querySelector('video');
@@ -342,7 +413,8 @@
         this.ambient.clear();
       }
       this.paint();
-      if (!this.hovered && !this.focusPaused && !videoPaused && this.autoplay && this.slides.length > 1 && !this.motion.matches) {
+      const entering = this.dataset.captionLayout === 'split' && !this.hasAttribute('data-intro-complete');
+      if (!entering && !this.hovered && !this.focusPaused && !videoPaused && this.autoplay && this.slides.length > 1 && !this.motion.matches) {
         this.frame = requestAnimationFrame(time => this.tick(time));
       }
     }
@@ -360,6 +432,9 @@
       });
     }
     disconnectedCallback() {
+      this.introAnimations?.forEach(animation => animation.cancel());
+      this.introAnimations = null;
+      clearTimeout(this.startupTimer);
       this.layoutObserver?.disconnect();
       cancelAnimationFrame(this.layoutFrame);
       this.ambient?.forEach(light => light.destroy());

@@ -44,8 +44,10 @@
 -%}
 {%- if canvas_color != blank -%}
   {% style %}
-    #shopify-section-{{ section.id }} { background-color: {{ canvas_color }}; }
+    #shopify-section-{{ section.id }} { background-color: {{ canvas_color }}; {% render 'footnote-colors', canvas: canvas_color, section: section %} }
     #shopify-section-{{ section.id }} [data-section-background]{% if surface != blank %},
     #shopify-section-{{ section.id }} {{ surface }}{% endif %} { background: transparent; }
   {% endstyle %}
+{%- else -%}
+  {% style %}#shopify-section-{{ section.id }} { {% render 'footnote-colors', canvas: 'transparent', section: section %} }{% endstyle %}
 {%- endif -%}
