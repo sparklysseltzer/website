@@ -15,6 +15,7 @@
         "selection_mode": "selected",
         "slides": [
           "sparklys-soda-slider",
+          "sparklys-soda",
           "sparklys-hard-seltzer-slider"
         ],
         "content_width": "page",
@@ -28,7 +29,6 @@
         "heading_level": "h1",
         "accessible_label": "Sparklys",
         "show_indicators": false,
-        "oval_transition": true,
         "ambient_light": false,
         "ambient_intensity": 50,
         "ambient_spread": 28,
