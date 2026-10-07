@@ -192,3 +192,8 @@ body[data-inspector-open='false'] .studio-inspector { transform: translateX(100%
 @media (max-width: 600px) { .studio-blog-surface-grid { padding: 1rem; } }
 
 .studio-button-surface { display: flex; flex-wrap: wrap; gap: 1rem; padding: 2rem; background: var(--color-surface-warm); border-radius: var(--radius-small); }
+
+.studio-link-surfaces { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; }
+.studio-link-surfaces > div { padding: 1.5rem; border-radius: var(--radius-small); background: var(--color-surface); color: var(--color-foreground); }
+.studio-link-surfaces .studio-link-surface--dark { background: var(--color-foreground); color: var(--color-text-inverse); }
+.studio-link-surfaces .studio-link-surface--muted { background: var(--color-surface-muted); }

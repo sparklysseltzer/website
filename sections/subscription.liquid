@@ -183,17 +183,9 @@
   .subscription__actions { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; }
   .subscription__actions .button { --button-background: var(--color-surface); padding-inline: 2.25rem; }
   .subscription__account p { margin: 0; }
-  .subscription__account .text-link { position: relative; display: inline-flex; align-items: center; text-decoration: underline; text-underline-offset: .15em; }
+  .subscription__account .text-link { position: relative; display: inline-flex; align-items: center; text-decoration: none; }
   /* Extend the hit area, not the visible line box, to preserve the compact pair. */
   .subscription__account .text-link::after { content: ''; position: absolute; inset-inline: 0; top: 50%; height: max(100%, 2.75rem); transform: translateY(-50%); }
-  .subscription--seltzer .text-link { --text-link-highlight: var(--color-surface); }
-  .subscription .text-link__label { color: inherit; mix-blend-mode: normal; }
-  .subscription .text-link:focus-visible .text-link__label { color: var(--color-foreground); }
-  .subscription--soda .text-link:focus-visible .text-link__label { color: var(--color-text-inverse); }
-  @media (hover: hover) {
-    .subscription .text-link:hover .text-link__label { color: var(--color-foreground); }
-    .subscription--soda .text-link:hover .text-link__label { color: var(--color-text-inverse); }
-  }
   @media (max-width: 84rem) { .subscription__inner { padding-inline: clamp(1.5rem, 5vw, 4rem); } }
   @media (min-width: 48rem) and (max-width: 64rem) { .subscription__content { width: 25rem; } .subscription--soda .subscription__overlay { background: linear-gradient(90deg, #8cd0ff 8%, rgb(140 208 255 / 95%) 34%, transparent 78%); } }
   @media (max-width: 47.999rem) {

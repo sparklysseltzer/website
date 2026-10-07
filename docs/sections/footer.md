@@ -113,3 +113,5 @@ Store finder, Digestive Health and Ingredients remain unchanged because no clear
 ## Shared heading casing
 
 **Heading font** uses the standard two-choice Erode/Newake segmented control. **Uppercase headings** appears immediately after it only for explicit Newake and follows the font control's content visibility. On uppercases semantic headings (including rich text); off preserves authored case. Erode ignores saved uppercase. Legacy saved Automatic values remain rendering compatibility only; the editor offers Erode and Newake. See the [heading control standard](../design-system.md#editorial-heading-font-selection). Font/casing schema scenarios are registered; no saved template content or structured data changes.
+
+Footer navigation and legal links use the shared trailing-arrow text-link treatment. Labels and arrows inherit their resting colour throughout hover/focus, preserving contrast on the dark footer. The former white sweep and legal-label colour override are removed.
