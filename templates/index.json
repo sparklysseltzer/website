@@ -33,7 +33,7 @@
         "ambient_spread": 28,
         "ambient_blur": 72,
         "autoplay": true,
-        "duration": 6,
+        "duration": 10,
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
