@@ -181,6 +181,7 @@
       "settings": {
         "content_width": "editorial",
         "variant": "soda",
+        "image": "shopify://shop_images/sparklys-abomodell.png",
         "image_alt": "",
         "show_logo": false,
         "show_heading": true,
