@@ -297,6 +297,17 @@
             "blend_with_background": false
           }
         },
+        "card_p7qAJn": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/sparklys_teaser_team.png",
+            "title": "Team",
+            "text": "",
+            "link": "shopify://pages/team",
+            "background_color": "",
+            "blend_with_background": false
+          }
+        },
         "card_yxUFLM": {
           "type": "card",
           "settings": {
@@ -308,13 +319,13 @@
             "blend_with_background": false
           }
         },
-        "card_p7qAJn": {
+        "card_KpRYmz": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/sparklys_teaser_team.png",
-            "title": "Team",
+            "image": "shopify://shop_images/team-cannette-sparklys-mascot.webp",
+            "title": "Blog",
             "text": "",
-            "link": "shopify://pages/team",
+            "link": "shopify://blogs/news",
             "background_color": "",
             "blend_with_background": false
           }
@@ -330,21 +341,10 @@
             "blend_with_background": true
           }
         },
-        "card_KpRYmz": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/team-cannette-sparklys-mascot.webp",
-            "title": "Blog",
-            "text": "",
-            "link": "shopify://blogs/news",
-            "background_color": "",
-            "blend_with_background": false
-          }
-        },
         "card_JEnyRT": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/team-gian-huber-sparklys-retail.webp",
+            "image": "shopify://shop_images/sparklys_teaser_kontakt.png",
             "title": "Kontakt",
             "text": "",
             "link": "shopify://pages/kontakt",
@@ -355,10 +355,10 @@
       },
       "block_order": [
         "card_LVLUnR",
-        "card_yxUFLM",
         "card_p7qAJn",
-        "card_WKdwVM",
+        "card_yxUFLM",
         "card_KpRYmz",
+        "card_WKdwVM",
         "card_JEnyRT"
       ],
       "name": "Content Slider — Crosslinks",
