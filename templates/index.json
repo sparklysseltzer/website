@@ -300,12 +300,12 @@
         "card_yxUFLM": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/sparklys_hard_seltzer_gift_card_500.jpg",
+            "image": "shopify://shop_images/sparklys_teaser_gutscheine.png",
             "title": "Gutscheine",
             "text": "",
             "link": "shopify://products/digitale-sparklys-geschenkkarte",
-            "background_color": "#f5d2a2",
-            "blend_with_background": true
+            "background_color": "",
+            "blend_with_background": false
           }
         },
         "card_p7qAJn": {
