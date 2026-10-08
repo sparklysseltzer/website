@@ -33,6 +33,7 @@
         "ambient_intensity": 50,
         "ambient_spread": 28,
         "ambient_blur": 72,
+        "oval_transition": true,
         "autoplay": true,
         "duration": 10,
         "hide_on_mobile": false,
@@ -80,6 +81,7 @@
         "product_CxQUgB": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/product-overview-seltzer-maracuja.png",
             "title": "Maracuja",
             "link": "",
             "brand": "hard_seltzer",
@@ -96,6 +98,7 @@
         "product_erzbCf": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/product-overview-seltzer-holunder.png",
             "title": "Holunder",
             "link": "",
             "brand": "hard_seltzer",
