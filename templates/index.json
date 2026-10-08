@@ -333,12 +333,12 @@
         "card_WKdwVM": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/holunder-on-the-loose-05-an-model-accessoire-tasche-sparklys-hard-seltzer.jpg",
-            "title": "Presse & Medien",
+            "image": "shopify://shop_images/sparklys_teaser_faq.png",
+            "title": "FAQ",
             "text": "",
-            "link": "shopify://pages/press-media",
+            "link": "shopify://pages/faq",
             "background_color": "#d5d5d5",
-            "blend_with_background": true
+            "blend_with_background": false
           }
         },
         "card_JEnyRT": {
