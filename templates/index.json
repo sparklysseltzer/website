@@ -289,7 +289,7 @@
         "card_LVLUnR": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/sparklys-hard-seltzer-mobil-bar-events.jpg",
+            "image": "shopify://shop_images/sparklys_teaser_geschichte.png",
             "title": "Geschichte",
             "text": "",
             "link": "shopify://pages/ueber-uns",
@@ -311,7 +311,7 @@
         "card_p7qAJn": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Sparklys-Team-Foto-Sparlys-Soda-Sparklys-Hard-Seltzer.jpg",
+            "image": "shopify://shop_images/sparklys_teaser_team.png",
             "title": "Team",
             "text": "",
             "link": "shopify://pages/team",
