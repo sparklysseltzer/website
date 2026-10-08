@@ -156,6 +156,7 @@
       this.buttons = [...this.querySelectorAll('[data-slide-button]')];
       this.status = this.querySelector('[data-status]');
       this.motion = matchMedia('(prefers-reduced-motion: reduce)');
+      this.mobile = matchMedia('(width < 768px)');
       this.index = 0;
       this.elapsed = 0;
       this.duration = Math.max(4000, Number(this.dataset.duration) || 6000);
@@ -164,6 +165,20 @@
       this.focusPaused = false;
       this.visible = false;
       this.editorPaused = Boolean(window.Shopify?.designMode);
+      if (this.dataset.captionLayout === 'split') {
+        this.viewportProbe = this.querySelector('.hero-slider__viewport-probe') || document.createElement('span');
+        this.viewportProbe.className = 'hero-slider__viewport-probe';
+        this.viewportProbe.setAttribute('aria-hidden', 'true');
+        this.append(this.viewportProbe);
+        this.updateMedia();
+        this.mobile.addEventListener('change', () => {
+          this.finishIntro();
+          this.finishSlideTransition();
+          this.updateMedia();
+          this.layout();
+          this.sync();
+        }, options);
+      }
       this.querySelector('.hero-slider__controls').hidden = this.slides.length < 2 || this.dataset.showIndicators === 'false';
       const paging = this.querySelector('.hero-slider__paging');
       if (paging) paging.hidden = this.slides.length < 2;
@@ -354,6 +369,26 @@
       let width = this.clientWidth;
       let captionHeight = 0;
       let height = 0;
+      if (compact) {
+        // Cache by width: toolbar/keyboard height-only resizes must not refit the panel.
+        // Rotation and genuine width changes establish a fresh small viewport budget.
+        if (!this.mobileLayout || this.mobileLayout.width !== innerWidth) {
+          this.mobileLayout = { width: innerWidth, viewport: this.viewportProbe.getBoundingClientRect().height, header };
+        }
+        set('--hero-layout-width', width);
+        captionHeight = Math.max(...captions.map(caption => caption.offsetHeight));
+        height = Math.max(this.mobileLayout.viewport - this.mobileLayout.header - padding, captionHeight + gap + rootSize * 12);
+        const mediaHeight = height - captionHeight - gap;
+        set('--hero-mobile-media-height', mediaHeight);
+        set('--hero-layout-height', height);
+        set('--hero-layout-heading', captionHeight);
+        set('--hero-layout-space', gap);
+        const captionGap = parseFloat(getComputedStyle(captions[0]).rowGap) || 0;
+        set('--hero-paging-top', mediaHeight + gap + headings[this.index].offsetHeight + captionGap);
+        return;
+      }
+      this.mobileLayout = null;
+      this.style.removeProperty('--hero-mobile-media-height');
       // Fit monotonically from the available width, accounting for text wrapping
       // and the CTA. This avoids alternating between two widths at a line break.
       for (let pass = 0; pass < 8; pass += 1) {
@@ -388,6 +423,31 @@
         outgoing.currentTime = 0;
       }
     }
+    updateMedia() {
+      this.ambient.forEach(light => light.destroy());
+      this.ambient.clear();
+      this.slides.forEach(slide => {
+        const template = slide.querySelector('template[data-mobile-media]');
+        if (!template) return;
+        const frame = slide.querySelector('.hero-slider__frame');
+        const media = slide.querySelector('.hero-slider__media');
+        if (!slide.heroMedia) {
+          slide.heroMedia = {
+            desktop: media.querySelector('img, video, svg'),
+            mobile: template.content.firstElementChild.cloneNode(true),
+            poster: frame.dataset.ambientPoster || ''
+          };
+        }
+        const sources = slide.heroMedia;
+        const selected = this.mobile.matches ? sources.mobile : sources.desktop;
+        const current = media.querySelector('img, video, svg');
+        if (current !== selected) {
+          if (current?.tagName === 'VIDEO') { current.pause(); current.currentTime = 0; }
+          current.replaceWith(selected);
+        }
+        frame.dataset.ambientPoster = this.mobile.matches ? template.dataset.ambientPoster || '' : sources.poster;
+      });
+    }
     transitionSlide(previous, direction) {
       const incoming = this.slides[this.index].querySelector('.hero-slider__media');
       if (!incoming) return;
@@ -400,10 +460,14 @@
       const to = direction < 0 ? 100 : 0;
       this.slides[previous].classList.add('is-leaving');
       this.setAttribute('data-transitioning', '');
-      const animation = incoming.animate([
+      const frames = this.mobile.matches ? [
+        { clipPath: 'ellipse(90% 150% at 50% -150%)' },
+        { clipPath: 'ellipse(90% 150% at 50% 0%)' }
+      ] : [
         { clipPath: `ellipse(150% 150% at ${from}% 50%)` },
         { clipPath: `ellipse(150% 150% at ${to}% 50%)` }
-      ], { duration, easing, fill: 'both' });
+      ];
+      const animation = incoming.animate(frames, { duration, easing, fill: 'both' });
       const animations = [animation];
       const artwork = incoming.querySelector('img, video');
       if (artwork) animations.push(artwork.animate([

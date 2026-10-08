@@ -65,6 +65,16 @@
               {%- endif -%}
               {%- if slide.link.value != blank -%}<a class="hero-slider__media-link" href="{{ slide.link.value }}" aria-label="{{ slide_heading | escape }}" tabindex="-1" aria-hidden="true"></a>{%- endif -%}
             </div>
+            {%- if slide.mobile_media.value != blank -%}
+              <template data-mobile-media{% if slide.mobile_media.value.media_type == 'video' %} data-ambient-poster="{{ slide.mobile_media.value.preview_image | image_url: width: 128 }}"{% endif %}>
+                {%- if slide.mobile_media.value.media_type == 'video' -%}
+                  {{ slide.mobile_media.value | video_tag: image_size: '1100x', controls: false, autoplay: false, muted: true, loop: true, playsinline: true, preload: 'none' }}
+                {%- else -%}
+                  {%- assign mobile_alt = slide.mobile_media.value.alt | default: slide_heading -%}
+                  {{ slide.mobile_media.value | image_url: width: 1500 | image_tag: widths: '480, 750, 1100, 1500', sizes: '100vw', loading: loading, alt: mobile_alt }}
+                {%- endif -%}
+              </template>
+            {%- endif -%}
             </div>
             <div class="hero-slider__caption">
               <{{ heading_tag }} class="hero-slider__heading">{{ slide_heading | escape | newline_to_br }}</{{ heading_tag }}>
@@ -362,7 +372,7 @@
       "id": "oval_transition",
       "label": "Oval slide transition",
       "default": true,
-      "info": "Reveals slides with an oval sweep, moving right for Next and left for Previous. Off uses a fade. Reduced motion skips the effect."
+      "info": "Sweeps sideways on desktop and top to bottom on phones. Off uses a fade. Reduced motion skips the effect."
     },
     {
       "type": "checkbox",

@@ -10,6 +10,7 @@ const source = sourcePath ? JSON.parse(await readFile(sourcePath, 'utf8')) : [];
 const fields = [
   { key: 'name', name: 'Name', type: 'single_line_text_field', required: true, description: 'Internal name used when selecting slides.' },
   { key: 'media', name: 'Media', type: 'file_reference', required: true, description: 'Choose one image or video. Videos play muted.', validations: [{ name: 'file_type_options', value: '["Image","Video"]' }] },
+  { key: 'mobile_media', name: 'Mobile media', type: 'file_reference', description: 'Optional image or video for phones. Blank uses Media, cropped to fill the panel.', validations: [{ name: 'file_type_options', value: '["Image","Video"]' }] },
   { key: 'headline', name: 'Headline', type: 'multi_line_text_field', required: true, description: 'Displayed below the media. Line breaks are preserved.' },
   { key: 'link', name: 'Link', type: 'url', description: 'Optional destination URL for the media and button: a page, product, collection or external website.' },
   { key: 'button_label', name: 'Button label', type: 'single_line_text_field', description: 'Optional action label. Leave blank to use the storefront’s translated Learn more label. The button uses Link.' },
@@ -25,11 +26,11 @@ for (const entry of source) {
 }
 if (before.metaobjectDefinitionByType) for (const field of fields) {
   const actual = before.metaobjectDefinitionByType.fieldDefinitions.find(f => f.key === field.key);
-  if (!actual && field.key === 'button_label') continue;
+  if (!actual && ['button_label', 'mobile_media'].includes(field.key)) continue;
   if (!actual || actual.type.name !== field.type || actual.required !== Boolean(field.required)) throw Error(`Existing definition differs at ${field.key}`);
   for (const validation of field.validations || []) if (!actual.validations.some(v => v.name === validation.name && v.value === validation.value)) throw Error(`Existing validation differs at ${field.key}`);
 }
-const additions = before.metaobjectDefinitionByType ? fields.filter(field => field.key === 'button_label' && !before.metaobjectDefinitionByType.fieldDefinitions.some(actual => actual.key === field.key)) : [];
+const additions = before.metaobjectDefinitionByType ? fields.filter(field => ['button_label', 'mobile_media'].includes(field.key) && !before.metaobjectDefinitionByType.fieldDefinitions.some(actual => actual.key === field.key)) : [];
 console.log(JSON.stringify({ definition: before.metaobjectDefinitionByType ? 'Preserve Slides' : 'Create Slides', addFields: additions.map(field => field.key), entries: source.filter(e => !before.metaobjects.nodes.some(x => x.handle === e.handle)).map(e => e.name) }));
 if (!process.argv.includes('--apply')) process.exit(0);
 const backup = join(homedir(), 'Library/Application Support/Sparklys/store-backups', `slides-${Date.now()}`);

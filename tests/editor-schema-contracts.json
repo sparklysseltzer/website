@@ -16394,7 +16394,7 @@
     ]
   },
   "sections/hero-slider.liquid": {
-    "schemaHash": "91b045225f12330025fed64a61811aad5d4d3782d32c757fea15007addd57871",
+    "schemaHash": "874e1c90f346f036a668f12cd3f24888245032fb9c0f8d5c39188dd79da27af0",
     "fields": {
       "selection_mode": {
         "group": "Slides",
