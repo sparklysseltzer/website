@@ -13,21 +13,17 @@
     animation: hero-startup-fallback 0s 4s forwards;
   }
   @keyframes hero-startup-fallback { to { visibility: visible; } }
-  @media (orientation: landscape) {
-    html:not(.no-js) #shopify-section-{{ section.id }} hero-slider:not([data-ready]) .hero-slider__stage {
-      height: calc(100svh - var(--sticky-header-height, 8.3125rem) - var(--hero-edge-space, 2rem) * 2);
-      overflow: clip;
-      animation: hero-startup-height-fallback 0s 4s forwards;
-    }
-    @keyframes hero-startup-height-fallback { to { height: auto; overflow: visible; } }
-  }
 {%- endstyle -%}
 {{ 'hero-slider.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'hero-slider.js' | asset_url }}" defer></script>
 {%- paginate shop.metaobjects.slides.values by 250 -%}
 {%- liquid
   capture slide_sizes
-    render 'content-image-sizes', width: section.settings.content_width
+    if section.settings.content_width == 'page'
+      echo '(min-width: 1484px) 1420px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)'
+    else
+      render 'content-image-sizes', width: section.settings.content_width
+    endif
   endcapture
   assign slides = section.settings.slides
   if section.settings.selection_mode == 'all'

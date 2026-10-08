@@ -1,6 +1,7 @@
 {%- liquid
   assign world = card_product.metafields.custom.brand_variant.value
-  assign image = card_product.metafields.custom.teaser_image.value | default: card_product.featured_image
+  assign collection_image = card_product.metafields.custom.collection_image.value
+  assign image = collection_image | default: card_product.featured_image
   assign cutout = blank
   assign flavor_logo = blank
   assign art_width = 600
@@ -26,9 +27,13 @@
   if card_product.handle == 'sparklys-soda-variety-pack' or card_product.handle == 'sparklys-hard-seltzer-variety'
     assign is_variety = true
   endif
+  if collection_image != blank
+    assign cutout = blank
+    assign is_variety = false
+  endif
   assign image_position = blank
   if card_layout == 'navigation'
-    assign image = card_product.metafields.custom.teaser_image.value | default: card_product.featured_image
+    assign image = navigation_image | default: card_product.metafields.custom.teaser_image.value | default: card_product.featured_image
     assign image_position = 'object-position: ' | append: image.presentation.focal_point | append: ';'
     assign cutout = blank
     assign is_variety = false

@@ -69,3 +69,12 @@ Historical completion notes moved out of the active backlog on 2026-09-28. These
 ## TASK-012 — Design Studio expansion (2026-10-04)
 
 The user subsequently approved and implemented the three-pane workbench, two-level navigation/search and Typography, Colors, Layout, Motion, Atoms, Components and Sections chapters. Real forms, social buttons, button motion, ambient Hero and Content Slider previews use storefront assets. This supersedes the earlier deferred status. Future preview parity remains ongoing maintenance; see [current contract](../design-studio.md).
+
+### TASK-013: Separate product navigation and collection images
+
+- Approved/completed: 2026-10-08, with artwork migration explicitly excluded.
+- Renamed Product Teaser Image to Navigation Image while preserving `custom.teaser_image`, the definition ID, access/type/validation settings and all product assignments. Added pinned, image-only Product Collection Image (`custom.collection_image`) with public storefront access. Admin API read-back verified definitions and unchanged image references across all 20 products.
+- Collection/catalog and compact Featured collection/Search cards prefer Collection Image independently of navigation. Known bundled flavour/pair artwork remains the empty-field catalog fallback; other/compact cards use the featured product image. Header and PDP flavour navigation retain Navigation Image. No uploaded, migrated, replaced or assigned artwork.
+- Added a read-only-by-default, definition-only provisioning script with backups and verification. Reviewed three header menu help strings and the otherwise unchanged schema contract.
+- Verified 35 local Liquid image-selection cases, actual empty-field Shopify rendering on desktop/phone, keyboard focus, no-JavaScript product links/images and CollectionPage JSON-LD parsing. Full repository checks passed. Populated new-field behaviour was tested with local render fixtures, not temporary product assignments.
+- Store definitions are configured; theme rendering changes are local/development only, not deployed to shared/live themes. Current contracts are in Merchant content and the owning section documents.

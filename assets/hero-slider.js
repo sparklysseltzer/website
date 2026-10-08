@@ -166,10 +166,6 @@
       this.visible = false;
       this.editorPaused = Boolean(window.Shopify?.designMode);
       if (this.dataset.captionLayout === 'split') {
-        this.viewportProbe = this.querySelector('.hero-slider__viewport-probe') || document.createElement('span');
-        this.viewportProbe.className = 'hero-slider__viewport-probe';
-        this.viewportProbe.setAttribute('aria-hidden', 'true');
-        this.append(this.viewportProbe);
         this.updateMedia();
         this.mobile.addEventListener('change', () => {
           this.finishIntro();
@@ -347,68 +343,22 @@
       }
     }
     layoutCaption() {
-      const portrait = matchMedia('(orientation: portrait)').matches;
-      const compact = matchMedia('(width < 768px)').matches;
+      const compact = this.mobile.matches;
       const style = getComputedStyle(this);
-      const shell = this.closest('.hero-slider-shell');
-      const shellStyle = shell && getComputedStyle(shell);
-      const padding = shellStyle ? parseFloat(shellStyle.paddingTop) + parseFloat(shellStyle.paddingBottom) : 0;
-      const header = document.querySelector('.shopify-section-header')?.getBoundingClientRect().height
-        || parseFloat(style.getPropertyValue('--sticky-header-height')) || 0;
       const gap = Math.min(parseFloat(style.getPropertyValue('--hero-heading-gap')) || 40, innerWidth * .06);
       const captions = this.slides.map(slide => slide.querySelector('.hero-slider__caption'));
-      const headings = this.slides.map(slide => slide.querySelector('.hero-slider__heading'));
-      // Short landscape screens must scroll instead of squeezing the caption
-      // into a few characters beside the persistent arrow controls.
-      const rootSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-      const minimumWidth = Math.min(this.clientWidth, rootSize * (compact ? 22 : 48));
       const set = (key, value) => {
         const next = `${value.toFixed(3)}px`;
         if (this.style.getPropertyValue(key) !== next) this.style.setProperty(key, next);
       };
-      let width = this.clientWidth;
-      let captionHeight = 0;
-      let height = 0;
-      if (compact) {
-        // Cache by width: toolbar/keyboard height-only resizes must not refit the panel.
-        // Rotation and genuine width changes establish a fresh small viewport budget.
-        if (!this.mobileLayout || this.mobileLayout.width !== innerWidth) {
-          this.mobileLayout = { width: innerWidth, viewport: this.viewportProbe.getBoundingClientRect().height, header };
-        }
-        set('--hero-layout-width', width);
-        captionHeight = Math.max(...captions.map(caption => caption.offsetHeight));
-        height = Math.max(this.mobileLayout.viewport - this.mobileLayout.header - padding, captionHeight + gap + rootSize * 12);
-        const mediaHeight = height - captionHeight - gap;
-        set('--hero-mobile-media-height', mediaHeight);
-        set('--hero-layout-height', height);
-        set('--hero-layout-heading', captionHeight);
-        set('--hero-layout-space', gap);
-        const captionGap = parseFloat(getComputedStyle(captions[0]).rowGap) || 0;
-        set('--hero-paging-top', mediaHeight + gap + headings[this.index].offsetHeight + captionGap);
-        return;
-      }
-      this.mobileLayout = null;
-      this.style.removeProperty('--hero-mobile-media-height');
-      // Fit monotonically from the available width, accounting for text wrapping
-      // and the CTA. This avoids alternating between two widths at a line break.
-      for (let pass = 0; pass < 8; pass += 1) {
-        set('--hero-layout-width', width);
-        captionHeight = Math.max(...captions.map(caption => caption.offsetHeight));
-        height = Math.max(innerHeight - header - padding, captionHeight + minimumWidth * 9 / 16 + gap * 3);
-        const fitted = Math.min(width, (height - captionHeight - gap * 3) * 16 / 9);
-        if (portrait || Math.abs(width - fitted) < .5) break;
-        width = fitted;
-      }
-      const space = portrait ? gap : (height - captionHeight - width * 9 / 16) / 3;
-      if (portrait) {
-        for (const key of ['height', 'space', 'heading']) this.style.removeProperty(`--hero-layout-${key}`);
-      } else {
-        set('--hero-layout-height', height);
-        set('--hero-layout-space', space);
-        set('--hero-layout-heading', captionHeight);
-      }
-      const captionGap = parseFloat(getComputedStyle(captions[0]).rowGap) || 0;
-      set('--hero-paging-top', width * 9 / 16 + (portrait ? gap : space * 2) + (compact ? headings[this.index].offsetHeight + captionGap : 0));
+      // CSS owns full-width media and its ratio. Reserve only the tallest caption
+      // so changing slides cannot move the following section.
+      set('--hero-layout-heading', Math.max(...captions.map(caption => caption.offsetHeight)));
+      set('--hero-layout-space', gap);
+      const mediaHeight = this.slides[this.index].querySelector('.hero-slider__media').offsetHeight;
+      const heading = this.slides[this.index].querySelector('.hero-slider__heading');
+      const captionGap = parseFloat(getComputedStyle(captions[this.index]).rowGap) || 0;
+      set('--hero-paging-top', mediaHeight + gap + (compact ? heading.offsetHeight + captionGap : 0));
     }
     finishSlideTransition() {
       const transition = this.slideTransition;

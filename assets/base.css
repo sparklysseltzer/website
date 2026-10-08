@@ -329,6 +329,12 @@ input[type='submit'] {
   transition: transform var(--button-sweep-exit-duration) var(--button-sweep-ease);
 }
 
+/* Clip the sweep at the outer pill, underneath its outline. Hidden overflow
+   clips at the inner border and also allows the oversized sweep to scroll. */
+@supports (overflow: clip) and (overflow-clip-margin: border-box) {
+  .button { overflow: clip; overflow-clip-margin: border-box; }
+}
+
 /* Keep the outline above the sweep, including its intermediate frames. */
 .button:not(.button--small)::after {
   content: '';

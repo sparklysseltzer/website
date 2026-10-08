@@ -28,6 +28,8 @@ The resource's recognized `custom.brand_variant` value is the authoritative Auto
 
 Blank section-level content uses localized Figma defaults. When no custom USP blocks exist, the section renders the canonical brand collection’s `custom.usp_set` ordered items, falling back to five Soda / six Hard Seltzer defaults. Adding any custom blocks replaces that default set for the current section instance.
 
+Soda paragraph default (2026-10-08): `sections.usp.soda.text` contains the replacement approved in [Jam](https://jam.dev/c/4dfc553c-1069-4b62-9db4-51cf77986a24): “Wie deine Lieblingslimo, nur smarter. Prickelnd frisch mit pflanzlichen Ballaststoffen. Zuckerarm und kalorienarm. Kein zugesetzter Zucker, keine Süssstoffe.” The English source locale carries the equivalent translation. This replaces the locale default itself for all blank Soda text fields; populated merchant text remains authoritative. USP labels and the shared footnote are unchanged.
+
 The Add section picker exposes separate `Product benefits — Soda` and `Product benefits — Hard Seltzer` presets so Shopify's generated visual previews render the correct product-world design. Both presets set an explicit starting variant; merchants can switch a placed instance back to Automatic when it should follow the resource context.
 
 ## Rendering contract

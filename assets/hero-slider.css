@@ -1,6 +1,7 @@
 .hero-slider { display: block; margin-inline: auto; --hero-media-ratio: 16 / 9; }
 .hero-slider--narrow { max-width: var(--content-width-narrow); }
 .hero-slider--editorial { max-width: var(--content-width-editorial); }
+.hero-slider--page[data-caption-layout='split'] { max-width: 1420px; }
 .hero-slider__stage { position: relative; }
 .hero-slider__slide + .hero-slider__slide { margin-top: 2rem; }
 .hero-slider__media { position: relative; aspect-ratio: var(--hero-media-ratio); border-radius: var(--radius-large); overflow: clip; isolation: isolate; box-shadow: var(--shadow-panel); }
@@ -94,7 +95,7 @@
 .hero-slider[data-heading-size='title'] .hero-slider__heading { font-size: var(--font-size-title); }
 .hero-slider[data-heading-size='display'] .hero-slider__heading { font-size: var(--font-size-display); }
 .hero-slider[data-heading-size='hero'] .hero-slider__heading { font-size: var(--font-size-hero); }
-.hero-slider-shell { --hero-edge-space: clamp(1rem, 2vw, 2rem); padding-block: var(--hero-edge-space); }
+.hero-slider-shell { --hero-edge-space: clamp(.5rem, 1vw, 1rem); padding-block: var(--hero-edge-space); }
 .hero-slider__navigation { position: relative; z-index: 1; }
 .hero-slider[data-ready] .hero-slider__slide { align-self: start; }
 @media (hover: none) { .hero-slider__arrow { opacity: 1; pointer-events: auto; } }
@@ -141,7 +142,7 @@ body:has(#MainContent > .shopify-section:first-child hero-slider[data-ambient='t
 }
 
 /* Caption and persistent navigation share the media's fitted width. */
-.hero-slider[data-caption-layout='split'] { --hero-paging-width: 9.75rem; --hero-paging-gap: clamp(1.5rem, 4vw, 5rem); }
+.hero-slider[data-caption-layout='split'] { --hero-media-ratio: 2.05; --hero-paging-width: 9.75rem; --hero-paging-gap: clamp(1.5rem, 4vw, 5rem); }
 .hero-slider[data-caption-layout='split'] .hero-slider__frame { z-index: 0; }
 .hero-slider__caption { position: relative; z-index: 1; display: grid; gap: 1rem; margin-top: min(var(--hero-heading-gap, 40px), 6vw); min-width: 0; }
 .hero-slider[data-caption-layout='split'] .hero-slider__caption .hero-slider__heading { margin: 0; max-width: 62.5rem; text-align: left; }
@@ -204,11 +205,10 @@ body:has(#MainContent > .shopify-section:first-child hero-slider[data-ambient='t
 .hero-slider[data-transitioning] .hero-slider__slide.is-leaving { opacity: 1; z-index: 0; pointer-events: none; }
 .hero-slider[data-transitioning] .hero-slider__slide.is-active { z-index: 1; }
 
-/* Small viewport units stay fixed while mobile browser chrome expands/collapses. */
-.hero-slider__viewport-probe { position: absolute; width: 0; height: 100vh; height: 100svh; visibility: hidden; pointer-events: none; }
-@media (width < 768px) {
-  .hero-slider[data-caption-layout='split'][data-ready] .hero-slider__stage { height: var(--hero-layout-height); }
-  .hero-slider[data-caption-layout='split'][data-ready] .hero-slider__slide { grid-template-rows: var(--hero-mobile-media-height) var(--hero-layout-heading); gap: var(--hero-layout-space); padding-block: 0; }
-  .hero-slider[data-caption-layout='split'][data-ready] .hero-slider__media { height: var(--hero-mobile-media-height); aspect-ratio: auto; }
-  .hero-slider[data-caption-layout='split'][data-ready] .hero-slider__controls:not([hidden]) { top: 0; height: var(--hero-mobile-media-height); aspect-ratio: auto; }
-}
+/* Content determines section height at every width; no viewport budget. */
+.hero-slider[data-caption-layout='split'][data-ready] .hero-slider__stage { height: auto; }
+.hero-slider[data-caption-layout='split'][data-ready] .hero-slider__slide { grid-template-rows: auto var(--hero-layout-heading, auto); align-content: start; gap: min(var(--hero-heading-gap, 40px), 6vw); padding-block: 0; }
+.hero-slider[data-caption-layout='split'][data-ready] .hero-slider__frame,
+.hero-slider[data-caption-layout='split'][data-ready] .hero-slider__caption { width: 100%; }
+.hero-slider[data-caption-layout='split'][data-ready] .hero-slider__controls:not([hidden]) { top: 0; width: 100%; }
+.hero-slider[data-caption-layout='split'] .hero-slider__paging:not([hidden]) { right: 0; }
