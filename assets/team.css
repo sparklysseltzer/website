@@ -14,7 +14,7 @@
 .team-card__details { margin-block: auto; padding-block: 1rem 2rem; transition: opacity var(--motion-duration-base) var(--motion-ease); }
 .team-card__details p { font-size: var(--font-size-panel-info); margin: 0 0 1.5rem; }
 .team-card__contacts { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
-.team-card__contact.button { --button-background: transparent; --button-border-color: #fff; --button-color: #fff; --button-sweep-background: var(--color-foreground); padding: .5rem 1rem; min-width: 3.5rem; min-height: 2.75rem; }
+.team-card__contact.button { --button-background: transparent; --button-border-color: #fff; --button-color: #fff; --button-sweep-background: #fff; --button-active-color: #000; --button-sweep-rest: 0%; --button-sweep-active: -66.667%; padding: .5rem 1rem; min-width: 3.5rem; min-height: 2.75rem; }
 .team-card__icon { width: 1.25rem; height: 1.25rem; background: currentColor; mask: var(--team-icon) center / contain no-repeat; }
 .team-card__contact:focus-visible { outline-color: #fff; }
 .team-card__role { margin: 0 0 .5rem; font-size: var(--font-size-panel-info); }

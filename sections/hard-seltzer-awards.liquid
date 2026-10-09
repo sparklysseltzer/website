@@ -16,6 +16,8 @@
   assign button_link = section.settings.button_link | default: '#'
 -%}
 
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id, uppercase: section.settings.uppercase_heading %}
+
 <editorial-section-motion>
   <section data-section-background class="seltzer-awards section" data-scroll-motion-section>
     <div class="seltzer-awards__inner page-width" data-scroll-motion-surface>
@@ -77,7 +79,8 @@
   .seltzer-awards { color: var(--color-editorial-heading); background: var(--color-surface); }
   .seltzer-awards__inner { max-width: 77rem; text-align: center; }
   .seltzer-awards__header { max-width: 75rem; margin-inline: auto; }
-.seltzer-awards__heading { margin: 0; font-family: var(--font-heading-default); font-size: var(--font-size-display); font-weight: 400; line-height: var(--line-height-heading); letter-spacing: normal; text-transform: uppercase; }
+.seltzer-awards__heading { margin: 0; font-size: var(--font-size-display); }
+  .seltzer-awards__heading { font-family: var(--heading-choice-family); font-weight: var(--heading-choice-weight); line-height: var(--heading-choice-leading); letter-spacing: var(--heading-choice-tracking); text-transform: var(--heading-choice-case); }
   .seltzer-awards__intro { max-width: 50rem; margin: .875rem auto 0; font-size: var(--font-size-body); line-height: var(--line-height-body-compact); }
   .seltzer-awards__intro p { margin: 0; }
   .seltzer-awards__list { display: grid; max-width: 42.25rem; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: .875rem auto 0; gap: 0; align-items: center; }
@@ -104,6 +107,30 @@
       "type": "text",
       "id": "heading",
       "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "default": "newake"
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ section.settings.heading_font == 'newake' }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     },
     {
       "type": "textarea",

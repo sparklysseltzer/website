@@ -288,11 +288,11 @@
         if (element) animations.push(element.animate(frames, { duration: time, delay, easing: curve, fill: 'both' }));
       };
       const rise = [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }];
-      // Match the shared button sweep's 180% × 300% oval, moving downward.
+      // A wider phone oval keeps the downward leading edge shallow.
       const sweepEase = style.getPropertyValue('--motion-ease-ui').trim();
       animate(media, [
-        { clipPath: 'ellipse(90% 150% at 50% -150%)' },
-        { clipPath: 'ellipse(90% 150% at 50% 0%)' }
+        { clipPath: `ellipse(${this.mobile.matches ? 180 : 90}% 150% at 50% -150%)` },
+        { clipPath: `ellipse(${this.mobile.matches ? 180 : 90}% 150% at 50% 0%)` }
       ], panelTime, 0, sweepEase || easing);
       animate(heading, rise, textTime, captionDelay);
       if (action) action.inert = true;
@@ -344,14 +344,13 @@
     }
     layoutCaption() {
       const compact = this.mobile.matches;
-      const style = getComputedStyle(this);
-      const gap = Math.min(parseFloat(style.getPropertyValue('--hero-heading-gap')) || 40, innerWidth * .06);
+      const gap = parseFloat(getComputedStyle(this.slides[this.index]).rowGap) || 0;
       const captions = this.slides.map(slide => slide.querySelector('.hero-slider__caption'));
       const set = (key, value) => {
         const next = `${value.toFixed(3)}px`;
         if (this.style.getPropertyValue(key) !== next) this.style.setProperty(key, next);
       };
-      // CSS owns full-width media and its ratio. Reserve only the tallest caption
+      // CSS owns responsive media dimensions and ratio. Reserve only the tallest caption
       // so changing slides cannot move the following section.
       set('--hero-layout-heading', Math.max(...captions.map(caption => caption.offsetHeight)));
       set('--hero-layout-space', gap);
@@ -411,8 +410,8 @@
       this.slides[previous].classList.add('is-leaving');
       this.setAttribute('data-transitioning', '');
       const frames = this.mobile.matches ? [
-        { clipPath: 'ellipse(90% 150% at 50% -150%)' },
-        { clipPath: 'ellipse(90% 150% at 50% 0%)' }
+        { clipPath: 'ellipse(180% 150% at 50% -150%)' },
+        { clipPath: 'ellipse(180% 150% at 50% 0%)' }
       ] : [
         { clipPath: `ellipse(150% 150% at ${from}% 50%)` },
         { clipPath: `ellipse(150% 150% at ${to}% 50%)` }

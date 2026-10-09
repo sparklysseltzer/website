@@ -23,6 +23,8 @@
   assign competitor_order = 0
 -%}
 
+{% render 'heading-font', choice: section.settings.heading_font, section_id: section.id, uppercase: section.settings.uppercase_heading %}
+
 <editorial-section-motion>
   <section data-section-background class="versus versus--{{ variant }} section" data-scroll-motion-section>
     <div class="versus__inner page-width" data-scroll-motion-surface>
@@ -209,10 +211,9 @@
   .versus__inner { max-width: calc(75rem + 2 * var(--page-gutter)); }
   .versus__header { text-align: center; }
 .versus__header h2 { margin: 0; font-size: var(--font-size-section); line-height: var(--line-height-heading); }
-  .versus--soda .versus__header h2 { font-family: var(--font-heading-soda); font-weight: 700; letter-spacing: -.03em; }
-  .versus--seltzer .versus__header h2 { font-family: var(--font-heading-default); font-size: var(--font-size-section); font-weight: 400; letter-spacing: normal; text-transform: uppercase; }
+  .versus__header h2 { font-family: var(--heading-choice-family); font-weight: var(--heading-choice-weight); line-height: var(--heading-choice-leading); letter-spacing: var(--heading-choice-tracking); text-transform: var(--heading-choice-case); }
   .versus__header p { display: inline-flex; padding: .75rem 1.5rem; margin: .75rem 0 0; align-items: center; border-radius: 999px; background: rgb(255 255 255 / .5); font-size: var(--font-size-body); line-height: var(--line-height-body-compact); }
-  .versus__scroller { padding-top: 1.25rem; padding-bottom: 2rem; padding-inline: min(1.5rem, var(--page-gutter)); margin-inline: calc(-1 * min(1.5rem, var(--page-gutter))); overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: inline proximity; scrollbar-color: rgb(0 0 0 / .35) transparent; scrollbar-width: thin; }
+  .versus__scroller { padding-top: 1.25rem; padding-bottom: 2rem; padding-inline: min(1.5rem, var(--page-gutter)); margin-inline: calc(-1 * min(1.5rem, var(--page-gutter))); overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: inline proximity; scroll-padding-inline: min(1.5rem, var(--page-gutter)); scrollbar-color: rgb(0 0 0 / .35) transparent; scrollbar-width: thin; }
   .versus__scroller:focus-visible { outline: 2px solid currentColor; outline-offset: .35rem; }
   .versus__track { display: flex; gap: .75rem; min-width: min-content; }
   .versus__card { position: relative; display: flex; width: min(78vw, 14.4rem); flex: 0 0 min(78vw, 14.4rem); flex-direction: column; padding: 1.5rem 1.25rem 1.875rem; border-radius: var(--radius-small); background: var(--versus-card-color); scroll-snap-align: start; order: 0; }
@@ -323,6 +324,30 @@
       "type": "textarea",
       "id": "heading",
       "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "default": "newake"
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ section.settings.heading_font == 'newake' }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     },
     {
       "type": "text",
@@ -520,7 +545,8 @@
       "settings": {
         "variant": "soda",
         "section_background_mode": "transparent",
-        "section_background_surface": "surface"
+        "section_background_surface": "surface",
+        "heading_font": "erode"
       },
       "blocks": [
         {
@@ -549,7 +575,8 @@
       "settings": {
         "variant": "seltzer",
         "section_background_mode": "transparent",
-        "section_background_surface": "surface"
+        "section_background_surface": "surface",
+        "heading_font": "newake"
       },
       "blocks": [
         {

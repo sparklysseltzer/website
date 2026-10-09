@@ -125,3 +125,9 @@ Erode headings must preserve authored casing: no uppercase or capitalize styling
 ## Heading font and uppercase controls
 
 Whenever a section or block offers Erode/Newake, use the shared two-choice **Heading font** segmented control (Erode / Newake, short ungrouped `select` options) and adjacent **Uppercase headings** checkbox. Show the checkbox only for explicit Newake, respecting the font selector's content visibility. Off preserves authored case; Erode always ignores saved uppercase. Use the shared section/block rendering contract, preserve existing setting IDs, and cover all modes in the editor schema gate. See `docs/design-system.md#editorial-heading-font-selection`.
+
+## Fractional layout and paint regressions
+
+When changing shared widths, root scaling, typography, radii or header geometry, test fractional layouts as well as round viewport sizes. Include adjacent breakpoint widths (1639/1640/1641 and 1919/1920/1921 for desktop scaling), interior widths, and DPR 1 and 2. Inspect actual rendered pixels around active brand tabs, concave joins, button fills and panel edges in resting, hover/focus and relevant transition states. Computed colors and passing layout checks do not prove that seams are absent.
+
+Keep decorative paths proportional to their rendered box. Avoid coincident filled edges or overlapping even-odd cutouts at clipped boundaries; prefer a single continuous contour for open notches. Preserve a regression case for every reproduced shared-paint defect, including the active-tab bottom seam at a fractional switcher height. Check normal, reduced-motion and no-JavaScript fallbacks where the renderer differs. Do not claim universal prevention or cross-browser verification without the corresponding evidence. See `docs/design-system.md#fractional-layout-paint-checks`.

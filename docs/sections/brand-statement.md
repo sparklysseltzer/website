@@ -6,7 +6,7 @@ A reusable Brand storytelling section, based on Figma `12596:24781`. Add **Brand
 
 The merchant requested fixed, code-maintained German copy and artwork. `sections/brand-statement.liquid` owns three semantic paragraphs and marks their language as German. This intentional fixed-language composition is not reusable form/UI copy. A future language version should translate the complete composition, including artwork placement.
 
-Uses Narrow width (800px), Section typography, Erode Bold, shared Erode leading/tracking, authored casing, centered text and shared section spacing. No local font-size or line-height overrides. Figma's custom leading is normalized to the design system.
+Uses Narrow width (800px), Section typography on phones, and Display typography from 768px upward. At widths above 1200px, its content frame grows by 32px to 832px to improve the approved desktop line break. Erode Bold, shared Erode leading/tracking, authored casing, centered text and shared section spacing remain. It uses shared typography roles without local font-size or line-height values. Figma's custom leading is normalized to the design system.
 
 Decorative inline artwork uses a white cross on a red disc (derived from the bundled Swiss mark geometry), Yuzu Soda and Holunder Seltzer cans, and the existing green Soda leaf artwork. All are hidden from assistive technology with empty image alternatives. They are not buttons or additional product claims. The freshness badge reuses `soda-reason-leaf.svg`. No remote runtime assets or dependencies.
 
@@ -55,3 +55,11 @@ Ananotes 176 (2026-10-04): corrected badge timing to use the nearest word on the
 Scroll performance correction: cached geometry preserves exact word/badge timing at 1600px and 390px in both scroll directions. A repeatable 200-frame headless Chromium scroll from Offer Cards to Content Slider measured Brand statement script time at about 85ms before / 4ms after caching. The after run had a maximum 16.8ms frame interval and no intervals above 33ms. These are local diagnostic results, not a cross-device performance guarantee. Reduced motion still cancels all effects.
 
 Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes the Surface dropdown bound to existing shared CSS/theme color roles; only Custom color exposes the original picker. Schema default Custom preserves existing saved colors; new add-section presets select Surface. No saved content is migrated. Internal text/card colors do not auto-invert. See [Section backgrounds](../design-system.md#section-backgrounds).
+
+Size increase (Ananotes, 2026-10-09): the statement now uses shared Display typography (44–76px before large-screen scaling), replacing Section. Inline artwork scales in em with the text. Existing content-width selection, Erode rhythm, authored case and scrub animation remain unchanged.
+
+Size verification: 76px at 1607px and 44px at 390px, with inline artwork scaling proportionally and no horizontal overflow. Reduced-motion desktop/phone screenshots were inspected. Full checks, JavaScript syntax, JSON parsing and whitespace checks pass.
+
+Mobile size refinement (Ananotes 226, 2026-10-09): phones below 768px use shared Section typography again (36px at 390px), while tablet/desktop retain Display. Inline artwork follows the selected role through em sizing. This is an approved responsive composition choice, not a local size clamp or a change to shared role values.
+
+Desktop width refinement (Ananotes 225, 2026-10-09): above 1200px, the section frame and text width expand by 32px, from 800px to 832px. At 1200px and below the shared Narrow width and normal mobile gutters remain. At 1440px the second paragraph moved from five lines to four, and the rendered statement measured 832px with no page overflow; at 1200px it remained 800px. At 390px it measured 358px with 36px type and no page overflow. Reduced-motion rendering kept all copy and artwork visible.

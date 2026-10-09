@@ -96,3 +96,12 @@ Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes 
 ## Shared heading casing
 
 **Heading font** uses the standard two-choice Erode/Newake segmented control. **Uppercase headings** appears immediately after it only for explicit Newake and follows the font control's content visibility. On uppercases semantic headings (including rich text); off preserves authored case. Erode ignores saved uppercase. Legacy saved Automatic values remain rendering compatibility only; the editor offers Erode and Newake. See the [heading control standard](../design-system.md#editorial-heading-font-selection). Font/casing schema scenarios are registered; no saved template content or structured data changes.
+
+
+## Bounded viewport edges (2026-10-08)
+
+Follows the shared [bounded viewport rail contract](../design-system.md#bounded-viewport-rails-2026-10-08): centered 2600px maximum. Only viewports wider than 2600px receive transparent edge fades into the actual canvas, with visible keyboard focus and forced-colors fallback. At or below 2600px, no edge mask or fade clearance is applied. This supersedes earlier unlimited viewport-width notes. Existing schema, content, data sources and motion timing remain unchanged.
+
+Applies only to Viewport bleed. Contained mode is unchanged. JavaScript and the CSS-only fallback account for the outer centered inset, including RTL. Scroll padding and trailing padding clear the fade so the final card can be read fully; headings and controls keep the shared contained width.
+
+Ananotes 29 (2026-10-09): mobile Crosslinks now show two complete cards plus part of a third. Cards use a proportional 3:4 frame, .75rem gaps, compact padding and shared Compact titles. Benefits and desktop compositions are unchanged. Long text can grow the card rather than being clipped.

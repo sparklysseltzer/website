@@ -85,10 +85,10 @@
 
       :root {
         --color-page-background: {{ page_background }};
-        --radius-small-base: {{ settings.border_radius_small }}px;
-        --radius-large-base: {{ settings.border_radius_large }}px;
+        --radius-small-base: {{ settings.border_radius_small | divided_by: 16.0 }}rem;
+        --radius-large-base: {{ settings.border_radius_large | divided_by: 16.0 }}rem;
         --page-grain-opacity: {{ settings.grain_intensity | divided_by: 100.0 }};
-        --page-width: 120rem;
+        --page-width: calc(var(--content-width-max) + 2 * var(--page-gutter));
         --font-body: 'Maison Neue Demi', Arial, Helvetica, sans-serif;
         --font-heading-default: 'Newake', 'Maison Neue Demi', Arial, Helvetica, sans-serif;
         --font-heading-soda: 'Erode', 'Maison Neue Demi', Arial, Helvetica, sans-serif;

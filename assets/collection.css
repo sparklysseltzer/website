@@ -110,8 +110,8 @@ collection-catalog, collection-hero-motion { display: block; }
   max-width: 23rem;
   margin-inline: auto;
 }
-@container hero-benefits (min-width: 41rem) {
-  .collection-hero .collection-hero__usp-grid:not(:has(.collection-hero__featured)) { grid-template-columns: repeat(6, minmax(0, 6rem)); }
+@container hero-benefits (min-width: 35rem) {
+  .collection-hero .collection-hero__usp-grid:not(:has(.collection-hero__featured)) { grid-template-columns: repeat(6, minmax(0, 6rem)); column-gap: .75rem; }
 }
 @container hero-benefits (min-width: 44rem) {
   .collection-hero .collection-hero__usp-grid:has(.collection-hero__featured) { grid-template-columns: minmax(0, 9rem) repeat(5, minmax(0, 6rem)); max-width: 44rem; }
@@ -127,6 +127,7 @@ collection-catalog, collection-hero-motion { display: block; }
 }
 .collection-hero__usps .usp-section__icon--seltzer:not(.usp-section__icon--alcohol) > img { filter: invert(1); }
 .collection-hero__usps .usp-section__label {
+  font-size: var(--font-size-label);
   overflow-wrap: normal;
   hyphens: none;
   text-wrap: balance;

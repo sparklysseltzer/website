@@ -13,6 +13,27 @@ Open, separately scoped feature proposals only. Launch verification belongs in [
 
 Structured-data retrofit work is maintained in the separate [Structured-data task list](structured-data-tasks.md). Every unchecked item there follows the same pending-approval rule as this inbox.
 
+### TASK-015: Evaluate autoplay video reliability and fallback concepts
+
+- Assess how problematic autoplay videos are across the storefront, especially hero and decorative media. Investigate the reported iPhone Low Power Mode behavior: autoplay stops and a native play overlay appears that the current implementation cannot remove. Reproduce on physical iPhones and distinguish browser-owned controls from theme controls before drawing conclusions.
+- Discuss concepts and tradeoffs with Sandro before implementation: a curated static image fallback; a poster shown until playback actually starts; or an intentional, accessible tap-to-play experience for meaningful video. Consider separate treatments for decorative loops and content visitors need to watch.
+- Explore detecting rejected playback attempts and stalled or interrupted playback rather than assuming battery mode can be reliably detected. Decide how to show a clean fallback without a blank frame, unwanted native overlay, layout shift, repeated retries or flickering when switching slides or returning to the page.
+- Evaluate poster quality and merchant image selection, existing ready assets, loading cost, mobile data and battery use, reduced motion, accessibility, no-JavaScript rendering, and Shopify Theme Editor lifecycle. Preserve the media panel’s responsive dimensions and links/actions.
+- Validate normal and Low Power Mode on physical iPhone Safari, plus representative Android and desktop browsers, slow connections and background/foreground transitions. Document browser limitations and which behaviors the theme can actually control; do not promise CSS can suppress browser-owned UI.
+- Deliver a recommendation and a reviewable concept comparison before choosing a fallback or implementing changes.
+- Status: Pending discovery and implementation approval. Record for later discussion; no implementation requested.
+- Added: 2026-10-09.
+
+### TASK-014: Floating drink can hover with a responsive ground shadow
+
+- Explore a new hover treatment for drink cans: pointer entry lifts the can off the floor and tilts it slightly to one side. It remains gently hovering while the pointer stays over the product.
+- Animate the ground shadow together with the can. Its position, perspective, shape, softness and opacity should respond coherently to the can's height and lean so it reads as a shadow on the floor.
+- On pointer exit, smoothly lower the can back to its grounded resting pose and return the shadow to its contact state. Rapid entry/exit must reverse from the current pose without snapping.
+- Prototype using the existing drink artwork. Confirm the applicable product surfaces and tune lift, lean and hover motion before rollout; keep card layout and click targets stable.
+- Follow shared motion timing and reduced-motion behavior. Preserve keyboard focus and touch interaction without requiring hover, and keep the resting product usable without JavaScript.
+- Status: Pending approval. Record the idea for later; no implementation requested.
+- Added: 2026-10-08.
+
 ### TASK-009 — Validate demand before building back-in-stock notifications
 
 - Add a lightweight out-of-stock interest “trapdoor” before committing to a complete notification feature. Its only initial purpose is to measure whether visitors want to buy the unavailable product.

@@ -1,6 +1,8 @@
 <nav aria-label="{{ 'sections.header.navigation' | t }}" class="navigation-tree">
   <ul class="navigation-roots">
     {% for link in menu.links %}
+      {% comment %}Identify the subscription destination by resource, never translated menu copy.{% endcomment %}
+      {% if presentation == 'mobile' and link.object.handle == 'sparklys-abo-modell' %}{% continue %}{% endif %}
       {% assign root_id = section.id | append: '-' | append: presentation | append: '-' | append: forloop.index %}
       <li class="navigation-root">
         {% if link.links != blank %}

@@ -102,7 +102,7 @@
         </div>
 
         <div class="usp-section__content">
-          <div class="usp-section__body">
+          <div class="usp-section__body usp-grid-container">
           <div class="usp-section__copy">
             {%- if usp_heading != blank -%}
               <h2 class="usp-section__heading" data-scroll-motion-reveal>{{ usp_heading | newline_to_br }}</h2>
@@ -115,7 +115,7 @@
             {%- endif -%}
           </div>
 
-          <div class="usp-section__items" role="list">
+          <div class="usp-section__items{% if usp_variant == 'seltzer' %} usp-items--six-or-three{% endif %}" role="list">
             {%- if section.blocks.size > 0 -%}
               {%- for block in section.blocks -%}
                 {%- if block.settings.label != blank -%}
@@ -138,12 +138,12 @@
                         }}
                       {%- endif -%}
                     </div>
-                    <p class="usp-section__label">{{ block.settings.label | newline_to_br }}</p>
+                    <p class="usp-section__label">{{ block.settings.label | newline_to_br | replace: '<br />', ' ' | strip_newlines }}</p>
                   </div>
                 {%- endif -%}
               {%- endfor -%}
             {%- else -%}
-              {% render 'usp-items', usp_variant: usp_variant, usp_set: usp_set, item_class: 'usp-section__item' %}
+              {% render 'usp-items', inline_labels: true, usp_variant: usp_variant, usp_set: usp_set, item_class: 'usp-section__item' %}
             {%- endif -%}
           </div>
           </div>
@@ -293,8 +293,8 @@
   .usp-section__items {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(4.5rem, 1fr));
-    gap: 0.25rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .75rem;
   }
 
   .usp-section__editor-note {
@@ -364,6 +364,10 @@
       height: 3.75rem;
     }
   }
+@media (width < 480px) {
+  .usp-section .usp-section__items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .usp-section .usp-section__items > .usp-section__item { grid-column: auto; }
+}
 {% endstylesheet %}
 
 {% schema %}

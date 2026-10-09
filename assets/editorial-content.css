@@ -69,3 +69,5 @@
     top: min(calc(var(--sticky-header-height, 8.5rem) + 1rem), calc(100svh - var(--editorial-sidebar-height) - 1rem));
   }
 }
+
+@media (width < 900px) { .editorial-text-image { row-gap: 1.5rem; } }

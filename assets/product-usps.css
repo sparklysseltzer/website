@@ -50,7 +50,7 @@
     width: 100%;
     margin: 0;
     font-family: 'Maison Neue Bold', var(--font-body);
-    font-size: var(--font-size-label);
+    font-size: var(--font-size-small);
     font-weight: 700;
     line-height: var(--line-height-ui);
     text-align: center;
@@ -70,3 +70,12 @@
 /* The complete alcohol export is black artwork; invert only on the dark USP panel. */
 .usp-items .usp-section__icon--alcohol { filter: none; }
 .usp-section--seltzer .usp-section__icon--alcohol { filter: invert(1); }
+
+/* Available content width, not viewport width, determines the six-item benefit layout. */
+.usp-grid-container { container-type: inline-size; }
+.usp-section .usp-items--six-or-three { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem .75rem; }
+.usp-section .usp-items--six-or-three > .usp-section__item { grid-column: auto; }
+.usp-items--six-or-three .usp-section__icon { max-width: 100%; }
+@container (min-width: 35rem) {
+  .usp-section .usp-items--six-or-three { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}

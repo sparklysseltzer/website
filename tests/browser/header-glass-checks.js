@@ -13,12 +13,17 @@
   const bounds = tab.getBoundingClientRect();
   assert(header.classList.contains('site-header--glass'), 'Shared glass is active');
   const shell = header.closest('.shopify-section-header');
-  assert(getComputedStyle(shell).backdropFilter === 'blur(24px)', 'Snapshot boundary owns the blur');
+  const rootSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+  const blur = parseFloat(getComputedStyle(shell).backdropFilter.match(/blur\(([\d.]+)px\)/)?.[1]);
+  assert(Math.abs(blur - rootSize * 1.5) < .01, 'Snapshot boundary owns the proportional blur');
   assert(getComputedStyle(header).backdropFilter === 'none', 'No blur trapped below the snapshot boundary');
   assert(getComputedStyle(header.querySelector('.site-header__main')).backdropFilter === 'none', 'No second blur on navigation');
   assert(getComputedStyle(tab).backgroundColor === 'rgba(0, 0, 0, 0)', 'Active tab has no white paint');
   assert(!path.isPointInFill(new DOMPoint(bounds.left - rect.left + bounds.width / 2, bounds.bottom - rect.top - 2)), 'Tab opens onto glass');
   assert(path.isPointInFill(new DOMPoint(rect.width - 1, 1)), 'Rest of strip stays black');
+  // A filled region immediately below the notch caused the fractional bottom seam.
+  // Keep raster screenshots at adjacent widths too; geometry alone is not visual QA.
+  assert(!path.isPointInFill(new DOMPoint(bounds.left - rect.left + bounds.width / 2, rect.height + .25)), 'No overlapping black fill below the active tab');
   const original = path.getAttribute('d');
   tab.style.paddingInline = '2rem';
   await new Promise(resolve => setTimeout(resolve, 80));

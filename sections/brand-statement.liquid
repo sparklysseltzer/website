@@ -2,6 +2,16 @@
 {% render 'section-background', section: section, color: section.settings.section_background %}
 {% render 'section-visibility', section: section %}
 {{ 'brand-statement.css' | asset_url | stylesheet_tag }}
+<style>
+  @media (width > 1200px) {
+    #shopify-section-{{ section.id }} .section.page-width {
+      max-width: min(var(--page-width), calc(var(--content-width-narrow) + 3 * var(--page-gutter)));
+    }
+    #shopify-section-{{ section.id }} brand-statement {
+      max-width: calc(var(--content-width-narrow) + var(--page-gutter));
+    }
+  }
+</style>
 <script src="{{ 'brand-statement.js' | asset_url }}" defer="defer"></script>
 <div class="section page-width">
   <brand-statement class="brand-statement" lang="de">

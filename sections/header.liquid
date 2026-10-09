@@ -128,107 +128,61 @@
 
   <div class="site-header__main">
     <div class="site-header__inner">
+      <div class="site-header__mobile-actions">
+        {% if store_finder_page != blank and section.settings.hide_store_finder != true %}
+          <a class="site-header__action site-header__mobile-store-finder" data-store-finder href="{{ store_finder_page.url }}" aria-label="{{ 'sections.header.store_finder' | t }}">
+            <span class="button button--secondary button--round-arrow site-header__action-surface" aria-hidden="true"><span class="button__label site-header__action-label"><img class="site-header__action-icon" src="{{ 'icon-location-pin.svg' | asset_url }}" width="16" height="20" alt=""></span></span>
+          </a>
+        {% endif %}
       <header-navigation class="navigation-mobile" data-presentation="mobile">
         <details data-mobile-disclosure>
           <summary class="navigation-mobile-opener" aria-label="{{ 'sections.header.open_menu' | t }}"><span class="mobile-menu__icon" aria-hidden="true"></span></summary>
           <div class="navigation-mobile-content" data-mobile-content>
-            <div class="navigation-mobile-bar">
-              <button type="button" data-mobile-close hidden aria-label="{{ 'sections.header.navigation_close' | t }}"><img src="{{ 'icon-x-close.svg' | asset_url }}" width="24" height="24" alt=""></button>
-              <a href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
-                {% if header_context == 'soda' %}<img src="{{ 'sparklys-soda-logo.svg' | asset_url }}" width="120" height="58" alt="">
-                {% elsif header_context == 'seltzer' %}<img class="navigation-mobile-logo--seltzer" src="{{ 'footer-logo-seltzer.svg' | asset_url }}" width="120" height="40" alt="">
-                {% else %}<img src="{{ 'sparklys-arc-logo.svg' | asset_url }}" width="120" height="40" alt="">{% endif %}
-              </a>
-              <a data-cart-open href="{{ routes.cart_url }}" aria-label="{{ 'sections.header.cart' | t }}"><img src="{{ 'icon-cart.svg' | asset_url }}" width="24" height="24" alt=""></a>
+            <div class="navigation-mobile-bar site-header__inner">
+              <div class="site-header__mobile-actions">
+                {% if store_finder_page != blank and section.settings.hide_store_finder != true %}
+                  <a class="site-header__action site-header__mobile-store-finder" data-store-finder href="{{ store_finder_page.url }}" aria-label="{{ 'sections.header.store_finder' | t }}">
+                    <span class="button button--secondary button--round-arrow site-header__action-surface" aria-hidden="true"><span class="button__label site-header__action-label"><img class="site-header__action-icon" src="{{ 'icon-location-pin.svg' | asset_url }}" width="16" height="20" alt=""></span></span>
+                  </a>
+                {% endif %}
+                <button class="navigation-mobile-opener navigation-mobile-close" type="button" data-mobile-close hidden aria-label="{{ 'sections.header.navigation_close' | t }}"><span class="mobile-menu__icon" aria-hidden="true"></span></button>
+              </div>
+              {% render 'header-logo', header_context: header_context %}
+              {% render 'header-actions', store_finder_page: store_finder_page %}
             </div>
             {% render 'header-navigation', menu: active_menu, section: section, presentation: 'mobile' %}
             {% if store_finder_page != blank %}<a class="navigation-mobile-utility" data-store-finder href="{{ store_finder_page.url }}">{{ 'sections.header.store_finder' | t }}</a>{% endif %}
-            {% if corporate_menu.links != blank %}<nav class="navigation-mobile-utility" aria-label="{{ 'sections.header.utility_navigation' | t }}">{% for link in corporate_menu.links %}<details><summary>{{ link.title | escape }}</summary>{% render 'navigation-destination', destination: link %}{% for child in link.links %}<a href="{{ child.url }}">{{ child.title | escape }}</a>{% for grandchild in child.links %}<a href="{{ grandchild.url }}">{{ grandchild.title | escape }}</a>{% endfor %}{% endfor %}</details>{% endfor %}</nav>{% endif %}
+            {% if corporate_menu.links != blank %}
+              <nav class="navigation-mobile-utility" aria-label="{{ 'sections.header.utility_navigation' | t }}">
+                {% for link in corporate_menu.links %}
+                  {% if link.links != blank %}
+                    <details data-nav-utility>
+                      <summary aria-controls="{{ section.id }}-utility-{{ forloop.index }}"><span>{{ link.title | escape }}</span><img src="{{ 'icon-form-chevron-down.svg' | asset_url }}" width="24" height="24" alt=""></summary>
+                      <div class="navigation-utility-content" id="{{ section.id }}-utility-{{ forloop.index }}">
+                        {% render 'navigation-destination', destination: link %}
+                        {% for child in link.links %}
+                          <a href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title | escape }}</a>
+                          {% for grandchild in child.links %}<a href="{{ grandchild.url }}"{% if grandchild.current %} aria-current="page"{% endif %}>{{ grandchild.title | escape }}</a>{% endfor %}
+                        {% endfor %}
+                      </div>
+                    </details>
+                  {% else %}
+                    <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+                  {% endif %}
+                {% endfor %}
+              </nav>
+            {% endif %}
           </div>
         </details>
       </header-navigation>
+      </div>
       <header-navigation class="site-header__nav" data-presentation="desktop">
         {% render 'header-navigation', menu: active_menu, section: section, presentation: 'desktop' %}
       </header-navigation>
 
-      <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
-        {%- if header_context == 'soda' -%}
-          <img
-            class="site-header__logo-image"
-            src="{{ 'sparklys-soda-logo.svg' | asset_url }}"
-            width="300"
-            height="144"
-            alt="{{ 'sections.header.soda' | t }}"
-          >
-        {%- elsif header_context == 'seltzer' -%}
-          <img
-            class="site-header__logo-image site-header__logo-image--seltzer"
-            src="{{ 'footer-logo-seltzer.svg' | asset_url }}"
-            width="205"
-            height="56"
-            alt="{{ 'sections.footer.logo_alt' | t }}"
-          >
-        {%- else -%}
-          <img
-            class="site-header__logo-image site-header__logo-image--arc"
-            src="{{ 'sparklys-arc-logo.svg' | asset_url }}"
-            width="185"
-            height="44"
-            alt="{{ shop.name }}"
-          >
-        {%- endif -%}
-      </a>
+      {% render 'header-logo', header_context: header_context %}
+      {% render 'header-actions', store_finder_page: store_finder_page %}
 
-      <div class="site-header__actions">
-        {%- if store_finder_page != blank -%}
-          <a
-            class="site-header__store-finder"
-            href="{{ store_finder_page.url }}"
-            {% if request.page_type == 'page' and page.id == store_finder_page.id %}aria-current="page"{% endif %}
-          >
-            {{ 'sections.header.store_finder' | t }}
-            <img src="{{ 'icon-location-pin.svg' | asset_url }}" width="12" height="14" alt="">
-          </a>
-        {%- else -%}
-          <span class="site-header__store-finder">
-            {{ 'sections.header.store_finder' | t }}
-            <img src="{{ 'icon-location-pin.svg' | asset_url }}" width="12" height="14" alt="">
-          </span>
-        {%- endif -%}
-        <a class="site-header__action site-header__account" href="{{ routes.account_url }}">
-          <span class="button button--secondary button--round-arrow site-header__action-surface" aria-hidden="true">
-            <span class="button__label site-header__action-label">
-          <img
-            class="site-header__action-icon site-header__action-icon--account"
-            src="{{ 'icon-account.svg' | asset_url }}"
-            width="14"
-            height="15"
-            alt=""
-          >
-            </span>
-          </span>
-          <span class="visually-hidden">{{ 'sections.header.account' | t }}</span>
-        </a>
-        <a class="site-header__action site-header__cart" data-cart-open href="{{ routes.cart_url }}">
-          <span class="button button--secondary button--round-arrow site-header__action-surface" aria-hidden="true">
-            <span class="button__label site-header__action-label">
-          <img
-            class="site-header__action-icon site-header__action-icon--cart"
-            src="{{ 'icon-cart.svg' | asset_url }}"
-            width="17"
-            height="17"
-            alt=""
-          >
-            </span>
-          </span>
-          <span class="visually-hidden">{{ 'sections.header.cart' | t }}</span>
-          {%- if cart.item_count > 0 -%}
-            <span class="site-header__cart-count" data-cart-count aria-hidden="true">{{ cart.item_count }}</span>
-          {%- else -%}
-            <span class="site-header__cart-count" data-cart-count hidden aria-hidden="true">0</span>
-          {%- endif -%}
-        </a>
-      </div>
     </div>
   </div>
 </header>

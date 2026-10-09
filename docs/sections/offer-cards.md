@@ -82,3 +82,9 @@ Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes 
 
 
 Ananotes 178 (2026-10-06): remove decorative arrow circles from every offer card. The existing whole-card native link remains the sole interaction when a valid destination exists; unavailable/hidden destinations remain non-interactive articles. No pages are published to manufacture links. This supersedes the earlier arrow styling notes.
+
+Mobile composition (Ananotes 19, 2026-10-09): below 768px, cards use 4:3 instead of the 32rem minimum height, and decorative pills are hidden. The background image keeps its cover crop and existing parallax overscan; titles and native destinations remain. Tablet/desktop pills and card dimensions are unchanged.
+
+Ananotes follow-up (2026-10-09): At the merchant’s request, phone offer-card titles use the shared Section (H2-size) role below 768px, while keeping semantic H3 tags beneath the section heading. Desktop typography remains unchanged.
+
+Verified phone titles at 36px and desktop titles at the unchanged 32px shared Card role. The mobile 4:3 composition remains intact.

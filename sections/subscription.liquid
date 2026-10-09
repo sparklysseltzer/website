@@ -134,7 +134,7 @@
                 {%- if section.settings.show_account -%}
                   <div class="subscription__account">
                     <p>{{ account_prompt | escape }}</p>
-                    <a class="text-link" href="{{ account_url }}"><span class="text-link__label">{{ account_label | escape }}</span></a>
+                    <a class="text-link text-link--underlined" href="{{ account_url }}"><span class="text-link__label">{{ account_label | escape }}</span></a>
                   </div>
                 {%- endif -%}
               </div>
@@ -193,7 +193,7 @@
   @media (max-width: 84rem) { .subscription__inner { padding-inline: clamp(1.5rem, 5vw, 4rem); } }
   @media (min-width: 48rem) and (max-width: 64rem) { .subscription__content { width: 25rem; } .subscription--soda .subscription__overlay { background: linear-gradient(90deg, #8cd0ff 8%, rgb(140 208 255 / 95%) 34%, transparent 78%); } }
   @media (max-width: 47.999rem) {
-    .subscription__inner { min-height: var(--subscription-mobile-height); align-items: flex-end; padding: 15rem 1.5rem 2rem; }
+    .subscription__inner { min-height: min(var(--subscription-mobile-height), 32rem); align-items: flex-end; padding: 10rem 1.5rem 2rem; }
     .subscription__content { width: 100%; gap: 1.25rem; }
     .subscription__logo { width: 10rem; margin-bottom: .875rem; }
     .subscription--soda .subscription__logo { width: 8rem; }
@@ -205,6 +205,7 @@
     .subscription--soda .subscription__overlay { background: linear-gradient(0deg, #8cd0ff 28%, rgb(140 208 255 / 96%) 48%, transparent 88%); }
   }
   @media (prefers-reduced-motion: reduce) { .subscription__media-inner { transform: none; } }
+@media (width < 768px) { .subscription__intro { display: none; } .subscription__heading { font-size: var(--font-size-section); } }
 {% endstylesheet %}
 
 {% schema %}

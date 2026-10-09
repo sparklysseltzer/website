@@ -64,17 +64,17 @@ content-slider { display: block; min-width: 0; width: 100%; max-width: var(--con
 .content-slider[data-layout='crosslinks'] .content-slider__copy { position: relative; z-index: 2; }
 .content-slider[data-layout='crosslinks'] .content-slider__title { color: var(--color-text-inverse); }
 
-/* Keep the heading/controls contained; only the scrollport reaches the viewport. */
+/* Keep heading/controls contained; the scrollport reaches the bounded viewport. */
 .content-slider[data-width-mode='viewport'] .content-slider__track {
-  width: var(--slider-viewport-width, 100vw);
-  margin-inline: calc(-1 * var(--slider-viewport-inset, (100vw - 100%) / 2)) 0;
-  padding-inline: var(--slider-viewport-inset, calc((100vw - 100%) / 2)) var(--page-gutter);
-  scroll-padding-inline: var(--page-gutter);
+  width: var(--slider-viewport-width, min(100vw, var(--viewport-rail-max)));
+  margin-inline: calc(-1 * var(--slider-viewport-inset, (min(100vw, var(--viewport-rail-max)) - 100%) / 2)) 0;
+  padding-inline: max(var(--viewport-rail-fade), var(--slider-viewport-inset, calc((min(100vw, var(--viewport-rail-max)) - 100%) / 2))) max(var(--page-gutter), var(--viewport-rail-fade));
+  scroll-padding-inline: max(var(--page-gutter), var(--viewport-rail-fade));
   scroll-snap-type: none;
 }
 .content-slider[data-width-mode='viewport'][data-viewport-ready] .content-slider__track:not([data-dragging], [data-settling]) { scroll-snap-type: x mandatory; }
 .content-slider[data-width-mode='viewport'] .content-slider__item:first-child {
-  scroll-margin-inline-start: max(0px, calc(var(--slider-viewport-inset, (100vw - 100%) / 2) - var(--page-gutter)));
+  scroll-margin-inline-start: max(0px, calc(var(--slider-viewport-inset, (min(100vw, var(--viewport-rail-max)) - 100%) / 2) - max(var(--page-gutter), var(--viewport-rail-fade))));
 }
 
 /* Blend the media layer only; isolate it from adjacent cards and the canvas. */
@@ -83,3 +83,11 @@ content-slider { display: block; min-width: 0; width: 100%; max-width: var(--con
 /* Only viewport-adjacent cards get a temporary compositor hint. The controller
    removes it offscreen, on disconnect and when reduced motion is enabled. */
 .content-slider__card[data-reveal-layer] { will-change: transform, opacity; }
+
+/* Two complete crosslink cards plus a preview of the next on phones. */
+@media (width < 768px) {
+  .content-slider[data-layout='crosslinks'] .content-slider__track { gap: .75rem; }
+  .content-slider[data-layout='crosslinks'] .content-slider__item { flex-basis: calc((100% - 2rem) / 2.2); }
+  .content-slider[data-layout='crosslinks'] .content-slider__card { min-height: 0; aspect-ratio: 3 / 4; padding: 1rem .75rem; }
+  .content-slider[data-layout='crosslinks'] .content-slider__title { font-size: var(--font-size-compact); }
+}

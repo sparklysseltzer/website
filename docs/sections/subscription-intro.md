@@ -23,3 +23,5 @@ The subscription template preserves the existing `main` section ID while replaci
 ## Verification
 
 Verified in an isolated headless development preview at 1440px and 390px: intro/photo composition, full section sequence after scroll reveals, one H1, Erode authored casing, no horizontal overflow or broken images, and native anchor navigation. Existing section motion is reused. New schema grouping/dependencies were reviewed and the editor contracts pass; the existing poster uses its legacy stored `seltzer` value for the Newake choice. The Figma photograph is about 260 KiB after WebP encoding.
+
+Underlined account link (Ananotes 18, 2026-10-09): uses the shared `text-link--underlined` variant alongside the Subscription poster.

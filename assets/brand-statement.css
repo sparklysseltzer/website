@@ -5,7 +5,7 @@ brand-statement {
   margin-inline: auto;
   padding-block: var(--section-padding-block);
   font-family: var(--font-heading-soda);
-  font-size: var(--font-size-section);
+  font-size: var(--font-size-display);
   font-weight: 700;
   line-height: var(--line-height-heading-erode);
   letter-spacing: var(--letter-spacing-heading-erode);
@@ -40,4 +40,8 @@ brand-statement {
 .brand-statement__art--fresh .brand-statement__art-inner { width: .8em; left: .075em; padding: .12em; border-radius: 50%; background: #e1f5a5; }
 @media (prefers-reduced-motion: reduce) {
   .brand-statement__word, .brand-statement__art { opacity: 1 !important; filter: none !important; transform: none !important; }
+}
+
+@media (width < 768px) {
+  .brand-statement { font-size: var(--font-size-section); }
 }

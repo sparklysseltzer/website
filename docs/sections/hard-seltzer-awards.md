@@ -53,3 +53,12 @@ Editor naming (2026-09-12): **Hard Seltzer awards**. Display names only; interna
 Button and editor refinement (2026-10-06): the action now uses the shared `button__label` layer, keeping its white text above the black resting fill and changing to dark text when the primary hover/focus effect reveals the background. **Show button** defaults on; off suppresses the action and hides Button label and Button link. **Heading** is now a single-line text input with its existing ID; the renderer preserves any line breaks already saved. Section visibility remains independent and Custom background alone enables Color. No saved values or award claims change.
 
 Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes the Surface dropdown bound to existing shared CSS/theme color roles; only Custom color exposes the original picker. Schema default Custom preserves existing saved colors; new add-section presets select Surface. No saved content is migrated. Internal text/card colors do not auto-invert. See [Section backgrounds](../design-system.md#section-backgrounds).
+
+
+## Heading case controls (Ananotes, 2026-10-09)
+
+The title now uses the shared Heading font selector (Erode / Newake), followed by Uppercase headings, visible only for Newake. Off preserves authored case; Erode ignores saved uppercase. Newake is the schema default, with casing off. Product Comparison presets explicitly choose Erode for Soda and Newake for Hard Seltzer. Only the section title consumes this choice, preserving comparison-card type and award artwork. This supersedes the earlier fixed-heading typography scope. No saved templates, merchant copy or store records are changed.
+
+Schema review: existing content/layout/visibility groups remain in composition order. Product Comparison's world enables its Soda footnote and block values 4–6; featured only controls ordering. Awards' Show button enables label and link. In both, Colored enables Surface, Custom color enables the picker; breakpoint visibility and content width have no dependent fields. Heading font enables only the Newake uppercase field. Erode, normal Newake and uppercase Newake cases are registered in the editor gate.
+
+Verification: schema mode/dependency contracts pass. Local Hard Seltzer renders use Newake with authored case at 390px and 2101px; temporary browser token overrides verified the Erode, normal Newake and uppercase Newake CSS modes at both sizes. This checks rendered styling, not a live Theme Editor session. Full checks, JSON and JavaScript validation pass.

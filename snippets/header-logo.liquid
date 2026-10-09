@@ -1,0 +1,27 @@
+<a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+        {%- if header_context == 'soda' -%}
+          <img
+            class="site-header__logo-image"
+            src="{{ 'sparklys-soda-logo.svg' | asset_url }}"
+            width="300"
+            height="144"
+            alt="{{ 'sections.header.soda' | t }}"
+          >
+        {%- elsif header_context == 'seltzer' -%}
+          <img
+            class="site-header__logo-image site-header__logo-image--seltzer"
+            src="{{ 'footer-logo-seltzer.svg' | asset_url }}"
+            width="205"
+            height="56"
+            alt="{{ 'sections.footer.logo_alt' | t }}"
+          >
+        {%- else -%}
+          <img
+            class="site-header__logo-image site-header__logo-image--arc"
+            src="{{ 'sparklys-arc-logo.svg' | asset_url }}"
+            width="185"
+            height="44"
+            alt="{{ shop.name }}"
+          >
+        {%- endif -%}
+      </a>

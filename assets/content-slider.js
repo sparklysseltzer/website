@@ -99,8 +99,11 @@ if (!customElements.get('content-slider')) {
         return;
       }
       const bounds = this.getBoundingClientRect();
-      const width = document.documentElement.clientWidth;
-      const inset = getComputedStyle(this).direction === 'rtl' ? width - bounds.right : bounds.left;
+      const viewport = document.documentElement.clientWidth;
+      const style = getComputedStyle(this);
+      const width = Math.min(viewport, parseFloat(style.getPropertyValue('--viewport-rail-max')) || 2600);
+      const outerInset = (viewport - width) / 2;
+      const inset = style.direction === 'rtl' ? viewport - bounds.right - outerInset : bounds.left - outerInset;
       for (const [property, value] of [['--slider-viewport-width', width], ['--slider-viewport-inset', Math.max(0, inset)]]) {
         const next = `${value.toFixed(3)}px`;
         if (this.style.getPropertyValue(property) !== next) this.style.setProperty(property, next);

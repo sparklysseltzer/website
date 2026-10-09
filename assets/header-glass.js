@@ -27,13 +27,13 @@ class HeaderGlass extends HTMLElement {
     const radius = Math.min(parseFloat(getComputedStyle(this.tab).borderTopLeftRadius) || 0, tab.height / 2);
     const curve = parseFloat(getComputedStyle(this.tab.parentElement, '::before').width);
     const join = Math.min(curve || 14, tab.height - radius);
-    // Extend the opening below the viewport so the bottom edge cannot paint a seam.
-    const d = `M0 0H${strip.width}V${bottom}H0Z M${x - join} ${bottom}
-      Q${x} ${bottom} ${x} ${bottom - join} V${y + radius}
-      Q${x} ${y} ${x + radius} ${y} H${right - radius}
-      Q${right} ${y} ${right} ${y + radius} V${bottom - join}
-      Q${right} ${bottom} ${right + join} ${bottom}
-      V${bottom + 1} H${x - join}Z`;
+    // One contour leaves the tab open at the strip's bottom. An even-odd hole
+    // overlapping the outer bottom edge can rasterize a seam at fractional heights.
+    const d = `M0 0H${strip.width}V${bottom}H${right + join}
+      Q${right} ${bottom} ${right} ${bottom - join} V${y + radius}
+      Q${right} ${y} ${right - radius} ${y} H${x + radius}
+      Q${x} ${y} ${x} ${y + radius} V${bottom - join}
+      Q${x} ${bottom} ${x - join} ${bottom} H0Z`;
     this.svg.setAttribute('viewBox', `0 0 ${strip.width} ${bottom}`);
     if (this.path.getAttribute('d') !== d) this.path.setAttribute('d', d);
     this.header.classList.add('site-header--glass');

@@ -124,7 +124,7 @@ class CartDrawer extends HTMLElement {
   }
 
   open(opener) {
-    if (opener?.closest('.navigation-dialog')) opener = document.querySelector('.site-header__cart');
+    if (opener?.closest('.navigation-dialog')) opener = document.querySelector('.site-header__main > .site-header__inner > .site-header__actions .site-header__cart');
     document.dispatchEvent(new CustomEvent('sparklys:navigation-dismiss'));
     if (!this.dialog.open || this.exitAnimation) {
       const backdrop = this.dialog.open ? getComputedStyle(this.dialog, '::backdrop') : null;

@@ -57,3 +57,5 @@ Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes 
 ## Shared heading casing
 
 **Heading font** uses the standard two-choice Erode/Newake segmented control. **Uppercase headings** appears immediately after it only for explicit Newake and follows the font control's content visibility. On uppercases semantic headings (including rich text); off preserves authored case. Erode ignores saved uppercase. Legacy saved Automatic values remain rendering compatibility only; the editor offers Erode and Newake. See the [heading control standard](../design-system.md#editorial-heading-font-selection). Font/casing schema scenarios are registered; no saved template content or structured data changes.
+
+Contact hover (sparklys.ch Ananotes 2, 2026-10-08): contact pills now start transparent and sweep to white, with black icon/text, through the shared button timing. Keyboard focus uses the same fill; native links, focus outlines and reduced-motion behavior remain.

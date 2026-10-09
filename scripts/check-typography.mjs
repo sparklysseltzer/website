@@ -1,9 +1,9 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import assert from 'node:assert/strict';
 
-// Exact, documented artwork exceptions. Ordinary sections must use shared roles.
+// Exact, documented artwork and global desktop-scale exceptions. Sections use shared roles.
 const exceptions = new Map([
-  ['assets/base.css', new Set(['var(--age-document-type-size)'])],
+  ['assets/base.css', new Set(['var(--age-document-type-size)', 'clamp(100%, .9756097561vw, 117.0731707317%)', 'clamp(100%, calc(100vw / 1640px * 100%), 117.0731707317%)'])],
   ['sections/soda-three-reasons.liquid', new Set(['clamp(3.5rem, 6vw, 5.125rem)', 'calc(192 / 82 * 1em)', '1em'])],
   ['sections/product-overview-teaser.liquid', new Set(['clamp(1.75rem, 2.2vw, 2.5rem)', 'clamp(2.25rem, calc(21cqi - 1.25rem), 3.875rem)', 'min(15.5cqi, 3.875rem)', '2rem'])],
 ]);

@@ -14,7 +14,7 @@
       </ul>
       <div class="subscription-intro__actions">
         <a class="button" href="#subscription-product"><span class="button__label">{{ 'sections.subscription.button_label' | t }}</span></a>
-        <div><p>{{ 'sections.subscription.account_prompt' | t }}</p><a class="text-link" href="{{ routes.account_login_url }}"><span class="text-link__label">{{ 'sections.subscription.account_label' | t }}</span></a></div>
+        <div><p>{{ 'sections.subscription.account_prompt' | t }}</p><a class="text-link text-link--underlined" href="{{ routes.account_login_url }}"><span class="text-link__label">{{ 'sections.subscription.account_label' | t }}</span></a></div>
       </div>
     </div>
     <div class="subscription-intro__image{% if section.settings.image == blank %} subscription-intro__image--original{% endif %}">

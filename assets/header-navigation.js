@@ -10,11 +10,12 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     this.heightEffects = new Map();
     this.roots = [...this.querySelectorAll('[data-nav-root]')];
     this.categories = [...this.querySelectorAll('[data-nav-category]')];
+    this.utilities = [...this.querySelectorAll('[data-nav-utility]')];
     this.tree = this.querySelector('.navigation-tree');
     this.pill = this.querySelector('.navigation-pill');
     this.group = this.querySelector('.navigation-roots');
     this.header = this.closest('.site-header');
-    this.roots.concat(this.categories).forEach(details => this.state(details, false));
+    this.roots.concat(this.categories, this.utilities).forEach(details => this.state(details, false));
     if (this.mobile) {
       this.disclosure = this.querySelector('[data-mobile-disclosure]');
       this.opener = this.disclosure.querySelector(':scope > summary');
@@ -58,7 +59,7 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     this.breakpoint.addEventListener('change', () => {
       const hadFocus = this.contains(document.activeElement);
       this.dismiss();
-      if (hadFocus) this.header.querySelector(this.breakpoint.matches ? '.site-header__logo' : '.navigation-mobile-opener')?.focus();
+      if (hadFocus) this.header.querySelector(this.breakpoint.matches ? '.site-header__main > .site-header__inner > .site-header__logo' : '.navigation-mobile-opener')?.focus();
       this.measure();
     }, { signal });
     this.reduced.addEventListener('change', () => {
@@ -129,6 +130,8 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     const previous = getComputedStyle(panel);
     const opacity = details.open ? previous.opacity : '0';
     const height = details.open ? panel.getBoundingClientRect().height : 0;
+    const paddingStart = details.open ? previous.paddingBlockStart : '0px';
+    const paddingEnd = details.open ? previous.paddingBlockEnd : '0px';
     const transform = details.open ? previous.transform : 'translateY(-6px)';
     this.effects.get(panel)?.cancel(); this.effects.delete(panel);
     details.querySelector(':scope > summary').setAttribute('aria-expanded', String(open));
@@ -138,16 +141,24 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     const desktopCategory = !this.mobile && details.hasAttribute('data-nav-category');
     // Cards own desktop category entry; do not multiply their fade by a panel fade.
     if (desktopCategory && open) return;
-    const accordion = this.mobile && details.hasAttribute('data-nav-category');
+    const accordion = this.mobile && details.matches('[data-nav-category], [data-nav-utility]');
     const frames = accordion
-      ? [{ height: `${height}px`, opacity, overflow: 'hidden' }, { height: `${open ? panel.scrollHeight : 0}px`, opacity: open ? 1 : 0, overflow: 'hidden' }]
+      ? [{ height: `${height}px`, paddingBlockStart: paddingStart, paddingBlockEnd: paddingEnd, opacity, overflow: 'hidden' }, { height: `${open ? panel.scrollHeight : 0}px`, paddingBlockStart: open ? getComputedStyle(panel).paddingBlockStart : '0px', paddingBlockEnd: open ? getComputedStyle(panel).paddingBlockEnd : '0px', opacity: open ? 1 : 0, overflow: 'hidden' }]
       : desktopCategory ? [{ opacity }, { opacity: 0 }]
       : [{ opacity, transform }, { opacity: open ? 1 : 0, transform: `translateY(${open ? 0 : -6}px)` }];
-    this.animate(panel, frames, desktopCategory ? 'navigation-content' : accordion ? 'base' : 'slow', () => { if (!open) { details.open = false; if (details.hasAttribute('data-nav-category')) this.clearLeaving(panel); } }, desktopCategory ? { duration: parseFloat(getComputedStyle(this).getPropertyValue('--motion-duration-navigation-content')) / 2, easing: getComputedStyle(this).getPropertyValue('--motion-ease-ui').trim() } : {});
+    this.animate(panel, frames, desktopCategory ? 'navigation-content' : accordion ? 'base' : 'slow', () => { if (!open) { details.open = false; if (details.hasAttribute('data-nav-category')) this.clearLeaving(panel); } }, desktopCategory ? { duration: parseFloat(getComputedStyle(this).getPropertyValue('--motion-duration-navigation-content')) / 2, easing: getComputedStyle(this).getPropertyValue('--motion-ease-ui').trim() } : accordion ? { easing: getComputedStyle(this).getPropertyValue('--motion-ease-ui').trim() } : {});
   }
   selectRoot(root) {
-    if (this.root === root) { this.closeRoot(false); return; }
-    if (this.root) this.transition(this.root, false);
+    if (this.root === root) { if (!this.mobile) this.closeRoot(false); return; }
+    if (this.mobile) this.clearLeaving(root.querySelector(':scope > .navigation-panel'));
+    if (this.root) {
+      if (this.mobile) {
+        const outgoing = this.root.querySelector(':scope > .navigation-panel');
+        const rect = outgoing.getBoundingClientRect(), origin = this.group.getBoundingClientRect();
+        Object.assign(outgoing.style, { position: 'absolute', left: '0', top: `${rect.top - origin.top}px`, width: '100%' });
+      }
+      this.transition(this.root, false);
+    }
     this.root = root;
     this.header.querySelectorAll('[data-corporate-menu][open]').forEach(details => { details.open = false; });
     const categories = [...root.querySelectorAll('[data-nav-category]')];
@@ -249,6 +260,15 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     if (event.target.closest('[data-mobile-close]')) { this.closeMobile(); return; }
     if (summary?.parentElement.matches('[data-nav-root]')) { event.preventDefault(); this.selectRoot(summary.parentElement); return; }
     if (summary?.parentElement.matches('[data-nav-category]')) { event.preventDefault(); this.selectCategory(summary.parentElement); return; }
+    if (summary?.parentElement.matches('[data-nav-utility]')) {
+      event.preventDefault();
+      const selected = summary.parentElement;
+      const open = summary.getAttribute('aria-expanded') !== 'true';
+      this.utilities.forEach(details => {
+        if (details === selected || details.querySelector('summary').getAttribute('aria-expanded') === 'true') this.transition(details, details === selected && open);
+      });
+      return;
+    }
     const button = event.target.closest('[data-scroll]');
     if (button) {
       const rail = button.closest('.navigation-content').querySelector('.navigation-cards');
@@ -260,14 +280,21 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     if (!this.dialog || this.dialog.open) return;
     this.header.querySelectorAll('header-navigation').forEach(nav => { if (nav !== this) nav.dismiss(); });
     this.header.querySelectorAll('[data-corporate-menu][open]').forEach(details => { details.open = false; });
+    document.documentElement.style.setProperty('--navigation-scrollbar-width', `${window.innerWidth - document.documentElement.clientWidth}px`);
+    this.dialog.style.width = `${this.header.querySelector('.site-header__main').getBoundingClientRect().width}px`;
     this.dialog.showModal();
+    // Establish the closed glyph before transitioning both aligned header copies.
+    getComputedStyle(this.querySelector('[data-mobile-close] .mobile-menu__icon'), '::before').transform;
+    this.setAttribute('data-menu-open', '');
     this.opener.setAttribute('aria-expanded', 'true');
     if (this.roots[0]) this.selectRoot(this.roots[0]);
-    this.animate(this.dialog, [{ opacity: 0, transform: 'translateY(-12px)' }, { opacity: 1, transform: 'translateY(0)' }], 'slow');
+    this.animate(this.dialog, [{ opacity: 0 }, { opacity: 1 }], 'slow');
     this.querySelector('[data-mobile-close]').focus();
   }
   closeMobile(immediate = false, restore = true) {
     if (!this.dialog?.open) return;
+    this.removeAttribute('data-menu-open');
+    this.opener.setAttribute('aria-expanded', 'false');
     const finish = () => { this.dialog.close(); this.closeRoot(false, true); if (restore && this.isConnected) this.opener.focus({ preventScroll: true }); };
     if (immediate) { this.effects.get(this.dialog)?.cancel(); finish(); }
     else this.animate(this.dialog, [{ opacity: getComputedStyle(this.dialog).opacity }, { opacity: 0 }], 'base', finish);
@@ -286,6 +313,7 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
   }
   measure() {
     if (!this.header) return;
+    if (this.dialog?.open) this.dialog.style.width = `${this.header.querySelector('.site-header__main').getBoundingClientRect().width}px`;
     // Overlay panels do not contribute to the existing sticky-header height observer.
     this.style.setProperty('--navigation-top', `${this.header.querySelector('.site-header__main').getBoundingClientRect().bottom}px`);
     this.positionPill();

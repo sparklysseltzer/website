@@ -1,7 +1,6 @@
 {%- comment -%}Responsive source-size hint for media filling a shared content container.{%- endcomment -%}
 {%- assign image_width_role = width | default: 'editorial' -%}
 {%- case image_width_role -%}
-  {%- when 'narrow' -%}(min-width: 864px) 800px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)
-  {%- when 'page' -%}(min-width: 1920px) 1856px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)
-  {%- else -%}(min-width: 1464px) 1400px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)
+  {%- when 'narrow' -%}(min-width: 1920px) 937px, (min-width: 1640px) 48.780488vw, (min-width: 864px) 800px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)
+  {%- else -%}(min-width: 1920px) 1640px, (min-width: 1640px) 85.365854vw, (min-width: 1464px) 1400px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)
 {%- endcase -%}

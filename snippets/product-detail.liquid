@@ -191,7 +191,7 @@
         <div class="pdp-usps">
           <div class="usp-items{% if featured_usp != blank %} pdp-usps__items--featured{% endif %}" role="list">
             {% render 'featured-usp', featured: featured_usp, class: 'pdp-usps__featured', loading: 'lazy' %}
-            {% render 'usp-items', usp_variant: brand, usp_set: usp_set %}
+            {% render 'usp-items', inline_labels: true, usp_variant: brand, usp_set: usp_set %}
           </div>
         </div>
       {% endif %}

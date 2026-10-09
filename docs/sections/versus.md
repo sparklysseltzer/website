@@ -70,3 +70,14 @@ Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes 
 Ananotes 180 (2026-10-06): individual comparison cards now receive the shared staggered scroll reveal instead of animating the entire horizontal scroller as one item. Heading, basis and notes keep their existing reveal; card ordering, native horizontal scrolling, reduced-motion and no-JavaScript content remain intact.
 
 Footnote readability (Ananotes 197 and follow-up, 2026-10-08): dedicated notes now use the [shared footnote contrast treatment](../design-system.md#footnote-contrast-ananotes-197-and-follow-up), replacing the low-contrast Notice/muted color. USP panels retain their own inherited foreground, while open notes follow the canvas. Copy, typography roles and layout are unchanged.
+
+Mobile gutter (sparklys.ch Ananotes 5, 2026-10-08): scroll padding now matches the scroller’s inline padding. Native initial snapping and subsequent card snaps preserve the gutter instead of scrolling the first card flush against the viewport.
+
+
+## Heading case controls (Ananotes, 2026-10-09)
+
+The title now uses the shared Heading font selector (Erode / Newake), followed by Uppercase headings, visible only for Newake. Off preserves authored case; Erode ignores saved uppercase. Newake is the schema default, with casing off. Product Comparison presets explicitly choose Erode for Soda and Newake for Hard Seltzer. Only the section title consumes this choice, preserving comparison-card type and award artwork. This supersedes the earlier fixed-heading typography scope. No saved templates, merchant copy or store records are changed.
+
+Schema review: existing content/layout/visibility groups remain in composition order. Product Comparison's world enables its Soda footnote and block values 4–6; featured only controls ordering. Awards' Show button enables label and link. In both, Colored enables Surface, Custom color enables the picker; breakpoint visibility and content width have no dependent fields. Heading font enables only the Newake uppercase field. Erode, normal Newake and uppercase Newake cases are registered in the editor gate.
+
+Verification: schema mode/dependency contracts pass. Local Hard Seltzer renders use Newake with authored case at 390px and 2101px; temporary browser token overrides verified the Erode, normal Newake and uppercase Newake CSS modes at both sizes. This checks rendered styling, not a live Theme Editor session. Full checks, JSON and JavaScript validation pass.

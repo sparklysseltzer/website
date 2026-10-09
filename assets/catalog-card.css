@@ -52,3 +52,6 @@
 @media (hover: hover) { .catalog-card__link:hover .can-artwork { transform: translateY(-.5rem); } }
 .catalog-card__link:focus-visible .can-artwork { transform: translateY(-.5rem); }
 @media (prefers-reduced-motion: reduce) { .catalog-card .can-artwork { transition: none; } .catalog-card__link:is(:hover, :focus-visible) .can-artwork { transform: none; } }
+
+/* Crop source-export edge pixels inside the card’s single rounded clip. */
+.catalog-card .product-background { inset: -2px; }

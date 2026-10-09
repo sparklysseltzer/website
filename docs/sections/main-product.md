@@ -155,3 +155,9 @@ Ananotes 195–196: a selected subscription gives the shipping hint the shared S
 All six subscription products and their assigned variants share 2, 4, 6, 8 and 12-week billing/delivery intervals with 15% off. The localized badge says “Save 15%” / “Spare 15%”. Shared benefit source content and English translations describe the same rule. `product-plan-label` removes only the recognized trailing Shopify discount clause, preserving the frequency; the native/enhanced selectors and cart rows reuse it. Authoritative prices and plan IDs still come from allocations. Existing subscriber contracts were not changed.
 
 Subscription-only default selection is documented in [Subscription product](subscription-product.md#default-selection-2026-10-08). The ordinary PDP retains Shopify’s selected/first available variant and one-time purchase behavior.
+
+Ananotes 199 (2026-10-08): the shared featured benefit panel uses two columns below a 24rem container and three above, replacing the premature six-column layout. Shared Label typography, complete authored text, icon sizes and featured artwork are preserved. At 320, 390, 768, 1440 and 2474px, the current Soda labels occupy one or two lines without page overflow. No line clamp or copy truncation is used.
+
+Benefit follow-up (sparklys.ch Ananotes 6–7, 2026-10-08): PDP captions use shared Small typography with natural wrapping of source line breaks, retaining the responsive two/three-column layout. The featured No added sugar artwork grows from 7rem to 8rem without stretching its aspect ratio. Collection-hero captions are excluded.
+
+The same two/three-column container grid also applies to PDP benefit sets without featured artwork, including Hard Seltzer, so the shared compact labels receive comparable space.

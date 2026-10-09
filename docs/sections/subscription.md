@@ -88,3 +88,9 @@ Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes 
 Account text links use the shared trailing-arrow treatment with inherited colour in both worlds. The extended 44px hit area remains; old sweep-related colour overrides and underline styling are removed.
 
 Ananotes 185/186 (2026-10-07): account actions use their intrinsic width and account for the shared text link's negative inline margins. The default sign-in label stays on one line, with the account pair moving below the subscribe button when space is limited. Long merchant labels can still wrap within the available width. Subscription buttons clip their light backing to the padding box and overlap the inner rounded outline by one pixel to cover the antialiased seam between the sweep and border. Existing light/dark states, outer geometry, shared sweep timing and reduced motion remain intact. Verified both collection worlds and the Soda Yuzu & Ginger PDP at 320, 390, 1440 and 2389px: single-line default sign-in, 48px buttons and no horizontal overflow. Phone/desktop screenshots, intermediate sweep frames and keyboard focus were inspected. No schema, copy, commerce or structured-data changes.
+
+Mobile introduction (sparklys.ch Ananotes 4, 2026-10-08): the introductory prose is hidden below 768px to shorten the poster. Heading, benefits, subscribe action and account links remain visible. Authored content and editor settings are retained.
+
+Underlined account link (Ananotes 18, 2026-10-09): uses shared `text-link--underlined`, retaining the text-link arrow, focus, hover and reduced-motion behavior.
+
+Ananotes 30 (2026-10-09): mobile poster image space above the content reduces from 15rem to 10rem; its configured minimum height is capped at 32rem while content can still grow naturally. The mobile heading uses shared Section (H2) typography rather than Display. Desktop and merchant content remain unchanged.
