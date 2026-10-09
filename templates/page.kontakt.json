@@ -12,11 +12,30 @@
     "intro_about": {
       "type": "page-intro",
       "settings": {
+        "content_width": "narrow",
         "heading_font": "erode",
         "uppercase_heading": false,
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "original",
+        "section_background_surface": "custom",
+        "section_background": ""
+      }
+    },
+    "contact": {
+      "type": "contact-form",
+      "settings": {
+        "content_width": "narrow",
+        "heading": "Sende uns eine Nachricht",
+        "heading_font": "erode",
+        "uppercase_heading": false,
+        "enable_newsletter": true,
+        "klaviyo_site_id": "Vv6a6f",
+        "klaviyo_list_id": "TwzfPb",
+        "hide_on_mobile": false,
+        "hide_on_desktop": false,
+        "section_background_mode": "transparent",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -24,8 +43,10 @@
       "type": "social-media-channels",
       "name": "Social Media Channels",
       "settings": {
+        "content_width": "editorial",
         "heading": "Follow us!",
         "heading_font": "erode",
+        "uppercase_heading": false,
         "button_style": "solid",
         "instagram_hidden": false,
         "instagram_url": "",
@@ -48,20 +69,7 @@
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
-        "section_background": ""
-      }
-    },
-    "contact": {
-      "type": "contact-form",
-      "settings": {
-        "heading": "Sende uns eine Nachricht",
-        "heading_font": "erode",
-        "enable_newsletter": true,
-        "klaviyo_site_id": "Vv6a6f",
-        "klaviyo_list_id": "TwzfPb",
-        "hide_on_mobile": false,
-        "hide_on_desktop": false,
-        "section_background_mode": "transparent",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     },
@@ -69,6 +77,7 @@
       "type": "text-image",
       "name": "Text and image",
       "settings": {
+        "content_width": "editorial",
         "image_side": "left",
         "image": "shopify://shop_images/sparklys-soda-variety-pack-gallery-image-02.jpg",
         "image_alt": "",
@@ -77,24 +86,27 @@
         "mobile_image_height": 180,
         "show_heading": true,
         "heading": "Briefe schreiben oder vorbeikommen",
+        "heading_font": "erode",
+        "uppercase_heading": false,
         "heading_level": "h2",
         "text": "<h3>Postanschrift</h3><p>Sparklys Switzerland AG<br/>Haslenstrasse 13<br/>9050 Appenzell<br/><br/></p><h3>Office St.Gallen</h3><p>Sparklys Switzerland AG<br/>Ruhbergstrasse 1<br/>9000 St.Gallen</p>",
-        "heading_font": "erode",
         "show_button": true,
         "button_label": "Anfahrt zum Office",
         "button_link": "https://maps.app.goo.gl/KSbyb1WKL9dwmAEa8",
+        "button_new_tab": false,
         "button_style": "dark",
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
+        "section_background_surface": "custom",
         "section_background": ""
       }
     }
   },
   "order": [
     "intro_about",
-    "social_media_channels_GfyibV",
     "contact",
-    "text_image_zQMX6Y"
+    "text_image_zQMX6Y",
+    "social_media_channels_GfyibV"
   ]
 }
