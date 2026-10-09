@@ -160,6 +160,18 @@
                 "uppercase_heading": false
               },
               "blocks": {}
+            },
+            "editorial_image_GqgG6z": {
+              "type": "editorial-image",
+              "name": "Image",
+              "settings": {
+                "image": "shopify://shop_images/sparklys-about-img-05_52130a63-b826-4adc-a94a-f0b7dcb614ed.png",
+                "image_alt": "",
+                "image_height_mode": "natural",
+                "image_height": 520,
+                "mobile_image_height": 360
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -173,7 +185,8 @@
             "prototype",
             "founding",
             "editorial_image_P3KWX4",
-            "editorial_text_TNimbn"
+            "editorial_text_TNimbn",
+            "editorial_image_GqgG6z"
           ]
         },
         "sidebar": {
