@@ -125,7 +125,7 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
       done?.();
     }).catch(() => {});
   }
-  transition(details, open, immediate = false) {
+  transition(details, open, immediate = false, slide = 0) {
     const panel = details.querySelector(':scope > div');
     const previous = getComputedStyle(panel);
     const opacity = details.open ? previous.opacity : '0';
@@ -133,6 +133,8 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     const paddingStart = details.open ? previous.paddingBlockStart : '0px';
     const paddingEnd = details.open ? previous.paddingBlockEnd : '0px';
     const transform = details.open ? previous.transform : 'translateY(-6px)';
+    const accordion = this.mobile && details.matches('[data-nav-category], [data-nav-utility]');
+    const slidingRoot = this.mobile && details.matches('[data-nav-root]') && slide !== 0;
     this.effects.get(panel)?.cancel(); this.effects.delete(panel);
     details.querySelector(':scope > summary').setAttribute('aria-expanded', String(open));
     panel.inert = !open;
@@ -141,15 +143,21 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     const desktopCategory = !this.mobile && details.hasAttribute('data-nav-category');
     // Cards own desktop category entry; do not multiply their fade by a panel fade.
     if (desktopCategory && open) return;
-    const accordion = this.mobile && details.matches('[data-nav-category], [data-nav-utility]');
     const frames = accordion
-      ? [{ height: `${height}px`, paddingBlockStart: paddingStart, paddingBlockEnd: paddingEnd, opacity, overflow: 'hidden' }, { height: `${open ? panel.scrollHeight : 0}px`, paddingBlockStart: open ? getComputedStyle(panel).paddingBlockStart : '0px', paddingBlockEnd: open ? getComputedStyle(panel).paddingBlockEnd : '0px', opacity: open ? 1 : 0, overflow: 'hidden' }]
+      ? [{ height: `${height}px`, paddingBlockStart: paddingStart, paddingBlockEnd: paddingEnd, opacity, transform, overflow: 'hidden' }, { height: `${open ? panel.scrollHeight : 0}px`, paddingBlockStart: open ? getComputedStyle(panel).paddingBlockStart : '0px', paddingBlockEnd: open ? getComputedStyle(panel).paddingBlockEnd : '0px', opacity: open ? 1 : 0, transform: open ? 'translateY(0)' : 'translateY(-6px)', overflow: 'hidden' }]
+      : slidingRoot
+        ? [{ opacity: open ? 1 : opacity, transform: open ? `translateX(${slide * 14}px)` : transform }, { opacity: open ? 1 : 0, transform: open ? 'translateX(0)' : `translateX(${-slide * 14}px)` }]
       : desktopCategory ? [{ opacity }, { opacity: 0 }]
       : [{ opacity, transform }, { opacity: open ? 1 : 0, transform: `translateY(${open ? 0 : -6}px)` }];
-    this.animate(panel, frames, desktopCategory ? 'navigation-content' : accordion ? 'base' : 'slow', () => { if (!open) { details.open = false; if (details.hasAttribute('data-nav-category')) this.clearLeaving(panel); } }, desktopCategory ? { duration: parseFloat(getComputedStyle(this).getPropertyValue('--motion-duration-navigation-content')) / 2, easing: getComputedStyle(this).getPropertyValue('--motion-ease-ui').trim() } : accordion ? { easing: getComputedStyle(this).getPropertyValue('--motion-ease-ui').trim() } : {});
+    const timing = desktopCategory
+      ? { duration: parseFloat(getComputedStyle(this).getPropertyValue('--motion-duration-navigation-content')) / 2, easing: getComputedStyle(this).getPropertyValue('--motion-ease-ui').trim() }
+      : accordion || slidingRoot ? { easing: getComputedStyle(this).getPropertyValue('--motion-ease-ui').trim() } : {};
+    this.animate(panel, frames, desktopCategory ? 'navigation-content' : accordion || slidingRoot ? 'base' : 'slow', () => { if (!open) { details.open = false; if (details.hasAttribute('data-nav-category')) this.clearLeaving(panel); } }, timing);
   }
   selectRoot(root) {
     if (this.root === root) { if (!this.mobile) this.closeRoot(false); return; }
+    const direction = this.mobile && this.root ? Math.sign(this.roots.indexOf(root) - this.roots.indexOf(this.root)) : 0;
+    const mobileHeight = this.mobile && direction ? this.group.getBoundingClientRect().height : 0;
     if (this.mobile) this.clearLeaving(root.querySelector(':scope > .navigation-panel'));
     if (this.root) {
       if (this.mobile) {
@@ -157,7 +165,7 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
         const rect = outgoing.getBoundingClientRect(), origin = this.group.getBoundingClientRect();
         Object.assign(outgoing.style, { position: 'absolute', left: '0', top: `${rect.top - origin.top}px`, width: '100%' });
       }
-      this.transition(this.root, false);
+      this.transition(this.root, false, false, direction);
     }
     this.root = root;
     this.header.querySelectorAll('[data-corporate-menu][open]').forEach(details => { details.open = false; });
@@ -165,8 +173,9 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     categories.forEach(details => this.clearLeaving(details.querySelector(':scope > .navigation-content')));
     categories.forEach((details, index) => this.transition(details, index === 0, true));
     root.selectedCategory = categories[0] || null;
-    this.transition(root, true);
-    this.reveal(root.selectedCategory || root);
+    this.transition(root, true, false, direction);
+    if (direction) this.easeMobileHeight(this.group, mobileHeight);
+    if (!direction) this.reveal(root.selectedCategory || root);
     this.updateScrollers();
     this.positionPill();
   }
@@ -201,6 +210,22 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     this.heightEffects.set(panel, animation);
     animation.finished.then(() => {
       if (this.heightEffects.get(panel) === animation) this.heightEffects.delete(panel);
+    }).catch(() => {});
+  }
+  easeMobileHeight(element, fromHeight) {
+    const running = this.heightEffects.get(element);
+    const targetHeight = element.getBoundingClientRect().height;
+    running?.cancel();
+    this.heightEffects.delete(element);
+    if (this.reduced.matches || !fromHeight || Math.abs(fromHeight - targetHeight) < 1) return;
+    const styles = getComputedStyle(this);
+    const animation = element.animate([{ height: `${fromHeight}px` }, { height: `${targetHeight}px` }], {
+      duration: parseFloat(styles.getPropertyValue('--motion-duration-base')),
+      easing: styles.getPropertyValue('--motion-ease-ui').trim(),
+    });
+    this.heightEffects.set(element, animation);
+    animation.finished.then(() => {
+      if (this.heightEffects.get(element) === animation) this.heightEffects.delete(element);
     }).catch(() => {});
   }
   clearLeaving(content) {
@@ -283,21 +308,27 @@ if (!customElements.get('header-navigation')) customElements.define('header-navi
     document.documentElement.style.setProperty('--navigation-scrollbar-width', `${window.innerWidth - document.documentElement.clientWidth}px`);
     this.dialog.style.width = `${this.header.querySelector('.site-header__main').getBoundingClientRect().width}px`;
     this.dialog.showModal();
+    getComputedStyle(this.dialog, '::backdrop').opacity;
+    this.dialog.removeAttribute('data-closing');
+    this.dialog.setAttribute('data-backdrop-visible', '');
     // Establish the closed glyph before transitioning both aligned header copies.
     getComputedStyle(this.querySelector('[data-mobile-close] .mobile-menu__icon'), '::before').transform;
     this.setAttribute('data-menu-open', '');
     this.opener.setAttribute('aria-expanded', 'true');
     if (this.roots[0]) this.selectRoot(this.roots[0]);
-    this.animate(this.dialog, [{ opacity: 0 }, { opacity: 1 }], 'slow');
+    this.animate(this.content, [{ opacity: 1, transform: 'translateY(0.75rem)' }, { opacity: 1, transform: 'translateY(0)' }], 'slow', undefined, { easing: getComputedStyle(this).getPropertyValue('--motion-ease-ui').trim() });
     this.querySelector('[data-mobile-close]').focus();
   }
   closeMobile(immediate = false, restore = true) {
     if (!this.dialog?.open) return;
     this.removeAttribute('data-menu-open');
     this.opener.setAttribute('aria-expanded', 'false');
+    const contentStyle = getComputedStyle(this.content);
+    this.dialog.setAttribute('data-closing', '');
+    this.dialog.removeAttribute('data-backdrop-visible');
     const finish = () => { this.dialog.close(); this.closeRoot(false, true); if (restore && this.isConnected) this.opener.focus({ preventScroll: true }); };
-    if (immediate) { this.effects.get(this.dialog)?.cancel(); finish(); }
-    else this.animate(this.dialog, [{ opacity: getComputedStyle(this.dialog).opacity }, { opacity: 0 }], 'base', finish);
+    if (immediate) { this.effects.get(this.content)?.cancel(); finish(); }
+    else this.animate(this.content, [{ opacity: Number(contentStyle.opacity), transform: contentStyle.transform }, { opacity: 0, transform: 'translateY(0.75rem)' }], 'slow', finish, { easing: getComputedStyle(this).getPropertyValue('--motion-ease-ui').trim() });
   }
   dismiss() { this.closeRoot(false, true); this.closeMobile(true, false); }
   updateScrollers() {

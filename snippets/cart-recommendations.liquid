@@ -23,8 +23,18 @@
 {%- assign cards = cards | strip -%}
 {%- if forms_only -%}{{ cards }}
 {%- elsif cards != blank -%}
+  <cart-recommendation-slider>
   <aside class="cart-recommendations" aria-label="{{ 'cart.recommendations.heading' | t | escape }}">
-    <p class="cart-recommendations__heading" data-recommendation-heading style="--recommendation-index: -1">{{ 'cart.recommendations.heading' | t }}</p>
-    <ul role="list">{{ cards }}</ul>
+    <div class="cart-recommendations__header">
+      <p class="cart-recommendations__heading" data-recommendation-heading style="--recommendation-index: -1">{{ 'cart.recommendations.heading' | t }}</p>
+      {%- if recommendation_index > 1 -%}
+        <div class="cart-recommendations__controls" role="group" hidden>
+          <button type="button" class="button button--secondary button--round-arrow" data-recommendation-scroll="-1" aria-controls="CartRecommendationsTrack-{{ section.id }}" aria-label="{{ 'content_slider.previous' | t | escape }}"><span class="button__label button__arrow" aria-hidden="true"></span></button>
+          <button type="button" class="button button--secondary button--round-arrow" data-recommendation-scroll="1" aria-controls="CartRecommendationsTrack-{{ section.id }}" aria-label="{{ 'content_slider.next' | t | escape }}"><span class="button__label button__arrow button__arrow--next" aria-hidden="true"></span></button>
+        </div>
+      {%- endif -%}
+    </div>
+    <ul id="CartRecommendationsTrack-{{ section.id }}" data-cart-recommendation-track role="list">{{ cards }}</ul>
   </aside>
+  </cart-recommendation-slider>
 {%- endif -%}

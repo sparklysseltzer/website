@@ -228,6 +228,12 @@ Recommendation copy styling (2026-09-08): center the introductory paragraph and 
 
 Recommendation vertical alignment (2026-09-08): at desktop widths, center the complete visible introduction and natural-height card stack beside the cart panel. Position the independently scrollable aside at 50% and translate it by half its height, with a 6px correction for its invisible 12px top animation allowance. Tall lists retain the existing maximum height and scrolling; their visible bounds match the cart panel. Mobile placement and the staggered entrance remain unchanged. Section-update FLIP motion includes the positions changed by recentering after additions/removals.
 
+### Mobile recommendation slider and toast sizing
+
+Below 1000px, the recommendation introduction uses the regular body face, authored case, and left alignment. Cards form a single horizontal rail with landscape media/details composition and native scroll snapping. Touch, trackpad and keyboard scrolling remain available without JavaScript. With JavaScript, compact previous/next controls appear and move by one card using smooth scrolling; reduced motion uses an immediate scroll. Section refreshes preserve the horizontal rail position, and the existing variant forms and Shopify-authoritative add flow are unchanged. Desktop recommendations retain their side-column layout and styling.
+
+The shared notification host sizes to its content with top-aligned intrinsic grid rows, including when it is reparented into a modal dialog. On phones its maximum height accounts for safe-area insets. This prevents the host from expanding across the viewport; toast timing, reading-time pauses, modal layering, accessible announcements, and reduced-motion dismissal remain unchanged.
+
 ## Local age-check contract
 
 Checkout shares the metadata-based local 16+ gate with the other cart surface. The secondary native dialog preserves the cart, clears document fields on close/success, and automatically continues to checkout after a fresh policy check. See [age-check implementation](../age-verification-plan.md) for classification, no-JavaScript behavior, privacy, limitations and rollout requirements. No section schema or editorial content is used for product eligibility.

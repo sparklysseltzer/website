@@ -20,6 +20,27 @@
     </div>
   </dialog>
 </cart-drawer>
+{% javascript %}
+const cartRecommendationScrollPositions = new Map();
+if (!customElements.get('cart-recommendation-slider')) customElements.define('cart-recommendation-slider', class extends HTMLElement {
+  connectedCallback() {
+    this.track = this.querySelector('[data-cart-recommendation-track]');
+    this.querySelector('.cart-recommendations__controls')?.removeAttribute('hidden');
+    const position = cartRecommendationScrollPositions.get(this.track?.id);
+    if (position) { this.track.scrollLeft = position; cartRecommendationScrollPositions.delete(this.track.id); }
+    this.addEventListener('click', this.handleClick);
+  }
+  disconnectedCallback() {
+    if (this.track?.scrollLeft) cartRecommendationScrollPositions.set(this.track.id, this.track.scrollLeft);
+    this.removeEventListener('click', this.handleClick);
+  }
+  handleClick(event) {
+    const button = event.target.closest('[data-recommendation-scroll]');
+    if (!button || !this.track) return;
+    this.track.scrollBy(Number(button.dataset.recommendationScroll) * (this.track.firstElementChild.offsetWidth + (parseFloat(getComputedStyle(this.track).columnGap) || 0)), 0);
+  }
+});
+{% endjavascript %}
 {% schema %}
 {
   "name": "Cart drawer",
