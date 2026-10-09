@@ -155,7 +155,7 @@
                 "show_heading": false,
                 "heading": "",
                 "heading_level": "h2",
-                "text": "<p>Möglich gemacht hat den nächsten Schritt die Zusammenarbeit mit der Brauerei Locher: 2025 lief in Appenzell die erste Abfüllung, hergestellt mit Säntiswasser. Seither gibt es Sparklys für den Tag und für den Abend, und beide liegen uns gleich am Herzen.</p><p>Wir sind noch lange nicht fertig. Am Mischtisch warten schon die nächsten Sorten, und wir arbeiten daran, dass du Sparklys an immer mehr Orten in der Schweiz findest: im Regal, in der Gastronomie, an Events und vielleicht bald gleich bei dir um die Ecke. Wir freuen uns, wenn du dabei bist.</p>",
+                "text": "<p>Möglich gemacht hat den nächsten Schritt die Zusammenarbeit mit der Brauerei Locher: 2025 lief in Appenzell die erste Abfüllung, hergestellt mit Säntiswasser. Seither gibt es Sparklys für den Tag und für den Abend, und beide liegen uns gleich am Herzen.</p>",
                 "heading_font": "erode",
                 "uppercase_heading": false
               },
@@ -172,6 +172,18 @@
                 "mobile_image_height": 360
               },
               "blocks": {}
+            },
+            "editorial_text_bLqeXX": {
+              "type": "editorial-text",
+              "settings": {
+                "show_heading": false,
+                "heading": "",
+                "heading_level": "h2",
+                "text": "<p>Wir sind noch lange nicht fertig. Am Mischtisch warten schon die nächsten Sorten, und wir arbeiten daran, dass du Sparklys an immer mehr Orten in der Schweiz findest: im Regal, in der Gastronomie, an Events und vielleicht bald gleich bei dir um die Ecke. Wir freuen uns, wenn du dabei bist.</p>",
+                "heading_font": "erode",
+                "uppercase_heading": false
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -186,7 +198,8 @@
             "founding",
             "editorial_image_P3KWX4",
             "editorial_text_TNimbn",
-            "editorial_image_GqgG6z"
+            "editorial_image_GqgG6z",
+            "editorial_text_bLqeXX"
           ]
         },
         "sidebar": {
