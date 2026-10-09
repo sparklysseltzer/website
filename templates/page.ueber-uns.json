@@ -22,65 +22,6 @@
         "section_background": ""
       }
     },
-    "poster_H4EJXa": {
-      "type": "poster",
-      "blocks": {
-        "item_3dNHYK": {
-          "type": "item",
-          "settings": {
-            "text": "Add a benefit or key point"
-          }
-        },
-        "item_ymaEpM": {
-          "type": "item",
-          "settings": {
-            "text": "Add a benefit or key point"
-          }
-        },
-        "item_t3ex73": {
-          "type": "item",
-          "settings": {
-            "text": "Add a benefit or key point"
-          }
-        }
-      },
-      "block_order": [
-        "item_3dNHYK",
-        "item_ymaEpM",
-        "item_t3ex73"
-      ],
-      "name": "Poster",
-      "settings": {
-        "content_width": "editorial",
-        "layout_mode": "image_only",
-        "image": "shopify://shop_images/billboard-03-sparklys-hard-seltzer.jpg",
-        "mobile_image": "shopify://shop_images/billboard-08-sparklys-hard-seltzer.jpg",
-        "image_alt": "Sparklys cans on a cart",
-        "content_position": "right",
-        "show_heading": true,
-        "heading": "Add your poster heading",
-        "heading_level": "h2",
-        "show_subtext": true,
-        "subtext": "<p>Add supporting copy for this poster.</p>",
-        "heading_font": "erode",
-        "uppercase_heading": false,
-        "show_button": true,
-        "button_label": "Learn more",
-        "button_link": "#",
-        "button_new_tab": false,
-        "button_style": "automatic",
-        "poster_text_color": "#ffffff",
-        "overlay_strength": 55,
-        "overlay_color": "#000000",
-        "minimum_height": 430,
-        "minimum_height_mobile": 380,
-        "hide_on_mobile": false,
-        "hide_on_desktop": false,
-        "section_background_mode": "transparent",
-        "section_background_surface": "custom",
-        "section_background": ""
-      }
-    },
     "story": {
       "type": "two-column",
       "blocks": {
@@ -101,6 +42,17 @@
               },
               "blocks": {}
             },
+            "polaroids": {
+              "type": "editorial-image",
+              "settings": {
+                "image": "shopify://shop_images/sparklys-about-img-02.png",
+                "image_alt": "Polaroids aus den Anfängen von Sparklys: Hawaii, Mischversuche in der Küche und die ersten Prototypen.",
+                "image_height_mode": "natural",
+                "image_height": 520,
+                "mobile_image_height": 360
+              },
+              "blocks": {}
+            },
             "alternative": {
               "type": "editorial-text",
               "settings": {
@@ -113,11 +65,12 @@
               },
               "blocks": {}
             },
-            "polaroids": {
+            "editorial_image_UB3Gmw": {
               "type": "editorial-image",
+              "name": "Image",
               "settings": {
-                "image": "shopify://shop_images/sparklys-story-polaroids.png",
-                "image_alt": "Polaroids aus den Anfängen von Sparklys: Hawaii, Mischversuche in der Küche und die ersten Prototypen.",
+                "image": "shopify://shop_images/sparklys-about-img-03.png",
+                "image_alt": "",
                 "image_height_mode": "natural",
                 "image_height": 520,
                 "mobile_image_height": 360
@@ -130,7 +83,31 @@
                 "show_heading": true,
                 "heading": "Eine Dose nach der anderen",
                 "heading_level": "h2",
-                "text": "<p>Wohin Sparklys Hard Seltzer gehört, war schnell klar: Sonne, Musik, gute Leute und eiskalte Dosen. Mit unserem Dosen-Anhänger, der inzwischen selbst Kultstatus hat, zogen wir Sommer für Sommer durch die Schweiz. Statt von Plakaten herab zu überzeugen, standen wir lieber selbst hinter der Bar und kamen mit den Menschen ins Gespräch, eine Dose nach der anderen.</p><p>Irgendwann hatten wir mehr Ideen als Hände. Zum Glück fanden wir die richtigen Leute: zwei Brüder, die hinter den Kulissen dafür sorgen, dass alles rund läuft, einen Eventmanager, der Feste besser schmeisst, als wir es je hingekriegt hätten, und Verstärkung im Marketing, damit man auch von uns hört. Seither ist das Team komplett. Zumindest bis zur nächsten guten Idee.</p><p>Dahinter steckt eine Haltung, die uns bis heute prägt: Wir holen lieber die richtigen Menschen ins Team, als Aufgaben auszulagern. Marke, Design, Web, Zahlen, Verkauf und Events entstehen alle bei uns, und so steckt in jeder Dose, jedem Post und jedem Anruf ein Stück von uns. Dass dabei aus Kollegen schnell Freunde werden, ist vielleicht das Schönste daran.</p>",
+                "text": "<p>Wohin Sparklys Hard Seltzer gehört, war schnell klar: Sonne, Musik, gute Leute und eiskalte Dosen. Mit unserem Dosen-Anhänger, der inzwischen selbst Kultstatus hat, zogen wir Sommer für Sommer durch die Schweiz. Statt von Plakaten herab zu überzeugen, standen wir lieber selbst hinter der Bar und kamen mit den Menschen ins Gespräch, eine Dose nach der anderen.</p>",
+                "heading_font": "erode",
+                "uppercase_heading": false
+              },
+              "blocks": {}
+            },
+            "editorial_image_EkcXmF": {
+              "type": "editorial-image",
+              "name": "Image",
+              "settings": {
+                "image": "shopify://shop_images/sparklys-about-img-04.png",
+                "image_alt": "",
+                "image_height_mode": "natural",
+                "image_height": 520,
+                "mobile_image_height": 360
+              },
+              "blocks": {}
+            },
+            "editorial_text_J3gi8c": {
+              "type": "editorial-text",
+              "settings": {
+                "show_heading": false,
+                "heading": "",
+                "heading_level": "h2",
+                "text": "<p>Irgendwann hatten wir mehr Ideen als Hände. Zum Glück fanden wir die richtigen Leute: zwei Brüder, die hinter den Kulissen dafür sorgen, dass alles rund läuft, einen Eventmanager, der Feste besser schmeisst, als wir es je hingekriegt hätten, und Verstärkung im Marketing, damit man auch von uns hört. Seither ist das Team komplett. Zumindest bis zur nächsten guten Idee.</p><p>Dahinter steckt eine Haltung, die uns bis heute prägt: Wir holen lieber die richtigen Menschen ins Team, als Aufgaben auszulagern. Marke, Design, Web, Zahlen, Verkauf und Events entstehen alle bei uns, und so steckt in jeder Dose, jedem Post und jedem Anruf ein Stück von uns. Dass dabei aus Kollegen schnell Freunde werden, ist vielleicht das Schönste daran.</p>",
                 "heading_font": "erode",
                 "uppercase_heading": false
               },
@@ -154,7 +131,31 @@
                 "show_heading": true,
                 "heading": "Sparklys Soda",
                 "heading_level": "h2",
-                "text": "<p>2024 standen wir wieder am Mischtisch. Das Ziel war klar: eine Soda, die wir selbst jeden Tag trinken wollen, ohne schlechtes Gewissen. Zuckerarm, ohne Süssstoffe und mit einem Geschmack, der nach mehr schmeckt als nur nach Süsse. Für den Start wollten wir keine Sorten, die es schon in jedem Regal gibt, sondern Kombinationen, die überraschen und trotzdem sofort vertraut schmecken: Yuzu & Ginger, zitronig-frisch mit einer feinen Schärfe, und Blueberry & Pomelo, beerig mit einer leicht herben Note.</p><p>Möglich gemacht hat den nächsten Schritt die Zusammenarbeit mit der Brauerei Locher: 2025 lief in Appenzell die erste Abfüllung, hergestellt mit Säntiswasser. Seither gibt es Sparklys für den Tag und für den Abend, und beide liegen uns gleich am Herzen.</p><p>Wir sind noch lange nicht fertig. Am Mischtisch warten schon die nächsten Sorten, und wir arbeiten daran, dass du Sparklys an immer mehr Orten in der Schweiz findest: im Regal, in der Gastronomie, an Events und vielleicht bald gleich bei dir um die Ecke. Wir freuen uns, wenn du dabei bist.</p>",
+                "text": "<p>2024 standen wir wieder am Mischtisch. Das Ziel war klar: eine Soda, die wir selbst jeden Tag trinken wollen, ohne schlechtes Gewissen. Zuckerarm, ohne Süssstoffe und mit einem Geschmack, der nach mehr schmeckt als nur nach Süsse. Für den Start wollten wir keine Sorten, die es schon in jedem Regal gibt, sondern Kombinationen, die überraschen und trotzdem sofort vertraut schmecken: Yuzu & Ginger, zitronig-frisch mit einer feinen Schärfe, und Blueberry & Pomelo, beerig mit einer leicht herben Note.</p>",
+                "heading_font": "erode",
+                "uppercase_heading": false
+              },
+              "blocks": {}
+            },
+            "editorial_image_P3KWX4": {
+              "type": "editorial-image",
+              "name": "Image",
+              "settings": {
+                "image": "shopify://shop_images/sparklys-about-img-01.png",
+                "image_alt": "",
+                "image_height_mode": "natural",
+                "image_height": 520,
+                "mobile_image_height": 360
+              },
+              "blocks": {}
+            },
+            "editorial_text_TNimbn": {
+              "type": "editorial-text",
+              "settings": {
+                "show_heading": false,
+                "heading": "",
+                "heading_level": "h2",
+                "text": "<p>Möglich gemacht hat den nächsten Schritt die Zusammenarbeit mit der Brauerei Locher: 2025 lief in Appenzell die erste Abfüllung, hergestellt mit Säntiswasser. Seither gibt es Sparklys für den Tag und für den Abend, und beide liegen uns gleich am Herzen.</p><p>Wir sind noch lange nicht fertig. Am Mischtisch warten schon die nächsten Sorten, und wir arbeiten daran, dass du Sparklys an immer mehr Orten in der Schweiz findest: im Regal, in der Gastronomie, an Events und vielleicht bald gleich bei dir um die Ecke. Wir freuen uns, wenn du dabei bist.</p>",
                 "heading_font": "erode",
                 "uppercase_heading": false
               },
@@ -163,11 +164,16 @@
           },
           "block_order": [
             "beginnings",
-            "alternative",
             "polaroids",
+            "alternative",
+            "editorial_image_UB3Gmw",
             "editorial_text_HpVr6r",
+            "editorial_image_EkcXmF",
+            "editorial_text_J3gi8c",
             "prototype",
-            "founding"
+            "founding",
+            "editorial_image_P3KWX4",
+            "editorial_text_TNimbn"
           ]
         },
         "sidebar": {
@@ -313,7 +319,6 @@
   },
   "order": [
     "main",
-    "poster_H4EJXa",
     "story"
   ]
 }
