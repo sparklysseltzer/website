@@ -26,7 +26,7 @@ Team page addition (2026-10-02): reusable Team section and merchant-owned Team m
 
 Contact page addition (2026-10-01): native enquiry form and Page intro are available on the development `kontakt` template. Optional direct Klaviyo newsletter signup is configured for merchant-confirmed list `TwzfPb`; real provider verification remains pending; see [Contact form](sections/contact-form.md). No shared/live deployment. Contact intro English translation and release SEO metadata remain pending.
 
-This is the launch-readiness list. Separately scoped feature proposals live in the [feature backlog](tasks.md); specific [SEO](structured-data-tasks.md) and [age-check](age-verification-extensions.md) work stays in its owning list.
+This is the launch-readiness list. Separately scoped feature and maintenance proposals live in the [task backlog](tasks.md), including the [storefront audit and cleanup plan](tasks.md#task-016-audit-and-clean-up-the-storefront). Specific [SEO](structured-data-tasks.md) and [age-check](age-verification-extensions.md) work stays in its owning list.
 
 | Area | Remaining work |
 | --- | --- |

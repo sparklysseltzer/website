@@ -35,7 +35,7 @@ Read [Product](product.md), [Architecture](architecture.md), and [Development](d
 | List | Scope |
 | --- | --- |
 | [Status](status.md#known-incomplete-capabilities) | Launch readiness and integration verification |
-| [Feature backlog](tasks.md) | Discrete future features awaiting approval |
+| [Task backlog](tasks.md) | Scoped feature and maintenance plans awaiting approval |
 | [Structured-data tasks](structured-data-tasks.md) | Remaining Schema.org implementation and validation |
 | [Age-check extensions](age-verification-extensions.md) | Separately scoped document, privacy and enforcement follow-ups |
 

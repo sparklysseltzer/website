@@ -1,6 +1,6 @@
-# Feature backlog
+# Task backlog
 
-Open, separately scoped feature proposals only. Launch verification belongs in [Status](status.md#known-incomplete-capabilities); SEO implementation work belongs in [Structured-data tasks](structured-data-tasks.md); age-check extensions belong in [Age-check extensions](age-verification-extensions.md). None of these lists grants implementation approval.
+Open, separately scoped feature and maintenance proposals. Launch verification belongs in [Status](status.md#known-incomplete-capabilities); SEO implementation work belongs in [Structured-data tasks](structured-data-tasks.md); age-check extensions belong in [Age-check extensions](age-verification-extensions.md). None of these lists grants implementation approval.
 
 ## Approval rule
 
@@ -12,6 +12,50 @@ Open, separately scoped feature proposals only. Launch verification belongs in [
 ## Pending approval
 
 Structured-data retrofit work is maintained in the separate [Structured-data task list](structured-data-tasks.md). Every unchecked item there follows the same pending-approval rule as this inbox.
+
+### TASK-016: Audit and clean up the storefront
+
+- Status: Plan recorded at Sandro's request. Audit execution and implementation have not started; move to Approved when execution is requested.
+- Added: 2026-10-10.
+- Scope: `sparklys-website` only. Gamebox and the separate age-check application are excluded. Review the theme's age-check integration where it affects storefront behavior.
+- Goal: Identify confirmed technical defects, frontend bugs, measurable performance problems, unnecessary complexity and stale documentation, then address them in small, reviewable batches.
+
+#### Phase 1: Establish the baseline
+
+- [ ] Read repository instructions, product/architecture/development guides, quality and asset contracts, the section index and relevant owning documents.
+- [ ] Inspect branch, working tree and recent changes. Preserve unrelated work, including the currently uncommitted age-check setting; record the commit and environment used for the audit.
+- [ ] Map representative homepage, collection, PDP, cart, search, editorial, blog/article, navigation/footer and Design Studio surfaces. Use current saved configuration rather than assuming every feature is enabled.
+- [ ] Run required repository gates and record their exit status. Separate baseline failures from regressions introduced by cleanup.
+- [ ] Create one findings register with ID, priority, evidence/reproduction, affected files or surfaces, proposed fix, risk, verification method and status. Link existing launch, SEO and age-check tasks instead of duplicating them.
+
+#### Phase 2: Investigate and prioritize
+
+- [ ] Commerce: trace availability and overselling policy through PDP and upsells; variant/quantity updates, cart races, discounts, selling plans, shipping feedback, empty/error states and native form fallbacks. Separate theme behavior from checkout/provider configuration requiring independent verification.
+- [ ] Frontend: inspect responsive layouts, menu/cart interactions, sticky elements, toasts, localization, image sizing and animation continuity. Include recent Brand statement, mobile cart, footer and Safari fixes as regression targets.
+- [ ] Accessibility: check keyboard paths, focus restoration, dialogs, labels/announcements, contrast, zoom/reflow, touch targets, reduced motion and no-JavaScript core journeys.
+- [ ] Code health: review duplicated logic, CSS conflicts, stale selectors, DOM assumptions, event/observer cleanup, Theme Editor reloads, asynchronous requests and error handling. Identify simplifications that preserve behavior and saved IDs.
+- [ ] Performance: collect repeatable baseline measurements for representative pages with recorded viewport, device/network settings and cache state. Inspect LCP, CLS, interaction/main-thread work, image/font delivery, eager media, unused page assets and animation costs. Label lab results; do not present them as real-user metrics.
+- [ ] Theme Editor/content: review schema dependencies, defaults, translation ownership and saved-content compatibility. Check applicable server-rendered structured data against visible content and record gaps in the existing SEO backlog.
+- [ ] Repository/docs: identify obsolete instructions, inconsistent capability claims, temporary artifacts and potentially unused assets/dependencies. Confirm dynamic Liquid, JSON, merchant settings, app and Studio references before proposing deletion.
+- [ ] Present findings in priority order: P0 critical commerce/security failures; P1 broken journeys or substantial accessibility regressions; P2 measured performance and maintainability issues; P3 optional polish. Distinguish reproduced defects, suspected issues and unverified external dependencies.
+
+#### Phase 3: Apply focused cleanup batches
+
+- [ ] Batch 1: confirmed commerce and functional defects.
+- [ ] Batch 2: frontend, responsive and accessibility regressions.
+- [ ] Batch 3: measured performance problems, with comparable before/after evidence.
+- [ ] Batch 4: behavior-preserving simplification and removal of confirmed unused files. Review broad refactors, new dependencies and architectural changes before implementation.
+- [ ] Batch 5: reconcile remaining documentation with actual implementation and verification limits. Update owning documents alongside every preceding batch that changes a contract; do not defer those updates to this final pass.
+
+#### Verification and completion
+
+- [ ] For each batch, run `npm run check`, affected JavaScript syntax checks including `node --check assets/theme.js`, JSON parsing and `git diff --check`. Add focused regression coverage for reproduced defects where practical.
+- [ ] Verify affected journeys in isolated headless browsers at representative phone/desktop sizes, keyboard, reduced motion and no-JavaScript where applicable. Include intermediate animation states and rapid/repeated interactions. Follow the repository's fractional-width/DPR matrix when changing shared geometry or paint.
+- [ ] Record physical iPhone Safari checks separately from responsive emulation. If hardware or provider access is unavailable, explicitly leave those checks unverified. Close every task-created browser session.
+- [ ] Close findings only with recorded evidence. Summarize fixed items, measured improvements, deferred risks and remaining checks; update Status and owning contracts without claiming universal production readiness.
+- [ ] Prepare meaningful change batches for review. Commit/push, remote content changes and publication are separate execution steps requiring applicable authorization; this plan authorizes none of them.
+
+Safeguards: preserve Shopify/editor-owned content, setting/section/block IDs and unrelated local changes. Do not delete remote resources, submit real orders or change subscriptions/provider settings as audit probes. Use an already approved development preview; starting or recreating a remote development theme follows the existing approval rule. Avoid a wholesale rewrite, speculative optimization or dependency upgrades without a demonstrated need.
 
 ### TASK-015: Evaluate autoplay video reliability and fallback concepts
 
