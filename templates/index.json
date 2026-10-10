@@ -140,14 +140,14 @@
       "name": "Brand statement",
       "settings": {
         "content_width": "narrow",
+        "paragraph_1_de": "Sparklys ist die\nSchweizer * Getränkemarke mit Better-for-You-Ansatz.",
+        "paragraph_2_de": "Leichtere Alternativen zu klassischen * Getränken, für alle, die bewusster geniessen wollen.",
+        "paragraph_3_de": "Modern, erfrischend * und unkompliziert.",
         "hide_on_mobile": false,
         "hide_on_desktop": false,
         "section_background_mode": "transparent",
         "section_background_surface": "custom",
-        "section_background": "#f5f5f5",
-        "paragraph_1_de": "Sparklys ist die\nSchweizer * Getränkemarke mit Better-for-You-Ansatz.",
-        "paragraph_2_de": "Leichtere Alternativen zu klassischen * Getränken, für alle, die bewusster geniessen wollen.",
-        "paragraph_3_de": "Modern, erfrischend * und unkompliziert."
+        "section_background": "#f5f5f5"
       }
     },
     "subscription_kJjHrt": {
@@ -271,6 +271,7 @@
         "card_t6cmcE",
         "card_qtAxwr"
       ],
+      "disabled": true,
       "name": "Offer cards",
       "settings": {
         "content_width": "page",
