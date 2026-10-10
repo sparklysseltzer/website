@@ -1,5 +1,7 @@
 # Main cart
 
+Mobile line totals use the shared Small typography role and stack the red original price above the final price, matching the drawer and leaving more horizontal room for quantity controls.
+
 Source: `sections/main-cart.liquid`; shared rendering: `snippets/cart-content.liquid`.
 Template: `templates/cart.json`.
 
@@ -315,3 +317,9 @@ Verification covered subscription-only carts below CHF 50, mixed carts in both i
 Subscription model update (2026-10-08): the shared plan label omits the redundant discount suffix. The five current delivery intervals are 2, 4, 6, 8 and 12 weeks, each with 15% off. Cart prices and selling-plan identity remain Shopify-driven.
 
 Ananotes 200 (2026-10-08): real selling-plan frequency metadata in the shared cart row uses Secondary text with a decorative repeat icon aligned to the first text line. One-time purchases have no repeat marker. The plan label and authoritative commerce data are unchanged; native rendering and Ajax section replacements share the same markup. The local `icon-repeat.svg` is Untitled UI Line repeat-01 from https://github.com/untitleduico/icons/blob/main/icons/repeat-01.svg under the retained `docs/untitled-ui-icons-license.txt`. No new structured-data entity is introduced.
+
+On mobile, the red struck-through original price uses Caption (11px on phones), while the final line price retains Small (13px). Both remain vertically stacked.
+
+Empty-cart reading order places the Bob Ross quote above the image, followed by the supporting copy and shopping action. The shared DOM order applies in both the drawer and cart page, including without JavaScript.
+
+Empty-cart shipping hint (2026-10-09): the shared renderer omits the shipping hint and its sticky wrapper when `cart.empty?`. Filled carts retain the existing shipping hint. Accessible cart status stays present in both states. Native rendering and Ajax section refreshes follow the same condition.

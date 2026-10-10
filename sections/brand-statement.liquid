@@ -5,19 +5,24 @@
 <style>
   @media (width > 1200px) {
     #shopify-section-{{ section.id }} .section.page-width {
-      max-width: min(var(--page-width), calc(var(--content-width-narrow) + 3 * var(--page-gutter)));
+      max-width: min(var(--page-width), calc(var(--content-width-narrow) + 25rem + 2 * var(--page-gutter)));
     }
     #shopify-section-{{ section.id }} brand-statement {
-      max-width: calc(var(--content-width-narrow) + var(--page-gutter));
+      max-width: calc(var(--content-width-narrow) + 25rem);
     }
   }
 </style>
 <script src="{{ 'brand-statement.js' | asset_url }}" defer="defer"></script>
-<div class="section page-width">
-  <brand-statement class="brand-statement" lang="de">
-    <p>{% render 'brand-statement-words', text: 'Sparklys ist die' %}<br> {% render 'brand-statement-words', text: 'Schweizer' %} <span class="brand-statement__art brand-statement__art--swiss" aria-hidden="true"><span class="brand-statement__art-inner"><img src="{{ 'brand-statement-swiss.svg' | asset_url }}" width="30" height="30" alt="" loading="lazy"></span></span> {% render 'brand-statement-words', text: 'Getränkemarke mit Better-for-You-Ansatz.' %}</p>
-    <p>{% render 'brand-statement-words', text: 'Leichtere Alternativen zu klassischen Getränken' %} <span class="brand-statement__art brand-statement__art--cans" aria-hidden="true"><span class="brand-statement__art-inner"><img src="{{ 'product-overview-soda-yuzu.webp' | asset_url }}" width="72" height="100" alt="" loading="lazy"><img src="{{ 'product-overview-seltzer-holunder.webp' | asset_url }}" width="72" height="100" alt="" loading="lazy"></span></span>{% render 'brand-statement-words', text: ', für alle, die bewusster geniessen wollen.' %}</p>
-    <p>{% render 'brand-statement-words', text: 'Modern, erfrischend' %} <span class="brand-statement__art brand-statement__art--fresh" aria-hidden="true"><span class="brand-statement__art-inner"><img src="{{ 'soda-reason-leaf.svg' | asset_url }}" width="170" height="166" alt="" loading="lazy"></span></span> {% render 'brand-statement-words', text: 'und unkompliziert.' %}</p>
+<div class="section page-width brand-statement-frame">
+  <brand-statement class="brand-statement">
+    <div class="brand-statement__composition">
+      {% capture illustration %}<span class="brand-statement__art brand-statement__art--swiss" aria-hidden="true"><span class="brand-statement__art-inner">{% if section.settings.swiss_illustration != blank %}{{ section.settings.swiss_illustration | image_url: width: 480 | image_tag: widths: '120, 240, 480', sizes: '120px', alt: '', loading: 'lazy' }}{% else %}<img src="{{ 'brand-statement-swiss.svg' | asset_url }}" width="30" height="30" alt="" loading="lazy">{% endif %}</span></span>{% endcapture %}
+      {% render 'brand-statement-paragraph', text: section.settings.paragraph_1_de, illustration: illustration, paragraph_index: 1 %}
+      {% capture illustration %}<span class="brand-statement__art brand-statement__art--cans" aria-hidden="true"><span class="brand-statement__art-inner">{% render 'brand-statement-can', product_handle: 'sparklys-hard-seltzer-maracuja', fallback: 'brand-statement-can-maracuja.png' %}{% render 'brand-statement-can', product_handle: 'sparklys-hard-seltzer-holunder', fallback: 'brand-statement-can-holunder.png' %}{% render 'brand-statement-can', product_handle: 'sparklys-soda-blueberry-pomelo', fallback: 'brand-statement-can-blueberry.png' %}{% render 'brand-statement-can', product_handle: 'sparklys-soda-yuzu-ginger', fallback: 'brand-statement-can-yuzu.png' %}</span></span>{% endcapture %}
+      {% render 'brand-statement-paragraph', text: section.settings.paragraph_2_de, illustration: illustration, paragraph_index: 2 %}
+      {% capture illustration %}<span class="brand-statement__art brand-statement__art--fresh brand-statement__art--water-drop{% if section.settings.freshness_illustration != blank %} brand-statement__art--custom{% endif %}" aria-hidden="true"><span class="brand-statement__art-inner">{% if section.settings.freshness_illustration != blank %}{{ section.settings.freshness_illustration | image_url: width: 480 | image_tag: widths: '120, 240, 480', sizes: '120px', alt: '', loading: 'lazy' }}{% else %}<img src="{{ 'brand-statement-water-drop.svg' | asset_url }}" width="130" height="189" alt="" loading="lazy">{% endif %}</span></span>{% endcapture %}
+      {% render 'brand-statement-paragraph', text: section.settings.paragraph_3_de, illustration: illustration, paragraph_index: 3 %}
+    </div>
   </brand-statement>
 </div>
 {% schema %}
@@ -50,8 +55,45 @@
       "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
     },
     {
-      "type": "paragraph",
-      "content": "A fixed brand statement with animated inline artwork. Text and artwork are maintained together in the theme."
+      "type": "header",
+      "content": "Paragraphs"
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_1_de",
+      "label": "Paragraph 1",
+      "default": "Sparklys ist die\nSchweizer * Getränkemarke mit Better-for-You-Ansatz.",
+      "info": "Use * once to place the illustration. Line breaks are preserved. Leave blank to hide. Translate this text with Shopify Translate & Adapt."
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_2_de",
+      "label": "Paragraph 2",
+      "default": "Leichtere Alternativen zu klassischen * Getränken, für alle, die bewusster geniessen wollen.",
+      "info": "Use * once to place the illustration. Line breaks are preserved. Leave blank to hide. Translate this text with Shopify Translate & Adapt."
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_3_de",
+      "label": "Paragraph 3",
+      "default": "Modern, erfrischend * und unkompliziert.",
+      "info": "Use * once to place the illustration. Line breaks are preserved. Leave blank to hide. Translate this text with Shopify Translate & Adapt."
+    },
+    {
+      "type": "header",
+      "content": "Illustrations"
+    },
+    {
+      "type": "image_picker",
+      "id": "swiss_illustration",
+      "label": "Swiss illustration",
+      "info": "Optional. Leave blank to use the Swiss cross. Transparent artwork works best."
+    },
+    {
+      "type": "image_picker",
+      "id": "freshness_illustration",
+      "label": "Freshness illustration",
+      "info": "Optional. Leave blank to use the water drop. Transparent artwork works best."
     },
     {
       "type": "header",

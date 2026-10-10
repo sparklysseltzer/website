@@ -7,6 +7,11 @@ collection-catalog, collection-hero-motion { display: block; }
 .collection-filter img { width: auto; max-width: 100%; height: 3rem; object-fit: contain; transition: filter var(--motion-duration-base) var(--motion-ease); }
 .collection-filter[aria-current] { color: var(--color-text-inverse); background: var(--color-foreground); }
 .collection-filter[aria-current] img { filter: invert(1); }
+@media (width < 768px) {
+  .collection-filters { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
+  .collection-filter { min-width: 0; min-height: 3.5rem; padding: .5rem; font-size: var(--font-size-small); }
+  .collection-filter img { height: 1.5rem; }
+}
 .catalog-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; overflow: clip; overflow-clip-margin: 2rem; }
 .collection-hero { position: relative; overflow: hidden; background: var(--color-surface-warm); }
 .collection-hero--soda { background: #b8def2 url('collection-hero-sky.webp') center / cover; }

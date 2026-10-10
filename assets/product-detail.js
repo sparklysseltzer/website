@@ -168,13 +168,19 @@
       crossfade(this.querySelector('[data-plan-terms]'), terms);
       this.togglePlanField(Boolean(plan || this.data.requiresPlan));
       const shipping = this.querySelector('[data-product-shipping]');
-      if (shipping && shipping.dataset.subscription !== String(Boolean(plan))) {
-        const height = shipping.getBoundingClientRect().height;
-        shipping.getAnimations().forEach(animation => animation.cancel());
-        shipping.dataset.subscription = String(Boolean(plan));
-        shipping.querySelectorAll('[data-shipping-copy]').forEach(node => crossfade(node, plan ? node.dataset.subscription : node.dataset.once));
-        const nextHeight = shipping.getBoundingClientRect().height;
-        if (!reduced() && height !== nextHeight) shipping.animate([{ height: `${height}px` }, { height: `${nextHeight}px` }], timing(shipping));
+      if (shipping) {
+        const qualified = Boolean(plan) || shipping.dataset.productQualifies === 'true' || (Number(shipping.dataset.threshold) > 0 && price * Math.max(this.variant.min, Number(this.quantity.value) || this.variant.min) >= Number(shipping.dataset.threshold));
+        const state = plan ? 'subscription' : qualified ? 'qualified' : 'once';
+        if (shipping.dataset.shippingState !== state) {
+          const height = shipping.getBoundingClientRect().height;
+          shipping.getAnimations().forEach(animation => animation.cancel());
+          shipping.dataset.shippingState = state;
+          shipping.dataset.subscription = String(Boolean(plan));
+          shipping.dataset.qualified = String(qualified);
+          shipping.querySelectorAll('[data-shipping-copy]').forEach(node => crossfade(node, node.dataset[state] || ''));
+          const nextHeight = shipping.getBoundingClientRect().height;
+          if (!reduced() && height !== nextHeight) shipping.animate([{ height: `${height}px` }, { height: `${nextHeight}px` }], timing(shipping));
+        }
       }
       if (updateUrl) {
         const url = new URL(location.href);

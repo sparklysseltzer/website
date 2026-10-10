@@ -1,5 +1,7 @@
 .catalog-card { position: relative; min-width: 0; border-radius: var(--radius-large); background: var(--color-surface-muted); overflow: hidden; }
 .catalog-card[hidden] { display: none; }
+.catalog-card--general { background: var(--color-surface); }
+.catalog-card.catalog-card--general .catalog-card__link { background: var(--color-surface); border: 3px solid var(--color-surface-muted); border-radius: inherit; }
 .catalog-card--soda { background: linear-gradient(160deg, #83c7f3, #e3f7ff); }
 .catalog-card--hardseltzer { background: linear-gradient(160deg, #ffc244, #fffce6); }
 .catalog-card__link { position: relative; display: flex; height: 100%; flex-direction: column; color: var(--color-foreground); text-decoration: none; padding: 2rem 1.25rem; }

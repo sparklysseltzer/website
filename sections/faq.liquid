@@ -61,6 +61,10 @@
   endif
 
   assign faq_heading_id = 'FaqHeading-' | append: section.id
+  assign footer_link = section.settings.footer_link
+  if footer_link == '#'
+    assign footer_link = pages['kontakt'].url
+  endif
 
   assign show_footer = false
   if section.settings.show_footer
@@ -114,8 +118,8 @@
         {%- if show_footer -%}
           <div class="faq-section__footer" data-scroll-motion-reveal>
             <p>{{ footer_text }}</p>
-            {%- if section.settings.footer_link != blank and footer_link_label != blank -%}
-              <a href="{{ section.settings.footer_link }}">{{ footer_link_label }}</a>
+            {%- if footer_link != blank and footer_link_label != blank -%}
+              <a href="{{ footer_link }}">{{ footer_link_label }}</a>
             {%- endif -%}
           </div>
         {%- endif -%}

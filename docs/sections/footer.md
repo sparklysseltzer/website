@@ -17,6 +17,8 @@ Pages and Products explicitly select their context through the existing `custom.
 
 ## Rendering contract
 
+Newsletter copy (2026-10-10): the merchant-approved German message and its English translation render as one paragraph from `sections.footer.newsletter_copy`, combining product news, exclusive offers and the existing 10% first-order offer. The separate offer paragraph is removed; its legacy locale key is retained for compatibility. Newsletter submission and discount configuration are unchanged.
+
 Each context selects its matching Arc, Soda, or Hard Seltzer identity and navigation. Footer card headings intentionally use Newake in every context. A native Shopify customer form tagged `newsletter` supplies the newsletter path expected by the existing Shopify–Klaviyo integration. Social destinations come from the shared `social-channel-url` resolver. General/Hard Seltzer Instagram and all TikTok, LinkedIn, YouTube and Facebook links use Shopify Brand data; Soda Instagram uses the pinned store URL metafield `custom.instagram_soda`. Missing or non-HTTP(S) destinations are omitted. No hardcoded backups remain. YouTube appears automatically when centrally configured.
 
 Payment marks and Store Finder remain non-interactive artwork. German and English language chips submit Shopify’s native localization form. Legal links and social destinations are active.
@@ -30,6 +32,8 @@ Payment marks and Store Finder remain non-interactive artwork. German and Englis
 Verify Shopify-to-Klaviyo list routing and opt-in behavior operationally. Remaining placeholder destinations are Store finder, Digestive Health, Ingredients and Sustainability. Connect Store Finder and verify payment gateway coverage separately.
 
 ## Typography roles
+
+Ananotes 248 (2026-10-09): below 1024px, legal links use 12px horizontal gaps and remain one row. The current German links fit at 375px and above; narrower screens or longer translations scroll horizontally without page overflow. Nonshrinking items preserve labels, with 4px inset space for the existing keyboard focus outline. Desktop spacing is unchanged.
 
 Compact newsletter/card headings; label navigation/legal copy; UI newsletter input/action; small status text. Newake card-heading family remains unchanged.
 
@@ -133,3 +137,9 @@ Newsletter follow-up (Ananotes 34 and outline reports, 2026-10-09): German newsl
 Language pill scaling (Ananotes 210, 2026-10-09): button width, flag artwork and border now all use rem, preserving the original 55:44 outer proportions as the shared root scales. The previously fixed 51px artwork widened neither itself nor the button while the 44px minimum height grew. Native language forms and 44px minimum touch targets remain unchanged.
 
 Pill verification: 55×44px at standard/mobile sizes and 64.375×51.5px at 2684px, preserving the 1.25 width/height ratio after proportional scaling.
+
+Mobile layout refinements (Ananotes 240 and legal-link follow-up, 2026-10-09): below 1024px branded navigation uses two equal columns with the first Shop card spanning both, placing Learn and Get to know side by side. General navigation retains its existing information grid. Legal links use an 8px column gap, fitting all five German links at 390px while preserving wrapping at 320px rather than overflowing. No menus or saved content changed.
+
+Language flag refinement (2026-10-09): clean filled SVG paths avoid the former nested-mask and stroke artifacts. Following the merchant's pill reference, both controls use 55 by 44px rounded shells, 38 by 28px rounded flag artwork and an 8px gap. The Swiss cross is centered in a wider red canvas; UK artwork is cropped proportionally. CSS owns the single active border and keyboard focus. Endonym labels, aria-pressed and 44px minimum targets remain.
+
+Local language preview fix (2026-10-09): reproduced an empty HTTP 401 from Shopify CLI's `/localization` POST. On loopback hosts only, the section's submit handler navigates between Shopify-provided `shop_locale.root_url` values, preserving the current resource path, query and fragment. Hosted storefronts retain the native localization form unchanged. With JavaScript disabled, localhost still has the CLI POST limitation; this does not change Shopify's hosted fallback. Verified German → English → German on a product with its variant query retained, correct document language/selected pill, phone/desktop rendering and keyboard activation/focus. No language publication or saved content changes.

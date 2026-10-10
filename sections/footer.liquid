@@ -65,7 +65,6 @@
 
         <div class="site-footer__newsletter-copy">
           <p>{{ 'sections.footer.newsletter_copy' | t }}</p>
-          <p>{{ 'sections.footer.newsletter_offer' | t }}</p>
         </div>
         <newsletter-form
           class="site-footer__newsletter-enhancement"
@@ -225,13 +224,13 @@
         <img data-store-finder src="{{ 'footer-store-finder.svg' | asset_url }}" width="138" height="46" alt="">
         {% assign language_form_id = 'FooterLanguage-' | append: section.id %}
         {% form 'localization', id: language_form_id, class: 'site-footer__languages' %}
-          <div role="group" aria-label="{{ 'sections.footer.language_selection' | t }}">
+          <div role="group" aria-label="{{ 'sections.footer.language_selection' | t }}" data-language-root="{{ localization.language.root_url | escape }}">
             {% for language in localization.available_languages %}
               {% if language.iso_code == 'de' or language.iso_code == 'en' %}
                 {% assign language_flag = 'footer-language-en.svg' %}
                 {% if language.iso_code == 'de' %}{% assign language_flag = 'footer-language-ch.svg' %}{% endif %}
-                <button type="submit" name="language_code" value="{{ language.iso_code }}" class="site-footer__language" lang="{{ language.iso_code }}" aria-label="{{ language.endonym_name | escape }}" aria-pressed="{% if language.iso_code == localization.language.iso_code %}true{% else %}false{% endif %}" title="{{ language.endonym_name | escape }}">
-                  <img src="{{ language_flag | asset_url }}" width="51" height="40" alt="">
+                <button type="submit" name="language_code" value="{{ language.iso_code }}" data-language-root="{{ language.root_url | escape }}" class="site-footer__language" lang="{{ language.iso_code }}" aria-label="{{ language.endonym_name | escape }}" aria-pressed="{% if language.iso_code == localization.language.iso_code %}true{% else %}false{% endif %}" title="{{ language.endonym_name | escape }}">
+                  <img src="{{ language_flag | asset_url }}" width="{% if language.iso_code == 'de' %}40{% else %}60{% endif %}" height="{% if language.iso_code == 'de' %}28{% else %}30{% endif %}" alt="">
                 </button>
               {% endif %}
             {% endfor %}
@@ -241,6 +240,26 @@
     </div>
   </div>
 </footer>
+
+{% javascript %}
+  // Shopify CLI's loopback proxy rejects localization POSTs. Hosted stores keep the native form.
+  if (['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname)) {
+    document.addEventListener('submit', event => {
+      if (!event.target.matches('.site-footer__languages')) return;
+      const button = event.submitter;
+      const root = button?.dataset.languageRoot;
+      const current = event.target.querySelector('[role="group"]').dataset.languageRoot;
+      if (!root?.startsWith('/') || !current?.startsWith('/')) return;
+      event.preventDefault();
+      const url = new URL(location.href);
+      const prefix = current.replace(/\/$/, '');
+      const path = prefix && (url.pathname === prefix || url.pathname.startsWith(`${prefix}/`))
+        ? url.pathname.slice(prefix.length) : url.pathname;
+      url.pathname = root.replace(/\/$/, '') + (path || '/');
+      location.assign(url.href);
+    });
+  }
+{% endjavascript %}
 
 {% schema %}
 {

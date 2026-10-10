@@ -1,0 +1,13 @@
+{%- liquid
+  assign fallback_width = 556
+  if product_handle contains 'hard-seltzer'
+    assign fallback_width = 388
+  endif
+  assign can_product = all_products[product_handle]
+  assign can_image = can_product.metafields.custom.collection_image.value | default: can_product.metafields.custom.teaser_image.value
+-%}
+{%- if can_image != blank -%}
+  {{- can_image | image_url: width: 600 | image_tag: widths: '120, 240, 360, 600', sizes: '240px', alt: '', loading: 'lazy' -}}
+{%- else -%}
+  <img src="{{ fallback | asset_url }}" width="{{ fallback_width }}" height="1000" alt="" loading="lazy">
+{%- endif -%}

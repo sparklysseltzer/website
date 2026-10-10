@@ -10,6 +10,8 @@ The catalog uses real `collection.products`, availability/localized product URLs
 
 ## Cards and data
 
+Standard/general product cards use a white Surface background with a 3px Muted surface border, shared with product navigation cards (Ananotes, 2026-10-09). Explicit merchant background artwork retains precedence; Soda and Hard Seltzer artwork is unchanged.
+
 Three columns at 990px+, two at 600–989px, one below 600px. Cards link to PDPs, without quick-add or variant assumptions. Soda uses its logo and Erode flavor title; Hard Seltzer uses its logo and established flavor artwork. General products show the teaser category/product type, Shopify price and real product title. Crossed-out prices use the secondary accent.
 
 Background precedence reuses `product-background`: product `custom.gallery_background_image`, then validated `custom.gallery_gradient`, then the card's neutral/brand starter surface. Canonical Holunder has a green starter surface. Brand classification reuses `custom.brand_variant`; no duplicate world field.
@@ -19,6 +21,8 @@ Product **Collection Image** (`custom.collection_image`) wins for every catalog 
 All-products groups Soda, Hard Seltzer and general cards within each server page; individual collections retain Shopify order. Hidden items are excluded by the shared `catalog-products` loop in HTML and structured data alike. Shopify pagination counts include hidden products, so an individual page can have fewer visible cards than the page-size setting, or be empty with a next-page link. Do not misrepresent those counts as visible totals.
 
 ## Filter navigation and SEO
+
+Mobile filter sizing (Ananotes 246): below 768px, three equal columns place the current five filters in two rows. Buttons use the shared Small text role, 56px minimum height, 8px padding/gaps and 24px-high contained brand artwork. Additional merchant collections can add rows. Desktop sizing and native-link filtering behavior remain unchanged.
 
 Filters appear only on `/collections/all`. Every nonempty storefront collection is eligible unless its new `custom.hide_in_filter_navigation` boolean is true. Empty/false means visible. The current store has separate Clothing and Accessories collections, so the initial navigation has five buttons including All; no collections were merged or automatically hidden. Soda/Hard Seltzer appear first; other collections use Shopify's iteration order.
 

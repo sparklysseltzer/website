@@ -24,19 +24,25 @@
   capture threshold_money
     render 'cart-money', amount: threshold, trim_zeros: true
   endcapture
+  assign shipping_qualified = qualifies
+  assign shipping_variant = product.selected_or_first_available_variant
+  assign selection_total = shipping_variant.price | times: shipping_variant.quantity_rule.min
+  if subscription_selected or threshold > 0 and selection_total >= threshold
+    assign shipping_qualified = true
+  endif
   capture rate_money
     render 'cart-money', amount: rate, trim_zeros: true
   endcapture
 -%}
 <div class="pdp-shipping">
-  <img src="{{ 'icon-pdp-truck.svg' | asset_url }}" alt="" width="24" height="24">
-  <div{% if supported_destination %} data-product-shipping data-subscription="{{ subscription_selected }}" aria-live="polite"{% endif %}>
+  <span class="pdp-shipping__icon" aria-hidden="true"></span>
+  <div{% if supported_destination %} data-product-shipping data-shipping-state="{% if subscription_selected %}subscription{% elsif shipping_qualified %}qualified{% else %}once{% endif %}" data-subscription="{{ subscription_selected }}" data-qualified="{{ shipping_qualified }}" data-product-qualifies="{{ qualifies }}" data-threshold="{{ threshold }}" aria-live="polite"{% endif %}>
     {% if supported_destination %}
       {%- capture standard_heading -%}{% if threshold > 0 %}{{ 'products.pdp.shipping_threshold' | t: amount: threshold_money }}{% else %}{{ 'cart.general.shipping_notice' | t }}{% endif %}{%- endcapture -%}
       {%- capture standard_detail -%}{% if threshold > 0 %}{{ 'products.pdp.shipping_rate' | t: amount: rate_money }}{% endif %}{%- endcapture -%}
-      <p data-shipping-copy data-once="{{ standard_heading | escape }}" data-subscription="{{ 'products.pdp.shipping_subscription' | t | escape }}">{% if subscription_selected %}{{ 'products.pdp.shipping_subscription' | t }}{% else %}{{ standard_heading }}{% endif %}</p>
-      <p data-shipping-copy data-once="{{ standard_detail | escape }}" data-subscription="{{ 'products.pdp.shipping_subscription_detail' | t | escape }}">{% if subscription_selected %}{{ 'products.pdp.shipping_subscription_detail' | t }}{% else %}{{ standard_detail }}{% endif %}</p>
-      {% if qualifies and threshold > 0 %}<p data-shipping-copy data-once="{{ 'products.pdp.shipping_product' | t | escape }}" data-subscription="">{% unless subscription_selected %}{{ 'products.pdp.shipping_product' | t }}{% endunless %}</p>{% endif %}
+      <p data-shipping-copy data-qualified="{{ 'cart.general.shipping_qualified' | t | escape }}" data-once="{{ standard_heading | escape }}" data-subscription="{{ 'products.pdp.shipping_subscription' | t | escape }}">{% if subscription_selected %}{{ 'products.pdp.shipping_subscription' | t }}{% elsif shipping_qualified %}{{ 'cart.general.shipping_qualified' | t }}{% else %}{{ standard_heading }}{% endif %}</p>
+      <p data-shipping-copy data-qualified="" data-once="{{ standard_detail | escape }}" data-subscription="{{ 'products.pdp.shipping_subscription_detail' | t | escape }}">{% if subscription_selected %}{{ 'products.pdp.shipping_subscription_detail' | t }}{% elsif shipping_qualified == false %}{{ standard_detail }}{% endif %}</p>
+      {% if qualifies and threshold > 0 %}<p data-shipping-copy data-qualified="" data-once="{{ 'products.pdp.shipping_product' | t | escape }}" data-subscription="">{% unless shipping_qualified %}{{ 'products.pdp.shipping_product' | t }}{% endunless %}</p>{% endif %}
     {% else %}<p>{{ 'cart.general.shipping_notice' | t }}</p>{% endif %}
   </div>
 </div>

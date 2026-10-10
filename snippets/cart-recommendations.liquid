@@ -4,7 +4,7 @@
 {%- assign recommendation_index = 0 -%}
 {%- capture cards -%}
   {%- for product in products -%}
-    {%- if product.available == false or cart_product_ids contains product.id -%}{%- continue -%}{%- endif -%}
+    {%- if product.available == false or product.first_available_variant == blank or cart_product_ids contains product.id -%}{%- continue -%}{%- endif -%}
     {%- assign recommendation_id = 'product-' | append: product.id -%}
     {% render 'cart-recommendation-card', product: product, recommendation_id: recommendation_id, recommendation_index: recommendation_index, forms_only: forms_only %}
     {%- assign recommendation_index = recommendation_index | plus: 1 -%}

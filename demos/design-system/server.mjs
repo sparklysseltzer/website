@@ -20,7 +20,7 @@ http.createServer(async (req,res) => {
     return;
   }
   const name = pathname === '/' ? '/demos/design-system/index.html' : pathname;
-  if (!/^\/(assets\/[a-zA-Z0-9._-]+|demos\/design-system\/(index.html|demo.css|demo.js))$/.test(name)) { res.writeHead(404).end(); return; }
+  if (!/^\/(assets\/[a-zA-Z0-9._-]+|demos\/design-system\/(index.html|demo.css|demo.js|playback.js))$/.test(name)) { res.writeHead(404).end(); return; }
   try { const bytes = await readFile(path.join(root,name));res.writeHead(200, { 'Content-Type':mime[path.extname(name)] || 'application/octet-stream', 'Cache-Control':'no-store' });res.end(bytes); }
   catch { res.writeHead(404).end(); }
 }).listen(9293,'127.0.0.1',()=>console.log('Design system studio: http://127.0.0.1:9293'));

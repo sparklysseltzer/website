@@ -197,3 +197,51 @@ body[data-inspector-open='false'] .studio-inspector { transform: translateX(100%
 .studio-link-surfaces > div { padding: 1.5rem; border-radius: var(--radius-small); background: var(--color-surface); color: var(--color-foreground); }
 .studio-link-surfaces .studio-link-surface--dark { background: var(--color-foreground); color: var(--color-text-inverse); }
 .studio-link-surfaces .studio-link-surface--muted { background: var(--color-surface-muted); }
+
+@font-face { font-family: 'Erode'; src: url('/assets/erode-semibold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+#BrandStage { max-width: 75rem; padding-block: 3rem; }
+#BrandStage .brand-statement__art--cans img { left: 50%; bottom: 0; width: var(--can-width); height: var(--can-height); transform: translateX(calc(-50% + var(--can-x))) translateY(var(--can-y)) rotate(var(--can-angle)); transition: transform var(--motion-duration-slow) var(--motion-ease); }
+#BrandStage .brand-statement__art--cans .brand-statement__art-inner { transition: translate var(--motion-duration-slow) var(--motion-ease); }
+#BrandStage[data-reduced] *, #BrandStage[data-reduced] .brand-statement__art-inner { transition: none; }
+#BrandConfig { white-space: pre-wrap; overflow-wrap: anywhere; font-size: var(--font-size-small); }
+#BrandTuner fieldset { display: grid; gap: .5rem; }
+@media (prefers-reduced-motion: reduce) { #BrandStage .brand-statement__art--cans img, #BrandStage .brand-statement__art-inner { transition: none; } }
+#BrandTuner fieldset label, #BrandTuner label:has(> input[type="checkbox"]) { display: flex; align-items: center; gap: .6rem; min-height: 44px; }
+#BrandTuner input[type="checkbox"] { width: auto; flex: 0 0 auto; }
+.studio-playback { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; padding: 1rem; margin-bottom: 1.5rem; background: var(--color-surface); border: 1px solid #ddd; border-radius: 1rem; font-size: var(--font-size-small); }
+.studio-playback[hidden] { display: none; }
+.studio-playback button { min-height: 44px; padding: .5rem 1rem; border: 1px solid #ccc; border-radius: 2rem; background: white; color: black; cursor: pointer; }
+.studio-playback label { display: flex; align-items: center; gap: .5rem; min-height: 44px; }
+.studio-playback__timeline { flex: 1 1 18rem; flex-wrap: wrap; }
+.studio-playback__timeline input { flex: 1; min-width: 7rem; min-height: 44px; }
+.studio-playback [data-status] { flex-basis: 100%; color: var(--color-text-muted); }
+.studio-playback button:disabled { opacity: .5; cursor: default; }
+
+.studio-fresh-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: .75rem; margin-block: 2rem; }
+.studio-fresh-options button { display: grid; justify-items: center; gap: .5rem; padding: 1rem .5rem; background: white; border: 2px solid #ddd; border-radius: 1rem; font-size: var(--font-size-small); cursor: pointer; transition: border-color var(--motion-duration-fast) var(--motion-ease-ui); }
+.studio-fresh-options button[aria-pressed="true"] { border-color: black; }
+.studio-fresh-options img { width: 5rem; height: 5rem; object-fit: contain; }
+@media (prefers-reduced-motion: reduce) { .studio-fresh-options button { transition: none; } }
+
+/* Reuse the original USP fruit mark. Only its decorative surface varies. */
+[data-treatment="fruit-lime"] { --fresh-badge-color: #e1f5a5; }
+[data-treatment="fruit-yellow"] { --fresh-badge-color: #ffe28a; }
+[data-treatment="fruit-blue"] { --fresh-badge-color: #c8edf5; }
+[data-treatment="fruit-pink"] { --fresh-badge-color: #f7cddb; }
+.studio-fresh-badge { display: grid; place-items: center; width: 5rem; height: 5rem; border-radius: 50%; background: var(--fresh-badge-color, transparent); }
+.studio-fresh-badge img { width: 56%; height: 62%; }
+.studio-fresh-badge[data-treatment="leaf"] img { width: 100%; height: 100%; }
+#BrandStage .brand-statement__art--fresh[data-treatment^="fruit-"] .brand-statement__art-inner { background: var(--fresh-badge-color, transparent); border-radius: 50%; padding: 0; }
+#BrandStage .brand-statement__art--fresh[data-treatment^="fruit-"] img { width: 56%; height: 62%; }
+.studio-fresh-badge[data-treatment="fruit-outline"], #BrandStage .brand-statement__art--fresh[data-treatment="fruit-outline"] .brand-statement__art-inner { background: url('/assets/usp-soda-fruit-base.svg') center / contain no-repeat; }
+
+.studio-fresh-badge[data-treatment="water"], #BrandStage .brand-statement__art--fresh[data-treatment="water"] .brand-statement__art-inner { background: url('/assets/water-blob.svg') center / contain no-repeat; border-radius: 0; padding: 0; }
+.studio-fresh-badge[data-treatment="water"] img, #BrandStage .brand-statement__art--fresh[data-treatment="water"] img { width: 57%; height: 64%; }
+
+.studio-fresh-badge[data-treatment="water-drop"] img, #BrandStage .brand-statement__art--fresh[data-treatment="water-drop"] img { width: 100%; height: 100%; object-fit: contain; }
+/* Reserve artwork space independently of intrinsic SVG dimensions. */
+.studio-fresh-options button { grid-template-rows: 7rem auto; align-content: start; row-gap: .75rem; }
+.studio-fresh-badge { position: relative; align-self: center; }
+.studio-fresh-badge img { position: absolute; inset: 0; margin: auto; min-width: 0; min-height: 0; max-width: 100%; max-height: 100%; }
+.studio-fresh-badge[data-treatment="water-drop"] { width: 5rem; height: 7rem; }
+#BrandStage .brand-statement__art--fresh[data-treatment="water-drop"] .brand-statement__art-inner { width: .88em; height: 1.28em; left: .035em; bottom: -.21em; }

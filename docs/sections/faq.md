@@ -14,7 +14,7 @@ The section consumes the merchant-owned `faq` and `faq_category` definitions doc
 - **FAQ Category** renders the category's ordered `faqs` reference list;
 - when both are set, category entries render first and individually selected entries follow. An FAQ present in both sources renders only once.
 
-The additive contract avoids a source-mode control and works within Shopify's current section-schema limitation: `visible_if` is not accepted on `metaobject` or `metaobject_list` settings. Heading and closing-copy fields can override the translated runtime defaults. The closing link is enabled by default with `#` as its visible setup placeholder and must receive a meaningful destination before launch.
+The additive contract avoids a source-mode control and works within Shopify's current section-schema limitation: `visible_if` is not accepted on `metaobject` or `metaobject_list` settings. Heading and closing-copy fields can override the translated runtime defaults. The closing link is enabled by default. The legacy `#` setup placeholder resolves to the existing Shopify Contact page (`pages['kontakt'].url`), preserving locale-aware URLs. Explicit destinations remain authoritative; a blank destination still hides the link. If the Contact page is unavailable, the placeholder link is omitted.
 
 ## Rendering and motion
 
@@ -71,3 +71,5 @@ Count verification: Liquid fixtures cover all four limits, duplicate and incompl
 ## Shared heading casing
 
 **Heading font** uses the standard two-choice Erode/Newake segmented control. **Uppercase headings** appears immediately after it only for explicit Newake and follows the font control's content visibility. On uppercases semantic headings (including rich text); off preserves authored case. Erode ignores saved uppercase. Legacy saved Automatic values remain rendering compatibility only; the editor offers Erode and Newake. See the [heading control standard](../design-system.md#editorial-heading-font-selection). Font/casing schema scenarios are registered; no saved template content or structured data changes.
+
+Contact-link verification (2026-10-09): the PDP FAQ footer renders `/pages/kontakt` at phone and desktop sizes; activating it opens the existing Contact page. No saved template or page content was changed.

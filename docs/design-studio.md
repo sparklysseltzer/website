@@ -59,3 +59,27 @@ Button hierarchy correction (2026-10-05): primary `.button` retains a solid blac
 Round arrow buttons retain their original opaque surfaces and black hover/focus fill; they are excluded from transparent pill-button behavior.
 
 Atoms → Text links (`#TextLinks`) documents and previews the production arrow-reveal treatment on light, dark/footer and muted surfaces, including a wrapping label. Hover and keyboard focus use Fast/200ms UI easing; reduced motion removes movement. The former background sweep is removed globally from `.text-link`.
+
+### Brand statement studies
+
+`#BrandStatement` includes the four-can floating fan, upright staggered quartet, Soda pop-up pair and Soda/Seltzer duet. Each preset populates the complete inspector configuration. Product selection supports zero through four cans; scale/spread/tilt compose the same fixed-width inline anchor without changing typography. Replay coordinates text and can reveals; optional pointer-follow or click fan-out can be tried with a keyboard/touch button. Reduced motion is both system-aware and manually previewable. Copy configuration exports the current JSON; the visible configuration remains available if clipboard access fails. The fixture uses actual brand statement artwork, Erode Semibold and shared statement CSS. Studio replay is timed for comparison; storefront reveal remains scroll-linked.
+
+### Shared animation playback
+
+Animated previews show a shared transport above the preview: Play/Pause, Replay, a keyboard-operable timeline with elapsed/total seconds, and opt-in Loop. Brand statement registers its complete text/can sequence with the transport. Button motion captures the actual pseudo-element transition keyframes and builds an enter/hold/exit cycle using the configured durations and easing. Other interaction previews capture finite CSS transitions/animations or Web Animations triggered by a preview click/change; hover or focus first to make their timeline available. Native smooth scrolling and media playback are not animation timelines and are not scrubbed by this controller.
+
+`demos/design-system/playback.js` is studio-only. New animation studies can call `window.studioPlayback.register(pageId, { replay, reduced })` and pass their finite Web Animations to `capture(animations)`. Known interaction pages show the transport before capture; detected animations reveal it on other pages too. Do not capture the transport or inspector controls themselves. Scrubbing pauses playback and holds the chosen frame. Loop repeats the captured sequence, not the underlying commerce/navigation action. Changing configuration or route clears captured effects; hiding the tab pauses playback. System or study-specific reduced motion disables playback and exposes the static preview. Controls use native buttons/range/checkbox semantics.
+
+Verified Brand statement pause and midpoint scrub (all animation times held at 752.5ms), looping, and Button motion's five pseudo-element effects paused at 500ms of its 1000ms cycle. System reduced motion canceled effects and disabled transport. Reviewed settled 390px layout without overflow. Repository check exited 0; JS syntax, 33 theme JSON files and whitespace checks passed. No storefront or saved-content changes.
+
+Brand can artwork now uses local snapshots of the four products' current collection images (`assets/brand-statement-can-*.png`), replacing the older overview WebPs. See the Brand statement section document for source versions. The storefront reads product image metafields live; refresh the Studio snapshots when those merchant-owned images change.
+
+The Brand statement freshness study reuses the existing real-fruit USP mark on lime, yellow, ice-blue and pink badges, plus its original ring and the current leaf. Select in the inspector or the labeled thumbnail gallery. No new illustration assets are used. The choice is included in exported configuration. These studies do not change saved Shopify settings or the storefront fallback. The Theme Editor image pickers remain available for merchant-owned Swiss and freshness artwork.
+
+Freshness comparison also includes the existing Hard Seltzer ingredients water illustration, reusing `water-blob.svg` and `water-icon.svg` together. It is the Studio default for comparison; fruit badge options and the current leaf remain selectable.
+
+Additional freshness option: **Water · single drop**, exported unchanged as SVG from Sparklys Web Figma node `15066:25244` (Frame 48096456, 130×189). Asset: `brand-statement-water-drop.svg`. The original cyan drop and black wave emblem are preserved, with no added circle. Available in the Studio selector/gallery and shown initially for review; storefront fallback remains unchanged.
+
+Single-drop sizing: the statement preview uses a .88em-wide, 1.28em-high illustration centered within the .95em anchor, with a -.21em baseline offset. This is slightly smaller than the Swiss-badge-width version while preserving the surrounding word spacing. Comparison cards reserve a separate 7rem artwork row; images are contained within positioned badges so the tall SVG cannot overlap its label.
+
+Inline placement at every viewport: the cans sit immediately before “Getränken,” and the freshness illustration follows “erfrischend”: “Modern, erfrischend [illustration] und unkompliziert.” This applies consistently to all selectable artwork treatments in the Studio.

@@ -17870,6 +17870,26 @@
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "swiss_illustration": {
+        "group": "Illustrations",
+        "visible_if": null
+      },
+      "freshness_illustration": {
+        "group": "Illustrations",
+        "visible_if": null
+      },
+      "paragraph_1_de": {
+        "group": "Paragraphs",
+        "visible_if": null
+      },
+      "paragraph_2_de": {
+        "group": "Paragraphs",
+        "visible_if": null
+      },
+      "paragraph_3_de": {
+        "group": "Paragraphs",
+        "visible_if": null
       }
     },
     "controls": {
@@ -18072,9 +18092,26 @@
           "section_background"
         ],
         "hidden": []
+      },
+      {
+        "name": "Optional illustrations remain available",
+        "settings": {},
+        "visible": [
+          "swiss_illustration",
+          "freshness_illustration"
+        ]
+      },
+      {
+        "name": "Source paragraphs remain editable for Shopify translation",
+        "settings": {},
+        "visible": [
+          "paragraph_1_de",
+          "paragraph_2_de",
+          "paragraph_3_de"
+        ]
       }
     ],
-    "schemaHash": "731b27a75a000cae6a5ccf447f4b0ca8747b9174ea46df8a8f181abd532e73eb"
+    "schemaHash": "0616119f2d1cf67379a51adeec2efdbd1704ae93cd71d358a573915bb95205e9"
   },
   "sections/cart-drawer.liquid": {
     "fields": {

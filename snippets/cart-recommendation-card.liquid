@@ -1,6 +1,6 @@
 {% comment %}One real product or fixed variant. Forms are rendered separately from the cart form.{% endcomment %}
 {%- liquid
-  assign variant = fixed_variant | default: product.selected_or_first_available_variant
+  assign variant = fixed_variant | default: product.first_available_variant
   assign card_image = variant.featured_image | default: product.featured_image
   assign card_url = variant.url
   assign can_add = false
@@ -8,6 +8,7 @@
     assign can_add = true
   endif
 -%}
+{%- if variant != blank and variant.available -%}
     {%- if forms_only -%}
       {%- if product.requires_selling_plan == false and can_add -%}
         <form id="CartRecommendation-{{ recommendation_id }}" action="{{ routes.cart_add_url }}" method="post" data-cart-recommendation-form>
@@ -28,6 +29,7 @@
               <fieldset class="cart-recommendation__variants">
                 <legend class="visually-hidden">{{ 'products.product.variant' | t }}: {{ product.title | escape }}</legend>
                 {% for option in product.variants %}
+                  {%- unless option.available -%}{%- continue -%}{%- endunless -%}
                   {%- capture option_price -%}{% render 'cart-recommendation-money', amount: option.price %}{%- endcapture -%}
                   {%- liquid
                     assign compact_title = option.title
@@ -39,8 +41,8 @@
                   -%}
                   {%- assign option_image = option.featured_image | default: product.featured_image -%}
                   <label class="cart-recommendation__chip">
-                    <input class="visually-hidden" type="radio" name="id" form="CartRecommendation-{{ recommendation_id }}" value="{{ option.id }}" data-recommendation-variant data-price="{{ option_price | escape }}" data-url="{{ option.url }}" data-minimum="{{ option.quantity_rule.min | default: 1 }}" {% if option_image %}data-image="{{ option_image | image_url: width: 320 }}" data-image-small="{{ option_image | image_url: width: 160 }}"{% endif %} {% if option.id == variant.id %}checked{% endif %} {% unless option.available %}disabled{% endunless %}>
-                    <span>{{ compact_title | escape }}{% unless option.available %}<span class="visually-hidden"> — {{ 'products.product.sold_out' | t }}</span>{% endunless %}</span>
+                    <input class="visually-hidden" type="radio" name="id" form="CartRecommendation-{{ recommendation_id }}" value="{{ option.id }}" data-recommendation-variant data-price="{{ option_price | escape }}" data-url="{{ option.url }}" data-minimum="{{ option.quantity_rule.min | default: 1 }}" {% if option_image %}data-image="{{ option_image | image_url: width: 320 }}" data-image-small="{{ option_image | image_url: width: 160 }}"{% endif %} {% if option.id == variant.id %}checked{% endif %}>
+                    <span>{{ compact_title | escape }}</span>
                   </label>
                 {% endfor %}
               </fieldset>
@@ -53,3 +55,4 @@
         </div>
       </li>
     {%- endif -%}
+{%- endif -%}

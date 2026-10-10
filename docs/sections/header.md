@@ -1,5 +1,9 @@
 # Header
 
+General product navigation cards share the catalog's white Surface background and 3px Muted surface border (Ananotes, 2026-10-09). Brand cards and explicit merchant artwork retain their existing treatments.
+
+On mobile iOS (up to 1023px), the sticky header uses an opaque white background with backdrop blur disabled. This is the approved fallback for Safari's browser/status-area color sampling; other browsers retain the glass treatment. The browser `theme-color` hint is white to match the header rather than the product canvas. This does not enable edge-to-edge viewport layout or change safe-area geometry. Native iPhone Safari must be used to verify the browser chrome, which desktop viewport emulation cannot reproduce. See [WebKit's backdrop-filter tint-sampling report](https://bugs.webkit.org/show_bug.cgi?id=319479).
+
 Source: `sections/header.liquid`
 
 Group: `sections/header-group.json`
@@ -294,3 +298,5 @@ Ananotes follow-up (2026-10-09): Utility navigation now uses full-width neutral 
 Verification: at 768px Learn cards measure 224×224px and product artwork has no hover translation. Utility disclosure height closes from 227px through 123px to its 69px summary without a final jump; keyboard Enter and Tab reach its first text destination. Script-blocked native opening also works. Desktop navigation remains visible at 1440px. Full checks, syntax, JSON and whitespace gates pass.
 
 Compact menu follow-up (Ananotes 219–223, 2026-10-09): category and utility summary labels share the switch Compact typography role, with 16px vertical padding. A full-width neutral divider starts the first category; utility groups directly follow the main categories without duplicate borders or blank spacing. The aligned menu/close controls share the same three-line glyph, morphing to a cross and back with Base duration and UI easing. Both copies follow one menu state; reduced motion changes immediately. No schema or saved content changes.
+
+Mobile menu surface (2026-10-09): menu and close controls use the same 5% foreground/surface mix as account/cart controls, with foreground-colored hamburger/cross strokes. The existing morph and reduced-motion behavior remain intact. Verified open/closed colors on phone and the reduced-motion opt-out.

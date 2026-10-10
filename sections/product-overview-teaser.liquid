@@ -16,12 +16,7 @@
 
       {%- if section.settings.show_navigation != false -%}
       <nav class="product-overview__navigation" aria-label="{{ 'sections.product_overview.navigation' | t }}">
-        {%- if section.settings.all_products_label != blank and all_products_link != blank -%}
-          <a class="product-overview__navigation-link" href="{{ all_products_link }}">
-            <span>{{ section.settings.all_products_label }}</span>
-            <span class="product-overview__navigation-arrow button button--secondary button--round-arrow" aria-hidden="true"><span class="button__label button__arrow button__arrow--next"></span></span>
-          </a>
-        {%- endif -%}
+
 
         {%- if soda_link != blank -%}
           <a class="product-overview__navigation-link product-overview__navigation-link--soda" href="{{ soda_link }}">
@@ -45,6 +40,12 @@
               width="205"
               height="56"
             >
+            <span class="product-overview__navigation-arrow button button--secondary button--round-arrow" aria-hidden="true"><span class="button__label button__arrow button__arrow--next"></span></span>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.all_products_label != blank and all_products_link != blank -%}
+          <a class="product-overview__navigation-link" href="{{ all_products_link }}">
+            <span>{{ section.settings.all_products_label }}</span>
             <span class="product-overview__navigation-arrow button button--secondary button--round-arrow" aria-hidden="true"><span class="button__label button__arrow button__arrow--next"></span></span>
           </a>
         {%- endif -%}
@@ -335,7 +336,12 @@
   .product-overview__navigation-link > span:not([aria-hidden]) { flex: 1; min-width: 0; text-align: center; line-height: var(--line-height-ui); }
   .product-overview__navigation-arrow.button.button--round-arrow { --round-arrow-size: clamp(1rem, 16cqi, 2.5rem); --round-arrow-icon-size: clamp(.625rem, 7cqi, 1rem); min-height: var(--round-arrow-size); min-width: var(--round-arrow-size); height: var(--round-arrow-size); flex-shrink: 0; }
   @media (width < 768px) {
-    .product-overview__navigation-link { font-size: var(--font-size-label); }
+    .product-overview__navigation-link { font-size: var(--font-size-small); }
+    .product-overview__navigation-link > span:not([aria-hidden]) { white-space: nowrap; }
+    .product-overview__navigation-logo--seltzer { max-width: calc(85% - clamp(1rem, 16cqi, 2.5rem) - .25rem); }
+  }
+  @media (width < 360px) {
+    .product-overview__navigation { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.35fr); }
   }
 
   @media (width > 1200px) {
@@ -955,3 +961,87 @@
   ]
 }
 {% endschema %}
+
+{% javascript %}
+customElements.whenDefined('offer-cards-motion').then(() => {
+class ProductOverviewMotion extends customElements.get('offer-cards-motion') {
+  connectedCallback() {
+    this.revealedGroups = new WeakSet();
+    super.connectedCallback();
+    // Scale the complete badge, preserving its original label/padding proportions.
+    this.badgeSizeObserver = new ResizeObserver(entries => {
+      for (const { target, contentRect } of entries) {
+        target.style.setProperty('--product-card-badge-scale', Math.min(1, Math.max(.7, contentRect.width / 335)).toFixed(3));
+      }
+    });
+    this.querySelectorAll('.product-overview-card:has(.product-overview-card__badge)').forEach(card => this.badgeSizeObserver.observe(card));
+  }
+
+  setupMotion() {
+    this.mobileRows = matchMedia('(max-width: 749px)').matches;
+    if (!this.mobileRows) { super.setupMotion(); return; }
+    this.cards = [...this.querySelectorAll('[data-card-motion-card]')];
+    this.rowAnimations = [];
+    this.observeRows();
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  observeRows() {
+    this.rowObserver?.disconnect();
+    const header = this.querySelector('[data-card-motion-header]');
+    const rows = new Map();
+    this.cards.forEach(card => {
+      const top = card.offsetTop;
+      if (!rows.has(top)) rows.set(top, []);
+      rows.get(top).push(card);
+    });
+    const groups = [header ? [header] : [], ...rows.values()].filter(group => group.length);
+    this.rowObserver = new IntersectionObserver(entries => {
+      const styles = getComputedStyle(this);
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const group = groups.find(nodes => nodes[0] === entry.target);
+        this.rowObserver.unobserve(entry.target);
+        const focused = group.some(node => node.contains(document.activeElement));
+        const startTime = document.timeline.currentTime;
+        group.forEach(node => {
+          if (!focused && !this.revealedGroups.has(node)) {
+            const animation = node.animate([{ opacity: 0 }, { opacity: 1 }], {
+              duration: parseFloat(styles.getPropertyValue('--motion-duration-slow')),
+              easing: styles.getPropertyValue('--motion-ease-ui').trim(),
+            });
+            animation.startTime = startTime;
+            this.rowAnimations.push(animation);
+          }
+          this.revealedGroups.add(node);
+        });
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    groups.forEach(group => this.rowObserver.observe(group[0]));
+  }
+
+  handleResize() {
+    if (this.mobileRows !== matchMedia('(max-width: 749px)').matches) this.handleMotionPreference();
+    else if (this.mobileRows) this.observeRows();
+    else super.handleResize();
+  }
+
+  teardownMotion() {
+    this.rowObserver?.disconnect();
+    this.rowAnimations?.forEach(animation => animation.cancel());
+    this.rowAnimations = [];
+    super.teardownMotion();
+  }
+
+  disconnectedCallback() {
+    this.badgeSizeObserver?.disconnect();
+    super.disconnectedCallback();
+  }
+}
+
+if (!customElements.get('product-overview-motion')) {
+  customElements.define('product-overview-motion', ProductOverviewMotion);
+}
+
+});
+{% endjavascript %}

@@ -1,0 +1,13 @@
+{%- if text != blank -%}
+  <p data-paragraph="{{ paragraph_index }}">
+    {%- assign chunks = text | append: ' ' | split: '*' -%}
+    {%- for chunk in chunks -%}
+      {%- if forloop.first == false and forloop.index > 2 -%}*{%- endif -%}
+      {%- assign lines = chunk | newline_to_br | split: '<br />' -%}
+      {%- for line in lines -%}
+        {% render 'brand-statement-words', text: line %}{% unless forloop.last %}<br>{% endunless %}
+      {%- endfor -%}
+      {%- if forloop.first and text contains '*' -%}{{ ' ' }}{{ illustration }}{{ ' ' }}{% endif %}
+    {%- endfor -%}
+  </p>
+{%- endif -%}

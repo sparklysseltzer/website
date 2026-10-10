@@ -178,11 +178,15 @@
           {% assign key = 'gallery_image_' | append: i %}
           {% assign marketing_image = product.metafields.custom[key].value %}
           {% if marketing_image != blank %}
-            {{ marketing_image | image_url: width: 1240 | image_tag: widths: '400, 620, 900, 1240', sizes: '(min-width: 900px) 45vw, 100vw', loading: 'lazy', alt: marketing_image.alt }}
+            <div class="pdp-marketing__frame">
+              {{ marketing_image | image_url: width: 1240 | image_tag: widths: '400, 620, 900, 1240', sizes: '(min-width: 900px) 45vw, 100vw', loading: 'lazy', alt: marketing_image.alt }}
+            </div>
           {% elsif product.handle == 'sparklys-hard-seltzer-maracuja' or product.handle == 'sparklys-hard-seltzer-holunder' %}
             {% assign artwork_flavour = product.handle | remove_first: 'sparklys-hard-seltzer-' %}
             {% assign marketing_asset = 'pdp-' | append: artwork_flavour | append: '-marketing-' | append: i | append: '.webp' %}
-            <img src="{{ marketing_asset | asset_url }}" width="{% if i == 1 %}620{% else %}300{% endif %}" height="300" loading="lazy" alt="{{ 'products.pdp.marketing_image' | t: product: product.title | escape }}">
+            <div class="pdp-marketing__frame">
+              <img src="{{ marketing_asset | asset_url }}" width="{% if i == 1 %}620{% else %}300{% endif %}" height="300" loading="lazy" alt="{{ 'products.pdp.marketing_image' | t: product: product.title | escape }}">
+            </div>
           {% endif %}
         {% endfor %}
       </div>

@@ -6,6 +6,12 @@ For customer-facing wording, follow [Tone and voice](tone-and-voice.md). Visual 
 
 ## Typography
 
+### Erode weights
+
+The Brand statement's Erode Semibold composition follows Figma frame `12596:24781`, text node `11710:43785`: 75px type, 62px line height and −3% tracking. Shared `--line-height-heading-erode-semibold: calc(62 / 75)` preserves this approved composition proportionally at responsive sizes; `--letter-spacing-heading-erode: -0.03em` already matches the tracking. This explicit Semibold composition exception does not change the Bold heading rhythm or font-size roles.
+
+Erode Semibold is available as normal weight 600 in the existing Erode family, registered in `layout/theme.liquid` from `assets/erode-semibold.woff2`. The file comes from the merchant-supplied Erode webfont package. Brand statement uses Semibold; standard Erode headings retain Bold (700), and the existing italic face retains weight 400. Reuse the shared family, size, leading and tracking roles with the appropriate weight instead of synthesizing bold or introducing another font family. Semibold loads on demand without an additional global preload.
+
 ### Shared fluid roles
 
 Maison Neue Demi (registered at weight 400) is the standard body/UI face. Maison Neue Bold supplies explicitly emphasized UI such as FAQ questions. Erode Bold is the default for headings in every world. Each heading-bearing section exposes Erode/Newake selection, including rich-text headings; saved explicit choices are preserved. Semantic heading level alone does not select a visual size or override an explicit section role.
@@ -30,6 +36,8 @@ All ordinary typography uses `--font-size-*` roles defined in `assets/base.css`.
 Use `--line-height-body` (1.5) for reading copy, including FAQ answers and resource rich text; `--line-height-body-compact` (1.3) for short editorial paragraphs and benefits; `--line-height-ui` (1.2) for labels; and `--line-height-solid` (1) only for single-line controls. Heading rhythm remains font-specific below. Do not shrink labels to fit a grid; adapt wrapping and column layout. Ordinary body copy never changes size with its container width.
 
 Approved artwork exceptions include the Soda 3 Reasons numeral lockup, Product Overview flavor lettering (including its existing container-based scaling), and the merchant-approved Swiss ID code composition described below. They are explicitly allowlisted in `scripts/check-typography.mjs`; do not extend the allowlist to bypass a layout problem. SVG logo dimensions are artwork geometry, not CSS body typography.
+
+The shared Caption role (`--font-size-caption`, 11–12px at the standard root size) is for secondary reference values, such as a struck-through original price. Current prices and actionable labels retain their larger roles.
 
 `npm run check:typography` rejects raw font-size values, unknown role references, local role definitions, and font shorthand bypasses outside those exceptions. It also tests body interpolation endpoints and enlarged-root behavior. Before handoff, inspect both font worlds at 320/390, tablet and 1440px, verify equal computed body sizes, and test enlarged text/zoom and wrapping. Relative units alone do not prove accessibility.
 
@@ -609,3 +617,7 @@ Embedded-button clipping correction (2026-10-09): input-shell buttons retain pad
 Scrollbar verification: run navigation geometry checks with native scrollbars visible (--hide-scrollbars false). Screenshot tools may hide them by default, concealing layout shifts. Compare control/logo rectangles before, during and after modal opening, closing, content expansion and resize, including a classic 15px gutter and overlay-scrollbar environments.
 
 Brand Statement responsive composition (2026-10-09): explicit merchant feedback selects Section typography below 768px and Display at larger widths. Reuse those shared roles unchanged; inline artwork scales in em. This exception changes the composition’s role assignment, not its font metrics or shared role definitions.
+
+### Proportional brand statement composition
+
+The merchant-approved mobile Brand statement preserves its shared Card typography and wrapping canvas, then scales the complete text/artwork wrapper to fill the available width. This is composition scaling, not a new font-size role or local role override. The fitting pass runs only for layout/font changes, reserves the scaled block height and uses 8px edge gutters with measurement clearance. Desktop retains Display typography. See [Brand statement](sections/brand-statement.md).

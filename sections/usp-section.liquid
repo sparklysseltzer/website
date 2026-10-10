@@ -115,7 +115,7 @@
             {%- endif -%}
           </div>
 
-          <div class="usp-section__items{% if usp_variant == 'seltzer' %} usp-items--six-or-three{% endif %}" role="list">
+          <div class="usp-section__items" role="list">
             {%- if section.blocks.size > 0 -%}
               {%- for block in section.blocks -%}
                 {%- if block.settings.label != blank -%}
@@ -293,7 +293,7 @@
   .usp-section__items {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 5rem), 1fr));
     gap: .75rem;
   }
 
@@ -319,6 +319,8 @@
   }
 
   @media (max-width: 55.999rem) {
+    .usp-section__items { display: flex; flex-wrap: wrap; justify-content: center; }
+    .usp-section__items > * { flex: 0 0 calc((100% - 1.5rem) / 3); }
     .usp-section__panel {
       aspect-ratio: auto;
       min-height: 0;
@@ -336,38 +338,11 @@
       margin-left: 0;
     }
 
-    .usp-section__items {
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      column-gap: clamp(0.5rem, 3vw, 1.25rem);
-      row-gap: 1.5rem;
-    }
-
-    .usp-section__item {
-      grid-column: span 2;
-    }
-
-    .usp-section__item:first-child:last-child {
-      grid-column: 3 / span 2;
-    }
-
-    .usp-section__item:first-child:nth-last-child(2),
-    .usp-section__item:nth-child(4):nth-last-child(2) {
-      grid-column: 2 / span 2;
-    }
-
-    .usp-section__item:nth-child(4):last-child {
-      grid-column: 3 / span 2;
-    }
-
     .usp-section__icon {
       width: 3.75rem;
       height: 3.75rem;
     }
   }
-@media (width < 480px) {
-  .usp-section .usp-section__items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .usp-section .usp-section__items > .usp-section__item { grid-column: auto; }
-}
 {% endstylesheet %}
 
 {% schema %}

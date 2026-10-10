@@ -259,6 +259,13 @@
   .versus--soda .versus__card--featured .versus__fact:nth-child(-n+5), .versus--seltzer .versus__card--featured .versus__fact:nth-child(-n+2) { color: #006c38; background: rgb(35 199 120 / .1); }
   .versus__notes { margin: 1.25rem auto 0;  font-size: var(--font-size-small); line-height: var(--line-height-body-compact); text-align: center; }
   .versus__notes p { margin: .25rem 0; }
+  @media (max-width: 749px) {
+    .versus__card { padding: 1rem 1rem 1.25rem; }
+    .versus__card h3 { margin-bottom: .75rem; }
+    .versus__facts { gap: .375rem; }
+    .versus__fact { min-height: 3.625rem; padding-block: .25rem; }
+    .versus__fact--boolean { min-height: 3.75rem; padding: .5rem; gap: .25rem; }
+  }
   @media (min-width: 750px) {
     .versus__card { order: var(--desktop-order); }
     .versus__card--featured { order: 3; }

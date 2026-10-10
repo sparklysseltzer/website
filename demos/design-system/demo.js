@@ -55,10 +55,11 @@ motionForm.addEventListener('input', updateMotion);
 motionForm.addEventListener('submit', event => event.preventDefault());
 motionForm.addEventListener('reset', () => queueMicrotask(() => { updateMotion(); motionStatus.textContent = 'Storefront baseline restored.'; }));
 document.querySelector('#ReplayMotion').addEventListener('click', () => {
+  window.studioPlayback?.clear();
   stopReplay();
   requestAnimationFrame(() => requestAnimationFrame(() => {
     motionPreview.setAttribute('data-playing', '');
-    replayTimer = setTimeout(stopReplay, Number(motionForm.elements.enter.value) + 700);
+    if (!window.studioPlayback) replayTimer = setTimeout(stopReplay, Number(motionForm.elements.enter.value) + 700);
   }));
 });
 document.querySelector('#CopyMotion').addEventListener('click', async () => {
@@ -68,6 +69,7 @@ document.querySelector('#CopyMotion').addEventListener('click', async () => {
   catch { motionStatus.textContent = text; }
 });
 updateMotion();
+window.studioPlayback?.register('ButtonMotion', { replay: () => document.querySelector('#ReplayMotion').click(), reduced: () => motionForm.elements.reduced.checked });
 
 // Run the actual storefront component; only the preview's settings are changed.
 const ambientForm = document.querySelector('#AmbientTuner');
@@ -280,4 +282,91 @@ for (const [control, selector] of [['ContainerWidth', '#ContainerWidthPreview'],
   new ResizeObserver(measure).observe(samples);
   document.fonts.ready.then(measure);
   measure();
+})();
+
+// Brand composition studies reuse the storefront markup, artwork and typography.
+(() => {
+  const form = document.querySelector('#BrandTuner');
+  const stage = document.querySelector('#BrandStage');
+  const f = form.elements;
+  const anchor = stage.querySelector('.brand-statement__art--cans');
+  const inner = anchor.firstElementChild;
+  const cans = [...inner.children];
+  const names = ['maracuja', 'holunder', 'blueberry', 'yuzu'];
+  const preference = matchMedia('(prefers-reduced-motion: reduce)');
+  const presets = {
+    float: { products: names, layout: 'fan', scale: 103, spread: 102, tilt: 20, duration: 700, stagger: 60, interaction: 'none' },
+    row: { products: names, layout: 'row', scale: 85, spread: 100, tilt: 0, duration: 700, stagger: 90, interaction: 'none' },
+    soda: { products: ['blueberry', 'yuzu'], layout: 'pop', scale: 125, spread: 50, tilt: 14, duration: 600, stagger: 80, interaction: 'burst' },
+    mixed: { products: ['holunder', 'yuzu'], layout: 'fan', scale: 120, spread: 55, tilt: 12, duration: 800, stagger: 60, interaction: 'pointer' }
+  };
+  let animations = [];
+  let expanded = false;
+  const reduced = () => preference.matches || f.reduced.checked;
+  const config = () => ({ freshness: f.freshness.value, products: names.filter(name => f[name].checked), ...Object.fromEntries(['layout', 'scale', 'spread', 'tilt', 'duration', 'stagger', 'interaction'].map(name => [name, f[name].type === 'range' ? Number(f[name].value) : f[name].value])) });
+  function stop() { animations.forEach(a => a.cancel()); animations = []; }
+  function update() {
+    window.studioPlayback?.clear();
+    stop();
+    const c = config();
+    const fresh = stage.querySelector('.brand-statement__art--fresh');
+    fresh.classList.toggle('brand-statement__art--custom', c.freshness !== 'leaf');
+    document.querySelectorAll('[data-freshness]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.freshness === c.freshness)));
+    fresh.dataset.treatment = c.freshness;
+    fresh.querySelector('img').src = c.freshness === 'leaf' ? '/assets/soda-reason-leaf.svg' : c.freshness === 'water' ? '/assets/water-icon.svg' : c.freshness === 'water-drop' ? '/assets/brand-statement-water-drop.svg' : '/assets/usp-soda-fruit-mark.svg';
+    stage.toggleAttribute('data-reduced', reduced());
+    const visible = cans.filter((can, i) => { can.hidden = !c.products.includes(names[i]); return !can.hidden; });
+    visible.forEach((can, i) => {
+      const position = visible.length === 1 ? 0 : i / (visible.length - 1) * 2 - 1;
+      can.style.setProperty('--can-width', `${.42 * c.scale / 100}em`);
+      can.style.setProperty('--can-height', `${.8 * c.scale / 100}em`);
+      can.style.setProperty('--can-x', `${position * .4 * c.spread / 100 * (expanded ? 1.15 : 1)}em`);
+      can.style.setProperty('--can-y', `${c.layout === 'row' ? 0 : (Math.abs(position) - 1) * .12}em`);
+      can.style.setProperty('--can-angle', `${c.layout === 'row' ? 0 : position * c.tilt * (expanded ? 1.5 : 1)}deg`);
+    });
+    inner.style.translate = '';
+    document.querySelector('#BrandConfig').textContent = JSON.stringify(c, null, 2);
+    document.querySelector('#BrandInteract').disabled = c.interaction === 'none' || reduced() || !visible.length;
+  }
+  function replay() {
+    update();
+    if (reduced()) return;
+    const c = config();
+    const easing = getComputedStyle(stage).getPropertyValue('--motion-ease').trim();
+    const words = [...stage.querySelectorAll('.brand-statement__word, .brand-statement__art:not(.brand-statement__art--cans)')];
+    words.forEach((word, i) => animations.push(word.animate([{ opacity: 0, filter: 'blur(8px)', translate: '0 .12em' }, { opacity: 1, filter: 'blur(0)', translate: '0 0' }], { duration: c.duration, delay: i * 35, easing, fill: 'backwards' })));
+    const preceding = words.filter(word => Boolean(word.compareDocumentPosition(anchor) & Node.DOCUMENT_POSITION_FOLLOWING)).length;
+    cans.filter(can => !can.hidden).forEach((can, i) => animations.push(can.animate([{ opacity: 0, translate: c.layout === 'pop' ? '0 .65em' : '0 .2em', scale: '.7' }, { opacity: 1, translate: '0 0', scale: '1' }], { duration: c.duration, delay: preceding * 35 + i * c.stagger, easing, fill: 'backwards' })));
+    window.studioPlayback?.capture(animations);
+  }
+  window.studioPlayback?.register('BrandStatement', { replay, reduced });
+  function preset() {
+    const c = presets[f.preset.value];
+    names.forEach(name => { f[name].checked = c.products.includes(name); });
+    Object.entries(c).filter(([name]) => name !== 'products').forEach(([name, value]) => { f[name].value = value; });
+    expanded = false;
+    replay();
+  }
+  form.addEventListener('submit', event => event.preventDefault());
+  form.addEventListener('input', event => { if (event.target !== f.preset) { expanded = false; update(); } });
+  document.querySelectorAll('[data-freshness]').forEach(button => button.addEventListener('click', () => { f.freshness.value = button.dataset.freshness; update(); }));
+  f.preset.addEventListener('change', preset);
+  preference.addEventListener('change', update);
+  document.querySelector('#BrandReplay').addEventListener('click', replay);
+  function interact() { if (reduced() || f.interaction.value === 'none') return; expanded = !expanded; update(); }
+  document.querySelector('#BrandInteract').addEventListener('click', interact);
+  inner.addEventListener('click', interact);
+  inner.addEventListener('pointermove', event => {
+    if (reduced() || f.interaction.value !== 'pointer' || event.pointerType !== 'mouse') return;
+    const bounds = anchor.getBoundingClientRect();
+    inner.style.translate = `${Math.max(-.08, Math.min(.08, (event.clientX - bounds.left - bounds.width / 2) / bounds.width * .16))}em -.04em`;
+  });
+  inner.addEventListener('pointerleave', () => { inner.style.translate = ''; });
+  document.querySelector('#BrandCopy').addEventListener('click', async () => {
+    const text = JSON.stringify(config(), null, 2);
+    try { await navigator.clipboard.writeText(text); document.querySelector('#BrandStatus').textContent = 'Configuration copied.'; }
+    catch { document.querySelector('#BrandStatus').textContent = 'Select and copy the configuration below the preview.'; }
+  });
+  window.addEventListener('hashchange', () => { stop(); if (location.hash === '#BrandStatement') replay(); });
+  preset();
 })();

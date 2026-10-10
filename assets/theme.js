@@ -8,18 +8,19 @@ class CartDrawer extends HTMLElement {
     this.captureAllocatedCodes();
     this.updateFooterShadow = () => {
       document.querySelectorAll('[data-cart-surface]').forEach((surface) => {
-        const scroll = surface.querySelector('[data-cart-scroll]');
+        const drawer = surface.dataset.cartSurface === 'drawer';
+        const scroll = innerWidth < 1000 && drawer ? surface : surface.querySelector('[data-cart-scroll]');
         const footer = surface.querySelector('[data-cart-checkout-footer]');
         if (!scroll) return;
-        if (surface.dataset.cartSurface === 'drawer') {
+        if (drawer) {
           const scrollbarWidth = `${scroll.offsetWidth - scroll.clientWidth}px`;
           if (scroll.style.getPropertyValue('--cart-scrollbar-width') !== scrollbarWidth) {
             scroll.style.setProperty('--cart-scrollbar-width', scrollbarWidth);
           }
         }
-        surface.querySelector('[data-cart-scroll-header]')?.classList.toggle('has-scrolled', surface.dataset.cartSurface === 'drawer' && scroll.scrollTop > 1);
+        surface.querySelector('[data-cart-scroll-header]')?.classList.toggle('has-scrolled', drawer && scroll.scrollTop > 1);
         if (!footer) return;
-        const overflowing = surface.dataset.cartSurface === 'drawer'
+        const overflowing = drawer
           ? scroll.scrollHeight - scroll.clientHeight - scroll.scrollTop > 1
           : scroll.getBoundingClientRect().bottom > footer.getBoundingClientRect().top + 1;
         footer.classList.toggle('has-overflow', overflowing);
@@ -527,8 +528,7 @@ class CartDrawer extends HTMLElement {
       // Keep coupon state and in-flight fades alive through section replacement.
       const coupons = surface.querySelector('[data-cart-coupons]');
       if (coupons) content.querySelector('[data-cart-coupons]')?.replaceWith(coupons);
-      // Preserve shadow state before the new nodes acquire their first computed style.
-      // Otherwise every section replacement starts another fade from no shadow.
+      // Preserve shadows across section replacements without replaying their fade.
       [['[data-cart-scroll-header]', 'has-scrolled'], ['[data-cart-checkout-footer]', 'has-overflow']].forEach(([selector, state]) => {
         content.querySelector(selector)?.classList.toggle(state, surface.querySelector(selector)?.classList.contains(state) || false);
       });
@@ -1192,28 +1192,6 @@ class OfferCardsMotion extends HTMLElement {
 
 if (!customElements.get('offer-cards-motion')) {
   customElements.define('offer-cards-motion', OfferCardsMotion);
-}
-
-class ProductOverviewMotion extends OfferCardsMotion {
-  connectedCallback() {
-    super.connectedCallback();
-    // Scale the complete badge, preserving its original label/padding proportions.
-    this.badgeSizeObserver = new ResizeObserver(entries => {
-      for (const { target, contentRect } of entries) {
-        target.style.setProperty('--product-card-badge-scale', Math.min(1, Math.max(.7, contentRect.width / 335)).toFixed(3));
-      }
-    });
-    this.querySelectorAll('.product-overview-card:has(.product-overview-card__badge)').forEach(card => this.badgeSizeObserver.observe(card));
-  }
-
-  disconnectedCallback() {
-    this.badgeSizeObserver?.disconnect();
-    super.disconnectedCallback();
-  }
-}
-
-if (!customElements.get('product-overview-motion')) {
-  customElements.define('product-overview-motion', ProductOverviewMotion);
 }
 
 class PosterMotion extends HTMLElement {

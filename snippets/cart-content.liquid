@@ -1,15 +1,17 @@
 {% comment %}Shared server-rendered cart contents. surface is page or drawer.{% endcomment %}
 <div data-cart-content data-cart-count-value="{{ cart.item_count }}">
   {% render 'cart-age-policy' %}
-  <div class="cart-scroll-header" data-cart-scroll-header>
-    {% render 'cart-shipping', surface: surface %}
-    <p class="cart-status visually-hidden" data-cart-status></p>
-  </div>
+  {% unless cart.empty? %}
+    <div class="cart-scroll-header" data-cart-scroll-header>
+      {% render 'cart-shipping', surface: surface %}
+    </div>
+  {% endunless %}
+  <p class="cart-status visually-hidden" data-cart-status></p>
   {%- if cart.empty? -%}
     {% if surface == 'drawer' %}<div class="cart-scroll" data-cart-scroll>{% endif %}
     <div class="cart-empty">
-      <img class="cart-empty__art" src="{{ 'cart-empty-bob-ross.png' | asset_url }}" width="592" height="790" alt="{{ 'cart.general.empty_image_alt' | t }}" loading="lazy">
       <p class="cart-empty__quote" lang="en">{{ 'cart.general.empty_quote' | t }}</p>
+      <img class="cart-empty__art" src="{{ 'cart-empty-bob-ross.png' | asset_url }}" width="592" height="790" alt="{{ 'cart.general.empty_image_alt' | t }}" loading="lazy">
       <p class="cart-empty__copy">{{ 'cart.general.empty_bob_ross' | t }}</p>
       <a class="button" href="{{ routes.all_products_collection_url }}"><span class="button__label">{{ 'cart.general.empty_action' | t }}</span></a>
     </div>
