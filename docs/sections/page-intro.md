@@ -1,5 +1,7 @@
 # Page intro
 
+Brand-name wrapping: the shared page H1 protects Sparklys (including uppercase/lowercase authored forms) with the shared `.brand-name` treatment. It cannot hyphenate or split across lines; other heading words retain language-aware wrapping. Escaping occurs before inserting the span, and saved text and JSON-LD stay unchanged.
+
 Source: `sections/page-intro.liquid`, `snippets/page-intro.liquid`, `assets/page-content.css`.
 
 Preset: **Page intro**, under Brand storytelling, available only on Page templates, limited to one instance per template. The unused intro-only Editorial starter was removed locally and from the development theme on 2026-10-01 at the merchant’s request. Page intro remains available for dedicated page compositions. The approved 2026-09-12 follow-up migrates the existing development `page.about` and `page.retail` templates from Main page to Page intro, retaining the `main` IDs, order, settings and every other section/block. Latest saved development JSON was pulled and compared before the two type-only edits. The default `page.json` keeps Main page; `page.faq` keeps its dedicated FAQ directory. No page assignments or shared/live theme content are changed.

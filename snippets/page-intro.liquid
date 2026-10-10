@@ -20,7 +20,7 @@
   {%- endif -%}
   <div class="page-intro__content">
     {%- if eyebrow != blank -%}<p class="page-intro__label">{{ eyebrow | escape }}</p>{%- endif -%}
-    <h1 class="page-intro__heading">{{ heading | escape | newline_to_br }}</h1>
+    <h1 class="page-intro__heading">{{ heading | escape | newline_to_br | replace: 'Sparklys', '<span class="brand-name">Sparklys</span>' | replace: 'SPARKLYS', '<span class="brand-name">SPARKLYS</span>' | replace: 'sparklys', '<span class="brand-name">sparklys</span>' }}</h1>
     {%- if intro != blank -%}<p class="page-intro__text">{{ intro | escape | newline_to_br }}</p>{%- endif -%}
   </div>
 </header>

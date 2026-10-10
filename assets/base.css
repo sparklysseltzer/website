@@ -2643,3 +2643,10 @@ a:focus-visible .button--round-arrow::before {
   .site-header__action { width: 2.75rem; height: 2.75rem; flex-basis: 2.75rem; }
   .site-header__action-surface { --round-arrow-size: 2.75rem; }
 }
+.brand-name {
+  white-space: nowrap;
+  word-break: normal;
+  overflow-wrap: normal;
+  -webkit-hyphens: none;
+  hyphens: none;
+}

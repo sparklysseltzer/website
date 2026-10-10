@@ -6,6 +6,8 @@ For customer-facing wording, follow [Tone and voice](tone-and-voice.md). Visual 
 
 ## Typography
 
+Keep the brand name Sparklys on one line: never insert discretionary hyphens or allow automatic hyphenation within it. Use the shared `.brand-name` nonbreaking treatment when it appears inside hyphenating text; preserve authored casing and allow surrounding words to wrap. The shared page-intro H1 applies this treatment server-side, including the About page.
+
 ### Erode weights
 
 The Brand statement's Erode Semibold composition follows Figma frame `12596:24781`, text node `11710:43785`: 75px type, 62px line height and −3% tracking. Shared `--line-height-heading-erode-semibold: calc(62 / 75)` preserves this approved composition proportionally at responsive sizes; `--letter-spacing-heading-erode: -0.03em` already matches the tracking. This explicit Semibold composition exception does not change the Bold heading rhythm or font-size roles.
