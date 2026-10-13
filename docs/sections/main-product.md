@@ -1,5 +1,23 @@
 # Main product
 
+Seltzer badge follow-up (2026-10-11): all PDP badges now share 1rem gallery top/right offsets. The stationary alcohol artwork uses a 66:44 composition at 50% badge width, positioned 34% from the top with the existing −11.26° tilt. The numeral sits beside a separated right column containing percent, ALC. and VOL., following the supplied Figma screenshot. The rotating Seltzer ring keeps its existing full-size artwork and 40-second timing; availability and alcohol gating remain unchanged.
+
+Ananotes 250 (2026-10-11): the Soda gallery badge uses a stationary −11.26° person/heart symbol, guided by the Figma Soda PDP badge (`5960:7501`, nested heart `5960:7535`, Figma rotation 11.26°). Its rotating text ring is inset 8% (84% size), leaving more green around the lettering; gallery top/right offsets increase from .5rem to 1rem. The outer badge size and 40-second animation stay unchanged, including offscreen/hidden-tab/reduced-motion suspension. Seltzer artwork is unchanged.
+
+## Product image lightbox
+
+`product-lightbox` progressively enhances each gallery image's native high-resolution link with a full-viewport native dialog. It opens the chosen image uncropped, with translated previous/next actions, image count, thumbnail selection and 2× zoom. Zoomed images pan through native touch scrolling, scrollbars or mouse dragging; browser pinch zoom is not disabled. Escape closes and returns focus to the opener; native modal focus containment keeps the background inert. Arrow keys navigate images when unzoomed and retain scrolling behavior while zoomed. Shared round-arrow buttons, focus treatment, surface/radius tokens and reduced-motion-aware fades apply. Dialog scrolling is isolated from the underlying page.
+
+Only image media participate. Videos/models retain their original gallery controls; opening stops gallery autoplay and pauses native videos. Full-size Shopify CDN assets (up to 2400px) load on demand, with the existing image as preview, a latest-request guard, localized failure feedback. Thumbnails request 120px images. Event listeners and animations are cleaned up on section removal. Without JavaScript or native dialog support, image links open the original CDN asset. No section settings, saved content or product structured data are changed; the gallery displays existing product media and introduces no separate entity.
+
+Default-variant purchase layout: when `product.has_only_default_variant` is true, quantity and Add to cart share a wrapping flex row. The button grows into remaining space and wraps below quantity when its 12rem basis no longer fits. Products with a variant selector or an authored single-variant title retain their existing layout. Native form ownership, quantity rules and button availability are unchanged.
+
+Gallery navigation uses the shared `button--round-arrow` oval sweep for hover and keyboard focus, including the shared inverse icon and reduced-motion treatment. It retains white 44px circles, 20px arrow masks, translated accessible labels and the existing slider actions. Without JavaScript, the enhancement-only buttons stay hidden and the native scroll-snap gallery remains available.
+
+Gallery image fit: products belonging to the `clothing` or `accessories` collections use cover images throughout the PDP slider at every viewport, filling the panel with proportional cropping. Classification uses product collection membership, including direct product URLs. Other products retain contain; video, external video and model sizing are unchanged. Existing Shopify image focal points remain respected. No saved content or section schema changes are required.
+
+Shipping hint alignment: the truck and copy are vertically centered within the shared flex row, with equal block padding. This applies to standard, qualified and subscription messages, including naturally wrapped copy and state-height transitions.
+
 Source: `sections/main-product.liquid`; shared renderer: `snippets/product-detail.liquid`; scoped enhancement: `assets/product-detail.js`; styles: `assets/product-detail.css`.
 
 Templates: existing `product.json`, `product.soda.json` and `product.seltzer.json`. One section implements the complete first product section. Lower editorial sections remain merchant-composed; this change does not replace template JSON.
@@ -36,7 +54,7 @@ On mobile, the identity logo, flavour artwork and authored title are centered. T
 
 Shared duration/easing tokens govern gallery movement, price changes, description expansion, frequency-field expansion and the benefits disclosure. Reversed expansions start at their currently painted height/opacity. Hidden closing controls become inert until the transition completes; unchanged prices and selections do not replay motion. All controls retain shared keyboard focus and native form fallbacks.
 
-SVG badge text rotates over a stationary disc/symbol. It pauses offscreen, in hidden tabs, and for reduced motion; it loops every 40 seconds independently of gallery hover, focus and manual interaction. The Soda text ring occupies 92% of the badge instead of 84%. The 5% artwork is restricted to the three audited Hard Seltzer products with alcohol explicitly true; future strengths require approved artwork/data. Decorative assets have empty alt text; the badge exposes one translated description.
+SVG badge text rotates over a stationary disc/symbol. It pauses offscreen, in hidden tabs, and for reduced motion; it loops every 40 seconds independently of gallery hover, focus and manual interaction. The Soda text ring occupies 84% of the badge following Ananotes 250. The 5% artwork is restricted to the three audited Hard Seltzer products with alcohol explicitly true; future strengths require approved artwork/data. Decorative assets have empty alt text; the badge exposes one translated description.
 
 ## Structured data
 
@@ -179,3 +197,8 @@ PDP single-row follow-up (2026-10-09): the PDP benefits, including featured artw
 Shipping feedback follow-up (2026-10-09): shipping message fragments flow inline at every viewport, with natural wrapping instead of a forced paragraph break. The existing decorative truck asset is a CSS mask painted with currentColor, so it follows the panel text through neutral/success transitions in both directions. Verified real quantity changes between CHF 29.40 and CHF 58.80 at phone/desktop sizes: qualified truck and text both resolve to rgb(40, 122, 80), then return to black below the threshold. An intermediate return frame retained matching green icon/text while the new copy faded in. No locale or commerce-rule changes.
 
 Mobile benefits correction (Ananotes 237, 2026-10-09): supersedes the single-row scroller. Below 56rem the PDP uses three columns/two rows for the current six items, 52px icons and a 72px maximum featured artwork width. PDP labels use the shared Caption role at all widths (11px on phones); desktop keeps auto-fit columns. The list no longer needs a tab stop or horizontal scrolling.
+
+
+Lightbox Ananotes follow-up (2026-10-12, awaiting visual validation): removed the original-image action inside the dialog; native gallery links retain their no-JavaScript behavior. The stage now handles image clicks because pointer capture retargets a zoomed mouse click there, allowing the next click to restore fitted view. Actual drags still suppress click-to-zoom. The zoom button keeps its text/pressed state and switches matching decorative Untitled UI Line zoom-in/zoom-out masks from https://github.com/untitleduico/icons/blob/main/icons/zoom-in.svg and https://github.com/untitleduico/icons/blob/main/icons/zoom-out.svg under the retained icon license. Its minimum height is 44px. Visual validation precedes further checks as requested.
+
+Follow-up verification (2026-10-12): after merchant approval, headless Chromium at 1440px confirmed image-click zoom followed by stage-click reset and absence of the original-image action. At 390px the zoom button updated its label and pressed state, and Escape closed the dialog. These interaction checks used reduced motion. Repository checks and JavaScript syntax passed. Ananotes 255–257 are complete; no additional physical-device or cross-browser verification is claimed.

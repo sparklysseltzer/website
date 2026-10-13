@@ -403,7 +403,13 @@
       "sold_out": "Ausverkauft"
     },
     "pdp": {
-      "shipping_threshold": "Gratis Versand ab einem Warenkorbwert von {{ amount }}.",
+      "open_image": "Bild {{ number }} in Galerie öffnen",
+      "zoom_in": "Vergrössern",
+      "zoom_out": "Verkleinern",
+      "close_gallery": "Galerie schliessen",
+      "image_unavailable": "Das Bild konnte nicht geladen werden. Öffne das Originalbild.",
+      "original_image": "Originalbild öffnen",
+      "shipping_threshold": "Kostenloser Versand ab {{ amount }}.",
       "shipping_subscription": "Kostenloser Versand mit deinem Abo.",
       "shipping_subscription_detail": "Bei jeder Lieferung, ohne Mindestbestellwert.",
       "shipping_rate": "Standardversand {{ amount }}.",

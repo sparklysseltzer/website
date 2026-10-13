@@ -403,6 +403,12 @@
       "sold_out": "Sold out"
     },
     "pdp": {
+      "open_image": "Open image {{ number }} in gallery",
+      "zoom_in": "Zoom in",
+      "zoom_out": "Zoom out",
+      "close_gallery": "Close gallery",
+      "image_unavailable": "Image could not load. Open the original image.",
+      "original_image": "Open original image",
       "shipping_threshold": "Free shipping on orders from {{ amount }}.",
       "shipping_subscription": "Free shipping with your subscription.",
       "shipping_subscription_detail": "On every delivery, with no minimum order.",

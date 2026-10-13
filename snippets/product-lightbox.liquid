@@ -1,0 +1,20 @@
+<product-lightbox>
+  <dialog class="product-lightbox" aria-label="{{ 'products.pdp.gallery' | t | escape }}">
+    <div class="product-lightbox__toolbar">
+      <span class="product-lightbox__count" aria-live="polite"></span>
+      <button type="button" class="button button--small" data-lightbox-zoom aria-pressed="false" data-in="{{ 'products.pdp.zoom_in' | t | escape }}" data-out="{{ 'products.pdp.zoom_out' | t | escape }}"><span class="button__label"><span class="product-lightbox__zoom-icon" aria-hidden="true"></span><span data-lightbox-zoom-label>{{ 'products.pdp.zoom_in' | t }}</span></span></button>
+      <button type="button" class="button button--round-arrow product-lightbox__close" data-lightbox-close aria-label="{{ 'products.pdp.close_gallery' | t | escape }}" autofocus><span class="button__label" aria-hidden="true"><span class="button__arrow"></span></span></button>
+    </div>
+    <div class="product-lightbox__stage" tabindex="0" aria-label="{{ 'products.pdp.gallery' | t | escape }}">
+      <img class="product-lightbox__image" width="2400" height="2400" alt="">
+    </div>
+    <div class="product-lightbox__footer">
+      <div class="product-lightbox__controls">
+        <button type="button" class="button button--round-arrow" data-lightbox-step="-1" aria-label="{{ 'products.pdp.previous_image' | t | escape }}"><span class="button__label" aria-hidden="true"><span class="button__arrow"></span></span></button>
+        <button type="button" class="button button--round-arrow" data-lightbox-step="1" aria-label="{{ 'products.pdp.next_image' | t | escape }}"><span class="button__label" aria-hidden="true"><span class="button__arrow button__arrow--next"></span></span></button>
+      </div>
+      <p data-lightbox-error hidden role="status">{{ 'products.pdp.image_unavailable' | t }}</p>
+      <div class="product-lightbox__thumbnails"></div>
+    </div>
+  </dialog>
+</product-lightbox>
