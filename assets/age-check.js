@@ -33,14 +33,13 @@
       this.form.addEventListener('submit', (event) => { event.preventDefault(); this.check(); }, options);
       this.form.addEventListener('change', (event) => {
         if (event.target.name === 'profile') this.profile();
-        if (event.target.name === 'version') this.profile(true);
 
       }, options);
       this.form.addEventListener('input', (event) => {
         const input = event.target;
         if (input.matches('[data-age-field] input')) {
           const position = input.selectionStart;
-          const clean = (value) => input.inputMode === 'numeric' ? value.replace(/[^0-9]/g, '') : value.toUpperCase().replace(/[^A-Z0-9<]/g, '');
+          const clean = (value) => input.name === 'rawLine' ? value.toUpperCase().replace(/\s/g, '') : input.inputMode === 'numeric' ? value.replace(/[^0-9]/g, '') : value.toUpperCase().replace(/[^A-Z0-9<]/g, '');
           const value = clean(input.value).slice(0, input.maxLength);
           if (value !== input.value) {
             const caret = clean(input.value.slice(0, position)).length;
@@ -48,8 +47,16 @@
             input.setSelectionRange(caret, caret);
           }
         }
-        if (input.name === 'birth') this.hideBirthYear();
-        if (input.matches('[data-age-field] input')) { this.touchedFields.add(input.name); this.refreshFieldFeedback(); }
+        if (input.name === 'rawLine') this.querySelector('[data-age-line-count]').textContent = this.copy.lineCount.replace('__COUNT__', input.value.length);
+        if (input.name === 'birth' || input.name === 'rawLine') this.hideBirthYear();
+        if (input.matches('[data-age-field] input')) this.refreshFieldFeedback();
+      }, options);
+      this.form.addEventListener('focusout', (event) => {
+        const input = event.target;
+        if (input.matches('[data-age-field] input') && !input.disabled) {
+          this.touchedFields.add(input.name);
+          this.refreshFieldFeedback();
+        }
       }, options);
       this.querySelectorAll('[data-age-close]').forEach((button) => button.addEventListener('click', () => this.close(), options));
       this.querySelector('[data-age-continue]').addEventListener('click', () => this.continue(), options);
@@ -135,7 +142,7 @@
       try {
         const policy = await this.fresh();
         if (request.signal.aborted || !this.isConnected) return;
-        // Do not act on a response for a cart that changed while the check was pending.
+        // Ignore stale cart responses.
         if (!content?.isConnected || cart?.busy) throw new Error('Cart changed');
         if (this.origin === 'drawer' && !cart?.dialog.open) return;
         if (policy.enabled && policy.unknown) {
@@ -168,44 +175,34 @@
       const style = getComputedStyle(this);
       return node.animate(frames, { duration: 260, easing: style.getPropertyValue('--motion-ease').trim() || 'ease' }).finished.catch(() => {});
     }
-    profile(preserveValues = false) {
+    profile() {
       if (this.policy) this.querySelector('[data-age-intro]').textContent = this.copy.intro.replaceAll('__AGE__', this.policy.age);
       this.setHelp(false, false);
-      const values = preserveValues ? Object.fromEntries(new FormData(this.form)) : null;
-      const version = this.form.elements.version.value;
       const selected = this.form.elements.profile.value;
       this.form.reset();
       this.form.elements.profile.value = selected;
-      this.form.elements.version.value = version;
-      this.form.elements.optional.readOnly = false;
-      this.clearErrors();
       const id = validation.profiles[selected].format === 'TD1';
       const swiss = selected === 'ch-id';
+      const swissPassport = selected === 'ch-passport';
+      const international = selected === 'international-passport';
+      this.querySelector('[data-age-passport-help]').hidden = !international;
       this.querySelector('[data-age-swiss-help]').hidden = !swiss;
-      this.querySelector('[data-age-other-help]').hidden = swiss;
-      this.querySelector('[data-age-location]').textContent = this.copy[id ? 'idLocation' : 'passportLocation'];
-      this.querySelector('[data-age-country]').textContent = this.copy[selected === 'international-passport' ? 'passportTitle' : selected.startsWith('ch-') ? 'country_ch' : 'country_li'];
-      this.querySelector('[data-age-version]').hidden = selected !== 'li-id';
-      this.querySelector('[data-age-field="optional"]').hidden = swiss;
-      this.form.elements.optional.disabled = swiss;
-      this.fields.get('optionalDigit').hidden = id;
-      this.form.elements.optionalDigit.disabled = id;
-      this.fields.get('optional').querySelector('label').textContent = this.copy[id ? 'optionalLabel' : 'passportOptionalLabel'];
-      const helps = { number: id ? 'numberHelpId' : 'numberHelpPassport', numberDigit: 'digitHelp', birth: id ? 'birthHelpId' : 'birthHelpPassport', expiry: id ? 'expiryHelpId' : 'expiryHelpPassport', optional: id ? 'optionalHelp' : 'passportOptionalHelp', optionalDigit: 'optionalDigitHelp', tail: id ? 'tailHelpId' : 'tailHelpPassport', birthYear: 'yearHelp' };
+      this.querySelector('[data-age-other-help]').hidden = true;
+      this.querySelector('[data-age-swiss-pass-help]').hidden = !swissPassport;
+      this.querySelector('[data-age-location]').textContent = this.copy[swissPassport ? 'passportLocationSwiss' : id ? 'idLocation' : 'passportLocation'];
+      this.querySelector('[data-age-country]').textContent = this.copy[selected === 'international-passport' ? 'passportTitle' : 'country_ch'];
+      const helps = { number: swissPassport ? 'numberHelpSwissPassport' : id ? 'numberHelpId' : 'numberHelpPassport', numberDigit: 'digitHelp', birth: id ? 'birthHelpId' : 'birthHelpPassport', expiry: id ? 'expiryHelpId' : 'expiryHelpPassport', optional: id ? 'optionalHelp' : 'passportOptionalHelp', optionalDigit: 'optionalDigitHelp', tail: id ? 'tailHelpId' : 'tailHelpPassport', birthYear: 'yearHelp', rawLine: 'fullLineHelp' };
       Object.entries(helps).forEach(([field, key]) => { this.querySelector(`[data-age-help="${field}"]`).textContent = this.copy[key]; });
-      const lengths = { number: swiss ? 8 : 9, numberDigit: 1, birth: 7, expiry: 7, optional: id ? 15 : 14, optionalDigit: 1, tail: swiss || !id ? 1 : 12, birthYear: 4 };
+      const lengths = { number: swiss || swissPassport ? 8 : 9, numberDigit: 1, birth: 7, expiry: 7, optional: id ? 15 : 14, optionalDigit: 1, tail: swiss || !id ? 1 : 12, birthYear: 4, rawLine: 200 };
       Object.entries(lengths).forEach(([field, length]) => { this.form.elements[field].maxLength = length; });
       this.form.elements.tail.inputMode = swiss || !id ? 'numeric' : 'text';
       this.fields.get('tail').querySelector('label').textContent = swiss || !id ? this.copy.finalDigit : this.copy.tailLabel;
       this.querySelector('[data-age-help="tail"]').textContent = swiss ? this.copy.finalDigitHelp : this.copy[id ? 'tailHelpId' : 'tailHelpPassport'];
-      // Move the actual controls into the document, retaining a single input per value.
       const pool = this.querySelector('[data-age-field-pool]');
       this.fields.forEach((node) => pool.append(node));
       const documentGuide = this.querySelector('[data-age-document]');
       documentGuide.dataset.profile = selected;
-      documentGuide.dataset.version = version;
       documentGuide.dataset.format = id ? 'TD1' : 'TD3';
-      this.querySelector('[data-age-side]').textContent = selected === 'li-id' ? this.copy[version === 'previous' ? 'id_previous' : 'id_current'] : this.copy[id ? 'id_side' : 'passport_side'];
       this.querySelector('[data-age-year-location]').textContent = this.copy[id ? 'year_front' : 'year_photo'];
       this.querySelector('[data-age-year]').append(this.fields.get('birthYear'));
       this.hideBirthYear();
@@ -241,39 +238,36 @@
         const ending = document.createElement('div'); ending.className = 'age-document__ending'; second.append(ending);
         text(ending, 'CHE'); text(ending, '', 'age-document__fillers').dataset.ageFill = ''; field(ending, 'tail');
         const names = row('names', this.copy.names_omitted); text(names, this.copy.nameExample).dataset.ageFill = this.copy.nameExample;
-      } else if (id) {
-        const first = row('first', this.copy.line_one);
-        text(first, `ID${country}`, 'age-document__prefix');
-        field(first, 'number'); field(first, 'numberDigit');
-        if (swiss) text(first, '<'.repeat(15), 'age-document__fillers');
-        else field(first, 'optional');
-        const second = row('second', this.copy.line_two);
-        field(second, 'birth'); text(second, '·'); field(second, 'expiry'); text(second, country);
-        if (swiss) text(second, '<'.repeat(11), 'age-document__fillers');
-        field(second, 'tail');
-        const names = row('names', this.copy.names_omitted);
-        text(names, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
       } else {
         const names = row('names', this.copy.names_omitted);
-        const prefix = `${country === 'LIE' ? 'PP' : 'P<'}${country}`;
+        const prefix = `P<${country}`;
         text(names, prefix + this.copy.nameExample).dataset.ageFill = prefix + this.copy.nameExample;
-        const number = row('passport-number', this.copy.line_two);
-        field(number, 'number'); field(number, 'numberDigit'); text(number, 'XXX');
-        const dates = row('passport-dates', this.copy.line_two);
-        field(dates, 'birth'); text(dates, 'M/F/<'); field(dates, 'expiry');
-        const ending = row('passport-ending', this.copy.line_two);
-        field(ending, 'optional');
-        const checks = document.createElement('div'); checks.className = 'age-document__passport-checks'; ending.append(checks);
-        field(checks, 'optionalDigit'); field(checks, 'tail');
+        const code = row(international ? 'full-line' : 'passport-code', this.copy.line_two);
+        if (international) {
+          field(code, 'rawLine');
+          const count = document.createElement('span');
+          count.className = 'age-document__line-count';
+          count.dataset.ageLineCount = '';
+          count.textContent = this.copy.lineCount.replace('__COUNT__', '0');
+          code.append(count);
+        } else {
+        field(code, 'number');
+        if (swissPassport) text(code, '<');
+        field(code, 'numberDigit'); text(code, swissPassport ? 'CHE' : 'XXX');
+        field(code, 'birth'); text(code, 'M/F'); field(code, 'expiry');
+        text(code, '<…<', 'age-document__passport-fillers');
+        field(code, 'tail');
+        }
+      }
+      for (const [key, wrapper] of this.fields) {
+        if (key !== 'birthYear') wrapper.querySelector('input').disabled = international ? key !== 'rawLine' : key === 'rawLine' || key === 'optional' || key === 'optionalDigit';
       }
       this.form.elements.numberDigit.removeAttribute('placeholder');
       this.form.elements.optional.placeholder = '<'.repeat(id ? 15 : 14);
       this.form.elements.optionalDigit.placeholder = '0';
       this.form.elements.tail.removeAttribute('placeholder');
       this.form.elements.birthYear.placeholder = '— — — —';
-      if (values) Object.entries(values).forEach(([key, value]) => {
-        if (this.form.elements[key]) this.form.elements[key].value = value;
-      });
+      this.clearErrors();
       this.fitDocumentFillers();
       this.animate(documentGuide, [{ opacity: .4 }, { opacity: 1 }]);
     }
@@ -289,7 +283,7 @@
         const tracking = parseFloat(style.letterSpacing) || 0;
         const measure = (text) => context.measureText(text).width + text.length * tracking;
         let prefix = node.dataset.ageFill;
-        if (measure(prefix) > width) prefix = prefix.replace('<<', '<<\n');
+        if (measure(prefix) > width && !node.closest('[data-profile="ch-id"], [data-format="TD3"]')) prefix = prefix.replace('<<', '<<\n');
         const lastLine = prefix.split('\n').at(-1);
         const count = Math.max(0, Math.floor((width - measure(lastLine) - 1) / measure('<')));
         const value = prefix + '<'.repeat(count);
@@ -333,7 +327,7 @@
       };
       if (!animate || !this.dialog.open || matchMedia('(prefers-reduced-motion: reduce)').matches) { finish(); return; }
       const targetHeight = stage.getBoundingClientRect().height;
-      // Opacity-only panels need no clipping; clipping cuts off the card shadow.
+      // Preserve the card shadow during fades.
       inactive.style.position = 'absolute';
       inactive.style.width = '100%';
       inactive.hidden = false;
@@ -356,6 +350,11 @@
     validationInput() {
       const input = Object.fromEntries(new FormData(this.form));
       if (input.profile === 'ch-id') { input.optional = '<'.repeat(15); input.tail = '<'.repeat(11) + input.tail; }
+      if (input.profile === 'ch-passport') {
+        input.optional = '<'.repeat(14);
+        // Empty-field checks 0 and < are equivalent.
+        input.optionalDigit = '0';
+      }
       return input;
     }
     refreshFieldFeedback() {
@@ -363,12 +362,29 @@
       const states = validation.fieldStates(this.validationInput(), this.policy.age);
       for (const [key, wrapper] of this.fields) {
         const input = wrapper.querySelector('input');
-        if (input.disabled || !this.touchedFields.has(key)) { delete input.dataset.validation; input.removeAttribute('aria-invalid'); continue; }
+        if (input.disabled || !this.touchedFields.has(key)) {
+          delete input.dataset.validation;
+          input.removeAttribute('aria-invalid');
+          this.querySelector(`[data-age-error="${key}"]`).textContent = '';
+          continue;
+        }
         const valid = states[key] === true;
         input.dataset.validation = valid ? 'valid' : 'warning';
         if (valid) input.removeAttribute('aria-invalid'); else input.setAttribute('aria-invalid', 'true');
         const error = this.querySelector(`[data-age-error="${key}"]`);
         if (error) error.textContent = valid ? '' : this.copy.errors.incomplete;
+      }
+      const count = this.form.querySelectorAll('input[data-validation="warning"]:not(:disabled)').length;
+      const summary = this.querySelector('[data-age-error="summary"]');
+      let message = count ? this.copy.errors[count > 1 ? 'incompleteMultiple' : 'incomplete'] : '';
+      if (this.touchedFields.has('rawLine') && count && this.form.elements.profile.value === 'international-passport') {
+        const result = validation.validate(this.validationInput(), this.policy.age);
+        message = this.copy.errors[result.error] || message;
+        this.querySelector('[data-age-error="rawLine"]').textContent = message;
+      }
+      if (summary.textContent !== message) {
+        summary.textContent = message;
+        this.animate(summary, [{ opacity: 0 }, { opacity: 1 }]);
       }
     }
     clearErrors() {
@@ -392,11 +408,7 @@
         }
         const field = this.form.elements[result.field];
         const error = this.querySelector(`[data-age-error="${result.field}"]`);
-        if (error) {
-          error.textContent = this.copy.errors.incomplete;
-          this.animate(error, [{ opacity: 0 }, { opacity: 1 }]);
-        }
-        else this.status.textContent = this.copy.errors[result.error];
+        if (!error) this.status.textContent = this.copy.errors[result.error];
         this.touchedFields.add(result.field);
         this.refreshFieldFeedback();
         field?.setAttribute('aria-invalid', 'true');
@@ -451,7 +463,7 @@
         const form = surface?.querySelector('[data-cart-form]');
         const checkout = form?.querySelector('[name="checkout"]');
         if (!form || !checkout || document.querySelector('cart-drawer')?.busy) throw new Error('Cart changed');
-        // Submit only the checkout action and current draft note, never stale quantity fields.
+        // Exclude stale quantities from checkout.
         const note = document.querySelector('[data-cart-note]');
         const submission = document.createElement('form');
         submission.method = 'post'; submission.action = form.action;

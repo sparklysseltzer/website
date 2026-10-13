@@ -1,4 +1,4 @@
-{%- assign age_fields = 'number,numberDigit,birth,expiry,optional,optionalDigit,tail,birthYear' | split: ',' -%}
+{%- assign age_fields = 'number,numberDigit,birth,expiry,optional,optionalDigit,tail,birthYear,rawLine' | split: ',' -%}
 {%- assign minimum_age = settings.age_check_minimum_age | default: '18' -%}
 <age-check data-color-world="general" data-cart-url="{{ routes.cart_url }}">
   <dialog class="age-check" aria-labelledby="AgeCheckTitle" data-private data-hj-suppress data-clarity-mask="true">
@@ -15,18 +15,9 @@
       <select id="AgeDocument" name="profile" class="form-control">
         <option value="ch-id">{{ 'age_check.ch_id' | t }}</option>
         <option value="ch-passport">{{ 'age_check.ch_passport' | t }}</option>
-        <option value="li-id">{{ 'age_check.li_id' | t }}</option>
-        <option value="li-passport">{{ 'age_check.li_passport' | t }}</option>
       <option value="international-passport">{{ 'age_check.international_passport' | t }}</option>
       </select>
       </sparklys-select>
-      </div>
-      <div class="age-check__version" data-age-version hidden>
-        <label for="AgeVersion">{{ 'age_check.version' | t }}</label>
-        <select id="AgeVersion" name="version" class="field__input">
-          <option value="current">{{ 'age_check.version_current' | t }}</option>
-          <option value="previous">{{ 'age_check.version_previous' | t }}</option>
-        </select>
       </div>
       <div class="age-document-viewport">
         <button type="button" class="age-document__help-toggle" data-age-help-toggle aria-expanded="false" aria-controls="AgeDocumentHelp">
@@ -38,8 +29,11 @@
         <div class="age-document__swiss-art" aria-hidden="true">
         <img class="age-document__swiss-background" src="{{ 'age-swiss-id.webp' | asset_url }}" width="1200" height="750" alt="" aria-hidden="true">
         </div>
+        <div class="age-document__swiss-pass-art" aria-hidden="true">
+          <img src="{{ 'age-swiss-pass-form-background.webp' | asset_url }}" width="1200" height="750" alt="">
+        </div>
         <div class="age-document__art">
-          <div class="age-document__heading"><strong data-age-country></strong><span>{{ 'age_check.example' | t }}</span></div>
+          <div class="age-document__heading"><strong data-age-country></strong></div>
           <div class="age-document__details">
             <div class="age-document__portrait" aria-hidden="true"><span></span></div>
             <div class="age-document__print" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
@@ -47,14 +41,14 @@
           </div>
         </div>
         <div class="age-document__zone">
-          <p class="age-document__caption" data-age-side></p>
           <div class="age-document__mrz" data-age-guide></div>
         </div>
       </div>
       <div class="age-check__guidance">
+        <p class="age-check__error" data-age-error="summary" aria-live="polite"></p>
         {%- for field in age_fields -%}
           <span id="AgeHelp-{{ field }}" class="visually-hidden" data-age-help="{{ field }}"></span>
-          <p id="AgeError-{{ field }}" class="age-check__error" data-age-error="{{ field }}" aria-live="polite"></p>
+          <p id="AgeError-{{ field }}" class="visually-hidden" data-age-error="{{ field }}"></p>
         {%- endfor -%}
       </div>
         <div class="age-document__year" data-age-year hidden>
@@ -73,6 +67,24 @@
             </ol>
             <p>{{ 'age_check.help_swiss_instructions' | t }}</p>
             <p>{{ 'age_check.help_swiss_contact_html' | t }}</p>
+          </div>
+          <div data-age-swiss-pass-help hidden>
+            <div class="age-document__help-art"><img src="{{ 'age-swiss-pass-callout.webp' | asset_url }}" width="1200" height="750" alt="{{ 'age_check.swiss_pass_help_alt' | t }}"></div>
+            <ol class="age-document__help-legend visually-hidden">
+              <li>{{ 'age_check.fields.number' | t }}</li>
+              <li>{{ 'age_check.fields.numberDigit' | t }}</li>
+              <li>{{ 'age_check.fields.birth' | t }}</li>
+              <li>{{ 'age_check.fields.expiry' | t }}</li>
+              <li>{{ 'age_check.finalDigit' | t }}</li>
+            </ol>
+            <p>{{ 'age_check.swiss_pass_help_instructions' | t }}</p>
+            <p>{{ 'age_check.passport_help_contact_html' | t }}</p>
+          </div>
+          <div data-age-passport-help hidden>
+            <div class="age-document__help-art"><img src="{{ 'age-passport-help.svg' | asset_url }}" width="1200" height="750" alt="{{ 'age_check.passport_help_alt' | t }}"></div>
+            <ol class="age-document__help-legend visually-hidden"><li>{{ 'age_check.fields.rawLine' | t }}</li></ol>
+            <p>{{ 'age_check.passport_help_instructions' | t }}</p>
+            <p>{{ 'age_check.passport_help_contact_html' | t }}</p>
           </div>
           <div data-age-other-help hidden>
           <p class="age-check__help" data-age-location></p>
@@ -98,6 +110,6 @@
       <p>{{ 'age_check.success_detail' | t }}</p>
       <button class="button" type="button" data-age-continue hidden><span class="button__label">{{ 'age_check.retry' | t }}</span></button>
     </div>
-    <script type="application/json" data-age-translations>{"passportTitle":{{ 'age_check.passportTitle' | t | json }},"optionalLabel":{{ 'age_check.optionalLabel' | t | json }},"passportOptionalLabel":{{ 'age_check.passportOptionalLabel' | t | json }},"passportOptionalHelp":{{ 'age_check.passportOptionalHelp' | t | json }},"optionalDigitHelp":{{ 'age_check.optionalDigitHelp' | t | json }},"help":{{ 'age_check.help' | t | json }},"helpBack":{{ 'age_check.help_back' | t | json }},"nameExample":{{ 'age_check.name_example' | t | json }},"finalDigit":{{ 'age_check.finalDigit' | t | json }},"finalDigitHelp":{{ 'age_check.finalDigitHelp' | t | json }},"tailLabel":{{ 'age_check.fields.tail' | t | json }},"version_current":{{ 'age_check.version_current' | t | json }},"version_previous":{{ 'age_check.version_previous' | t | json }},"id_current":{{ 'age_check.id_current' | t | json }},"id_previous":{{ 'age_check.id_previous' | t | json }},"id_side":{{ 'age_check.id_side' | t | json }},"passport_side":{{ 'age_check.passport_side' | t | json }},"year_front":{{ 'age_check.year_front' | t | json }},"year_photo":{{ 'age_check.year_photo' | t | json }},"line_one":{{ 'age_check.line_one' | t | json }},"line_two":{{ 'age_check.line_two' | t | json }},"names_omitted":{{ 'age_check.names_omitted' | t | json }},"country_ch":{{ 'age_check.country_ch' | t | json }},"country_li":{{ 'age_check.country_li' | t | json }},"title":{{ 'age_check.title' | t | json }},"close":{{ 'age_check.close' | t | json }},"intro":{{ 'age_check.intro' | t: age: '__AGE__' | json }},"document":{{ 'age_check.document' | t | json }},"ch_id":{{ 'age_check.ch_id' | t | json }},"ch_passport":{{ 'age_check.ch_passport' | t | json }},"li_id":{{ 'age_check.li_id' | t | json }},"li_passport":{{ 'age_check.li_passport' | t | json }},"example":{{ 'age_check.example' | t | json }},"guide_help":{{ 'age_check.guide_help' | t | json }},"fillers_only":{{ 'age_check.fillers_only' | t | json }},"privacy":{{ 'age_check.privacy' | t | json }},"check":{{ 'age_check.check' | t | json }},"success_detail":{{ 'age_check.success_detail' | t | json }},"continue":{{ 'age_check.continue' | t | json }},"other_document":{{ 'age_check.other_document' | t | json }},"other_detail":{{ 'age_check.other_detail' | t | json }},"back":{{ 'age_check.back' | t | json }},"unavailable":{{ 'age_check.unavailable' | t | json }},"loading":{{ 'age_check.loading' | t | json }},"success":{{ 'age_check.success' | t | json }},"error":{{ 'age_check.error' | t | json }},"unknown":{{ 'age_check.unknown' | t | json }},"changed":{{ 'age_check.changed' | t | json }},"idLocation":{{ 'age_check.idLocation' | t | json }},"passportLocation":{{ 'age_check.passportLocation' | t | json }},"numberHelpId":{{ 'age_check.numberHelpId' | t | json }},"numberHelpPassport":{{ 'age_check.numberHelpPassport' | t | json }},"digitHelp":{{ 'age_check.digitHelp' | t | json }},"birthHelpId":{{ 'age_check.birthHelpId' | t | json }},"birthHelpPassport":{{ 'age_check.birthHelpPassport' | t | json }},"expiryHelpId":{{ 'age_check.expiryHelpId' | t | json }},"expiryHelpPassport":{{ 'age_check.expiryHelpPassport' | t | json }},"optionalHelp":{{ 'age_check.optionalHelp' | t | json }},"tailHelpId":{{ 'age_check.tailHelpId' | t | json }},"tailHelpPassport":{{ 'age_check.tailHelpPassport' | t | json }},"yearHelp":{{ 'age_check.yearHelp' | t | json }},"errors":{"incomplete":{{ 'age_check.errors.incomplete' | t | json }},"passportOptional":{{ 'age_check.errors.passportOptional' | t | json }},"unsupported":{{ 'age_check.errors.unsupported' | t | json }},"number":{{ 'age_check.errors.number' | t | json }},"checksum":{{ 'age_check.errors.checksum' | t | json }},"dateFormat":{{ 'age_check.errors.dateFormat' | t | json }},"century":{{ 'age_check.errors.century' | t | json }},"year":{{ 'age_check.errors.year' | t | json }},"optional":{{ 'age_check.errors.optional' | t | json }},"tail":{{ 'age_check.errors.tail' | t | json }},"underage":{{ 'age_check.errors.underage' | t: age: '__AGE__' | json }}}}</script>
+    <script type="application/json" data-age-translations>{"fullLineHelp":{{ 'age_check.fullLineHelp' | t | json }},"lineCount":{{ 'age_check.lineCount' | t | json }},"passportTitle":{{ 'age_check.passportTitle' | t | json }},"optionalLabel":{{ 'age_check.optionalLabel' | t | json }},"passportOptionalLabel":{{ 'age_check.passportOptionalLabel' | t | json }},"passportOptionalHelp":{{ 'age_check.passportOptionalHelp' | t | json }},"optionalDigitHelp":{{ 'age_check.optionalDigitHelp' | t | json }},"help":{{ 'age_check.help' | t | json }},"helpBack":{{ 'age_check.help_back' | t | json }},"nameExample":{{ 'age_check.name_example' | t | json }},"finalDigit":{{ 'age_check.finalDigit' | t | json }},"finalDigitHelp":{{ 'age_check.finalDigitHelp' | t | json }},"tailLabel":{{ 'age_check.fields.tail' | t | json }},"id_side":{{ 'age_check.id_side' | t | json }},"passport_side":{{ 'age_check.passport_side' | t | json }},"year_front":{{ 'age_check.year_front' | t | json }},"year_photo":{{ 'age_check.year_photo' | t | json }},"line_one":{{ 'age_check.line_one' | t | json }},"line_two":{{ 'age_check.line_two' | t | json }},"names_omitted":{{ 'age_check.names_omitted' | t | json }},"country_ch":{{ 'age_check.country_ch' | t | json }},"title":{{ 'age_check.title' | t | json }},"close":{{ 'age_check.close' | t | json }},"intro":{{ 'age_check.intro' | t: age: '__AGE__' | json }},"document":{{ 'age_check.document' | t | json }},"ch_id":{{ 'age_check.ch_id' | t | json }},"ch_passport":{{ 'age_check.ch_passport' | t | json }},"example":{{ 'age_check.example' | t | json }},"guide_help":{{ 'age_check.guide_help' | t | json }},"fillers_only":{{ 'age_check.fillers_only' | t | json }},"privacy":{{ 'age_check.privacy' | t | json }},"check":{{ 'age_check.check' | t | json }},"success_detail":{{ 'age_check.success_detail' | t | json }},"continue":{{ 'age_check.continue' | t | json }},"other_document":{{ 'age_check.other_document' | t | json }},"other_detail":{{ 'age_check.other_detail' | t | json }},"back":{{ 'age_check.back' | t | json }},"unavailable":{{ 'age_check.unavailable' | t | json }},"loading":{{ 'age_check.loading' | t | json }},"success":{{ 'age_check.success' | t | json }},"error":{{ 'age_check.error' | t | json }},"unknown":{{ 'age_check.unknown' | t | json }},"changed":{{ 'age_check.changed' | t | json }},"idLocation":{{ 'age_check.idLocation' | t | json }},"passportLocation":{{ 'age_check.passportLocation' | t | json }},"passportLocationSwiss":{{ 'age_check.passportLocationSwiss' | t | json }},"numberHelpId":{{ 'age_check.numberHelpId' | t | json }},"numberHelpPassport":{{ 'age_check.numberHelpPassport' | t | json }},"numberHelpSwissPassport":{{ 'age_check.numberHelpSwissPassport' | t | json }},"digitHelp":{{ 'age_check.digitHelp' | t | json }},"birthHelpId":{{ 'age_check.birthHelpId' | t | json }},"birthHelpPassport":{{ 'age_check.birthHelpPassport' | t | json }},"expiryHelpId":{{ 'age_check.expiryHelpId' | t | json }},"expiryHelpPassport":{{ 'age_check.expiryHelpPassport' | t | json }},"optionalHelp":{{ 'age_check.optionalHelp' | t | json }},"tailHelpId":{{ 'age_check.tailHelpId' | t | json }},"tailHelpPassport":{{ 'age_check.tailHelpPassport' | t | json }},"yearHelp":{{ 'age_check.yearHelp' | t | json }},"errors":{"fullLine":{{ 'age_check.errors.fullLine' | t | json }},"incompleteMultiple":{{ 'age_check.errors.incompleteMultiple' | t | json }},"incomplete":{{ 'age_check.errors.incomplete' | t | json }},"passportOptional":{{ 'age_check.errors.passportOptional' | t | json }},"unsupported":{{ 'age_check.errors.unsupported' | t | json }},"number":{{ 'age_check.errors.number' | t | json }},"checksum":{{ 'age_check.errors.checksum' | t | json }},"dateFormat":{{ 'age_check.errors.dateFormat' | t | json }},"century":{{ 'age_check.errors.century' | t | json }},"year":{{ 'age_check.errors.year' | t | json }},"optional":{{ 'age_check.errors.optional' | t | json }},"tail":{{ 'age_check.errors.tail' | t | json }},"underage":{{ 'age_check.errors.underage' | t: age: '__AGE__' | json }}}}</script>
   </dialog>
 </age-check>

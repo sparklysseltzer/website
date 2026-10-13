@@ -2,9 +2,7 @@
 (() => {
   const profiles = Object.freeze({
     'ch-id': { format: 'TD1', country: 'CHE' },
-    'li-id': { format: 'TD1', country: 'LIE' },
     'ch-passport': { format: 'TD3', country: 'CHE' },
-    'li-passport': { format: 'TD3', country: 'LIE' },
     'international-passport': { format: 'TD3' },
   });
   const normalize = (value) => String(value ?? '').toUpperCase().replace(/\s/g, '');
@@ -24,12 +22,18 @@
     return [Number(parts.year), Number(parts.month), Number(parts.day)];
   }
   function validate(input, requiredAge, now = new Date()) {
+    if (input.profile === 'international-passport' && input.rawLine !== undefined) {
+      const line = normalize(input.rawLine);
+      if (!/^[A-Z0-9<]{44}$/.test(line) || !/^[A-Z<]{3}$/.test(line.slice(10, 13)) || !/^[MF<]$/.test(line[20])) return { ok: false, field: 'rawLine', error: 'fullLine' };
+      const result = validate({ profile: input.profile, birthYear: input.birthYear, number: line.slice(0, 9), numberDigit: line[9], birth: line.slice(13, 20), expiry: line.slice(21, 28), optional: line.slice(28, 42), optionalDigit: line[42], tail: line[43] }, requiredAge, now);
+      return result.ok || result.field === 'birthYear' ? result : { ...result, field: 'rawLine' };
+    }
     const profile = profiles[input.profile];
     if (!profile || !Number.isInteger(requiredAge) || requiredAge < 1 || requiredAge > 120) return { ok: false, field: 'profile', error: 'unsupported' };
     const fields = Object.fromEntries(['number', 'numberDigit', 'birth', 'expiry', 'optional', 'optionalDigit', 'tail', 'birthYear'].map((key) => [key, normalize(input[key])]));
     const fail = (field, error) => ({ ok: false, field, error });
     if (profile.format === 'TD3' && (fields.numberDigit === '<' || /</.test(fields.birth + fields.expiry))) return fail(fields.numberDigit === '<' ? 'numberDigit' : /</.test(fields.birth) ? 'birth' : 'expiry', 'unsupported');
-    const numberPattern = input.profile === 'ch-id' ? /^[A-Z0-9]{8}$/ : profile.format === 'TD3' ? /^(?=.*[A-Z0-9])[A-Z0-9<]{1,9}$/ : /^[A-Z0-9]{1,9}$/;
+    const numberPattern = ['ch-id', 'ch-passport'].includes(input.profile) ? /^[A-Z0-9]{8}$/ : profile.format === 'TD3' ? /^(?=.*[A-Z0-9])[A-Z0-9<]{1,9}$/ : /^[A-Z0-9]{1,9}$/;
     if (!numberPattern.test(fields.number)) return fail('number', 'number');
     if (profile.country === 'CHE' && /[OI]/.test(fields.number)) return fail('number', 'number');
     const number = fields.number.padEnd(9, '<');
@@ -89,11 +93,15 @@
   }
   // Per-field feedback never authorizes checkout; validate() remains authoritative.
   function fieldStates(input, requiredAge, now = new Date()) {
+    if (input.profile === 'international-passport' && input.rawLine !== undefined) {
+      const result = validate(input, requiredAge, now);
+      return { rawLine: result.ok || result.field === 'birthYear', birthYear: result.ok };
+    }
     const profile = profiles[input.profile];
     if (!profile) return {};
     const f = Object.fromEntries(['number', 'numberDigit', 'birth', 'expiry', 'optional', 'optionalDigit', 'tail', 'birthYear'].map(key => [key, normalize(input[key])]));
     const td1 = profile.format === 'TD1';
-    const numberPattern = input.profile === 'ch-id' ? /^[A-Z0-9]{8}$/ : td1 ? /^[A-Z0-9]{1,9}$/ : /^(?=.*[A-Z0-9])[A-Z0-9<]{1,9}$/;
+    const numberPattern = ['ch-id', 'ch-passport'].includes(input.profile) ? /^[A-Z0-9]{8}$/ : td1 ? /^[A-Z0-9]{1,9}$/ : /^(?=.*[A-Z0-9])[A-Z0-9<]{1,9}$/;
     const states = { number: numberPattern.test(f.number) && !(profile.country === 'CHE' && /[OI]/.test(f.number)) };
     states.numberDigit = states.number && /^\d$/.test(f.numberDigit) && digit(f.number.padEnd(9, '<')) === f.numberDigit;
     const [currentYear, month, day] = today(now);

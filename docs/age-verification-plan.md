@@ -1,5 +1,6 @@
 # Local MRZ age check
 
+Current scope (2026-10-13): only Swiss ID, Swiss passport and Other passports are supported. Dedicated Liechtenstein profiles, artwork variants, version controls, translations and specimen tests have been removed. Earlier Liechtenstein implementation notes below are historical and superseded. Format-compatible Liechtenstein passports can use Other passports. No international ID option is implemented.
 Status: local check implemented, with subsequent document-guide and international passport updates. Store rollout and trust limitations require launch review; see the current [document contract](age-verification-documents.md).
 
 ## Confirmed policy

@@ -21,7 +21,7 @@ test('official Swiss 2023 ID specimen passes without collecting names', () => {
   assert.deepEqual(result, { ok: true, threshold: 16 });
 });
 test('published ICAO passport lower-line fixture checks composite and optional data', () => {
-  const result = validate({ profile:'li-passport',number:'L898902C3',numberDigit:'6',birth:'7408122',birthYear:'1974',expiry:'1204159',tail:'ZE184226B<<<<<10' },16,now);
+  const result = validate({ profile:'international-passport',number:'L898902C3',numberDigit:'6',birth:'7408122',birthYear:'1974',expiry:'1204159',tail:'ZE184226B<<<<<10' },16,now);
   assert.equal(result.ok, true);
 });
 test('all document choices accept an expired, structurally valid document at exact birthday', () => {
@@ -46,7 +46,7 @@ test('every check digit and composite is actually checked', () => {
     const input=fixture();input[field]=input[field].slice(0,-1)+String((Number(input[field].at(-1))+1)%10);
     assert.equal(validate(input,16,now).error,'checksum',field);
   }
-  const input=fixture('li-passport'); input.tail='B'+input.tail.slice(1);
+  const input=fixture('international-passport'); input.tail='B'+input.tail.slice(1);
   assert.equal(validate(input,16,now).error,'checksum');
 });
 test('unsupported profiles, long document numbers and partial values do not pass', () => {
@@ -63,13 +63,6 @@ test('remembered result ignores quantities/discounts but expires or resets for c
   assert.equal(reusable(record,policy,50),false);
 });
 
-test('Liechtenstein 2024 ID and 2026 passport specimen fields retain their printed checksums', () => {
-  const id = { profile: 'li-id', number: 'ID1234567', numberDigit: '3', birth: '9408126', birthYear: '1994', expiry: '3401022', optional: '<'.repeat(15), tail: '<'.repeat(11) + '2' };
-  const passport = { profile: 'li-passport', number: 'PP0000000', numberDigit: '0', birth: '7601015', birthYear: '1976', expiry: '3602025', tail: '<'.repeat(15) + '0' };
-  assert.deepEqual(validate(id, 16, now), { ok: true, threshold: 16 });
-  assert.deepEqual(validate(passport, 16, now), { ok: true, threshold: 16 });
-  assert.equal(validate({ ...id, tail: '<'.repeat(11) + '3' }, 16, now).ok, false);
-});
 
 test('omitted century passes when every possible birth year meets the threshold', () => {
   for (const profile of Object.keys(validation.profiles)) {
@@ -147,4 +140,33 @@ test('field feedback cannot turn an underage result into successful verification
   const input = fixture();
   assert.equal(validation.fieldStates(input, 18, now).birth, false);
   assert.equal(validate(input, 18, now).error, 'underage');
+});
+
+test('Swiss passport filler reconstruction preserves the final checksum for 0 and <', () => {
+  const original = fixture('ch-passport');
+  const input = { ...original, optional: '<'.repeat(14), optionalDigit: '0', tail: original.tail.at(-1) };
+  assert.equal(validate(input, 16, now).ok, true);
+  assert.equal(validate({ ...input, optionalDigit: '<' }, 16, now).ok, true);
+  assert.equal(validate({ ...input, tail: String((Number(input.tail) + 1) % 10) }, 16, now).error, 'checksum');
+  for (const number of ['S1A00E7', 'S1A00E777', 'S1A00E77<']) {
+    assert.equal(validate({ ...input, number }, 16, now).field, 'number');
+    assert.equal(validation.fieldStates({ ...input, number }, 16, now).number, false);
+  }
+  assert.equal(validation.fieldStates(input, 16, now).number, true);
+});
+
+test('document choices are restricted to the three supported profiles', () => {
+  assert.deepEqual(Object.keys(validation.profiles), ['ch-id', 'ch-passport', 'international-passport']);
+});
+
+test('full passport line maps the published specimen and rejects incomplete or malformed input', () => {
+  const rawLine = 'L898902C36UTO7408122F1204159ZE184226B<<<<<10';
+  const input = { profile: 'international-passport', rawLine };
+  assert.equal(validate(input, 18, now).ok, true);
+  assert.equal(validate({ ...input, rawLine: rawLine.toLowerCase().split('').join(' ') }, 18, now).ok, true);
+  for (const line of [rawLine.slice(1), rawLine + '<', rawLine.replace('UTO', '123'), rawLine.replace('F', 'X')]) {
+    assert.equal(validate({ ...input, rawLine: line }, 18, now).field, 'rawLine');
+  }
+  assert.equal(validate({ ...input, rawLine: rawLine.slice(0, -1) + '1' }, 18, now).error, 'checksum');
+  assert.equal(validation.fieldStates(input, 18, now).rawLine, true);
 });

@@ -1,5 +1,6 @@
 # Age-check extensions
 
+Current scope (2026-10-13): only Swiss ID, Swiss passport and Other passports are supported. Dedicated Liechtenstein profiles, artwork variants, version controls, translations and specimen tests have been removed. Earlier Liechtenstein implementation notes below are historical and superseded. Format-compatible Liechtenstein passports can use Other passports. No international ID option is implemented.
 The local MVP is described in [the implementation contract](age-verification-plan.md). These are scoped follow-ups, not claims of current support.
 
 - **AGE-001 — Account persistence:** authenticated customer write/read integration; minimal threshold/method/timestamps/version only, explicit expiry and account isolation. Requires separately approved infrastructure; no browser Admin API secrets.

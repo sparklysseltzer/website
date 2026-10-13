@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+<defs><linearGradient id="paper"><stop stop-color="#eeeeee"/><stop offset="1" stop-color="#fff"/></linearGradient><pattern id="lines" width="90" height="90" patternUnits="userSpaceOnUse"><path d="M0 90Q45 0 90 90M0 45Q45 -45 90 45" fill="none" stroke="#ccc" opacity=".35"/></pattern></defs>
+<rect width="1200" height="750" rx="30" fill="url(#paper)"/><path fill="url(#lines)" d="M0 0h1200v480H0z"/>
+<rect x="60" y="110" width="200" height="280" rx="18" fill="#ddd"/><circle cx="160" cy="200" r="52" fill="#aaa"/><path d="M80 350v-38a80 70 0 0 1 160 0v38" fill="#aaa"/>
+<g stroke="#aaa" stroke-width="10" stroke-linecap="round"><path d="M320 150h600M320 220h400M320 290h600M320 360h400"/></g>
+<path fill="#fff" d="M0 480h1200v240q0 30-30 30H30q-30 0-30-30z"/>
+<g font-family="monospace" font-size="32" letter-spacing="1"><text x="35" y="550">P&lt;XXXEXAMPLE&lt;&lt;NAME&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</text></g>
+<rect x="25" y="590" width="1150" height="95" rx="12" fill="#fff4cf" stroke="#e87621" stroke-width="5"/>
+<text x="45" y="650" font-family="monospace" font-size="31" textLength="1110" lengthAdjust="spacingAndGlyphs">L898902C36UTO7408122F1204159ZE184226B&lt;&lt;&lt;&lt;&lt;10</text>
+<circle cx="1100" cy="590" r="30" fill="#e87621"/><text x="1100" y="601" text-anchor="middle" font-family="sans-serif" font-size="32" fill="#fff">1</text>
+</svg>

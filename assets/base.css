@@ -2236,7 +2236,7 @@ cart-recommendation-slider { display: block; flex-shrink: 0; min-width: 0; }
 @media (prefers-reduced-motion: reduce) { .toast { animation: none; } .toast__close { transition: none; } }
 
 /* Local age check: only the topmost dialog is interactive. */
-.age-check { width: min(54rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); margin: auto; padding: 1.5rem; border: 0; border-radius: var(--radius-small); background: var(--color-surface); color: var(--color-foreground); overflow-y: auto; overscroll-behavior: contain; }
+.age-check { width: min(54rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); margin: auto; padding: 1rem .75rem; border: 0; border-radius: var(--radius-small); background: var(--color-surface); color: var(--color-foreground); overflow-y: auto; scrollbar-gutter: stable both-edges; overscroll-behavior: contain; }
 .age-check::backdrop { background: rgb(0 0 0 / 50%); backdrop-filter: blur(4px); }
 .age-check__header { display: flex; align-items: center; gap: 1rem; justify-content: space-between; }
 .age-check__header h2 { margin: 0; font-family: var(--font-body-strong); font-size: var(--font-size-card); line-height: var(--line-height-body-compact); }
@@ -2268,9 +2268,6 @@ cart-recommendation-slider { display: block; flex-shrink: 0; min-width: 0; }
 .age-document[data-profile="ch-id"] .age-document__art { background: linear-gradient(115deg, var(--color-notice-surface), var(--color-soda-notice-surface), var(--color-error-surface)); }
 .age-document[data-profile="ch-id"] .age-document__mark { background: var(--color-error-surface); position: relative; }
 .age-document[data-profile="ch-id"] .age-document__mark::after { content: ''; position: absolute; inset: 22%; background: var(--color-error-text); clip-path: polygon(33% 0, 66% 0, 66% 33%, 100% 33%, 100% 66%, 66% 66%, 66% 100%, 33% 100%, 33% 66%, 0 66%, 0 33%, 33% 33%); }
-.age-document[data-profile="li-id"][data-version="previous"] .age-document__art { background: linear-gradient(110deg, var(--color-warning-surface), var(--color-notice-surface)); }
-.age-document[data-profile="li-id"][data-version="current"] .age-document__portrait { display: block; order: 2; width: 3.5rem; height: 4rem; opacity: .55; }
-.age-document[data-profile="li-id"] .age-document__mark { display: none; }
 .age-document[data-format="TD3"] .age-document__portrait { display: block; }
 .age-document[data-format="TD3"] .age-document__art::before { background: linear-gradient(140deg, transparent 40%, color-mix(in srgb, var(--color-notice-text) 20%, transparent) 41% 55%, transparent 56%); clip-path: polygon(0 100%, 0 55%, 15% 20%, 25% 48%, 48% 0, 75% 55%, 87% 25%, 100% 70%, 100% 100%); }
 .age-document__zone { padding: 1rem 1.25rem; border-top: 1px solid var(--color-notice-text); }
@@ -2296,7 +2293,7 @@ cart-recommendation-slider { display: block; flex-shrink: 0; min-width: 0; }
 .age-check__guidance:not(:has(.age-check__error:not(:empty))) { display: none; }
 .age-check-ready .age-check-unavailable { display: none; }
 @media (max-width: 599px) {
-  .age-check { padding: 1rem; }
+  .age-check { padding: .75rem .5rem; }
   .age-document__art, .age-document__zone, .age-document__year { padding: .75rem; }
   .age-document__details { min-height: 5rem; }
   .age-document__heading { flex-wrap: wrap; gap: .5rem; }
@@ -2326,6 +2323,15 @@ cart-recommendation-slider { display: block; flex-shrink: 0; min-width: 0; }
 /* The artwork and responsive code grid form one card, without coordinate overlays. */
 .age-document-viewport { min-width: 0; padding: 1rem; border-radius: var(--radius-compact); background: var(--color-surface-warm); }
 .age-document__swiss-art { display: none; }
+.age-document__swiss-pass-art { display: none; }
+.age-document[data-profile="ch-passport"] .age-document__swiss-pass-art {
+  display: block;
+  aspect-ratio: 1200 / 538;
+  overflow: hidden;
+  border-radius: var(--radius-small) var(--radius-small) 0 0;
+}
+.age-document__swiss-pass-art img { display: block; width: 100%; height: auto; }
+.age-document[data-profile="ch-passport"] .age-document__art { display: none; }
 /* Merchant-approved document typography: isolated from ordinary theme type roles. */
 .age-document:is([data-profile="ch-id"], [data-format="TD3"]) {
   --age-document-type-size: 1.5rem;
@@ -2357,7 +2363,7 @@ cart-recommendation-slider { display: block; flex-shrink: 0; min-width: 0; }
 .age-document__stage .age-document__year { max-width: 37.5rem; margin: .75rem auto 0; padding: .75rem 0 0; }
 @media (max-width: 599px) {
   .age-document-viewport { padding: .5rem; }
-  .age-document:is([data-profile="ch-id"], [data-format="TD3"]) { --age-document-type-size: 1.25rem; max-width: 21.25rem; }
+  .age-document:is([data-profile="ch-id"], [data-format="TD3"]) { --age-document-type-size: 1.25rem; }
   .age-document:is([data-profile="ch-id"], [data-format="TD3"]) .age-document__zone { padding: .5rem; }
 
 }
@@ -2367,8 +2373,6 @@ cart-recommendation-slider { display: block; flex-shrink: 0; min-width: 0; }
   .age-document__row--swiss-first > .age-document__fillers { line-height: var(--line-height-ui); }
 }
 @container age-document (max-width: 16rem) {
-  .age-document__identity { grid-template-columns: minmax(0, max-content) auto 2.75rem; }
-  .age-document__identity > .age-document__fixed:first-child { grid-column: 1 / -1; }
   .age-document__dates { grid-template-columns: minmax(0, 1fr); }
   .age-document__dates > .age-document__fixed { line-height: var(--line-height-ui); }
 }
@@ -2377,7 +2381,7 @@ cart-recommendation-slider { display: block; flex-shrink: 0; min-width: 0; }
 .age-document-viewport { position: relative; }
 .age-document__stage { position: relative; }
 .age-document__stage > * { top: 0; left: 0; right: 0; }
-.age-document__help-toggle { position: absolute; z-index: 2; top: .5rem; right: .5rem; display: inline-flex; align-items: center; justify-content: center; gap: .375rem; min-height: 2.75rem; padding: .375rem .75rem; border: 1px solid transparent; border-radius: 999px; background: color-mix(in srgb, var(--color-accent) 88%, black); color: var(--color-text-inverse); font-family: var(--font-body-strong); font-size: var(--font-size-small); line-height: var(--line-height-ui); cursor: pointer; transition: filter var(--motion-duration-fast) var(--motion-ease); }
+.age-document__help-toggle { position: absolute; z-index: 2; top: .5rem; right: .5rem; display: inline-flex; align-items: center; justify-content: center; gap: .375rem; min-height: 2.75rem; padding: .375rem .75rem; border: 1px solid transparent; border-radius: 999px; background: var(--color-accent-secondary); color: var(--color-text-inverse); font-family: var(--font-body-strong); font-size: var(--font-size-small); line-height: var(--line-height-ui); cursor: pointer; transition: filter var(--motion-duration-fast) var(--motion-ease); }
 .age-document__help-toggle:hover { filter: brightness(.94); }
 .age-document__help-icon { width: 1rem; height: 1rem; background: currentColor; mask: url('icon-help-circle.svg') center / contain no-repeat; }
 .age-document__help-toggle[aria-expanded="true"] .age-document__help-icon { mask-image: url('icon-arrow-left.svg'); }
@@ -2393,27 +2397,44 @@ cart-recommendation-slider { display: block; flex-shrink: 0; min-width: 0; }
 .age-document:is([data-profile="ch-id"], [data-format="TD3"]), .age-document__help-art { box-shadow: 0 3px 8px rgb(0 0 0 / 6%), 0 12px 24px -10px rgb(0 0 0 / 22%); }
 .age-document:is([data-profile="ch-id"], [data-format="TD3"]) .age-document__row--names .age-document__fixed { display: block; white-space: pre; }
 
-/* Passport code groups retain reading order without shrinking forty-four characters into one row. */
+/* Passport profiles define two fixed rows, scaled with the document container. */
 .age-document[data-format="TD3"] .age-document__art { padding-top: 3rem; }
-.age-document[data-format="TD3"] .age-document__mrz { gap: .75rem; }
-.age-document[data-format="TD3"] .age-document__row { align-items: center; }
-.age-document__row--passport-number { grid-template-columns: minmax(0, max-content) 2.75rem auto; justify-content: start; }
-.age-document[data-format="TD3"] [data-age-field] { font-family: var(--age-document-type-family); font-size: var(--age-document-type-size); }
-.age-document[data-format="TD3"] [data-age-field="number"] { width: calc(9ch + .9em + 14px); max-width: 100%; }
-.age-document__row--passport-dates { grid-template-columns: minmax(0, max-content) auto minmax(0, max-content); justify-content: start; }
-.age-document[data-format="TD3"] :is([data-age-field="birth"], [data-age-field="expiry"]) { width: calc(7ch + .7em + 14px); max-width: 100%; }
-.age-document__row--passport-ending { grid-template-columns: minmax(0, max-content) auto; justify-content: start; }
-.age-document[data-format="TD3"] [data-age-field="optional"] { width: calc(14ch + 1.4em + 14px); max-width: 100%; }
-.age-document__passport-checks { display: grid; grid-template-columns: repeat(2, 2.75rem); gap: .5rem; }
-@container age-document (max-width: 32rem) {
-  .age-document__row--passport-dates { grid-template-columns: minmax(0, 1fr); }
-  .age-document__row--passport-ending { grid-template-columns: minmax(0, 1fr); }
+.age-document[data-profile="international-passport"] .age-document__art {
+  background: linear-gradient(115deg, var(--color-notice-surface), var(--color-surface));
 }
-@container age-document (max-width: 16rem) {
-  .age-document__row--passport-number { grid-template-columns: minmax(0, max-content) 2.75rem; }
-  .age-document__row--passport-number > .age-document__fixed { grid-column: 1 / -1; }
-  .age-document__mrz .age-document__row--passport-number > [data-age-field] { grid-column: auto; }
+.age-document[data-profile="international-passport"] .age-document__art::before {
+  clip-path: none;
+  background: repeating-radial-gradient(ellipse at 85% 30%, transparent 0 1rem, color-mix(in srgb, var(--color-notice-text) 12%, transparent) 1.0625rem 1.125rem, transparent 1.1875rem 2rem);
 }
+.age-document[data-format="TD3"] .age-document__zone {
+  --age-document-single-width: calc(var(--age-document-type-size) * 1.6 + 2px);
+  --age-document-type-size: min(1.5rem, calc((96cqi - 14px) / 38));
+  --age-document-input-padding-block: .2em;
+  --age-document-input-padding-inline: .2em;
+  padding: min(.75rem, 2cqi);
+}
+.age-document[data-format="TD3"] .age-document__mrz { gap: min(.75rem, 2cqi); }
+.age-document[data-format="TD3"] .age-document__row--passport-code {
+  grid-template-columns: minmax(0, 9.4fr) minmax(var(--age-document-single-width), 2.4fr) 3fr minmax(0, 7.4fr) max-content minmax(0, 7.4fr) minmax(0, 14.4fr) minmax(var(--age-document-single-width), 2.4fr) minmax(var(--age-document-single-width), 2.4fr);
+  align-items: center;
+  gap: min(.25rem, .4cqi);
+  white-space: nowrap;
+}
+.age-document[data-format="TD3"] .age-document__mrz .age-document__row > * { grid-column: auto; }
+.age-document[data-format="TD3"] .age-document__mrz input {
+  width: 100%;
+  min-height: clamp(1.5rem, 7.333cqi, 2.75rem);
+  border-radius: min(var(--radius-compact), 1.333cqi);
+}
+.age-document[data-format="TD3"] .age-document__row--names .age-document__fixed { white-space: nowrap; }
+.age-document__row--full-line { grid-template-columns: minmax(0, 1fr); }
+.age-document[data-profile="international-passport"] .age-document__row--full-line input {
+  font-size: var(--font-size-body);
+  min-height: 2.75rem;
+  text-align: left;
+  letter-spacing: .05em;
+}
+.age-document__line-count { font-size: var(--font-size-small); line-height: var(--line-height-body); color: var(--color-text-muted); }
 
 /* Keep the cart visible while its checkout age policy is refreshed. */
 .cart-checkout { position: relative; }
@@ -2441,7 +2462,6 @@ cart-recommendation-slider { display: block; flex-shrink: 0; min-width: 0; }
 .age-check__guidance { max-width: 37.5rem; margin-inline: auto; }
 .age-check__guidance .age-check__error:not(:empty) { display: flex; align-items: center; gap: .5rem; padding: .75rem; border-radius: var(--radius-compact); background: var(--color-warning-surface); color: var(--color-warning-text); }
 .age-check__guidance .age-check__error:not(:empty)::before { content: ''; flex: 0 0 1.25rem; height: 1.25rem; background: currentColor; mask: url('icon-alert-triangle.svg') center / contain no-repeat; }
-@media (max-width: 599px) { .age-document__help-panel, .age-check__guidance { max-width: 21.25rem; } }
 
 .cart-coupons { position: relative; }
 .cart-coupons__previous { position: absolute; margin: 0; pointer-events: none; }
@@ -2650,4 +2670,74 @@ a:focus-visible .button--round-arrow::before {
   overflow-wrap: normal;
   -webkit-hyphens: none;
   hyphens: none;
+}
+
+/* Compact age-document labels keep their complete accessible text. */
+.age-check__document-select :is(.form-select__trigger > span, .form-select__option-label) {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.age-check__document-select .form-select__option { min-width: 0; }
+.age-check__document-select .form-select__list { grid-template-columns: minmax(0, 1fr); }
+
+/* Keep the Swiss code mask on three lines as one responsive artwork composition. */
+.age-document[data-profile="ch-id"] .age-document__zone {
+  --age-document-type-size: min(1.5rem, 4cqi);
+  --age-document-input-padding-block: min(.25rem, .667cqi);
+  --age-document-input-padding-inline: min(.375rem, 1cqi);
+  --age-document-code-gap: min(.25rem, .667cqi);
+  --age-document-check-width: clamp(1.5rem, 7.333cqi, 2.75rem);
+  padding: min(.75rem, 2cqi);
+}
+.age-document[data-profile="ch-id"] .age-document__mrz {
+  gap: min(.375rem, 1cqi);
+}
+.age-document[data-profile="ch-id"] :is(.age-document__row--swiss-first, .age-document__row--swiss-second) {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: min(.5rem, 1.333cqi);
+}
+.age-document[data-profile="ch-id"] .age-document__row--swiss-first {
+  grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
+}
+.age-document[data-profile="ch-id"] .age-document__mrz .age-document__row > * {
+  grid-column: auto;
+}
+.age-document[data-profile="ch-id"] :is(.age-document__identity, .age-document__dates, .age-document__ending) {
+  gap: var(--age-document-code-gap);
+  white-space: nowrap;
+}
+.age-document[data-profile="ch-id"] .age-document__identity {
+  grid-template-columns: auto minmax(0, max-content) auto var(--age-document-check-width);
+}
+.age-document[data-profile="ch-id"] .age-document__dates {
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+}
+.age-document[data-profile="ch-id"] .age-document__ending {
+  grid-template-columns: auto minmax(0, 1fr) var(--age-document-check-width);
+}
+.age-document[data-profile="ch-id"] .age-document__mrz input {
+  min-height: clamp(1.5rem, 7.333cqi, 2.75rem);
+  border-radius: min(var(--radius-compact), 1.333cqi);
+}
+.age-document[data-profile="ch-id"] .age-document__row--names .age-document__fixed {
+  white-space: nowrap;
+}
+
+@media (max-width: 599px) {
+  .age-document__help-toggle { top: -.25rem; right: -.25rem; }
+}
+
+.age-document[data-profile="ch-passport"] .age-document__row--passport-code {
+  grid-template-columns: minmax(0, 8.4fr) 1fr minmax(var(--age-document-single-width), 2.4fr) 3fr minmax(0, 7.4fr) max-content minmax(0, 7.4fr) 3fr minmax(var(--age-document-single-width), 2.4fr);
+}
+
+.age-document[data-format="TD3"] :is([data-age-field="numberDigit"], [data-age-field="optionalDigit"], [data-age-field="tail"]) input {
+  min-width: calc(2ch + 2 * var(--age-document-input-padding-inline) + 2px);
+}
+
+.age-document[data-profile="ch-passport"] .age-document__zone {
+  --age-document-type-size: min(1.5rem, calc((96cqi - 10px) / 30));
 }

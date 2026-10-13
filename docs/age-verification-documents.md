@@ -1,5 +1,6 @@
 # MRZ document references and customer guidance
 
+Current scope (2026-10-13): only Swiss ID, Swiss passport and Other passports are supported. Dedicated Liechtenstein profiles, artwork variants, version controls, translations and specimen tests have been removed. Earlier Liechtenstein implementation notes below are historical and superseded. Format-compatible Liechtenstein passports can use Other passports. No international ID option is implemented.
 Research date: 2026-09-08. Companion to the [age-check plan](age-verification-plan.md). This records the requested support matrix and research sources, not implemented validator coverage. Four choices are required: Swiss ID card, Swiss passport, Liechtenstein ID card and Liechtenstein passport. Ordinary national documents only; driving licences, residence permits and emergency/diplomatic/service passports are not implicitly supported.
 
 ## Document versions and specimen sources
@@ -61,7 +62,7 @@ Four country/document choices share standard ICAO parsing. Interactive HTML sche
 
 ## Inline document UX — 2026-09-08
 
-The actual inputs now live inside the illustrated document's code area; the separate field grid has been removed. TD1 rows preserve document number/check digit/optional data and birth/expiry/nationality/tail order. TD3 uses the lower passport row, including optional/checksum data. Narrow screens wrap groups within the document instead of shrinking text or forcing horizontal scrolling. Accessible field labels and descriptions remain real HTML; the guide is not aria-hidden. When needed to resolve age eligibility, the full birth year appears in a clearly separated in-card annotation (from the front of an ID or the printed passport birth date), not falsely positioned as a four-digit MRZ field.
+The actual inputs now live inside the illustrated document's code area; the separate field grid has been removed. TD1 rows preserve document number/check digit/optional data and birth/expiry/nationality/tail order. TD3 uses the lower passport row, including optional/checksum data. The original narrow-screen implementation wrapped groups. The approved responsive mask concept below supersedes that approach for the Swiss ID and defines the direction for other document masks. Accessible field labels and descriptions remain real HTML; the guide is not aria-hidden. When needed to resolve age eligibility, the full birth year appears in a clearly separated in-card annotation (from the front of an ID or the printed passport birth date), not falsely positioned as a four-digit MRZ field.
 
 The Liechtenstein ID selector distinguishes current (from 2024) and previous (before 2024) cards. It changes guide appearance/caption while preserving entered values; changing document type clears inputs. Both use the supported standard TD1 field mapping. Historical issuer-specific exceptions remain unsupported. Current and previous artwork are schematic, not photographs or a claim of exact security-art reproduction.
 
@@ -147,3 +148,46 @@ Helper artwork refinement (2026-09-09): the clipped helper image frame uses the 
 ### Configurable minimum age — 2026-09-09
 
 Theme settings → Age check → Minimum age offers 16 or 18 years, defaulting to 18. `age_check_minimum_age` supplies the server-rendered policy for explicitly alcoholic items; alcohol-free carts still require no age check. The dialog intro and underage message interpolate the freshly fetched policy threshold in English/German. Raising the threshold invalidates a remembered result that only met the lower minimum without requiring a manual policy-version change. Existing saved settings are not overwritten. Regression coverage includes a 17-year-old failing the 18-year threshold, exact 18th birthday, old-result invalidation, and rendered 18-year copy.
+
+## Responsive document mask concept
+
+Approved by the merchant on 2026-10-12 after visual review of the Swiss ID mask. This is the shared design direction for ID and passport input masks. The Swiss ID implements it; other profiles must be adapted and reviewed individually before claiming the same behavior.
+
+### Define the document rows first
+
+Each document profile owns an explicit, ordered row composition. Define the number of UI rows and, for each row, the sequence of fixed characters, editable field groups, check digits and decorative filler runs. Record field lengths, relative track widths, reference card width and artwork placement. Keep the arrangement recognizable from the reviewed document and preserve its reading order. UI rows may deliberately group a long printed code line, but that mapping must be defined once for the profile rather than invented by responsive breakpoints.
+
+Different documents can have different row definitions. Do not force every ID or passport into the Swiss three-row layout or copy its country markers, number lengths or validation rules. Document versions with materially different layouts need their own reviewed composition.
+
+### Scale the composition without reflowing rows
+
+After defining the rows, preserve them at every supported viewport. Narrowing the card must not move a prefix, field, separator or field group onto another line. Keep names/example rows on their defined line too. Use the actual card container width, not the viewport width, to scale the code composition smoothly up to its approved desktop dimensions.
+
+Scale document-code typography, character tracking, field padding, inter-field gaps, check-digit columns and corner radii together. Reduce field height as the composition becomes very narrow. The Swiss reference caps fields at 44px and permits a 24px minimum on narrow cards; this is the approved document-mask exception, not a new size rule for ordinary form controls. Define and review the equivalent dimensions for each additional profile. Inputs must remain usable, entered values must fit, and focus indicators must not be clipped. Do not solve space constraints by truncating required entered characters or hiding fields.
+
+Keep real semantic HTML inputs and accessible labels. Use responsive layout/type tokens rather than scaling a screenshot or replacing fields with image coordinates. Headings, instructions, document selectors, help buttons and validation feedback retain shared UI typography and their normal responsive behavior outside the code composition. Errors and supplementary birth-year questions remain associated with their fields without changing the defined code rows.
+
+Decorative filler runs may adjust to the available space using whole characters. They must not wrap, show clipped half-glyphs, or change required field contents. Resizing, opening help and switching visual versions must preserve entered values and existing validation behavior. Presentation changes do not expand supported documents or change parsing, check-digit, age, privacy or commerce rules.
+
+### Apply and review per profile
+
+1. Document the ordered rows and field mapping against the relevant specimen/profile.
+2. Build the reference composition, then apply the shared container-based scaling behavior.
+3. Have the merchant validate the wide and narrow visual composition before further testing and hardening.
+4. Verify the agreed design at phone and desktop widths, including intermediate/narrow card widths, populated fields, keyboard focus, help transitions and errors. Check that every row stays intact, required values fit, and no horizontal overflow appears.
+
+Implementation ownership: [Cart drawer and age dialog](sections/cart-drawer.md). Shared styling exceptions: [Guided document entry](design-system.md#guided-document-entry). The approved Swiss implementation is the reference for behavior, not a universal document field schema.
+
+
+Passport application (2026-10-12, pending visual validation): TD3 input masks now adopt the shared behavior with two defined UI rows: decorative name line, then the complete ordered code-input line. This replaces the earlier responsive number/date/ending groups. Swiss ID retains its three-row definition. Parser support is unchanged.
+
+
+Swiss passport input contract (2026-10-12): `ch-passport` is the simplified filler-only presentation. Fourteen optional-data fillers are fixed visually and reconstructed for validation; users still enter the adjacent optional-data check character and final composite check digit. Other passports retains manual optional data for differing layouts. PRADO identifies the reviewed ordinary Swiss generations [CHE-AO-04001](https://www.consilium.europa.eu/prado/en/CHE-AO-04001/index.html) and [CHE-AO-03002](https://www.consilium.europa.eu/prado/en/CHE-AO-03002/index.html), but the fetched text does not establish a universal filler rule across Swiss editions. The implementation therefore scopes the simplified mask to the filler-only layout and provides the generic fallback, rather than asserting universal coverage. No personal document values are retained in source or fixtures.
+
+
+Swiss passport number/check positions verified (2026-10-12): the [Swiss federal Pass 22 FAQ](https://www.post2015.admin.ch/content/dam/countries/countries-content/south-africa/en/2022-rcc/New-Swiss-Passport-FAQ_EN.pdf), page 2, identifies the first eight characters of the lower MRZ line as the passport number. [ICAO Doc 9303 Part 4](https://www.icao.int/sites/default/files/publications/DocSeries/9303_p4_cons_en.pdf), section 4.2.2.2, reserves positions 1–9 for the number with trailing fillers, position 10 for its check digit and positions 11–13 for nationality. Thus the eight-character Swiss layout needs a visible fixed `<` between number entry and check-digit entry. Position 43 for unused optional data permits `0` or `<`; both have zero checksum weight. The simplified filler-only Swiss mask now supplies that check value automatically and asks only for position 44 at the end, superseding the preceding two-final-input contract. The fetched Swiss source establishes the Pass 22 number length, not a claim about every historical or special passport; differing layouts retain the generic Other passports path.
+
+
+International passport sample review (2026-10-13): five merchant-supplied image transcriptions, representing Germany, Brazil, Romania, Kuwait and the USA, each contained a 44-character lower line and passed the existing international validator at threshold 18 on 2026-10-13. Checks covered document number, birth, expiry, optional data and composite digits. They exercised padded document numbers, filler-only optional data, numeric optional data and internal fillers. Transcription was manual; this verifies compatibility with those readings, not document authenticity. Personal values and names were not saved in repository fixtures. Existing synthetic and published-specimen tests cover generic validation. The generic mask retains manual optional data, unlike the simplified Swiss mask. Per [ICAO Doc 9303 Part 4](https://www.icao.int/publications/documents/9303_p4_cons_en.pdf), lower-line positions 29–42 carry 14 optional-data characters, position 43 their check and position 44 the composite check; an unused optional field permits 0 or < at position 43. Country codes, names and sex markers are not required for these checksum calculations. Unsupported extended-number and incomplete-date variants retain the documented fallback.
+
+International entry update (2026-10-13): the seven-field international interface is superseded by one complete lower-line field with a 44-character counter. Full-line parsing validates character count, country-code/sex-marker structure and existing date/checksum rules. It does not infer missing fillers or accept a partial line. Country-specific Swiss masks remain unchanged. The neutral illustrated help follows the Swiss ID panel composition and preserves entered values when toggled.

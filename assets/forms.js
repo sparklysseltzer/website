@@ -71,7 +71,10 @@
         node.setAttribute('role', 'option');
         node.setAttribute('aria-selected', String(option.selected));
         node.setAttribute('aria-disabled', String(option.disabled));
-        node.textContent = option.textContent;
+        const label = document.createElement('span');
+        label.className = 'form-select__option-label';
+        label.textContent = option.textContent;
+        node.append(label);
         node.hidden = option.hidden;
         node.addEventListener('pointerdown', (event) => event.preventDefault());
         node.addEventListener('click', () => this.choose(index));

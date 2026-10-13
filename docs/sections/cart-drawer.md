@@ -393,3 +393,36 @@ Empty-cart reading order places the Bob Ross quote above the image, followed by 
 Mobile upsell surface (2026-10-09): below 1000px the entire recommendation section uses the same Warm surface token as the shipping strip. Cards and previous/next controls use Surface. Negative inline margins extend the section and horizontal scrollport to the modal edges; header padding, track padding and scroll padding retain the panel gutter at the starting/ending cards without clipping cards during scrolling. Verified edge alignment at 390px and 768px, a next-button slide, and unchanged separate desktop recommendations at 1440px.
 
 Empty-cart shipping hint (2026-10-09): the shared renderer omits the shipping hint and its sticky wrapper when `cart.empty?`. Filled carts retain the existing shipping hint. Accessible cart status stays present in both states. Native rendering and Ajax section refreshes follow the same condition.
+
+
+## Document-entry revision, October 2026
+
+The supported choices are Swiss ID, Swiss passport and Other passports. Dedicated Liechtenstein profiles, version selector, artwork rules, translations and specimen tests have been removed. Compatible Liechtenstein passports use Other passports. International ID support remains unimplemented. The document dropdown uses localized short labels, a plain hyphen separator and single-line truncation with complete accessible text.
+
+### Responsive masks
+
+Follow the [responsive document mask concept](../age-verification-documents.md#responsive-document-mask-concept): define each document's rows first, then scale its code composition without reflow. Swiss ID retains three rows; Swiss passport retains a name row and one field row. The artwork exception permits container-relative typography, spacing and radii, with field heights scaling from 44px to 24px on narrow cards. Single-character inputs reserve two character widths plus padding. The M/F track fits its text so fields receive available space. Cards use the available panel width up to 37.5rem; there is no separate mobile width cap.
+
+Swiss passport accepts eight number characters, displays the following < and CHE automatically, and asks for the number check, birth/check group, expiry/check group and final composite digit. Its filler-only optional area is displayed as <…<; validation reconstructs fourteen fillers and a zero-equivalent optional-data check. This is a simplified profile, not universal coverage of historical Swiss layouts. Other passports handles differing optional data. The name row uses whole filler characters to fill its remaining width. Decorative captions and example labels are omitted; real input labels remain accessible.
+
+Other passports uses neutral gray artwork and one complete lower-line input. The input uppercases and removes whitespace, preserves fillers and invalid non-whitespace characters, and shows a localized 44-character counter. It uses shared Body typography, a 44px target and native horizontal text scrolling. Exactly 44 characters are required; missing fillers are not inferred. Fixed-position parsing feeds the existing date, checksum and age checks. A four-digit birth-year clarification remains available when century ambiguity changes eligibility. Switching profiles restores the relevant controls and disables unused fields.
+
+### Artwork and help
+
+Swiss passport form/help artwork comes from the merchant-supplied age-swiss-pass-form-background.png and age-swiss-pass-callout.png. Local quality-88 WebP derivatives retain the 1200×750 resolution. The form frames the upper 538px proportionally, then renders real HTML inputs in place of the blank printed code area. The help view shows the complete five-callout image. International help uses the neutral local age-passport-help.svg and a published ICAO specimen, never supplied personal document values.
+
+All three help views share the Swiss ID panel mechanism: numbered illustration, hidden accessible legend, localized instructions/contact paragraph, Help/Back toggle, inert inactive panel, height/fade transitions and reduced-motion fallback. Entered values survive toggles. The orange secondary-accent pill uses inverse text/icon ink and a slight outward offset on phone.
+
+### Feedback and approved dialog spacing
+
+Initial typing stays neutral until the field first loses focus. Thereafter correction and regression update feedback live; submission validates immediately. One visible polite-live warning summarizes invalid fields, using singular or plural wording as appropriate. Each input retains its own hidden description and aria-invalid state. Profile resets clear feedback after moving controls so incidental focusout cannot mark the new mask touched.
+
+The dialog reserves symmetric scrollbar space with scrollbar-gutter: stable both-edges, preventing sideways movement when Help adds overflow. The merchant approved the final reduced padding: 1rem vertically / .75rem horizontally on desktop and .75rem / .5rem at the phone breakpoint.
+
+### Verification and limits
+
+Ananotes 251–265 were completed. Headless Chromium checks covered 320px, 390px, 540px and desktop layouts during iteration, profile switching, raw-line normalization, first-blur feedback, live corrections, submit errors and help value preservation. At 1364×1164, international Help introduced scrolling without changing the form's left position or width, including an intermediate transition frame. Reduced-motion checks covered the earlier mask composition. The final spacing was visually approved by the merchant. These checks do not establish universal device or cross-browser coverage.
+
+Validator regressions cover published ICAO and synthetic records, raw-line length/structure, corrupted checksums, Swiss number length and zero/filler equivalence. Five manually transcribed international examples passed the validator; personal values were not saved as fixtures. No additional Schema.org entity is introduced by this input guide.
+
+Commit validation: npm run check, JavaScript syntax checks and git diff --check passed for the final accumulated implementation. All 33 content JSON files parsed after stripping Shopify-generated leading comments; raw jq rejects those comments. No deployment or publication was performed.

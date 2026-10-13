@@ -1,5 +1,6 @@
 # International MRZ document coverage plan
 
+Current scope (2026-10-13): only Swiss ID, Swiss passport and Other passports are supported. Dedicated Liechtenstein profiles, artwork variants, version controls, translations and specimen tests have been removed. Earlier Liechtenstein implementation notes below are historical and superseded. Format-compatible Liechtenstein passports can use Other passports. No international ID option is implemented.
 Initial strategy: 2026-09-09. Reconciled 2026-09-28: standard TD3 passport support is implemented; curated foreign IDs and wider specimen coverage remain proposed. The original Phase 1 design below is retained as decision context, not an instruction to rebuild the parser.
 
 ## Objective and boundaries
@@ -41,6 +42,8 @@ A passport-first release is a practical first increment, not a permanent foreign
 ## Phase 1 — Broad ordinary-passport support
 
 ### Shared parser and mask
+
+For responsive presentation, follow the [approved document mask concept](age-verification-documents.md#responsive-document-mask-concept): define the passport profile’s rows first, then preserve them while scaling the code composition with card width. This is the intended adaptation pattern; it does not imply that existing passport masks have already been migrated.
 
 Build one neutral, recognizable passport photo-page/code guide for ordinary TD3 layouts, retaining the existing accessible inputs/help toggle, responsive sizing and locale conventions. Use rights-cleared schematic artwork rather than a Swiss image with another country label.
 
@@ -122,3 +125,5 @@ Passport artwork is capped at 600px desktop and 340px phone, bounded by availabl
 Tests cover the published ICAO specimen, synthetic number/filler variations, both empty optional-data check variants, nonempty optional data, each ending checksum, incomplete dates, existing CH/LI fixtures and age/century boundaries. These tests establish parser behavior, not country-by-country document authenticity.
 
 Verification: `npm run check` passed, including 18 age-validation tests; JavaScript syntax and whitespace checks passed. Headless localhost checks at 320px, 390px and desktop verified profile switching, input containment/touch heights, help/back value retention, keyboard progression, reduced-motion switching and a published ICAO fixture through the form with checkout handoff stubbed. Strict jq reports the two existing Shopify comment-header files; comment-aware parsing validates all 21 JSON files. Nothing was published.
+
+Implemented full-line entry (2026-10-13): Other passports now accepts the complete 44-character lower code line. This supersedes grouped entry for the international profile only. Whitespace is removed, case normalized, all fillers retained, and fixed-position values passed to the existing checks. Illustrated Help/Back uses the Swiss ID mechanism. A guided alternate entry mode is not included in this change.
