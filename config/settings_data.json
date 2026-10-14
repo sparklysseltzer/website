@@ -47,10 +47,9 @@
     "border_radius_small": 16,
     "border_radius_large": 32,
     "cart_recommendation_products": [
-      "holunder-on-the-loose-tote-bag",
-      "hoodie-nutrition-facts",
       "professional-can-opener-2000",
-      "maracuja-on-the-loose-tote-bag"
+      "maracuja-on-the-loose-tote-bag",
+      "hoodie-nutrition-facts"
     ],
     "age_check_enabled": true,
     "logo_width": 150,
