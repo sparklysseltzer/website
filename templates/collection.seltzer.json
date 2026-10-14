@@ -189,6 +189,8 @@
         "content_width": "editorial",
         "variant": "seltzer",
         "heading": "",
+        "heading_font": "newake",
+        "uppercase_heading": false,
         "comparison_basis": "",
         "disclaimer": "",
         "footnote": "",
@@ -228,6 +230,8 @@
       ],
       "settings": {
         "heading": "",
+        "heading_font": "newake",
+        "uppercase_heading": false,
         "intro": "",
         "show_button": false,
         "button_label": "",
@@ -441,6 +445,7 @@
           ]
         }
       },
+      "disabled": true,
       "settings": {
         "content_width": "editorial",
         "sticky_sidebar": false,
