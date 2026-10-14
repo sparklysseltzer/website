@@ -1,4 +1,4 @@
-{% comment %}Resolve the canvas to soft black/white footnote ink without changing other section text.{% endcomment %}
+{% comment %}Resolve canvas-aware footnote ink; warm neutral canvases can use the world's warm ink.{% endcomment %}
 {%- liquid
   assign page_surface = '#f2f0e9'
   case request.page_type
@@ -55,16 +55,14 @@
   if white_contrast > black_contrast
     assign ink = '#ffffff'
   endif
-  assign strength = 70
-  assign painted = ink | color_mix: surface, strength
-  assign contrast = painted | color_contrast: surface
-  if contrast < 4.5
-    assign strength = 85
-    assign painted = ink | color_mix: surface, strength
-    assign contrast = painted | color_contrast: surface
-    if contrast < 4.5
-      assign strength = 100
-    endif
+  assign red = surface | color_extract: 'red'
+  assign green = surface | color_extract: 'green'
+  assign blue = surface | color_extract: 'blue'
+  assign lightness = surface | color_extract: 'lightness'
+  assign warmth = red | minus: blue
+  assign warm_weight = 0
+  if lightness > 80 and red >= green and green > blue and warmth <= 50
+    assign warm_weight = 100
   endif
 -%}
---footnote-ink: {{ ink }}; --footnote-strength: {{ strength }}%;
+--footnote-ink: {{ ink }}; --footnote-strength: 30%; --footnote-warm-weight: {{ warm_weight }}%;

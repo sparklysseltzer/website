@@ -2607,7 +2607,7 @@ a:focus-visible .button--round-arrow::before {
 .legal-link { position: relative; display: inline-block; }
 .legal-link::after { content: ''; position: absolute; inset: auto 0 -.1em; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform var(--motion-duration-fast) var(--motion-ease); }
 .legal-link:is(:hover, :focus-visible)::after { transform: scaleX(1); }
-.footnote { color: color-mix(in srgb, var(--footnote-ink, currentColor) var(--footnote-strength, 70%), transparent); }
+.footnote { color: color-mix(in srgb, color-mix(in srgb, var(--footnote-warm-ink, #000000) var(--footnote-warm-weight, 0%), var(--footnote-ink, currentColor)) var(--footnote-strength, 30%), transparent); }
 @media (prefers-reduced-motion: reduce) { .legal-link::after { transition: none; } }
 @media (forced-colors: active) { .footnote { color: CanvasText; } }
 

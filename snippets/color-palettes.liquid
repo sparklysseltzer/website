@@ -45,6 +45,7 @@
   --color-seltzer-notice-surface: {{ settings.color_seltzer_notice_surface | default: '#eeeeee' }};
 }
 :root, [data-color-world='general'], .cart-page, .cart-drawer {
+  --footnote-warm-ink: #000000;
   --color-background: var(--color-general-background);
   --color-surface: var(--color-general-surface);
   --color-surface-muted: var(--color-general-surface-muted);
@@ -61,6 +62,7 @@
   --color-progress-track: var(--color-surface-muted);
 }
 [data-color-world='soda'], .soda-ingredients, .soda-reasons, .versus--soda, .subscription--soda, .usp-section--soda, .product-overview-card--soda {
+  --footnote-warm-ink: var(--color-soda-text-muted);
   --color-background: var(--color-soda-background);
   --color-surface: var(--color-soda-surface);
   --color-surface-muted: var(--color-soda-surface-muted);
@@ -77,6 +79,7 @@
   --color-progress-track: var(--color-surface-muted);
 }
 [data-color-world='seltzer'], .seltzer-ingredients, .seltzer-awards, .versus--seltzer, .subscription--seltzer, .usp-section--seltzer, .product-overview-card--seltzer {
+  --footnote-warm-ink: #000000;
   --color-background: var(--color-seltzer-background);
   --color-surface: var(--color-seltzer-surface);
   --color-surface-muted: var(--color-seltzer-surface-muted);

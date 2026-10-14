@@ -25,7 +25,7 @@ The complete question and answer text exists in the initial HTML. Without JavaSc
 
 The directory emits one server-rendered Schema.org `FAQPage` JSON-LD object through the shared `faq-structured-data` snippet. Its `mainEntity` array contains the same valid FAQ entries included in the paginated page HTML; client-side search and category filters do not change or regenerate this source data. Questions or answers that are blank are omitted from both the structured representation and the reusable FAQ item markup.
 
-The directory shares the FAQ motion contract: its panel, heading, controls, and entries reveal with reversible viewport progress, including an initial catch-up reveal when the section is already visible. Accordion answers use the shared height/fade transition while retaining native keyboard interaction and a reduced-motion path.
+The directory shares the FAQ motion contract: its panel, heading, controls, and entries reveal with reversible viewport progress, including an initial catch-up reveal when the section is already visible. The shared reveal stagger caps its start at 0.72 of section progress, before its 0.9 completion point, so long directories never leave invisible rows or reverse late entries. Accordion answers use the shared height/fade transition while retaining native keyboard interaction and a reduced-motion path.
 
 ## Search and category motion
 

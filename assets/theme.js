@@ -1357,7 +1357,8 @@ class PosterMotion extends HTMLElement {
     );
 
     this.revealAnimations.forEach((animation, index) => {
-      const start = 0.12 + index * 0.055;
+      // Keep long lists within the reveal range so late entries never stay invisible.
+      const start = Math.min(0.12 + index * 0.055, 0.72);
       this.setAnimationProgress(animation, this.rangeProgress(this.currentProgress, start, 0.9));
     });
 
