@@ -277,6 +277,34 @@
     },
     "subscription": {
       "type": "subscription",
+      "blocks": {
+        "benefit_YjeVjC": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "none",
+            "text": "15% Rabatt"
+          }
+        },
+        "benefit_DhbQB9": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "none",
+            "text": "Kostenlose Lieferung"
+          }
+        },
+        "benefit_3TiQ34": {
+          "type": "benefit",
+          "settings": {
+            "default_content": "none",
+            "text": "Jederzeit überspringen oder kündigen"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_YjeVjC",
+        "benefit_DhbQB9",
+        "benefit_3TiQ34"
+      ],
       "settings": {
         "content_width": "editorial",
         "variant": "soda",
