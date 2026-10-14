@@ -412,7 +412,7 @@
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "Content source"
     },
     {
       "type": "select",
@@ -437,6 +437,10 @@
       "visible_if": "{{ section.settings.content_source == 'global' }}"
     },
     {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
       "type": "checkbox",
       "id": "show_heading",
       "label": "Show heading",
@@ -448,6 +452,10 @@
       "label": "Heading",
       "default": "Unser Angebot",
       "visible_if": "{{ section.settings.content_source == 'local' and section.settings.show_heading }}"
+    },
+    {
+      "type": "header",
+      "content": "Text"
     },
     {
       "type": "checkbox",
@@ -578,9 +586,19 @@
           "visible_if": "{{ section.settings.content_source == 'global' }}"
         },
         {
+          "type": "header",
+          "content": "Image",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
+        },
+        {
           "type": "image_picker",
           "id": "image",
           "label": "Image",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
+        },
+        {
+          "type": "header",
+          "content": "Text",
           "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {
@@ -591,16 +609,26 @@
           "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
+        },
+        {
+          "type": "header",
+          "content": "Link",
+          "visible_if": "{{ section.settings.content_source == 'local' }}"
+        },
+        {
           "type": "url",
           "id": "link",
           "label": "Link",
           "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {
-          "type": "textarea",
-          "id": "subtitle",
-          "label": "Subtitle",
-          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "type": "header",
+          "content": "Tags",
           "visible_if": "{{ section.settings.content_source == 'local' }}"
         },
         {

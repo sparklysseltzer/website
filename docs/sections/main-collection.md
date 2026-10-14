@@ -83,3 +83,9 @@ Per-product shadow control (2026-10-08): Product boolean `custom.hide_card_shado
 Catalog background edge (sparklys.ch Ananotes 11, 2026-10-09): the Variety Pack source background contains a dark final pixel column (sampled at mid-height). Shared catalog background layers extend 2px beyond the card’s existing rounded clip to crop export edges and avoid fractional coverage gaps. No image migration, product preference or merchant asset changes.
 
 Edge verification at 2104px: the rightmost card-edge pixel at mid-height changed from RGB 138/189/128 to 166/239/154, matching the surrounding green instead of the exported dark stripe. Rounded clipping and card artwork remain intact.
+
+## Editor organization (2026-10-14)
+
+- `sections/main-collection.liquid`: Layout → Collection title → Product heading → Products → Visibility → Section background.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

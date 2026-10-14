@@ -633,7 +633,7 @@
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "Heading"
     },
     {
       "type": "inline_richtext",
@@ -791,19 +791,13 @@
       "name": "Product",
       "settings": [
         {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
+          "type": "header",
+          "content": "Product"
         },
         {
           "type": "text",
           "id": "title",
           "label": "Title"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link"
         },
         {
           "type": "select",
@@ -829,36 +823,12 @@
         },
         {
           "type": "header",
-          "content": "Colors"
+          "content": "Image"
         },
         {
-          "type": "color",
-          "id": "background",
-          "label": "Background",
-          "default": "#ff9d00"
-        },
-        {
-          "type": "color",
-          "id": "background_end",
-          "label": "Background fade",
-          "default": "#ffeda3"
-        },
-        {
-          "type": "color",
-          "id": "accent",
-          "label": "Title color",
-          "default": "#000000"
-        },
-        {
-          "type": "color",
-          "id": "image_glow",
-          "label": "Image glow",
-          "info": "Soft color glow rendered behind the product image.",
-          "default": "#ffbf3c"
-        },
-        {
-          "type": "header",
-          "content": "Image position"
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
         },
         {
           "type": "range",
@@ -889,6 +859,44 @@
           "unit": "%",
           "label": "Vertical offset",
           "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Link"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "#ff9d00"
+        },
+        {
+          "type": "color",
+          "id": "background_end",
+          "label": "Background fade",
+          "default": "#ffeda3"
+        },
+        {
+          "type": "color",
+          "id": "accent",
+          "label": "Title color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "image_glow",
+          "label": "Image glow",
+          "info": "Soft color glow rendered behind the product image.",
+          "default": "#ffbf3c"
         }
       ]
     }

@@ -62,3 +62,9 @@ The title now uses the shared Heading font selector (Erode / Newake), followed b
 Schema review: existing content/layout/visibility groups remain in composition order. Product Comparison's world enables its Soda footnote and block values 4–6; featured only controls ordering. Awards' Show button enables label and link. In both, Colored enables Surface, Custom color enables the picker; breakpoint visibility and content width have no dependent fields. Heading font enables only the Newake uppercase field. Erode, normal Newake and uppercase Newake cases are registered in the editor gate.
 
 Verification: schema mode/dependency contracts pass. Local Hard Seltzer renders use Newake with authored case at 390px and 2101px; temporary browser token overrides verified the Erode, normal Newake and uppercase Newake CSS modes at both sizes. This checks rendered styling, not a live Theme Editor session. Full checks, JSON and JavaScript validation pass.
+
+## Editor organization (2026-10-14)
+
+- `sections/hard-seltzer-awards.liquid`: Heading → Text → Action → Visibility → Section background.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

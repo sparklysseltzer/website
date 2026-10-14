@@ -30,7 +30,34 @@
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "Layout",
+      "visible_if": "{{ section.settings.video != blank }}"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "default": "editorial",
+      "visible_if": "{{ section.settings.video != blank }}",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
+    },
+    {
+      "type": "header",
+      "content": "Heading"
     },
     {
       "type": "text",
@@ -64,6 +91,10 @@
       "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     },
     {
+      "type": "header",
+      "content": "Text"
+    },
+    {
       "type": "richtext",
       "id": "introduction",
       "label": "Introduction"
@@ -76,28 +107,6 @@
       "type": "video",
       "id": "video",
       "label": "Video"
-    },
-    {
-      "type": "select",
-      "id": "content_width",
-      "label": "Content width",
-      "default": "editorial",
-      "visible_if": "{{ section.settings.video != blank }}",
-      "options": [
-        {
-          "value": "narrow",
-          "label": "Narrow"
-        },
-        {
-          "value": "editorial",
-          "label": "Editorial"
-        },
-        {
-          "value": "page",
-          "label": "Page width"
-        }
-      ],
-      "info": "Narrow: 800px. Editorial: 1400px. Page: 1920px outer frame. Mobile gutters are preserved."
     },
     {
       "type": "checkbox",

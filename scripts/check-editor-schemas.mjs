@@ -101,6 +101,17 @@ for (const [path, contract] of Object.entries(contracts)) {
   if (Object.keys(fields).length > 5 && Object.values(fields).some(field => !field.group)) errors.push(`${path}: group every field in longer schemas`);
   try { assert.deepEqual(fields, contract.fields); }
   catch { errors.push(`${path}: field grouping/visibility changed; review and update its editor contract and mode cases`); }
+  if (contract.fieldOrder) {
+    try { assert.deepEqual(settings.filter(field => field.id).map(field => field.id), contract.fieldOrder); }
+    catch { errors.push(`${path}: field order changed; keep related element controls together and review the order contract`); }
+  }
+  const headingIndex = settings.findIndex(field => field.id === 'heading');
+  const headingFont = settings.find(field => ['heading_font', 'override_font'].includes(field.id));
+  if (headingIndex >= 0 && headingFont && !contract.sharedHeadingControls) {
+    if (settings[headingIndex + 1] !== headingFont || fields.heading.group !== fields[headingFont.id].group) {
+      errors.push(`${path}: heading text and font must be adjacent in the same group`);
+    }
+  }
   for (const control of settings.filter(x => ['checkbox', 'select'].includes(x.type))) {
     if (!contract.controls[control.id]) errors.push(`${path}: unaudited control ${control.id}`);
   }
@@ -127,6 +138,10 @@ for (const [path, contract] of Object.entries(contracts)) {
     }
     try { assert.deepEqual(blockFields, blockContract.fields); }
     catch { errors.push(`${path}: block ${type} grouping/visibility changed`); }
+    if (blockContract.fieldOrder) {
+      try { assert.deepEqual(block.settings.filter(field => field.id).map(field => field.id), blockContract.fieldOrder); }
+      catch { errors.push(`${path}: block ${type} field order changed`); }
+    }
     const blockDefaults = Object.fromEntries((block.settings ?? []).filter(field => field.id).map(field => [field.id, field.default]));
     for (const scenario of blockContract.scenarios) {
       const state = { ...defaults, ...blockDefaults, ...scenario.settings };

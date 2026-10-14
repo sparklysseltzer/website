@@ -91,3 +91,10 @@ Desktop navigation correction (Ananotes, 2026-10-09): the equal-width navigation
 Ananotes 224 verification: the horizontal heading and natural-width links render above 1200px; the stacked heading and full-width equal-column links render at 1200px and below. Checked at 1440px, 1201px, 1200px, 768px and 390px with no horizontal overflow.
 
 Navigation refinement (Ananotes 243–245, 2026-10-09): semantic/keyboard order is Soda, Hard Seltzer, All Products at every viewport. Mobile labels use shared Small and stay on one line; the Seltzer logo receives a smaller available-width cap. Below 360px the text destination receives a wider grid column to retain space for its arrow. Desktop keeps natural-width navigation and its existing artwork sizes. No destination, schema or saved-content changes. Verified 320/390px layouts and 1440px order.
+
+## Editor organization (2026-10-14)
+
+- `sections/product-overview-teaser.liquid`: Layout → Heading → Navigation → Visibility → Section background.
+- Local Product block: Product → Image → Link → Colors.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

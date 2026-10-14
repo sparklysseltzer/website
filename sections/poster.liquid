@@ -73,7 +73,7 @@
     },
     {
       "type": "header",
-      "content": "Content",
+      "content": "Content position",
       "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
     },
     {
@@ -98,6 +98,11 @@
       "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
     },
     {
+      "type": "header",
+      "content": "Heading",
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
+    },
+    {
       "type": "checkbox",
       "id": "show_heading",
       "label": "Show heading",
@@ -110,37 +115,6 @@
       "label": "Heading",
       "default": "Add your poster heading",
       "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_heading }}"
-    },
-    {
-      "type": "select",
-      "id": "heading_level",
-      "label": "Heading level",
-      "options": [
-        {
-          "value": "h2",
-          "label": "H2"
-        },
-        {
-          "value": "h3",
-          "label": "H3"
-        }
-      ],
-      "default": "h2",
-      "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_heading }}"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_subtext",
-      "label": "Show subtext",
-      "default": true,
-      "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
-    },
-    {
-      "type": "richtext",
-      "id": "subtext",
-      "label": "Subtext",
-      "default": "<p>Add supporting copy for this poster.</p>",
-      "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_subtext }}"
     },
     {
       "type": "select",
@@ -167,6 +141,42 @@
       "default": false,
       "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.layout_mode == 'with_content' }}",
       "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
+    },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "Heading level",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h2",
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_heading }}"
+    },
+    {
+      "type": "header",
+      "content": "Text",
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subtext",
+      "label": "Show subtext",
+      "default": true,
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Add supporting copy for this poster.</p>",
+      "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_subtext }}"
     },
     {
       "type": "header",

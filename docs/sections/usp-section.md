@@ -121,3 +121,9 @@ Stacked media fade: below 56rem, the image receives a vertical transparent-to-pa
 Ananotes 268 verification: inspected actual tablet (768px) and phone (390px) images. The stacked media wrapper clips its animated inner artwork so transformed pixels cannot spill below the fade into the content panel. Both breakpoints now end in the panel color without the previous repeated-image seam.
 
 Footnote refinement (2026-10-14): the shared footnote treatment uses the merchant-requested fixed 30% text opacity for a quieter hierarchy. Open-canvas notes select black or white ink without increasing opacity; Soda notes on light beige/cream canvases instead use the shared warm Muted text ink at 30%; enclosed USP panels retain their own foreground at 30%. This overrides the earlier normal-text contrast floor. Text opacity is implemented through color mixing, preserving reveal animations and forced-color readability. Merchant wording and typography roles remain unchanged. See the [shared contract](../design-system.md#footnote-contrast-ananotes-197-and-follow-up).
+
+## Editor organization (2026-10-14)
+
+- `sections/usp-section.liquid`: Layout → Product world → Heading → Text → Image → Panel colors → Visibility → Section background.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

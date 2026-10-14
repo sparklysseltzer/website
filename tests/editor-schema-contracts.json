@@ -30,27 +30,27 @@
         "visible_if": "{{ section.settings.image_height_mode == 'custom' }}"
       },
       "show_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.show_heading }}"
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.show_heading or section.settings.text != blank }}"
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.show_heading or section.settings.text != blank }}"
       },
       "heading_level": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.show_heading }}"
       },
       "text": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": null
       },
       "show_button": {
@@ -469,7 +469,32 @@
         ]
       }
     ],
-    "schemaHash": "c68808bee6de7c55dfb50914b317dc23de384fe2dea53591015e58ad69e6a72b"
+    "schemaHash": "0011e78ebda3155d505ac24216d3b4d634a3356c11cd90bf2d0bcd95e83bdf46",
+    "fieldOrder": [
+      "content_width",
+      "image_side",
+      "image",
+      "image_alt",
+      "image_height_mode",
+      "image_height",
+      "mobile_image_height",
+      "show_heading",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "heading_level",
+      "text",
+      "show_button",
+      "button_label",
+      "button_link",
+      "button_new_tab",
+      "button_style",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/two-column.liquid": {
     "fields": {
@@ -741,15 +766,15 @@
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "faq_category": {
@@ -1020,7 +1045,20 @@
         ]
       }
     ],
-    "schemaHash": "9315a8ee7f3ab9269fc25d22574ec8ad50352502df83d3aa31f49e7a994b8f10"
+    "schemaHash": "b4d0710694769ea37444833897cf077a5b69a018b5be4cff1cbc74fc24ab245b",
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "faq_category",
+      "selected_faqs",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/split-image-text.liquid": {
     "fields": {
@@ -1054,6 +1092,18 @@
       },
       "image_alt": {
         "group": "Image",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Headings",
+        "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Headings",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
+      "heading_level": {
+        "group": "Headings",
         "visible_if": null
       },
       "column_content": {
@@ -1107,18 +1157,6 @@
       "button_style": {
         "group": "Existing button",
         "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_button }}"
-      },
-      "heading_level": {
-        "group": "Typography",
-        "visible_if": null
-      },
-      "heading_font": {
-        "group": "Typography",
-        "visible_if": null
-      },
-      "uppercase_heading": {
-        "group": "Typography",
-        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "panel_color": {
         "group": "Appearance",
@@ -1556,7 +1594,41 @@
         ]
       }
     ],
-    "schemaHash": "840440e9f6bb5cc7d6b0621b96eab28d5980e0989f5db158125b01c9f8c9b32e"
+    "schemaHash": "c477cc70b9174689fb821d4e669fd9bd3fc039f6de72e561c19097ba5cfb9fc4",
+    "fieldOrder": [
+      "content_width",
+      "image_side",
+      "image_width",
+      "minimum_height",
+      "top_image_height",
+      "text_columns",
+      "image",
+      "image_alt",
+      "heading_font",
+      "uppercase_heading",
+      "heading_level",
+      "column_content",
+      "show_heading",
+      "heading",
+      "show_subtext",
+      "subtext",
+      "show_list",
+      "second_heading",
+      "second_text",
+      "show_button",
+      "button_label",
+      "button_link",
+      "button_new_tab",
+      "button_style",
+      "panel_color",
+      "text_color",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ],
+    "sharedHeadingControls": "The section font and heading level style both native column blocks and legacy content; they precede content-source selection and remain available in both modes."
   },
   "sections/poster.liquid": {
     "fields": {
@@ -1581,36 +1653,36 @@
         "visible_if": null
       },
       "content_position": {
-        "group": "Content",
+        "group": "Content position",
         "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
       },
       "show_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_heading }}"
-      },
-      "heading_level": {
-        "group": "Content",
-        "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_heading }}"
-      },
-      "show_subtext": {
-        "group": "Content",
-        "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
-      },
-      "subtext": {
-        "group": "Content",
-        "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_subtext }}"
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.layout_mode == 'with_content' }}"
+      },
+      "heading_level": {
+        "group": "Heading",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_heading }}"
+      },
+      "show_subtext": {
+        "group": "Text",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' }}"
+      },
+      "subtext": {
+        "group": "Text",
+        "visible_if": "{{ section.settings.layout_mode == 'with_content' and section.settings.show_subtext }}"
       },
       "show_button": {
         "group": "Button",
@@ -2036,20 +2108,50 @@
         ]
       }
     ],
-    "schemaHash": "9a891a9286f59af68a7b70184be4bfde934acdbd188164f9a94f86fcbe955336"
+    "schemaHash": "08ff2218f8b748cd6bbb9dae2bd7fcdb7c4bf23c23980fd4f3209bd4390bdd21",
+    "fieldOrder": [
+      "content_width",
+      "layout_mode",
+      "image",
+      "mobile_image",
+      "image_alt",
+      "content_position",
+      "show_heading",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "heading_level",
+      "show_subtext",
+      "subtext",
+      "show_button",
+      "button_label",
+      "button_link",
+      "button_new_tab",
+      "button_style",
+      "poster_text_color",
+      "overlay_strength",
+      "overlay_color",
+      "minimum_height",
+      "minimum_height_mobile",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "blocks/editorial-faq.liquid": {
     "fields": {
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.heading_font == 'newake' }}"
       },
       "faq_category": {
@@ -2102,7 +2204,14 @@
         ]
       }
     ],
-    "schemaHash": "e9a79fb72495038a6e8d87f05d788b37046cc5557a00691b962b7e93adf26a73"
+    "schemaHash": "91b0ee01539ac4918ef5e12368a19f15f94d153909fe02c79ea756f5df52748f",
+    "fieldOrder": [
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "faq_category",
+      "selected_faqs"
+    ]
   },
   "blocks/sidebar-box.liquid": {
     "fields": {
@@ -2126,20 +2235,20 @@
         "group": "Image",
         "visible_if": null
       },
-      "heading": {
-        "group": "Content",
+      "show_heading": {
+        "group": "Heading",
         "visible_if": null
       },
-      "show_heading": {
-        "group": "Content",
+      "heading": {
+        "group": "Heading",
         "visible_if": null
       },
       "override_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.override_font == 'newake' }}"
       },
       "override_text_color": {
@@ -2582,7 +2691,51 @@
         ]
       }
     ],
-    "schemaHash": "7821940f77039a0eab6f3a5914db4555053158fc534a9f55b76e08a1865e4721"
+    "schemaHash": "fba35ccec31a504e5c0066db356dee6f9dad4611445e7cba081a2afc69e90cbd",
+    "fieldOrder": [
+      "artwork",
+      "override_layout",
+      "override_position",
+      "override_height",
+      "override_image",
+      "show_heading",
+      "heading",
+      "override_font",
+      "uppercase_heading",
+      "override_text_color",
+      "override_overlay_color",
+      "override_overlay_strength",
+      "show_button",
+      "button_label",
+      "button_link",
+      "button_new_tab",
+      "override_button_style",
+      "layout",
+      "soda_image",
+      "soda_text_color",
+      "soda_overlay_strength",
+      "soda_overlay_color",
+      "seltzer_image",
+      "seltzer_text_color",
+      "seltzer_overlay_strength",
+      "seltzer_overlay_color",
+      "reminder_image",
+      "reminder_heading_font",
+      "reminder_content_position",
+      "reminder_text_color",
+      "reminder_overlay_strength",
+      "reminder_overlay_color",
+      "reminder_minimum_height",
+      "reminder_button_style",
+      "subscription_image",
+      "subscription_heading_font",
+      "subscription_content_position",
+      "subscription_text_color",
+      "subscription_overlay_strength",
+      "subscription_overlay_color",
+      "subscription_minimum_height",
+      "subscription_button_style"
+    ]
   },
   "blocks/link-box.liquid": {
     "fields": {
@@ -2650,28 +2803,28 @@
   "blocks/editorial-text.liquid": {
     "fields": {
       "show_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.show_heading }}"
-      },
-      "heading_level": {
-        "group": "Content",
-        "visible_if": "{{ block.settings.show_heading }}"
-      },
-      "text": {
-        "group": "Content",
-        "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.show_heading or block.settings.text != blank }}"
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.heading_font == 'newake' and block.settings.show_heading or block.settings.text != blank }}"
+      },
+      "heading_level": {
+        "group": "Heading",
+        "visible_if": "{{ block.settings.show_heading }}"
+      },
+      "text": {
+        "group": "Text",
+        "visible_if": null
       }
     },
     "controls": {
@@ -2750,7 +2903,15 @@
         ]
       }
     ],
-    "schemaHash": "35878a07f505864d014338abddd4bcc20d3dc24d3d9046b7856b3a74484bf2ee"
+    "schemaHash": "7a807e2da23736f7eb2fa2dbe5b9e01634086666a21b5236d87352b08a8634b6",
+    "fieldOrder": [
+      "show_heading",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "heading_level",
+      "text"
+    ]
   },
   "blocks/editorial-text-image.liquid": {
     "fields": {
@@ -2779,27 +2940,27 @@
         "visible_if": "{{ block.settings.image_height_mode == 'custom' }}"
       },
       "show_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.show_heading }}"
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.show_heading or block.settings.text != blank }}"
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.heading_font == 'newake' and block.settings.show_heading or block.settings.text != blank }}"
       },
       "heading_level": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.show_heading }}"
       },
       "text": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": null
       },
       "show_button": {
@@ -3000,7 +3161,26 @@
         ]
       }
     ],
-    "schemaHash": "457c3e012093a13c7610c179bd5942ab9518c9905a5a1bade8c6ac5d3c097564"
+    "schemaHash": "46a292037761ae6bdc015660ac5c6f880cb0590b71204ecce0846d28f96b8bc9",
+    "fieldOrder": [
+      "image_side",
+      "image",
+      "image_alt",
+      "image_height_mode",
+      "image_height",
+      "mobile_image_height",
+      "show_heading",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "heading_level",
+      "text",
+      "show_button",
+      "button_label",
+      "button_link",
+      "button_new_tab",
+      "button_style"
+    ]
   },
   "blocks/_editorial-sidebar.liquid": {
     "fields": {},
@@ -3109,36 +3289,36 @@
         "visible_if": null
       },
       "content_position": {
-        "group": "Content",
+        "group": "Content position",
         "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
       },
       "show_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_heading }}"
-      },
-      "heading_level": {
-        "group": "Content",
-        "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_heading }}"
-      },
-      "show_subtext": {
-        "group": "Content",
-        "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
-      },
-      "subtext": {
-        "group": "Content",
-        "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_subtext }}"
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.heading_font == 'newake' and block.settings.layout_mode == 'with_content' }}"
+      },
+      "heading_level": {
+        "group": "Heading",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_heading }}"
+      },
+      "show_subtext": {
+        "group": "Text",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' }}"
+      },
+      "subtext": {
+        "group": "Text",
+        "visible_if": "{{ block.settings.layout_mode == 'with_content' and block.settings.show_subtext }}"
       },
       "show_button": {
         "group": "Button",
@@ -3346,16 +3526,52 @@
         ]
       }
     ],
-    "schemaHash": "3a2140215eb406cbcd8858bb4f6036b8a6f6dc1f14fa212640881b03efba5817"
+    "schemaHash": "3bd2cf86a2c6f663a325584ad99b596d7109448cf3276413b41230af4ea5e5af",
+    "fieldOrder": [
+      "layout_mode",
+      "image",
+      "mobile_image",
+      "image_alt",
+      "content_position",
+      "show_heading",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "heading_level",
+      "show_subtext",
+      "subtext",
+      "show_button",
+      "button_label",
+      "button_link",
+      "button_new_tab",
+      "button_style",
+      "poster_text_color",
+      "overlay_strength",
+      "overlay_color",
+      "minimum_height",
+      "minimum_height_mobile"
+    ]
   },
   "sections/hard-seltzer-awards.liquid": {
     "fields": {
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
+      "heading_font": {
+        "group": "Heading",
+        "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Heading",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
       "intro": {
-        "group": "Content",
+        "group": "Text",
+        "visible_if": null
+      },
+      "show_button": {
+        "group": "Action",
         "visible_if": null
       },
       "button_label": {
@@ -3378,25 +3594,13 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "show_button": {
-        "group": "Action",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       },
-      "heading_font": {
-        "group": "Content",
-        "visible_if": null
-      },
-      "uppercase_heading": {
-        "group": "Content",
-        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
@@ -3661,7 +3865,21 @@
         ]
       }
     ],
-    "schemaHash": "b732ffa345feba5252a168f7cd4f64541aa88350bd04cec6819204d1500fe048"
+    "schemaHash": "5b99c593b1f908322ac2ae435cbd3125d6cb9d34dda12430fd1f72381757a6b6",
+    "fieldOrder": [
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "intro",
+      "show_button",
+      "button_label",
+      "button_link",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "blocks/accordion-item.liquid": {
     "controls": {},
@@ -3689,24 +3907,24 @@
         "visible_if": null
       },
       "header_in_hero": {
-        "group": "Content",
+        "group": "Collection title",
         "visible_if": null
-      },
-      "heading_font": {
-        "group": "Content",
-        "visible_if": null
-      },
-      "uppercase_heading": {
-        "group": "Content",
-        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "show_header": {
-        "group": "Content",
+        "group": "Collection title",
         "visible_if": "{{ section.settings.header_in_hero == false }}"
       },
       "heading": {
-        "group": "Content",
+        "group": "Product heading",
         "visible_if": null
+      },
+      "heading_font": {
+        "group": "Product heading",
+        "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Product heading",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "products_per_page": {
         "group": "Products",
@@ -4003,7 +4221,22 @@
         ]
       }
     ],
-    "schemaHash": "6bb59d9fabf58525efd4b1897f7d36fb7f6d4b1484118e6c6ed8c699b67d304f"
+    "schemaHash": "15633f15f466eac9922bb4b988d584fc3a598d7f5511668e59f4fda37082e9db",
+    "fieldOrder": [
+      "content_width",
+      "header_in_hero",
+      "show_header",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "products_per_page",
+      "show_filters",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/collection-hero.liquid": {
     "fields": {
@@ -4015,29 +4248,25 @@
         "group": "Design",
         "visible_if": null
       },
-      "animate": {
-        "group": "Design",
-        "visible_if": null
-      },
       "eyebrow": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
-        "visible_if": null
-      },
-      "text": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
+      "text": {
+        "group": "Text",
+        "visible_if": null
       },
       "background_image": {
         "group": "Artwork",
@@ -4048,6 +4277,10 @@
         "visible_if": null
       },
       "second_image": {
+        "group": "Artwork",
+        "visible_if": null
+      },
+      "animate": {
         "group": "Artwork",
         "visible_if": null
       },
@@ -4410,7 +4643,27 @@
         ]
       }
     ],
-    "schemaHash": "5d691ce786883c571ac986d3918ecd27fd13dfa432678109413ea376d0358c68"
+    "schemaHash": "0fe0137cfe68b83cbf13be43fc4f9b0c29db3c2a89c0d92771169a5dd3de4317",
+    "fieldOrder": [
+      "content_width",
+      "variant",
+      "eyebrow",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "text",
+      "background_image",
+      "first_image",
+      "second_image",
+      "animate",
+      "show_button",
+      "button_label",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/header.liquid": {
     "fields": {
@@ -4481,15 +4734,15 @@
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "articles_per_page": {
-        "group": "Content",
+        "group": "Articles",
         "visible_if": null
       },
       "hide_on_mobile": {
@@ -4768,7 +5021,18 @@
         ]
       }
     ],
-    "schemaHash": "53829a38c071db849fa874f4c28db96c15de935a170d09717479e2f356eae0d7"
+    "schemaHash": "22357fa97effb6bbcf6ebf1511c109f8cc2e2c1bdabd0d062167beb0969cd55e",
+    "fieldOrder": [
+      "content_width",
+      "heading_font",
+      "uppercase_heading",
+      "articles_per_page",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/main-article.liquid": {
     "fields": {
@@ -4777,11 +5041,11 @@
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "hide_on_mobile": {
@@ -5059,7 +5323,17 @@
         ]
       }
     ],
-    "schemaHash": "c7b2b58d67dfc2c2c51d97273d6859f7aefe21e94ba058699fae90ea498edd19"
+    "schemaHash": "4e2e7ff9b1954257ff6b304f268265c3edf8ea8aa0b3576623d1a76449234c47",
+    "fieldOrder": [
+      "content_width",
+      "heading_font",
+      "uppercase_heading",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/blog-teaser.liquid": {
     "fields": {
@@ -5068,27 +5342,27 @@
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "post_limit": {
-        "group": "Content",
+        "group": "Articles",
         "visible_if": null
       },
       "show_excerpt": {
-        "group": "Content",
+        "group": "Articles",
         "visible_if": null
       },
       "show_date": {
-        "group": "Content",
+        "group": "Articles",
         "visible_if": null
       },
       "show_button": {
@@ -5410,7 +5684,23 @@
         ]
       }
     ],
-    "schemaHash": "38da0055e06295aed2a4e36a3d280a3a0469ac156f52a954f285b25dfbae3441"
+    "schemaHash": "e7d1428eee2e35da4b6f59a41a582182bf9ea2f4c2a1e3da2eae745a91a97da1",
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "post_limit",
+      "show_excerpt",
+      "show_date",
+      "show_button",
+      "button_label",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/faq.liquid": {
     "fields": {
@@ -5418,28 +5708,28 @@
         "group": "Layout",
         "visible_if": null
       },
+      "heading": {
+        "group": "Heading",
+        "visible_if": null
+      },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
-      "selected_faqs": {
-        "group": "Content",
+      "faq_category": {
+        "group": "Questions",
         "visible_if": null
       },
-      "faq_category": {
-        "group": "Content",
+      "selected_faqs": {
+        "group": "Questions",
         "visible_if": null
       },
       "question_count": {
-        "group": "Content",
-        "visible_if": null
-      },
-      "heading": {
-        "group": "Content",
+        "group": "Questions",
         "visible_if": null
       },
       "show_footer": {
@@ -5851,7 +6141,25 @@
         ]
       }
     ],
-    "schemaHash": "cf97a0b2a3ed664d322f63eee554a6074ddfbad7a3caf6a4976b42456902532d"
+    "schemaHash": "5f5efe3ced925ef550b9ad3577f5bd10ec755916336a5ec2f84560561a6d4f45",
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "faq_category",
+      "selected_faqs",
+      "question_count",
+      "show_footer",
+      "footer_text",
+      "footer_link_label",
+      "footer_link",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/featured-collection.liquid": {
     "fields": {
@@ -5859,24 +6167,24 @@
         "group": "Layout",
         "visible_if": null
       },
+      "heading": {
+        "group": "Heading",
+        "visible_if": null
+      },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
-      "heading": {
-        "group": "Content",
-        "visible_if": null
-      },
       "collection": {
-        "group": "Content",
+        "group": "Products",
         "visible_if": null
       },
       "products_to_show": {
-        "group": "Content",
+        "group": "Products",
         "visible_if": null
       },
       "hide_on_mobile": {
@@ -6199,16 +6507,29 @@
         ]
       }
     ],
-    "schemaHash": "2d2f608f51487c52180e7c08f633becd12c3b762b3f9746184a1638aa86d44d8"
+    "schemaHash": "1f7d38598abf44899c8426ffafbc0537e1f38831883383cb9513fb5d101a825c",
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "collection",
+      "products_to_show",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/footer.liquid": {
     "fields": {
       "heading_font": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "menu": {
@@ -6519,16 +6840,29 @@
         ]
       }
     ],
-    "schemaHash": "2843643a51ecb80ccd0501e93137552da8e44ec89bd6b09a1399abebb69b48f5"
+    "schemaHash": "b82c7bd1626046f3675bdbc7025d75cf101d012252e08676331dd6ef27f41aef",
+    "fieldOrder": [
+      "heading_font",
+      "uppercase_heading",
+      "menu",
+      "soda_menu",
+      "seltzer_menu",
+      "legal_menu",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/hard-seltzer-ingredients.liquid": {
     "fields": {
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "intro": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": null
       },
       "hide_on_mobile": {
@@ -6543,13 +6877,13 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
@@ -6766,7 +7100,16 @@
         "hidden": []
       }
     ],
-    "schemaHash": "66c39e291f1ebc8002ff4ef4f0c4cd3a7ca9533d6041f993777bfc5209411567"
+    "schemaHash": "09649433e9452566cf773ed570323da32153c9c74edd02cdbc95caff64b10dc6",
+    "fieldOrder": [
+      "heading",
+      "intro",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/hero.liquid": {
     "fields": {
@@ -6783,23 +7126,23 @@
         "visible_if": "{{ section.settings.image != blank }}"
       },
       "eyebrow": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "text": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": null
       },
       "button_label": {
@@ -7152,7 +7495,25 @@
         ]
       }
     ],
-    "schemaHash": "1b8b2f5d4ca783ec74715af17d5c0aa2a0530de612892264e2d3b8509d124dab"
+    "schemaHash": "a24403af4ee21685e9c305fb56580281657df53d3dae5105eab8786bf69249c7",
+    "fieldOrder": [
+      "content_width",
+      "image",
+      "overlay",
+      "eyebrow",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "text",
+      "button_label",
+      "button_link",
+      "foreground",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "background"
+    ]
   },
   "sections/logo-marquee.liquid": {
     "fields": {
@@ -7160,20 +7521,20 @@
         "group": "Layout",
         "visible_if": "{{ section.settings.heading != blank }}"
       },
+      "heading": {
+        "group": "Heading",
+        "visible_if": null
+      },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading != blank }}"
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.heading != blank }}"
       },
       "merchant_collection": {
-        "group": "Content",
-        "visible_if": null
-      },
-      "heading": {
-        "group": "Content",
+        "group": "Merchants",
         "visible_if": null
       },
       "link_logos": {
@@ -7730,16 +8091,35 @@
         ]
       }
     ],
-    "schemaHash": "dfdf69a966f844b4ef9d9b21aff978a44e9d17aff3bf7f98c85b3032625b8ed8"
+    "schemaHash": "6d11100c290563187b1fe4d3736fe0de1c2da08ff233386cb4f5acc2bd347cde",
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "merchant_collection",
+      "link_logos",
+      "show_logo_boxes",
+      "logo_box_surface",
+      "duration",
+      "direction",
+      "pause_on_interaction",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "background_style",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/main-404.liquid": {
     "fields": {
       "heading_font": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "hide_on_mobile": {
@@ -8034,16 +8414,25 @@
         ]
       }
     ],
-    "schemaHash": "39505a7c0b55c87ed9adffe1b3b7670daff4440df2f638d75a218e918b71b998"
+    "schemaHash": "11f7ab0f5a8bcacfa5c3b12c3e34c7e806868ed08b2f84913867d4c9fee1c0c4",
+    "fieldOrder": [
+      "heading_font",
+      "uppercase_heading",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/main-cart.liquid": {
     "fields": {
       "heading_font": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "section_background_mode": {
@@ -8288,7 +8677,14 @@
         ]
       }
     ],
-    "schemaHash": "ee7e12f812e1f4de25f979e8870104fb0ffad20da62cb213d6436567918be4c7"
+    "schemaHash": "aca8dd0aec095ef970b9453b4a95dbc734aa7733022e82caa48a37679109370d",
+    "fieldOrder": [
+      "heading_font",
+      "uppercase_heading",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/main-faq.liquid": {
     "fields": {
@@ -8297,11 +8693,11 @@
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "hide_on_mobile": {
@@ -8624,7 +9020,17 @@
         ]
       }
     ],
-    "schemaHash": "55a2ea3a80cd4aca647ce7f169e172679ddc345780e0dd5c21bf979bf1ffc94a"
+    "schemaHash": "1635d328432faccb9434f2b00bbb29ad2d0c68c65ff27bb0827db9e91622851a",
+    "fieldOrder": [
+      "content_width",
+      "heading_font",
+      "uppercase_heading",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/main-list-collections.liquid": {
     "fields": {
@@ -8633,11 +9039,11 @@
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "hide_on_mobile": {
@@ -8960,7 +9366,17 @@
         ]
       }
     ],
-    "schemaHash": "ecb601883b48b917f448081e2f47d40d8655a9be13a9fb787e915cc9463ecdd3"
+    "schemaHash": "c14600e43279515d606e14c313acd51d4d6dcecfbe61badb0a305493624ceaf6",
+    "fieldOrder": [
+      "content_width",
+      "heading_font",
+      "uppercase_heading",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/main-page.liquid": {
     "fields": {
@@ -8969,11 +9385,11 @@
         "visible_if": null
       },
       "heading_font": {
-        "group": "Heading font",
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Heading font",
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "hide_on_mobile": {
@@ -9326,20 +9742,30 @@
         ]
       }
     ],
-    "schemaHash": "ef6aa036a2bdf8a4654b5c20635644a2ddc760409e13d0226f67cff9f7dc776a"
+    "schemaHash": "a0cb7e0a7023021cbb3494c3b6307d7dd11d238cbbe432b476de7a6f391d80d0",
+    "fieldOrder": [
+      "content_width",
+      "heading_font",
+      "uppercase_heading",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/main-product.liquid": {
     "fields": {
       "heading_font": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "show_vendor": {
-        "group": "Content",
+        "group": "Product details",
         "visible_if": null
       },
       "section_background_mode": {
@@ -9605,7 +10031,15 @@
         ]
       }
     ],
-    "schemaHash": "2d8063c3e8b488491ddda080a409bde0a948e0afe0b41093401796d13e99dd9b"
+    "schemaHash": "89c0d4237b43a51aa59b575c18480927b0aa73d5b2b1e95ebf16176800abf7a3",
+    "fieldOrder": [
+      "heading_font",
+      "uppercase_heading",
+      "show_vendor",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/main-search.liquid": {
     "fields": {
@@ -9614,11 +10048,11 @@
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "hide_on_mobile": {
@@ -9941,28 +10375,42 @@
         ]
       }
     ],
-    "schemaHash": "4090b162e67fa4245b34fe6458f58ab323755b8d1b139f064f62554592dcb2e5"
+    "schemaHash": "8dcb00019eb93bae744408e05103c298e1c9365595de5d374d381be3b3e24d1c",
+    "fieldOrder": [
+      "content_width",
+      "heading_font",
+      "uppercase_heading",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/offer-cards.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "content_source": {
-        "group": "Content",
+        "group": "Content source",
         "visible_if": null
       },
       "show_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.content_source == 'local' and section.settings.show_heading }}"
       },
       "show_intro": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": null
       },
       "intro": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": "{{ section.settings.content_source == 'local' and section.settings.show_intro }}"
       },
       "hide_on_mobile": {
@@ -9977,17 +10425,13 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
@@ -10347,7 +10791,110 @@
         "hidden": []
       }
     ],
-    "schemaHash": "918f5460a82c9f43787928a7d3221f2ffb0bee4c8ce54423ae83b3e4151bb49e"
+    "schemaHash": "4e56463ba1864e622a34d9aff8f0914a98574ca33e7376cabc43b7b8df7d2035",
+    "fieldOrder": [
+      "content_width",
+      "content_source",
+      "show_heading",
+      "heading",
+      "show_intro",
+      "intro",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ],
+    "blockContracts": {
+      "card": {
+        "fields": {
+          "image": {
+            "group": "Image",
+            "visible_if": "{{ section.settings.content_source == 'local' }}"
+          },
+          "title": {
+            "group": "Text",
+            "visible_if": "{{ section.settings.content_source == 'local' }}"
+          },
+          "subtitle": {
+            "group": "Text",
+            "visible_if": "{{ section.settings.content_source == 'local' }}"
+          },
+          "link": {
+            "group": "Link",
+            "visible_if": "{{ section.settings.content_source == 'local' }}"
+          },
+          "tag_1": {
+            "group": "Tags",
+            "visible_if": "{{ section.settings.content_source == 'local' }}"
+          },
+          "tag_2": {
+            "group": "Tags",
+            "visible_if": "{{ section.settings.content_source == 'local' }}"
+          },
+          "tag_3": {
+            "group": "Tags",
+            "visible_if": "{{ section.settings.content_source == 'local' }}"
+          },
+          "tag_4": {
+            "group": "Tags",
+            "visible_if": "{{ section.settings.content_source == 'local' }}"
+          },
+          "tag_5": {
+            "group": "Tags",
+            "visible_if": "{{ section.settings.content_source == 'local' }}"
+          }
+        },
+        "controls": {},
+        "scenarios": [
+          {
+            "name": "Local card fields",
+            "settings": {
+              "content_source": "local"
+            },
+            "visible": [
+              "image",
+              "title",
+              "subtitle",
+              "link",
+              "tag_1",
+              "tag_2",
+              "tag_3",
+              "tag_4",
+              "tag_5"
+            ]
+          },
+          {
+            "name": "Global card fields saved but inactive",
+            "settings": {
+              "content_source": "global"
+            },
+            "hidden": [
+              "image",
+              "title",
+              "subtitle",
+              "link",
+              "tag_1",
+              "tag_2",
+              "tag_3",
+              "tag_4",
+              "tag_5"
+            ]
+          }
+        ],
+        "fieldOrder": [
+          "image",
+          "title",
+          "subtitle",
+          "link",
+          "tag_1",
+          "tag_2",
+          "tag_3",
+          "tag_4",
+          "tag_5"
+        ]
+      }
+    }
   },
   "sections/page-intro.liquid": {
     "fields": {
@@ -10356,11 +10903,11 @@
         "visible_if": null
       },
       "heading_font": {
-        "group": "Heading font",
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Heading font",
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "hide_on_mobile": {
@@ -10713,12 +11260,30 @@
         ]
       }
     ],
-    "schemaHash": "b65648d6725bdefeac03f9dc00c4c83951d8501ee7cb550447b3aa7702dbdc3c"
+    "schemaHash": "f9ab335639799997c83883f4c285d55282e2519ec9af33ac8f52988618061b89",
+    "fieldOrder": [
+      "content_width",
+      "heading_font",
+      "uppercase_heading",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/product-overview-teaser.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
+        "visible_if": null
+      },
+      "show_navigation": {
+        "group": "Navigation",
         "visible_if": null
       },
       "all_products_label": {
@@ -10749,21 +11314,13 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
-      "show_navigation": {
-        "group": "Navigation",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
@@ -11036,7 +11593,179 @@
         "hidden": []
       }
     ],
-    "schemaHash": "f15973a03e2ff155eee3a8f2015a770198a75f0c3c0304deb72c3712a2ba1fb3"
+    "schemaHash": "586e3591169c05c4d1004130cbe5fc2e2cf0e74a055d0edcc8e0aecd340f596a",
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "show_navigation",
+      "all_products_label",
+      "all_products_link",
+      "soda_link",
+      "hard_seltzer_link",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ],
+    "blockContracts": {
+      "product": {
+        "fields": {
+          "title": {
+            "group": "Product",
+            "visible_if": null
+          },
+          "brand": {
+            "group": "Product",
+            "visible_if": null
+          },
+          "show_alcohol_badge": {
+            "group": "Product",
+            "visible_if": null
+          },
+          "image": {
+            "group": "Image",
+            "visible_if": null
+          },
+          "image_width": {
+            "group": "Image",
+            "visible_if": null
+          },
+          "image_offset_x": {
+            "group": "Image",
+            "visible_if": null
+          },
+          "image_offset_y": {
+            "group": "Image",
+            "visible_if": null
+          },
+          "link": {
+            "group": "Link",
+            "visible_if": null
+          },
+          "background": {
+            "group": "Colors",
+            "visible_if": null
+          },
+          "background_end": {
+            "group": "Colors",
+            "visible_if": null
+          },
+          "accent": {
+            "group": "Colors",
+            "visible_if": null
+          },
+          "image_glow": {
+            "group": "Colors",
+            "visible_if": null
+          }
+        },
+        "controls": {
+          "brand": "Selects the card product world. No dependent fields; colors and artwork remain editable in either world.",
+          "show_alcohol_badge": "Shows the decorative alcohol badge. No dependent fields."
+        },
+        "scenarios": [
+          {
+            "name": "soda badge False",
+            "settings": {
+              "brand": "soda",
+              "show_alcohol_badge": false
+            },
+            "visible": [
+              "title",
+              "brand",
+              "show_alcohol_badge",
+              "image",
+              "image_width",
+              "image_offset_x",
+              "image_offset_y",
+              "link",
+              "background",
+              "background_end",
+              "accent",
+              "image_glow"
+            ]
+          },
+          {
+            "name": "soda badge True",
+            "settings": {
+              "brand": "soda",
+              "show_alcohol_badge": true
+            },
+            "visible": [
+              "title",
+              "brand",
+              "show_alcohol_badge",
+              "image",
+              "image_width",
+              "image_offset_x",
+              "image_offset_y",
+              "link",
+              "background",
+              "background_end",
+              "accent",
+              "image_glow"
+            ]
+          },
+          {
+            "name": "hard_seltzer badge False",
+            "settings": {
+              "brand": "hard_seltzer",
+              "show_alcohol_badge": false
+            },
+            "visible": [
+              "title",
+              "brand",
+              "show_alcohol_badge",
+              "image",
+              "image_width",
+              "image_offset_x",
+              "image_offset_y",
+              "link",
+              "background",
+              "background_end",
+              "accent",
+              "image_glow"
+            ]
+          },
+          {
+            "name": "hard_seltzer badge True",
+            "settings": {
+              "brand": "hard_seltzer",
+              "show_alcohol_badge": true
+            },
+            "visible": [
+              "title",
+              "brand",
+              "show_alcohol_badge",
+              "image",
+              "image_width",
+              "image_offset_x",
+              "image_offset_y",
+              "link",
+              "background",
+              "background_end",
+              "accent",
+              "image_glow"
+            ]
+          }
+        ],
+        "fieldOrder": [
+          "title",
+          "brand",
+          "show_alcohol_badge",
+          "image",
+          "image_width",
+          "image_offset_x",
+          "image_offset_y",
+          "link",
+          "background",
+          "background_end",
+          "accent",
+          "image_glow"
+        ]
+      }
+    }
   },
   "sections/rich-text.liquid": {
     "fields": {
@@ -11044,36 +11773,36 @@
         "group": "Layout",
         "visible_if": null
       },
-      "heading_font": {
-        "group": "Content",
-        "visible_if": null
-      },
-      "uppercase_heading": {
-        "group": "Content",
-        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
-      },
       "eyebrow": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
+      "heading_font": {
+        "group": "Heading",
+        "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Heading",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
       "text": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": null
       },
       "button_label": {
-        "group": "Content",
+        "group": "Button",
         "visible_if": null
       },
       "button_link": {
-        "group": "Content",
+        "group": "Button",
         "visible_if": null
       },
       "button_new_tab": {
-        "group": "Content",
+        "group": "Button",
         "visible_if": "{{ section.settings.button_label != blank and section.settings.button_link != blank }}"
       },
       "hide_on_mobile": {
@@ -11430,28 +12159,48 @@
         ]
       }
     ],
-    "schemaHash": "543d877b9183fe8bdd21bee57d8177925317c18d6c8f8694b32e5ae945f18585"
+    "schemaHash": "67f2908fa68bde217fb161473a2b646786e022cec8ea75dfc2f81a4d084e0cd8",
+    "fieldOrder": [
+      "content_width",
+      "eyebrow",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "text",
+      "button_label",
+      "button_link",
+      "button_new_tab",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/soda-ingredients.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "intro": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": null
       },
       "link_label": {
-        "group": "Content",
+        "group": "Link",
         "visible_if": null
       },
       "link": {
-        "group": "Content",
+        "group": "Link",
         "visible_if": null
       },
       "footnote": {
-        "group": "Content",
+        "group": "Footnote",
         "visible_if": null
       },
       "hide_on_mobile": {
@@ -11466,17 +12215,13 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
@@ -11721,28 +12466,41 @@
         "hidden": []
       }
     ],
-    "schemaHash": "d941a326f4213c8f9119ce6dee2550c7a7e202585fc71a7a58bdd7efe5c59152"
+    "schemaHash": "1849452e5921691248daf90ffade77ff86f0f048fcf4af1e6ea7a30da4c39a15",
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "intro",
+      "link_label",
+      "link",
+      "footnote",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/soda-three-reasons.liquid": {
     "fields": {
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "intro": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": null
       },
       "link_label": {
-        "group": "Content",
+        "group": "Link",
         "visible_if": null
       },
       "link": {
-        "group": "Content",
+        "group": "Link",
         "visible_if": null
       },
       "footnote": {
-        "group": "Content",
+        "group": "Footnote",
         "visible_if": null
       },
       "hide_on_mobile": {
@@ -11757,13 +12515,13 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
+      },
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
@@ -11980,7 +12738,19 @@
         "hidden": []
       }
     ],
-    "schemaHash": "134368312f95c16b8e3f946a322b20418fd2bf1bdc3203a3e9f13bfa28df43a7"
+    "schemaHash": "e584b2f64230f11dd3f227bd604e6a67e2d3ad797f453fd21d871afd6aa86869",
+    "fieldOrder": [
+      "heading",
+      "intro",
+      "link_label",
+      "link",
+      "footnote",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/subscription.liquid": {
     "fields": {
@@ -12005,31 +12775,31 @@
         "visible_if": null
       },
       "show_logo": {
-        "group": "Content",
+        "group": "Logo",
         "visible_if": null
       },
       "show_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.show_heading }}"
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.show_heading }}"
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'seltzer' and section.settings.show_heading }}"
       },
       "show_intro": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": null
       },
       "intro": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": "{{ section.settings.show_intro }}"
       },
       "show_button": {
@@ -12579,7 +13349,35 @@
         ]
       }
     ],
-    "schemaHash": "ecc894fb01ec8e6aef71dc243319d49c388598f534b0591f5a0e11f28692c348"
+    "schemaHash": "d519d27904939b465073677318590e7152cd50241788caf4544a15a05266563d",
+    "fieldOrder": [
+      "content_width",
+      "variant",
+      "image",
+      "mobile_image",
+      "image_alt",
+      "show_logo",
+      "show_heading",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "show_intro",
+      "intro",
+      "show_button",
+      "button_label",
+      "button_link",
+      "show_account",
+      "account_prompt",
+      "account_label",
+      "account_link",
+      "minimum_height",
+      "minimum_height_mobile",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/usp-section.liquid": {
     "fields": {
@@ -12588,28 +13386,28 @@
         "visible_if": null
       },
       "variant": {
-        "group": "Content",
+        "group": "Product world",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
-        "visible_if": null
-      },
-      "text": {
-        "group": "Content",
-        "visible_if": null
-      },
-      "image": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'default' }}"
+      },
+      "text": {
+        "group": "Text",
+        "visible_if": null
+      },
+      "image": {
+        "group": "Image",
+        "visible_if": null
       },
       "color_mode": {
         "group": "Panel colors",
@@ -13020,28 +13818,57 @@
         ]
       }
     ],
-    "schemaHash": "8dd3b38b402b1a44585f3559e4c2914b5aa21422a0796d60eb820a2894026ae1"
+    "schemaHash": "ce094516bf7791fb78b0973268ea5ed9a0d173cfddd543e575d08a713938fc03",
+    "fieldOrder": [
+      "content_width",
+      "variant",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "text",
+      "image",
+      "color_mode",
+      "background",
+      "text_color",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/versus.liquid": {
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
       "variant": {
-        "group": "Content",
+        "group": "Product world",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
+      "heading_font": {
+        "group": "Heading",
+        "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Heading",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
       "comparison_basis": {
-        "group": "Content",
+        "group": "Comparison notes",
         "visible_if": null
       },
       "disclaimer": {
-        "group": "Content",
+        "group": "Comparison notes",
         "visible_if": null
       },
       "footnote": {
-        "group": "Content",
+        "group": "Comparison notes",
         "visible_if": "{{ section.settings.variant == 'soda' }}"
       },
       "hide_on_mobile": {
@@ -13056,25 +13883,13 @@
         "group": "Section background",
         "visible_if": null
       },
-      "section_background": {
-        "group": "Section background",
-        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
       "section_background_surface": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' }}"
       },
-      "heading_font": {
-        "group": "Content",
-        "visible_if": null
-      },
-      "uppercase_heading": {
-        "group": "Content",
-        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      "section_background": {
+        "group": "Section background",
+        "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
       }
     },
     "controls": {
@@ -13380,25 +14195,40 @@
         ]
       }
     ],
-    "schemaHash": "b4f52fe932bdaa3289c25195e282a9f96650b4897987bb5627efbe5d14631d96"
+    "schemaHash": "b1888e3c4f57e87a6eb0fa9f148221de242a70560afa55951d83f6abdface7cb",
+    "fieldOrder": [
+      "content_width",
+      "variant",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "comparison_basis",
+      "disclaimer",
+      "footnote",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/contact-form.liquid": {
-    "schemaHash": "294cb6d3fcf09a802506de4eba920a18d20d5310adcc0368d3590e589b0fd2a0",
+    "schemaHash": "8e3341d146ef2b0de3d16c86e872883a171c029bd7fac65c4c192bd6296f9487",
     "fields": {
       "content_width": {
         "group": "Layout",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading_font": {
-        "group": "Appearance",
+        "group": "Heading",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Appearance",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "enable_newsletter": {
@@ -13733,29 +14563,43 @@
           "uppercase_heading"
         ]
       }
+    ],
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "enable_newsletter",
+      "klaviyo_site_id",
+      "klaviyo_list_id",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
     ]
   },
   "sections/social-media-channels.liquid": {
-    "schemaHash": "50109303828e5330b82085eb70f3f4159421c654b3e808f7a1aa222acf83dcdd",
+    "schemaHash": "b2d47e32a172cdfa721ee29fa0672bf807983c4f09c08734077e44c06b58db2b",
     "fields": {
       "content_width": {
         "group": "Layout",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading != blank }}"
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.heading != blank }}"
       },
       "button_style": {
-        "group": "Content",
+        "group": "Buttons",
         "visible_if": null
       },
       "instagram_hidden": {
@@ -14325,28 +15169,58 @@
           "uppercase_heading"
         ]
       }
+    ],
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "button_style",
+      "instagram_hidden",
+      "instagram_url",
+      "instagram_username",
+      "instagram_secondary_hidden",
+      "instagram_secondary_url",
+      "instagram_secondary_username",
+      "tiktok_hidden",
+      "tiktok_url",
+      "tiktok_username",
+      "linkedin_hidden",
+      "linkedin_url",
+      "linkedin_username",
+      "youtube_hidden",
+      "youtube_url",
+      "youtube_username",
+      "facebook_hidden",
+      "facebook_url",
+      "facebook_username",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
     ]
   },
   "blocks/_panel-left-column.liquid": {
     "fields": {
       "show_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.show_heading }}"
       },
       "show_subtext": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": null
       },
       "subtext": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": "{{ block.settings.show_subtext }}"
       },
       "show_list": {
-        "group": "Content",
+        "group": "Tick list",
         "visible_if": null
       },
       "show_button": {
@@ -14361,11 +15235,11 @@
         "group": "Button",
         "visible_if": "{{ block.settings.show_button }}"
       },
-      "button_style": {
+      "button_new_tab": {
         "group": "Button",
         "visible_if": "{{ block.settings.show_button }}"
       },
-      "button_new_tab": {
+      "button_style": {
         "group": "Button",
         "visible_if": "{{ block.settings.show_button }}"
       }
@@ -14486,28 +15360,40 @@
         ]
       }
     ],
-    "schemaHash": "c5c0abc1184b64d09024034408ca735b2f69755d3eed787f5e5b06d5b4169a83"
+    "schemaHash": "fe774db1d789d438e107e307664644a84c877d27a82517f6051783721a1db351",
+    "fieldOrder": [
+      "show_heading",
+      "heading",
+      "show_subtext",
+      "subtext",
+      "show_list",
+      "show_button",
+      "button_label",
+      "button_link",
+      "button_new_tab",
+      "button_style"
+    ]
   },
   "blocks/_panel-right-column.liquid": {
     "fields": {
       "show_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ block.settings.show_heading }}"
       },
       "show_subtext": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": null
       },
       "subtext": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": "{{ block.settings.show_subtext }}"
       },
       "show_list": {
-        "group": "Content",
+        "group": "Tick list",
         "visible_if": null
       },
       "show_button": {
@@ -14522,11 +15408,11 @@
         "group": "Button",
         "visible_if": "{{ block.settings.show_button }}"
       },
-      "button_style": {
+      "button_new_tab": {
         "group": "Button",
         "visible_if": "{{ block.settings.show_button }}"
       },
-      "button_new_tab": {
+      "button_style": {
         "group": "Button",
         "visible_if": "{{ block.settings.show_button }}"
       }
@@ -14647,7 +15533,19 @@
         ]
       }
     ],
-    "schemaHash": "664afd4f35e1335aafa46d1b20d9620fa90fa4ca3ecac1186e3c7566469c7529"
+    "schemaHash": "5cb545d4fe7f5d83d3e15d7efaa57773f1904bf23900827e2778a17761de0da1",
+    "fieldOrder": [
+      "show_heading",
+      "heading",
+      "show_subtext",
+      "subtext",
+      "show_list",
+      "show_button",
+      "button_label",
+      "button_link",
+      "button_new_tab",
+      "button_style"
+    ]
   },
   "blocks/_panel-tick.liquid": {
     "fields": {
@@ -14688,34 +15586,34 @@
     "schemaHash": "489d5928161321a74978d384c0a55e538c7282c6286d6cdeae9aa73cfeafd4b6"
   },
   "sections/team.liquid": {
-    "schemaHash": "c3aaeb57150da0f8ebf8b822e4c1b33de55b77798cf76191402268af4e24d340",
+    "schemaHash": "dde6985c27f0e59e333947096f9813af811310fb06141536ea244454086bb0d1",
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": null
+      },
+      "heading": {
+        "group": "Heading",
+        "visible_if": null
+      },
+      "heading_font": {
+        "group": "Heading",
+        "visible_if": null
+      },
+      "uppercase_heading": {
+        "group": "Heading",
+        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
+      "introduction": {
+        "group": "Text",
+        "visible_if": null
+      },
       "selection_mode": {
         "group": "Team members",
         "visible_if": null
       },
       "people": {
         "group": "Team members",
-        "visible_if": null
-      },
-      "content_width": {
-        "group": "Layout",
-        "visible_if": null
-      },
-      "heading": {
-        "group": "Content",
-        "visible_if": null
-      },
-      "heading_font": {
-        "group": "Content",
-        "visible_if": null
-      },
-      "uppercase_heading": {
-        "group": "Content",
-        "visible_if": "{{ section.settings.heading_font == 'newake' }}"
-      },
-      "introduction": {
-        "group": "Content",
         "visible_if": null
       },
       "hide_on_mobile": {
@@ -15020,34 +15918,48 @@
           "uppercase_heading"
         ]
       }
+    ],
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "introduction",
+      "selection_mode",
+      "people",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
     ]
   },
   "sections/video.liquid": {
-    "schemaHash": "5190fb7e648114d6e83f28d2b9dcd3d957ed843afc18abcb54d5b82a4b05bab5",
+    "schemaHash": "b557e939b363eaca053c0ec942960ef90bd5fdf15965edd93583ad2b48f96700",
     "fields": {
+      "content_width": {
+        "group": "Layout",
+        "visible_if": "{{ section.settings.video != blank }}"
+      },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading != blank or section.settings.introduction != blank }}"
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.heading != blank or section.settings.introduction != blank }}"
       },
       "introduction": {
-        "group": "Content",
+        "group": "Text",
         "visible_if": null
       },
       "video": {
         "group": "Video",
         "visible_if": null
-      },
-      "content_width": {
-        "group": "Video",
-        "visible_if": "{{ section.settings.video != blank }}"
       },
       "autoplay_video": {
         "group": "Video",
@@ -15362,29 +16274,43 @@
           "uppercase_heading"
         ]
       }
+    ],
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "introduction",
+      "video",
+      "autoplay_video",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
     ]
   },
   "sections/press-articles.liquid": {
-    "schemaHash": "b5eb4fddf9cfaf1619c73b48d2c0af0694c032a71b287af660b76e7281fed124",
+    "schemaHash": "1da54ed2c23a47c70d0a50c815a9b1216a0ce55e2d9c33c9bd8702d37561b5ca",
     "fields": {
       "content_width": {
         "group": "Layout",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "publications": {
-        "group": "Content",
+        "group": "Publications",
         "visible_if": null
       },
       "hide_on_mobile": {
@@ -15672,25 +16598,37 @@
           "uppercase_heading"
         ]
       }
+    ],
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "publications",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
     ]
   },
   "sections/press-form.liquid": {
-    "schemaHash": "f530bb6105586234afd7c9c2f5793a67d8ae027566ca2362ff9d821454fd2fab",
+    "schemaHash": "01c42ebe7bbc119355a1ea3282cfb6524b83bbff19f3d77598c6f264a4dd398b",
     "fields": {
       "content_width": {
         "group": "Layout",
         "visible_if": null
       },
       "heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading_font": {
-        "group": "Appearance",
+        "group": "Heading",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Appearance",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "enable_newsletter": {
@@ -16025,29 +16963,43 @@
           "uppercase_heading"
         ]
       }
+    ],
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "enable_newsletter",
+      "klaviyo_site_id",
+      "klaviyo_list_id",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
     ]
   },
   "sections/press-marquee.liquid": {
-    "schemaHash": "8784bd479ad30dbd3d85a9abda04a4f498b206c1a398041212789dca1272b53a",
+    "schemaHash": "f34860328d7a8a0ff277609c0c91521b807874afa82d60d90a2b3bfbe635bb3c",
     "fields": {
       "content_width": {
         "group": "Layout",
         "visible_if": "{{ section.settings.heading != blank }}"
       },
+      "heading": {
+        "group": "Heading",
+        "visible_if": null
+      },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading != blank }}"
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' and section.settings.heading != blank }}"
       },
       "publications": {
-        "group": "Content",
-        "visible_if": null
-      },
-      "heading": {
-        "group": "Content",
+        "group": "Publications",
         "visible_if": null
       },
       "link_logos": {
@@ -16481,10 +17433,28 @@
           "uppercase_heading"
         ]
       }
+    ],
+    "fieldOrder": [
+      "content_width",
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "publications",
+      "link_logos",
+      "show_logo_boxes",
+      "logo_box_surface",
+      "duration",
+      "direction",
+      "pause_on_interaction",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
     ]
   },
   "sections/hero-slider.liquid": {
-    "schemaHash": "874e1c90f346f036a668f12cd3f24888245032fb9c0f8d5c39188dd79da27af0",
+    "schemaHash": "c1399915e78dc029f9d6b3693c50daf967bcd52f18a315268ba0a41a92161248",
     "fields": {
       "selection_mode": {
         "group": "Slides",
@@ -16530,25 +17500,29 @@
         "group": "Headings",
         "visible_if": null
       },
-      "accessible_label": {
-        "group": "Headings",
+      "show_indicators": {
+        "group": "Indicators",
         "visible_if": null
       },
       "ambient_light": {
-        "group": "Appearance",
+        "group": "Ambient light",
         "visible_if": null
       },
       "ambient_intensity": {
-        "group": "Appearance",
+        "group": "Ambient light",
         "visible_if": "{{ section.settings.ambient_light }}"
       },
       "ambient_spread": {
-        "group": "Appearance",
+        "group": "Ambient light",
         "visible_if": "{{ section.settings.ambient_light }}"
       },
       "ambient_blur": {
-        "group": "Appearance",
+        "group": "Ambient light",
         "visible_if": "{{ section.settings.ambient_light }}"
+      },
+      "oval_transition": {
+        "group": "Playback",
+        "visible_if": null
       },
       "autoplay": {
         "group": "Playback",
@@ -16557,6 +17531,10 @@
       "duration": {
         "group": "Playback",
         "visible_if": "{{ section.settings.autoplay }}"
+      },
+      "accessible_label": {
+        "group": "Accessibility",
+        "visible_if": null
       },
       "hide_on_mobile": {
         "group": "Visibility",
@@ -16577,14 +17555,6 @@
       "section_background": {
         "group": "Section background",
         "visible_if": "{{ section.settings.section_background_mode == 'custom' and section.settings.section_background_surface == 'custom' }}"
-      },
-      "show_indicators": {
-        "group": "Appearance",
-        "visible_if": null
-      },
-      "oval_transition": {
-        "group": "Playback",
-        "visible_if": null
       }
     },
     "controls": {
@@ -17013,6 +17983,33 @@
           "height_mode"
         ]
       }
+    ],
+    "fieldOrder": [
+      "selection_mode",
+      "slides",
+      "content_width",
+      "height_mode",
+      "mobile_shape",
+      "heading_font",
+      "heading_uppercase",
+      "heading_size",
+      "heading_alignment",
+      "heading_gap",
+      "heading_level",
+      "show_indicators",
+      "ambient_light",
+      "ambient_intensity",
+      "ambient_spread",
+      "ambient_blur",
+      "oval_transition",
+      "autoplay",
+      "duration",
+      "accessible_label",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
     ]
   },
   "sections/poster-slideshow.liquid": {
@@ -17404,19 +18401,19 @@
         "visible_if": null
       },
       "show_heading": {
-        "group": "Heading",
+        "group": "Headings",
         "visible_if": null
       },
       "heading": {
-        "group": "Heading",
+        "group": "Headings",
         "visible_if": "{{ section.settings.show_heading }}"
       },
       "heading_font": {
-        "group": "Typography",
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_cards": {
-        "group": "Typography",
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "hide_on_mobile": {
@@ -17840,10 +18837,33 @@
               "text"
             ]
           }
+        ],
+        "fieldOrder": [
+          "image",
+          "illustration",
+          "title",
+          "text",
+          "link",
+          "background_color",
+          "blend_with_background"
         ]
       }
     },
-    "schemaHash": "4ef319761b38939ded682fd98ada7c875c69d271d739947f663c197d3cac3706"
+    "schemaHash": "afd396fed0002f166299b2a08bd0d54a8102cc403447da1d02cf38d35ae01f25",
+    "fieldOrder": [
+      "content_width",
+      "card_layout",
+      "width_mode",
+      "show_heading",
+      "heading",
+      "heading_font",
+      "uppercase_cards",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/brand-statement.liquid": {
     "fields": {
@@ -18116,11 +19136,11 @@
   "sections/cart-drawer.liquid": {
     "fields": {
       "heading_font": {
-        "group": null,
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": null,
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       }
     },
@@ -18165,25 +19185,29 @@
         ]
       }
     ],
-    "schemaHash": "34a8c449b28a3468044ccbcee723af7e727fb54cb391f6909c4cbb8d6b03552c"
+    "schemaHash": "7d533cb3bf65b8ea4ac39b26dad13b6c71e7ca162d9025705f2a93257eddda24",
+    "fieldOrder": [
+      "heading_font",
+      "uppercase_heading"
+    ]
   },
   "sections/subscription-intro.liquid": {
     "fields": {
       "heading": {
-        "group": "Content",
-        "visible_if": null
-      },
-      "text": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "heading_font": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Content",
+        "group": "Heading",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
+      },
+      "text": {
+        "group": "Text",
+        "visible_if": null
       },
       "image": {
         "group": "Image",
@@ -18288,7 +19312,20 @@
         ]
       }
     ],
-    "schemaHash": "ad5a433e446890f400015fcd2929ea2fde23edb3c63e9e1701c29c71e2ce3293"
+    "schemaHash": "8bdbd0bccafce2b9ae76933f9a8827f0ab114ae38e7a82a613f788d6caf0c231",
+    "fieldOrder": [
+      "heading",
+      "heading_font",
+      "uppercase_heading",
+      "text",
+      "image",
+      "image_alt",
+      "hide_on_mobile",
+      "hide_on_desktop",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   },
   "sections/subscription-product.liquid": {
     "fields": {
@@ -18297,11 +19334,11 @@
         "visible_if": null
       },
       "heading_font": {
-        "group": "Product",
+        "group": "Headings",
         "visible_if": null
       },
       "uppercase_heading": {
-        "group": "Product",
+        "group": "Headings",
         "visible_if": "{{ section.settings.heading_font == 'newake' }}"
       },
       "section_background_mode": {
@@ -18367,6 +19404,14 @@
         ]
       }
     ],
-    "schemaHash": "ac766a1f0dfd220b19d70010abea663f74668e64af05d02fe86e16c652b036cc"
+    "schemaHash": "e942605ff5ae48bff10f237bd694e0ef9a35869ff1f02dcb0ed84c024eaf21eb",
+    "fieldOrder": [
+      "product",
+      "heading_font",
+      "uppercase_heading",
+      "section_background_mode",
+      "section_background_surface",
+      "section_background"
+    ]
   }
 }

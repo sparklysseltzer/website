@@ -163,7 +163,13 @@
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Leave blank to use the translated default heading."
     },
     {
       "type": "select",
@@ -192,7 +198,14 @@
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "Questions"
+    },
+    {
+      "type": "metaobject",
+      "id": "faq_category",
+      "label": "FAQ Category",
+      "metaobject_type": "faq_category",
+      "info": "Optional ordered FAQ set. Individual FAQs selected above are appended."
     },
     {
       "type": "metaobject_list",
@@ -201,13 +214,6 @@
       "metaobject_type": "faq",
       "limit": 20,
       "info": "Optional individual FAQs. When a category is also selected, these are appended and duplicates are removed."
-    },
-    {
-      "type": "metaobject",
-      "id": "faq_category",
-      "label": "FAQ Category",
-      "metaobject_type": "faq_category",
-      "info": "Optional ordered FAQ set. Individual FAQs selected above are appended."
     },
     {
       "type": "select",
@@ -233,12 +239,6 @@
       ],
       "default": "all",
       "info": "Limits the combined list after removing duplicates. Category questions appear first."
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "info": "Leave blank to use the translated default heading."
     },
     {
       "type": "header",

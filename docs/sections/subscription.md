@@ -94,3 +94,9 @@ Mobile introduction (sparklys.ch Ananotes 4, 2026-10-08): the introductory prose
 Underlined account link (Ananotes 18, 2026-10-09): uses shared `text-link--underlined`, retaining the text-link arrow, focus, hover and reduced-motion behavior.
 
 Ananotes 30 (2026-10-09): mobile poster image space above the content reduces from 15rem to 10rem; its configured minimum height is capped at 32rem while content can still grow naturally. The mobile heading uses shared Section (H2) typography rather than Display. Desktop and merchant content remain unchanged.
+
+## Editor organization (2026-10-14)
+
+- `sections/subscription.liquid`: Layout → Product world → Images → Logo → Heading → Text → Subscribe action → Existing subscribers → Size → Visibility → Section background.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

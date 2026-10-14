@@ -74,3 +74,9 @@ Optional `custom.recipes` JSON supplies Recipe entities through `article-recipes
 The nine Soda drafts created from the merchant's October 8 source document use the existing News blog with topic tags instead of new blog containers. Each has three draft FAQ entries, SEO title/description, excerpt, internal links and internal editorial review notes. None were published. The caffeine value was confirmed by the merchant as 45 mg per 330 ml for both flavours. Founder launch year and imagery still require editorial review.
 
 Verification: local Liquid-rendered fixtures exercised absent, incomplete and duplicate FAQ references, matching visible/FAQPage counts, both-breakpoint schema suppression, and five Recipe entities with matching visible anchors/ingredients. Headless Chromium at 390px and 1440px inspected the reused accordion; keyboard opening, reduced-motion behavior, a script-free native details fixture and phone overflow were checked. Draft references were not activated for testing. API read-back verified all nine articles unpublished and all 27 referenced FAQs draft. Full repository gates passed. Preview fixtures are isolated development evidence, not a claim that unpublished Shopify FAQs are publicly renderable.
+
+## Editor organization (2026-10-14)
+
+- `sections/main-article.liquid`: Layout → Headings → Visibility → Section background.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

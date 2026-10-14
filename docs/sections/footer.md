@@ -143,3 +143,9 @@ Mobile layout refinements (Ananotes 240 and legal-link follow-up, 2026-10-09): b
 Language flag refinement (2026-10-09): clean filled SVG paths avoid the former nested-mask and stroke artifacts. Following the merchant's pill reference, both controls use 55 by 44px rounded shells, 38 by 28px rounded flag artwork and an 8px gap. The Swiss cross is centered in a wider red canvas; UK artwork is cropped proportionally. CSS owns the single active border and keyboard focus. Endonym labels, aria-pressed and 44px minimum targets remain.
 
 Local language preview fix (2026-10-09): reproduced an empty HTTP 401 from Shopify CLI's `/localization` POST. On loopback hosts only, the section's submit handler navigates between Shopify-provided `shop_locale.root_url` values, preserving the current resource path, query and fragment. Hosted storefronts retain the native localization form unchanged. With JavaScript disabled, localhost still has the CLI POST limitation; this does not change Shopify's hosted fallback. Verified German → English → German on a product with its variant query retained, correct document language/selected pill, phone/desktop rendering and keyboard activation/focus. No language publication or saved content changes.
+
+## Editor organization (2026-10-14)
+
+- `sections/footer.liquid`: Headings → Navigation → Visibility → Section background.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

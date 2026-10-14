@@ -5,7 +5,7 @@
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "Heading"
     },
     {
       "type": "checkbox",
@@ -18,29 +18,6 @@
       "id": "heading",
       "label": "Heading",
       "visible_if": "{{ block.settings.show_heading }}"
-    },
-    {
-      "type": "select",
-      "id": "heading_level",
-      "label": "Heading level",
-      "default": "h2",
-      "options": [
-        {
-          "value": "h2",
-          "label": "H2"
-        },
-        {
-          "value": "h3",
-          "label": "H3"
-        }
-      ],
-      "visible_if": "{{ block.settings.show_heading }}"
-    },
-    {
-      "type": "richtext",
-      "id": "text",
-      "label": "Text",
-      "default": "<p>Add your content.</p>"
     },
     {
       "type": "select",
@@ -67,6 +44,33 @@
       "default": false,
       "visible_if": "{{ block.settings.heading_font == 'newake' and block.settings.show_heading or block.settings.text != blank }}",
       "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
+    },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "Heading level",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "visible_if": "{{ block.settings.show_heading }}"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Add your content.</p>"
     }
   ],
   "presets": [

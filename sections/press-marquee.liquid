@@ -10,7 +10,8 @@
   "settings": [
     {
       "type": "header",
-      "content": "Layout"
+      "content": "Layout",
+      "visible_if": "{{ section.settings.heading != blank }}"
     },
     {
       "type": "select",
@@ -36,7 +37,13 @@
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Leave blank to hide the visible heading."
     },
     {
       "type": "select",
@@ -65,18 +72,16 @@
       "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     },
     {
+      "type": "header",
+      "content": "Publications"
+    },
+    {
       "type": "metaobject_list",
       "id": "publications",
       "label": "Press entries",
       "metaobject_type": "press",
       "limit": 50,
       "info": "Select publications and arrange their logos in your preferred order."
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "info": "Leave blank to hide the visible heading."
     },
     {
       "type": "header",

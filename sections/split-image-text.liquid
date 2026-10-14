@@ -431,6 +431,51 @@
     },
     {
       "type": "header",
+      "content": "Headings"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "erode",
+      "options": [
+        {
+          "value": "erode",
+          "label": "Erode"
+        },
+        {
+          "value": "newake",
+          "label": "Newake"
+        }
+      ],
+      "info": "Applies to both column blocks and existing section content, including headings inside rich text. Body text stays Maison Neue."
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_heading",
+      "label": "Uppercase headings",
+      "default": false,
+      "visible_if": "{{ section.settings.heading_font == 'newake' }}",
+      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
+    },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "Heading level",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "header",
       "content": "Columns"
     },
     {
@@ -559,51 +604,6 @@
       ],
       "default": "automatic",
       "visible_if": "{{ section.settings.column_content == 'legacy' and section.settings.show_button }}"
-    },
-    {
-      "type": "header",
-      "content": "Typography"
-    },
-    {
-      "type": "select",
-      "id": "heading_level",
-      "label": "Heading level",
-      "options": [
-        {
-          "value": "h2",
-          "label": "H2"
-        },
-        {
-          "value": "h3",
-          "label": "H3"
-        }
-      ],
-      "default": "h2"
-    },
-    {
-      "type": "select",
-      "id": "heading_font",
-      "label": "Heading font",
-      "default": "erode",
-      "options": [
-        {
-          "value": "erode",
-          "label": "Erode"
-        },
-        {
-          "value": "newake",
-          "label": "Newake"
-        }
-      ],
-      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
-    },
-    {
-      "type": "checkbox",
-      "id": "uppercase_heading",
-      "label": "Uppercase headings",
-      "default": false,
-      "visible_if": "{{ section.settings.heading_font == 'newake' }}",
-      "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
     },
     {
       "type": "header",

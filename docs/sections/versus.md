@@ -85,3 +85,9 @@ Verification: schema mode/dependency contracts pass. Local Hard Seltzer renders 
 Mobile density (2026-10-09): below 750px, cards use 1rem top/inline and 1.25rem bottom padding, a .75rem title gap, .375rem fact gaps and smaller fact-row minimum heights. Shared typography and 7rem product artwork stay unchanged. The Soda card measures about 572px at 390px instead of 665px; desktop retains its original spacing. Native horizontal scrolling and motion contracts are unchanged.
 
 Footnote refinement (2026-10-14): the shared footnote treatment uses the merchant-requested fixed 30% text opacity for a quieter hierarchy. Open-canvas notes select black or white ink without increasing opacity; Soda notes on light beige/cream canvases instead use the shared warm Muted text ink at 30%; enclosed USP panels retain their own foreground at 30%. This overrides the earlier normal-text contrast floor. Text opacity is implemented through color mixing, preserving reveal animations and forced-color readability. Merchant wording and typography roles remain unchanged. See the [shared contract](../design-system.md#footnote-contrast-ananotes-197-and-follow-up).
+
+## Editor organization (2026-10-14)
+
+- `sections/versus.liquid`: Layout → Product world → Heading → Comparison notes → Visibility → Section background.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

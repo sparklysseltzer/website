@@ -287,13 +287,17 @@
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "Logo"
     },
     {
       "type": "checkbox",
       "id": "show_logo",
       "label": "Show product-world logo",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Heading"
     },
     {
       "type": "checkbox",
@@ -332,6 +336,10 @@
       "default": false,
       "visible_if": "{{ section.settings.heading_font == 'seltzer' and section.settings.show_heading }}",
       "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
+    },
+    {
+      "type": "header",
+      "content": "Text"
     },
     {
       "type": "checkbox",

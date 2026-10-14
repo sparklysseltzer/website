@@ -88,3 +88,10 @@ Mobile composition (Ananotes 19, 2026-10-09): below 768px, cards use 4:3 instead
 Ananotes follow-up (2026-10-09): At the merchant’s request, phone offer-card titles use the shared Section (H2-size) role below 768px, while keeping semantic H3 tags beneath the section heading. Desktop typography remains unchanged.
 
 Verified phone titles at 36px and desktop titles at the unchanged 32px shared Card role. The mobile 4:3 composition remains intact.
+
+## Editor organization (2026-10-14)
+
+- `sections/offer-cards.liquid`: Layout → Content source → Heading → Text → Visibility → Section background.
+- Local Card block: Image → Text → Link → Tags.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

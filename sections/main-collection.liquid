@@ -77,7 +77,7 @@
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "Collection title"
     },
     {
       "type": "checkbox",
@@ -85,6 +85,23 @@
       "label": "Title provided by Collection hero",
       "default": false,
       "info": "Enable when a Collection hero appears above this list. The all-products page always supplies its own title."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show title and description",
+      "default": false,
+      "visible_if": "{{ section.settings.header_in_hero == false }}"
+    },
+    {
+      "type": "header",
+      "content": "Product heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Product heading",
+      "info": "Optional heading above the product list."
     },
     {
       "type": "select",
@@ -101,7 +118,7 @@
           "label": "Newake"
         }
       ],
-      "info": "Applies to headings, including headings inside rich text. Body text stays Maison Neue."
+      "info": "Applies to the collection title and product heading. Body text stays Maison Neue."
     },
     {
       "type": "checkbox",
@@ -110,19 +127,6 @@
       "default": false,
       "visible_if": "{{ section.settings.heading_font == 'newake' }}",
       "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
-    },
-    {
-      "type": "checkbox",
-      "id": "show_header",
-      "label": "Show title and description",
-      "default": false,
-      "visible_if": "{{ section.settings.header_in_hero == false }}"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Product heading",
-      "info": "Optional heading above the product list."
     },
     {
       "type": "header",

@@ -323,3 +323,9 @@ On mobile, the red struck-through original price uses Caption (11px on phones), 
 Empty-cart reading order places the Bob Ross quote above the image, followed by the supporting copy and shopping action. The shared DOM order applies in both the drawer and cart page, including without JavaScript.
 
 Empty-cart shipping hint (2026-10-09): the shared renderer omits the shipping hint and its sticky wrapper when `cart.empty?`. Filled carts retain the existing shipping hint. Accessible cart status stays present in both states. Native rendering and Ajax section refreshes follow the same condition.
+
+## Editor organization (2026-10-14)
+
+- `sections/main-cart.liquid`: Headings → Section background.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

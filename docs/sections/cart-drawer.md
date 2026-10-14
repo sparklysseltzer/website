@@ -426,3 +426,9 @@ Ananotes 251–265 were completed. Headless Chromium checks covered 320px, 390px
 Validator regressions cover published ICAO and synthetic records, raw-line length/structure, corrupted checksums, Swiss number length and zero/filler equivalence. Five manually transcribed international examples passed the validator; personal values were not saved as fixtures. No additional Schema.org entity is introduced by this input guide.
 
 Commit validation: npm run check, JavaScript syntax checks and git diff --check passed for the final accumulated implementation. All 33 content JSON files parsed after stripping Shopify-generated leading comments; raw jq rejects those comments. No deployment or publication was performed.
+
+## Editor organization (2026-10-14)
+
+- `sections/cart-drawer.liquid`: Headings.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

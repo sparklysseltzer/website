@@ -81,3 +81,9 @@ Ananotes 182/183 (2026-10-07): the branded shop action resolves Soda Variety Pac
 Seltzer green palette (2026-10-08): the built-in atmosphere uses saturated leaf green in the upper-right field, a brighter fresh-green center and green glow, with a light green base. This replaces the muted forest/olive treatment to follow the merchant’s Holunder reference. Warm Maracuja fields, white bottom fade, canvas overrides, artwork, motion and Soda styling are unchanged.
 
 Available-width adjustment (sparklys.ch Ananotes 9–10, 2026-10-08): Hard Seltzer switches to six columns at a 35rem container width with .75rem column gaps, otherwise retaining 3+3. The six regular columns may shrink below their 6rem cap. Collection-hero labels explicitly retain the shared Label typography and existing wrapping; the smaller benefit label treatment elsewhere does not apply here. Soda’s featured-badge arrangement is unchanged.
+
+## Editor organization (2026-10-14)
+
+- `sections/collection-hero.liquid`: Layout → Design → Heading → Text → Artwork → Action → Visibility → Section background.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

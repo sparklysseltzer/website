@@ -149,3 +149,9 @@ Verification: checked 320/390/767/768/1920px geometry, long-label ellipsis, a pa
 Mobile ratio update (2026-10-09): below 768px the full content-width media uses a 3:4 aspect ratio with automatic height and no height cap, replacing the fixed 450px height above. Shared gutters, desktop ratio, captions, controls and motion remain unchanged.
 
 Copy correction (Ananotes 211, 2026-10-09): the Hard Seltzer slide metaobject headline now spells “das Beste im Leben” with a capital B. Updated only that source field through Admin GraphQL after saving an external backup; no Liquid text substitution or saved-theme content changes. Confirmed the corrected Shopify-rendered headline locally.
+
+## Editor organization (2026-10-14)
+
+- `sections/hero-slider.liquid`: Slides → Layout → Headings → Indicators → Ambient light → Playback → Accessibility → Visibility → Section background.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

@@ -105,3 +105,9 @@ Follows the shared [bounded viewport rail contract](../design-system.md#bounded-
 Applies only to Viewport bleed. Contained mode is unchanged. JavaScript and the CSS-only fallback account for the outer centered inset, including RTL. Scroll padding and trailing padding clear the fade so the final card can be read fully; headings and controls keep the shared contained width.
 
 Ananotes 29 (2026-10-09): mobile Crosslinks now show two complete cards plus part of a third. Cards use a proportional 3:4 frame, .75rem gaps, compact padding and shared Compact titles. Benefits and desktop compositions are unchanged. Long text can grow the card rather than being clipped.
+
+## Editor organization (2026-10-14)
+
+- `sections/content-slider.liquid`: Layout → Headings → Visibility → Section background.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

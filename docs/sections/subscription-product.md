@@ -33,3 +33,9 @@ Verified at 390px and 1440px: Variety Pack 24-pack, four-week plan and CHF 49.98
 Ananotes 199 (2026-10-08): the shared featured benefit panel uses two columns below a 24rem container and three above, replacing the premature six-column layout. Shared Label typography, complete authored text, icon sizes and featured artwork are preserved. At 320, 390, 768, 1440 and 2474px, the current Soda labels occupy one or two lines without page overflow. No line clamp or copy truncation is used.
 
 Benefit follow-up (sparklys.ch Ananotes 6–7, 2026-10-08): shares the PDP’s smaller Small-role labels, natural text wrapping, and larger 8rem featured No added sugar artwork. No subscription data or purchase behavior changes.
+
+## Editor organization (2026-10-14)
+
+- `sections/subscription-product.liquid`: Product → Headings → Section background.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

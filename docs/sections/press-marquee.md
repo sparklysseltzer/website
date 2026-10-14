@@ -47,3 +47,9 @@ Shared marquee scroll reveal (2026-10-06): uses the same editorial controller as
 Follows the shared [bounded viewport rail contract](../design-system.md#bounded-viewport-rails-2026-10-08): centered 2600px maximum. Only viewports wider than 2600px receive transparent edge fades into the actual canvas, with visible keyboard focus and forced-colors fallback. At or below 2600px, no edge mask or fade clearance is applied. This supersedes earlier unlimited viewport-width notes. Existing schema, content, data sources and motion timing remain unchanged.
 
 The shared visible viewport is capped; the repeated moving lists keep their intrinsic width and continuous loop. Reduced motion hides duplicates and adds horizontal end padding so the first and last canonical logos clear the fade.
+
+## Editor organization (2026-10-14)
+
+- `sections/press-marquee.liquid`: Layout → Heading → Publications → Appearance → Motion → Visibility → Section background.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

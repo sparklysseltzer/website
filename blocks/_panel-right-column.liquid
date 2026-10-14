@@ -12,7 +12,7 @@
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "Heading"
     },
     {
       "type": "checkbox",
@@ -28,6 +28,10 @@
       "visible_if": "{{ block.settings.show_heading }}"
     },
     {
+      "type": "header",
+      "content": "Text"
+    },
+    {
       "type": "checkbox",
       "id": "show_subtext",
       "label": "Show text",
@@ -39,6 +43,10 @@
       "label": "Text",
       "default": "<p>Add supporting copy for this column.</p>",
       "visible_if": "{{ block.settings.show_subtext }}"
+    },
+    {
+      "type": "header",
+      "content": "Tick list"
     },
     {
       "type": "checkbox",

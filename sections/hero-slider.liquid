@@ -297,15 +297,8 @@
       "info": "Use H1 only when this is the page’s main introduction. Other slides use H2."
     },
     {
-      "type": "text",
-      "id": "accessible_label",
-      "label": "Slideshow label",
-      "default": "Sparklys",
-      "info": "Describes this slideshow to screen reader users."
-    },
-    {
       "type": "header",
-      "content": "Appearance"
+      "content": "Indicators"
     },
     {
       "type": "checkbox",
@@ -313,6 +306,10 @@
       "label": "Show slide indicators",
       "default": false,
       "info": "Shows progress bars over the media. Previous and next buttons remain available."
+    },
+    {
+      "type": "header",
+      "content": "Ambient light"
     },
     {
       "type": "checkbox",
@@ -385,6 +382,17 @@
       "default": 6,
       "visible_if": "{{ section.settings.autoplay }}",
       "info": "Applies to images and videos. Short videos loop during this time."
+    },
+    {
+      "type": "header",
+      "content": "Accessibility"
+    },
+    {
+      "type": "text",
+      "id": "accessible_label",
+      "label": "Slideshow label",
+      "default": "Sparklys",
+      "info": "Describes this slideshow to screen reader users."
     },
     {
       "type": "header",

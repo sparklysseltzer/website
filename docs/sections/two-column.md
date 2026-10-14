@@ -103,3 +103,10 @@ Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes 
 Text, Text and image, Poster, Accordeon and Sidebar box use **Heading font** followed by **Uppercase headings**, visible only for explicit Newake and applicable heading content. Native blocks own their casing and reset inherited section/block uppercase; Erode remains authored case. Sidebar box's shared override owns this choice; retired per-design font fields remain compatibility storage. Legacy stored Use preset ignores the uppercase override; it is no longer offered in the font control. See the [heading control standard](../design-system.md#editorial-heading-font-selection).
 
 Ananotes 184 (2026-10-07): compact Sidebar box arrows reuse `button--round-arrow`, including the shared reversible sweep, label colour transition, parent-link keyboard focus and reduced-motion behavior. Preserve the original 36px decorative circle and Untitled UI chevron; the entire card remains the sole link/touch target. Light and dark button overrides retain their palettes with the opposite surface on interaction. The old whole-card brightness hover is removed. Phone/desktop checks confirmed centered icons, 36px circles, visible keyboard focus, reduced-motion final states and no overflow. No schema or saved block settings change.
+
+## Editor organization (2026-10-14)
+
+- `blocks/sidebar-box.liquid`: Design → Image → Heading → Appearance → Action → Saved design values.
+- `blocks/editorial-text.liquid`: Heading → Text.
+
+These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).

@@ -70,3 +70,19 @@ test('uppercase must also hide when heading content is hidden', () => {
     schema.settings.find(field => field.id === 'uppercase_heading').visible_if = "{{ section.settings.heading_font == 'newake' }}";
   }), /uppercase visibility must follow explicit Newake and heading content/);
 });
+
+test('heading controls cannot drift behind body text', () => {
+  checkMutation(directory => changeSchema(directory, 'sections/text-image.liquid', schema => {
+    const index = schema.settings.findIndex(field => field.id === 'text');
+    const [text] = schema.settings.splice(index, 1);
+    schema.settings.splice(schema.settings.findIndex(field => field.id === 'heading') + 1, 0, text);
+  }), /heading text and font must be adjacent in the same group/);
+});
+
+test('local product card artwork controls retain their reviewed order', () => {
+  checkMutation(directory => changeSchema(directory, 'sections/product-overview-teaser.liquid', schema => {
+    const settings = schema.blocks.find(block => block.type === 'product').settings;
+    const index = settings.findIndex(field => field.id === 'image_width');
+    settings.push(...settings.splice(index, 1));
+  }), /block product field order changed/);
+});

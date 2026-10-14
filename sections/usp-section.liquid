@@ -385,7 +385,7 @@
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "Product world"
     },
     {
       "type": "select",
@@ -409,22 +409,14 @@
       "info": "Automatic uses Soda content on Soda pages and Hard Seltzer content on Hard Seltzer pages. Choose an explicit variant on shared pages."
     },
     {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
       "type": "textarea",
       "id": "heading",
       "label": "Heading",
       "info": "Leave blank to use the selected product world's default heading. Line breaks are preserved."
-    },
-    {
-      "type": "richtext",
-      "id": "text",
-      "label": "Text",
-      "info": "Leave blank to use the selected product world's default text."
-    },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Background image",
-      "info": "Set the crop focal point in Shopify's image editor."
     },
     {
       "type": "select",
@@ -449,6 +441,26 @@
       "default": false,
       "visible_if": "{{ section.settings.heading_font == 'default' }}",
       "info": "Applies to Newake headings only. Erode always keeps the original capitalization."
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "info": "Leave blank to use the selected product world's default text."
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image",
+      "info": "Set the crop focal point in Shopify's image editor."
     },
     {
       "type": "header",
