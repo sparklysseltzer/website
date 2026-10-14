@@ -89,3 +89,11 @@ Edge verification at 2104px: the rightmost card-edge pixel at mid-height changed
 - `sections/main-collection.liquid`: Layout → Collection title → Product heading → Products → Visibility → Section background.
 
 These groups supersede earlier field-order descriptions. Heading text, font and casing are adjacent where one heading is authored here; shared heading controls remain available for the content they style. Existing field IDs, defaults, options, per-field visibility and saved content are preserved. See the [configuration grouping standard](../architecture.md#theme-editor-configuration-design).
+
+## Grounded can hover (2026-10-15)
+
+The four known single-can catalog products use the merchant-approved [TASK-014 hover](../design-system.md#grounded-can-hover-task-014): lift 6%, lean -4deg, 420ms shared UI easing, and a floor shadow shifted 6% right with 120% width, 80% depth, -12deg skew, 2px blur and 55% lifted opacity. Resting strength remains 100%. Native transitions reverse smoothly on pointer exit; keyboard focus shares the pose. Coarse touch and reduced motion remain grounded. Shadow-disabled cards, opaque replacement photography and variety pairs retain their existing presentation. Only catalog rendering opts in; navigation, Product Overview, featured collections and search do not. Product colors, native links, data and structured markup remain unchanged.
+
+Transparent uploaded replacements for these four catalog products also qualify after a one-time alpha scan (`data-hover-detect`). Detection only enables motion; it does not fit, rescale or reposition uploaded artwork. Opaque images, decoding/CORS failures and uploads without JavaScript keep their previous treatment. Navigation alpha fitting is unchanged.
+
+Verification: current Soda/Seltzer collection renders opt in all four products, including uploaded Blueberry/Maracuja/Holunder cutouts. Navigation and homepage opt-in counts are zero; variety pairs remain excluded. Computed desktop hover and keyboard focus use 420ms, 55% shadow opacity and 2px blur. Reduced motion settles to no image/shadow transform and full resting opacity; 390px viewport checks show no horizontal overflow. Existing native product destinations are retained.

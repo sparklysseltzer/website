@@ -370,3 +370,92 @@ for (const [control, selector] of [['ContainerWidth', '#ContainerWidthPreview'],
   window.addEventListener('hashchange', () => { stop(); if (location.hash === '#BrandStatement') replay(); });
   preset();
 })();
+
+// Local can-motion tuner. Values never write to theme settings or Shopify.
+(() => {
+  const form = document.querySelector('#CanHoverTuner');
+  const stage = document.querySelector('#CanHoverStage');
+  const hold = document.querySelector('#CanHold');
+  const replay = document.querySelector('#CanReplay');
+  const status = document.querySelector('#CanStatus');
+  const preference = matchMedia('(prefers-reduced-motion: reduce)');
+  const storageKey = 'sparklys-studio-can-hover-v1';
+  const ranges = [...form.querySelectorAll('input[type="range"]')];
+  const fields = form.elements;
+  const defaults = Object.fromEntries(ranges.map(input => [input.name, Number(input.defaultValue)]));
+  const baseline = { ...defaults, easing: fields.easing.value, canvas: fields.canvas.value };
+  const tokens = {
+    lift: ['--can-lift-distance', '%'], angle: ['--can-lift-angle', 'deg'],
+    duration: ['--can-hover-duration', 'ms'], shadowX: ['--can-floor-x', '%'],
+    shadowY: ['--can-floor-y', '%'], width: ['--can-floor-scale-x', '', .01],
+    depth: ['--can-floor-scale-y', '', .01], skew: ['--can-floor-skew', 'deg'],
+    blur: ['--can-floor-blur', 'px'], opacity: ['--can-floor-opacity', '', .01],
+    strength: ['--can-shadow-strength', '', .01],
+  };
+  let timer;
+  const reduced = () => preference.matches || fields.reduced.checked;
+  function setLift(value) {
+    stage.toggleAttribute('data-can-preview-lift', value && !reduced());
+    hold.setAttribute('aria-pressed', String(value && !reduced()));
+    hold.textContent = value && !reduced() ? 'Return to floor' : 'Hold lifted';
+  }
+  function stop() { clearTimeout(timer); setLift(false); }
+  function config() {
+    return { ...Object.fromEntries(ranges.map(input => [input.name, Number(input.value)])), easing: fields.easing.value, canvas: fields.canvas.value };
+  }
+  function update() {
+    const current = config();
+    for (const input of ranges) {
+      const [token, unit, multiplier = 1] = tokens[input.name];
+      stage.style.setProperty(token, `${Number(input.value) * multiplier}${unit}`);
+      document.querySelector(`#CanValue-${input.name}`).value = `${input.value}${input.dataset.unit}`;
+    }
+    stage.style.setProperty('--can-hover-ease', fields.easing.value);
+    stage.style.setProperty('--studio-can-canvas', fields.canvas.value);
+    stage.style.setProperty('--studio-can-label', fields.canvas.value === '#303030' ? '#fff' : '#111');
+    stage.toggleAttribute('data-reduced', reduced());
+    hold.disabled = replay.disabled = reduced();
+    if (reduced()) stop();
+    status.textContent = reduced() ? 'Reduced motion: cans remain grounded.' : 'Hover a can, or hold all four lifted while adjusting controls.';
+    document.querySelector('#CanConfig').value = JSON.stringify(current, null, 2);
+    try { localStorage.setItem(storageKey, JSON.stringify(current)); } catch { /* Private storage can be unavailable. */ }
+  }
+  function restore(values) {
+    for (const input of ranges) {
+      const value = Number(values[input.name]);
+      input.value = Number.isFinite(value) ? Math.max(Number(input.min), Math.min(Number(input.max), value)) : defaults[input.name];
+    }
+    for (const name of ['easing', 'canvas']) {
+      fields[name].value = [...fields[name].options].some(option => option.value === values[name]) ? values[name] : baseline[name];
+    }
+    update();
+  }
+  form.addEventListener('submit', event => event.preventDefault());
+  form.addEventListener('input', event => { if (event.target !== fields.preset) update(); });
+  form.addEventListener('reset', () => { stop(); queueMicrotask(() => restore(baseline)); });
+  fields.preset.addEventListener('change', () => {
+    stop();
+    const presets = { baseline, subtle: { ...baseline, lift: 3, angle: -2, width: 108, depth: 94, opacity: 75, blur: 1 }, float: { ...baseline, lift: 12, angle: -7, duration: 600, width: 135, depth: 75, opacity: 40, blur: 4 }, dramatic: { ...baseline, lift: 20, angle: -12, duration: 900, shadowX: 15, width: 155, depth: 65, skew: -24, opacity: 28, blur: 7 } };
+    restore(presets[fields.preset.value]);
+  });
+  hold.addEventListener('click', () => { clearTimeout(timer); setLift(!stage.hasAttribute('data-can-preview-lift')); });
+  replay.addEventListener('click', () => {
+    stop();
+    // Allow the current return to settle before replaying the complete journey.
+    timer = setTimeout(() => {
+      setLift(true);
+      timer = setTimeout(() => setLift(false), Number(fields.duration.value) + 700);
+    }, Number(fields.duration.value));
+  });
+  document.querySelector('#CanCopy').addEventListener('click', async () => {
+    const text = document.querySelector('#CanConfig').value;
+    try { await navigator.clipboard.writeText(text); status.textContent = 'Settings copied. Send them back to apply your chosen motion.'; }
+    catch { document.querySelector('.studio-can-export').open = true; document.querySelector('#CanConfig').select(); status.textContent = 'Copy the selected settings below the preview.'; }
+  });
+  window.addEventListener('hashchange', stop);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+  preference.addEventListener('change', update);
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(storageKey)); } catch { /* Use the starting point. */ }
+  restore(saved && typeof saved === 'object' ? saved : baseline);
+})();

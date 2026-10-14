@@ -24,6 +24,10 @@
       assign flavor_logo = 'product-overview-holunder-wave-logo.svg'
   endcase
   assign is_variety = false
+  assign known_can = false
+  if cutout != blank
+    assign known_can = true
+  endif
   if card_product.handle == 'sparklys-soda-variety-pack' or card_product.handle == 'sparklys-hard-seltzer-variety'
     assign is_variety = true
   endif
@@ -57,7 +61,7 @@
     {% render 'product-background', background_product: card_product %}
     <div class="catalog-card__media{% if is_variety %} catalog-card__media--pair{% endif %}{% if has_can_artwork %} catalog-card__media--can{% endif %}">
       {% if has_can_artwork %}
-        <can-artwork{% if card_layout == 'navigation' %} data-auto-fit{% endif %} class="can-artwork" style="--can-aspect: {{ can_aspect }};">
+        <can-artwork{% if card_layout == 'navigation' %} data-auto-fit{% elsif card_layout == 'catalog' and known_can and cutout == blank %} data-hover-detect{% endif %} class="can-artwork{% if card_layout == 'catalog' and known_can %} can-hover{% endif %}" style="--can-aspect: {{ can_aspect }};">
           {% unless card_product.metafields.custom.hide_card_shadow.value == true %}
             {% render 'can-shadow', world: world, identity: card_product.handle %}
           {% endunless %}

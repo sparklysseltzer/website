@@ -5,6 +5,7 @@
 <title>Sparklys — Design system studio</title>
 <link rel="stylesheet" href="/assets/base.css"><link rel="stylesheet" href="/assets/blog.css"><link rel="stylesheet" href="/assets/blog-panel-variants.css"><link rel="stylesheet" href="/demos/design-system/social-channels.css"><link rel="stylesheet" href="/assets/forms.css"><link rel="stylesheet" href="/demos/design-system/demo.css">
 <link rel="stylesheet" href="/assets/brand-statement.css">
+<link rel="stylesheet" href="/assets/can-artwork.css">
 <link rel="stylesheet" href="/assets/hero-slider.css">
 <script src="/assets/hero-slider.js" defer></script>
 <link rel="stylesheet" href="/assets/content-slider.css"><script src="/assets/content-slider.js" defer></script>
@@ -25,7 +26,7 @@
 <details class="studio-nav-group" open><summary>Typography</summary><div><a class="studio-nav-link" href="#Typography">Fonts & type scale</a><a class="studio-nav-link" href="#Headings">Headings H1–H6</a></div></details>
 <details class="studio-nav-group" open><summary>Colors</summary><div><a class="studio-nav-link" href="#Colors">Palette & surfaces</a></div></details>
 <details class="studio-nav-group" open><summary>Layout</summary><div><a class="studio-nav-link" href="#Widths">Container widths</a></div></details>
-<details class="studio-nav-group" open><summary>Motion</summary><div><a class="studio-nav-link" href="#ButtonMotion">Button interactions</a></div></details>
+<details class="studio-nav-group" open><summary>Motion</summary><div><a class="studio-nav-link" href="#ButtonMotion">Button interactions</a><a class="studio-nav-link" href="#CanHover">Floating cans</a></div></details>
 <details class="studio-nav-group" open><summary>Atoms</summary><div><a class="studio-nav-link" href="#TextLinks">Text links</a><a class="studio-nav-link" href="#Buttons">Buttons</a><a class="studio-nav-link" href="#FormPreview">Fields & choices</a></div></details>
 <details class="studio-nav-group" open><summary>Components</summary><div><a class="studio-nav-link" href="#SocialButtons">Social buttons</a><a class="studio-nav-link" href="#BlogPanels">Blog link panels</a><a class="studio-nav-link" href="#BlogPanelSurfaces">Blog panel surfaces</a></div></details>
 <details class="studio-nav-group" open><summary>Sections</summary><div><a class="studio-nav-link" href="#BrandStatement">Brand statement</a><a class="studio-nav-link" href="#ContentSlider">Content Slider</a><a class="studio-nav-link" href="#AmbientLight">Hero & ambient light</a></div></details>
@@ -48,6 +49,35 @@
 <p class="studio-lead">A home for the details that make Sparklys feel like Sparklys. Explore the foundations, test interactions, and compose the bigger pieces.</p>
 <div class="studio-overview-grid">
 <a class="studio-overview-card" href="#Typography"><span class="studio-eyebrow">01</span><strong>Typography</strong><span>Fonts, scale and rhythm.</span></a><a class="studio-overview-card" href="#Colors"><span class="studio-eyebrow">02</span><strong>Colors</strong><span>Palette, surfaces and contrast.</span></a><a class="studio-overview-card" href="#ButtonMotion"><span class="studio-eyebrow">03</span><strong>Motion</strong><span>Timing, easing and interaction.</span></a><a class="studio-overview-card" href="#Buttons"><span class="studio-eyebrow">04</span><strong>Atoms</strong><span>Buttons, fields and choices.</span></a><a class="studio-overview-card" href="#SocialButtons"><span class="studio-eyebrow">05</span><strong>Components</strong><span>Reusable groups of UI elements.</span></a><a class="studio-overview-card" href="#ContentSlider"><span class="studio-eyebrow">06</span><strong>Sections</strong><span>Full storefront compositions.</span></a></div></section>
+<section id="CanHover" class="studio-panel" data-studio-page data-chapter="Motion" data-title="Floating cans">
+<p>Hover or keyboard-focus a can to lift it. Change the controls to shape the lift and its floor shadow. Hold the lifted pose to compare settings, or replay the full lift and return.</p>
+<form id="CanHoverTuner" class="studio-tuner studio-can-tuner">
+<label>Preset<select name="preset"><option value="baseline">Starting point</option><option value="subtle">Subtle</option><option value="float">Higher float</option><option value="dramatic">Dramatic</option></select></label>
+<fieldset><legend>Can motion</legend>
+<label for="CanTune-lift"><span>Lift height <output id="CanValue-lift">6% of can height</output></span><input id="CanTune-lift" name="lift" type="range" min="0" max="25" step="1" value="6" data-unit="% of can height"></label>
+<label for="CanTune-angle"><span>Lean angle <output id="CanValue-angle">-4°</output></span><input id="CanTune-angle" name="angle" type="range" min="-20" max="20" step="1" value="-4" data-unit="°"></label>
+<label for="CanTune-duration"><span>Transition time <output id="CanValue-duration">420ms</output></span><input id="CanTune-duration" name="duration" type="range" min="100" max="1800" step="20" value="420" data-unit="ms"></label>
+<label>Easing<select name="easing"><option value="cubic-bezier(0.25, 0.1, 0.25, 1)">Shared smooth</option><option value="cubic-bezier(0.22, 1, 0.36, 1)">Soft landing</option><option value="ease-in-out">Ease in and out</option><option value="linear">Linear</option></select></label>
+</fieldset>
+<fieldset><legend>Ground shadow</legend>
+<label for="CanTune-shadowX"><span>Horizontal shift <output id="CanValue-shadowX">6%</output></span><input id="CanTune-shadowX" name="shadowX" type="range" min="-40" max="40" step="1" value="6" data-unit="%"></label>
+<label for="CanTune-shadowY"><span>Depth shift <output id="CanValue-shadowY">0%</output></span><input id="CanTune-shadowY" name="shadowY" type="range" min="-100" max="100" step="5" value="0" data-unit="%"></label>
+<label for="CanTune-width"><span>Width <output id="CanValue-width">120%</output></span><input id="CanTune-width" name="width" type="range" min="50" max="200" step="1" value="120" data-unit="%"></label>
+<label for="CanTune-depth"><span>Depth <output id="CanValue-depth">80%</output></span><input id="CanTune-depth" name="depth" type="range" min="25" max="200" step="1" value="80" data-unit="%"></label>
+<label for="CanTune-skew"><span>Perspective skew <output id="CanValue-skew">-12°</output></span><input id="CanTune-skew" name="skew" type="range" min="-40" max="40" step="1" value="-12" data-unit="°"></label>
+<label for="CanTune-blur"><span>Softness <output id="CanValue-blur">2px</output></span><input id="CanTune-blur" name="blur" type="range" min="0" max="12" step="0.5" value="2" data-unit="px"></label>
+<label for="CanTune-opacity"><span>Lifted opacity <output id="CanValue-opacity">55%</output></span><input id="CanTune-opacity" name="opacity" type="range" min="0" max="100" step="1" value="55" data-unit="%"></label>
+<label for="CanTune-strength"><span>Resting opacity <output id="CanValue-strength">100%</output></span><input id="CanTune-strength" name="strength" type="range" min="0" max="100" step="1" value="100" data-unit="%"></label>
+</fieldset>
+<fieldset><legend>Preview</legend><label>Canvas<select name="canvas"><option value="#f2f0e9">Warm beige</option><option value="#ffffff">White</option><option value="#dcecf5">Pale blue</option><option value="#303030">Charcoal</option></select></label><label class="studio-can-choice"><input type="checkbox" name="reduced"> Preview reduced motion</label></fieldset><button type="reset">Reset starting point</button><button id="CanCopy" type="button">Copy settings</button><p id="CanStatus" class="studio-note" role="status"></p></form><div class="studio-can-actions"><button type="button" id="CanHold" aria-pressed="false">Hold lifted</button><button type="button" id="CanReplay">Replay lift and return</button></div>
+<div id="CanHoverStage" class="studio-can-stage"><button class="studio-can-card catalog-card__link" type="button" aria-label="Preview Yuzu & Ginger can"><span class="studio-can-art can-artwork can-hover" style="--studio-can-aspect:600/1072"><span class="can-shadow can-shadow--soda can-shadow--warm" aria-hidden="true"></span><img src="/assets/product-overview-soda-yuzu.webp" width="600" height="1072" alt=""></span><span class="studio-can-label">Yuzu & Ginger</span></button>
+<button class="studio-can-card catalog-card__link" type="button" aria-label="Preview Maracuja can"><span class="studio-can-art can-artwork can-hover" style="--studio-can-aspect:385/1000"><span class="can-shadow can-shadow--hardseltzer can-shadow--warm" aria-hidden="true"></span><img src="/assets/product-overview-seltzer-maracuja.webp" width="385" height="1000" alt=""></span><span class="studio-can-label">Maracuja</span></button>
+<button class="studio-can-card catalog-card__link" type="button" aria-label="Preview Blueberry & Pomelo can"><span class="studio-can-art can-artwork can-hover" style="--studio-can-aspect:600/1072"><span class="can-shadow can-shadow--soda can-shadow--blueberry" aria-hidden="true"></span><img src="/assets/product-overview-soda-blueberry.webp" width="600" height="1072" alt=""></span><span class="studio-can-label">Blueberry & Pomelo</span></button>
+<button class="studio-can-card catalog-card__link" type="button" aria-label="Preview Holunder can"><span class="studio-can-art can-artwork can-hover" style="--studio-can-aspect:385/1000"><span class="can-shadow can-shadow--hardseltzer can-shadow--holunder" aria-hidden="true"></span><img src="/assets/product-overview-seltzer-holunder.webp" width="385" height="1000" alt=""></span><span class="studio-can-label">Holunder</span></button>
+</div>
+<p class="studio-note">Preview settings are saved only in this browser. Nothing is applied to Shopify. System reduced motion always takes precedence.</p>
+<details class="studio-can-export"><summary>Settings to share</summary><textarea id="CanConfig" readonly aria-label="Floating can settings" rows="12" spellcheck="false"></textarea></details>
+</section>
 <section id="Typography" class="studio-panel" data-studio-page data-chapter="Typography" data-title="Fonts & type scale">
 <div class="studio-section-heading"><span>FONT FAMILIES</span><span>Shared storefront tokens</span></div>
 <div class="studio-font-samples"><div><span class="studio-eyebrow">Newake · display</span><p class="studio-font-newake">Refresh your everyday.</p></div><div><span class="studio-eyebrow">Erode · editorial</span><p class="studio-font-erode">A little more Sparklys.</p></div><div><span class="studio-eyebrow">Maison Neue · body & UI</span><p>Clear, approachable copy. Built for everyday reading.</p></div></div>

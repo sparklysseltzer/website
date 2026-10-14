@@ -1,7 +1,7 @@
 /* Fit uploaded transparent artwork to its visible bounds, not its padded canvas. */
 class CanArtwork extends HTMLElement {
   connectedCallback() {
-    if (!this.hasAttribute('data-auto-fit')) return;
+    if (!this.hasAttribute('data-auto-fit') && !this.hasAttribute('data-hover-detect')) return;
     this.image = this.querySelector('img');
     if (!this.image) return;
     this.onLoad = () => this.fit();
@@ -15,6 +15,7 @@ class CanArtwork extends HTMLElement {
 
   fit() {
     const image = this.image;
+    this.removeAttribute('data-hover-ready');
     try {
       const canvas = document.createElement('canvas');
       const scale = Math.min(1, 256 / Math.max(image.naturalWidth, image.naturalHeight));
@@ -39,6 +40,12 @@ class CanArtwork extends HTMLElement {
       if (right < left || bottom < top) return;
       // Tight cutouts can touch every edge. Only opaque images keep their own lighting.
       if (!hasTransparency) return;
+      if (this.hasAttribute('data-hover-detect')) {
+        // Collection uploads keep their merchant-defined geometry; only transparent
+        // artwork opts into independent image/floor motion.
+        this.setAttribute('data-hover-ready', '');
+        return;
+      }
       const boundsWidth = right - left + 1;
       const boundsHeight = bottom - top + 1;
       this.style.setProperty('--can-aspect', boundsWidth / boundsHeight);

@@ -55,3 +55,56 @@ can-artwork[data-fitted] > img {
   top: var(--can-image-top);
 }
 can-artwork[data-fitted] > img { max-width: none; max-height: none; }
+
+/* Lift the cutout independently of its floor. Native transitions reverse from the
+   current painted pose on rapid entry/exit; no animation loop or JS is needed. */
+@media (prefers-reduced-motion: no-preference) {
+  .can-hover:has(> .can-shadow):not([data-hover-detect]:not([data-hover-ready])) {
+    --can-hover-lift: 0%;
+    --can-hover-lean: 0deg;
+    --can-hover-shadow-x: 0%;
+    --can-hover-shadow-y: 0%;
+    --can-hover-shadow-scale-x: 1;
+    --can-hover-shadow-scale-y: 1;
+    --can-hover-shadow-skew: 0deg;
+    --can-hover-shadow-opacity: 1;
+    --can-hover-shadow-blur: 0rem;
+  }
+  .can-hover:has(> .can-shadow):not([data-hover-detect]:not([data-hover-ready])) > img {
+    transform-origin: 50% 85%;
+    transform: translateY(var(--can-hover-lift)) rotate(var(--can-hover-lean));
+    transition: transform var(--can-hover-duration, 420ms) var(--can-hover-ease, var(--motion-ease-ui));
+  }
+  .can-hover:has(> .can-shadow):not([data-hover-detect]:not([data-hover-ready])) > .can-shadow {
+    transform-origin: 25% 50%;
+    transform: translate(var(--can-hover-shadow-x), var(--can-hover-shadow-y)) skewX(var(--can-hover-shadow-skew)) scale(var(--can-hover-shadow-scale-x), var(--can-hover-shadow-scale-y));
+    opacity: calc(var(--can-shadow-strength) * var(--can-hover-shadow-opacity));
+    filter: brightness(var(--can-shadow-brightness)) blur(var(--can-hover-shadow-blur));
+    transition: transform var(--can-hover-duration, 420ms) var(--can-hover-ease, var(--motion-ease-ui)), opacity var(--can-hover-duration, 420ms) var(--can-hover-ease, var(--motion-ease-ui)), filter var(--can-hover-duration, 420ms) var(--can-hover-ease, var(--motion-ease-ui));
+  }
+  [data-can-preview-lift] .can-hover:has(> .can-shadow):not([data-hover-detect]:not([data-hover-ready])),
+  .catalog-card__link:focus-visible .can-hover:has(> .can-shadow):not([data-hover-detect]:not([data-hover-ready])) {
+    --can-hover-lift: calc(-1 * var(--can-lift-distance, 6%));
+    --can-hover-lean: var(--can-lift-angle, -4deg);
+    --can-hover-shadow-x: var(--can-floor-x, 6%);
+    --can-hover-shadow-y: var(--can-floor-y, 0%);
+    --can-hover-shadow-scale-x: var(--can-floor-scale-x, 1.2);
+    --can-hover-shadow-scale-y: var(--can-floor-scale-y, .8);
+    --can-hover-shadow-skew: var(--can-floor-skew, -12deg);
+    --can-hover-shadow-opacity: var(--can-floor-opacity, .55);
+    --can-hover-shadow-blur: var(--can-floor-blur, 2px);
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .catalog-card__link:hover .can-hover:has(> .can-shadow):not([data-hover-detect]:not([data-hover-ready])) {
+    --can-hover-lift: calc(-1 * var(--can-lift-distance, 6%));
+    --can-hover-lean: var(--can-lift-angle, -4deg);
+    --can-hover-shadow-x: var(--can-floor-x, 6%);
+    --can-hover-shadow-y: var(--can-floor-y, 0%);
+    --can-hover-shadow-scale-x: var(--can-floor-scale-x, 1.2);
+    --can-hover-shadow-scale-y: var(--can-floor-scale-y, .8);
+    --can-hover-shadow-skew: var(--can-floor-skew, -12deg);
+    --can-hover-shadow-opacity: var(--can-floor-opacity, .55);
+    --can-hover-shadow-blur: var(--can-floor-blur, 2px);
+  }
+}

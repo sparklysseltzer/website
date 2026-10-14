@@ -78,3 +78,12 @@ The user subsequently approved and implemented the three-pane workbench, two-lev
 - Added a read-only-by-default, definition-only provisioning script with backups and verification. Reviewed three header menu help strings and the otherwise unchanged schema contract.
 - Verified 35 local Liquid image-selection cases, actual empty-field Shopify rendering on desktop/phone, keyboard focus, no-JavaScript product links/images and CollectionPage JSON-LD parsing. Full repository checks passed. Populated new-field behaviour was tested with local render fixtures, not temporary product assignments.
 - Store definitions are configured; theme rendering changes are local/development only, not deployed to shared/live themes. Current contracts are in Merchant content and the owning section documents.
+
+### TASK-014: Floating drink can hover with a responsive ground shadow
+
+- Approved to build on 2026-10-14, then extended with an interactive Design Studio tuner.
+- On 2026-10-15 Sandro selected lift 6%, lean -4deg, 420ms UI easing, shadow shift 6%/0%, width 120%, depth 80%, skew -12deg, blur 2px, opacity 55%, resting strength 100%.
+- Applied only to the four known single-can collection catalog products, including transparent uploaded replacements after alpha detection. Navigation, Product Overview, featured/search cards, variety pairs, photos and PDP media are excluded. No saved Shopify data or card backgrounds were changed.
+- Native transitions preserve interrupted motion and keyboard focus; reduced motion returns the artwork to its resting pose. The Studio retains controls, presets and local configuration export.
+- Verified actual Soda/Seltzer collection opt-ins, zero navigation/homepage opt-ins, 420ms computed motion and shadow values, native keyboard focus/destinations, settled reduced-motion state and 390px overflow checks. The isolated browser was closed. Full repository checks, JS syntax, comment-aware Shopify JSON parsing and whitespace checks passed.
+- Completed; Sandro authorized commit and push on 2026-10-15. The release includes the collection-only treatment and local Studio tuner.

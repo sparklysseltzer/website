@@ -78,7 +78,7 @@
   let captureFrame;
   function discover(event) {
     const current = page();
-    if (!current?.contains(event.target) || reduced()) return;
+    if (!current?.contains(event.target) || current.id === 'CanHover' || reduced()) return;
     cancelAnimationFrame(captureFrame);
     captureFrame = requestAnimationFrame(() => {
       const active = current.getAnimations({ subtree: true }).filter(a => !animations.includes(a));

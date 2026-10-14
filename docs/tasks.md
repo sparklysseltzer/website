@@ -68,15 +68,6 @@ Safeguards: preserve Shopify/editor-owned content, setting/section/block IDs and
 - Status: Pending discovery and implementation approval. Record for later discussion; no implementation requested.
 - Added: 2026-10-09.
 
-### TASK-014: Floating drink can hover with a responsive ground shadow
-
-- Explore a new hover treatment for drink cans: pointer entry lifts the can off the floor and tilts it slightly to one side. It remains gently hovering while the pointer stays over the product.
-- Animate the ground shadow together with the can. Its position, perspective, shape, softness and opacity should respond coherently to the can's height and lean so it reads as a shadow on the floor.
-- On pointer exit, smoothly lower the can back to its grounded resting pose and return the shadow to its contact state. Rapid entry/exit must reverse from the current pose without snapping.
-- Prototype using the existing drink artwork. Confirm the applicable product surfaces and tune lift, lean and hover motion before rollout; keep card layout and click targets stable.
-- Follow shared motion timing and reduced-motion behavior. Preserve keyboard focus and touch interaction without requiring hover, and keep the resting product usable without JavaScript.
-- Status: Pending approval. Record the idea for later; no implementation requested.
-- Added: 2026-10-08.
 
 ### TASK-009 — Validate demand before building back-in-stock notifications
 
