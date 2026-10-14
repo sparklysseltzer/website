@@ -15,25 +15,36 @@
       this.error = this.querySelector('[data-lightbox-error]');
       this.thumbnails = this.querySelector('.product-lightbox__thumbnails');
       this.thumbnails.replaceChildren();
+      this.opener = this.product.querySelector('[data-lightbox-open]');
+      if (!this.opener || !this.links.length) return;
+      this.opener.setAttribute('aria-haspopup', 'dialog');
+      const track = this.product.querySelector('.pdp-gallery__track');
+      const syncOpener = () => {
+        const slides = [...track.children];
+        const active = slides[Math.round(track.scrollLeft / track.clientWidth)];
+        this.opener.hidden = !active?.dataset.lightboxImage;
+        if (active?.dataset.lightboxImage) this.opener.href = active.dataset.lightboxImage;
+      };
+      track.addEventListener('scroll', syncOpener, { ...events, passive: true });
+      syncOpener();
+      this.opener.addEventListener('click', event => {
+        if (event.button || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        this.product.stopGalleryMotion?.();
+        this.product.querySelectorAll('video').forEach(video => video.pause());
+        const index = this.links.findIndex(link => link.dataset.lightboxImage === this.opener.getAttribute('href'));
+        this.dialog.showModal();
+        this.select(Math.max(0, index));
+        this.querySelector('[data-lightbox-close]').focus({ preventScroll: true });
+        this.animate(this.dialog, [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }]);
+      }, events);
       this.links.forEach((link, index) => {
-        link.setAttribute('aria-haspopup', 'dialog');
-        link.addEventListener('click', event => {
-          if (event.button || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-          event.preventDefault();
-          this.opener = link;
-          this.product.stopGalleryMotion?.();
-          this.product.querySelectorAll('video').forEach(video => video.pause());
-          this.dialog.showModal();
-          this.select(index);
-          this.querySelector('[data-lightbox-close]').focus({ preventScroll: true });
-          this.animate(this.dialog, [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }]);
-        }, events);
         const button = document.createElement('button');
         button.type = 'button';
-        button.setAttribute('aria-label', link.getAttribute('aria-label'));
-        const source = link.parentElement.querySelector('img');
+        button.setAttribute('aria-label', link.dataset.imageLabel);
+        const source = link.querySelector('img');
         const thumbnail = document.createElement('img');
-        const url = new URL(link.href); url.searchParams.set('width', '120');
+        const url = new URL(link.dataset.lightboxImage, location.href); url.searchParams.set('width', '120');
         thumbnail.src = url.href; thumbnail.alt = ''; thumbnail.loading = 'lazy';
         thumbnail.width = 56; thumbnail.height = 56;
         button.append(thumbnail);
@@ -85,7 +96,7 @@
       this.index = next;
       this.setZoom(false);
       const link = this.links[next];
-      const source = link.parentElement.querySelector('img');
+      const source = link.querySelector('img');
       // Show the already loaded preview while the larger asset is fetched.
       this.image.src = source.currentSrc || source.src;
       this.image.alt = link.dataset.imageAlt;
@@ -98,7 +109,7 @@
       const full = new Image();
       full.onload = () => { if (this.isConnected && this.request === request) this.image.src = full.src; };
       full.onerror = () => { if (this.isConnected && this.request === request) this.error.hidden = false; };
-      full.src = link.href;
+      full.src = link.dataset.lightboxImage;
     }
     setZoom(zoomed) {
       this.dialog.toggleAttribute('data-zoomed', zoomed);

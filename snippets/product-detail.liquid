@@ -171,14 +171,19 @@
       <div class="pdp-gallery__track" tabindex="0" role="region" aria-label="{{ 'products.pdp.gallery' | t }}">
         {% for media in product.media %}
           {% assign media_alt = media.alt | default: product.title %}
-          <div class="pdp-gallery__slide" id="ProductMedia-{{ section.id }}-{{ media.id }}" data-media-id="{{ media.id }}" data-media-type="{{ media.media_type }}" role="group" aria-label="{{ forloop.index }} / {{ product.media.size }}">
+          <div class="pdp-gallery__slide" id="ProductMedia-{{ section.id }}-{{ media.id }}" data-media-id="{{ media.id }}" data-media-type="{{ media.media_type }}"{% if media.media_type == 'image' %} data-lightbox-image="{{ media | image_url: width: 2400 }}" data-image-label="{{ 'products.pdp.open_image' | t: number: forloop.index | escape }}"{% endif %} role="group" aria-label="{{ forloop.index }} / {{ product.media.size }}">
             {% if media.media_type == 'image' %}
-              <a class="pdp-gallery__expand" href="{{ media | image_url: width: 2400 }}" data-lightbox-image aria-label="{{ 'products.pdp.open_image' | t: number: forloop.index | escape }}"><span>{{ 'products.pdp.zoom_in' | t }}</span></a>
               {% if forloop.first %}{{ media | image_url: width: 1600 | image_tag: widths: '400, 620, 900, 1240, 1600', sizes: '(min-width: 900px) 48vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: media_alt }}{% else %}{{ media | image_url: width: 1600 | image_tag: widths: '400, 620, 900, 1240, 1600', sizes: '(min-width: 900px) 48vw, 100vw', loading: 'lazy', alt: media_alt }}{% endif %}
             {% else %}{{ media | media_tag: image_size: '1000x', controls: true, preload: 'none' }}{% endif %}
           </div>
         {% endfor %}
       </div>
+      {% assign first_gallery_image = product.media | where: 'media_type', 'image' | first %}
+      {% if first_gallery_image %}
+        <a class="button button--round-arrow pdp-gallery__expand" href="{{ first_gallery_image | image_url: width: 2400 }}" data-lightbox-open>
+          <span class="button__label"><span class="product-lightbox__zoom-icon" aria-hidden="true"></span><span>{{ 'products.pdp.zoom_in' | t }}</span></span>
+        </a>
+      {% endif %}
       {% render 'product-badge', brand: brand, product: product %}
       {% if product.media.size > 1 %}
         <div class="pdp-gallery__navigation" data-enhanced-only hidden>

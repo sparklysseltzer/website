@@ -13,7 +13,7 @@
   if link_label == blank
     assign link_label = 'sections.soda_three_reasons.link_label' | t
   endif
-  assign link_url = section.settings.link | default: '#'
+  assign link_url = section.settings.link
 -%}
 
 <editorial-section-motion>
@@ -23,7 +23,7 @@
         <h2 class="soda-reasons__heading" data-scroll-motion-reveal><span class="visually-hidden">3 </span><span class="soda-reasons__number" aria-hidden="true">3</span><strong>{{ heading | newline_to_br }}</strong></h2>
         <p class="soda-reasons__intro" data-scroll-motion-reveal>
           {{ intro }}
-          {%- if link_label != blank %} <a href="{{ link_url }}">{{ link_label }}</a>{% endif -%}
+          {%- if link_label != blank and link_url != blank and link_url != '#' %} <a href="{{ link_url }}">{{ link_label }}</a>{% endif -%}
         </p>
       </header>
 

@@ -59,3 +59,5 @@ Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes 
 Footnote readability (Ananotes 197 and follow-up, 2026-10-08): dedicated notes now use the [shared footnote contrast treatment](../design-system.md#footnote-contrast-ananotes-197-and-follow-up), replacing the low-contrast Notice/muted color. USP panels retain their own inherited foreground, while open notes follow the canvas. Copy, typography roles and layout are unchanged.
 
 Mobile illustration density (Ananotes 239, 2026-10-09): below 750px the illustration frame and image maximum height are 9rem (144px), preventing intrinsic grid image sizing from overflowing the smaller frame. Desktop retains the 180px frame. Artwork proportions and authored copy remain unchanged.
+
+Optional intro link: render the action only when its URL is nonblank and not the legacy `#` placeholder. Unconfigured actions are omitted entirely; the intro copy remains. Actual URLs retain the configured or translated link label. Existing saved settings and schema are unchanged.

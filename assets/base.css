@@ -2672,6 +2672,9 @@ a:focus-visible .button--round-arrow::before {
   hyphens: none;
 }
 
+/* Preserve accent ascenders inside the ellipsis clipping box. */
+.age-check__document-select .form-select__trigger > span { text-box-trim: none; }
+
 /* Compact age-document labels keep their complete accessible text. */
 .age-check__document-select :is(.form-select__trigger > span, .form-select__option-label) {
   display: block;

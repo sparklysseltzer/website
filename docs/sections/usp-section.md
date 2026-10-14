@@ -115,3 +115,7 @@ Verification: at 2101px the 667px content area has six equal columns; at 390px i
 Ananotes row layout (2026-10-09): USP lists fit all icons in one row when their actual container allows 5rem per item plus the shared gap. Native auto-fit tracks wrap on narrower containers; the PDP featured artwork participates as one item. This supersedes fixed two/three-column and six-or-three layouts. Label typography and authored content remain unchanged, and narrow phones may need additional rows to preserve legibility.
 
 Mobile centering (Ananotes 238, 2026-10-09): below 56rem the standalone benefit list wraps in three equal-width flex columns with centered rows, so the final two items in the five-item Soda set sit symmetrically. Desktop retains auto-fit grid tracks.
+
+Stacked media fade: below 56rem, the image receives a vertical transparent-to-panel-color overlay, including fallback artwork. It reaches the actual panel background at the bottom edge to blend into the following content. Desktop keeps the existing horizontal overlay conditions; responsive direction and color stay shared across Soda, Hard Seltzer and custom panel colors.
+
+Ananotes 268 verification: inspected actual tablet (768px) and phone (390px) images. The stacked media wrapper clips its animated inner artwork so transformed pixels cannot spill below the fade into the content panel. Both breakpoints now end in the panel color without the previous repeated-image seam.

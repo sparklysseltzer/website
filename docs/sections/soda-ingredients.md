@@ -61,3 +61,5 @@ Editor naming (2026-09-12): **Soda ingredients**. Display names only; internal I
 Shared background surfaces (2026-10-06): Transparent / Colored. Colored exposes the Surface dropdown bound to existing shared CSS/theme color roles; only Custom color exposes the original picker. Schema default Custom preserves existing saved colors; new add-section presets select Surface. No saved content is migrated. Internal text/card colors do not auto-invert. See [Section backgrounds](../design-system.md#section-backgrounds).
 
 Footnote readability (Ananotes 197 and follow-up, 2026-10-08): dedicated notes now use the [shared footnote contrast treatment](../design-system.md#footnote-contrast-ananotes-197-and-follow-up), replacing the low-contrast Notice/muted color. USP panels retain their own inherited foreground, while open notes follow the canvas. Copy, typography roles and layout are unchanged.
+
+Optional intro link: render the action only when its URL is nonblank and not the legacy `#` placeholder. Unconfigured actions are omitted entirely; the intro copy remains. Actual URLs retain the configured or translated link label. Existing saved settings and schema are unchanged.
