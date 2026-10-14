@@ -70,6 +70,7 @@ Temporary action notifications must use the shared toast service and `docs/desig
 
 ## Remote safety
 
+- SOZA Logistics is Sparklys' fulfillment partner and owns the inventory configuration. Never change inventory quantities, tracking or overselling policies, inventory/location assignments, fulfillment locations or routing, SOZA integration settings, or related shipping-profile configuration without explicit merchant permission for the specific change. Read-only diagnosis is allowed. API write permissions and requests to investigate checkout issues do not authorize these changes. See `docs/development.md#soza-inventory-and-fulfillment-ownership`.
 - Local inspection and `npm run check` are safe defaults.
 - `shopify theme dev` creates or updates a remote development theme and requires explicit user approval.
 - Never run `shopify theme push`, `shopify theme publish`, delete a theme, modify the live theme, or add Shopify/GitHub secrets without explicit approval.

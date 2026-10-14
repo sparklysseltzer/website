@@ -95,6 +95,8 @@ For release performance verification on a Shopify-hosted preview or production t
 
 ## Local age-check assets
 
+Staff shortcut review (2026-10-14): the merchant-approved arrow sequence remains in `age-check.js`, which must serve the cart drawer on every page. It reuses the existing dialog, animation, policy refresh and checkout handoff without dependencies or network requests of its own. The reviewed gzip budget is 7.25 KiB (measured 7.12 KiB), increased from 6.75 KiB for sequence guards and the non-persistent, single-attempt override.
+
 `age-validation.js` supplies pure TD1/TD3 validation; `age-check.js` owns the secondary native dialog and fresh cart-policy handoff. Both are deferred before `theme.js`; they use no remote runtime assets. Gzip budgets are checked by `check-assets.mjs`.
 
 Swiss ID help: assets/age-swiss-id-help.webp is the unchanged merchant-supplied idschweizcallouts.webp (1200 × 750), used only in the Swiss card help view. The five visual callouts have a translated HTML field legend. Existing local Untitled UI alert-circle and x-close icons supply the help/back toggle.

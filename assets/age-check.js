@@ -62,6 +62,7 @@
       this.querySelector('[data-age-continue]').addEventListener('click', () => this.continue(), options);
       this.dialog.addEventListener('cancel', (event) => { event.preventDefault(); this.close(); }, options);
       this.dialog.addEventListener('close', () => this.cleanup(), options);
+      this.dialog.addEventListener('keydown', (event) => this.staffShortcut(event), options);
       this.dialog.addEventListener('click', (event) => {
         if (event.target !== this.dialog) return;
         const bounds = this.dialog.getBoundingClientRect();
@@ -94,12 +95,37 @@
       try { sessionStorage.setItem(storageKey, JSON.stringify(this.record)); } catch { /* Page memory is sufficient when storage is unavailable. */ }
     }
     readRecord(policy) {
+      if (validation.reusable(this.staffRecord, policy)) return this.staffRecord;
       let record = this.record;
       try { record = JSON.parse(sessionStorage.getItem(storageKey)) || record; } catch { /* Use page memory. */ }
       if (validation.reusable(record, policy)) return record;
       this.record = null;
       try { sessionStorage.removeItem(storageKey); } catch { /* No persistent storage. */ }
       return null;
+    }
+    staffShortcut(event) {
+      if (!this.dialog.open || this.form.hidden || this.continuing || this.closing || !this.policy || this.policy.unknown) return;
+      const sequence = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+      if (event.repeat || event.isComposing || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
+        this.staffKeyIndex = 0;
+        return;
+      }
+      const now = Date.now();
+      if (now - (this.staffKeyTime || 0) > 2000) this.staffKeyIndex = 0;
+      const index = this.staffKeyIndex || 0;
+      this.staffKeyIndex = event.key === sequence[index] ? index + 1 : event.key === sequence[0] ? 1 : 0;
+      this.staffKeyTime = now;
+      if (!this.staffKeyIndex) return;
+      event.preventDefault();
+      if (this.staffKeyIndex !== sequence.length) return;
+      this.staffKeyIndex = 0;
+      // Merchant-approved convenience shortcut, not authenticated staff verification.
+      // Keep the override in memory for this checkout attempt only.
+      this.staffRecord = { threshold: this.policy.age, context: this.policy.context, version: this.policy.version, created: now, expires: now + 60000 };
+      this.setHelp(false, false);
+      this.clearErrors();
+      this.form.reset();
+      this.showSuccess();
     }
     async fresh() {
       const cart = document.querySelector('cart-drawer');
@@ -485,6 +511,9 @@
       this.closing = false;
     }
     cleanup() {
+      this.staffKeyIndex = 0;
+      this.staffKeyTime = 0;
+      this.staffRecord = null;
       if (this.copy) this.setHelp(false, false);
       this.request?.abort();
       if (this.checking) this.checkoutBusy(false);

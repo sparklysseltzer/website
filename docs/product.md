@@ -13,6 +13,8 @@ Sparklys is rebuilding its public commerce storefront as a custom native Shopify
 
 Shopify remains responsible for products, variants, inventory, collections, discounts, orders, customers, payments, checkout, Markets, and store administration. This repository owns the storefront presentation and theme behavior.
 
+Sparklys' fulfillment partner is **SOZA Logistics (SOZA GmbH)**. The merchant confirmed on 2026-10-14 that SOZA configures inventory. Inventory and associated fulfillment configuration must not be changed without explicit merchant permission for the specific change. See [ownership and investigation rules](development.md#soza-inventory-and-fulfillment-ownership). SOZA's [official website](https://www.soza.ch/) describes its Shopify-connected fulfillment service from Niederhasli, Switzerland.
+
 ## Why this architecture
 
 The previous storefront originated in Webflow, was converted through Udesly Nexus, and then diverged through manual changes. That made normal theme evolution difficult to reason about and maintain.
@@ -86,6 +88,8 @@ The current visual implementation has established the core brand language and re
 These capabilities describe the product vision. Several now have theme implementations; consult [Status](status.md) for current coverage and remaining integration work.
 
 ### Subscriptions
+
+Sparklys uses **Shopify Subscriptions**, Shopify's native first-party subscription app. The merchant explicitly confirmed this on 2026-10-14. Treat this as the established provider when investigating subscription plans, recurring orders, shipping, discounts and customer account management; do not repeat provider discovery unless the merchant reports a change.
 
 Customers should be able to choose eligible Sparklys products as subscriptions, understand delivery cadence and pricing, add the selected plan to the cart, and see the plan consistently through cart, checkout, and account management.
 
