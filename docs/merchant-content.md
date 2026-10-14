@@ -179,3 +179,17 @@ The new pinned Product **Collection Image** (`custom.collection_image`) is an im
 `node scripts/setup-product-card-shadow.mjs` previews the definition-only setup; `--apply` checks write_products, backs up the existing definition state outside Git, creates the missing boolean and verifies its type/access. The definition was created via Admin GraphQL on 2026-10-08. No product checkbox values or image references were changed. This is a Shopify product field, not a Theme Editor section setting; no section schema modes or dependent fields are introduced.
 
 Shadow-control verification: 12 local Liquid rendering cases covered Soda/Hard Seltzer, navigation/catalog and true/false/unset. True omitted the shadow element while retaining artwork wrappers and navigation auto-fit; false/unset preserved it. The local engine normalized Shopify blank values and stubbed CDN image filters. The actual definition was read back via Admin API and the setup script rerun without changes. No real product preference was temporarily toggled for testing.
+
+## Article editorial data
+
+Article metafield definitions provisioned for the Soda draft series:
+
+| Admin name | Key | Type | Ownership |
+| --- | --- | --- | --- |
+| Article FAQs | `custom.faqs` | `list.metaobject_reference`, restricted to existing `faq` | Ordered reusable entries. Draft status prevents storefront rendering. |
+| Article recipes | `custom.recipes` | `json` | Structured recipe data matching visible body copy; storefront-readable. |
+| Editorial review notes | `custom.editorial_review` | `multi_line_text_field` | Internal pre-publication checks, not rendered by the theme. |
+
+FAQ and recipe storefront behavior is documented in [Article](sections/main-article.md#article-owned-faqs-and-recipes). Existing FAQ definitions and entries are unchanged. The new series contains nine unpublished articles and 27 draft FAQ entries; activating a FAQ also makes it eligible for the public FAQ directory.
+
+All five article metafield definitions are pinned in Shopify Admin: Sustainability Story, Navigation image, Article FAQs, Article recipes and Editorial review notes, in that order. The FAQ assignment picker appears directly in the article editor’s Metafields area. Pinning was verified through Admin API read-back; existing pinned fields and their order were preserved.

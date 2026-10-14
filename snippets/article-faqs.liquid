@@ -1,0 +1,34 @@
+{%- liquid
+  assign article_faqs = article.metafields.custom.faqs.value
+  assign empty_items = '' | split: ','
+  assign visible_items = empty_items
+  assign seen_handles = '|'
+  for faq_item in article_faqs
+    assign token = faq_item.system.handle | prepend: '|' | append: '|'
+    assign question = faq_item.question.value | strip
+    assign answer = faq_item.answer | metafield_text | strip
+    unless seen_handles contains token
+      if question != blank and answer != blank
+        assign single_item = article_faqs | slice: forloop.index0, 1
+        assign visible_items = visible_items | concat: single_item
+        assign seen_handles = seen_handles | append: faq_item.system.handle | append: '|'
+      endif
+    endunless
+  endfor
+-%}
+{%- if visible_items.size > 0 -%}
+  {{ 'component-faq.css' | asset_url | stylesheet_tag }}
+  {%- assign heading_id = 'ArticleFaqHeading-' | append: section.id -%}
+  {%- assign heading = 'sections.faq.heading' | t -%}
+  <section class="article-detail__faqs" aria-labelledby="{{ heading_id }}">
+    {% render 'faq-heading', heading: heading, heading_tag: 'h2', heading_id: heading_id %}
+    <faq-accordion class="faq-list">
+      {% for faq_item in visible_items %}
+        {% render 'faq-item', faq_item: faq_item, section_id: section.id %}
+      {% endfor %}
+    </faq-accordion>
+  </section>
+  {% unless section.settings.hide_on_mobile and section.settings.hide_on_desktop %}
+    {% render 'faq-structured-data', faq_items: visible_items %}
+  {% endunless %}
+{%- endif -%}

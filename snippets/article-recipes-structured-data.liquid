@@ -1,0 +1,23 @@
+{%- comment -%}Recipe metadata is maintained with the matching visible article recipe copy.{%- endcomment -%}
+{% unless section.settings.hide_on_mobile and section.settings.hide_on_desktop %}
+  {% for recipe in article.metafields.custom.recipes.value %}
+    {% if recipe.name != blank and recipe.ingredients.size > 0 and recipe.instructions.size > 0 %}
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Recipe",
+          "@id": {{ canonical_url | append: '#' | append: recipe.anchor | json }},
+          "url": {{ canonical_url | append: '#' | append: recipe.anchor | json }},
+          "name": {{ recipe.name | json }},
+          "recipeYield": {{ recipe.yield | json }},
+          "recipeIngredient": {{ recipe.ingredients | json }},
+          "recipeInstructions": [
+            {% for instruction in recipe.instructions %}
+              { "@type": "HowToStep", "text": {{ instruction | json }} }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+          ]
+        }
+      </script>
+    {% endif %}
+  {% endfor %}
+{% endunless %}

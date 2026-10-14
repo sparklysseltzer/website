@@ -129,3 +129,5 @@ blog-list { display: block; }
 .blog-sidebar--black-circles a:focus-visible::before { background: color-mix(in srgb, currentColor 25%, transparent); }
 @media (hover: hover) { .blog-sidebar--black-circles a:hover::before { background: color-mix(in srgb, currentColor 25%, transparent); } }
 @media (prefers-reduced-motion: reduce) { .blog-sidebar--black-circles a::before { transition: none; } }
+
+.article-detail__faqs { max-width: 48rem; margin: 3rem auto; }

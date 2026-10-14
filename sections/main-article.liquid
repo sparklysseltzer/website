@@ -17,6 +17,8 @@
   <div class="section page-width article-detail__content">
   {% if article.image %}{{ article.image | image_url: width: 1800 | image_tag: widths: '480, 750, 1100, 1400, 1800', sizes: '(min-width: 1280px) 1280px, 100vw', loading: 'eager', class: 'article-detail__image', alt: article.image.alt }}{% endif %}
   <div class="article-detail__body rte">{{ article.content }}</div>
+  {% render 'article-faqs', article: article, section: section %}
+  {% render 'article-recipes-structured-data', article: article, section: section %}
   <footer class="article-detail__footer">
     <a class="button button--secondary" href="{{ blog.url }}"><span class="button__label article-action-label"><span class="article-action-icon article-action-icon--back" aria-hidden="true"></span><span>{{ 'blogs.article.back_to_blog' | t }}</span></span></a>
     {% render 'article-share', article: article %}
