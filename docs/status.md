@@ -40,7 +40,7 @@ This is the launch-readiness list. Separately scoped feature and maintenance pro
 | SEO | Complete the [structured-data backlog](structured-data-tasks.md); verify metadata, canonical URLs, accessible H1s and launch indexing behavior. |
 | Collections and search | All-products collection filters and shared cards are implemented. Native facet/sort controls, predictive search and richer mixed-result UI remain follow-ups. |
 | Customer accounts and apps | Audit Shopify account entry/portal behavior and installed app blocks/embeds end to end. |
-| Analytics and consent | Define provider inventory, event ownership, consent requirements and duplicate-event checks. |
+| Analytics and consent | Native Shopify banner enabled for Switzerland; custom theme styling prepared. Complete provider event ownership, Google consent diagnostics and duplicate-event checks. See `docs/development.md#customer-privacy-configuration`. |
 | Accessibility and performance | Complete enlarged-text/zoom reflow, full-site accessibility and stable browser regression coverage. Lighthouse CI is not configured. |
 | Design Studio | Three-pane workbench, navigation/search and several real component previews are implemented; maintain parity as new components are added. See [Design Studio](design-studio.md). |
 

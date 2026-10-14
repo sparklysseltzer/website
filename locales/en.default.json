@@ -8,6 +8,11 @@
  * ------------------------------------------------------------
  */
 {
+  "cookie_banner_preview": {
+    "title": "Something dry, briefly.",
+    "body": "We sell refreshing drinks. Why we now also manage cookies is a question we ask ourselves too. With your okay, we and our partners use cookies to provide a personal experience and optimal",
+    "policy": "data protection"
+  },
   "accessibility": {
     "skip_to_content": "Skip to content",
     "notifications": "Notifications",

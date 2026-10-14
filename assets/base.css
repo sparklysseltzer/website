@@ -2744,3 +2744,175 @@ a:focus-visible .button--round-arrow::before {
 .age-document[data-profile="ch-passport"] .age-document__zone {
   --age-document-type-size: min(1.5rem, calc((96cqi - 10px) / 30));
 }
+
+/* Shopify owns consent behavior and copy; the theme supplies presentation only.
+   IDs intentionally outrank Shopify's asynchronously injected class rules. */
+#shopify-pc__banner,
+#shopify-pc__prefs #shopify-pc__prefs__dialog {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-panel);
+}
+
+#shopify-pc__banner {
+  bottom: var(--page-gutter);
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: min(60rem, calc(100% - 2 * var(--page-gutter)));
+  max-height: calc(100dvh - 2 * var(--page-gutter));
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+#shopify-pc__banner h2,
+#shopify-pc__prefs #shopify-pc__prefs__dialog h2 {
+  --heading-choice-family: var(--font-heading-soda);
+  --heading-choice-weight: 700;
+  --heading-choice-leading: var(--line-height-heading-small-erode);
+  --heading-choice-tracking: var(--letter-spacing-heading-erode);
+  --heading-choice-case: none;
+  font-family: var(--font-heading-soda);
+  font-size: var(--font-size-card);
+  font-weight: 700;
+  line-height: var(--line-height-heading-small-erode);
+  letter-spacing: var(--letter-spacing-heading-erode);
+  text-transform: none;
+}
+
+#shopify-pc__prefs #shopify-pc__prefs__dialog h3,
+#shopify-pc__prefs #shopify-pc__prefs__dialog label {
+  --heading-choice-family: var(--font-body-strong);
+  --heading-choice-weight: 400;
+  --heading-choice-leading: var(--line-height-body);
+  --heading-choice-tracking: normal;
+  --heading-choice-case: none;
+  font-family: var(--font-body-strong);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+#shopify-pc__banner p,
+#shopify-pc__prefs #shopify-pc__prefs__dialog p {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+#shopify-pc__banner button,
+#shopify-pc__prefs #shopify-pc__prefs__dialog button {
+  min-height: var(--button-height-regular);
+  padding: var(--button-padding-regular);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: var(--font-size-ui);
+  font-weight: 400;
+  line-height: var(--line-height-ui);
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-ui);
+}
+
+#shopify-pc__banner button:hover,
+#shopify-pc__prefs #shopify-pc__prefs__dialog button:hover { opacity: .75; }
+
+#shopify-pc__banner :focus-visible,
+#shopify-pc__prefs #shopify-pc__prefs__dialog :focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+#shopify-pc__prefs #shopify-pc__prefs__dialog #shopify-pc__prefs__header-close {
+  display: grid;
+  place-items: center;
+  width: var(--button-height-regular);
+  height: var(--button-height-regular);
+  min-width: var(--button-height-regular);
+  min-height: var(--button-height-regular);
+  padding: 0;
+}
+
+#shopify-pc__prefs #shopify-pc__prefs__dialog h2 { padding-inline-end: 3rem !important; }
+#shopify-pc__prefs #shopify-pc__prefs__dialog label { min-height: 2.75rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  #shopify-pc__banner button,
+  #shopify-pc__prefs #shopify-pc__prefs__dialog button { transition: none; }
+}
+
+/* Keep Shopify's native controls and use the shared primary/secondary hierarchy. */
+#shopify-pc__banner #shopify-pc__banner__btn-accept,
+#shopify-pc__prefs #shopify-pc__prefs__header-accept {
+  color: var(--color-text-inverse);
+  background: var(--color-foreground);
+  border: var(--control-outline-width) solid var(--color-foreground);
+}
+
+#shopify-pc__banner #shopify-pc__banner__btn-decline,
+#shopify-pc__prefs #shopify-pc__prefs__header-decline,
+#shopify-pc__prefs #shopify-pc__prefs__header-save,
+#shopify-pc__prefs #shopify-pc__prefs__dialog #shopify-pc__prefs__header-close {
+  color: var(--color-foreground);
+  background: transparent;
+  border: var(--control-outline-width) solid var(--color-foreground);
+}
+
+#shopify-pc__prefs #shopify-pc__prefs__header-accept { order: 3; }
+#shopify-pc__prefs #shopify-pc__prefs__header-decline { order: 2; }
+#shopify-pc__prefs #shopify-pc__prefs__header-save { order: 1; }
+
+#shopify-pc__prefs .shopify-pc__prefs__header-actions { gap: 1.25rem; }
+#shopify-pc__prefs #shopify-pc__prefs__dialog .shopify-pc__prefs__header-actions button {
+  position: relative;
+  min-height: var(--button-height-small);
+  padding: var(--button-padding-small);
+  font-size: var(--font-size-small);
+  margin: 0;
+  overflow: visible;
+}
+
+/* Match the shared small-button hit area without enlarging its visible pill. */
+#shopify-pc__prefs .shopify-pc__prefs__header-actions button::after {
+  content: '';
+  position: absolute;
+  inset: -.375rem 0;
+  min-width: 2.75rem;
+  border-radius: inherit;
+}
+
+#shopify-pc__prefs #shopify-pc__prefs__header-close svg { display: none; }
+#shopify-pc__prefs #shopify-pc__prefs__header-close::before {
+  content: '';
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: currentColor;
+  mask: url('icon-x-close.svg') center / contain no-repeat;
+}
+
+@media (min-width: 1000px) {
+  #shopify-pc__prefs #shopify-pc__prefs__dialog header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  #shopify-pc__prefs #shopify-pc__prefs__dialog h2 {
+    order: 1;
+    padding-inline-end: 0 !important;
+  }
+  #shopify-pc__prefs #shopify-pc__prefs__dialog .shopify-pc__prefs__header-actions {
+    order: 2;
+    padding: 0;
+  }
+  #shopify-pc__prefs #shopify-pc__prefs__dialog #shopify-pc__prefs__header-close {
+    position: static;
+    order: 3;
+    margin: 0;
+  }
+}
+
+#shopify-pc__banner #shopify-pc__banner__btn-manage-prefs { order: 1; }
+#shopify-pc__banner #shopify-pc__banner__btn-decline { order: 2; }
+#shopify-pc__banner #shopify-pc__banner__btn-accept { order: 3; }
+#shopify-pc__banner .shopify-pc__banner__btns { gap: 1.25rem; }
+#shopify-pc__banner .shopify-pc__banner__btns button { margin: 0; }

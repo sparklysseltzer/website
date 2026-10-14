@@ -138,6 +138,14 @@
     {% sections 'footer-group' %}
     {% section 'cart-drawer' %}
     {% render 'age-check' %}
+    <template id="cookie-banner-preview-copy" data-title="{{ 'cookie_banner_preview.title' | t | escape }}" data-body="{{ 'cookie_banner_preview.body' | t | escape }}" data-policy="{{ 'cookie_banner_preview.policy' | t | escape }}"></template>
+    <script>
+      if (['localhost', '127.0.0.1', '[::1]'].includes(location.hostname)) {
+        const previewScript = document.createElement('script');
+        previewScript.src = {{ 'cookie-banner-preview.js' | asset_url | json }};
+        document.body.append(previewScript);
+      }
+    </script>
     <aside class="notifications" data-notifications popover="manual" aria-label="{{ 'accessibility.notifications' | t }}" data-dismiss-label="{{ 'accessibility.dismiss_notification' | t }}"></aside>
   </body>
 </html>

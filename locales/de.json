@@ -8,6 +8,11 @@
  * ------------------------------------------------------------
  */
 {
+  "cookie_banner_preview": {
+    "title": "Kurz was Trockenes",
+    "body": "Wir verkaufen erfrischende Getränke. Warum wir jetzt auch Cookies verwalten, fragen wir uns ebenfalls. Mit deinem Okay sorgen wir und unsere Partner mit Cookies für ein persönliches Erlebnis und optimalen",
+    "policy": "Datenschutz"
+  },
   "accessibility": {
     "skip_to_content": "Zum Inhalt springen",
     "notifications": "Mitteilungen",
