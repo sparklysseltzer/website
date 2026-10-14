@@ -106,6 +106,7 @@
           ]
         }
       },
+      "disabled": true,
       "settings": {
         "content_width": "editorial",
         "sticky_sidebar": false,
